@@ -11,3 +11,10 @@
 *.lai
 *.la
 *.a
+
+# Other
+*.suo
+
+# Folders
+obj/
+bin/
