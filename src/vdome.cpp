@@ -7,10 +7,16 @@ void vdome::setup(){
     
     // DEFAULT SETTINGS
     
+    // key control
+    // 118 (v) = pFov
+    keyControl = 118;
+    
+    
     // input
     // 0 = image
     // 1 = video
-    input = 1;
+    // 3 = syphon
+    input = 3;
     
     // window settings
     wX = 0;
@@ -88,6 +94,11 @@ void vdome::setup(){
         texture = video.getTextureReference();
         video.play();
     }
+    else if (input == 3) {
+        syphon.setup();
+        syphon.setApplicationName("Simple Server");
+        syphon.setServerName("");
+    }
     else {
         // load default image
         image.loadImage("grid.jpg");
@@ -159,9 +170,19 @@ void vdome::update() {
 
 void vdome::drawFbo(int i){
 	cameras[i].begin(views[i]);
-    texture.bind();
-	hemisphere.draw();
-    texture.unbind();
+    
+    if (input == 3)
+        syphon.bind();
+    else
+        texture.bind();
+
+    hemisphere.draw();
+
+    if (input == 3)
+        syphon.unbind();
+    else
+        texture.unbind();
+    
 	cameras[i].end();
 }
 
@@ -227,7 +248,13 @@ ofVec3f vdome::sphToCar(ofVec3f t) {
 // EVENTs
 
 void vdome::keyPressed(int key){
+    
+    cout << "keyPressed " << key << endl;
+    
     switch(key){
+          
+            
+            
         case OF_KEY_LEFT:
             cout << "keyPressed " << key << endl;
             break;
@@ -235,19 +262,59 @@ void vdome::keyPressed(int key){
             cout << "keyPressed " << key << endl;
             break;
             
+           
+            
+            
         case OF_KEY_UP:
             
-            pLensOffsetY += .01;
-            cameras[0].setLensOffset(ofVec2f(pLensOffsetX,pLensOffsetY));
+            switch(keyControl){
+                case 118:
+                    pFov += 1;
+                    cameras[0].setFov(pFov);
+                    break;
+                 case 1:
+                    pLensOffsetY += .01;
+                    cameras[0].setLensOffset(ofVec2f(pLensOffsetX,pLensOffsetY));
+                    break;
+            }
             
-            cout << "keyPressed " << key << endl;
             break;
+        
+        
+        
         case OF_KEY_DOWN:
             
-            pLensOffsetY -= .01;
-            cameras[0].setLensOffset(ofVec2f(pLensOffsetX,pLensOffsetY));
+            switch(keyControl){
+                case 118:
+                    pFov -= 1;
+                    cameras[0].setFov(pFov);
+                    break;
+                case 97:
+                    break;
+                case 101:
+                    break;
+                case 1:
+                    pLensOffsetY -= .01;
+                    cameras[0].setLensOffset(ofVec2f(pLensOffsetX,pLensOffsetY));
+                    break;
+            }
             
             cout << "keyPressed " << key << endl;
             break;
+        
+            
+        // key control shortcuts
+        case 118: // v = fov
+            keyControl = key;
+            break;
+        case 97: // a = azi
+            keyControl = key;
+            break;
+        case 101: // e = ele
+            keyControl = key;
+            break;
+            
     }
 }
+
+

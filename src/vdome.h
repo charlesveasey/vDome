@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "hemisphere.h"
+#include "ofxSyphon.h"
 
 class vdome : public ofBaseApp {
 	
@@ -15,10 +16,14 @@ public:
     
     ofVec3f sphToCar(ofVec3f t);
 
+    // key map
+    int keyControl;
+    
     // input
     int input;
     ofImage image;
     ofVideoPlayer video;
+    ofxSyphonClient syphon;
     
     // vitual dome
     Hemisphere hemisphere;
