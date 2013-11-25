@@ -1,129 +1,257 @@
-#pragma once
-
 #include "vdome.h"
 
-void vdome::setup(){
-	
-	ofBackground(0,0,0);
-	ofSetFrameRate(30);
-	ofSetVerticalSync(false);
-	ofEnableSmoothing();
-	ofEnableDepthTest();
-	ofEnableNormalizedTexCoords();
-	ofDisableArbTex();
+// SETUP
 
+void vdome::setup(){
+	   
+    
+    // DEFAULT SETTINGS
+    
+    // input
+    // 0 = image
+    // 1 = video
+    input = 1;
+    
+    // window settings
+    wX = 0;
+    wY = 0;
+    wWidth = 2048;
+    wHeight = 768;
+    
+    // render settings
+    vSync = false;
+    frameRate = 60;
+    domeMasterRes = 2048;
+    
+    // projector settings
+    pCount = 3;
+    pWidth = 1024;
+    pHeight = 768;
+    pElevation = 0;
+    pDistance = 5;
+    pTilt = -16;
+    pFov = 45;
+    pLensOffsetX = 0;
+    pLensOffsetY = .31;
+    
+    pAzimuth.push_back(0);
+    pAzimuth.push_back(-45);
+    pAzimuth.push_back(-90);
+    
+    pBrightness.push_back(1);
+    pBrightness.push_back(1);
+    pBrightness.push_back(1);
+    
+    pContrast.push_back(1);
+    pContrast.push_back(1);
+    pContrast.push_back(1);
+   
+    pSaturation.push_back(1);
+    pSaturation.push_back(1);
+    pSaturation.push_back(1);
+   
+    
+    // TODO: load user settings file
+    
+    
+    
+    // RENDER
+    
+    // window settings
+    ofSetWindowPosition(wX, wY);
+    ofSetWindowShape(wWidth, wHeight);
+    
+    // render settings
+	ofSetFrameRate(frameRate);
+	ofSetVerticalSync(vSync);
+
+	ofEnableDepthTest();
+	//ofDisableArbTex();
+    ofBackground(0,0,0);
+	
+    //ofEnableSmoothing();
+	ofEnableNormalizedTexCoords();
+
+    
+    // create dome mesh
 	hemisphere.setup();
 
-	texture.allocate(2048, 2048, OF_IMAGE_COLOR);
-	
-	texture.loadImage("grid.jpg");
-	//texture.loadImage("fisheye-wfcam-1600px.jpg");
-	
-	texture.mirror(true, false);
-	
-	keystone.setup(); //initializates ofxGLWarper
-	keystone.activate();// this allows ofxGLWarper to automatically listen to the mouse and keyboard input and updates automatically it's matrixes.
+    
+    // create dome texture
+	texture.allocate(domeMasterRes, domeMasterRes, OF_IMAGE_COLOR);
+
+    // create input
+    if (input == 1) {
+        // load default movie
+        video.setPixelFormat(OF_PIXELS_RGB);
+        video.loadMovie("test.mov");
+        texture = video.getTextureReference();
+        video.play();
+    }
+    else {
+        // load default image
+        image.loadImage("grid.jpg");
+        texture = image.getTextureReference();
+    }
+    
+    
+    // load shader
 	shader.load("shaders/vdome.vert", "shaders/vdome.frag");
 
-	cameraCount = 1;
-	cameraRotations.push_back(-72);
-	cameraRotations.push_back(72);
-	cameraRotations.push_back(120);
-	cameraRotations.push_back(220);
-	cameraRotations.push_back(270);
-	cameraRotations.push_back(320);
-
-	for(int i=0; i<cameraCount; i++) {
-		ofCamera cam;
-		cam.setScale(1,-1,1);
-		//cam.lookAt(ofVec3f(0,0,0));
-		cam.tilt(-32);
-		cam.setPosition(ofVec3f(0,0,0));
-		cam.rotate(cameraRotations[i], 0, 1, 0);
-		cam.setFov(65);
-		cameras.push_back(cam);
+    
+    
+    
+    // create projectors
+	for(int i=0; i<pCount; i++) {
+        
+        // convert camera position -> spherical to cartesian
+        ofVec3f sph, car;
+        sph.set(pAzimuth[i], pElevation, pDistance);
+        car = sphToCar(sph);
+        
+        // create camera
+        ofCamera cam;
+		cam.setScale(1,-1,1); // legacy oF oddity
+        cam.setFov(pFov);
+		cam.setPosition(car);
+		cam.rotate(pAzimuth[i], 0, 1, 0);
+        cam.tilt(pTilt);
+        cam.setLensOffset(ofVec2f(pLensOffsetX,pLensOffsetY));
+        cameras.push_back(cam);
 		
+        // create view
 		ofRectangle rect;
-		rect.setWidth(1024);
-		rect.setHeight(768);
+		rect.setWidth(pWidth);
+		rect.setHeight(pHeight);
 		views.push_back(rect);
 
+        // create fbo
 		ofFbo fbo;
-		fbo.allocate(1024, 768, GL_RGBA);
+		fbo.allocate(pWidth, pHeight, GL_RGBA);
 		fbo.begin();
 		ofClear(255);
 		fbo.end();
 		fbos.push_back(fbo);
 
+        // create render plane
 		ofPlanePrimitive plane;
-		plane.set(1024, 768);
+		plane.set(pWidth, pHeight);
 		planes.push_back(plane);
 	}
 }
 
+
+// UPDATE
+
 float ff=0;
+
 void vdome::update() {
+    
+    if (input == 1) {
+        video.update();
+    }
+
+    
 	//cameras[0].rotate(ff+=.001, 0, 1, 0);
-}	
+    //cameras[0].setLensOffset(ofVec2f(0,ff+=.001));
+}
 
 
-void vdome::drawFbo(int i){	
+void vdome::drawFbo(int i){
 	cameras[i].begin(views[i]);
-	ofSetColor(255);
-	texture.getTextureReference().bind();
-	ofScale(20,20,20);
+    texture.bind();
 	hemisphere.draw();
-	texture.getTextureReference().unbind();
+    texture.unbind();
 	cameras[i].end();
 }
 
-void vdome::draw(){	
+
+
+// UPDATE
+
+void vdome::draw(){
 	ofSetColor(255); 
 
-
-
-	for(int i=0; i<cameraCount; i++){
+	for(int i=0; i<pCount; i++){
 		fbos[i].begin();
 			ofClear(0, 0, 0, 0);
 			drawFbo(i);
 		fbos[i].end();
 	}
 
-	for(int i=0; i<cameraCount; i++) {
-		keystone.begin();
-		keystone.draw();
-
-		ofSetColor(255);
+	for(int i=0; i<pCount; i++) {
 		
 		fbos[i].getTextureReference().bind();
-		
 		planes[i].mapTexCoordsFromTexture(fbos[i].getTextureReference());
-		planes[i].setPosition(1024 * i + 1024/2, 768/2, 0);	
+		planes[i].setPosition(pWidth * i + pWidth/2, pHeight/2, 0);
 
-		//shader.begin();				
-		//shader.setUniform1f("brightness", 1);
-		//shader.setUniform1f("contrast", 1);
-		//shader.setUniform1f("saturation", 1);
-		//shader.setUniformTexture("texsampler", fbos[i].getTextureReference(), 0);
-		
+		shader.begin();
+		shader.setUniform1f("brightness", pBrightness[i]);
+		shader.setUniform1f("contrast", pContrast[i]);
+		shader.setUniform1f("saturation", pSaturation[i]);
+		shader.setUniformTexture("texsampler", fbos[i].getTextureReference(), 0);
 
 		planes[i].draw();
 
-
 		//planes[i].drawWireframe();
+		shader.end();
 		
-		//shader.end();
-		
-		fbos[i].getTextureReference().unbind();	
-		
-		
-		keystone.end();
+		fbos[i].getTextureReference().unbind();
 	}
 
-	for(int i=0; i<cameraCount; i++) {
+	for(int i=0; i<pCount; i++) {
 		//fbos[i].draw(1024 * i, 0);
 	}
 
     ofSetHexColor(0xFFFFFF);
     ofDrawBitmapString("fps: "+ofToString(ofGetFrameRate(), 2), 10, 15);
+}
+
+
+
+// UTILS
+
+// converts spherical to cartesian coordinates
+ofVec3f vdome::sphToCar(ofVec3f t) {
+    float azi, ele, dis;
+    float x, y, z;
+    azi = ofDegToRad(t.x);
+    ele = ofDegToRad(t.y+90);
+    dis = t.z;
+    x = sin(azi) * sin(ele) * dis;
+    y = cos(ele) * dis;
+    z = cos(azi) * sin(ele) * dis;
+    return ofVec3f(x,y,z);
+};
+
+
+
+
+
+// EVENTs
+
+void vdome::keyPressed(int key){
+    switch(key){
+        case OF_KEY_LEFT:
+            cout << "keyPressed " << key << endl;
+            break;
+        case OF_KEY_RIGHT:
+            cout << "keyPressed " << key << endl;
+            break;
+            
+        case OF_KEY_UP:
+            
+            pLensOffsetY += .01;
+            cameras[0].setLensOffset(ofVec2f(pLensOffsetX,pLensOffsetY));
+            
+            cout << "keyPressed " << key << endl;
+            break;
+        case OF_KEY_DOWN:
+            
+            pLensOffsetY -= .01;
+            cameras[0].setLensOffset(ofVec2f(pLensOffsetX,pLensOffsetY));
+            
+            cout << "keyPressed " << key << endl;
+            break;
+    }
 }

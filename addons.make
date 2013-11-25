@@ -1,5 +1,0 @@
-ofx3DModelLoader
-ofxGui
-ofxOpenCv
-ofxXmlSettings
-ofxGLWarper

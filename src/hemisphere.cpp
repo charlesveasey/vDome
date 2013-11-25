@@ -1,5 +1,3 @@
-#pragma once
-
 #include "hemisphere.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -18,9 +16,9 @@ void Hemisphere::setup(){
 	double nx;
 	double ny;
 	double nz;
-	radius = 1;
+	radius = 10;
 	N = 128;  // Mesh resolution, must be multiple of 4
-
+    
 	double u;
 	double v;
 	mesh.enableTextures();
@@ -50,8 +48,7 @@ void Hemisphere::setup(){
 			r = phi / PI/2 * 4; // 0 ... 1
 			u = 0.5 * (r * cos(theta) + 1);
 			v = 0.5 * (r * sin(theta) + 1);
-			mesh.addTexCoord(ofVec2f(u,v));
-
+			mesh.addTexCoord(ofVec2f(u,1-v)); // reverse
 			index++;
 		}        
     }

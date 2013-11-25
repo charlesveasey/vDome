@@ -2,32 +2,66 @@
 
 #include "ofMain.h"
 #include "hemisphere.h"
-#include "ofxGLWarper.h"
 
-class vdome : public ofBaseApp{
+class vdome : public ofBaseApp {
 	
-	public:
+public:
 		
-		void setup();
-		void update();
-		void draw();
-		void drawFbo(int i);
+    void setup();
+    void update();
+    void draw();
+    void drawFbo(int i);
+    void keyPressed(int key);    
+    
+    ofVec3f sphToCar(ofVec3f t);
 
+    // input
+    int input;
+    ofImage image;
+    ofVideoPlayer video;
+    
+    // vitual dome
+    Hemisphere hemisphere;
+    
+    // dome texture
+    ofTexture texture;
+    
+    // shader
+    ofShader shader;
 
-		ofShader shader;
+    // projector
+    vector<ofCamera> cameras;
+    vector<ofFbo>fbos;
+    vector<ofRectangle> views;
+    vector<ofPlanePrimitive> planes;
 
-		ofImage texture;
-		Hemisphere hemisphere;
+    
+    // window settings
+    int wX;
+    int wY;
+    int wWidth;
+    int wHeight;
 
-		vector<ofCamera> cameras;
-		vector<ofRectangle> views;
-		vector<ofFbo>fbos;
-		vector<ofPlanePrimitive> planes;
-
-		ofxGLWarper keystone;
-
-		int cameraCount;
-		vector<double> cameraRotations;
-
+    
+    // render settings
+    bool vSync;
+    int frameRate;
+    int domeMasterRes;
+    
+    // projector settings
+    int pCount;
+    float pWidth;
+    float pHeight;
+    vector<float> pAzimuth;
+    float pElevation;
+    float pDistance;
+    float pTilt;
+    float pFov;
+    float pLensOffsetX;
+    float pLensOffsetY;
+    vector<float> pBrightness;
+    vector<float> pContrast;
+    vector<float> pSaturation;
+    
 };
 	
