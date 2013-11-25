@@ -192,15 +192,11 @@ void vdome::draw(){
 		shader.setUniformTexture("texsampler", fbos[i].getTextureReference(), 0);
 
 		planes[i].draw();
-
 		//planes[i].drawWireframe();
+
 		shader.end();
 		
 		fbos[i].getTextureReference().unbind();
-	}
-
-	for(int i=0; i<pCount; i++) {
-		//fbos[i].draw(1024 * i, 0);
 	}
 
     ofSetHexColor(0xFFFFFF);
