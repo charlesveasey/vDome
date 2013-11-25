@@ -14,6 +14,14 @@
 		56244C8118430127008C7FD1 /* ofxSyphonServer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 56244C7518430127008C7FD1 /* ofxSyphonServer.mm */; };
 		56244C8218430127008C7FD1 /* ofxSyphonServerDirectory.mm in Sources */ = {isa = PBXBuildFile; fileRef = 56244C7718430127008C7FD1 /* ofxSyphonServerDirectory.mm */; };
 		56244C86184302E8008C7FD1 /* Syphon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 56244C6918430127008C7FD1 /* Syphon.framework */; };
+		563CC3F21843099B00B57193 /* HapMovieRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 563CC3E91843099B00B57193 /* HapMovieRenderer.m */; };
+		563CC3F31843099B00B57193 /* HapOFPixelBufferTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 563CC3EB1843099B00B57193 /* HapOFPixelBufferTexture.m */; };
+		563CC3F41843099B00B57193 /* HapSupport.c in Sources */ = {isa = PBXBuildFile; fileRef = 563CC3EC1843099B00B57193 /* HapSupport.c */; };
+		563CC3F51843099B00B57193 /* ofxHapPlayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 563CC3EF1843099B00B57193 /* ofxHapPlayer.mm */; };
+		566E94B218432B2700E34861 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 566E94AB18432B2700E34861 /* tinyxml.cpp */; };
+		566E94B318432B2700E34861 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 566E94AD18432B2700E34861 /* tinyxmlerror.cpp */; };
+		566E94B418432B2700E34861 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 566E94AE18432B2700E34861 /* tinyxmlparser.cpp */; };
+		566E94B518432B2700E34861 /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 566E94B018432B2700E34861 /* ofxXmlSettings.cpp */; };
 		5696C0531842C08D00E51614 /* hemisphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5696C04F1842C08D00E51614 /* hemisphere.cpp */; };
 		5696C0541842C08D00E51614 /* vdome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5696C0511842C08D00E51614 /* vdome.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
@@ -82,6 +90,22 @@
 		56244C7518430127008C7FD1 /* ofxSyphonServer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ofxSyphonServer.mm; sourceTree = "<group>"; };
 		56244C7618430127008C7FD1 /* ofxSyphonServerDirectory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxSyphonServerDirectory.h; sourceTree = "<group>"; };
 		56244C7718430127008C7FD1 /* ofxSyphonServerDirectory.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ofxSyphonServerDirectory.mm; sourceTree = "<group>"; };
+		563CC3E41843099B00B57193 /* install.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = install.xml; sourceTree = "<group>"; };
+		563CC3E61843099B00B57193 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		563CC3E81843099B00B57193 /* HapMovieRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HapMovieRenderer.h; sourceTree = "<group>"; };
+		563CC3E91843099B00B57193 /* HapMovieRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HapMovieRenderer.m; sourceTree = "<group>"; };
+		563CC3EA1843099B00B57193 /* HapOFPixelBufferTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HapOFPixelBufferTexture.h; sourceTree = "<group>"; };
+		563CC3EB1843099B00B57193 /* HapOFPixelBufferTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HapOFPixelBufferTexture.m; sourceTree = "<group>"; };
+		563CC3EC1843099B00B57193 /* HapSupport.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = HapSupport.c; sourceTree = "<group>"; };
+		563CC3ED1843099B00B57193 /* HapSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HapSupport.h; sourceTree = "<group>"; };
+		563CC3EE1843099B00B57193 /* ofxHapPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxHapPlayer.h; sourceTree = "<group>"; };
+		563CC3EF1843099B00B57193 /* ofxHapPlayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ofxHapPlayer.mm; sourceTree = "<group>"; };
+		566E94AB18432B2700E34861 /* tinyxml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxml.cpp; sourceTree = "<group>"; };
+		566E94AC18432B2700E34861 /* tinyxml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinyxml.h; sourceTree = "<group>"; };
+		566E94AD18432B2700E34861 /* tinyxmlerror.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlerror.cpp; sourceTree = "<group>"; };
+		566E94AE18432B2700E34861 /* tinyxmlparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlparser.cpp; sourceTree = "<group>"; };
+		566E94B018432B2700E34861 /* ofxXmlSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxXmlSettings.cpp; sourceTree = "<group>"; };
+		566E94B118432B2700E34861 /* ofxXmlSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxXmlSettings.h; sourceTree = "<group>"; };
 		5696C04F1842C08D00E51614 /* hemisphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hemisphere.cpp; sourceTree = "<group>"; };
 		5696C0501842C08D00E51614 /* hemisphere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hemisphere.h; sourceTree = "<group>"; };
 		5696C0511842C08D00E51614 /* vdome.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vdome.cpp; sourceTree = "<group>"; };
@@ -207,9 +231,67 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		563CC3D21843099B00B57193 /* ofxHapPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				563CC3E41843099B00B57193 /* install.xml */,
+				563CC3E61843099B00B57193 /* README.md */,
+				563CC3E71843099B00B57193 /* src */,
+			);
+			name = ofxHapPlayer;
+			path = ../../../addons/ofxHapPlayer;
+			sourceTree = "<group>";
+		};
+		563CC3E71843099B00B57193 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				563CC3E81843099B00B57193 /* HapMovieRenderer.h */,
+				563CC3E91843099B00B57193 /* HapMovieRenderer.m */,
+				563CC3EA1843099B00B57193 /* HapOFPixelBufferTexture.h */,
+				563CC3EB1843099B00B57193 /* HapOFPixelBufferTexture.m */,
+				563CC3EC1843099B00B57193 /* HapSupport.c */,
+				563CC3ED1843099B00B57193 /* HapSupport.h */,
+				563CC3EE1843099B00B57193 /* ofxHapPlayer.h */,
+				563CC3EF1843099B00B57193 /* ofxHapPlayer.mm */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		566E94A918432B2700E34861 /* ofxXmlSettings */ = {
+			isa = PBXGroup;
+			children = (
+				566E94AA18432B2700E34861 /* libs */,
+				566E94AF18432B2700E34861 /* src */,
+			);
+			name = ofxXmlSettings;
+			path = ../../../addons/ofxXmlSettings;
+			sourceTree = "<group>";
+		};
+		566E94AA18432B2700E34861 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				566E94AB18432B2700E34861 /* tinyxml.cpp */,
+				566E94AC18432B2700E34861 /* tinyxml.h */,
+				566E94AD18432B2700E34861 /* tinyxmlerror.cpp */,
+				566E94AE18432B2700E34861 /* tinyxmlparser.cpp */,
+			);
+			path = libs;
+			sourceTree = "<group>";
+		};
+		566E94AF18432B2700E34861 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				566E94B018432B2700E34861 /* ofxXmlSettings.cpp */,
+				566E94B118432B2700E34861 /* ofxXmlSettings.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				566E94A918432B2700E34861 /* ofxXmlSettings */,
+				563CC3D21843099B00B57193 /* ofxHapPlayer */,
 				56244C5218430127008C7FD1 /* ofxSyphon */,
 			);
 			name = addons;
@@ -391,6 +473,14 @@
 				56244C8018430127008C7FD1 /* ofxSyphonClient.mm in Sources */,
 				56244C8118430127008C7FD1 /* ofxSyphonServer.mm in Sources */,
 				56244C8218430127008C7FD1 /* ofxSyphonServerDirectory.mm in Sources */,
+				563CC3F21843099B00B57193 /* HapMovieRenderer.m in Sources */,
+				563CC3F31843099B00B57193 /* HapOFPixelBufferTexture.m in Sources */,
+				563CC3F41843099B00B57193 /* HapSupport.c in Sources */,
+				563CC3F51843099B00B57193 /* ofxHapPlayer.mm in Sources */,
+				566E94B218432B2700E34861 /* tinyxml.cpp in Sources */,
+				566E94B318432B2700E34861 /* tinyxmlerror.cpp in Sources */,
+				566E94B418432B2700E34861 /* tinyxmlparser.cpp in Sources */,
+				566E94B518432B2700E34861 /* ofxXmlSettings.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

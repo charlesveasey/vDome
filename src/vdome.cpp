@@ -15,8 +15,10 @@ void vdome::setup(){
     // input
     // 0 = image
     // 1 = video
+    // 2 = hap
     // 3 = syphon
-    input = 3;
+    // 4 = capture
+    input = 0;
     
     // window settings
     wX = 0;
@@ -27,7 +29,7 @@ void vdome::setup(){
     // render settings
     vSync = false;
     frameRate = 60;
-    domeMasterRes = 2048;
+    domeMaster = 2048;
     
     // projector settings
     pCount = 3;
@@ -40,7 +42,7 @@ void vdome::setup(){
     pLensOffsetX = 0;
     pLensOffsetY = .31;
     
-    pAzimuth.push_back(0);
+    pAzimuth.push_back(-90);
     pAzimuth.push_back(-45);
     pAzimuth.push_back(-90);
     
@@ -57,7 +59,13 @@ void vdome::setup(){
     pSaturation.push_back(1);
    
     
-    // TODO: load user settings file
+    
+    
+    // LOAD SETTINGS
+    loadXML();
+
+    
+    
     
     
     
@@ -84,33 +92,43 @@ void vdome::setup(){
 
     
     // create dome texture
-	texture.allocate(domeMasterRes, domeMasterRes, OF_IMAGE_COLOR);
+	texture.allocate(domeMaster, domeMaster, OF_IMAGE_COLOR);
 
     // create input
-    if (input == 1) {
-        // load default movie
-        video.setPixelFormat(OF_PIXELS_RGB);
-        video.loadMovie("test.mov");
-        texture = video.getTextureReference();
-        video.play();
-    }
-    else if (input == 3) {
-        syphon.setup();
-        syphon.setApplicationName("Simple Server");
-        syphon.setServerName("");
-    }
-    else {
-        // load default image
-        image.loadImage("grid.jpg");
-        texture = image.getTextureReference();
+    switch(input){
+        case 1: // video
+            video.setPixelFormat(OF_PIXELS_RGB);
+            video.loadMovie("test.mov");
+            texture = video.getTextureReference();
+            video.play();
+            break;
+        case 2: // hap video
+            hap.loadMovie("hap.mov", OF_QTKIT_DECODE_TEXTURE_ONLY);
+            hap.play();
+            break;
+        case 3: // syphon
+            syphon.setup();
+            syphon.setApplicationName("Simple Server");
+            syphon.setServerName("");
+            break;
+        case 4: // capture
+            capture.setDeviceID(0);
+            capture.setDesiredFrameRate(frameRate);
+            capture.initGrabber(domeMaster,domeMaster);
+            texture = capture.getTextureReference();            
+            break;
+        default:
+            // load default image
+            image.loadImage("grid.jpg");
+            texture = image.getTextureReference();
+            break;
     }
     
     
     // load shader
 	shader.load("shaders/vdome.vert", "shaders/vdome.frag");
 
-    
-    
+
     
     // create projectors
 	for(int i=0; i<pCount; i++) {
@@ -158,10 +176,12 @@ float ff=0;
 
 void vdome::update() {
     
-    if (input == 1) {
+    if (input == 1)
         video.update();
-    }
-
+    else if (input == 2)
+        hap.update();
+    else if (input == 4)
+        capture.update();
     
 	//cameras[0].rotate(ff+=.001, 0, 1, 0);
     //cameras[0].setLensOffset(ofVec2f(0,ff+=.001));
@@ -171,14 +191,18 @@ void vdome::update() {
 void vdome::drawFbo(int i){
 	cameras[i].begin(views[i]);
     
-    if (input == 3)
+    if (input == 2)
+        hap.getTexture()->bind();
+    else if (input == 3)
         syphon.bind();
     else
         texture.bind();
-
+    
     hemisphere.draw();
-
-    if (input == 3)
+   
+    if (input == 2)
+        hap.getTexture()->unbind();
+    else if (input == 3)
         syphon.unbind();
     else
         texture.unbind();
@@ -227,6 +251,69 @@ void vdome::draw(){
 
 
 // UTILS
+
+
+void vdome::loadXML() {
+    xml.load("settings.xml");
+    
+    
+    if (xml.exists("[@domeMaster]"))
+        domeMaster = ofToInt( xml.getAttribute("[@domeMaster]") );
+    if (xml.exists("[@frameRate]"))
+        frameRate = ofToInt( xml.getAttribute("[@frameRate]") );
+    if (xml.exists("[@vSync]"))
+        vSync = ofToBool( xml.getAttribute("[@vSync]") );
+    
+    
+    if (xml.exists("input[@mode]")) {
+        string mode = xml.getAttribute("input[@mode]");
+        if (mode == "image")        input = 0;
+        else if (mode == "video")   input = 1;
+        else if (mode == "hap")     input = 2;
+        else if (mode == "syphon")  input = 3;
+        else if (mode == "capture")  input = 4;
+    }
+    
+    
+    if (xml.exists("window[@x]"))
+        wX = ofToInt( xml.getAttribute("window[@x]") );
+    if (xml.exists("window[@y]"))
+        wY = ofToInt( xml.getAttribute("window[@y]") );
+    if (xml.exists("window[@width]"))
+        wWidth = ofToInt( xml.getAttribute("window[@width]") );
+    if (xml.exists("window[@height]"))
+        wHeight = ofToInt( xml.getAttribute("window[@height]") );
+
+    
+    if (xml.exists("projectors[@count]"))
+        pCount = ofToInt( xml.getAttribute("projectors[@count]") );
+
+    // local
+    for(int i=0; i<pCount; i++) {
+        if (xml.exists("projectors/projector["+ofToString(i)+"][@azimuth]"))
+            pAzimuth[i] = ofToInt( xml.getAttribute("projectors/projector["+ofToString(i)+"][@azimuth]") );
+        if (xml.exists("projectors/projector["+ofToString(i)+"][@brightness]"))
+            pBrightness[i] = ofToInt( xml.getAttribute("projectors/projector["+ofToString(i)+"][@brightness]") );
+        if (xml.exists("projectors/projector["+ofToString(i)+"][@contrast]"))
+            pContrast[i] = ofToInt( xml.getAttribute("projectors/projector["+ofToString(i)+"][@contrast]") );
+        if (xml.exists("projectors/projector["+ofToString(i)+"][@saturation]"))
+            pSaturation[i] = ofToInt( xml.getAttribute("projectors/projector["+ofToString(i)+"][@saturation]") );
+    }
+    
+    // global
+    for(int i=0; i<pCount; i++) {
+        if (xml.exists("global/projector[@azimuth]"))
+            pAzimuth[i] = ofToInt( xml.getAttribute("global/projector[@azimuth]") );
+        if (xml.exists("global/projector[@brightness]"))
+            pBrightness[i] = ofToInt( xml.getAttribute("global/projector[@brightness]") );
+        if (xml.exists("global/projector[@contrast]"))
+            pContrast[i] = ofToInt( xml.getAttribute("projectors/projector[@contrast]") );
+        if (xml.exists("global/projector[@saturation]"))
+            pSaturation[i] = ofToInt( xml.getAttribute("global/projector[@saturation]") );
+    }
+    
+}
+
 
 // converts spherical to cartesian coordinates
 ofVec3f vdome::sphToCar(ofVec3f t) {

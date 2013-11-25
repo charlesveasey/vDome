@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "hemisphere.h"
 #include "ofxSyphon.h"
+#include "ofxHapPlayer.h"
 
 class vdome : public ofBaseApp {
 	
@@ -16,6 +17,10 @@ public:
     
     ofVec3f sphToCar(ofVec3f t);
 
+    // xml
+    ofXml xml;
+    void loadXML();
+    
     // key map
     int keyControl;
     
@@ -23,7 +28,9 @@ public:
     int input;
     ofImage image;
     ofVideoPlayer video;
+    ofxHapPlayer hap;    
     ofxSyphonClient syphon;
+    ofVideoGrabber capture;
     
     // vitual dome
     Hemisphere hemisphere;
@@ -51,7 +58,7 @@ public:
     // render settings
     bool vSync;
     int frameRate;
-    int domeMasterRes;
+    int domeMaster;
     
     // projector settings
     int pCount;
