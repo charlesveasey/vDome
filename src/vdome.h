@@ -1,7 +1,9 @@
 #pragma once
 
 #include "ofMain.h"
+#include "window.h"
 #include "hemisphere.h"
+#include "projector.h"
 #include "ofxSyphon.h"
 #include "ofxHapPlayer.h"
 
@@ -24,6 +26,10 @@ public:
     // key map
     int keyControl;
     
+    
+    // window
+    Window window;
+    
     // input
     int input;
     ofImage image;
@@ -41,39 +47,13 @@ public:
     // shader
     ofShader shader;
 
-    // projector
-    vector<ofCamera> cameras;
-    vector<ofFbo>fbos;
-    vector<ofRectangle> views;
-    vector<ofPlanePrimitive> planes;
-
-    
-    // window settings
-    int wX;
-    int wY;
-    int wWidth;
-    int wHeight;
-
+    // projectors
+    int pCount;
+    vector<Projector> projectors;
     
     // render settings
-    bool vSync;
     int frameRate;
     int domeMaster;
-    
-    // projector settings
-    int pCount;
-    float pWidth;
-    float pHeight;
-    vector<float> pAzimuth;
-    float pElevation;
-    float pDistance;
-    float pTilt;
-    float pFov;
-    float pLensOffsetX;
-    float pLensOffsetY;
-    vector<float> pBrightness;
-    vector<float> pContrast;
-    vector<float> pSaturation;
     
 };
 	

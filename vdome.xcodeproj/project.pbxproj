@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		561FA68D1844413B003E6812 /* projector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 561FA68B1844413B003E6812 /* projector.cpp */; };
+		561FA69018445145003E6812 /* window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 561FA68F18445145003E6812 /* window.cpp */; };
 		56244C7D18430127008C7FD1 /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56244C6918430127008C7FD1 /* Syphon.framework */; };
 		56244C7E18430127008C7FD1 /* SyphonDirectoryObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 56244C6C18430127008C7FD1 /* SyphonDirectoryObserver.m */; };
 		56244C7F18430127008C7FD1 /* SyphonNameboundClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 56244C6E18430127008C7FD1 /* SyphonNameboundClient.m */; };
@@ -77,6 +79,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		561FA68B1844413B003E6812 /* projector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = projector.cpp; sourceTree = "<group>"; };
+		561FA68C1844413B003E6812 /* projector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = projector.h; sourceTree = "<group>"; };
+		561FA68E18445138003E6812 /* window.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = window.h; sourceTree = "<group>"; };
+		561FA68F18445145003E6812 /* window.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = window.cpp; sourceTree = "<group>"; };
 		56244C6418430127008C7FD1 /* install.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = install.xml; sourceTree = "<group>"; };
 		56244C6918430127008C7FD1 /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Syphon.framework; sourceTree = "<group>"; };
 		56244C6B18430127008C7FD1 /* SyphonDirectoryObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyphonDirectoryObserver.h; sourceTree = "<group>"; };
@@ -360,10 +366,14 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				5696C0521842C08D00E51614 /* vdome.h */,
+				5696C0511842C08D00E51614 /* vdome.cpp */,
 				5696C04F1842C08D00E51614 /* hemisphere.cpp */,
 				5696C0501842C08D00E51614 /* hemisphere.h */,
-				5696C0511842C08D00E51614 /* vdome.cpp */,
-				5696C0521842C08D00E51614 /* vdome.h */,
+				561FA68B1844413B003E6812 /* projector.cpp */,
+				561FA68C1844413B003E6812 /* projector.h */,
+				561FA68E18445138003E6812 /* window.h */,
+				561FA68F18445145003E6812 /* window.cpp */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 			);
 			path = src;
@@ -481,6 +491,8 @@
 				566E94B318432B2700E34861 /* tinyxmlerror.cpp in Sources */,
 				566E94B418432B2700E34861 /* tinyxmlparser.cpp in Sources */,
 				566E94B518432B2700E34861 /* ofxXmlSettings.cpp in Sources */,
+				561FA68D1844413B003E6812 /* projector.cpp in Sources */,
+				561FA69018445145003E6812 /* window.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

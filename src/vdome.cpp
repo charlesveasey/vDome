@@ -6,6 +6,9 @@ void vdome::setup(){
 	   
     
     // DEFAULT SETTINGS
+    domeMaster = 2048;    
+    frameRate = 60;
+    
     
     // key control
     // 118 (v) = pFov
@@ -18,66 +21,14 @@ void vdome::setup(){
     // 2 = hap
     // 3 = syphon
     // 4 = capture
-    input = 0;
+    input = 1;
     
-    // window settings
-    wX = 0;
-    wY = 0;
-    wWidth = 2048;
-    wHeight = 768;
-    
-    // render settings
-    vSync = false;
-    frameRate = 60;
-    domeMaster = 2048;
-    
-    // projector settings
-    pCount = 3;
-    pWidth = 1024;
-    pHeight = 768;
-    pElevation = 0;
-    pDistance = 5;
-    pTilt = -16;
-    pFov = 45;
-    pLensOffsetX = 0;
-    pLensOffsetY = .31;
-    
-    pAzimuth.push_back(-90);
-    pAzimuth.push_back(-45);
-    pAzimuth.push_back(-90);
-    
-    pBrightness.push_back(1);
-    pBrightness.push_back(1);
-    pBrightness.push_back(1);
-    
-    pContrast.push_back(1);
-    pContrast.push_back(1);
-    pContrast.push_back(1);
-   
-    pSaturation.push_back(1);
-    pSaturation.push_back(1);
-    pSaturation.push_back(1);
-   
-    
-    
-    
-    // LOAD SETTINGS
-    loadXML();
 
-    
-    
-    
-    
-    
-    // RENDER
-    
-    // window settings
-    ofSetWindowPosition(wX, wY);
-    ofSetWindowShape(wWidth, wHeight);
+    window.setup();
     
     // render settings
 	ofSetFrameRate(frameRate);
-	ofSetVerticalSync(vSync);
+
 
 	ofEnableDepthTest();
 	//ofDisableArbTex();
@@ -94,6 +45,22 @@ void vdome::setup(){
     // create dome texture
 	texture.allocate(domeMaster, domeMaster, OF_IMAGE_COLOR);
 
+    
+    // load shader
+	shader.load("shaders/vdome.vert", "shaders/vdome.frag");
+
+    
+
+    // projector settings
+    pCount = 3;
+    for(int i=0; i<pCount; i++) {
+        Projector p;
+        p.setup(i);
+        projectors.push_back(p);
+    }
+    
+    
+    
     // create input
     switch(input){
         case 1: // video
@@ -115,7 +82,7 @@ void vdome::setup(){
             capture.setDeviceID(0);
             capture.setDesiredFrameRate(frameRate);
             capture.initGrabber(domeMaster,domeMaster);
-            texture = capture.getTextureReference();            
+            texture = capture.getTextureReference();
             break;
         default:
             // load default image
@@ -125,48 +92,10 @@ void vdome::setup(){
     }
     
     
-    // load shader
-	shader.load("shaders/vdome.vert", "shaders/vdome.frag");
-
-
+    // LOAD SETTINGS
+    loadXML();
     
-    // create projectors
-	for(int i=0; i<pCount; i++) {
-        
-        // convert camera position -> spherical to cartesian
-        ofVec3f sph, car;
-        sph.set(pAzimuth[i], pElevation, pDistance);
-        car = sphToCar(sph);
-        
-        // create camera
-        ofCamera cam;
-		cam.setScale(1,-1,1); // legacy oF oddity
-        cam.setFov(pFov);
-		cam.setPosition(car);
-		cam.rotate(pAzimuth[i], 0, 1, 0);
-        cam.tilt(pTilt);
-        cam.setLensOffset(ofVec2f(pLensOffsetX,pLensOffsetY));
-        cameras.push_back(cam);
-		
-        // create view
-		ofRectangle rect;
-		rect.setWidth(pWidth);
-		rect.setHeight(pHeight);
-		views.push_back(rect);
-
-        // create fbo
-		ofFbo fbo;
-		fbo.allocate(pWidth, pHeight, GL_RGBA);
-		fbo.begin();
-		ofClear(255);
-		fbo.end();
-		fbos.push_back(fbo);
-
-        // create render plane
-		ofPlanePrimitive plane;
-		plane.set(pWidth, pHeight);
-		planes.push_back(plane);
-	}
+    
 }
 
 
@@ -189,7 +118,7 @@ void vdome::update() {
 
 
 void vdome::drawFbo(int i){
-	cameras[i].begin(views[i]);
+	projectors[i].cameraBegin();
     
     if (input == 2)
         hap.getTexture()->bind();
@@ -207,7 +136,7 @@ void vdome::drawFbo(int i){
     else
         texture.unbind();
     
-	cameras[i].end();
+	projectors[i].cameraEnd();
 }
 
 
@@ -218,30 +147,24 @@ void vdome::draw(){
 	ofSetColor(255); 
 
 	for(int i=0; i<pCount; i++){
-		fbos[i].begin();
-			ofClear(0, 0, 0, 0);
-			drawFbo(i);
-		fbos[i].end();
+        projectors[i].fboBegin();
+        ofClear(0, 0, 0, 0);
+        drawFbo(i);
+		projectors[i].fboEnd();
 	}
 
 	for(int i=0; i<pCount; i++) {
-		
-		fbos[i].getTextureReference().bind();
-		planes[i].mapTexCoordsFromTexture(fbos[i].getTextureReference());
-		planes[i].setPosition(pWidth * i + pWidth/2, pHeight/2, 0);
+		projectors[i].fboBind();        
 
 		shader.begin();
-		shader.setUniform1f("brightness", pBrightness[i]);
-		shader.setUniform1f("contrast", pContrast[i]);
-		shader.setUniform1f("saturation", pSaturation[i]);
-		shader.setUniformTexture("texsampler", fbos[i].getTextureReference(), 0);
-
-		planes[i].draw();
-		//planes[i].drawWireframe();
-
-		shader.end();
+		shader.setUniform1f("brightness", projectors[i].brightness);
+		shader.setUniform1f("contrast", projectors[i].contrast);
+		shader.setUniform1f("saturation", projectors[i].saturation);
+		shader.setUniformTexture("texsampler", projectors[i].fboTexture, 0);
+        projectors[i].draw();
+        shader.end();
 		
-		fbos[i].getTextureReference().unbind();
+        projectors[i].fboUnbind();
 	}
 
     ofSetHexColor(0xFFFFFF);
@@ -262,7 +185,7 @@ void vdome::loadXML() {
     if (xml.exists("[@frameRate]"))
         frameRate = ofToInt( xml.getAttribute("[@frameRate]") );
     if (xml.exists("[@vSync]"))
-        vSync = ofToBool( xml.getAttribute("[@vSync]") );
+        window.vSync = ofToBool( xml.getAttribute("[@vSync]") );
     
     
     if (xml.exists("input[@mode]")) {
@@ -276,57 +199,47 @@ void vdome::loadXML() {
     
     
     if (xml.exists("window[@x]"))
-        wX = ofToInt( xml.getAttribute("window[@x]") );
+        window.x = ofToInt( xml.getAttribute("window[@x]") );
     if (xml.exists("window[@y]"))
-        wY = ofToInt( xml.getAttribute("window[@y]") );
+        window.y = ofToInt( xml.getAttribute("window[@y]") );
     if (xml.exists("window[@width]"))
-        wWidth = ofToInt( xml.getAttribute("window[@width]") );
+        window.width = ofToInt( xml.getAttribute("window[@width]") );
     if (xml.exists("window[@height]"))
-        wHeight = ofToInt( xml.getAttribute("window[@height]") );
+        window.height = ofToInt( xml.getAttribute("window[@height]") );
 
     
     if (xml.exists("projectors[@count]"))
         pCount = ofToInt( xml.getAttribute("projectors[@count]") );
 
-    // local
-    for(int i=0; i<pCount; i++) {
-        if (xml.exists("projectors/projector["+ofToString(i)+"][@azimuth]"))
-            pAzimuth[i] = ofToInt( xml.getAttribute("projectors/projector["+ofToString(i)+"][@azimuth]") );
-        if (xml.exists("projectors/projector["+ofToString(i)+"][@brightness]"))
-            pBrightness[i] = ofToInt( xml.getAttribute("projectors/projector["+ofToString(i)+"][@brightness]") );
-        if (xml.exists("projectors/projector["+ofToString(i)+"][@contrast]"))
-            pContrast[i] = ofToInt( xml.getAttribute("projectors/projector["+ofToString(i)+"][@contrast]") );
-        if (xml.exists("projectors/projector["+ofToString(i)+"][@saturation]"))
-            pSaturation[i] = ofToInt( xml.getAttribute("projectors/projector["+ofToString(i)+"][@saturation]") );
-    }
     
     // global
     for(int i=0; i<pCount; i++) {
         if (xml.exists("global/projector[@azimuth]"))
-            pAzimuth[i] = ofToInt( xml.getAttribute("global/projector[@azimuth]") );
+            projectors[i].azimuth  = ofToInt( xml.getAttribute("global/projector[@azimuth]") );
         if (xml.exists("global/projector[@brightness]"))
-            pBrightness[i] = ofToInt( xml.getAttribute("global/projector[@brightness]") );
+            projectors[i].brightness = ofToInt( xml.getAttribute("global/projector[@brightness]") );
         if (xml.exists("global/projector[@contrast]"))
-            pContrast[i] = ofToInt( xml.getAttribute("projectors/projector[@contrast]") );
+            projectors[i].contrast = ofToInt( xml.getAttribute("projectors/projector[@contrast]") );
         if (xml.exists("global/projector[@saturation]"))
-            pSaturation[i] = ofToInt( xml.getAttribute("global/projector[@saturation]") );
+            projectors[i].saturation = ofToInt( xml.getAttribute("global/projector[@saturation]") );
     }
+    
+    // local
+    for(int i=0; i<pCount; i++) {
+        if (xml.exists("projectors/projector["+ofToString(i)+"][@azimuth]"))
+            projectors[i].azimuth = ofToInt( xml.getAttribute("projectors/projector["+ofToString(i)+"][@azimuth]") );
+        if (xml.exists("projectors/projector["+ofToString(i)+"][@brightness]"))
+            projectors[i].brightness = ofToInt( xml.getAttribute("projectors/projector["+ofToString(i)+"][@brightness]") );
+        if (xml.exists("projectors/projector["+ofToString(i)+"][@contrast]"))
+            projectors[i].contrast = ofToInt( xml.getAttribute("projectors/projector["+ofToString(i)+"][@contrast]") );
+        if (xml.exists("projectors/projector["+ofToString(i)+"][@saturation]"))
+            projectors[i].saturation = ofToInt( xml.getAttribute("projectors/projector["+ofToString(i)+"][@saturation]") );
+    }
+
     
 }
 
 
-// converts spherical to cartesian coordinates
-ofVec3f vdome::sphToCar(ofVec3f t) {
-    float azi, ele, dis;
-    float x, y, z;
-    azi = ofDegToRad(t.x);
-    ele = ofDegToRad(t.y+90);
-    dis = t.z;
-    x = sin(azi) * sin(ele) * dis;
-    y = cos(ele) * dis;
-    z = cos(azi) * sin(ele) * dis;
-    return ofVec3f(x,y,z);
-};
 
 
 
@@ -356,12 +269,12 @@ void vdome::keyPressed(int key){
             
             switch(keyControl){
                 case 118:
-                    pFov += 1;
-                    cameras[0].setFov(pFov);
+                    //pFov += 1;
+                   // cameras[0].setFov(pFov);
                     break;
                  case 1:
-                    pLensOffsetY += .01;
-                    cameras[0].setLensOffset(ofVec2f(pLensOffsetX,pLensOffsetY));
+                    //pLensOffsetY += .01;
+                    //cameras[0].setLensOffset(ofVec2f(pLensOffsetX,pLensOffsetY));
                     break;
             }
             
@@ -373,16 +286,16 @@ void vdome::keyPressed(int key){
             
             switch(keyControl){
                 case 118:
-                    pFov -= 1;
-                    cameras[0].setFov(pFov);
+                    //pFov -= 1;
+                    //cameras[0].setFov(pFov);
                     break;
                 case 97:
                     break;
                 case 101:
                     break;
                 case 1:
-                    pLensOffsetY -= .01;
-                    cameras[0].setLensOffset(ofVec2f(pLensOffsetX,pLensOffsetY));
+                    //pLensOffsetY -= .01;
+                    //cameras[0].setLensOffset(ofVec2f(pLensOffsetX,pLensOffsetY));
                     break;
             }
             
