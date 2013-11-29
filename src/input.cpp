@@ -4,8 +4,12 @@ void Input::init(){
 }
 
 void Input::setup(){
-    // dome texture 
+
+    texture.clear();
 	texture.allocate(render.domeMaster, render.domeMaster, OF_IMAGE_COLOR);
+    
+    stop();
+    close();
     
     // create input
     switch(mode){
@@ -38,6 +42,26 @@ void Input::setup(){
     }
     
 }
+
+void Input::stop() {
+    video.stop();
+    hap.stop();
+}
+
+void Input::close() {
+    image.clear();
+    
+    video.stop();
+    video.close();
+    
+    hap.stop();
+    hap.close();
+    
+    capture.close();
+}
+
+
+
 
 void Input::bind(){
     if (mode == 2)

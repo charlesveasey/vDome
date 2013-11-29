@@ -9,6 +9,8 @@ public:
  
     void init();
     void setup();
+    void stop();
+    void close();
     
     void loadXML(ofXml &xml);
     void saveXML(ofXml &xml);
