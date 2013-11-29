@@ -1,6 +1,6 @@
 #include "ofMain.h"
 
-class Window {
+class Render {
 	
 public:
     
@@ -9,11 +9,9 @@ public:
     
     void loadXML(ofXml &xml);
     void saveXML(ofXml &xml);
-    
-    int x;
-    int y;
-    int width;
-    int height;
-    
-};
 
+    int frameRate;
+    int domeMaster;
+    bool vSync;
+
+};

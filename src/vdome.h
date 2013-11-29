@@ -1,11 +1,11 @@
 #pragma once
 
 #include "ofMain.h"
+#include "input.h"
 #include "window.h"
-#include "hemisphere.h"
+#include "mesh.h"
 #include "projector.h"
-#include "ofxSyphon.h"
-#include "ofxHapPlayer.h"
+
 
 class vdome : public ofBaseApp {
 	
@@ -14,35 +14,32 @@ public:
     void setup();
     void update();
     void draw();
-    void drawFbo(int i);
-    void keyPressed(int key);    
+    void keyPressed(int key);
+    void keyReleased(int key);
     
     ofVec3f sphToCar(ofVec3f t);
 
+    
     // xml
     ofXml xml;
-    void loadXML();
+    string xmlFile;
+    void loadXML(string file);
+    void saveXML(string file);
     
     // key map
     int keyControl;
     
+    // input
+    Input input;
+    
+    // render
+    Render render;
     
     // window
     Window window;
     
-    // input
-    int input;
-    ofImage image;
-    ofVideoPlayer video;
-    ofxHapPlayer hap;    
-    ofxSyphonClient syphon;
-    ofVideoGrabber capture;
-    
     // vitual dome
-    Hemisphere hemisphere;
-    
-    // dome texture
-    ofTexture texture;
+    Mesh mesh;
     
     // shader
     ofShader shader;
@@ -50,10 +47,6 @@ public:
     // projectors
     int pCount;
     vector<Projector> projectors;
-    
-    // render settings
-    int frameRate;
-    int domeMaster;
     
 };
 	

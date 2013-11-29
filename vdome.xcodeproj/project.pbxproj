@@ -24,7 +24,9 @@
 		566E94B318432B2700E34861 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 566E94AD18432B2700E34861 /* tinyxmlerror.cpp */; };
 		566E94B418432B2700E34861 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 566E94AE18432B2700E34861 /* tinyxmlparser.cpp */; };
 		566E94B518432B2700E34861 /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 566E94B018432B2700E34861 /* ofxXmlSettings.cpp */; };
-		5696C0531842C08D00E51614 /* hemisphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5696C04F1842C08D00E51614 /* hemisphere.cpp */; };
+		568406E01846F25A0000A6F1 /* render.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568406DF1846F25A0000A6F1 /* render.cpp */; };
+		568406E31846F4E10000A6F1 /* input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568406E21846F4E10000A6F1 /* input.cpp */; };
+		5696C0531842C08D00E51614 /* mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5696C04F1842C08D00E51614 /* mesh.cpp */; };
 		5696C0541842C08D00E51614 /* vdome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5696C0511842C08D00E51614 /* vdome.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
@@ -112,8 +114,12 @@
 		566E94AE18432B2700E34861 /* tinyxmlparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlparser.cpp; sourceTree = "<group>"; };
 		566E94B018432B2700E34861 /* ofxXmlSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxXmlSettings.cpp; sourceTree = "<group>"; };
 		566E94B118432B2700E34861 /* ofxXmlSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxXmlSettings.h; sourceTree = "<group>"; };
-		5696C04F1842C08D00E51614 /* hemisphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hemisphere.cpp; sourceTree = "<group>"; };
-		5696C0501842C08D00E51614 /* hemisphere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hemisphere.h; sourceTree = "<group>"; };
+		568406DE1846F2440000A6F1 /* render.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = render.h; sourceTree = "<group>"; };
+		568406DF1846F25A0000A6F1 /* render.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = render.cpp; sourceTree = "<group>"; };
+		568406E11846F4D70000A6F1 /* input.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = input.h; sourceTree = "<group>"; };
+		568406E21846F4E10000A6F1 /* input.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = input.cpp; sourceTree = "<group>"; };
+		5696C04F1842C08D00E51614 /* mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mesh.cpp; sourceTree = "<group>"; };
+		5696C0501842C08D00E51614 /* mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mesh.h; sourceTree = "<group>"; };
 		5696C0511842C08D00E51614 /* vdome.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vdome.cpp; sourceTree = "<group>"; };
 		5696C0521842C08D00E51614 /* vdome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vdome.h; sourceTree = "<group>"; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
@@ -368,13 +374,17 @@
 			children = (
 				5696C0521842C08D00E51614 /* vdome.h */,
 				5696C0511842C08D00E51614 /* vdome.cpp */,
-				5696C04F1842C08D00E51614 /* hemisphere.cpp */,
-				5696C0501842C08D00E51614 /* hemisphere.h */,
+				5696C04F1842C08D00E51614 /* mesh.cpp */,
+				5696C0501842C08D00E51614 /* mesh.h */,
 				561FA68B1844413B003E6812 /* projector.cpp */,
 				561FA68C1844413B003E6812 /* projector.h */,
 				561FA68E18445138003E6812 /* window.h */,
 				561FA68F18445145003E6812 /* window.cpp */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
+				568406DE1846F2440000A6F1 /* render.h */,
+				568406DF1846F25A0000A6F1 /* render.cpp */,
+				568406E11846F4D70000A6F1 /* input.h */,
+				568406E21846F4E10000A6F1 /* input.cpp */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -477,7 +487,7 @@
 			files = (
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				5696C0541842C08D00E51614 /* vdome.cpp in Sources */,
-				5696C0531842C08D00E51614 /* hemisphere.cpp in Sources */,
+				5696C0531842C08D00E51614 /* mesh.cpp in Sources */,
 				56244C7E18430127008C7FD1 /* SyphonDirectoryObserver.m in Sources */,
 				56244C7F18430127008C7FD1 /* SyphonNameboundClient.m in Sources */,
 				56244C8018430127008C7FD1 /* ofxSyphonClient.mm in Sources */,
@@ -493,6 +503,8 @@
 				566E94B518432B2700E34861 /* ofxXmlSettings.cpp in Sources */,
 				561FA68D1844413B003E6812 /* projector.cpp in Sources */,
 				561FA69018445145003E6812 /* window.cpp in Sources */,
+				568406E01846F25A0000A6F1 /* render.cpp in Sources */,
+				568406E31846F4E10000A6F1 /* input.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

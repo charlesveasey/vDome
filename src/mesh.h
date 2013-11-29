@@ -1,19 +1,24 @@
+#pragma once
+
 #include "ofMain.h"
 
-class Window {
+class Mesh {
 	
 public:
-    
+
     void init();
     void setup();
-    
+
     void loadXML(ofXml &xml);
     void saveXML(ofXml &xml);
     
-    int x;
-    int y;
-    int width;
-    int height;
+    void update();
+    void draw();
+				
+    ofVboMesh vbo;
+
+    int N;
+    double radius;
     
 };
-
+	

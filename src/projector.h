@@ -6,7 +6,11 @@ class Projector {
 	
 public:
     
+    void init();
     void setup(int i);
+    
+    void loadXML(ofXml &xml);
+    void saveXML(ofXml &xml);
     
     void cameraBegin();
     void cameraEnd();
