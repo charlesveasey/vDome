@@ -20,6 +20,11 @@
 		563CC3F31843099B00B57193 /* HapOFPixelBufferTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 563CC3EB1843099B00B57193 /* HapOFPixelBufferTexture.m */; };
 		563CC3F41843099B00B57193 /* HapSupport.c in Sources */ = {isa = PBXBuildFile; fileRef = 563CC3EC1843099B00B57193 /* HapSupport.c */; };
 		563CC3F51843099B00B57193 /* ofxHapPlayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 563CC3EF1843099B00B57193 /* ofxHapPlayer.mm */; };
+		5658608E18484E8D0022C0A8 /* ofxTCPClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5658608618484E8D0022C0A8 /* ofxTCPClient.cpp */; };
+		5658608F18484E8D0022C0A8 /* ofxTCPManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5658608818484E8D0022C0A8 /* ofxTCPManager.cpp */; };
+		5658609018484E8D0022C0A8 /* ofxTCPServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5658608A18484E8D0022C0A8 /* ofxTCPServer.cpp */; };
+		5658609118484E8D0022C0A8 /* ofxUDPManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5658608C18484E8D0022C0A8 /* ofxUDPManager.cpp */; };
+		565914091848514C000864E5 /* tcp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 565914071848514C000864E5 /* tcp.cpp */; };
 		566E94B218432B2700E34861 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 566E94AB18432B2700E34861 /* tinyxml.cpp */; };
 		566E94B318432B2700E34861 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 566E94AD18432B2700E34861 /* tinyxmlerror.cpp */; };
 		566E94B418432B2700E34861 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 566E94AE18432B2700E34861 /* tinyxmlparser.cpp */; };
@@ -108,6 +113,18 @@
 		563CC3ED1843099B00B57193 /* HapSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HapSupport.h; sourceTree = "<group>"; };
 		563CC3EE1843099B00B57193 /* ofxHapPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxHapPlayer.h; sourceTree = "<group>"; };
 		563CC3EF1843099B00B57193 /* ofxHapPlayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ofxHapPlayer.mm; sourceTree = "<group>"; };
+		5658608418484E8D0022C0A8 /* ofxNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxNetwork.h; sourceTree = "<group>"; };
+		5658608518484E8D0022C0A8 /* ofxNetworkUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxNetworkUtils.h; sourceTree = "<group>"; };
+		5658608618484E8D0022C0A8 /* ofxTCPClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxTCPClient.cpp; sourceTree = "<group>"; };
+		5658608718484E8D0022C0A8 /* ofxTCPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxTCPClient.h; sourceTree = "<group>"; };
+		5658608818484E8D0022C0A8 /* ofxTCPManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxTCPManager.cpp; sourceTree = "<group>"; };
+		5658608918484E8D0022C0A8 /* ofxTCPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxTCPManager.h; sourceTree = "<group>"; };
+		5658608A18484E8D0022C0A8 /* ofxTCPServer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxTCPServer.cpp; sourceTree = "<group>"; };
+		5658608B18484E8D0022C0A8 /* ofxTCPServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxTCPServer.h; sourceTree = "<group>"; };
+		5658608C18484E8D0022C0A8 /* ofxUDPManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxUDPManager.cpp; sourceTree = "<group>"; };
+		5658608D18484E8D0022C0A8 /* ofxUDPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxUDPManager.h; sourceTree = "<group>"; };
+		565914071848514C000864E5 /* tcp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tcp.cpp; sourceTree = "<group>"; };
+		565914081848514C000864E5 /* tcp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tcp.h; sourceTree = "<group>"; };
 		566E94AB18432B2700E34861 /* tinyxml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxml.cpp; sourceTree = "<group>"; };
 		566E94AC18432B2700E34861 /* tinyxml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinyxml.h; sourceTree = "<group>"; };
 		566E94AD18432B2700E34861 /* tinyxmlerror.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlerror.cpp; sourceTree = "<group>"; };
@@ -269,6 +286,32 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		5658608018484E8D0022C0A8 /* ofxNetwork */ = {
+			isa = PBXGroup;
+			children = (
+				5658608318484E8D0022C0A8 /* src */,
+			);
+			name = ofxNetwork;
+			path = ../../../addons/ofxNetwork;
+			sourceTree = "<group>";
+		};
+		5658608318484E8D0022C0A8 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				5658608418484E8D0022C0A8 /* ofxNetwork.h */,
+				5658608518484E8D0022C0A8 /* ofxNetworkUtils.h */,
+				5658608618484E8D0022C0A8 /* ofxTCPClient.cpp */,
+				5658608718484E8D0022C0A8 /* ofxTCPClient.h */,
+				5658608818484E8D0022C0A8 /* ofxTCPManager.cpp */,
+				5658608918484E8D0022C0A8 /* ofxTCPManager.h */,
+				5658608A18484E8D0022C0A8 /* ofxTCPServer.cpp */,
+				5658608B18484E8D0022C0A8 /* ofxTCPServer.h */,
+				5658608C18484E8D0022C0A8 /* ofxUDPManager.cpp */,
+				5658608D18484E8D0022C0A8 /* ofxUDPManager.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		566E94A918432B2700E34861 /* ofxXmlSettings */ = {
 			isa = PBXGroup;
 			children = (
@@ -302,6 +345,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				5658608018484E8D0022C0A8 /* ofxNetwork */,
 				566E94A918432B2700E34861 /* ofxXmlSettings */,
 				563CC3D21843099B00B57193 /* ofxHapPlayer */,
 				56244C5218430127008C7FD1 /* ofxSyphon */,
@@ -385,6 +429,8 @@
 				568406DF1846F25A0000A6F1 /* render.cpp */,
 				568406E11846F4D70000A6F1 /* input.h */,
 				568406E21846F4E10000A6F1 /* input.cpp */,
+				565914071848514C000864E5 /* tcp.cpp */,
+				565914081848514C000864E5 /* tcp.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -505,6 +551,11 @@
 				561FA69018445145003E6812 /* window.cpp in Sources */,
 				568406E01846F25A0000A6F1 /* render.cpp in Sources */,
 				568406E31846F4E10000A6F1 /* input.cpp in Sources */,
+				5658608E18484E8D0022C0A8 /* ofxTCPClient.cpp in Sources */,
+				5658608F18484E8D0022C0A8 /* ofxTCPManager.cpp in Sources */,
+				5658609018484E8D0022C0A8 /* ofxTCPServer.cpp in Sources */,
+				5658609118484E8D0022C0A8 /* ofxUDPManager.cpp in Sources */,
+				565914091848514C000864E5 /* tcp.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -5,7 +5,7 @@
 #include "window.h"
 #include "mesh.h"
 #include "projector.h"
-
+#include "tcp.h"
 
 class vdome : public ofBaseApp {
 	
@@ -18,7 +18,8 @@ public:
     void keyReleased(int key);
     
     ofVec3f sphToCar(ofVec3f t);
-
+    
+    Tcp tcp;
     
     // xml
     ofXml xml;

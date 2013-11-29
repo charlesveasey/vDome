@@ -5,6 +5,10 @@
 
 void vdome::setup(){
     
+    // tcp server
+    tcp.init();
+    tcp.setup();
+    
     // window
     window.init();
     window.setup();
@@ -69,6 +73,7 @@ void vdome::update() {
 
 
 
+
 // FRAME DRAW 
 
 void vdome::draw(){
@@ -101,8 +106,7 @@ void vdome::draw(){
         projectors[i].fboUnbind();
 	}
 
-    ofSetHexColor(0xFFFFFF);
-    ofDrawBitmapString("fps: "+ofToString(ofGetFrameRate(), 2), 10, 15);
+    tcp.draw();
 }
 
 
@@ -127,6 +131,7 @@ void vdome::loadXML(string file) {
 void vdome::saveXML(string file) {
     xml.setAttribute("projectors[@count]", ofToString(pCount));
     
+    tcp.loadXML(xml);
     input.saveXML(xml);
     render.saveXML(xml);
     window.saveXML(xml);
@@ -141,7 +146,7 @@ void vdome::saveXML(string file) {
 
 
 
-// EVENTS
+// KEYBOARD EVENTS
 
 bool modKey = false;
 
