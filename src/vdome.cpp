@@ -73,7 +73,8 @@ void vdome::update() {
 
 
 
-
+int frameCnt= 0;
+bool saved = false;
 
 // FRAME DRAW 
 
@@ -94,6 +95,16 @@ void vdome::draw(){
         ofRect(px, py, 300, 300);
         
         // debug text
+        if (saved) {
+            ofSetHexColor(0xFF0000);
+            ofDrawBitmapString("SAVED", px+padx*6, py+pady*2);
+            frameCnt++;
+            if (frameCnt == 120) {
+                saved = false;
+                frameCnt = 0;
+            }
+        }
+        
         ofSetHexColor(0xFFFFFF);
         ofDrawBitmapString("Projector # " + ofToString(i+1), px+padx, py+pady*2);
         
@@ -245,7 +256,9 @@ void vdome::saveXML(string file) {
     window.saveXML(xml);
     mesh.saveXML(xml);
     
-    xml.save(file);
+    if (xml.save(file)) {
+        saved = true;
+    }
 }
 
 

@@ -24,8 +24,8 @@ void Tcp::loadXML(ofXml &xml) {
 }
 
 void Tcp::saveXML(ofXml &xml) {
-    xml.setAttribute("port[@enabled]", ofToString(enabled));
-    xml.setAttribute("port[@port]", ofToString(enabled));
+    xml.setAttribute("tcp[@enabled]", ofToString(enabled));
+    xml.setAttribute("tcp[@port]", ofToString(enabled));
     
 	//for each client lets send them a message letting them know what port they are connected on
 	for(int i = 0; i < server.getLastID(); i++){
