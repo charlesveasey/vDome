@@ -28,6 +28,7 @@ public:
     void saveXML(string file);
     
     // key map
+    int editMode;
     int keyControl;
     
     // input

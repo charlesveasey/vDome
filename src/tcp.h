@@ -17,6 +17,9 @@ public:
     
     int port;
     bool enabled;
+    
+    int x;
+    int y;
 };
 
 

@@ -22,7 +22,7 @@ void Projector::init(int i){
     fov = 45;
     
     lensOffsetX = 0;
-    lensOffsetY = .31;
+    lensOffsetY = 0;
     
     brightness = 1;
     contrast = 1;
@@ -68,6 +68,7 @@ void Projector::setup() {
     // create render plane
     plane.set(width, height);
     plane.setPosition(width * index + width/2, height/2, 0);
+    //plane.setResolution(50, 50);
 }
 
 
@@ -146,8 +147,12 @@ void Projector::loadXML(ofXml &xml) {
         lensOffsetY = ofToFloat( xml.getAttribute(pre + "][@lensOffsetY]") );
     if (xml.exists(pre + "][@saturation]"))
         saturation = ofToFloat( xml.getAttribute(pre + "][@saturation]") );
+    if (xml.exists(pre + "][@roll]"))
+        roll = ofToFloat( xml.getAttribute(pre + "][@roll]") );
     if (xml.exists(pre + "][@tilt]"))
         tilt = ofToFloat( xml.getAttribute(pre + "][@tilt]") );
+    if (xml.exists(pre + "][@pan]"))
+        pan = ofToFloat( xml.getAttribute(pre + "][@pan]") );
     if (xml.exists(pre + "][@width]"))
         width = ofToInt( xml.getAttribute(pre + "][@width]") );
     
@@ -168,6 +173,8 @@ void Projector::saveXML(ofXml &xml) {
     xml.setAttribute(pre + "][@lensOffsetX]", ofToString(lensOffsetX));
     xml.setAttribute(pre + "][@lensOffsetY]", ofToString(lensOffsetY));
     xml.setAttribute(pre + "][@saturation]", ofToString(saturation));
+    xml.setAttribute(pre + "][@roll]", ofToString(roll));
     xml.setAttribute(pre + "][@tilt]", ofToString(tilt));
+    xml.setAttribute(pre + "][@pan]", ofToString(pan));
     xml.setAttribute(pre + "][@width]", ofToString(width));
 }

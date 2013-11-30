@@ -36,30 +36,16 @@ void Tcp::saveXML(ofXml &xml) {
 
 
 void Tcp::draw() {
+        
     
     ofSetHexColor(0xFFFFFF);
-    ofDrawBitmapString("fps: "+ofToString(ofGetFrameRate(), 2), 10, 15);
-    
-    
-	ofSetHexColor(0xDDDDDD);
-	ofDrawBitmapString("TCP \n\nconnect on port: "+ofToString(server.getPort()), 10, 50);
-    
-	ofSetHexColor(0x000000);
-	ofRect(10, 60, ofGetWidth()-24, ofGetHeight() - 65 - 15);
-    
-	ofSetHexColor(0xDDDDDD);
-    
+    ofDrawBitmapString("Port: "+ofToString(server.getPort()), x, y);
+                       
+                       
 	//for each connected client lets get the data being sent and lets print it to the screen
 	for(unsigned int i = 0; i < (unsigned int)server.getLastID(); i++){
         
 		if( !server.isClientConnected(i) )continue;
-        
-		//give each client its own color
-		ofSetColor(255 - i*30, 255 - i * 20, 100 + i*40);
-        
-		//calculate where to draw the text
-		int xPos = 15;
-		int yPos = 80 + (12 * i * 4);
         
 		//get the ip and port of the client
 		string port = ofToString( server.getClientPort(i) );
@@ -81,8 +67,8 @@ void Tcp::draw() {
 		}
         
 		//draw the info text and the received text bellow it
-		ofDrawBitmapString(info, xPos, yPos);
-		ofDrawBitmapString(storeText[i], 25, yPos + 20);
+		ofDrawBitmapString(info, x, y+20);
+		ofDrawBitmapString(storeText[i], x, y + 40);
         
 	}
 }
