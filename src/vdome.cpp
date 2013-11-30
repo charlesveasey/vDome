@@ -41,11 +41,11 @@ void vdome::setup(){
     
     for(int i=0; i<pCount; i++) {
         Projector p;
-        p.init();
-        p.setup(i);
+        p.init(i);
+        p.setup();
         projectors.push_back(p);
     }
-    
+    projectors[0].keyboard = true;
     
     // projection shader
 	shader.load("shaders/vdome.vert", "shaders/vdome.frag");
@@ -105,8 +105,16 @@ void vdome::draw(){
 		
         projectors[i].fboUnbind();
 	}
-
+    
     tcp.draw();
+    
+    for(int i=0; i<pCount; i++) {
+        
+        if (projectors[i].keyboard) {
+            ofSetHexColor(0xFF0000);
+            ofDrawBitmapString("KEYBOARD ACTIVE", projectors[i].plane.getX()-50, projectors[i].plane.getY()-10);
+        }
+    }
 }
 
 
@@ -121,17 +129,23 @@ void vdome::loadXML(string file) {
     if (xml.exists("projectors[@count]"))
         pCount = ofToInt( xml.getAttribute("projectors[@count]") );
     
+    
     input.loadXML(xml);
     render.loadXML(xml);
     window.loadXML(xml);
     mesh.loadXML(xml);
+    
+    for(int i=0; i<pCount; i++) {
+		projectors[i].loadXML(xml);
+	}
+    
 }
 
 
 void vdome::saveXML(string file) {
     xml.setAttribute("projectors[@count]", ofToString(pCount));
     
-    tcp.loadXML(xml);
+    tcp.saveXML(xml);
     input.saveXML(xml);
     render.saveXML(xml);
     window.saveXML(xml);
@@ -148,51 +162,450 @@ void vdome::saveXML(string file) {
 
 // KEYBOARD EVENTS
 
-bool modKey = false;
+bool shiftKey = false;
+bool altKey = false;
+bool ctrKey = false;
+bool superKey = false;
+
+
+int keyMode = 1;
+
+float value = 1;
+float orgValue = 1;
+float shiftValue = .1;
+float altValue = .01;
+
+int active = 1;
 
 void vdome::keyPressed(int key){
-    //cout << "keyPressed " << key << endl;
+    cout << "keyPressed " << key << endl;
+    
+    
+    // 1 - 9 = projectors / modes (mod)
+    
+    // modes
+    // 1 = mesh radius
+    // 2 = azimuth, elevation, distance
+    // 3 = pan, tilt, roll
+    // 4 = lensOffsetX, lensOffsetY
+    // 5 = fov
+    // 6 = brightness
+    // 7 = contrast
+    // 8 = saturation
+    
+    if (key >= 49 && key <= 57) {
+        
+        if (superKey) {
+            keyMode = key-48;
+            return;
+        }
+        
+        // shift groups, otherwise reset
+        if (!shiftKey) {
+            for (int i=0; i<pCount; i++) {
+                projectors[i].keyboard = false;
+                active = key-49;
+            }
+            projectors[active].keyboard = true;
+        }
+        else {
+            active = key-49;
+            projectors[active].keyboard = !(projectors[active].keyboard);
+            
+        }
+
+        
+        return;
+    }
+
+    
+    // ~ = select all projectors
+    if (key == 161) {
+        
+        for (int i=0; i<pCount; i++) {
+            projectors[i].keyboard = true;
+        }
+        return;
+        
+    }
+    
+
+    // switch others
+    
+    
     switch(key){
-        case OF_KEY_LEFT:
+        
+            
+        case OF_KEY_UP: // up
+            
+            
+            switch (keyMode) {
+                    
+                case 1: // mesh radius
+                    
+                    mesh.radius++;
+                    mesh.setup();
+                    
+                    break;
+                    
+                case 2: // projector elevation / distance (super)
+                   
+                    for (int i=0; i<pCount; i++) {
+                        if (projectors[i].keyboard) {
+                            
+                            if (!superKey)
+                                projectors[i].elevation += value;
+                            else
+                                projectors[i].distance += value;
+                            
+                            projectors[i].setup();
+
+                       }
+                    }
+                    break;
+                    
+ 
+                case 3: // projector tilt
+                    
+                    for (int i=0; i<pCount; i++) {
+                        if (projectors[i].keyboard) {
+
+                            projectors[i].tilt += value;
+                            projectors[i].setup();
+                            
+                        }
+                    }
+                    break;
+                    
+                case 4: // projector lensOffsetY
+                    
+                    for (int i=0; i<pCount; i++) {
+                        if (projectors[i].keyboard) {
+                            
+                            projectors[i].lensOffsetY += value * .1;
+                            projectors[i].setup();
+                            
+                        }
+                    }
+                    break;
+                    
+                case 5: // projector fov
+                    
+                    for (int i=0; i<pCount; i++) {
+                        if (projectors[i].keyboard) {
+                            
+                            projectors[i].fov += value;
+                            projectors[i].setup();
+                            
+                        }
+                    }
+                    break;
+                    
+                case 6: // projector brightness
+                    
+                    for (int i=0; i<pCount; i++) {
+                        if (projectors[i].keyboard) {
+                            
+                            projectors[i].brightness += value * .1;
+                            
+                        }
+                    }
+                    break;
+                    
+                case 7: // projector contrast
+                    
+                    for (int i=0; i<pCount; i++) {
+                        if (projectors[i].keyboard) {
+                            
+                            projectors[i].contrast += value * .1;
+                            
+                        }
+                    }
+                    break;
+                    
+                case 8: // projector saturation
+                    
+                    for (int i=0; i<pCount; i++) {
+                        if (projectors[i].keyboard) {
+                            
+                            projectors[i].saturation += value * .1;
+                            
+                        }
+                    }
+                    break;
+            }
             break;
       
-        case OF_KEY_UP:
             
-            //window.x += 100;
-            //window.update();
-            mesh.radius--;
-            mesh.setup();
             
+            
+            
+        
+            
+        case OF_KEY_DOWN: // down
+            
+            switch (keyMode) {
+                    
+                case 1: // mesh radius
+                    
+                    mesh.radius--;
+                    mesh.setup();
+                    
+                    break;
+                    
+                case 2: // projector elevation / distance (super)
+                    
+                    for (int i=0; i<pCount; i++) {
+                        if (projectors[i].keyboard) {
+                            
+                            if (!superKey)
+                                projectors[i].elevation -= value;
+                            else
+                                projectors[i].distance -= value;
+                            
+                            projectors[i].setup();
+                            
+                        }
+                    }
+                    break;
+                    
+                    
+                case 3: // projector tilt
+                    
+                    for (int i=0; i<pCount; i++) {
+                        if (projectors[i].keyboard) {
+                            
+                            projectors[i].tilt -= value;
+                            projectors[i].setup();
+                            
+                        }
+                    }
+                    break;
+                    
+                case 4: // projector lensOffsetY
+                    
+                    for (int i=0; i<pCount; i++) {
+                        if (projectors[i].keyboard) {
+                            
+                            projectors[i].lensOffsetY -= value * .1;
+                            projectors[i].setup();
+                            
+                        }
+                    }
+                    break;
+                    
+                case 5: // projector fov
+                    
+                    for (int i=0; i<pCount; i++) {
+                        if (projectors[i].keyboard) {
+                            
+                            projectors[i].fov -= value;
+                            projectors[i].setup();
+                            
+                        }
+                    }
+                    break;
+                    
+                case 6: // projector brightness
+                    
+                    for (int i=0; i<pCount; i++) {
+                        if (projectors[i].keyboard) {
+                            
+                            projectors[i].brightness -= value * .1;
+                            
+                        }
+                    }
+                    break;
+                    
+                case 7: // projector contrast
+                    
+                    for (int i=0; i<pCount; i++) {
+                        if (projectors[i].keyboard) {
+                            
+                            projectors[i].contrast -= value * .1;
+                            
+                        }
+                    }
+                    break;
+                    
+                case 8: // projector saturation
+                    
+                    for (int i=0; i<pCount; i++) {
+                        if (projectors[i].keyboard) {
+                            
+                            projectors[i].saturation -= value * .1;
+                            
+                        }
+                    }
+                    break;
+            }
             break;
-        case OF_KEY_RIGHT:
+            
+            
+        
+
+       
+            
+        case OF_KEY_LEFT:  // left
+            
+            switch (keyMode) {
+                    
+                case 1: // not used
+        
+                    
+                    break;
+                    
+                case 2: // projector azimuth
+                    
+                    for (int i=0; i<pCount; i++) {
+                        if (projectors[i].keyboard) {
+                            
+                            projectors[i].azimuth -= value;
+                            projectors[i].setup();
+                            
+                        }
+                    }
+                    break;
+                    
+                case 3: // projector roll / pan (super)
+                    
+                    for (int i=0; i<pCount; i++) {
+                        if (projectors[i].keyboard) {
+                            
+                            if (!superKey)
+                                projectors[i].roll -= value;
+                            else
+                                projectors[i].pan -= value;
+                            
+                            projectors[i].setup();
+                            
+                        }
+                    }
+                    break;
+                    
+                case 4: // projector lensOffsetX
+                    
+                    for (int i=0; i<pCount; i++) {
+                        if (projectors[i].keyboard) {
+                            
+                            projectors[i].lensOffsetX -= value * .1;
+                            projectors[i].setup();
+                            
+                        }
+                    }
+                    break;
+            }
+            break;
+            
+            
+            
+            
+            
+       
+            
+            
+        case OF_KEY_RIGHT:  // right
+
+            switch (keyMode) {
+                    
+                case 1: // not used
+                    
+                    break;
+                    
+                case 2: // projector azimuth
+                    
+                    for (int i=0; i<pCount; i++) {
+                        if (projectors[i].keyboard) {
+                            
+                            projectors[i].azimuth += value;
+                            projectors[i].setup();
+                            
+                        }
+                    }
+                    break;
+               
+                case 3: // projector roll / pan (super)
+                    
+                    for (int i=0; i<pCount; i++) {
+                        if (projectors[i].keyboard) {
+                            
+                            if (!superKey)
+                                projectors[i].roll += value;
+                            else
+                                projectors[i].pan += value;
+                            
+                            projectors[i].setup();
+                            
+                        }
+                    }
+                    break;
+                    
+                case 4: // projector lensOffsetX
+                    
+                    for (int i=0; i<pCount; i++) {
+                        if (projectors[i].keyboard) {
+                            
+                            projectors[i].lensOffsetX += value * .11;
+                            projectors[i].setup();
+                            
+                        }
+                    }
+                    break;
+                    
+            }
             break;
         
-        case OF_KEY_DOWN:
-           
-            mesh.radius++;
-            mesh.setup();
+
             
+            
+            
+            
+            
+            
+        
+        case OF_KEY_LEFT_ALT: // alt
+            value = altValue;
+            altKey = true;            
             break;
-        case OF_KEY_PAGE_UP:
-            break;
-        case OF_KEY_PAGE_DOWN:
-            break;
-        case OF_KEY_LEFT_SHIFT:
-            break;
-        case OF_KEY_LEFT_CONTROL:
-            break;
-        case OF_KEY_LEFT_SUPER: // mod
-            modKey = true;
-            break;
-        case OF_KEY_RIGHT_SHIFT:
-            break;
-        case OF_KEY_RIGHT_CONTROL:
-            break;
+            
         case OF_KEY_RIGHT_ALT:
+            value = altValue;
+            altKey = true;
             break;
-        case OF_KEY_RIGHT_SUPER: // mod
-            modKey = true;
+            
+            
+        
+        case OF_KEY_LEFT_CONTROL: // control
+            ctrKey = true;
             break;
+            
+        case OF_KEY_RIGHT_CONTROL:
+            ctrKey = true;
+            break;
+            
+            
+        
+        case OF_KEY_LEFT_SHIFT: // shift
+            value = shiftValue;
+            shiftKey = true;
+            break;
+            
+        case OF_KEY_RIGHT_SHIFT:
+            value = shiftValue;
+            shiftKey = true;
+            break;
+            
+        
+        case OF_KEY_LEFT_SUPER: // super
+            superKey = true;
+            break;
+            
+        case OF_KEY_RIGHT_SUPER:
+            superKey = true;
+            break;
+            
+            
+            
     }
     
 }
@@ -201,40 +614,63 @@ void vdome::keyPressed(int key){
 
 void vdome::keyReleased(int key){
     //cout << "keyReleased " << key << endl;
+    
     switch(key){
-        case OF_KEY_LEFT:
+            
+            
+            
+         
+        case OF_KEY_LEFT_ALT: // alt
+            value = orgValue;
+            altKey = false;
             break;
-        case OF_KEY_UP:
-            break;
-        case OF_KEY_RIGHT:
-            break;
-        case OF_KEY_DOWN:
-            break;
-        case OF_KEY_PAGE_UP:
-            break;
-        case OF_KEY_PAGE_DOWN:
-            break;
-        case OF_KEY_LEFT_SHIFT:
-            break;
-        case OF_KEY_LEFT_CONTROL:
-            break;
-        case OF_KEY_LEFT_SUPER: // mod
-            modKey = false;
-            break;
-        case OF_KEY_RIGHT_SHIFT:
-            break;
-        case OF_KEY_RIGHT_CONTROL:
-            break;
+            
         case OF_KEY_RIGHT_ALT:
+            value = orgValue;
+            altKey = false;
             break;
-        case OF_KEY_RIGHT_SUPER: // mod
-            modKey = false;
+            
+            
+        
+        case OF_KEY_LEFT_CONTROL: // control
+            ctrKey = false;
             break;
-        case 115:  // s
-            if (modKey) { // mod + s = save file
+            
+        case false:
+            ctrKey = false;
+            break;
+            
+            
+        
+        case OF_KEY_LEFT_SHIFT: // shift
+            value = orgValue;
+            shiftKey = false;
+            break;
+            
+        case OF_KEY_RIGHT_SHIFT:
+            value = orgValue;
+            shiftKey = false;
+            break;
+            
+       
+        case OF_KEY_LEFT_SUPER:  // super
+            superKey = false;
+            break;
+            
+        case OF_KEY_RIGHT_SUPER:
+            superKey = false;
+            break;
+        
+            
+            
+        
+        case 115: // s  
+            if (superKey) { // mod + s = save file
                 cout << "saveXML " << endl;
                 saveXML(xmlFile);
             }
             break;
+            
+            
     }
 }

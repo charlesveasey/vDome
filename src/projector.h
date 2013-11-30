@@ -6,8 +6,8 @@ class Projector {
 	
 public:
     
-    void init();
-    void setup(int i);
+    void init(int i);
+    void setup();
     
     void loadXML(ofXml &xml);
     void saveXML(ofXml &xml);
@@ -34,6 +34,10 @@ public:
     
     int index;
     
+    bool keyboard;
+
+    string xmlPrefix;
+    
     float width;
     float height;
     
@@ -41,7 +45,9 @@ public:
     float elevation;
     float distance;
     
+    float pan;
     float tilt;
+    float roll;
     
     float fov;
     
