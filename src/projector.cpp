@@ -19,7 +19,7 @@ void Projector::init(int i){
     tilt = -16;
     pan = 0;
    
-    fov = 45;
+    fov = 33;
     
     lensOffsetX = 0;
     lensOffsetY = 0;
@@ -68,7 +68,7 @@ void Projector::setup() {
     // create render plane
     plane.set(width, height);
     plane.setPosition(width * index + width/2, height/2, 0);
-    //plane.setResolution(50, 50);
+    plane.setResolution(50, 50);
 }
 
 
@@ -99,8 +99,8 @@ void Projector::draw() {
     plane.mapTexCoordsFromTexture(fboTexture);
     plane.setPosition(width * index + width/2, height/2, 0);
     plane.draw();
-    
 }
+
 void Projector::drawWireframe() {
     plane.mapTexCoordsFromTexture(fboTexture);    
     plane.setPosition(width * index + width/2, height/2, 0);    

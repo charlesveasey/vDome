@@ -1,6 +1,8 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxQuadWarp.h"
+
 
 class Projector {
 	
@@ -23,7 +25,7 @@ public:
     
     void draw();
     void drawWireframe();
-    
+        
     ofVec3f sphToCar(ofVec3f t);
     
     ofCamera camera;

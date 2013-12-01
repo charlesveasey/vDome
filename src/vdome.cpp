@@ -38,7 +38,7 @@ void vdome::setup(){
     
     
     // projectors
-    pCount = 6;
+    pCount = 2;
     
     for(int i=0; i<pCount; i++) {
         Projector p;
@@ -55,6 +55,18 @@ void vdome::setup(){
     // xml settings
     xmlFile = "settings.xml";
     loadXML(xmlFile);
+    
+    int x = 0;
+    int y = 0;
+    int w =1024;
+    int h =768;
+    
+    warper.setSourceRect( ofRectangle( 0, 0, w, h ) );              // this is the source rectangle which is the size of the image and located at ( 0, 0 )
+    warper.setTopLeftCornerPosition( ofPoint( x, y ) );             // this is position of the quad warp corners, centering the image on the screen.
+    warper.setTopRightCornerPosition( ofPoint( x + w, y ) );        // this is position of the quad warp corners, centering the image on the screen.
+    warper.setBottomLeftCornerPosition( ofPoint( x, y + h ) );      // this is position of the quad warp corners, centering the image on the screen.
+    warper.setBottomRightCornerPosition( ofPoint( x + w, y + h ) ); // this is position of the quad warp corners, centering the image on the screen.
+    warper.setup();
 }
 
 
@@ -201,17 +213,32 @@ void vdome::draw(){
 	}
 
 	for(int i=0; i<pCount; i++) {
-		projectors[i].fboBind();        
+		projectors[i].fboBind();
 
 		shader.begin();
 		shader.setUniform1f("brightness", projectors[i].brightness);
 		shader.setUniform1f("contrast", projectors[i].contrast);
 		shader.setUniform1f("saturation", projectors[i].saturation);
 		shader.setUniformTexture("texsampler", projectors[i].fboTexture, 0);
+        
+        //======================== get our quad warp matrix.
+        
+        ofMatrix4x4 mat = warper.getMatrix();
+        
+        //======================== use the matrix to transform our fbo.
+        
+        projectors[i].plane.setTransformMatrix(mat.getPtr() );
         projectors[i].draw();
+        
+        //======================== use the matrix to transform points.
+        
+        
         shader.end();
 		
         projectors[i].fboUnbind();
+        
+        warper.draw();
+
 	}
 
 
