@@ -43,7 +43,7 @@ void Projector::setup() {
     camera.setScale(1,-1,1); // legacy oF oddity
     camera.setFov(fov);
     camera.setPosition(car);
-    camera.setNearClip(.01);
+    camera.setNearClip(5);
         
     camera.tilt(tilt);
     camera.pan(azimuth + pan);

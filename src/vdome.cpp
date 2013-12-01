@@ -38,7 +38,7 @@ void vdome::setup(){
     
     
     // projectors
-    pCount = 3;
+    pCount = 6;
     
     for(int i=0; i<pCount; i++) {
         Projector p;
@@ -214,12 +214,7 @@ void vdome::draw(){
         projectors[i].fboUnbind();
 	}
 
-    
-    
 
-    
-    
-    
 }
 
 
@@ -255,6 +250,10 @@ void vdome::saveXML(string file) {
     render.saveXML(xml);
     window.saveXML(xml);
     mesh.saveXML(xml);
+    
+    for(int i=0; i<pCount; i++) {
+		projectors[i].saveXML(xml);
+	}
     
     if (xml.save(file)) {
         saved = true;
@@ -347,7 +346,7 @@ void vdome::keyPressed(int key){
                     
                 case 1: // mesh radius
                     
-                    mesh.radius++;
+                    mesh.radius += value;
                     mesh.setup();
                     
                     break;
@@ -452,7 +451,7 @@ void vdome::keyPressed(int key){
                     
                 case 1: // mesh radius
                     
-                    mesh.radius--;
+                    mesh.radius -= value;
                     mesh.setup();
                     
                     break;
