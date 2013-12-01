@@ -3,7 +3,6 @@
 #include "ofMain.h"
 #include "ofxQuadWarp.h"
 
-
 class Projector {
 	
 public:
@@ -33,10 +32,12 @@ public:
     ofTexture fboTexture;
     ofRectangle view;
     ofPlanePrimitive plane;
+    ofxQuadWarp keystone;
     
     int index;
     
     bool keyboard;
+    bool mouse;
 
     string xmlPrefix;
     
@@ -56,6 +57,11 @@ public:
     float lensOffsetX;
     float lensOffsetY;
    
+    ofPoint topLeft;
+    ofPoint topRight;
+    ofPoint bottomLeft;
+    ofPoint bottomRight;
+    
     float brightness;
     float contrast;
     float saturation;

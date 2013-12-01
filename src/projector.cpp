@@ -6,6 +6,7 @@ void Projector::init(int i){
     index = i;
 
     keyboard = false;
+    mouse = false;
     xmlPrefix = "projectors/projector[";
     
     width = 1024;
@@ -24,9 +25,20 @@ void Projector::init(int i){
     lensOffsetX = 0;
     lensOffsetY = 0;
     
+    int w = width;
+    int h = height;
+    int x = width * index;
+    int y = 0;
+    
+    topLeft.set(x, y);
+    topRight.set(x + w, y);
+    bottomLeft.set(x, y + h);
+    bottomRight.set(x + w, y + h);
+
     brightness = 1;
     contrast = 1;
     saturation = 1;
+    
 }
 
 
@@ -69,6 +81,19 @@ void Projector::setup() {
     plane.set(width, height);
     plane.setPosition(width * index + width/2, height/2, 0);
     plane.setResolution(50, 50);
+    
+    int w = width;
+    int h = height;
+    int x = width * index;
+    int y = 0;
+    
+    keystone.setAnchorSize(width/2, height/2);
+    keystone.setSourceRect( ofRectangle( 0, 0, w, h ) );              // this is the source rectangle which is the size of the image and located at ( 0, 0 )
+    keystone.setTopLeftCornerPosition( ofPoint( topLeft.x, topLeft.y ) );             // this is position of the quad warp corners, centering the image on the screen.
+    keystone.setTopRightCornerPosition( ofPoint( topRight.x, topRight.y ) );        // this is position of the quad warp corners, centering the image on the screen.
+    keystone.setBottomLeftCornerPosition( ofPoint( bottomLeft.x, bottomRight.y ) );      // this is position of the quad warp corners, centering the image on the screen.
+    keystone.setBottomRightCornerPosition( ofPoint( bottomRight.x, bottomRight.y ) ); // this is position of the quad warp corners, centering the image on the screen.
+    keystone.setup();
 }
 
 
@@ -97,6 +122,10 @@ void Projector::fboUnbind() {
 
 void Projector::draw() {
     plane.mapTexCoordsFromTexture(fboTexture);
+    
+    ofMatrix4x4 mat = keystone.getMatrix();
+    plane.setTransformMatrix(mat.getPtr() );
+    
     plane.setPosition(width * index + width/2, height/2, 0);
     plane.draw();
 }
@@ -156,13 +185,41 @@ void Projector::loadXML(ofXml &xml) {
     if (xml.exists(pre + "][@width]"))
         width = ofToInt( xml.getAttribute(pre + "][@width]") );
     
+    
+    string str;
+    
+    if (xml.exists(pre + "][@topLeft]")) {
+        str = xml.getAttribute(pre + "][@topLeft]");
+        ofStringReplace(str, " ", "");
+        topLeft.set( ofToFloat( ofSplitString(str, ",")[0] ), ofToFloat( ofSplitString(str, ",")[1] ) );
+    }
+    
+    if (xml.exists(pre + "][@topRight]")) {
+        str = xml.getAttribute(pre + "][@topRight]");
+        ofStringReplace(str, " ", "");
+        topRight.set( ofToFloat( ofSplitString(str, ",")[0] ), ofToFloat( ofSplitString(str, ",")[1] ) );
+    }
+    
+    if (xml.exists(pre + "][@bottomLeft]")) {
+        str = xml.getAttribute(pre + "][@bottomLeft]");
+        ofStringReplace(str, " ", "");
+        bottomLeft.set( ofToFloat( ofSplitString(str, ",")[0] ), ofToFloat( ofSplitString(str, ",")[1] ) );
+    }
+    
+    if (xml.exists(pre + "][@bottomRight]")) {
+        str = xml.getAttribute(pre + "][@bottomRight]");
+        ofStringReplace(str, " ", "");
+        bottomRight.set( ofToFloat( ofSplitString(str, ",")[0] ), ofToFloat( ofSplitString(str, ",")[1] ) );
+    }
+    
+    
     setup();
 }
 
 
 void Projector::saveXML(ofXml &xml) {
     string pre = xmlPrefix + ofToString(index);
-    
+        
     xml.setAttribute(pre + "][@azimuth]", ofToString(azimuth));
     xml.setAttribute(pre + "][@brightness]", ofToString(brightness));
     xml.setAttribute(pre + "][@contrast]", ofToString(contrast));
@@ -177,4 +234,10 @@ void Projector::saveXML(ofXml &xml) {
     xml.setAttribute(pre + "][@tilt]", ofToString(tilt));
     xml.setAttribute(pre + "][@pan]", ofToString(pan));
     xml.setAttribute(pre + "][@width]", ofToString(width));
+    xml.setAttribute(pre + "][@topLeft]", ofToString(keystone.dstPoints[0].x) + "," + ofToString(keystone.dstPoints[0].y) );
+    xml.setAttribute(pre + "][@topRight]", ofToString(keystone.dstPoints[1].x) + "," + ofToString(keystone.dstPoints[1].y) );
+    xml.setAttribute(pre + "][@bottomLeft]", ofToString(keystone.dstPoints[3].x) + "," + ofToString(keystone.dstPoints[3].y) );
+    xml.setAttribute(pre + "][@bottomRight]", ofToString(keystone.dstPoints[2].x) + "," + ofToString(keystone.dstPoints[2].y) );
+
+
 }

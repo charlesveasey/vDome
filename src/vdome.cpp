@@ -61,12 +61,7 @@ void vdome::setup(){
     int w =1024;
     int h =768;
     
-    warper.setSourceRect( ofRectangle( 0, 0, w, h ) );              // this is the source rectangle which is the size of the image and located at ( 0, 0 )
-    warper.setTopLeftCornerPosition( ofPoint( x, y ) );             // this is position of the quad warp corners, centering the image on the screen.
-    warper.setTopRightCornerPosition( ofPoint( x + w, y ) );        // this is position of the quad warp corners, centering the image on the screen.
-    warper.setBottomLeftCornerPosition( ofPoint( x, y + h ) );      // this is position of the quad warp corners, centering the image on the screen.
-    warper.setBottomRightCornerPosition( ofPoint( x + w, y + h ) ); // this is position of the quad warp corners, centering the image on the screen.
-    warper.setup();
+
 }
 
 
@@ -93,6 +88,10 @@ bool saved = false;
 void vdome::draw(){
     
     for(int i=0; i<pCount; i++) {
+        
+        if (projectors[i].mouse) {
+            projectors[i].keystone.draw();
+        }
         
         // debug positions
         int px = projectors[i].plane.getX() - 150;
@@ -220,24 +219,14 @@ void vdome::draw(){
 		shader.setUniform1f("contrast", projectors[i].contrast);
 		shader.setUniform1f("saturation", projectors[i].saturation);
 		shader.setUniformTexture("texsampler", projectors[i].fboTexture, 0);
-        
-        //======================== get our quad warp matrix.
-        
-        ofMatrix4x4 mat = warper.getMatrix();
-        
-        //======================== use the matrix to transform our fbo.
-        
-        projectors[i].plane.setTransformMatrix(mat.getPtr() );
+
         projectors[i].draw();
-        
-        //======================== use the matrix to transform points.
-        
+                
         
         shader.end();
 		
         projectors[i].fboUnbind();
         
-        warper.draw();
 
 	}
 
@@ -288,10 +277,20 @@ void vdome::saveXML(string file) {
 }
 
 
-
-
-
-
+void vdome::mousePressed(ofMouseEventArgs& mouseArgs) {
+    for (int i=0; i<pCount; i++) {
+        if (projectors[i].mouse) {
+            projectors[i].keystone.onMousePressed(mouseArgs);
+        }
+    }    
+}
+void vdome::mouseDragged(ofMouseEventArgs& mouseArgs) {
+    for (int i=0; i<pCount; i++) {
+        if (projectors[i].mouse) {
+            projectors[i].keystone.onMouseDragged(mouseArgs);
+        }
+    }
+}
 
 // KEYBOARD EVENTS
 
@@ -330,18 +329,20 @@ void vdome::keyPressed(int key){
             return;
         }
         
+        active = key-49;
+
         // shift groups, otherwise reset
         if (!shiftKey) {
             for (int i=0; i<pCount; i++) {
                 projectors[i].keyboard = false;
-                active = key-49;
+                projectors[i].mouse = false;
             }
             projectors[active].keyboard = true;
+            projectors[active].mouse = true;
         }
         else {
-            active = key-49;
             projectors[active].keyboard = !(projectors[active].keyboard);
-            
+            projectors[active].mouse = !(projectors[active].mouse);
         }
 
         

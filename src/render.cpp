@@ -11,6 +11,7 @@ void Render::setup() {
 	ofSetFrameRate(frameRate);
     
 	ofEnableDepthTest();
+    //ofEnableAlphaBlending();
 	//ofDisableArbTex();
     ofBackground(0,0,0);
 	

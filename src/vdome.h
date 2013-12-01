@@ -6,7 +6,6 @@
 #include "mesh.h"
 #include "projector.h"
 #include "tcp.h"
-#include "ofxQuadWarp.h"
 
 class vdome : public ofBaseApp {
 	
@@ -15,14 +14,13 @@ public:
     void setup();
     void update();
     void draw();
+    void mousePressed(ofMouseEventArgs& mouseArgs);
+    void mouseDragged(ofMouseEventArgs& mouseArgs);
     void keyPressed(int key);
     void keyReleased(int key);
     
     ofVec3f sphToCar(ofVec3f t);
-    
-    ofxQuadWarp         warper;
-
-    
+        
     Tcp tcp;
     
     // xml
