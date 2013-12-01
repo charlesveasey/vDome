@@ -294,11 +294,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "src/projector.cpp"
-         timestampString = "407625334.680472"
+         timestampString = "407628991.779839"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "67"
-         endingLineNumber = "67"
+         startingLineNumber = "62"
+         endingLineNumber = "62"
          landmarkName = "Projector::setup()"
          landmarkType = "5">
       </FileBreakpoint>
@@ -411,11 +411,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "src/projector.cpp"
-         timestampString = "407625334.680472"
+         timestampString = "407628512.598257"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "160"
-         endingLineNumber = "160"
+         startingLineNumber = "165"
+         endingLineNumber = "165"
          landmarkName = "Projector::loadXML(ofXml &amp;xml)"
          landmarkType = "5">
       </FileBreakpoint>

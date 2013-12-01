@@ -103,7 +103,7 @@ void vdome::draw(){
         // debug background square
         ofFill();
         ofSetHexColor(0x000000);
-        ofRect(px, py, 300, 300);
+        ofRect(px, py, 1, 300, 300);
         
         // debug text
         if (saved) {

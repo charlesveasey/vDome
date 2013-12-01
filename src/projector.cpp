@@ -25,15 +25,10 @@ void Projector::init(int i){
     lensOffsetX = 0;
     lensOffsetY = 0;
     
-    int w = width;
-    int h = height;
-    int x = width * index;
-    int y = 0;
-    
-    topLeft.set(x, y);
-    topRight.set(x + w, y);
-    bottomLeft.set(x, y + h);
-    bottomRight.set(x + w, y + h);
+    topLeft.set(0, 0);
+    topRight.set(1, 0);
+    bottomLeft.set(0, 1);
+    bottomRight.set(1, 1);
 
     brightness = 1;
     contrast = 1;
@@ -86,13 +81,18 @@ void Projector::setup() {
     int h = height;
     int x = width * index;
     int y = 0;
+
+    ofPoint tl(topLeft.x * width + x, topLeft.y * height + y);
+    ofPoint tr(topRight.x * width + x, topRight.y * height + y);
+    ofPoint bl(bottomLeft.x * width + x, bottomLeft.y * height + y);
+    ofPoint br(bottomRight.x * width + x, bottomRight.y * height + y);
     
     keystone.setAnchorSize(width/2, height/2);
-    keystone.setSourceRect( ofRectangle( 0, 0, w, h ) );              // this is the source rectangle which is the size of the image and located at ( 0, 0 )
-    keystone.setTopLeftCornerPosition( ofPoint( topLeft.x, topLeft.y ) );             // this is position of the quad warp corners, centering the image on the screen.
-    keystone.setTopRightCornerPosition( ofPoint( topRight.x, topRight.y ) );        // this is position of the quad warp corners, centering the image on the screen.
-    keystone.setBottomLeftCornerPosition( ofPoint( bottomLeft.x, bottomRight.y ) );      // this is position of the quad warp corners, centering the image on the screen.
-    keystone.setBottomRightCornerPosition( ofPoint( bottomRight.x, bottomRight.y ) ); // this is position of the quad warp corners, centering the image on the screen.
+    keystone.setSourceRect( ofRectangle( 0, 0, width, height ) );              // this is the source rectangle which is the size of the image and located at ( 0, 0 )
+    keystone.setTopLeftCornerPosition( tl );             // this is position of the quad warp corners, centering the image on the screen.
+    keystone.setTopRightCornerPosition( tr );        // this is position of the quad warp corners, centering the image on the screen.
+    keystone.setBottomLeftCornerPosition( bl );      // this is position of the quad warp corners, centering the image on the screen.
+    keystone.setBottomRightCornerPosition( br ); // this is position of the quad warp corners, centering the image on the screen.
     keystone.setup();
 }
 
@@ -127,7 +127,12 @@ void Projector::draw() {
     plane.setTransformMatrix(mat.getPtr() );
     
     plane.setPosition(width * index + width/2, height/2, 0);
+    
+    glEnable(GL_CULL_FACE);
+    glCullFace( GL_BACK );
     plane.draw();
+    glDisable(GL_CULL_FACE);
+
 }
 
 void Projector::drawWireframe() {
@@ -211,7 +216,7 @@ void Projector::loadXML(ofXml &xml) {
         ofStringReplace(str, " ", "");
         bottomRight.set( ofToFloat( ofSplitString(str, ",")[0] ), ofToFloat( ofSplitString(str, ",")[1] ) );
     }
-    
+   
     
     setup();
 }
@@ -219,7 +224,10 @@ void Projector::loadXML(ofXml &xml) {
 
 void Projector::saveXML(ofXml &xml) {
     string pre = xmlPrefix + ofToString(index);
-        
+    
+    int x = width * index;
+    int y = 0;
+    
     xml.setAttribute(pre + "][@azimuth]", ofToString(azimuth));
     xml.setAttribute(pre + "][@brightness]", ofToString(brightness));
     xml.setAttribute(pre + "][@contrast]", ofToString(contrast));
@@ -234,10 +242,10 @@ void Projector::saveXML(ofXml &xml) {
     xml.setAttribute(pre + "][@tilt]", ofToString(tilt));
     xml.setAttribute(pre + "][@pan]", ofToString(pan));
     xml.setAttribute(pre + "][@width]", ofToString(width));
-    xml.setAttribute(pre + "][@topLeft]", ofToString(keystone.dstPoints[0].x) + "," + ofToString(keystone.dstPoints[0].y) );
-    xml.setAttribute(pre + "][@topRight]", ofToString(keystone.dstPoints[1].x) + "," + ofToString(keystone.dstPoints[1].y) );
-    xml.setAttribute(pre + "][@bottomLeft]", ofToString(keystone.dstPoints[3].x) + "," + ofToString(keystone.dstPoints[3].y) );
-    xml.setAttribute(pre + "][@bottomRight]", ofToString(keystone.dstPoints[2].x) + "," + ofToString(keystone.dstPoints[2].y) );
+    xml.setAttribute(pre + "][@topLeft]", ofToString( (keystone.dstPoints[0].x) / width) + "," + ofToString( (keystone.dstPoints[0].y) / height) );
+    xml.setAttribute(pre + "][@topRight]", ofToString( (keystone.dstPoints[1].x) / width) + "," + ofToString( (keystone.dstPoints[1].y) / height) );
+    xml.setAttribute(pre + "][@bottomLeft]", ofToString( (keystone.dstPoints[3].x) / width) + "," + ofToString( (keystone.dstPoints[3].y) / height) );
+    xml.setAttribute(pre + "][@bottomRight]", ofToString( (keystone.dstPoints[2].x) / width) + "," + ofToString( (keystone.dstPoints[2].y) / height) );
 
 
 }
