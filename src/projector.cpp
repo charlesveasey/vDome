@@ -242,10 +242,10 @@ void Projector::saveXML(ofXml &xml) {
     xml.setAttribute(pre + "][@tilt]", ofToString(tilt));
     xml.setAttribute(pre + "][@pan]", ofToString(pan));
     xml.setAttribute(pre + "][@width]", ofToString(width));
-    xml.setAttribute(pre + "][@topLeft]", ofToString( (keystone.dstPoints[0].x) / width) + "," + ofToString( (keystone.dstPoints[0].y) / height) );
-    xml.setAttribute(pre + "][@topRight]", ofToString( (keystone.dstPoints[1].x) / width) + "," + ofToString( (keystone.dstPoints[1].y) / height) );
-    xml.setAttribute(pre + "][@bottomLeft]", ofToString( (keystone.dstPoints[3].x) / width) + "," + ofToString( (keystone.dstPoints[3].y) / height) );
-    xml.setAttribute(pre + "][@bottomRight]", ofToString( (keystone.dstPoints[2].x) / width) + "," + ofToString( (keystone.dstPoints[2].y) / height) );
+    xml.setAttribute(pre + "][@topLeft]", ofToString( ((keystone.dstPoints[0].x) - x) / width) + "," + ofToString( (keystone.dstPoints[0].y) / height) );
+    xml.setAttribute(pre + "][@topRight]", ofToString( ((keystone.dstPoints[1].x) - x) / width) + "," + ofToString( (keystone.dstPoints[1].y) / height) );
+    xml.setAttribute(pre + "][@bottomLeft]", ofToString( ((keystone.dstPoints[3].x) - x) / width) + "," + ofToString( (keystone.dstPoints[3].y) / height) );
+    xml.setAttribute(pre + "][@bottomRight]", ofToString( ((keystone.dstPoints[2].x) - x) / width) + "," + ofToString( (keystone.dstPoints[2].y) / height) );
 
 
 }
