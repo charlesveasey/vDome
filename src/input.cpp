@@ -6,7 +6,9 @@ void Input::init(){
 void Input::setup(){
 
     texture.clear();
-	texture.allocate(render.domeMaster, render.domeMaster, OF_IMAGE_COLOR);
+    
+    if (texture.getWidth() != render.domeMaster || texture.getHeight() != render.domeMaster)
+        texture.allocate(render.domeMaster, render.domeMaster, OF_IMAGE_COLOR);
     
     stop();
     close();
