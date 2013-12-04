@@ -332,7 +332,7 @@ void vdome::keyPressed(int key){
         active = key-49;
 
         // shift groups, otherwise reset
-        if (!shiftKey) {
+        if (!shKey) {
             for (int i=0; i<pCount; i++) {
                 projectors[i].keyboard = false;
                 projectors[i].mouse = false;

@@ -12,3 +12,14 @@
 # Folders
 obj/
 bin/
+*.xcuserstate
+
+*.xcuserstate
+
+*.plist
+
+*.xcuserstate
+
+vdome.xcodeproj/project.xcworkspace/xcuserdata/Charles.xcuserdatad/UserInterfaceState.xcuserstate
+
+*.xcuserstate
