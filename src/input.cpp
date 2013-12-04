@@ -26,13 +26,17 @@ void Input::setup(){
             texture = capture.getTextureReference();
             break;
         case 3: // hap video
-            hap.loadMovie("hap.mov", OF_QTKIT_DECODE_TEXTURE_ONLY);
-            hap.play();
+			#ifdef TARGET_OSX
+				hap.loadMovie("hap.mov", OF_QTKIT_DECODE_TEXTURE_ONLY);
+				hap.play();
+			#endif
             break;
         case 4: // syphon
-           syphon.setup();
-           syphon.setApplicationName("Simple Server");
-           syphon.setServerName("");
+			#ifdef TARGET_OSX
+				syphon.setup();
+				syphon.setApplicationName("Simple Server");
+				syphon.setServerName("");
+			#endif
             break;
         default:
             // load default image
@@ -45,51 +49,58 @@ void Input::setup(){
 
 void Input::stop() {
     video.stop();
-   // hap.stop();
+	#ifdef TARGET_OSX
+		hap.stop();
+	#endif
 }
 
 void Input::close() {
     image.clear();
-    
     video.stop();
     video.close();
-    
-  //  hap.stop();
-  //  hap.close();
-    
     capture.close();
+    #ifdef TARGET_OSX
+		hap.stop();
+		hap.close();
+    #endif
 }
 
 
 
 
 void Input::bind(){
-   // if (mode == 3)
-   //     hap.getTexture()->bind();
-   // else if (mode == 4)
-   //     syphon.bind();
-   // else
-        texture.bind();
+	#ifdef TARGET_OSX
+		if (mode == 3)
+			hap.getTexture()->bind();
+		else if (mode == 4)
+			syphon.bind();
+    #endif
+	if (mode != 3 && mode != 4) {
+		texture.bind();
+	}
 }
 
 void Input::unbind(){
-    //if (mode == 3)
-    //    hap.getTexture()->unbind();
-    //else if (mode == 4)
-    //    syphon.unbind();
-    //else
-        texture.unbind();
+	#ifdef TARGET_OSX
+		if (mode == 3)
+			hap.getTexture()->unbind();
+		else if (mode == 4)
+			syphon.unbind();
+    #endif
+	if (mode != 3 && mode != 4) {
+		texture.unbind();
+	}
 }
 
 void Input::update(){
-    
     if (mode == 1)
         video.update();
-    //else if (mode == 3)
-    //    hap.update();
-    else if (mode == 2)
+	else if (mode == 2)
         capture.update();
-    
+	#ifdef TARGET_OSX
+		if (mode == 3)
+		    hap.update();
+    #endif
 }
 
 
