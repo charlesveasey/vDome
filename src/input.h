@@ -30,9 +30,12 @@ public:
     
     ofImage image;
     ofVideoPlayer video;
-	//ofxHapPlayer hap;
-	//ofxSyphonClient syphon;
     ofVideoGrabber capture;
+    
+    #ifdef TARGET_OSX
+        ofxHapPlayer hap;
+        ofxSyphonClient syphon;
+    #endif
     
 };
 

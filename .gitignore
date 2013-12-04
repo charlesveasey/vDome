@@ -23,3 +23,7 @@ bin/
 vdome.xcodeproj/project.xcworkspace/xcuserdata/Charles.xcuserdatad/UserInterfaceState.xcuserstate
 
 *.xcuserstate
+
+*.xcbkptlist
+
+*.xcbkptlist

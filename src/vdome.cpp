@@ -22,9 +22,9 @@ void vdome::setup(){
     // input
     // 0 = image
     // 1 = video
-    // 2 = hap
-    // 3 = syphon
-    // 4 = capture
+    // 2 = capture
+    // 3 = hap
+    // 4 = syphon
     
     input.mode = 0;
     input.render = render;    
