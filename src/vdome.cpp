@@ -294,7 +294,7 @@ void vdome::mouseDragged(ofMouseEventArgs& mouseArgs) {
 
 // KEYBOARD EVENTS
 
-bool shiftKey = false;
+bool shKey = false;
 bool altKey = false;
 bool ctrKey = false;
 bool superKey = false;
@@ -718,12 +718,12 @@ void vdome::keyPressed(int key){
         
         case OF_KEY_LEFT_SHIFT: // shift
             value = shiftValue;
-            shiftKey = true;
+            shKey = true;
             break;
             
         case OF_KEY_RIGHT_SHIFT:
             value = shiftValue;
-            shiftKey = true;
+            shKey = true;
             break;
             
         
@@ -775,12 +775,12 @@ void vdome::keyReleased(int key){
         
         case OF_KEY_LEFT_SHIFT: // shift
             value = orgValue;
-            shiftKey = false;
+            shKey = false;
             break;
             
         case OF_KEY_RIGHT_SHIFT:
             value = orgValue;
-            shiftKey = false;
+            shKey = false;
             break;
             
        

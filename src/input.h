@@ -1,6 +1,9 @@
 #include "ofMain.h"
-#include "ofxSyphon.h"
-#include "ofxHapPlayer.h"
+#ifdef TARGET_OSX
+	#include "ofxSyphon.h"
+	#include "ofxHapPlayer.h"
+#endif
+
 #include "render.h"
 
 class Input {
@@ -27,8 +30,8 @@ public:
     
     ofImage image;
     ofVideoPlayer video;
-    ofxHapPlayer hap;
-    ofxSyphonClient syphon;
+	//ofxHapPlayer hap;
+	//ofxSyphonClient syphon;
     ofVideoGrabber capture;
     
 };

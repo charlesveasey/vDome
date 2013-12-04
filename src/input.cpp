@@ -20,13 +20,13 @@ void Input::setup(){
             video.play();
             break;
         case 2: // hap video
-            hap.loadMovie("hap.mov", OF_QTKIT_DECODE_TEXTURE_ONLY);
-            hap.play();
+           // hap.loadMovie("hap.mov", OF_QTKIT_DECODE_TEXTURE_ONLY);
+           // hap.play();
             break;
         case 3: // syphon
-            syphon.setup();
-            syphon.setApplicationName("Simple Server");
-            syphon.setServerName("");
+           // syphon.setup();
+           // syphon.setApplicationName("Simple Server");
+           // syphon.setServerName("");
             break;
         case 4: // capture
             capture.setDeviceID(0);
@@ -45,7 +45,7 @@ void Input::setup(){
 
 void Input::stop() {
     video.stop();
-    hap.stop();
+   // hap.stop();
 }
 
 void Input::close() {
@@ -54,8 +54,8 @@ void Input::close() {
     video.stop();
     video.close();
     
-    hap.stop();
-    hap.close();
+  //  hap.stop();
+  //  hap.close();
     
     capture.close();
 }
@@ -64,20 +64,20 @@ void Input::close() {
 
 
 void Input::bind(){
-    if (mode == 2)
-        hap.getTexture()->bind();
-    else if (mode == 3)
-        syphon.bind();
-    else
+   // if (mode == 2)
+   //     hap.getTexture()->bind();
+   // else if (mode == 3)
+   //     syphon.bind();
+   // else
         texture.bind();
 }
 
 void Input::unbind(){
-    if (mode == 2)
-        hap.getTexture()->unbind();
-    else if (mode == 3)
-        syphon.unbind();
-    else
+    //if (mode == 2)
+    //    hap.getTexture()->unbind();
+    //else if (mode == 3)
+    //    syphon.unbind();
+    //else
         texture.unbind();
 }
 
@@ -85,8 +85,8 @@ void Input::update(){
     
     if (mode == 1)
         video.update();
-    else if (mode == 2)
-        hap.update();
+    //else if (mode == 2)
+    //    hap.update();
     else if (mode == 4)
         capture.update();
     
