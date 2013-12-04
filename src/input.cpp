@@ -34,8 +34,8 @@ void Input::setup(){
         case 4: // syphon
 			#ifdef TARGET_OSX
 				syphon.setup();
-				syphon.setApplicationName("Simple Server");
-				syphon.setServerName("");
+				syphon.setApplicationName("vDome");
+				syphon.setServerName("capture");
 			#endif
             break;
         default:
@@ -118,5 +118,13 @@ void Input::loadXML(ofXml &xml) {
 
 
 void Input::saveXML(ofXml &xml) {
-    xml.setAttribute("input[@mode]", ofToString(mode) );
+    string str;
+    
+    if (mode == 0)        str = "image";
+    else if (mode == 1)   str = "video";
+    else if (mode == 2)   str = "capture";
+    else if (mode == 3)   str = "hap";
+    else if (mode == 4)   str = "capture";
+    
+    xml.setAttribute("input[@mode]", str );
 }
