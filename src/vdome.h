@@ -14,6 +14,7 @@ public:
     void setup();
     void update();
     void draw();
+    void drawConfig();
     void mousePressed(ofMouseEventArgs& mouseArgs);
     void mouseDragged(ofMouseEventArgs& mouseArgs);
     void keyPressed(int key);
@@ -51,6 +52,9 @@ public:
     // projectors
     int pCount;
     vector<Projector> projectors;
+    
+    
+    bool config;
     
 };
 	
