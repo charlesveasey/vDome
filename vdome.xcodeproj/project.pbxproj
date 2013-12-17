@@ -26,6 +26,7 @@
 		5658609018484E8D0022C0A8 /* ofxTCPServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5658608A18484E8D0022C0A8 /* ofxTCPServer.cpp */; };
 		5658609118484E8D0022C0A8 /* ofxUDPManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5658608C18484E8D0022C0A8 /* ofxUDPManager.cpp */; };
 		565914091848514C000864E5 /* tcp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 565914071848514C000864E5 /* tcp.cpp */; };
+		566A6D5A1860363E008EE87B /* logo.icns in Resources */ = {isa = PBXBuildFile; fileRef = 566A6D58186035B1008EE87B /* logo.icns */; };
 		566E94B218432B2700E34861 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 566E94AB18432B2700E34861 /* tinyxml.cpp */; };
 		566E94B318432B2700E34861 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 566E94AD18432B2700E34861 /* tinyxmlerror.cpp */; };
 		566E94B418432B2700E34861 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 566E94AE18432B2700E34861 /* tinyxmlparser.cpp */; };
@@ -138,6 +139,7 @@
 		5658608D18484E8D0022C0A8 /* ofxUDPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxUDPManager.h; sourceTree = "<group>"; };
 		565914071848514C000864E5 /* tcp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tcp.cpp; sourceTree = "<group>"; };
 		565914081848514C000864E5 /* tcp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tcp.h; sourceTree = "<group>"; };
+		566A6D58186035B1008EE87B /* logo.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = logo.icns; sourceTree = "<group>"; };
 		566E94AB18432B2700E34861 /* tinyxml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxml.cpp; sourceTree = "<group>"; };
 		566E94AC18432B2700E34861 /* tinyxml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinyxml.h; sourceTree = "<group>"; };
 		566E94AD18432B2700E34861 /* tinyxmlerror.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlerror.cpp; sourceTree = "<group>"; };
@@ -848,6 +850,7 @@
 		E4B69B4A0A3A1720003C02F2 = {
 			isa = PBXGroup;
 			children = (
+				566A6D58186035B1008EE87B /* logo.icns */,
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				E4EB6923138AFD0F00A09F29 /* Project.xcconfig */,
 				E4B69E1C0A3A1BDC003C02F2 /* src */,
@@ -902,6 +905,7 @@
 				E4B69B590A3A1756003C02F2 /* Frameworks */,
 				E4B6FFFD0C3F9AB9008CF71C /* ShellScript */,
 				E4C2427710CC5ABF004149E2 /* CopyFiles */,
+				566A6D5918603625008EE87B /* Resources */,
 			);
 			buildRules = (
 			);
@@ -956,6 +960,17 @@
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		566A6D5918603625008EE87B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				566A6D5A1860363E008EE87B /* logo.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		E4B6FFFD0C3F9AB9008CF71C /* ShellScript */ = {
