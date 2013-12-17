@@ -205,7 +205,8 @@ void Projector::loadXML(ofXml &xml) {
         pan = ofToFloat( xml.getAttribute(pre + "][@pan]") );
     if (xml.exists(pre + "][@width]"))
         width = ofToInt( xml.getAttribute(pre + "][@width]") );
-    
+    if (xml.exists(pre + "][@scale]"))
+        width = ofToInt( xml.getAttribute(pre + "][@scale]") );
     
     string str;
     
@@ -258,6 +259,8 @@ void Projector::saveXML(ofXml &xml) {
     xml.setAttribute(pre + "][@tilt]", ofToString(tilt));
     xml.setAttribute(pre + "][@pan]", ofToString(pan));
     xml.setAttribute(pre + "][@width]", ofToString(width));
+    xml.setAttribute(pre + "][@scale]", ofToString(scale));
+
     xml.setAttribute(pre + "][@topLeft]", ofToString( ((keystone.dstPoints[0].x) - x) / width) + "," + ofToString( (keystone.dstPoints[0].y) / height) );
     xml.setAttribute(pre + "][@topRight]", ofToString( ((keystone.dstPoints[1].x) - x) / width) + "," + ofToString( (keystone.dstPoints[1].y) / height) );
     xml.setAttribute(pre + "][@bottomLeft]", ofToString( ((keystone.dstPoints[3].x) - x) / width) + "," + ofToString( (keystone.dstPoints[3].y) / height) );
