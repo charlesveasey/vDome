@@ -17,6 +17,7 @@ public:
     void drawConfig();
     void mousePressed(ofMouseEventArgs& mouseArgs);
     void mouseDragged(ofMouseEventArgs& mouseArgs);
+    void mouseReleased(ofMouseEventArgs& mouseArgs);
     void keyPressed(int key);
     void keyReleased(int key);
     
@@ -54,6 +55,7 @@ public:
     vector<Projector> projectors;
     
     
+    int active;
     bool config;
     
 };

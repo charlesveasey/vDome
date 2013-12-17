@@ -59,7 +59,8 @@ void vdome::setup(){
     
     // default show config overlay
     config = false;
-
+    active = 1;
+    
 }
 
 
@@ -85,6 +86,7 @@ bool saved = false;
 
 void vdome::draw(){
     
+    
     if (config) {
         drawConfig();
     }
@@ -92,6 +94,7 @@ void vdome::draw(){
     ofSetHexColor(0xFFFFFF);
     
 	for(int i=0; i<pCount; i++){
+        
         
         projectors[i].fboBegin();
         
@@ -109,133 +112,140 @@ void vdome::draw(){
 		projectors[i].fboBind();
 
 		shader.begin();
+        shader.setUniform1f("scale", projectors[i].scale);
 		shader.setUniform1f("brightness", projectors[i].brightness);
 		shader.setUniform1f("contrast", projectors[i].contrast);
 		shader.setUniform1f("saturation", projectors[i].saturation);
 		shader.setUniformTexture("texsampler", projectors[i].fboTexture, 0);
 
         projectors[i].draw();
-                
-        
         shader.end();
 		
         projectors[i].fboUnbind();
-        
-
 	}
-
-
 }
 
 
 
 void vdome::drawConfig() {
- 
     
     for(int i=0; i<pCount; i++) {
         
-    
-    if (projectors[i].mouse) {
-        projectors[i].keystone.draw();
-    }
-    
-    // debug positions
-    int px = projectors[i].plane.getX() - 150;
-    int py = projectors[i].plane.getY() - 150;
-    
-    int padx = 25;
-    int pady = 25;
-    
-    // debug background square
-    ofFill();
-    ofSetHexColor(0x000000);
-    ofRect(px, py, 1, 300, 300);
-    
-    // debug text
-    if (saved) {
-        ofSetHexColor(0xFFFFFF);
-        ofDrawBitmapString("SAVED", px+padx*6, py+pady*2);
-        frameCnt++;
-        if (frameCnt == 120) {
-            saved = false;
-            frameCnt = 0;
-        }
-    }
-    
-    ofSetHexColor(0xFFFFFF);
-    ofDrawBitmapString("Projector # " + ofToString(i+1), px+padx, py+pady*2);    
-    ofDrawBitmapString("FPS: "+ofToString(ofGetFrameRate(), 2), px+padx, py+pady*3);
-    
-    
-    // 1 = mesh radius
-    // 2 = azimuth, elevation, distance
-    // 3 = pan, tilt, roll
-    // 4 = lensOffsetX, lensOffsetY
-    // 5 = fov
-    // 6 = brightness
-    // 7 = contrast
-    // 8 = saturation
-    if (projectors[i].keyboard || editMode == 1) {
-        ofSetHexColor(0xFFFFFF);
+        projectors[i].grid.drawConfig();
         
-        string title;
-        string str;
-        
-        switch (editMode) {
-            case 1:
-                title = "Dome";
-                str = "Radius: " + ofToString(mesh.radius);
-                break;
-                
-            case 2:
-                title = "Projector Position";
-                str =   "Azimuth: "+ ofToString(projectors[i].azimuth) + "\n" +
-                "Elevation: "+ ofToString(projectors[i].elevation) + "\n" +
-                "Distance: "+ ofToString(projectors[i].distance);
-                break;
-                
-            case 3:
-                title = "Projector Orientation";
-                str =   "Roll "+ ofToString(projectors[i].roll) + "\n" +
-                "Tilt "+ ofToString(projectors[i].tilt) + "\n" +
-                "Pan "+ ofToString(projectors[i].pan);
-                break;
-                
-            case 4:
-                title = "Projector Lens";
-                str =   "Offset X: "+ ofToString(projectors[i].lensOffsetX) + "\n" +
-                "Offset Y "+ ofToString(projectors[i].lensOffsetY);
-                break;
-                
-            case 5:
-                title = "Projector Lens";
-                str =   "Field of View: "+ ofToString(projectors[i].fov);
-                break;
-                
-            case 6:
-                title = "Projector Color";
-                str =   "Brightness: "+ ofToString(projectors[i].brightness);
-                break;
-                
-            case 7:
-                title = "Projector Color";
-                str =   "Contrast: "+ ofToString(projectors[i].contrast);
-                break;
-                
-            case 8:
-                title = "Projector Color";
-                str =   "Saturation: "+ ofToString(projectors[i].saturation);
-                break;
+        if (projectors[i].mouse) {
+            projectors[i].keystone.draw();
         }
         
-        ofDrawBitmapString("Edit #"+ ofToString(editMode), px+padx, py+pady*5);
-        ofDrawBitmapString(ofToUpper(title), px+padx, py+pady*6);
-        ofDrawBitmapString(str, px+padx, py+pady*7);
-    }
+        // debug positions
+        int px = projectors[i].plane.getX() - 250/2;
+        int py = projectors[i].plane.getY() - 250/2;
+        
+        int padx = 25;
+        int pady = 25;
+        
+        // debug background square
+        ofFill();
+        
+        ofSetHexColor(0x000000);
+        ofRect(px, py, 1, 250, 250);
+        
+        // debug text
+        if (saved) {
+            ofSetHexColor(0xFFFFFF);
+            ofDrawBitmapString("SAVED", px+padx*6, py+pady*2);
+            frameCnt++;
+            if (frameCnt == 120) {
+                saved = false;
+                frameCnt = 0;
+            }
+        }
     
-    tcp.x = px+padx;
-    tcp.y = py+pady*10;
-    tcp.draw();
+        ofSetHexColor(0xFFFFFF);
+        ofDrawBitmapString("Projector #" + ofToString(i+1), px+padx, py+pady*2);    
+        ofDrawBitmapString("FPS: "+ofToString(ofGetFrameRate(), 2), px+padx, py+pady*3);
+        
+        
+        // 1 = mesh radius
+        // 2 = azimuth, elevation, distance
+        // 3 = pan, tilt, roll
+        // 4 = lensOffsetX, lensOffsetY
+        // 5 = fov
+        // 6 = brightness
+        // 7 = contrast
+        // 8 = saturation
+       
+        if (1) {
+            ofSetHexColor(0xFFFFFF);
+            
+            string title;
+            string str;
+            
+            switch (editMode) {
+                case 1:
+                    title = "Dome";
+                    str = "Radius: " + ofToString(mesh.radius);
+                    break;
+                    
+                case 2:
+                    title = "Projector Position";
+                    str =   "Azimuth: "+ ofToString(projectors[i].azimuth) + "\n" +
+                    "Elevation: "+ ofToString(projectors[i].elevation) + "\n" +
+                    "Distance: "+ ofToString(projectors[i].distance);
+                    break;
+                    
+                case 3:
+                    title = "Projector Orientation";
+                    str =   "Roll: "+ ofToString(projectors[i].roll) + "\n" +
+                            "Tilt: "+ ofToString(projectors[i].tilt) + "\n" +
+                            "Pan: "+ ofToString(projectors[i].pan);
+                    break;
+                    
+                case 4:
+                    title = "Projector Lens";
+                    str =   "Offset X: "+ ofToString(projectors[i].lensOffsetX) + "\n" +
+                            "Offset Y: "+ ofToString(projectors[i].lensOffsetY);
+                    break;
+                    
+                case 5:
+                    title = "Projector Lens";
+                    str =   "Field of View: "+ ofToString(projectors[i].fov);
+                    break;
+                    
+                case 6:
+                    title = "Projector Color";
+                    str =   "Brightness: "+ ofToString(projectors[i].brightness);
+                    break;
+                    
+                case 7:
+                    title = "Projector Color";
+                    str =   "Contrast: "+ ofToString(projectors[i].contrast);
+                    break;
+                    
+                case 8:
+                    title = "Projector Color";
+                    str =   "Saturation: "+ ofToString(projectors[i].saturation);
+                    break;
+                    
+                case 9:
+                    title = "Projector Texture";
+                    str =   "Scale: "+ ofToString(projectors[i].scale);
+                    break;
+            }
+
+            
+            if (i == active || editMode == 1) {
+                ofDrawBitmapString("Active", px+padx+145, py+pady);
+            }
+            
+           // ofDrawBitmapString("Mode #"+ ofToString(editMode), px+padx, py+pady*6);
+            ofDrawBitmapString("Mode "+ ofToString(editMode) + ": " + ofToUpper(title), px+padx, py+pady*7);
+            ofDrawBitmapString(str, px+padx, py+pady*8);
+        }
+    
+        tcp.x = px+padx;
+        tcp.y = py+pady*4;
+        tcp.draw();
 
     }
 }
@@ -281,11 +291,13 @@ void vdome::saveXML(string file) {
     }
 }
 
+// MOUSE EVENTS
 
 void vdome::mousePressed(ofMouseEventArgs& mouseArgs) {
     for (int i=0; i<pCount; i++) {
         if (projectors[i].mouse) {
             projectors[i].keystone.onMousePressed(mouseArgs);
+            projectors[i].grid.onMousePressed(mouseArgs.x, mouseArgs.y, mouseArgs.button);
         }
     }    
 }
@@ -293,9 +305,20 @@ void vdome::mouseDragged(ofMouseEventArgs& mouseArgs) {
     for (int i=0; i<pCount; i++) {
         if (projectors[i].mouse) {
             projectors[i].keystone.onMouseDragged(mouseArgs);
+            projectors[i].grid.onMouseDragged(mouseArgs.x, mouseArgs.y, mouseArgs.button);
+
         }
     }
 }
+void vdome::mouseReleased(ofMouseEventArgs& mouseArgs) {
+    for (int i=0; i<pCount; i++) {
+        if (projectors[i].mouse) {
+            projectors[i].grid.onMouseReleased(mouseArgs.x, mouseArgs.y, mouseArgs.button);
+            
+        }
+    }
+}
+
 
 // KEYBOARD EVENTS
 
@@ -309,11 +332,13 @@ float orgValue = 1;
 float shiftValue = .1;
 float altValue = .01;
 
-int active = 1;
 
 void vdome::keyPressed(int key){
     cout << "keyPressed " << key << endl;
     
+    for (int i=0; i<pCount; i++) {
+        projectors[i].grid.keyPressed(key);
+    }
     
     // 1 - 9 = projectors / modes (mod)
     
@@ -476,6 +501,14 @@ void vdome::keyPressed(int key){
                         }
                     }
                     break;
+                    
+                case 9: // projector saturation
+                    for (int i=0; i<pCount; i++) {
+                        if (projectors[i].keyboard) {
+                            projectors[i].scale += value * .1;
+                        }
+                    }
+                    break;
             }
             break;
       
@@ -578,6 +611,14 @@ void vdome::keyPressed(int key){
                             
                             projectors[i].saturation -= value * .1;
                             
+                        }
+                    }
+                    break;
+                    
+                case 9: // projector saturation
+                    for (int i=0; i<pCount; i++) {
+                        if (projectors[i].keyboard) {
+                            projectors[i].scale -= value * .1;
                         }
                     }
                     break;
@@ -757,6 +798,10 @@ void vdome::keyPressed(int key){
 
 void vdome::keyReleased(int key){
     //cout << "keyReleased " << key << endl;
+    
+    for (int i=0; i<pCount; i++) {
+        projectors[i].grid.keyReleased(key);
+    }
     
     switch(key){
             

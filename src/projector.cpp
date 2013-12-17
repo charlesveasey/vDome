@@ -30,6 +30,8 @@ void Projector::init(int i){
     bottomLeft.set(0, 1);
     bottomRight.set(1, 1);
 
+    scale = 1;
+    
     brightness = 1;
     contrast = 1;
     saturation = 1;
@@ -75,8 +77,8 @@ void Projector::setup() {
     // create render plane
     plane.set(width, height);
     plane.setPosition(width * index + width/2, height/2, 0);
-    plane.setResolution(50, 50);
-    
+    plane.setResolution(10, 10);
+        
     int w = width;
     int h = height;
     int x = width * index;
@@ -94,6 +96,9 @@ void Projector::setup() {
     keystone.setBottomLeftCornerPosition( bl );      // this is position of the quad warp corners, centering the image on the screen.
     keystone.setBottomRightCornerPosition( br ); // this is position of the quad warp corners, centering the image on the screen.
     keystone.setup();
+
+    grid.indx = index;
+    grid.setup();
 }
 
 
@@ -121,18 +126,29 @@ void Projector::fboUnbind() {
 }
 
 void Projector::draw() {
+        
     plane.mapTexCoordsFromTexture(fboTexture);
-    
     ofMatrix4x4 mat = keystone.getMatrix();
-    plane.setTransformMatrix(mat.getPtr() );
+    //plane.setTransformMatrix(mat.getPtr() );
     
-    plane.setPosition(width * index + width/2, height/2, 0);
+            
+    //grid.plane.mapTexCoordsFromTexture(fboTexture);
+    
+    ofTranslate(width * index + width/2, height/2, 0);
+    
+    //plane.setPosition(width * index + width/2, height/2, 0);
     
     glEnable(GL_CULL_FACE);
-    glCullFace( GL_BACK );
-    plane.draw();
-    glDisable(GL_CULL_FACE);
+    glCullFace( GL_FRONT );
+    //plane.draw();
+    
+  
+    //grid.mesh = plane.getMesh();
+    
+    grid.draw();
 
+    glDisable(GL_CULL_FACE);
+    ofTranslate(-(width * index + width/2), -height/2, 0);
 }
 
 void Projector::drawWireframe() {

@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "ofxQuadWarp.h"
+#include "grid.h"
 
 class Projector {
 	
@@ -61,6 +62,10 @@ public:
     ofPoint topRight;
     ofPoint bottomLeft;
     ofPoint bottomRight;
+   
+    Grid grid;
+    
+    float scale;
     
     float brightness;
     float contrast;
