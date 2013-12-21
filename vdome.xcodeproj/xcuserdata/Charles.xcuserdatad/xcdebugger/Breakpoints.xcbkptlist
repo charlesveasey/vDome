@@ -357,11 +357,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "src/projector.cpp"
-         timestampString = "409283098.777688"
+         timestampString = "409337545.765229"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "384"
-         endingLineNumber = "384"
+         startingLineNumber = "380"
+         endingLineNumber = "380"
          landmarkName = "Projector::loadXML(ofXml &amp;xml)"
          landmarkType = "5">
       </FileBreakpoint>
@@ -413,45 +413,6 @@
          startingLineNumber = "296"
          endingLineNumber = "296"
          landmarkName = "vdome::drawConfig()"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "src/mesh.cpp"
-         timestampString = "409294359.372424"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "111"
-         endingLineNumber = "111"
-         landmarkName = "Mesh::keyPressedInput(int key)"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "src/mesh.cpp"
-         timestampString = "409294374.936259"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "107"
-         endingLineNumber = "107"
-         landmarkName = "Mesh::keyPressedInput(int key)"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "src/mesh.cpp"
-         timestampString = "409294396.21395"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "110"
-         endingLineNumber = "110"
-         landmarkName = "Mesh::keyPressedInput(int key)"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

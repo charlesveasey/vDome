@@ -17,6 +17,8 @@ public:
     void loadXML(ofXml &xml);
     void saveXML(ofXml &xml);
     
+    void saveMesh(string file);
+    
     void update();
     void draw();
 				

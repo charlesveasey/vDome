@@ -72,6 +72,7 @@ void Mesh::setup(){
 	}
 }	
 
+
 void Mesh::draw(){
 	ofRotateX(90);
     //ofScale(1.1, 1.1, 1.1);
@@ -103,6 +104,7 @@ void Mesh::keyPressed(int key) {
     
 }
 
+
 void Mesh::keyPressedInput(int key) {
     switch (key) {
         case OF_KEY_UP:  // up = switch on mode
@@ -124,9 +126,10 @@ void Mesh::keyPressedInput(int key) {
     
 }
 
+
 void Mesh::keyReleased(int key) {
-    
 }
+
 
 void Mesh::loadXML(ofXml &xml) {
     if (xml.exists("dome[@radius]"))
@@ -138,8 +141,14 @@ void Mesh::loadXML(ofXml &xml) {
     setup();
 }
 
+
 void Mesh::saveXML(ofXml &xml) {
     xml.setAttribute("dome[@radius]", ofToString(radius));
     xml.setAttribute("input[@scale]", ofToString(textureScale));    
+}
+
+
+void Mesh::saveMesh(string file) {
+    vbo.save(file);
 }
 

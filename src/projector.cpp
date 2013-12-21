@@ -130,8 +130,6 @@ void Projector::draw() {
     plane.mapTexCoordsFromTexture(fboTexture);
     ofMatrix4x4 mat = keystone.getMatrix();
     //plane.setTransformMatrix(mat.getPtr() );
-    
-            
     //grid.plane.mapTexCoordsFromTexture(fboTexture);
     
     ofTranslate(width * index + width/2, height/2, 0);
@@ -141,8 +139,6 @@ void Projector::draw() {
     glEnable(GL_CULL_FACE);
     glCullFace( GL_FRONT );
     //plane.draw();
-    
-  
     //grid.mesh = plane.getMesh();
     
     grid.draw();
