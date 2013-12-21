@@ -26,5 +26,6 @@ public:
     int editMode;
     float value;
     
+    float textureScale;
 };
 	

@@ -201,6 +201,12 @@ void Projector::mouseReleased(ofMouseEventArgs& mouseArgs) {
 // keyboard events
 
 void Projector::keyPressed(int key) {
+    switch (key) {
+        case 161: // ~ = select all projectors
+            keyboard = true;
+            break;
+    }
+    
     if (!keyboard) {
         return;
     }
@@ -208,10 +214,6 @@ void Projector::keyPressed(int key) {
     grid.keyPressed(key);
     
     switch (key) {
-       
-        case 161: // ~ = select all projectors 
-            keyboard = true;
-            break;
                
         case OF_KEY_UP:  // up = switch on mode
             switch (editMode) {                    

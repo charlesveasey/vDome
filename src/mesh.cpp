@@ -7,6 +7,7 @@
 void Mesh::init(){
 	radius = 10;
 	N = 256;  // Mesh resolution, must be multiple of 4
+    textureScale = 1;
 }
 
 void Mesh::setup(){
@@ -47,7 +48,7 @@ void Mesh::setup(){
             
 			phi = atan2(sqrt(x*x+y*y),z); // 0 ... pi/2
 			theta = atan2(y,x); // -pi ... pi
-			r = phi / PI/2 * 4; // 0 ... 1 --->
+			r = phi / PI/2 * 4 * textureScale; // 0 ... 1 --->
 			u = 0.5 * (r * cos(theta) + 1);
 			v = 0.5 * (r * sin(theta) + 1);
 			vbo.addTexCoord(ofVec2f(u,1-v)); // reverse

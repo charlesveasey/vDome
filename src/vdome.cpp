@@ -99,7 +99,9 @@ void vdome::draw(){
         projectors[i].fboBegin();
         ofClear(0, 0, 0, 0);
         projectors[i].cameraBegin();
+        
         input.bind();
+        
         mesh.draw();
         input.unbind();
         projectors[i].cameraEnd();
@@ -420,9 +422,7 @@ void vdome::keyPressed(int key){
             }
             break;
     }
-    
-
-    
+        
     // 1 - 9 = projectors
         
     // 1 - 9 + m = projectors modes
@@ -463,9 +463,6 @@ void vdome::keyPressed(int key){
 
 
 void vdome::keyReleased(int key) {
-    if (!config) {
-        return;
-    }
     
     //cout << "keyReleased " << key << endl;
     
@@ -477,15 +474,15 @@ void vdome::keyReleased(int key) {
     
     switch(key){
             
-        case 109: // m
-            superKey = false;
-            break;
-        
         case 115: // s
-            if (superKey) { // mod + s = save file
+            if (config && superKey) { // mod + s = save file
                 cout << "saveXML " << endl;
                 saveXML(xmlFile);
             }
+            break;
+            
+        case 109: // m
+            superKey = false;
             break;
          
         case OF_KEY_LEFT_ALT: // alt
