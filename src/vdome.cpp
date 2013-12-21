@@ -32,9 +32,7 @@ void vdome::setup(){
     // render
     render.init();
     render.setup();
-    
-    editMode = 1;
-    
+        
     // input
     // 0 = image
     // 1 = video
@@ -46,12 +44,10 @@ void vdome::setup(){
     input.render = render;    
     input.init();
     input.setup();
-
     
     // dome mesh
     mesh.init();
 	mesh.setup();
-    
     
     // projectors
     pCount = 2;
@@ -75,7 +71,9 @@ void vdome::setup(){
     // default config settings
     config = false;
     showConfig = false;
-    active = 0;
+    active = 1;
+    editMode = 1;
+    editGroup = 2;
 }
 
 
@@ -99,9 +97,7 @@ void vdome::draw(){
         projectors[i].fboBegin();
         ofClear(0, 0, 0, 0);
         projectors[i].cameraBegin();
-        
-        input.bind();
-        
+        input.bind();        
         mesh.draw();
         input.unbind();
         projectors[i].cameraEnd();
@@ -110,17 +106,14 @@ void vdome::draw(){
 
 	for(int i=0; i<pCount; i++) {
 		projectors[i].fboBind();
-
 		shader.begin();
         shader.setUniform1f("scale", projectors[i].scale);
 		shader.setUniform1f("brightness", projectors[i].brightness);
 		shader.setUniform1f("contrast", projectors[i].contrast);
 		shader.setUniform1f("saturation", projectors[i].saturation);
 		shader.setUniformTexture("texsampler", projectors[i].fboTexture, 0);
-
         projectors[i].draw();
         shader.end();
-		
         projectors[i].fboUnbind();
 	}
 }
@@ -139,17 +132,17 @@ void vdome::drawConfig() {
         }
         
         // debug positions
-        int px = projectors[i].plane.getX() - 250/2;
-        int py = projectors[i].plane.getY() - 250/2;
+        int px = projectors[i].plane.getX() - 200/2;
+        int py = projectors[i].plane.getY() - 180/2;
         
-        int padx = 25;
-        int pady = 20;
+        int padx = 15;
+        int pady = 15;
         
         // debug background square
         ofFill();
         
         ofSetHexColor(0x000000);
-        ofRect(px, py, 1, 250, 250);
+        ofRect(px, py, 1, 200, 180);
         
         // debug text
         if (saved) {
@@ -166,107 +159,111 @@ void vdome::drawConfig() {
         ofDrawBitmapString("Projector #" + ofToString(i+1), px+padx, py+pady*2);    
         ofDrawBitmapString("FPS: "+ofToString(ofGetFrameRate(), 2), px+padx, py+pady*3);
         
-        
+        // MESH
         // 1 = mesh radius
-        // 2 = azimuth, elevation, distance
-        // 3 = pan, tilt, roll
-        // 4 = lensOffsetX, lensOffsetY
-        // 5 = fov
-        // 6 = brightness
-        // 7 = contrast
-        // 8 = saturation
+        
+        // PROJECTOR
+        // 1 = azimuth, elevation, distance
+        // 2 = pan, tilt, roll
+        // 3 = lensOffsetX, lensOffsetY
+        // 4 = fov
+        // 5 = texture size
+        // 6 = keystone
+        // 7 = grid
+        // 8 = brightness
+        // 9 = contrast
+        // 10 = saturation
        
-        if (1) {
-            ofSetHexColor(0xFFFFFF);
-            
-            string title;
-            string sub;
-            string str;
-            
-            switch (editGroup) {
-            
-                case 1: // mesh
-                    title = "Dome Mesh";
-                     switch (editMode) 
-                        case 1:
-                            sub = "";
-                    str = "Radius: " + ofToString(mesh.radius);
-                        break;
+        ofSetHexColor(0xFFFFFF);
+        
+        string title;
+        string sub;
+        string str;
+        
+        switch (editGroup) {
+      
+            case 1: // mesh
+                title = "Edit: Dome";
+                 switch (editMode) 
+                    case 1:
+                        sub = "";
+                        str = "Radius: " + ofToString(mesh.radius);
                     break;
-                    
-                case 2: // projector
-                    title = "Projector";                    
-                    switch (editMode) {
+                break;
+                
+            case 2: // projector
+                title = "Edit: Projector";                    
+                switch (editMode) {
 
-                        case 1:
-                            sub = "Position";
-                            str =   "Azimuth: "+ ofToString(projectors[i].azimuth) + "\n" +
-                            "Elevation: "+ ofToString(projectors[i].elevation) + "\n" +
-                            "Distance: "+ ofToString(projectors[i].distance);
-                            break;
-                            
-                        case 2:
-                            sub = "Orientation";
-                            str =   "Roll: "+ ofToString(projectors[i].roll) + "\n" +
-                            "Tilt: "+ ofToString(projectors[i].tilt) + "\n" +
-                            "Pan: "+ ofToString(projectors[i].pan);
-                            break;
-                            
-                        case 3:
-                            sub = "Lens";
-                            str =   "Offset X: "+ ofToString(projectors[i].lensOffsetX) + "\n" +
-                            "Offset Y: "+ ofToString(projectors[i].lensOffsetY);
-                            break;
-                            
-                        case 4:
-                            sub = "Lens";
-                            str =   "Field of View: "+ ofToString(projectors[i].fov);
-                            break;
-                         
-                        case 5:
-                            sub = "Texture";
-                            str =   "Scale: "+ ofToString(projectors[i].scale);
-                            break;
-                            
-                        case 6:
-                            sub = "Keystone";
-                            str =   "";
-                            break;
-                            
-                        case 7:
-                            sub = "Grid";
-                            str =   "";
-                            break;
-                            
-                        case 8:
-                            sub = "Color";
-                            str =   "Brightness: "+ ofToString(projectors[i].brightness);
-                            break;
-                            
-                        case 9:
-                            sub = "Color";
-                            str =   "Contrast: "+ ofToString(projectors[i].contrast);
-                            break;
-                            
-                        case 10:
-                            sub = "Color";
-                            str =   "Saturation: "+ ofToString(projectors[i].saturation);
-                            break;
-                            
-                    }
-                    
-                    break;
+                    case 1:
+                        sub = "Position";
+                        str =   "Azimuth: "+ ofToString(projectors[i].azimuth) + "\n" +
+                        "Elevation: "+ ofToString(projectors[i].elevation) + "\n" +
+                        "Distance: "+ ofToString(projectors[i].distance);
+                        break;
+                        
+                    case 2:
+                        sub = "Orientation";
+                        str =   "Roll: "+ ofToString(projectors[i].roll) + "\n" +
+                        "Tilt: "+ ofToString(projectors[i].tilt) + "\n" +
+                        "Pan: "+ ofToString(projectors[i].pan);
+                        break;
+                        
+                    case 3:
+                        sub = "Offset";
+                        str =   "X: "+ ofToString(projectors[i].lensOffsetX) + "\n" +
+                        "Y: "+ ofToString(projectors[i].lensOffsetY);
+                        break;
+                        
+                    case 4:
+                        sub = "Lens";
+                        str =   "Field of View: "+ ofToString(projectors[i].fov);
+                        break;
+                     
+                    case 5:
+                        sub = "Texture";
+                        str =   "Scale: "+ ofToString(projectors[i].scale);
+                        break;
+                        
+                    case 6:
+                        sub = "Keystone";
+                        str =   "";
+                        break;
+                        
+                    case 7:
+                        sub = "Grid";
+                        str =   "";
+                        break;
+                        
+                    case 8:
+                        sub = "Color";
+                        str =   "Brightness: "+ ofToString(projectors[i].brightness);
+                        break;
+                        
+                    case 9:
+                        sub = "Color";
+                        str =   "Contrast: "+ ofToString(projectors[i].contrast);
+                        break;
+
+                    case 10:
+                        sub = "Color";
+                        str =   "Saturation: "+ ofToString(projectors[i].saturation);
+                        break;
+                break;
             }
-            
-            if (i == active || editGroup == 1) {
-                ofDrawBitmapString("Active", px+padx+145, py+pady);
-            }
-            
-            ofDrawBitmapString(ofToUpper(title), px+padx, py+pady*6);
-            ofDrawBitmapString(ofToString(editMode) + ": " + ofToUpper(sub), px+padx, py+pady*7);
-            ofDrawBitmapString(str, px+padx, py+pady*8);
         }
     
+        if (config) {
+            if (projectors[i].keyboard || projectors[i].mouse || editGroup == 1) {
+                ofSetHexColor(0xFFF000);
+                ofDrawBitmapString("Active", px+padx+120, py+pady+14);
+                ofSetHexColor(0xFFFFFF);
+            }
+        }
+        ofDrawBitmapString(title, px+padx, py+pady*7);
+        ofDrawBitmapString("Mode " + ofToString(editMode) + ": " + sub, px+padx, py+pady*8);
+        ofDrawBitmapString(str, px+padx, py+pady*9);
+        
         tcp.x = px+padx;
         tcp.y = py+pady*4;
         tcp.draw();
@@ -356,6 +353,9 @@ void vdome::keyPressed(int key){
             }
             break;
             
+        case 105: // i
+            editGroup = 3;
+            
         case 100: // d = edit group
             editGroup = 1;
             break;
@@ -407,6 +407,48 @@ void vdome::keyPressed(int key){
         return;
     }
     
+    // 1 - 9 = projectors
+        
+    // 1 - 9 + m = projectors modes
+    // 1 = mesh radius
+    // 2 = azimuth, elevation, distance
+    // 3 = pan, tilt, roll
+    // 4 = lensOffsetX, lensOffsetY
+    // 5 = fov
+    // 6 = brightness
+    // 7 = contrast
+    // 8 = saturation
+    
+    if (key >= 48 && key <= 57) {
+        // assign edit mode
+        if (altKey) {
+            if (key == 48)
+                editMode = 10;
+            else
+                editMode = key-48;
+            return;
+        }
+        if (key == 48)
+            active = 10;
+        else
+            active = key-49;
+        
+        // shift groups, otherwise reset
+        if (!shKey) {
+            for (int i=0; i<pCount; i++) {
+                projectors[i].keyboard = false;
+                projectors[i].mouse = false;
+            }
+            projectors[active].keyboard = true;
+            projectors[active].mouse = true;
+        }
+        else {
+            projectors[active].keyboard = !(projectors[active].keyboard);
+            projectors[active].mouse = !(projectors[active].mouse);
+        }
+        return;
+    }
+    
     switch (editGroup) {
         case 1: // d = dome mesh
             mesh.editMode = editMode;
@@ -422,42 +464,7 @@ void vdome::keyPressed(int key){
             }
             break;
     }
-        
-    // 1 - 9 = projectors
-        
-    // 1 - 9 + m = projectors modes
-    // 1 = mesh radius
-    // 2 = azimuth, elevation, distance
-    // 3 = pan, tilt, roll
-    // 4 = lensOffsetX, lensOffsetY
-    // 5 = fov
-    // 6 = brightness
-    // 7 = contrast
-    // 8 = saturation
     
-    if (key >= 49 && key <= 57) {
-        
-        // assign edit mode
-        if (altKey) {
-            editMode = key-48;
-            return;
-        }
-        active = key-49;
-
-        // shift groups, otherwise reset
-        if (!shKey) {
-            for (int i=0; i<pCount; i++) {
-                projectors[i].keyboard = false;
-                projectors[i].mouse = false;
-            }
-            projectors[active].keyboard = true;
-            projectors[active].mouse = true;
-        }
-        else {
-            projectors[active].keyboard = !(projectors[active].keyboard);
-            projectors[active].mouse = !(projectors[active].mouse);
-        }
-    }
 }
 
 
@@ -498,8 +505,7 @@ void vdome::keyReleased(int key) {
         case OF_KEY_LEFT_CONTROL: // control
             ctrKey = false;
             break;
-            
-        case false:
+        case OF_KEY_RIGHT_CONTROL:
             ctrKey = false;
             break;
             
