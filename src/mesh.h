@@ -10,6 +10,8 @@ public:
     void setup();
 
     void keyPressed(int key);
+    void keyPressedInput(int key);
+    
     void keyReleased(int key);
     
     void loadXML(ofXml &xml);

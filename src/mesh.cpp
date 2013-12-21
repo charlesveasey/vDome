@@ -103,6 +103,27 @@ void Mesh::keyPressed(int key) {
     
 }
 
+void Mesh::keyPressedInput(int key) {
+    switch (key) {
+        case OF_KEY_UP:  // up = switch on mode
+            switch (editMode) {
+                case 1: // mesh texture scale
+                    textureScale += value;
+                    setup();
+                    break;
+            }
+            break;
+        case OF_KEY_DOWN:  // up = switch on mode
+            switch (editMode) {
+                case 1: // mesh texture scale
+                    textureScale -= value;
+                    setup();
+                    break;
+            }
+    }
+    
+}
+
 void Mesh::keyReleased(int key) {
     
 }
@@ -110,11 +131,15 @@ void Mesh::keyReleased(int key) {
 void Mesh::loadXML(ofXml &xml) {
     if (xml.exists("dome[@radius]"))
         radius = ofToDouble( xml.getAttribute("dome[@radius]") );
+    
+    if (xml.exists("input[@scale"))
+        textureScale = ofToFloat( xml.getAttribute("input[@scale]") );
+    
     setup();
 }
 
 void Mesh::saveXML(ofXml &xml) {
     xml.setAttribute("dome[@radius]", ofToString(radius));
-    
+    xml.setAttribute("input[@scale]", ofToString(textureScale));    
 }
 

@@ -242,17 +242,17 @@ void vdome::drawConfig() {
                         
                     case 8:
                         sub = "Color";
-                        str =   "Brightness: "+ ofToString(projectors[i].brightness);
+                        str =   "Brightness: " + ofToString(projectors[i].brightness);
                         break;
                         
                     case 9:
                         sub = "Color";
-                        str =   "Contrast: "+ ofToString(projectors[i].contrast);
+                        str =   "Contrast: " + ofToString(projectors[i].contrast);
                         break;
 
                     case 10:
                         sub = "Color";
-                        str =   "Saturation: "+ ofToString(projectors[i].saturation);
+                        str =   "Saturation: " + ofToString(projectors[i].saturation);
                         break;
                     default:
                         sub = "";
@@ -266,7 +266,7 @@ void vdome::drawConfig() {
                 switch (editMode) {
                     case 1:
                         sub = "";
-                        str = "Scale: ";
+                        str = "Scale: " + ofToString(mesh.textureScale);
                         break;
                     case 2:
                         sub = "Offset";
@@ -491,6 +491,9 @@ void vdome::keyPressed(int key){
             }
             break;
         case 3: // i = input
+            mesh.editMode = editMode;
+            mesh.value = value;
+            mesh.keyPressedInput(key);
             break;
     }
     
