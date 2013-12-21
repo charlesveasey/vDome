@@ -407,7 +407,7 @@ void Projector::loadXML(ofXml &xml) {
     if (xml.exists(pre + "][@width]"))
         width = ofToInt( xml.getAttribute(pre + "][@width]") );
     if (xml.exists(pre + "][@scale]"))
-        scale = ofToInt( xml.getAttribute(pre + "][@scale]") );
+        scale = ofToFloat( xml.getAttribute(pre + "][@scale]") );
     
     string str;
     
