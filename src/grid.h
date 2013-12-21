@@ -16,10 +16,9 @@ public:
     
     void keyPressed(int key);
     void keyReleased(int key);
-    void onMouseDragged(int x, int y, int button);
-    void onMousePressed(int x, int y, int button);
-    void onMouseReleased(int x, int y, int button);
-    
+    void onMouseDragged(ofMouseEventArgs& mouseArgs);
+    void onMousePressed(ofMouseEventArgs& mouseArgs);
+    void onMouseReleased(ofMouseEventArgs& mouseArgs);
     //void loadXML(ofXml &xml);
     //void saveXML(ofXml &xml);
 

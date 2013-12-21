@@ -33,6 +33,7 @@ public:
     
     // key map
     int editMode;
+    int editGroup;
     int keyControl;
     
     // input
@@ -53,10 +54,10 @@ public:
     // projectors
     int pCount;
     vector<Projector> projectors;
-    
-    
+
     int active;
     bool config;
+    bool showConfig;
     
 };
 	

@@ -3,7 +3,7 @@
 void Render::init(){
     domeMaster = 2048;
     frameRate = 60;
-    vSync = false;
+    vSync = true;
 }
 
 void Render::setup() {
@@ -11,11 +11,11 @@ void Render::setup() {
 	ofSetFrameRate(frameRate);
     
 	ofEnableDepthTest();
-    //ofEnableAlphaBlending();
+    ofEnableAlphaBlending();
 	//ofDisableArbTex();
     ofBackground(0,0,0);
 	
-    //ofEnableSmoothing();
+    ofEnableSmoothing();
 	ofEnableNormalizedTexCoords();
 }
 

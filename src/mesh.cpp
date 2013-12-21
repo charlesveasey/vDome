@@ -6,7 +6,7 @@
 
 void Mesh::init(){
 	radius = 10;
-	N = 128;  // Mesh resolution, must be multiple of 4
+	N = 256;  // Mesh resolution, must be multiple of 4
 }
 
 void Mesh::setup(){
@@ -80,6 +80,31 @@ void Mesh::draw(){
     glDisable(GL_CULL_FACE);
 }
 
+
+void Mesh::keyPressed(int key) {
+    switch (key) {
+        case OF_KEY_UP:  // up = switch on mode
+            switch (editMode) {
+                case 1: // mesh radius
+                    radius += value;
+                    setup();
+                    break;
+            }
+            break;
+        case OF_KEY_DOWN:  // up = switch on mode
+            switch (editMode) {
+                case 1: // mesh radius
+                    radius -= value;
+                    setup();
+                    break;
+            }
+    }
+    
+}
+
+void Mesh::keyReleased(int key) {
+    
+}
 
 void Mesh::loadXML(ofXml &xml) {
     if (xml.exists("dome[@radius]"))

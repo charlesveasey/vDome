@@ -66,7 +66,7 @@ void Projector::setup() {
     
     // create fbo
     if (fbo.getWidth() != width || fbo.getHeight() != height) {
-        fbo.allocate(width, height, GL_RGBA);
+        fbo.allocate(width, height, GL_RGB);
     }
     
     fbo.begin();
@@ -172,6 +172,207 @@ ofVec3f Projector::sphToCar(ofVec3f t) {
 };
 
 
+// mouse events
+
+void Projector::mousePressed(ofMouseEventArgs& mouseArgs) {
+    if (!mouse) {
+        return;
+    }
+    keystone.onMousePressed(mouseArgs);
+    grid.onMousePressed(mouseArgs);
+}
+
+void Projector::mouseDragged(ofMouseEventArgs& mouseArgs) {
+    if (!mouse) {
+        return;
+    }
+    keystone.onMouseDragged(mouseArgs);
+    grid.onMouseDragged(mouseArgs);
+}
+
+void Projector::mouseReleased(ofMouseEventArgs& mouseArgs) {
+    if (!mouse) {
+        return;
+    }
+    grid.onMouseReleased(mouseArgs);
+}
+
+
+// keyboard events
+
+void Projector::keyPressed(int key) {
+    if (!keyboard) {
+        return;
+    }
+    
+    grid.keyPressed(key);
+    
+    switch (key) {
+       
+        case 161: // ~ = select all projectors 
+            keyboard = true;
+            break;
+               
+        case OF_KEY_UP:  // up = switch on mode
+            switch (editMode) {                    
+                case 1: // projector elevation / distance (super)
+                    if (!superKey)
+                        elevation += value;
+                    else
+                        distance += value;
+                    setup();
+                    break;
+                    
+                case 2: // projector tilt
+                        tilt += value;
+                        setup();
+                    break;
+                    
+                case 3: // projector lensOffsetY
+                        lensOffsetY += value * .1;
+                        setup();
+                    break;
+                    
+                case 4: // projector fov
+                        fov += value;
+                        setup();                            
+                    break;
+                    
+                case 8: // projector brightness
+                        brightness += value * .1;
+                    break;
+                    
+                case 9: // projector contrast
+                        contrast += value * .1;
+                    break;
+                    
+                case 10: // projector saturation
+                        saturation += value * .1;
+                    break;
+                    
+                case 5: // projector saturation
+                        scale += value * .1;
+                    break;
+            }
+            break;
+            
+            
+        case OF_KEY_DOWN: // down = switch on mode
+            
+            switch (editMode) {
+
+                case 1: // projector elevation / distance (super)
+                    if (!superKey)
+                        elevation -= value;
+                    else
+                        distance -= value;
+                    setup();
+                    break;
+                    
+                    
+                case 2: // projector tilt
+                    tilt -= value;
+                    setup();
+                    break;
+                    
+                case 3: // projector lensOffsetY
+                    lensOffsetY -= value * .1;
+                    setup();
+                    break;
+                    
+                case 4: // projector fov
+                    fov -= value;
+                    setup();
+                    break;
+                    
+                case 8: // projector brightness
+                    brightness -= value * .1;
+                    break;
+                    
+                case 9: // projector contrast
+                    contrast -= value * .1;
+                    break;
+                    
+                case 10: // projector saturation
+                    saturation -= value * .1;
+                    break;
+                    
+                case 5: // projector saturation
+                    scale -= value * .1;
+                    break;
+            }
+            break;
+            
+            
+            
+            
+            
+            
+        case OF_KEY_LEFT:  // left
+            
+            switch (editMode) {                    
+                case 1: // projector azimuth
+                    azimuth -= value;
+                    setup();
+                break;
+                    
+                case 2: // projector roll / pan (super)
+                    if (!superKey)
+                        roll -= value;
+                    else
+                        pan -= value;
+                    setup();
+                    break;
+                    
+                case 3: // projector lensOffsetX
+                    lensOffsetX -= value * .1;
+                    setup();
+                    break;
+            }
+            break;
+            
+            
+            
+            
+            
+            
+        case OF_KEY_RIGHT:  // right
+            
+            switch (editMode) {
+                    
+                case 1: // projector azimuth
+                    azimuth += value;
+                    setup();
+                    break;
+                    
+                case 2: // projector roll / pan (super)
+                    if (!superKey)
+                        roll += value;
+                    else
+                        pan += value;
+                    setup();
+                    break;
+                    
+                case 3: // projector lensOffsetX
+                    lensOffsetX += value * .11;
+                    setup();
+                    break;
+            }
+            break;
+            
+        default:
+            break;
+    } 
+}
+
+void Projector::keyReleased(int key) {
+    if (!keyboard) {
+        return;
+    }
+    grid.keyReleased(key);
+}
+
+
 
 void Projector::loadXML(ofXml &xml) {
     
@@ -265,6 +466,5 @@ void Projector::saveXML(ofXml &xml) {
     xml.setAttribute(pre + "][@topRight]", ofToString( ((keystone.dstPoints[1].x) - x) / width) + "," + ofToString( (keystone.dstPoints[1].y) / height) );
     xml.setAttribute(pre + "][@bottomLeft]", ofToString( ((keystone.dstPoints[3].x) - x) / width) + "," + ofToString( (keystone.dstPoints[3].y) / height) );
     xml.setAttribute(pre + "][@bottomRight]", ofToString( ((keystone.dstPoints[2].x) - x) / width) + "," + ofToString( (keystone.dstPoints[2].y) / height) );
-
 
 }

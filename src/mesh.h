@@ -9,6 +9,9 @@ public:
     void init();
     void setup();
 
+    void keyPressed(int key);
+    void keyReleased(int key);
+    
     void loadXML(ofXml &xml);
     void saveXML(ofXml &xml);
     
@@ -19,6 +22,9 @@ public:
 
     int N;
     double radius;
+    
+    int editMode;
+    float value;
     
 };
 	

@@ -11,6 +11,12 @@ public:
     void init(int i);
     void setup();
     
+    void mousePressed(ofMouseEventArgs& mouseArgs);
+    void mouseDragged(ofMouseEventArgs& mouseArgs);
+    void mouseReleased(ofMouseEventArgs& mouseArgs);
+    void keyPressed(int key);
+    void keyReleased(int key);
+    
     void loadXML(ofXml &xml);
     void saveXML(ofXml &xml);
     
@@ -70,5 +76,10 @@ public:
     float brightness;
     float contrast;
     float saturation;
+    
+    int editMode;
+    bool superKey;
+    float value;
+
 };
 

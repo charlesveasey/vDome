@@ -8,7 +8,8 @@ bool group = false;
 bool drawBox = false;
 ofPoint boxOrigin;
 ofPoint boxUpdate;
-
+int xRes = 5;
+int yRes = 5;
 
 
 void Grid::init(){
@@ -16,7 +17,7 @@ void Grid::init(){
 
 
 void Grid::setup(){
-    mesh = ofMesh::plane(1024, 768, 5, 5, OF_PRIMITIVE_TRIANGLES);
+    mesh = ofMesh::plane(1024, 768, xRes, yRes, OF_PRIMITIVE_TRIANGLES);
     vector<ofVec3f> v = mesh.getVertices();
     
     for (int i=0; i<v.size(); i++) {        
@@ -27,10 +28,7 @@ void Grid::setup(){
 
 
 void Grid::draw(){
-    //tex.bind();
-    
     mesh.draw();
-    //tex.unbind();
 }
 
 
@@ -126,8 +124,11 @@ void Grid::keyReleased(int key){
 
 
 //--------------------------------------------------------------
-void Grid::onMouseDragged(int x, int y, int button){
-        
+void Grid::onMouseDragged(ofMouseEventArgs& mouseArgs){
+    
+    int x = mouseArgs.x;
+    int y = mouseArgs.y;
+    
     if (group) {
         drawBox = true;
         boxUpdate = ofPoint(x,y);
@@ -142,15 +143,19 @@ void Grid::onMouseDragged(int x, int y, int button){
     
     for (int i=0; i<sel.size(); i++) {
         if (sel[i]) {
-            mesh.setVertex( i, ofPoint(mesh.getVertex(i).x, mesh.getVertex(i).y) - (lastM - mousePoint) );
+            ofPoint pnt = ofPoint(mesh.getVertex(i).x, mesh.getVertex(i).y) - (lastM - mousePoint);
+            mesh.setVertex( i, pnt );
         }
     }
     lastM = mousePoint;
 }
 
 //--------------------------------------------------------------
-void Grid::onMousePressed(int x, int y, int button){
+void Grid::onMousePressed(ofMouseEventArgs& mouseArgs){
 
+    int x = mouseArgs.x;
+    int y = mouseArgs.y;
+    
     vector<ofVec3f> v = mesh.getVertices();
     
     float rad = 20;
@@ -188,7 +193,10 @@ void Grid::onMousePressed(int x, int y, int button){
 }
 
 //--------------------------------------------------------------
-void Grid::onMouseReleased(int x, int y, int button){
+void Grid::onMouseReleased(ofMouseEventArgs& mouseArgs){
+    
+    int x = mouseArgs.x;
+    int y = mouseArgs.y;
     
     if (group) {
         
@@ -202,8 +210,8 @@ void Grid::onMouseReleased(int x, int y, int button){
         
         for (int i=0; i<v.size(); i++) {
             
-            if ( (v[i].x+(1024 * indx) + 1024/2) + rad    >= rect.getTopLeft().x   &&
-                 (v[i].x+(1024 * indx) + 1024/2) - rad   <= rect.getBottomRight().x) {
+            if ( (v[i].x+(1024 * indx) + 1024/2) + rad  >= rect.getTopLeft().x   &&
+                 (v[i].x+(1024 * indx) + 1024/2) - rad  <= rect.getBottomRight().x) {
                 
                 if ( (v[i].y + 768/2) + rad >= rect.getTopLeft().y  &&
                      (v[i].y + 768/2) - rad    <= rect.getBottomRight().y) {
