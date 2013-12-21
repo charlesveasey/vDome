@@ -189,6 +189,10 @@ void vdome::drawConfig() {
                         sub = "";
                         str = "Radius: " + ofToString(mesh.radius);
                     break;
+                    default:
+                        sub = "";
+                        str = "";
+                    break;
                 break;
                 
             case 2: // projector
@@ -249,8 +253,31 @@ void vdome::drawConfig() {
                         sub = "Color";
                         str =   "Saturation: "+ ofToString(projectors[i].saturation);
                         break;
+                    default:
+                        sub = "";
+                        str = "";
+                        break;
+                }
                 break;
-            }
+                
+            case 3: // input
+                title = "Edit: Input";
+                switch (editMode) {
+                    case 1:
+                        sub = "";
+                        str = "Scale: ";
+                        break;
+                    case 2:
+                        sub = "Offset";
+                        str =   "X: \nY:";
+                        break;
+                    break;
+                    default:
+                        sub = "";
+                        str = "";
+                        break;
+                }
+            break;
         }
     
         if (config) {
@@ -355,6 +382,7 @@ void vdome::keyPressed(int key){
             
         case 105: // i
             editGroup = 3;
+            break;
             
         case 100: // d = edit group
             editGroup = 1;
@@ -462,6 +490,8 @@ void vdome::keyPressed(int key){
                 projectors[i].value = value;
                 projectors[i].keyPressed(key);
             }
+            break;
+        case 3: // i = input
             break;
     }
     
