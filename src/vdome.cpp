@@ -7,6 +7,7 @@ bool altKey = false;
 bool ctrKey = false;
 bool superKey = false;
 
+// add values
 float value = 1;
 float orgValue = 1;
 float shiftValue = .1;
@@ -427,9 +428,7 @@ void vdome::keyPressed(int key){
         case OF_KEY_RIGHT_SUPER:
             superKey = true;
             break;    
-    }
-    
-    
+    }    
     
     if (!config) {
         return;
@@ -437,7 +436,7 @@ void vdome::keyPressed(int key){
     
     // 1 - 9 = projectors
         
-    // 1 - 9 + m = projectors modes
+    // 1 - 9 + alt = projectors modes
     // 1 = mesh radius
     // 2 = azimuth, elevation, distance
     // 3 = pan, tilt, roll
