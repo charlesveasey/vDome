@@ -291,13 +291,13 @@ void vdome::drawConfig() {
                         
                     case 8:
                         sub = "Offset";
-                        str =   "X: "+ ofToString( roundTo(projectors[i].lensOffsetX, .01) ) + "\n" +
-                                "Y: "+ ofToString( roundTo(projectors[i].lensOffsetY, .01 ) );
+                        str =   "X: "+ ofToString( roundTo(projectors[i].lensOffsetX, .001) ) + "\n" +
+                                "Y: "+ ofToString( roundTo(projectors[i].lensOffsetY, .001 ) );
                         break;
                      
                     case 9:
                         sub = "Scale";
-                        str =   "XY: : "+ ofToString( roundTo(projectors[i].scale, .01) ) + "\n" +
+                        str =   "XY: "+ ofToString( roundTo(projectors[i].scale, .01) ) + "\n" +
                                  "X: "+ ofToString( roundTo(projectors[i].scale, .01) ) + "\n" +
                                  "Y: "+ ofToString( roundTo(projectors[i].scale, .01) );
                         break;
@@ -309,12 +309,16 @@ void vdome::drawConfig() {
                         
                     case 11:
                         sub = "Shear 1";
-                        str =   "";
+                        str =   "YX: "+ ofToString( roundTo(projectors[i].shear[3], .001) ) + "\n" +
+                        "ZX: "+ ofToString( roundTo(projectors[i].shear[4], .001) ) + "\n" +
+                        "XZ: "+ ofToString( roundTo(projectors[i].shear[1], .001) );
                         break;
                         
                     case 12:
                         sub = "Shear 2";
-                        str =   "";
+                        str =   "ZY: "+ ofToString( roundTo(projectors[i].shear[5], .001) ) + "\n" +
+                        "YX: "+ ofToString( roundTo(projectors[i].shear[2], .001) ) + "\n" +
+                        "XY: "+ ofToString( roundTo(projectors[i].shear[0], .001) );
                         break;
                         
                     default:

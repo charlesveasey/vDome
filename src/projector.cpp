@@ -298,16 +298,16 @@ void Projector::keyPressed(int key) {
                     
                 case 11: // projector shear 1
                     if (!superKey)
-                        shear[3] += value;
+                        shear[3] += value * .1;
                     else
-                        shear[4] += value;
+                        shear[1] += value * .1;
                     break;              
                     
                 case 12: // projector shear 2
                     if (!superKey)
-                        shear[5] += value;
+                        shear[5] += value * .1;
                     else
-                        shear[0] += value;
+                        shear[0] += value * .1;
                     break;                  
 
             }
@@ -367,16 +367,16 @@ void Projector::keyPressed(int key) {
                     
                 case 11: // projector shear 1
                     if (!superKey)
-                        shear[3] -= value;
+                        shear[3] -= value * .1;
                     else
-                        shear[4] -= value;
+                        shear[1] -= value * .1;
                     break;
                     
                 case 12: // projector shear 2
                     if (!superKey)
-                        shear[5] -= value;
+                        shear[5] -= value * .1;
                     else
-                        shear[0] -= value;
+                        shear[0] -= value * .1;
                     break;
             }
             break;
@@ -413,11 +413,11 @@ void Projector::keyPressed(int key) {
                     break;
                     
                 case 11: // projector shear 1
-                    shear[1] -= value;
+                    shear[4] -= value * .1;
                     break;
                     
                 case 12: // projector shear 2
-                    shear[2] -= value;
+                    shear[2] -= value * .1;
                     break;
 
             }
@@ -455,11 +455,11 @@ void Projector::keyPressed(int key) {
                     break;
                     
                 case 11: // projector shear 1
-                    shear[1] += value;
+                    shear[4] += value * .1;
                     break;
                     
                 case 12: // projector shear 2
-                    shear[2] += value;
+                    shear[2] += value * .1;
                     break;
                     
             }
