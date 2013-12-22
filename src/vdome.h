@@ -58,6 +58,7 @@ public:
     int active;
     bool config;
     bool showConfig;
+    bool showFrameRate;
     
 };
 	

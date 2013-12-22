@@ -42,7 +42,7 @@ void Input::setup(){
             break;
         default:
             // load default image
-            image.loadImage("craig.png");
+            image.loadImage("grid.jpg");
             texture = image.getTextureReference();
             break;
     }

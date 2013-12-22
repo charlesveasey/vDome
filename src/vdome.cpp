@@ -75,6 +75,7 @@ void vdome::setup(){
     active = 1;
     editMode = 1;
     editGroup = 2;
+    showFrameRate = true;
 }
 
 
@@ -133,32 +134,44 @@ void vdome::drawConfig() {
         }
         
         // debug positions
-        int px = projectors[i].plane.getX() - 200/2;
-        int py = projectors[i].plane.getY() - 180/2;
+        
+        int pw = 200;
+        int ph = 135;
+        
+        int px = projectors[i].plane.getX() - pw/2;
+        int py = projectors[i].plane.getY() - ph/2;
         
         int padx = 15;
         int pady = 15;
         
-        // debug background square
-        ofFill();
-        
-        ofSetHexColor(0x000000);
-        ofRect(px, py, 1, 200, 180);
-        
+
         // debug text
         if (saved) {
             ofSetHexColor(0xFFFFFF);
-            ofDrawBitmapString("SAVED", px+padx*6, py+pady*2);
+            ofDrawBitmapString("SAVED", px+padx+125, py+pady*1.75);
             frameCnt++;
             if (frameCnt == 120) {
                 saved = false;
                 frameCnt = 0;
             }
+             ofSetHexColor(0xAA0000);
         }
-    
+        else {
+            ofSetHexColor(0x000000);
+        }
+        
+        
+        // debug background square
+        ofFill();
+        ofRect(px, py, 1, pw, ph);
+        
         ofSetHexColor(0xFFFFFF);
-        ofDrawBitmapString("Projector #" + ofToString(i+1), px+padx, py+pady*2);    
-        ofDrawBitmapString("FPS: "+ofToString(ofGetFrameRate(), 2), px+padx, py+pady*3);
+        ofDrawBitmapString("Projector #" + ofToString(i+1), px+padx, py+pady*1.75);
+        //ofDrawBitmapString("fps: "+ofToString(ofGetFrameRate(), 2), px+padx, py+pady*2.75);
+    
+        //tcp.x = px+padx;
+        //tcp.y = py+pady*4.5;
+        //tcp.draw();
         
         // MESH
         // 1 = mesh radius
@@ -281,20 +294,24 @@ void vdome::drawConfig() {
             break;
         }
     
-        if (config) {
-            if (projectors[i].keyboard || projectors[i].mouse || editGroup == 1) {
+        if (editGroup == 2 && config && !saved) {
+            if (projectors[i].keyboard || projectors[i].mouse) {
                 ofSetHexColor(0xFFF000);
-                ofDrawBitmapString("Active", px+padx+120, py+pady+14);
+                ofDrawBitmapString("Active", px+padx+120, py+pady*1.75);
                 ofSetHexColor(0xFFFFFF);
             }
+            else if (showFrameRate) {
+                ofDrawBitmapString(ofToString(ofGetFrameRate(), 2), px+padx+125, py+pady*1.75);
+            }
         }
-        ofDrawBitmapString(title, px+padx, py+pady*7);
-        ofDrawBitmapString("Mode " + ofToString(editMode) + ": " + sub, px+padx, py+pady*8);
-        ofDrawBitmapString(str, px+padx, py+pady*9);
+        else if (showFrameRate)  {
+            ofDrawBitmapString(ofToString(ofGetFrameRate(), 2), px+padx+125, py+pady*1.75);
+        }
         
-        tcp.x = px+padx;
-        tcp.y = py+pady*4;
-        tcp.draw();
+        ofDrawBitmapString(title, px+padx, py+pady*3.5);
+        ofDrawBitmapString("Mode: " + sub, px+padx, py+pady*4.5);
+        ofDrawBitmapString(str, px+padx, py+pady*6);
+
     }
 }
 
@@ -371,6 +388,11 @@ void vdome::keyPressed(int key){
     cout << "keyPressed " << key << endl;
     
     switch(key){
+         
+        case 102: // f
+            showFrameRate = !showFrameRate;
+            break;
+            
         case 99: // c
             config = !config;
             break;

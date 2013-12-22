@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "ofxQuadWarp.h"
 #include "grid.h"
+#include "camera.h"
 
 class Projector {
 	
@@ -34,7 +35,7 @@ public:
         
     ofVec3f sphToCar(ofVec3f t);
     
-    ofCamera camera;
+    camera camera;
     ofFbo fbo;
     ofTexture fboTexture;
     ofRectangle view;

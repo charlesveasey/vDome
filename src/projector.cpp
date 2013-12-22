@@ -61,6 +61,7 @@ void Projector::setup() {
     camera.setLensOffset(ofVec2f(lensOffsetX,lensOffsetY));
     
     // create view
+    
     view.setWidth(width);
     view.setHeight(height);
     
@@ -99,20 +100,38 @@ void Projector::setup() {
 
     grid.indx = index;
     grid.setup();
+    
+    
+    
 }
 
+float val = 0;
 
 void Projector::cameraBegin() {
+    ofMatrix4x4 mat = camera.getProjectionMatrix(view);
+    val += .001;
+    
+    ofMatrix4x4 mat2;
+    mat2.set(
+             1,  0,  0,  0,
+             0, 1,  val,  0,
+             0,  0,  1,  0,
+             0,  0,  0,  1
+    );
+
+   //
+    ofMatrix4x4 m;
+    m.makeFromMultiplicationOf(mat2, mat);
+    camera.setProjectionMatrix(m);
     camera.begin(view);
 }
+
 void Projector::cameraEnd() {
      camera.end();
 }
 
-
 void Projector::fboBegin() {
     fbo.begin();
-    
 }
 void Projector::fboEnd() {
     fbo.end();
@@ -126,23 +145,15 @@ void Projector::fboUnbind() {
 }
 
 void Projector::draw() {
-        
-    plane.mapTexCoordsFromTexture(fboTexture);
     ofMatrix4x4 mat = keystone.getMatrix();
     //plane.setTransformMatrix(mat.getPtr() );
-    //grid.plane.mapTexCoordsFromTexture(fboTexture);
     
     ofTranslate(width * index + width/2, height/2, 0);
-    
-    //plane.setPosition(width * index + width/2, height/2, 0);
-    
     glEnable(GL_CULL_FACE);
     glCullFace( GL_FRONT );
-    //plane.draw();
-    //grid.mesh = plane.getMesh();
     
     grid.draw();
-
+    
     glDisable(GL_CULL_FACE);
     ofTranslate(-(width * index + width/2), -height/2, 0);
 }
