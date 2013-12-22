@@ -254,19 +254,16 @@ void vdome::drawConfig() {
                         break;
                         
                     case 8:
-                        sub = "Color";
-                        str =   "Brightness: " + ofToString(projectors[i].brightness);
-                        break;
-                        
-                    case 9:
-                        sub = "Color";
-                        str =   "Contrast: " + ofToString(projectors[i].contrast);
+                        sub = "Intensity";
+                        str =   "Brightness: " + ofToString(projectors[i].brightness) + "\n" +
+                                "Contrast: " + ofToString(projectors[i].contrast);
                         break;
 
-                    case 10:
+                    case 9:
                         sub = "Color";
                         str =   "Saturation: " + ofToString(projectors[i].saturation);
                         break;
+                        
                     default:
                         sub = "";
                         str = "";

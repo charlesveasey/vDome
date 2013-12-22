@@ -247,20 +247,16 @@ void Projector::keyPressed(int key) {
                         setup();                            
                     break;
                     
+                case 5: // projector scale
+                    scale += value * .1;
+                    break;
+                    
                 case 8: // projector brightness
-                        brightness += value * .1;
+                    brightness += value * .1;
                     break;
                     
-                case 9: // projector contrast
-                        contrast += value * .1;
-                    break;
-                    
-                case 10: // projector saturation
-                        saturation += value * .1;
-                    break;
-                    
-                case 5: // projector saturation
-                        scale += value * .1;
+                case 9: // projector saturation
+                    saturation += value * .1;
                     break;
             }
             break;
@@ -278,7 +274,6 @@ void Projector::keyPressed(int key) {
                     setup();
                     break;
                     
-                    
                 case 2: // projector tilt
                     tilt -= value;
                     setup();
@@ -294,20 +289,16 @@ void Projector::keyPressed(int key) {
                     setup();
                     break;
                     
+                case 5: // projector scale
+                    scale -= value * .1;
+                    break;
+                    
                 case 8: // projector brightness
                     brightness -= value * .1;
                     break;
                     
-                case 9: // projector contrast
-                    contrast -= value * .1;
-                    break;
-                    
-                case 10: // projector saturation
+                case 9: // projector saturation
                     saturation -= value * .1;
-                    break;
-                    
-                case 5: // projector saturation
-                    scale -= value * .1;
                     break;
             }
             break;
@@ -336,6 +327,10 @@ void Projector::keyPressed(int key) {
                 case 3: // projector lensOffsetX
                     lensOffsetX -= value * .1;
                     setup();
+                    break;
+                    
+                case 8: // projector contrast
+                    contrast -= value * .1;
                     break;
             }
             break;
@@ -366,6 +361,11 @@ void Projector::keyPressed(int key) {
                     lensOffsetX += value * .11;
                     setup();
                     break;
+                    
+                case 8: // projector contrast
+                    contrast += value * .1;
+                    break;
+                    
             }
             break;
             
