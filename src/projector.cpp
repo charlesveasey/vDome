@@ -36,6 +36,20 @@ void Projector::init(int i){
     contrast = 1;
     saturation = 1;
     
+    /*
+     shear
+     1,   xy,   xz,  0,
+     yx,   1,   yz,  0,
+     zx,  zy,   1,   0,
+     0,    0,   0,   1
+     */
+    
+    shear.push_back(0); // 0 = xy
+    shear.push_back(0); // 1 = xz
+    shear.push_back(0); // 2 = yx
+    shear.push_back(0); // 3 = yz
+    shear.push_back(0); // 4 = zx
+    shear.push_back(0); // 5 = zy
 }
 
 
@@ -109,19 +123,29 @@ float val = 0;
 
 void Projector::cameraBegin() {
     ofMatrix4x4 mat = camera.getProjectionMatrix(view);
-    val += .001;
     
-    ofMatrix4x4 mat2;
-    mat2.set(
-             1,  0,  0,  0,
-             0, 1,  val,  0,
-             0,  0,  1,  0,
-             0,  0,  0,  1
+    //val += .001;
+    //shear[3] = val;
+    
+    ofMatrix4x4 transform;
+ 
+    /*
+    shear
+        1,   xy,   xz,  0,
+        yx,   1,   yz,  0,
+        zx,  zy,   1,   0,
+        0,    0,   0,   1
+    */
+    
+    transform.set(
+             1,   shear[0],   shear[1],   0,
+      shear[2],          1,   shear[3],   0,
+      shear[4],   shear[5],          1,   0,
+             0,          0,          0,   1
     );
 
-   //
     ofMatrix4x4 m;
-    m.makeFromMultiplicationOf(mat2, mat);
+    m.makeFromMultiplicationOf(transform, mat);
     camera.setProjectionMatrix(m);
     camera.begin(view);
 }
@@ -223,8 +247,25 @@ void Projector::keyPressed(int key) {
     switch (key) {
                
         case OF_KEY_UP:  // up = switch on mode
-            switch (editMode) {                    
-                case 1: // projector elevation / distance (super)
+            switch (editMode) {
+
+                case 1: // projector brightness
+                    brightness += value * .1;
+                    break;
+                    
+                case 2: // projector saturation
+                    saturation += value * .1;
+                    break;
+                    
+                case 3:
+                    // keystone
+                    break;
+                
+                case 4:
+                    // grid
+                    break;
+                    
+                case 5: // projector elevation / distance (super)
                     if (!superKey)
                         elevation += value;
                     else
@@ -232,32 +273,43 @@ void Projector::keyPressed(int key) {
                     setup();
                     break;
                     
-                case 2: // projector tilt
+                case 6: // projector tilt
                         tilt += value;
                         setup();
                     break;
                     
-                case 3: // projector lensOffsetY
+                case 7: // projector fov
+                    fov += value;
+                    setup();
+                    break;
+                    
+                case 8: // projector lensOffsetY
                         lensOffsetY += value * .1;
                         setup();
                     break;
-                    
-                case 4: // projector fov
-                        fov += value;
-                        setup();                            
-                    break;
-                    
-                case 5: // projector scale
+
+                case 9: // projector scale
                     scale += value * .1;
                     break;
                     
-                case 8: // projector brightness
-                    brightness += value * .1;
+                case 10:
+                    // rotate
                     break;
                     
-                case 9: // projector saturation
-                    saturation += value * .1;
-                    break;
+                case 11: // projector shear 1
+                    if (!superKey)
+                        shear[3] += value;
+                    else
+                        shear[4] += value;
+                    break;              
+                    
+                case 12: // projector shear 2
+                    if (!superKey)
+                        shear[5] += value;
+                    else
+                        shear[0] += value;
+                    break;                  
+
             }
             break;
             
@@ -266,7 +318,23 @@ void Projector::keyPressed(int key) {
             
             switch (editMode) {
 
-                case 1: // projector elevation / distance (super)
+                case 1: // projector brightness
+                    brightness -= value * .1;
+                    break;
+                    
+                case 2: // projector saturation
+                    saturation -= value * .1;
+                    break;
+                    
+                case 3:
+                    // keystone
+                    break;
+                    
+                case 4:
+                    // grid
+                    break;
+                    
+                case 5: // projector elevation / distance (super)
                     if (!superKey)
                         elevation -= value;
                     else
@@ -274,31 +342,41 @@ void Projector::keyPressed(int key) {
                     setup();
                     break;
                     
-                case 2: // projector tilt
+                case 6: // projector tilt
                     tilt -= value;
                     setup();
                     break;
                     
-                case 3: // projector lensOffsetY
-                    lensOffsetY -= value * .1;
-                    setup();
-                    break;
-                    
-                case 4: // projector fov
+                case 7: // projector fov
                     fov -= value;
                     setup();
                     break;
                     
-                case 5: // projector scale
+                case 8: // projector lensOffsetY
+                    lensOffsetY -= value * .1;
+                    setup();
+                    break;
+                    
+                case 9: // projector scale
                     scale -= value * .1;
                     break;
                     
-                case 8: // projector brightness
-                    brightness -= value * .1;
+                case 10:
+                    // rotate
                     break;
                     
-                case 9: // projector saturation
-                    saturation -= value * .1;
+                case 11: // projector shear 1
+                    if (!superKey)
+                        shear[3] -= value;
+                    else
+                        shear[4] -= value;
+                    break;
+                    
+                case 12: // projector shear 2
+                    if (!superKey)
+                        shear[5] -= value;
+                    else
+                        shear[0] -= value;
                     break;
             }
             break;
@@ -310,13 +388,18 @@ void Projector::keyPressed(int key) {
             
         case OF_KEY_LEFT:  // left
             
-            switch (editMode) {                    
-                case 1: // projector azimuth
+            switch (editMode) {
+                    
+                case 2: // projector contrast
+                    contrast -= value * .1;
+                    break;
+                    
+                case 5: // projector azimuth
                     azimuth -= value;
                     setup();
                 break;
                     
-                case 2: // projector roll / pan (super)
+                case 6: // projector roll / pan (super)
                     if (!superKey)
                         roll -= value;
                     else
@@ -324,14 +407,19 @@ void Projector::keyPressed(int key) {
                     setup();
                     break;
                     
-                case 3: // projector lensOffsetX
+                case 8: // projector lensOffsetX
                     lensOffsetX -= value * .1;
                     setup();
                     break;
                     
-                case 8: // projector contrast
-                    contrast -= value * .1;
+                case 11: // projector shear 1
+                    shear[1] -= value;
                     break;
+                    
+                case 12: // projector shear 2
+                    shear[2] -= value;
+                    break;
+
             }
             break;
             
@@ -344,12 +432,16 @@ void Projector::keyPressed(int key) {
             
             switch (editMode) {
                     
-                case 1: // projector azimuth
+                case 2: // projector contrast
+                    contrast += value * .1;
+                    break;
+                    
+                case 5: // projector azimuth
                     azimuth += value;
                     setup();
                     break;
                     
-                case 2: // projector roll / pan (super)
+                case 6: // projector roll / pan (super)
                     if (!superKey)
                         roll += value;
                     else
@@ -357,13 +449,17 @@ void Projector::keyPressed(int key) {
                     setup();
                     break;
                     
-                case 3: // projector lensOffsetX
-                    lensOffsetX += value * .11;
+                case 8: // projector lensOffsetX
+                    lensOffsetX += value * .1;
                     setup();
                     break;
                     
-                case 8: // projector contrast
-                    contrast += value * .1;
+                case 11: // projector shear 1
+                    shear[1] += value;
+                    break;
+                    
+                case 12: // projector shear 2
+                    shear[2] += value;
                     break;
                     
             }

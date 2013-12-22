@@ -65,6 +65,8 @@ public:
     float lensOffsetX;
     float lensOffsetY;
    
+    vector<float> shear;
+    
     ofPoint topLeft;
     ofPoint topRight;
     ofPoint bottomLeft;

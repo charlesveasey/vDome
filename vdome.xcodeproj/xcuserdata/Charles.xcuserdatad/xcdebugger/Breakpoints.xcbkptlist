@@ -294,11 +294,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "src/projector.cpp"
-         timestampString = "408851143.677246"
+         timestampString = "409373123.282917"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "64"
-         endingLineNumber = "64"
+         startingLineNumber = "78"
+         endingLineNumber = "78"
          landmarkName = "Projector::setup()"
          landmarkType = "5">
       </FileBreakpoint>
@@ -357,11 +357,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "src/projector.cpp"
-         timestampString = "409337545.765229"
+         timestampString = "409379111.75158"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "380"
-         endingLineNumber = "380"
+         startingLineNumber = "476"
+         endingLineNumber = "476"
          landmarkName = "Projector::keyReleased(int key)"
          landmarkType = "5">
       </FileBreakpoint>
@@ -381,11 +381,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "src/vdome.cpp"
-         timestampString = "409293725.502986"
+         timestampString = "409380180.11512"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "187"
-         endingLineNumber = "187"
+         startingLineNumber = "224"
+         endingLineNumber = "224"
          landmarkName = "vdome::drawConfig()"
          landmarkType = "5">
       </FileBreakpoint>
@@ -394,11 +394,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "src/vdome.cpp"
-         timestampString = "409293725.502986"
+         timestampString = "409380180.11512"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "190"
-         endingLineNumber = "190"
+         startingLineNumber = "227"
+         endingLineNumber = "227"
          landmarkName = "vdome::drawConfig()"
          landmarkType = "5">
       </FileBreakpoint>
@@ -407,11 +407,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "src/vdome.cpp"
-         timestampString = "409371712.050765"
+         timestampString = "409380180.11512"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "293"
-         endingLineNumber = "293"
+         startingLineNumber = "346"
+         endingLineNumber = "346"
          landmarkName = "vdome::drawConfig()"
          landmarkType = "5">
       </FileBreakpoint>

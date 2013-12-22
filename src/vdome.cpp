@@ -1,5 +1,38 @@
 #include "vdome.h"
 
+/*********************
+ *********************
+ 
+ 
+    (i) Input
+    --------------
+    (1) Scale
+
+
+    (d) Dome
+    ---------------
+    (1) Radius
+
+
+    (p) Projector
+    ---------------
+    (1) Intensity
+    (2) Color
+    (3) Keystone
+    (4) Grid
+    (5) Position
+    (6) Orientation
+    (7) Field of View
+    (8) Offset
+    (9) Scale
+    (10) Rotate
+    (11) Shear 1
+    (12) Shear 2
+
+ *********************
+ *********************/
+
+
 
 // keyboard
 bool shKey = false;
@@ -120,18 +153,22 @@ void vdome::draw(){
 	}
 }
 
+float roundTo(float val, float n){
+    return round(val * 1/n) * n;
+}
 
 void vdome::drawConfig() {
     for(int i=0; i<pCount; i++) {
 
         if (editGroup == 2 && projectors[i].mouse) {
-            if (editMode == 6) {
+            if (editMode == 3) {
                 projectors[i].keystone.draw();
             }
-            if (editMode == 7) {
+            else if (editMode == 4) {
                 projectors[i].grid.drawConfig();
             }
         }
+        
         
         // debug positions
         
@@ -200,8 +237,8 @@ void vdome::drawConfig() {
                 title = "Edit: Dome";
                  switch (editMode) 
                     case 1:
-                        sub = "";
-                        str = "Radius: " + ofToString(mesh.radius);
+                        sub = "";             
+                        str = "Radius: " + ofToString( roundTo(mesh.radius, .01) );
                     break;
                     default:
                         sub = "";
@@ -212,56 +249,72 @@ void vdome::drawConfig() {
             case 2: // projector
                 title = "Edit: Projector";                    
                 switch (editMode) {
-
                     case 1:
-                        sub = "Position";
-                        str =   "Azimuth: "+ ofToString(projectors[i].azimuth) + "\n" +
-                        "Elevation: "+ ofToString(projectors[i].elevation) + "\n" +
-                        "Distance: "+ ofToString(projectors[i].distance);
+                        sub = "Intensity";
+                        str =   "Brightness: " + ofToString( roundTo(projectors[i].brightness, .001) ) + "\n" +
+                        "Contrast: " + ofToString( roundTo(projectors[i].contrast, .001) );
                         break;
                         
                     case 2:
-                        sub = "Orientation";
-                        str =   "Roll: "+ ofToString(projectors[i].roll) + "\n" +
-                        "Tilt: "+ ofToString(projectors[i].tilt) + "\n" +
-                        "Pan: "+ ofToString(projectors[i].pan);
+                        sub = "Color";
+                        str =   "Saturation: " + ofToString( roundTo(projectors[i].saturation, .001) );
                         break;
                         
                     case 3:
-                        sub = "Offset";
-                        str =   "X: "+ ofToString(projectors[i].lensOffsetX) + "\n" +
-                        "Y: "+ ofToString(projectors[i].lensOffsetY);
+                        sub = "Keystone";
+                        str = "";
                         break;
                         
                     case 4:
-                        sub = "Lens";
-                        str =   "Field of View: "+ ofToString(projectors[i].fov);
+                        sub = "Grid";
+                        str = "";
                         break;
-                     
+                        
                     case 5:
-                        sub = "Texture";
-                        str =   "Scale: "+ ofToString(projectors[i].scale);
+                        sub = "Position";
+                        str =   "Azimuth: "+ ofToString( roundTo(projectors[i].azimuth, .01) ) + "\n" +
+                        "Elevation: "+ ofToString( roundTo(projectors[i].elevation, .01) ) + "\n" +
+                        "Distance: "+ ofToString( roundTo(projectors[i].distance, .01) );
                         break;
                         
                     case 6:
-                        sub = "Keystone";
-                        str =   "";
+                        sub = "Orientation";
+                        str =   "Roll: "+ ofToString( roundTo(projectors[i].roll, .01) ) + "\n" +
+                        "Tilt: "+ ofToString( roundTo(projectors[i].tilt, .01) ) + "\n" +
+                        "Pan: "+ ofToString( roundTo(projectors[i].pan, .01) );
                         break;
                         
                     case 7:
-                        sub = "Grid";
-                        str =   "";
+                        sub = "Lens";
+                        str =   "Field of View: "+ ofToString( roundTo(projectors[i].fov, .01) );
                         break;
                         
                     case 8:
-                        sub = "Intensity";
-                        str =   "Brightness: " + ofToString(projectors[i].brightness) + "\n" +
-                                "Contrast: " + ofToString(projectors[i].contrast);
+                        sub = "Offset";
+                        str =   "X: "+ ofToString( roundTo(projectors[i].lensOffsetX, .01) ) + "\n" +
+                                "Y: "+ ofToString( roundTo(projectors[i].lensOffsetY, .01 ) );
                         break;
-
+                     
                     case 9:
-                        sub = "Color";
-                        str =   "Saturation: " + ofToString(projectors[i].saturation);
+                        sub = "Scale";
+                        str =   "XY: : "+ ofToString( roundTo(projectors[i].scale, .01) ) + "\n" +
+                                 "X: "+ ofToString( roundTo(projectors[i].scale, .01) ) + "\n" +
+                                 "Y: "+ ofToString( roundTo(projectors[i].scale, .01) );
+                        break;
+                        
+                    case 10:
+                        sub = "Rotate";
+                        str =   "";
+                        break;
+                        
+                    case 11:
+                        sub = "Shear 1";
+                        str =   "";
+                        break;
+                        
+                    case 12:
+                        sub = "Shear 2";
+                        str =   "";
                         break;
                         
                     default:
@@ -276,7 +329,7 @@ void vdome::drawConfig() {
                 switch (editMode) {
                     case 1:
                         sub = "";
-                        str = "Scale: " + ofToString(mesh.textureScale);
+                        str = "Scale: " + ofToString( roundTo(mesh.textureScale, .01) );
                         break;
                     case 2:
                         sub = "Offset";
@@ -301,7 +354,7 @@ void vdome::drawConfig() {
                 ofDrawBitmapString(ofToString(ofGetFrameRate(), 2), px+padx+125, py+pady*1.75);
             }
         }
-        else if (showFrameRate)  {
+        else if (showFrameRate && !saved)  {
             ofDrawBitmapString(ofToString(ofGetFrameRate(), 2), px+padx+125, py+pady*1.75);
         }
         
@@ -311,6 +364,8 @@ void vdome::drawConfig() {
 
     }
 }
+
+
 
 
 // XML SETTINGS
@@ -465,6 +520,7 @@ void vdome::keyPressed(int key){
     // 6 = brightness
     // 7 = contrast
     // 8 = saturation
+
     
     if (key >= 48 && key <= 57) {
         // assign edit mode
@@ -495,6 +551,13 @@ void vdome::keyPressed(int key){
         }
         return;
     }
+    else if (key == 45) {
+        editMode = 11;
+    }
+    else if (key == 61) {
+        editMode = 12;
+    }
+    
     
     switch (editGroup) {
         case 1: // d = dome mesh
