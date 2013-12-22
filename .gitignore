@@ -23,7 +23,7 @@ vdomeDebug.app
 
 # Folders
 obj/
-bin/media
+bin/data/media
 
 
 
