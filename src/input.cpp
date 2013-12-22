@@ -17,7 +17,7 @@ void Input::setup(){
     switch(mode){
         case 1: // video
             video.setPixelFormat(OF_PIXELS_RGB);
-            video.loadMovie("test.mov"); 
+            video.loadMovie("media/test.mov"); 
             texture = video.getTextureReference();
             video.play();
             break;
@@ -29,7 +29,7 @@ void Input::setup(){
             break;
         case 3: // hap video
 			#ifdef TARGET_OSX
-				hap.loadMovie("hap.mov", OF_QTKIT_DECODE_TEXTURE_ONLY);
+				hap.loadMovie("media/hap.mov", OF_QTKIT_DECODE_TEXTURE_ONLY);
 				hap.play();
 			#endif
             break;
@@ -42,7 +42,7 @@ void Input::setup(){
             break;
         default:
             // load default image
-            image.loadImage("grid.jpg");
+            image.loadImage("media/grid.jpg");
             texture = image.getTextureReference();
             break;
     }
