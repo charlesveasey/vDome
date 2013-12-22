@@ -1,3 +1,4 @@
+# Files
 *.slo
 *.lo
 *.o
@@ -8,28 +9,24 @@
 *.a
 *.suo
 *.sdf
+*.xcuserstate
+*.plist
+*.xcbkptlist
+*.pbxproj
+*.DS_Store
+*.gitkeep
+
+# Bin
+vdome.app
+vdomeDebug.app
+
 
 # Folders
 obj/
-bin/
-*.xcuserstate
+bin/media
 
-*.xcuserstate
 
-*.plist
 
-*.xcuserstate
 
-vdome.xcodeproj/project.xcworkspace/xcuserdata/Charles.xcuserdatad/UserInterfaceState.xcuserstate
 
-*.xcuserstate
 
-*.xcbkptlist
-
-*.xcbkptlist
-
-*.xcbkptlist
-
-*.xcbkptlist
-
-*.pbxproj
