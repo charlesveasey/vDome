@@ -77,5 +77,7 @@ protected:
     int selectedCornerIndex;
     
     bool bEnabled;
+    
+    ofPoint lastMouse;
 
 };

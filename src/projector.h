@@ -1,8 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxQuadWarp.h"
-#include "grid.h"
+#include "plane.h"
 #include "camera.h"
 
 class Projector {
@@ -28,15 +27,12 @@ public:
     void unbind();
     
     void draw();
-    void drawWireframe();
         
     ofVec3f sphToCar(ofVec3f t);
     
     camera camera;
     ofFbo fbo;
     ofRectangle view;
-    ofPlanePrimitive plane;
-    ofxQuadWarp keystone;
     
     int index;
     
@@ -62,13 +58,8 @@ public:
     float lensOffsetY;
    
     vector<float> shear;
-    
-    ofPoint topLeft;
-    ofPoint topRight;
-    ofPoint bottomLeft;
-    ofPoint bottomRight;
    
-    Grid grid;
+    Plane plane;
     
     vector<float> scale;
     
@@ -79,6 +70,5 @@ public:
     int editMode;
     bool superKey;
     float value;
-
 };
 

@@ -1,6 +1,7 @@
 #include "ofMain.h"
+#include "ofxQuadWarp.h"
 
-class Grid {
+class Plane {
 	
 public:
     
@@ -12,7 +13,12 @@ public:
     
     int indx;
     ofVboMesh mesh;
-    ofPlanePrimitive plane;
+    ofxQuadWarp keystone;
+    
+    ofPoint topLeft;
+    ofPoint topRight;
+    ofPoint bottomLeft;
+    ofPoint bottomRight;
     
     void keyPressed(int key);
     void keyReleased(int key);
@@ -21,6 +27,10 @@ public:
     void onMouseReleased(ofMouseEventArgs& mouseArgs);
     //void loadXML(ofXml &xml);
     //void saveXML(ofXml &xml);
+    
+    vector<float>position;
+    
+    float value = 1;
 
 };
 

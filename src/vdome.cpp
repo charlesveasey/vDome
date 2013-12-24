@@ -128,9 +128,8 @@ void vdome::draw(){
     ofSetHexColor(0xFFFFFF);
     
 	for(int i=0; i<pCount; i++){
-        ofClear(0, 0, 0, 0);
         projectors[i].begin();
-        input.bind();        
+        input.bind();
         mesh.draw();
         input.unbind();
         projectors[i].end();
@@ -161,10 +160,10 @@ void vdome::drawConfig() {
 
         if (editGroup == 2 && projectors[i].mouse) {
             if (editMode == 3) {
-                projectors[i].keystone.draw();
+                projectors[i].plane.keystone.draw();
             }
             else if (editMode == 4) {
-                projectors[i].grid.drawConfig();
+                projectors[i].plane.drawConfig();
             }
         }
         
@@ -174,8 +173,8 @@ void vdome::drawConfig() {
         int pw = 200;
         int ph = 135;
         
-        int px = projectors[i].plane.getX() - pw/2;
-        int py = projectors[i].plane.getY() - ph/2;
+        int px = projectors[i].plane.position[0]+1024/2 - pw/2;
+        int py = projectors[i].plane.position[1]+768/2 - ph/2;
         
         int padx = 15;
         int pady = 15;

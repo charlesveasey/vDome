@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		560A020D185FFC0000DF7D6E /* grid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560A020B185FFC0000DF7D6E /* grid.cpp */; };
+		560A020D185FFC0000DF7D6E /* plane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560A020B185FFC0000DF7D6E /* plane.cpp */; };
 		561FA68D1844413B003E6812 /* projector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 561FA68B1844413B003E6812 /* projector.cpp */; };
 		561FA69018445145003E6812 /* window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 561FA68F18445145003E6812 /* window.cpp */; };
 		56244C7D18430127008C7FD1 /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56244C6918430127008C7FD1 /* Syphon.framework */; };
@@ -99,8 +99,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		560A020B185FFC0000DF7D6E /* grid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = grid.cpp; sourceTree = "<group>"; };
-		560A020C185FFC0000DF7D6E /* grid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = grid.h; sourceTree = "<group>"; };
+		560A020B185FFC0000DF7D6E /* plane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = plane.cpp; sourceTree = "<group>"; };
+		560A020C185FFC0000DF7D6E /* plane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = plane.h; sourceTree = "<group>"; };
 		561FA68B1844413B003E6812 /* projector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = projector.cpp; sourceTree = "<group>"; };
 		561FA68C1844413B003E6812 /* projector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = projector.h; sourceTree = "<group>"; };
 		561FA68E18445138003E6812 /* window.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = window.h; sourceTree = "<group>"; };
@@ -867,10 +867,8 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				56E6ED93186678A400C05874 /* camera.cpp */,
-				56E6ED94186678A400C05874 /* camera.h */,
-				5696C0521842C08D00E51614 /* vdome.h */,
 				5696C0511842C08D00E51614 /* vdome.cpp */,
+				5696C0521842C08D00E51614 /* vdome.h */,
 				5696C04F1842C08D00E51614 /* mesh.cpp */,
 				5696C0501842C08D00E51614 /* mesh.h */,
 				561FA68B1844413B003E6812 /* projector.cpp */,
@@ -884,8 +882,10 @@
 				568406E21846F4E10000A6F1 /* input.cpp */,
 				565914071848514C000864E5 /* tcp.cpp */,
 				565914081848514C000864E5 /* tcp.h */,
-				560A020B185FFC0000DF7D6E /* grid.cpp */,
-				560A020C185FFC0000DF7D6E /* grid.h */,
+				560A020B185FFC0000DF7D6E /* plane.cpp */,
+				560A020C185FFC0000DF7D6E /* plane.h */,
+				56E6ED93186678A400C05874 /* camera.cpp */,
+				56E6ED94186678A400C05874 /* camera.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -1032,7 +1032,7 @@
 				56C5CAEE184B3E1100249801 /* ofxCvImage.cpp in Sources */,
 				56C5CAEF184B3E1100249801 /* ofxCvShortImage.cpp in Sources */,
 				56C5CB16184BBBA700249801 /* ofxQuadWarp.cpp in Sources */,
-				560A020D185FFC0000DF7D6E /* grid.cpp in Sources */,
+				560A020D185FFC0000DF7D6E /* plane.cpp in Sources */,
 				56E6ED95186678A400C05874 /* camera.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

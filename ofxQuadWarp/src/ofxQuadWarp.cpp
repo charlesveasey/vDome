@@ -5,6 +5,7 @@
 
 #include "ofxQuadWarp.h"
 
+
 ofxQuadWarp::ofxQuadWarp() {
     anchorSize.set(10,10);
     anchorSizeHalf = anchorSize * 0.5;
@@ -215,7 +216,6 @@ void ofxQuadWarp::reset() {
     dstPoints[3].set(srcPoints[3]);
 }
 
-ofPoint lastMouse;
 
 
 //----------------------------------------------------- interaction.
@@ -254,6 +254,7 @@ void ofxQuadWarp::onMouseDragged(ofMouseEventArgs& mouseArgs) {
                 return;
             }
             ofPoint mousePoint(mouseArgs.x, mouseArgs.y);
+            cout << mousePoint.x << endl;
             dstPoints[selectedCornerIndex].set( dstPoints[selectedCornerIndex]- (lastMouse - mousePoint) );
             lastMouse = mousePoint;
         }
