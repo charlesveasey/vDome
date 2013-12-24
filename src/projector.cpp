@@ -22,9 +22,8 @@ void Projector::init(int i){
    
     fov = 33;
     
-    lensOffsetX = 0;
-    lensOffsetY = 0;
-
+    offset.push_back(0);
+    offset.push_back(0);
 
     scale.push_back(1);
     scale.push_back(1);
@@ -68,7 +67,7 @@ void Projector::setup() {
     camera.pan(azimuth + pan);
     camera.roll(roll);
     
-    camera.setLensOffset(ofVec2f(lensOffsetX,lensOffsetY));
+    camera.setLensOffset(ofVec2f(offset[0],offset[1]));
     
     // create camera view
     view.setWidth(width);
@@ -223,8 +222,8 @@ void Projector::keyPressed(int key) {
                     setup();
                     break;
                     
-                case 8: // projector lensOffsetY
-                        lensOffsetY += value * .1;
+                case 8: // projector offset y
+                        offset[1] += value * .1;
                         setup();
                     break;
 
@@ -294,7 +293,7 @@ void Projector::keyPressed(int key) {
                     break;
                     
                 case 8: // projector lensOffsetY
-                    lensOffsetY -= value * .1;
+                    offset[1] -= value * .1;
                     setup();
                     break;
                     
@@ -350,7 +349,7 @@ void Projector::keyPressed(int key) {
                     break;
                     
                 case 8: // projector lensOffsetX
-                    lensOffsetX -= value * .1;
+                    offset[0] -= value * .1;
                     setup();
                     break;
                     
@@ -401,7 +400,7 @@ void Projector::keyPressed(int key) {
                     break;
                     
                 case 8: // projector lensOffsetX
-                    lensOffsetX += value * .1;
+                    offset[0] += value * .1;
                     setup();
                     break;
                     
@@ -455,10 +454,6 @@ void Projector::loadXML(ofXml &xml) {
         fov = ofToFloat( xml.getAttribute(pre + "][@fov]") );
     if (xml.exists(pre + "][@height]"))
         height = ofToInt( xml.getAttribute(pre + "][@height]") );
-    if (xml.exists(pre + "][@lensOffsetX]"))
-        lensOffsetX = ofToFloat( xml.getAttribute(pre + "][@lensOffsetX]") );
-    if (xml.exists(pre + "][@lensOffsetY]"))
-        lensOffsetY = ofToFloat( xml.getAttribute(pre + "][@lensOffsetY]") );
     if (xml.exists(pre + "][@saturation]"))
         saturation = ofToFloat( xml.getAttribute(pre + "][@saturation]") );
     if (xml.exists(pre + "][@roll]"))
@@ -473,6 +468,11 @@ void Projector::loadXML(ofXml &xml) {
         str = xml.getAttribute(pre + "][@scale]");
         scale[0] = ofToFloat(ofSplitString(str, ",")[0]);
         scale[1] = ofToFloat(ofSplitString(str, ",")[1]);
+    }
+    if (xml.exists(pre + "][@offset]")) {
+        str = xml.getAttribute(pre + "][@offset]");
+        offset[0] = ofToFloat(ofSplitString(str, ",")[0]);
+        offset[1] = ofToFloat(ofSplitString(str, ",")[1]);
     }
     
     setup();
@@ -494,8 +494,7 @@ void Projector::saveXML(ofXml &xml) {
     xml.setAttribute(pre + "][@elevation]", ofToString(elevation));
     xml.setAttribute(pre + "][@fov]", ofToString(fov));
     xml.setAttribute(pre + "][@height]", ofToString(height));
-    xml.setAttribute(pre + "][@lensOffsetX]", ofToString(lensOffsetX));
-    xml.setAttribute(pre + "][@lensOffsetY]", ofToString(lensOffsetY));
+    xml.setAttribute(pre + "][@offset]", ofToString(offset[0]) +  "," + ofToString(offset[1]) );
     xml.setAttribute(pre + "][@saturation]", ofToString(saturation));
     xml.setAttribute(pre + "][@roll]", ofToString(roll));
     xml.setAttribute(pre + "][@tilt]", ofToString(tilt));

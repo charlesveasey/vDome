@@ -212,7 +212,7 @@ void vdome::drawConfig() {
         // PROJECTOR
         // 1 = azimuth, elevation, distance
         // 2 = pan, tilt, roll
-        // 3 = lensOffsetX, lensOffsetY
+        // 3 = offset, offset
         // 4 = fov
         // 5 = texture size
         // 6 = keystone
@@ -287,8 +287,8 @@ void vdome::drawConfig() {
                         
                     case 8:
                         sub = "Offset";
-                        str =   "X: "+ ofToString( roundTo(projectors[i].lensOffsetX, .001) ) + "\n" +
-                                "Y: "+ ofToString( roundTo(projectors[i].lensOffsetY, .001 ) );
+                        str =   "X: "+ ofToString( roundTo(projectors[i].offset[0], .001) ) + "\n" +
+                                "Y: "+ ofToString( roundTo(projectors[i].offset[1], .001 ) );
                         break;
                      
                     case 9:
@@ -514,7 +514,7 @@ void vdome::keyPressed(int key){
     // 1 = mesh radius
     // 2 = azimuth, elevation, distance
     // 3 = pan, tilt, roll
-    // 4 = lensOffsetX, lensOffsetY
+    // 4 = offset
     // 5 = fov
     // 6 = brightness
     // 7 = contrast

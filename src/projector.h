@@ -54,14 +54,12 @@ public:
     
     float fov;
     
-    float lensOffsetX;
-    float lensOffsetY;
-   
     vector<float> shear;
-   
+    vector<float> scale;
+    vector<float> offset;
+    
     Plane plane;
     
-    vector<float> scale;
     
     float brightness;
     float contrast;
