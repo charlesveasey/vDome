@@ -184,7 +184,7 @@ void vdome::drawConfig() {
             ofSetHexColor(0xFFFFFF);
             ofDrawBitmapString("SAVED", px+padx+125, py+pady*1.75);
             frameCnt++;
-            if (frameCnt == 120) {
+            if (frameCnt == 60) {
                 saved = false;
                 frameCnt = 0;
             }
@@ -430,7 +430,7 @@ void vdome::mouseReleased(ofMouseEventArgs& mouseArgs) {
 // KEYBOARD EVENTS
 
 void vdome::keyPressed(int key){
-    cout << "keyPressed " << key << endl;
+    //cout << "keyPressed " << key << endl;
     
     switch(key){
          
@@ -625,7 +625,7 @@ void vdome::keyReleased(int key) {
     switch(key){
             
         case 115: // s
-            if (config && superKey) { // mod + s = save file
+            if (config)  { // mod + s = save file
                 cout << "saveXML " << endl;
                 saveXML(xmlFile);
             }

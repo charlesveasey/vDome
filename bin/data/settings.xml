@@ -6,16 +6,16 @@
     
 	<input mode="image" scale="1"/>
 
-	<window height="772" width="1680" x="50" y="44"/>
+	<window height="772" width="2431" x="73" y="86"/>
 
 	<projectors count="2">
 
 		<!-- #0 -->
-		<projector azimuth="0" brightness="1" contrast="1" distance="9.65" elevation="0.549999" fov="32.9" height="768" lensOffsetX="0.00080049" lensOffsetY="0.691999" pan="0" roll="5.96046e-08" saturation="1" scale="1,1" tilt="-4.91" width="1024">
+		<projector azimuth="0" distance="9.65" elevation="0.549999" fov="32.9" height="768" keystone="0.0820313,0.0729166,0.962891,0.0794271,0.0498047,0.837239,0.905273,0.90625" lensOffsetX="0.00080049" lensOffsetY="0.691999" pan="0" roll="5.96046e-08" saturation="1" scale="1,1" tilt="-4.91" width="1024">
 		</projector>
 		
 		<!-- #1 -->
-		<projector azimuth="-74.9099" brightness="1" contrast="1" distance="-1.35" elevation="2.55" fov="32.9" height="768" lensOffsetX="0.000800474" lensOffsetY="0.731999" pan="0" roll="0" saturation="1" scale="1,1" tilt="-4.91001" width="1024">
+		<projector azimuth="-74.9099" brightness="1" contrast="1" distance="-1.35" elevation="2.55" fov="32.9" height="768" keystone="0.0439453,0.0481771,1,0,0,1,1,1" lensOffsetX="0.000800474" lensOffsetY="0.731999" pan="0" roll="0" saturation="1.3" scale="1,1" tilt="-4.91001" width="1024">
 		</projector>
         
 		<!-- #2 -->

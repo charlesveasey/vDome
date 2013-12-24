@@ -82,9 +82,8 @@ void Projector::setup() {
     ofClear(255);
     fbo.end();
 
-    
-
-    plane.indx = index;
+    // projection plane
+    plane.init(index);
     plane.setup();
 }
 
@@ -333,7 +332,7 @@ void Projector::keyPressed(int key) {
             
             switch (editMode) {
                     
-                case 2: // projector contrast
+                case 1: // projector contrast
                     contrast -= value * .1;
                     break;
                     
@@ -384,7 +383,7 @@ void Projector::keyPressed(int key) {
             
             switch (editMode) {
                     
-                case 2: // projector contrast
+                case 1: // projector contrast
                     contrast += value * .1;
                     break;
                     
@@ -477,6 +476,8 @@ void Projector::loadXML(ofXml &xml) {
     }
     
     setup();
+    
+    plane.load(xml);
 }
 
 
@@ -501,4 +502,8 @@ void Projector::saveXML(ofXml &xml) {
     xml.setAttribute(pre + "][@pan]", ofToString(pan));
     xml.setAttribute(pre + "][@width]", ofToString(width));
     xml.setAttribute(pre + "][@scale]", ofToString(scale[0]) +  "," + ofToString(scale[1]) );
+    
+    
+    plane.save(xml);
+    
 }

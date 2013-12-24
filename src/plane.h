@@ -5,28 +5,22 @@ class Plane {
 	
 public:
     
-    void init();
+    void init(int i);
     void setup();
     void update();
     void draw();
     void drawConfig();
     
-    int indx;
     ofVboMesh mesh;
     ofxQuadWarp keystone;
-    
-    ofPoint topLeft;
-    ofPoint topRight;
-    ofPoint bottomLeft;
-    ofPoint bottomRight;
     
     void keyPressed(int key);
     void keyReleased(int key);
     void onMouseDragged(ofMouseEventArgs& mouseArgs);
     void onMousePressed(ofMouseEventArgs& mouseArgs);
     void onMouseReleased(ofMouseEventArgs& mouseArgs);
-    //void loadXML(ofXml &xml);
-    //void saveXML(ofXml &xml);
+    void load(ofXml &xml);
+    void save(ofXml &xml);
     
     vector<float>position;
     
@@ -35,5 +29,30 @@ public:
     bool keystoneActive;
     bool gridActive;
 
+
+    ofMatrix4x4 mat;
+    
+    vector<ofVec3f> orgVerts;
+    vector<ofVec3f> keyVerts;
+    vector<ofVec3f> gridVerts;
+    
+    vector<ofPoint> keyVals;
+    
+    
+private:
+    
+    float index;
+    bool shift;
+    ofPoint lastM;
+    map<int, bool> sel;
+    bool group = false;
+    bool drawBox = false;
+    ofPoint boxOrigin;
+    ofPoint boxUpdate;
+    int xRes = 10;
+    int yRes = 10;
+    int pointIndex = -1;
+    
+    
 };
 
