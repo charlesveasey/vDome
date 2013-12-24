@@ -1,5 +1,9 @@
 #include "projector.h"
 
+vector<ofVec3f> orgVerts;
+vector<ofVec3f> keyVerts;
+vector<ofVec3f> gridVerts;
+
 void Projector::init(int i){
     
     // defaults
@@ -30,7 +34,8 @@ void Projector::init(int i){
     bottomLeft.set(0, 1);
     bottomRight.set(1, 1);
 
-    scale = 1;
+    scale.push_back(1);
+    scale.push_back(1);
     
     brightness = 1;
     contrast = 1;
@@ -54,7 +59,6 @@ void Projector::init(int i){
 
 
 void Projector::setup() {
-    
     // convert camera position -> spherical to cartesian
     ofVec3f sph, car;
     sph.set(azimuth, elevation, distance);
@@ -74,26 +78,23 @@ void Projector::setup() {
     
     camera.setLensOffset(ofVec2f(lensOffsetX,lensOffsetY));
     
-    // create view
-    
+    // create camera view
     view.setWidth(width);
     view.setHeight(height);
     
-    // create fbo
+    // create dome master fbo
     if (fbo.getWidth() != width || fbo.getHeight() != height) {
         fbo.allocate(width, height, GL_RGB);
     }
-    
     fbo.begin();
     ofClear(255);
     fbo.end();
-    fboTexture = fbo.getTextureReference();
     
     // create render plane
     plane.set(width, height);
     plane.setPosition(width * index + width/2, height/2, 0);
     plane.setResolution(10, 10);
-        
+    
     int w = width;
     int h = height;
     int x = width * index;
@@ -114,19 +115,12 @@ void Projector::setup() {
 
     grid.indx = index;
     grid.setup();
-    
-    
-    
 }
 
-float val = 0;
 
-void Projector::cameraBegin() {
+void Projector::begin() {
+    fbo.begin();
     ofMatrix4x4 mat = camera.getProjectionMatrix(view);
-    
-    //val += .001;
-    //shear[3] = val;
-    
     ofMatrix4x4 transform;
  
     /*
@@ -138,8 +132,8 @@ void Projector::cameraBegin() {
     */
     
     transform.set(
-             1,   shear[0],   shear[1],   0,
-      shear[2],          1,   shear[3],   0,
+      scale[0],   shear[0],   shear[1],   0,
+      shear[2],   scale[1],   shear[3],   0,
       shear[4],   shear[5],          1,   0,
              0,          0,          0,   1
     );
@@ -150,40 +144,30 @@ void Projector::cameraBegin() {
     camera.begin(view);
 }
 
-void Projector::cameraEnd() {
-     camera.end();
-}
-
-void Projector::fboBegin() {
-    fbo.begin();
-}
-void Projector::fboEnd() {
+void Projector::end() {
+    camera.end();
     fbo.end();
 }
 
-void Projector::fboBind() {
-    fboTexture.bind();
+void Projector::bind() {
+    fbo.getTextureReference().bind();
 }
-void Projector::fboUnbind() {
-    fboTexture.unbind();
+void Projector::unbind() {
+    fbo.getTextureReference().unbind();
 }
 
 void Projector::draw() {
-    ofMatrix4x4 mat = keystone.getMatrix();
-    //plane.setTransformMatrix(mat.getPtr() );
-    
+    ofPushMatrix();
     ofTranslate(width * index + width/2, height/2, 0);
-    glEnable(GL_CULL_FACE);
-    glCullFace( GL_FRONT );
-    
-    grid.draw();
-    
-    glDisable(GL_CULL_FACE);
-    ofTranslate(-(width * index + width/2), -height/2, 0);
+        glEnable(GL_CULL_FACE);
+        glCullFace( GL_FRONT );
+            grid.draw();
+        glDisable(GL_CULL_FACE);
+   ofPopMatrix();
 }
 
 void Projector::drawWireframe() {
-    plane.mapTexCoordsFromTexture(fboTexture);    
+    plane.mapTexCoordsFromTexture(fbo.getTextureReference());
     plane.setPosition(width * index + width/2, height/2, 0);    
     plane.drawWireframe();
 }
@@ -289,21 +273,22 @@ void Projector::keyPressed(int key) {
                     break;
 
                 case 9: // projector scale
-                    scale += value * .1;
+                    if (!superKey)
+                        scale[1] += value * .1;
+                    else {
+                        scale[0] += value * .1;
+                        scale[1] += value * .1;
+                    }
                     break;
                     
-                case 10:
-                    // rotate
-                    break;
-                    
-                case 11: // projector shear 1
+                case 10: // projector shear 1
                     if (!superKey)
                         shear[3] += value * .1;
                     else
                         shear[1] += value * .1;
                     break;              
                     
-                case 12: // projector shear 2
+                case 11: // projector shear 2
                     if (!superKey)
                         shear[5] += value * .1;
                     else
@@ -358,21 +343,22 @@ void Projector::keyPressed(int key) {
                     break;
                     
                 case 9: // projector scale
-                    scale -= value * .1;
+                    if (!superKey)
+                        scale[1] -= value * .1;
+                    else {
+                        scale[0] -= value * .1;
+                        scale[1] -= value * .1;
+                    }
                     break;
                     
-                case 10:
-                    // rotate
-                    break;
-                    
-                case 11: // projector shear 1
+                case 10: // projector shear 1
                     if (!superKey)
                         shear[3] -= value * .1;
                     else
                         shear[1] -= value * .1;
                     break;
                     
-                case 12: // projector shear 2
+                case 11: // projector shear 2
                     if (!superKey)
                         shear[5] -= value * .1;
                     else
@@ -412,11 +398,20 @@ void Projector::keyPressed(int key) {
                     setup();
                     break;
                     
-                case 11: // projector shear 1
+                case 9: // projector scale
+                    if (!superKey)
+                        scale[0] -= value * .1;
+                    else {
+                        scale[0] -= value * .1;
+                        scale[1] -= value * .1;
+                    }
+                    break;
+                    
+                case 10: // projector shear 1
                     shear[4] -= value * .1;
                     break;
                     
-                case 12: // projector shear 2
+                case 11: // projector shear 2
                     shear[2] -= value * .1;
                     break;
 
@@ -454,11 +449,20 @@ void Projector::keyPressed(int key) {
                     setup();
                     break;
                     
-                case 11: // projector shear 1
+                case 9: // projector scale
+                    if (!superKey)
+                        scale[0] += value * .1;
+                    else {
+                        scale[0] += value * .1;
+                        scale[1] += value * .1;
+                    }
+                    break;
+                    
+                case 10: // projector shear 1
                     shear[4] += value * .1;
                     break;
                     
-                case 12: // projector shear 2
+                case 11: // projector shear 2
                     shear[2] += value * .1;
                     break;
                     
@@ -480,7 +484,7 @@ void Projector::keyReleased(int key) {
 
 
 void Projector::loadXML(ofXml &xml) {
-    
+    string str;
     string pre = xmlPrefix + ofToString(index);
     
     if (xml.exists(pre + "][@azimuth]"))
@@ -511,10 +515,11 @@ void Projector::loadXML(ofXml &xml) {
         pan = ofToFloat( xml.getAttribute(pre + "][@pan]") );
     if (xml.exists(pre + "][@width]"))
         width = ofToInt( xml.getAttribute(pre + "][@width]") );
-    if (xml.exists(pre + "][@scale]"))
-        scale = ofToFloat( xml.getAttribute(pre + "][@scale]") );
-    
-    string str;
+    if (xml.exists(pre + "][@scale]")) {
+        str = xml.getAttribute(pre + "][@scale]");
+        scale[0] = ofToFloat(ofSplitString(str, ",")[0]);
+        scale[1] = ofToFloat(ofSplitString(str, ",")[1]);
+    }
     
     if (xml.exists(pre + "][@topLeft]")) {
         str = xml.getAttribute(pre + "][@topLeft]");
@@ -565,7 +570,7 @@ void Projector::saveXML(ofXml &xml) {
     xml.setAttribute(pre + "][@tilt]", ofToString(tilt));
     xml.setAttribute(pre + "][@pan]", ofToString(pan));
     xml.setAttribute(pre + "][@width]", ofToString(width));
-    xml.setAttribute(pre + "][@scale]", ofToString(scale));
+    xml.setAttribute(pre + "][@scale]", ofToString(scale[0]) +  "," + ofToString(scale[1]) );
 
     xml.setAttribute(pre + "][@topLeft]", ofToString( ((keystone.dstPoints[0].x) - x) / width) + "," + ofToString( (keystone.dstPoints[0].y) / height) );
     xml.setAttribute(pre + "][@topRight]", ofToString( ((keystone.dstPoints[1].x) - x) / width) + "," + ofToString( (keystone.dstPoints[1].y) / height) );

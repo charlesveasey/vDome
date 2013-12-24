@@ -21,14 +21,11 @@ public:
     void loadXML(ofXml &xml);
     void saveXML(ofXml &xml);
     
-    void cameraBegin();
-    void cameraEnd();
+    void begin();
+    void end();
     
-    void fboBegin();
-    void fboEnd();
-    
-    void fboBind();
-    void fboUnbind();
+    void bind();
+    void unbind();
     
     void draw();
     void drawWireframe();
@@ -37,7 +34,6 @@ public:
     
     camera camera;
     ofFbo fbo;
-    ofTexture fboTexture;
     ofRectangle view;
     ofPlanePrimitive plane;
     ofxQuadWarp keystone;
@@ -74,7 +70,7 @@ public:
    
     Grid grid;
     
-    float scale;
+    vector<float> scale;
     
     float brightness;
     float contrast;

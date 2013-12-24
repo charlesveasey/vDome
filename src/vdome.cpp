@@ -25,9 +25,8 @@
     (7) Field of View
     (8) Offset
     (9) Scale
-    (10) Rotate
-    (11) Shear 1
-    (12) Shear 2
+    (10) Shear 1
+    (11) Shear 2
 
  *********************
  *********************/
@@ -129,33 +128,33 @@ void vdome::draw(){
     ofSetHexColor(0xFFFFFF);
     
 	for(int i=0; i<pCount; i++){
-        projectors[i].fboBegin();
         ofClear(0, 0, 0, 0);
-        projectors[i].cameraBegin();
+        projectors[i].begin();
         input.bind();        
         mesh.draw();
         input.unbind();
-        projectors[i].cameraEnd();
-        projectors[i].fboEnd();
+        projectors[i].end();
 	}
 
 	for(int i=0; i<pCount; i++) {
-		projectors[i].fboBind();
+		projectors[i].bind();
 		shader.begin();
-        shader.setUniform1f("scale", projectors[i].scale);
 		shader.setUniform1f("brightness", projectors[i].brightness);
 		shader.setUniform1f("contrast", projectors[i].contrast);
 		shader.setUniform1f("saturation", projectors[i].saturation);
-		shader.setUniformTexture("texsampler", projectors[i].fboTexture, 0);
+		shader.setUniformTexture("texsampler", projectors[i].fbo.getTextureReference(), 0);
         projectors[i].draw();
         shader.end();
-        projectors[i].fboUnbind();
+        projectors[i].unbind();
 	}
 }
 
 float roundTo(float val, float n){
     return round(val * 1/n) * n;
 }
+
+
+
 
 void vdome::drawConfig() {
     for(int i=0; i<pCount; i++) {
@@ -297,24 +296,18 @@ void vdome::drawConfig() {
                      
                     case 9:
                         sub = "Scale";
-                        str =   "XY: "+ ofToString( roundTo(projectors[i].scale, .01) ) + "\n" +
-                                 "X: "+ ofToString( roundTo(projectors[i].scale, .01) ) + "\n" +
-                                 "Y: "+ ofToString( roundTo(projectors[i].scale, .01) );
+                        str = "X: "+ ofToString( roundTo(projectors[i].scale[0], .01) ) + "\n" +
+                              "Y: "+ ofToString( roundTo(projectors[i].scale[1], .01) );
                         break;
                         
                     case 10:
-                        sub = "Rotate";
-                        str =   "";
-                        break;
-                        
-                    case 11:
                         sub = "Shear 1";
                         str =   "YX: "+ ofToString( roundTo(projectors[i].shear[3], .001) ) + "\n" +
                         "ZX: "+ ofToString( roundTo(projectors[i].shear[4], .001) ) + "\n" +
                         "XZ: "+ ofToString( roundTo(projectors[i].shear[1], .001) );
                         break;
                         
-                    case 12:
+                    case 11:
                         sub = "Shear 2";
                         str =   "ZY: "+ ofToString( roundTo(projectors[i].shear[5], .001) ) + "\n" +
                         "YX: "+ ofToString( roundTo(projectors[i].shear[2], .001) ) + "\n" +
@@ -557,9 +550,6 @@ void vdome::keyPressed(int key){
     }
     else if (key == 45) {
         editMode = 11;
-    }
-    else if (key == 61) {
-        editMode = 12;
     }
     
     
