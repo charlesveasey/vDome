@@ -91,7 +91,7 @@ void Plane::drawConfig(){
         
     vector<ofVec3f> v = mesh.getVertices();
     
-    float rad = 5;
+    float rad = 4;
     for (int i=0; i<v.size(); i++) {
         if(sel[i])
             ofSetHexColor(0xFFF000);

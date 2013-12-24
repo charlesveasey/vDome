@@ -496,7 +496,13 @@ void vdome::keyPressed(int key){
         case OF_KEY_RIGHT_SUPER:
             superKey = true;
             break;    
-    }    
+    }
+    
+    for (int i=0; i<pCount; i++) {
+        projectors[i].value = value;
+        projectors[i].plane.value = value;
+        projectors[i].plane.keystone.value = value;
+    }
     
     if (!config) {
         return;
@@ -596,8 +602,6 @@ void vdome::keyPressed(int key){
             for (int i=0; i<pCount; i++) {
                 projectors[i].editMode = editMode;
                 projectors[i].superKey = superKey;
-                projectors[i].superKey = superKey;
-                projectors[i].value = value;
                 projectors[i].keyPressed(key);
             }
             break;
@@ -669,6 +673,12 @@ void vdome::keyReleased(int key) {
         case OF_KEY_RIGHT_SUPER:
             superKey = false;
             break;
+    }
+    
+    for (int i=0; i<pCount; i++) {
+        projectors[i].value = value;
+        projectors[i].plane.value = value;
+        projectors[i].plane.keystone.value = value;
     }
 }
 

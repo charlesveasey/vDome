@@ -66,7 +66,8 @@ public:
     void onMouseDragged(ofMouseEventArgs &mouseArgs);
     void onMouseReleased(ofMouseEventArgs& mouseArgs);
     void keyPressed(ofKeyEventArgs& keyArgs);
-    
+    float value = 1;
+
 protected:
     
 
@@ -79,5 +80,6 @@ protected:
     bool bEnabled;
     
     ofPoint lastMouse;
+    
 
 };

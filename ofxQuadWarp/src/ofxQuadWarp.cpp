@@ -255,7 +255,7 @@ void ofxQuadWarp::onMouseDragged(ofMouseEventArgs& mouseArgs) {
             }
             ofPoint mousePoint(mouseArgs.x, mouseArgs.y);
             cout << mousePoint.x << endl;
-            dstPoints[selectedCornerIndex].set( dstPoints[selectedCornerIndex]- (lastMouse - mousePoint) );
+            dstPoints[selectedCornerIndex].set( dstPoints[selectedCornerIndex]- (lastMouse - mousePoint) * value);
             lastMouse = mousePoint;
         }
 }
