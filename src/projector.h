@@ -70,5 +70,6 @@ public:
     int editMode;
     bool superKey;
     float value;
+    
 };
 

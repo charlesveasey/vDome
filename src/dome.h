@@ -2,7 +2,7 @@
 
 #include "ofMain.h"
 
-class Mesh {
+class Dome {
 	
 public:
 

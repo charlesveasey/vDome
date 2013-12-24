@@ -1,16 +1,16 @@
-#include "mesh.h"
+#include "dome.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 
 
-void Mesh::init(){
+void Dome::init(){
 	radius = 10;
 	N = 256;  // Mesh resolution, must be multiple of 4
     textureScale = 1;
 }
 
-void Mesh::setup(){
+void Dome::setup(){
  	int i,j,index = 0;
 	int i1,i2,i3,i4;
 	double theta,phi,r;
@@ -73,7 +73,7 @@ void Mesh::setup(){
 }	
 
 
-void Mesh::draw(){
+void Dome::draw(){
 	ofRotateX(90);
     //ofScale(1.1, 1.1, 1.1);
     glEnable(GL_CULL_FACE);
@@ -83,7 +83,7 @@ void Mesh::draw(){
 }
 
 
-void Mesh::keyPressed(int key) {
+void Dome::keyPressed(int key) {
     switch (key) {
         case OF_KEY_UP:  // up = switch on mode
             switch (editMode) {
@@ -105,7 +105,7 @@ void Mesh::keyPressed(int key) {
 }
 
 
-void Mesh::keyPressedInput(int key) {
+void Dome::keyPressedInput(int key) {
     switch (key) {
         case OF_KEY_UP:  // up = switch on mode
             switch (editMode) {
@@ -127,11 +127,11 @@ void Mesh::keyPressedInput(int key) {
 }
 
 
-void Mesh::keyReleased(int key) {
+void Dome::keyReleased(int key) {
 }
 
 
-void Mesh::loadXML(ofXml &xml) {
+void Dome::loadXML(ofXml &xml) {
     if (xml.exists("dome[@radius]"))
         radius = ofToDouble( xml.getAttribute("dome[@radius]") );
     
@@ -142,13 +142,13 @@ void Mesh::loadXML(ofXml &xml) {
 }
 
 
-void Mesh::saveXML(ofXml &xml) {
+void Dome::saveXML(ofXml &xml) {
     xml.setAttribute("dome[@radius]", ofToString(radius));
     xml.setAttribute("input[@scale]", ofToString(textureScale));    
 }
 
 
-void Mesh::saveMesh(string file) {
+void Dome::saveMesh(string file) {
     vbo.save(file);
 }
 

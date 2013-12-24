@@ -9,7 +9,7 @@
 #include "ofMain.h"
 #include "ofxOpenCv.h"
 
-class ofxQuadWarp : public ofBaseApp
+class ofxQuadWarp
 {
 public: 
     

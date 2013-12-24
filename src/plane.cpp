@@ -20,7 +20,6 @@ void Plane::init(){
 
 
 void Plane::setup(){
-    
     int w = 1024;
     int h = 768;
     int x = 0 + (w * indx);
@@ -34,10 +33,6 @@ void Plane::setup(){
     mesh = ofMesh::plane(1024, 768, xRes, yRes, OF_PRIMITIVE_TRIANGLES);
     
     vector<ofVec3f> v = mesh.getVertices();
-    /*
-    for (int i=0; i<v.size(); i++) {
-        mesh.setTexCoord(i, ofVec2f( v[i].x + 1024/2 , v[i].y +768/2   ));
-    }*/
     
     for (int i=0; i<v.size(); i++) {
         mesh.setTexCoord(i, ofVec2f( v[i].x + w/2 , v[i].y +h/2   ));
@@ -73,12 +68,9 @@ void Plane::setup(){
 
 
 void Plane::draw(){
-    
     vector<ofVec3f> v = mesh.getVertices();
     vector<ofVec3f> v2 = mesh.getVertices();
     vector<ofVec3f> v3 = mesh.getVertices();
-    
-    
     
     for (int i=0; i<v.size(); i++) {
         v[i] = orgVerts[i];
@@ -89,9 +81,6 @@ void Plane::draw(){
     for (int i=0; i<v.size(); i++) {
         mesh.setVertex(i, v3[i]);
     }
-
-    
-    v = mesh.getVertices();
     
     mesh.draw();
 }
@@ -175,86 +164,86 @@ void Plane::keyPressed(int key){
     }
 }
 
+
 //--------------------------------------------------------------
 void Plane::keyReleased(int key){
     if (key == OF_KEY_SHIFT) {
         shift = false;
     }
-    
 }
 
 
 //--------------------------------------------------------------
 void Plane::onMouseDragged(ofMouseEventArgs& mouseArgs){
     
-    keystone.onMouseDragged(mouseArgs);
-    
-    int x = mouseArgs.x;
-    int y = mouseArgs.y;
-    
-    if (group) {
-        drawBox = true;
-        boxUpdate = ofPoint(x,y);
-        return;
+    ofPoint mousePoint(mouseArgs.x, mouseArgs.y);
+
+    if (keystoneActive) {
+        keystone.onMouseDragged(mouseArgs);
     }
-    
-    if (indx == -1)
-        return;
-    int i = indx;
-    
-    ofPoint mousePoint(x, y);
-    
-    for (int i=0; i<sel.size(); i++) {
-        if (sel[i]) {
-            ofPoint newPoint = ofPoint(gridVerts[i].x, gridVerts[i].y) - ((lastM - mousePoint) * value);
-            gridVerts[i] = ofVec3f(newPoint.x, newPoint.y, newPoint.z);
+    else if (gridActive) {
+        if (group) {
+            drawBox = true;
+            boxUpdate = ofPoint(mousePoint.x, mousePoint.y);
+            return;
+        }
+        
+        if (indx == -1)
+            return;
+        
+        for (int i=0; i<sel.size(); i++) {
+            if (sel[i]) {
+                ofPoint newPoint = ofPoint(gridVerts[i].x, gridVerts[i].y) - ((lastM - mousePoint) * value);
+                gridVerts[i] = ofVec3f(newPoint.x, newPoint.y, newPoint.z);
+            }
         }
     }
-    lastM = mousePoint;
+    
+    lastM = mousePoint;    
 }
 
 //--------------------------------------------------------------
 void Plane::onMousePressed(ofMouseEventArgs& mouseArgs){
 
-    keystone.onMousePressed(mouseArgs);
-    
-    
     int x = mouseArgs.x;
     int y = mouseArgs.y;
     
-    vector<ofVec3f> v = mesh.getVertices();
-    
-    float rad = 20;
-    
-    for (int i=0; i<v.size(); i++) {
-        float distance = ofDist(v[i].x, v[i].y, x, y);
-        
-        if (distance < rad) {
-            indx = i;
-            
-            if (!sel[i]) {
-                
-                if (shift) {
-                    sel[i] = true;
-                }
-                else {
-                    sel.clear();
-                    sel[i] = true;
-                }
-            }
-            group = false;
-            break;
-        }
-        else {
-            indx = -1;
-            group = true;
-            drawBox = true;
-            boxOrigin = ofPoint(x,y);
-            boxUpdate = boxOrigin;
-        }
-        
+    if (keystoneActive) {
+        keystone.onMousePressed(mouseArgs);
     }
-    
+    else if (gridActive) {
+        vector<ofVec3f> v = mesh.getVertices();
+        float rad = 20;
+
+        for (int i=0; i<v.size(); i++) {
+            float distance = ofDist(v[i].x, v[i].y, x, y);
+            
+            if (distance < rad) {
+                indx = i;
+                
+                if (!sel[i]) {
+                    
+                    if (shift) {
+                        sel[i] = true;
+                    }
+                    else {
+                        sel.clear();
+                        sel[i] = true;
+                    }
+                }
+                group = false;
+                break;
+            }
+            else {
+                indx = -1;
+                group = true;
+                drawBox = true;
+                boxOrigin = ofPoint(x,y);
+                boxUpdate = boxOrigin;
+            }
+        }
+    }
+
     lastM = ofPoint(x,y);
 }
 
@@ -264,8 +253,7 @@ void Plane::onMouseReleased(ofMouseEventArgs& mouseArgs){
     int x = mouseArgs.x;
     int y = mouseArgs.y;
     
-    if (group) {
-        
+    if (gridActive && group) {
         vector<ofVec3f> v = mesh.getVertices();
         
         float rad = 20;

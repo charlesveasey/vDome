@@ -3,6 +3,13 @@
 /*********************
  *********************
  
+    MENU
+    ----
+ 
+    (key) Edit
+    ----------------------
+    (alt + key) Mode
+ 
  
     (i) Input
     --------------
@@ -50,6 +57,7 @@ int frameCnt= 0;
 bool saved = false;
 
 
+
 // SETUP
 
 void vdome::setup(){
@@ -95,11 +103,9 @@ void vdome::setup(){
     // projection shader
 	shader.load("shaders/vdome.vert", "shaders/vdome.frag");
  
-    
     // xml settings
     xmlFile = "settings.xml";
-    loadXML(xmlFile);
-    
+    loadXML(xmlFile);    
     
     // default config settings
     config = false;
@@ -148,12 +154,8 @@ void vdome::draw(){
 	}
 }
 
-float roundTo(float val, float n){
-    return round(val * 1/n) * n;
-}
 
-
-
+// FRAME DRAW CONFIG
 
 void vdome::drawConfig() {
     for(int i=0; i<pCount; i++) {
@@ -167,9 +169,7 @@ void vdome::drawConfig() {
             }
         }
         
-        
         // debug positions
-        
         int pw = 200;
         int ph = 135;
         
@@ -178,7 +178,6 @@ void vdome::drawConfig() {
         
         int padx = 15;
         int pady = 15;
-        
 
         // debug text
         if (saved) {
@@ -194,7 +193,6 @@ void vdome::drawConfig() {
         else {
             ofSetHexColor(0x000000);
         }
-        
         
         // debug background square
         ofFill();
@@ -357,7 +355,6 @@ void vdome::drawConfig() {
         ofDrawBitmapString(title, px+padx, py+pady*3.5);
         ofDrawBitmapString("Mode: " + sub, px+padx, py+pady*4.5);
         ofDrawBitmapString(str, px+padx, py+pady*6);
-
     }
 }
 
@@ -402,30 +399,30 @@ void vdome::saveXML(string file) {
     }
 }
 
+
 // MOUSE EVENTS
 
 void vdome::mousePressed(ofMouseEventArgs& mouseArgs) {
-    if (!config) {
-        return;
+    if (config) {
+        for (int i=0; i<pCount; i++) {
+            projectors[i].mousePressed(mouseArgs);
+        }
     }
-    for (int i=0; i<pCount; i++) {
-        projectors[i].mousePressed(mouseArgs);
-    }    
 }
+
 void vdome::mouseDragged(ofMouseEventArgs& mouseArgs) {
-    if (!config) {
-        return;
-    }
-    for (int i=0; i<pCount; i++) {
-        projectors[i].mouseDragged(mouseArgs);
+    if (config) {
+        for (int i=0; i<pCount; i++) {
+            projectors[i].mouseDragged(mouseArgs);
+        }
     }
 }
+
 void vdome::mouseReleased(ofMouseEventArgs& mouseArgs) {
-    if (!config) {
-        return;
-    }
-    for (int i=0; i<pCount; i++) {
-        projectors[i].mouseReleased(mouseArgs);
+    if (config) {
+        for (int i=0; i<pCount; i++) {
+            projectors[i].mouseReleased(mouseArgs);
+        }
     }
 }
 
@@ -525,6 +522,25 @@ void vdome::keyPressed(int key){
                 editMode = 10;
             else
                 editMode = key-48;
+            
+            
+            if (editGroup == 2) {
+                for (int i=0; i<pCount; i++) {
+                    if (editMode == 3) {
+                        projectors[i].plane.keystoneActive = true;
+                        projectors[i].plane.gridActive = false;
+                    }
+                    else if (editMode == 4) {
+                        projectors[i].plane.keystoneActive = false;
+                        projectors[i].plane.gridActive = true;
+                    }
+                    else {
+                        projectors[i].plane.keystoneActive = false;
+                        projectors[i].plane.gridActive = false;
+                    }
+                }
+            }
+            
             return;
         }
         if (key == 48)
@@ -545,6 +561,24 @@ void vdome::keyPressed(int key){
             projectors[active].keyboard = !(projectors[active].keyboard);
             projectors[active].mouse = !(projectors[active].mouse);
         }
+        
+        if (editGroup == 2) {
+            for (int i=0; i<pCount; i++) {
+                if (editMode == 3) {
+                    projectors[i].plane.keystoneActive = true;
+                    projectors[i].plane.gridActive = false;
+                }
+                else if (editMode == 4) {
+                    projectors[i].plane.keystoneActive = false;
+                    projectors[i].plane.gridActive = true;
+                }
+                else {
+                    projectors[i].plane.keystoneActive = false;
+                    projectors[i].plane.gridActive = false;
+                }
+            }
+        }
+        
         return;
     }
     else if (key == 45) {
@@ -561,6 +595,7 @@ void vdome::keyPressed(int key){
         case 2: // p = projector
             for (int i=0; i<pCount; i++) {
                 projectors[i].editMode = editMode;
+                projectors[i].superKey = superKey;
                 projectors[i].superKey = superKey;
                 projectors[i].value = value;
                 projectors[i].keyPressed(key);
@@ -635,4 +670,9 @@ void vdome::keyReleased(int key) {
             superKey = false;
             break;
     }
+}
+
+
+float vdome::roundTo(float val, float n){
+    return round(val * 1/n) * n;
 }

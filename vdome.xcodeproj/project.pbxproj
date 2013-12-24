@@ -33,7 +33,7 @@
 		566E94B518432B2700E34861 /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 566E94B018432B2700E34861 /* ofxXmlSettings.cpp */; };
 		568406E01846F25A0000A6F1 /* render.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568406DF1846F25A0000A6F1 /* render.cpp */; };
 		568406E31846F4E10000A6F1 /* input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568406E21846F4E10000A6F1 /* input.cpp */; };
-		5696C0531842C08D00E51614 /* mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5696C04F1842C08D00E51614 /* mesh.cpp */; };
+		5696C0531842C08D00E51614 /* dome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5696C04F1842C08D00E51614 /* dome.cpp */; };
 		5696C0541842C08D00E51614 /* vdome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5696C0511842C08D00E51614 /* vdome.cpp */; };
 		56A40802184B2B6A00141545 /* ofxMSAInteractiveObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56A40800184B2B6A00141545 /* ofxMSAInteractiveObject.cpp */; };
 		56C5CAE8184B3E1100249801 /* opencv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56C5CAD4184B3E1100249801 /* opencv.a */; };
@@ -151,8 +151,8 @@
 		568406DF1846F25A0000A6F1 /* render.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = render.cpp; sourceTree = "<group>"; };
 		568406E11846F4D70000A6F1 /* input.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = input.h; sourceTree = "<group>"; };
 		568406E21846F4E10000A6F1 /* input.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = input.cpp; sourceTree = "<group>"; };
-		5696C04F1842C08D00E51614 /* mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mesh.cpp; sourceTree = "<group>"; };
-		5696C0501842C08D00E51614 /* mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mesh.h; sourceTree = "<group>"; };
+		5696C04F1842C08D00E51614 /* dome.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dome.cpp; sourceTree = "<group>"; };
+		5696C0501842C08D00E51614 /* dome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dome.h; sourceTree = "<group>"; };
 		5696C0511842C08D00E51614 /* vdome.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vdome.cpp; sourceTree = "<group>"; };
 		5696C0521842C08D00E51614 /* vdome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vdome.h; sourceTree = "<group>"; };
 		56A407FC184B2B6A00141545 /* changelog.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = changelog.txt; sourceTree = "<group>"; };
@@ -869,8 +869,6 @@
 			children = (
 				5696C0511842C08D00E51614 /* vdome.cpp */,
 				5696C0521842C08D00E51614 /* vdome.h */,
-				5696C04F1842C08D00E51614 /* mesh.cpp */,
-				5696C0501842C08D00E51614 /* mesh.h */,
 				561FA68B1844413B003E6812 /* projector.cpp */,
 				561FA68C1844413B003E6812 /* projector.h */,
 				561FA68E18445138003E6812 /* window.h */,
@@ -882,6 +880,8 @@
 				568406E21846F4E10000A6F1 /* input.cpp */,
 				565914071848514C000864E5 /* tcp.cpp */,
 				565914081848514C000864E5 /* tcp.h */,
+				5696C04F1842C08D00E51614 /* dome.cpp */,
+				5696C0501842C08D00E51614 /* dome.h */,
 				560A020B185FFC0000DF7D6E /* plane.cpp */,
 				560A020C185FFC0000DF7D6E /* plane.h */,
 				56E6ED93186678A400C05874 /* camera.cpp */,
@@ -1000,7 +1000,7 @@
 			files = (
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				5696C0541842C08D00E51614 /* vdome.cpp in Sources */,
-				5696C0531842C08D00E51614 /* mesh.cpp in Sources */,
+				5696C0531842C08D00E51614 /* dome.cpp in Sources */,
 				56244C7E18430127008C7FD1 /* SyphonDirectoryObserver.m in Sources */,
 				56244C7F18430127008C7FD1 /* SyphonNameboundClient.m in Sources */,
 				56244C8018430127008C7FD1 /* ofxSyphonClient.mm in Sources */,

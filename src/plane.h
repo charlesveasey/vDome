@@ -31,6 +31,9 @@ public:
     vector<float>position;
     
     float value = 1;
+    
+    bool keystoneActive;
+    bool gridActive;
 
 };
 

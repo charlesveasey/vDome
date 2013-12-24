@@ -3,7 +3,7 @@
 #include "ofMain.h"
 #include "input.h"
 #include "window.h"
-#include "mesh.h"
+#include "dome.h"
 #include "projector.h"
 #include "tcp.h"
 
@@ -20,6 +20,7 @@ public:
     void mouseReleased(ofMouseEventArgs& mouseArgs);
     void keyPressed(int key);
     void keyReleased(int key);
+    float roundTo(float val, float n);
     
     ofVec3f sphToCar(ofVec3f t);
         
@@ -46,7 +47,7 @@ public:
     Window window;
     
     // vitual dome
-    Mesh mesh;
+    Dome mesh;
     
     // shader
     ofShader shader;
