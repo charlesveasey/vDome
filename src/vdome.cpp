@@ -473,10 +473,12 @@ void vdome::keyPressed(int key){
             
         case OF_KEY_LEFT_CONTROL: // control
             ctrKey = true;
+            superKey = true;
             break;
             
         case OF_KEY_RIGHT_CONTROL:
             ctrKey = true;
+            superKey = true;
             break;
             
         case OF_KEY_LEFT_SHIFT: // shift
@@ -491,10 +493,12 @@ void vdome::keyPressed(int key){
             
         case OF_KEY_LEFT_SUPER: // super
             superKey = true;
+            ctrKey = true;
             break;
             
         case OF_KEY_RIGHT_SUPER:
             superKey = true;
+            ctrKey = true;
             break;    
     }
     
@@ -634,10 +638,6 @@ void vdome::keyReleased(int key) {
                 saveXML(xmlFile);
             }
             break;
-            
-        case 109: // m
-            superKey = false;
-            break;
          
         case OF_KEY_LEFT_ALT: // alt
             value = orgValue;
@@ -651,9 +651,11 @@ void vdome::keyReleased(int key) {
             
         case OF_KEY_LEFT_CONTROL: // control
             ctrKey = false;
+            superKey = false;
             break;
         case OF_KEY_RIGHT_CONTROL:
             ctrKey = false;
+            superKey = false;
             break;
             
         case OF_KEY_LEFT_SHIFT: // shift
@@ -668,10 +670,12 @@ void vdome::keyReleased(int key) {
             
         case OF_KEY_LEFT_SUPER:  // super
             superKey = false;
+            ctrKey = false;
             break;
             
         case OF_KEY_RIGHT_SUPER:
             superKey = false;
+            ctrKey = false;
             break;
     }
     
