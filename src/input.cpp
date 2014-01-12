@@ -1,6 +1,14 @@
 #include "input.h"
 
+#ifdef TARGET_WIN32
+	#include "ofDirectShowPlayer.h"
+#endif
+
 void Input::init(){
+	#ifdef TARGET_WIN32
+		ofPtr <ofBaseVideoPlayer> ptr(new ofDirectShowPlayer());
+		//video.setPlayer(ptr);
+	#endif
 }
 
 void Input::setup(){
