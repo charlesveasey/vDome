@@ -4,18 +4,18 @@
     
     <dome radius="8.83"/>
     
-	<input mode="video" scale="1"/>
+	<input mode="image" scale="1"/>
 
-	<window height="772" width="2431" x="73" y="78"/>
+	<window height="768" width="2058" x="5" y="44"/>
 
 	<projectors count="2">
 
 		<!-- #0 -->
-		<projector azimuth="0" brightness="1" contrast="1" distance="9.65" elevation="0.549999" fov="32.9" height="768"  offset="0,0.691999" pan="0" roll="5.96046e-08" saturation="1" scale="1,1" tilt="-4.91" width="1024">
+		<projector azimuth="28" brightness="1" contrast="1" distance="9.65" elevation="4.55" fov="32.9" height="768" keystone="0,0,0.999023,0,0,1,0.999023,1" offset="0,0.791999" pan="0" roll="5.96046e-08" saturation="1" scale="1,1" tilt="-2.91" width="1024">
 		</projector>
 		
 		<!-- #1 -->
-		<projector azimuth="-74.9099" brightness="1" contrast="1" distance="-1.35" elevation="2.55" fov="32.9" height="768" keystone="0.0339844,0.0291667,1,0,0,1,1,1" pan="0" roll="0" saturation="1.3" scale="1,1" tilt="-4.91001" width="1024">
+		<projector azimuth="-74.9099" brightness="1" contrast="1" distance="9.65" elevation="0.55" fov="32.9" height="768" keystone="-0.00214726,-0.0020833,0.998047,0,-0.000976562,1,0.998047,1" offset="0,0.7" pan="0" roll="0" saturation="1" scale="1,1" tilt="-4.91001" width="1024">
 		</projector>
         
 		<!-- #2 -->

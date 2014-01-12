@@ -25,7 +25,7 @@ void Input::setup(){
     switch(mode){
         case 1: // video
             video.setPixelFormat(OF_PIXELS_RGB);
-            video.loadMovie("media/test.avi"); 
+            video.loadMovie("media/test.mov"); 
             texture = video.getTextureReference();
             video.play();
             break;

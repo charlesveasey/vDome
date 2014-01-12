@@ -1,6 +1,5 @@
 #include "plane.h"
 
-
 void Plane::init(int i){
     index = i;
     keyVals.push_back(ofPoint(0,0));
@@ -14,12 +13,16 @@ void Plane::init(int i){
     yRes = 10;
     pointIndex = -1;
 	value = 1;
+    width = 1023;
+    height = 768;
+    
 }
 
 
 void Plane::setup(){
-    int w = 1024;
-    int h = 768;
+    int w = width;
+    int h = height;
+    
     int x = index*w;
     int y = 0;
     
@@ -29,7 +32,7 @@ void Plane::setup(){
     position.push_back(y);
     
     mesh.clear();
-    mesh = ofMesh::plane(1024, 768, xRes, yRes, OF_PRIMITIVE_TRIANGLES);
+    mesh = ofMesh::plane(w, h, xRes, yRes, OF_PRIMITIVE_TRIANGLES);
     
     vector<ofVec3f> v = mesh.getVertices();
     
@@ -72,6 +75,42 @@ void Plane::setup(){
     }
  
   
+}
+
+void Plane::resetKeystone(){
+    keystone.reset();
+}
+
+void Plane::resetGrid(){
+    int w = width;
+    int h = height;
+    int x = index*w;
+    int y = 0;
+    
+    position[0] = x;
+    position[1] = y;
+    
+    mesh.clear();
+    mesh = ofMesh::plane(w, h, xRes, yRes, OF_PRIMITIVE_TRIANGLES);
+    
+    vector<ofVec3f> v = mesh.getVertices();
+    
+    for (int i=0; i<v.size(); i++) {
+        mesh.setVertex(i, ofVec3f(
+                                  v[i].x + w/2 + x,
+                                  v[i].y + h/2 + y,
+                                  v[i].z    ));
+        
+        mesh.setTexCoord(i, ofVec2f(
+                                    v[i].x + w/2,
+                                    v[i].y + h/2    ));
+    }
+    
+    for (int i=0; i<v.size(); i++) {
+        gridVerts[i] = ofVec3f(0,0,0);
+        orgVerts[i] = mesh.getVertex(i);
+    }
+ 
 }
 
 

@@ -3,7 +3,7 @@
 void Render::init(){
     domeMaster = 2048;
     frameRate = 60;
-    vSync = true;
+    vSync = false;
 }
 
 void Render::setup() {

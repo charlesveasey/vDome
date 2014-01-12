@@ -22,6 +22,9 @@ public:
     void load(ofXml &xml);
     void save(ofXml &xml);
     
+    void resetKeystone();
+    void resetGrid();
+    
     vector<float>position;
     
     float value;
@@ -39,6 +42,7 @@ public:
     vector<ofPoint> keyVals;
     
     
+    
 private:
     
     float index;
@@ -52,6 +56,9 @@ private:
     int xRes;
     int yRes;
     int pointIndex;
+    
+    int width;
+    int height;
  
 };
 

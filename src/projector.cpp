@@ -167,16 +167,14 @@ void Projector::mouseReleased(ofMouseEventArgs& mouseArgs) {
         plane.onMouseReleased(mouseArgs);
 }
 
+bool all;
 
 // keyboard events
 
 void Projector::keyPressed(int key) {
-    switch (key) {
-        case 161: // ~ = select all projectors
-            keyboard = true;
-            break;
-    }
     
+    std::cout << key << endl;
+
     if (!keyboard) {
         return;
     }
@@ -184,7 +182,79 @@ void Projector::keyPressed(int key) {
     plane.keyPressed(key);
     
     switch (key) {
-               
+            
+        case 161: // ~ = de/select all projectors
+            all = !all;
+            keyboard = all;
+            break;
+            
+        case 114: // reset
+            switch (editMode) {
+                    
+                case 1: // projector intensity
+                    brightness = 1;
+                    contrast = 1;
+                    setup();
+                    break;
+                    
+                case 2: // projector color
+                    saturation = 1;
+                    setup();
+                    break;
+                    
+                case 3:
+                    // projector keystone
+                    plane.resetKeystone();
+                    break;
+                    
+                case 4:
+                    // projector grid
+                    plane.resetGrid();
+                    break;
+                    
+                case 5: // projector position
+                    azimuth = 0;
+                    elevation = 0;
+                    distance = 5;
+                    setup();
+                    break;
+                    
+                case 6: // projector orientation
+                    roll = 0;
+                    tilt = 0;
+                    pan = 0;
+                    setup();
+                    break;
+                    
+                case 7: // projector fov
+                    fov = 33;
+                    setup();
+                    break;
+                    
+                case 8: // projector offset
+                    offset[0] = 0;
+                    offset[1] = 0;
+                    setup();
+                    break;
+                    
+                case 9: // projector scale
+                    scale[0] = 0;
+                    scale[1] = 0;
+                    break;
+                    
+                case 10: // projector shear 1
+                    shear[3] = 0;
+                    shear[1] = 0;
+                    shear[4] = 0;
+                    break;
+                    
+                case 11: // projector shear 2
+                        shear[5] = 0;
+                        shear[0] = 0;
+                        shear[2] = 0;
+                    break;
+            }
+            break;
         case OF_KEY_UP:  // up = switch on mode
             switch (editMode) {
 
@@ -476,7 +546,6 @@ void Projector::loadXML(ofXml &xml) {
     }
     
     setup();
-    
     plane.load(xml);
 }
 
