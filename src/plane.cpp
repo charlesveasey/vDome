@@ -48,8 +48,8 @@ void Plane::setup(){
                                     v[i].y + h/2    ));
     }
 
-    mesh.load("plane_mesh_" + ofToString(index) + ".ply");
-    cout << "plane_mesh_" + ofToString(index) + ".ply"  << endl;
+    mesh.load("models/plane-mesh-" + ofToString(index+1) + ".ply");
+    cout << "plane-mesh-" + ofToString(index+1) + ".ply"  << endl;
 
     for (int i=0; i<v.size(); i++) {
         gridVerts.push_back(ofVec3f(0,0,0));
@@ -326,7 +326,7 @@ void Plane::onMouseReleased(ofMouseEventArgs& mouseArgs){
 
 
 void Plane::load(ofXml &xml) {
-    mesh.load("plane_mesh_" + ofToString(index) + ".ply");
+    mesh.load("plane-mesh-" + ofToString(index+1) + ".ply");
     string xmlPrefix = "projectors/projector[";
     
     string pre = xmlPrefix + ofToString(index);
