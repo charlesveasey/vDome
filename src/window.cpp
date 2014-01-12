@@ -5,6 +5,7 @@ void Window::init(){
     y = 0;
     width = 2048;
     height = 768;
+	fullscreen = false;
 }
 
 void Window::setup(){
@@ -21,7 +22,10 @@ void Window::loadXML(ofXml &xml) {
         width = ofToInt( xml.getAttribute("window[@width]") );
     if (xml.exists("window[@height]"))
         height = ofToInt( xml.getAttribute("window[@height]") );
+	if (xml.exists("window[@fullscreen]"))
+		fullscreen = ofToBool( xml.getAttribute("window[@fullscreen]") );
     setup();
+	ofSetFullscreen(fullscreen);
 }
 
 void Window::saveXML(ofXml &xml) {
