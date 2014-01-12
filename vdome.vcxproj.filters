@@ -73,6 +73,9 @@
     <ClCompile Include="src\ofDirectShowPlayer.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\command.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -480,6 +483,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\ofDirectShowPlayer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\command.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

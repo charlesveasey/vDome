@@ -91,6 +91,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\camera.cpp" />
+    <ClCompile Include="src\command.cpp" />
     <ClCompile Include="src\dome.cpp" />
     <ClCompile Include="src\input.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -117,6 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\camera.h" />
+    <ClInclude Include="src\command.h" />
     <ClInclude Include="src\dome.h" />
     <ClInclude Include="src\input.h" />
     <ClInclude Include="src\ofDirectShowPlayer.h" />
