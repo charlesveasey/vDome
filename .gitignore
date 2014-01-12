@@ -20,10 +20,13 @@
 *.lib
 *.pdb
 *.exe
+*.opensdf
 
 # Bin
 vdome.app
 vdomeDebug.app
+vdome.exe
+vdome_debug.exe
 
 # Folders
 obj/

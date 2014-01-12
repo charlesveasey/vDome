@@ -91,7 +91,7 @@ void vdome::setup(){
 	mesh.setup();
     
     // projectors
-    pCount = 2;
+    pCount = 6; // FIXME: not dynamic with xml
     
     for(int i=0; i<pCount; i++) {
         Projector p;
