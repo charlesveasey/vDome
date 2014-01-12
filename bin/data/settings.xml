@@ -6,31 +6,31 @@
     
 	<input mode="image" scale="1"/>
 
-	<window height="768" width="6144" x="5" y="44" fullscreen="false"/>
+	<window height="768" width="6144" x="0" y="0" fullscreen="false"/>
 
 	<projectors count="6">
 
-		<!-- #0 -->
+		<!-- #1 -->
 		<projector azimuth="28" brightness="1" contrast="1" distance="9.65" elevation="4.55" fov="32.9" height="768" keystone="0,0,0.999023,0,0,1,0.999023,1" offset="0,0.791999" pan="0" roll="5.96046e-08" saturation="1" scale="1,1" tilt="-2.91" width="1024">
 		</projector>
 		
-		<!-- #1 -->
+		<!-- #2 -->
 		<projector azimuth="-74.9099" brightness="1" contrast="1" distance="9.65" elevation="0.55" fov="32.9" height="768" keystone="-0.00214726,-0.0020833,0.998047,0,-0.000976562,1,0.998047,1" offset="0,0.7" pan="0" roll="0" saturation="1" scale="1,1" tilt="-4.91001" width="1024">
 		</projector>
         
-		<!-- #2 -->
+		<!-- #3 -->
 		<projector azimuth="-74.9099" brightness="1.36" contrast="1" distance="10.65" elevation="-3.25" fov="32.9" height="768" lensOffsetX="0.000800474" lensOffsetY="0.731999" pan="0" roll="5.96046e-08" saturation="1" tilt="-4.91001" width="1024">
 		</projector>
         
-        <!-- #3 -->
+    <!-- #4 -->
 		<projector azimuth="571.68" brightness="1.36" contrast="1" distance="9.95" elevation="-4.69" fov="33.59" height="768" lensOffsetX="-0.00279996" lensOffsetY="0.736999" pan="0" roll="5.96046e-08" saturation="1" tilt="-5.80001" width="1024">
 		</projector>
     
-		<!-- #4 -->
+		<!-- #5 -->
 		<projector azimuth="140" brightness="1.36" contrast="1" distance="9.65" elevation="-4.29" fov="33.59" height="768" lensOffsetX="-0.00279996" lensOffsetY="0.736999" pan="0" roll="5.96046e-08" saturation="1" tilt="-5.80001" width="1024">
         </projector>
 
-		<!-- #5 -->
+		<!-- #6 -->
 		<projector azimuth="109.08" brightness="1.36" contrast="1" distance="8.42" elevation="-3.06" fov="35.9899" height="768" lensOffsetX="0.00320004" lensOffsetY="0.736999" pan="0" roll="-0.499997" saturation="1" tilt="-34.1" width="1024">
         </projector>
         
