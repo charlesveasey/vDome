@@ -182,6 +182,13 @@ void Projector::keyPressed(int key) {
     plane.keyPressed(key);
     
     switch (key) {
+        case 122:
+            history.undo();
+            break;
+        case 121:
+            history.redo();
+            break;
+
             
         case 161: // ~ = de/select all projectors
             all = !all;
@@ -192,9 +199,8 @@ void Projector::keyPressed(int key) {
             switch (editMode) {
                     
                 case 1: // projector intensity
-                    brightness = 1;
                     contrast = 1;
-                    setup();
+                    history.execute( new SetBrightness(*this, 1) );
                     break;
                     
                 case 2: // projector color
@@ -249,9 +255,9 @@ void Projector::keyPressed(int key) {
                     break;
                     
                 case 11: // projector shear 2
-                        shear[5] = 0;
-                        shear[0] = 0;
-                        shear[2] = 0;
+                    shear[5] = 0;
+                    shear[0] = 0;
+                    shear[2] = 0;
                     break;
             }
             break;
@@ -259,7 +265,7 @@ void Projector::keyPressed(int key) {
             switch (editMode) {
 
                 case 1: // projector brightness
-                    brightness += value * .1;
+                    history.execute( new SetBrightness(*this, brightness + value * .1) );
                     break;
                     
                 case 2: // projector saturation
@@ -329,7 +335,7 @@ void Projector::keyPressed(int key) {
             switch (editMode) {
 
                 case 1: // projector brightness
-                    brightness -= value * .1;
+                    history.execute( new SetBrightness(*this, brightness - value * .1) );
                     break;
                     
                 case 2: // projector saturation
@@ -509,11 +515,14 @@ void Projector::keyReleased(int key) {
 void Projector::loadXML(ofXml &xml) {
     string str;
     string pre = xmlPrefix + ofToString(index);
+    float num;
     
     if (xml.exists(pre + "][@azimuth]"))
         azimuth = ofToFloat( xml.getAttribute(pre + "][@azimuth]") );
-    if (xml.exists(pre + "][@brightness]"))
-        brightness = ofToFloat( xml.getAttribute(pre + "][@brightness]") );
+    if (xml.exists(pre + "][@brightness]")) {
+        num = ofToFloat( xml.getAttribute(pre + "][@brightness]") );
+        history.execute( new SetBrightness(*this, num) );
+    }
     if (xml.exists(pre + "][@contrast]"))
         contrast = ofToFloat( xml.getAttribute(pre + "][@contrast]") );
     if (xml.exists(pre + "][@distance]"))

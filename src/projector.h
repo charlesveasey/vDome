@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "plane.h"
 #include "camera.h"
+#include "command.h"
 
 class Projector {
 	
@@ -59,7 +60,7 @@ public:
     vector<float> offset;
     
     Plane plane;
-    
+    CommandHistory history;
     
     float brightness;
     float contrast;
@@ -71,3 +72,16 @@ public:
     
 };
 
+class SetBrightness : public Command {
+protected:
+    Projector& obj;
+    float value;
+public:
+    SetBrightness(Projector& obj, float value) : obj(obj), value(value) {}
+    void execute() {
+        obj.brightness = value;
+    }
+    void undo() {
+        obj.brightness = value;
+    }
+};

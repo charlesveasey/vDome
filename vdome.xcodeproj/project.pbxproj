@@ -17,6 +17,7 @@
 		56244C8118430127008C7FD1 /* ofxSyphonServer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 56244C7518430127008C7FD1 /* ofxSyphonServer.mm */; };
 		56244C8218430127008C7FD1 /* ofxSyphonServerDirectory.mm in Sources */ = {isa = PBXBuildFile; fileRef = 56244C7718430127008C7FD1 /* ofxSyphonServerDirectory.mm */; };
 		56244C86184302E8008C7FD1 /* Syphon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 56244C6918430127008C7FD1 /* Syphon.framework */; };
+		56260861188263E000E74D0A /* command.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5626085F188263E000E74D0A /* command.cpp */; };
 		563CC3F21843099B00B57193 /* HapMovieRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 563CC3E91843099B00B57193 /* HapMovieRenderer.m */; };
 		563CC3F31843099B00B57193 /* HapOFPixelBufferTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 563CC3EB1843099B00B57193 /* HapOFPixelBufferTexture.m */; };
 		563CC3F41843099B00B57193 /* HapSupport.c in Sources */ = {isa = PBXBuildFile; fileRef = 563CC3EC1843099B00B57193 /* HapSupport.c */; };
@@ -118,6 +119,8 @@
 		56244C7518430127008C7FD1 /* ofxSyphonServer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ofxSyphonServer.mm; sourceTree = "<group>"; };
 		56244C7618430127008C7FD1 /* ofxSyphonServerDirectory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxSyphonServerDirectory.h; sourceTree = "<group>"; };
 		56244C7718430127008C7FD1 /* ofxSyphonServerDirectory.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ofxSyphonServerDirectory.mm; sourceTree = "<group>"; };
+		5626085F188263E000E74D0A /* command.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = command.cpp; sourceTree = "<group>"; };
+		56260860188263E000E74D0A /* command.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = command.h; sourceTree = "<group>"; };
 		563CC3E41843099B00B57193 /* install.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = install.xml; sourceTree = "<group>"; };
 		563CC3E61843099B00B57193 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		563CC3E81843099B00B57193 /* HapMovieRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HapMovieRenderer.h; sourceTree = "<group>"; };
@@ -845,6 +848,8 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				5626085F188263E000E74D0A /* command.cpp */,
+				56260860188263E000E74D0A /* command.h */,
 				5696C0511842C08D00E51614 /* vdome.cpp */,
 				5696C0521842C08D00E51614 /* vdome.h */,
 				561FA68B1844413B003E6812 /* projector.cpp */,
@@ -1014,6 +1019,7 @@
 				560A020D185FFC0000DF7D6E /* plane.cpp in Sources */,
 				56E6ED95186678A400C05874 /* camera.cpp in Sources */,
 				5678C6EE188231EC00788989 /* ofxQuadWarp.cpp in Sources */,
+				56260861188263E000E74D0A /* command.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
