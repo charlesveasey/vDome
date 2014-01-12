@@ -21,6 +21,6 @@ public :
 private :
     vector<Command*> history;
     int index;
-    int maxHistory = 50;
+    int maxHistory;
 };
 

@@ -4,6 +4,7 @@ Command::~Command() {}
 
 
 CommandHistory::CommandHistory() : index(-1) {
+	maxHistory = 50;
 }
 
 CommandHistory::~CommandHistory() {

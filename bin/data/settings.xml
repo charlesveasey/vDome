@@ -6,9 +6,9 @@
     
 	<input mode="image" scale="1"/>
 
-	<window height="768" width="2058" x="5" y="44"/>
+	<window height="768" width="6144" x="5" y="44" fullscreen="false"/>
 
-	<projectors count="2">
+	<projectors count="6">
 
 		<!-- #0 -->
 		<projector azimuth="28" brightness="1" contrast="1" distance="9.65" elevation="4.55" fov="32.9" height="768" keystone="0,0,0.999023,0,0,1,0.999023,1" offset="0,0.791999" pan="0" roll="5.96046e-08" saturation="1" scale="1,1" tilt="-2.91" width="1024">
