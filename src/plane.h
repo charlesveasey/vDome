@@ -24,7 +24,7 @@ public:
     
     vector<float>position;
     
-    float value = 1;
+    float value;
     
     bool keystoneActive;
     bool gridActive;
@@ -45,14 +45,13 @@ private:
     bool shift;
     ofPoint lastM;
     map<int, bool> sel;
-    bool group = false;
-    bool drawBox = false;
+    bool group;
+    bool drawBox;
     ofPoint boxOrigin;
     ofPoint boxUpdate;
-    int xRes = 10;
-    int yRes = 10;
-    int pointIndex = -1;
-    
-    
+    int xRes;
+    int yRes;
+    int pointIndex;
+ 
 };
 

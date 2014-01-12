@@ -90,11 +90,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\addons\ofxQuadWarp\src\ofxQuadWarp.cpp" />
+    <ClCompile Include="src\camera.cpp" />
+    <ClCompile Include="src\dome.cpp" />
     <ClCompile Include="src\input.cpp" />
-    <ClCompile Include="src\keystone.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\mesh.cpp" />
+    <ClCompile Include="src\ofDirectShowPlayer.cpp" />
+    <ClCompile Include="src\ofxQuadWarp.cpp" />
+    <ClCompile Include="src\plane.cpp" />
     <ClCompile Include="src\projector.cpp" />
     <ClCompile Include="src\render.cpp" />
     <ClCompile Include="src\tcp.cpp" />
@@ -114,10 +116,12 @@
     <ClCompile Include="src\window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\addons\ofxQuadWarp\src\ofxQuadWarp.h" />
+    <ClInclude Include="src\camera.h" />
+    <ClInclude Include="src\dome.h" />
     <ClInclude Include="src\input.h" />
-    <ClInclude Include="src\keystone.h" />
-    <ClInclude Include="src\mesh.h" />
+    <ClInclude Include="src\ofDirectShowPlayer.h" />
+    <ClInclude Include="src\ofxQuadWarp.h" />
+    <ClInclude Include="src\plane.h" />
     <ClInclude Include="src\projector.h" />
     <ClInclude Include="src\render.h" />
     <ClInclude Include="src\tcp.h" />

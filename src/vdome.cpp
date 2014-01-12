@@ -686,7 +686,11 @@ void vdome::keyReleased(int key) {
     }
 }
 
+float round(float d) {
+  return floorf(d + 0.5);
+}
 
 float vdome::roundTo(float val, float n){
-    return round(val * 1/n) * n;
+	return round(val * 1/n) * n;
 }
+

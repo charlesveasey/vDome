@@ -1,13 +1,19 @@
 #include "plane.h"
 
 
-
 void Plane::init(int i){
     index = i;
     keyVals.push_back(ofPoint(0,0));
     keyVals.push_back(ofPoint(1,0));
     keyVals.push_back(ofPoint(0,1));
     keyVals.push_back(ofPoint(1,1));
+
+    group = false;
+    drawBox = false;
+    xRes = 10;
+    yRes = 10;
+    pointIndex = -1;
+	value = 1;
 }
 
 

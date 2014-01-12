@@ -15,6 +15,10 @@
 *.pbxproj
 *.DS_Store
 *.gitkeep
+*.dll
+*.ilk
+*.lib
+*.pdb
 
 # Bin
 vdome.app

@@ -43,12 +43,6 @@
     <ClCompile Include="src\input.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\keystone.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\mesh.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="src\projector.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -64,8 +58,20 @@
     <ClCompile Include="src\window.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxQuadWarp\src\ofxQuadWarp.cpp">
-      <Filter>addons\ofxQuadWarp\src</Filter>
+    <ClCompile Include="src\camera.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\dome.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\plane.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ofxQuadWarp.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ofDirectShowPlayer.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -140,12 +146,6 @@
     </Filter>
     <Filter Include="addons\ofxOpenCv\libs\opencv\include\opencv2\video">
       <UniqueIdentifier>{61E04F54-C77F-B674-C2AB-FEC2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxQuadWarp">
-      <UniqueIdentifier>{78CA6EB5-20E7-F1F0-99EE-5591}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxQuadWarp\src">
-      <UniqueIdentifier>{34D69083-73CD-9EEB-CB0A-6F23}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -452,12 +452,6 @@
     <ClInclude Include="src\input.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\keystone.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\mesh.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="src\projector.h">
       <Filter>src</Filter>
     </ClInclude>
@@ -473,8 +467,20 @@
     <ClInclude Include="src\window.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxQuadWarp\src\ofxQuadWarp.h">
-      <Filter>addons\ofxQuadWarp\src</Filter>
+    <ClInclude Include="src\camera.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dome.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\plane.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ofxQuadWarp.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ofDirectShowPlayer.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

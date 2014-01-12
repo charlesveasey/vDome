@@ -4,7 +4,7 @@
     
     <dome radius="8.83"/>
     
-	<input mode="image" scale="1"/>
+	<input mode="video" scale="1"/>
 
 	<window height="772" width="2431" x="73" y="78"/>
 
