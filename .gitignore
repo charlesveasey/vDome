@@ -19,11 +19,11 @@
 *.ilk
 *.lib
 *.pdb
+*.exe
 
 # Bin
 vdome.app
 vdomeDebug.app
-
 
 # Folders
 obj/

@@ -7,7 +7,7 @@
 void Input::init(){
 	#ifdef TARGET_WIN32
 		ofPtr <ofBaseVideoPlayer> ptr(new ofDirectShowPlayer());
-		//video.setPlayer(ptr);
+		video.setPlayer(ptr);
 	#endif
 }
 
@@ -25,7 +25,7 @@ void Input::setup(){
     switch(mode){
         case 1: // video
             video.setPixelFormat(OF_PIXELS_RGB);
-            video.loadMovie("media/test.mov"); 
+            video.loadMovie("media/test.avi"); 
             texture = video.getTextureReference();
             video.play();
             break;
