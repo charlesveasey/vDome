@@ -17,10 +17,8 @@ vDome is designed to run as background process and accepts any domemaster format
 
 Capture is the recommended input type:
   - It allows you to put anything on the dome by hooking up another computer to vDome through a capture card.  
-  - vDome essentially becomes the 2nd monitor on your production machine.  
-  - For example, drag your After Effects or Unity preview window onto the dome, and edit in real-time.  
+  - vDome essentially becomes the 2nd monitor on your production machine. For example, drag your After Effects or Unity preview window onto the dome, and edit in real-time.  
   - Playing videos is done through your favorite media player: Quicktime, VLC, etc.  
-  - Simplifies everything, as there are no restrictions on what can be placed onto the dome.  
   - Eliminates middle-ware such as Syphon.
 
 Syphon is useful for a single Mac computer system where your production application supports the Syphon technology.
