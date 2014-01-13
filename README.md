@@ -28,7 +28,7 @@ Syphon is useful for a single Mac computer system where your production applicat
 The image and video file input types are currently only used for testing and calibrating, so the only way to change the file name is in code.
 
 ##Setup and Calibration
-  - Initial setup is done in XML (setting resolution, number of projectors, and input type)
+  - Initial setup is done in XML (setting resolution, number of projectors, and input type).
   - Calibration is done directly on the dome. This eliminates the need for a control monitor and saves the headache caused by looking back and forth from control monitor to dome. There are also some new calibration options (camera perspective shearing) that should simplify calibration compared to the last version (vDome-Max).
 
 ##Future Development(s)
@@ -42,5 +42,4 @@ The image and video file input types are currently only used for testing and cal
   - Direct support for Nvidia warp and intensity API  
     - stretch goal, we are using AMD Firepro, but have Nvidia cards to test  
     - some Nvidia cards now support warping and blending directly (meaning you can conform the actual windows desktop to fit onto the dome)  
-    - allows anything you can do on Windows to be on the dome without additional hardware or software (possible $$ saver), but less flexible than capture technique.  
-    - vDome would become the calibration tool that creates warp / blend data, but once saved the graphics card would actually do the warp/blend, not vDome.
+    - vDome would become the calibration tool that creates warp / blend data, but once saved the graphics card would actually do the warp/blend, not vDome
