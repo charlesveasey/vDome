@@ -32,16 +32,15 @@ The image and video file input types are currently only used for testing and cal
   - Calibration is done directly on the dome. This eliminates the need for a control monitor and saves the headache caused by looking back and forth from control monitor to dome. There are also some new calibration options (camera perspective shearing) that should simplify calibration compared to the last version (vDome-Max).
 
 ##Future Development(s)
-  - Advanced color correction
-            - mandatory goal
-            - color channel look up table
-        - Edge-blending
-            not needed for our dome or yours, but important for others who don't have hardware masking
-        - Auto-calibration via camera
-            for us, auto-color correction has priority over auto-spatial b/c non-led projectors constantly shift spectrum
-        - Direct support for Nvidia warp and intensity API
-            stretch goal, we are using AMD Firepro, but have Nvidia cards to test
-            some Nvidia cards now support warping and blending directly (meaning you can conform the actual windows desktop to fit onto the dome)
-            allows anything you can do on Windows to be on the dome without additional hardware or software (possible $$ saver), but less flexible than capture technique
-            vDome would become the calibration tool that creates warp / blend data, but once saved the graphics card would actually do the warp/blend, not vDome.
-
+  - Advanced color correction  
+    - mandatory goal  
+    - color channel look up table  
+  - Edge-blending  
+    - not needed for our dome, but important for others who don't have hardware masking  
+  - Auto-calibration via camera  
+    - for us, auto-color correction has priority over auto-spatial b/c non-led projectors constantly shift spectrum  
+  - Direct support for Nvidia warp and intensity API  
+    - stretch goal, we are using AMD Firepro, but have Nvidia cards to test  
+    - some Nvidia cards now support warping and blending directly (meaning you can conform the actual windows desktop to fit onto the dome)  
+    - allows anything you can do on Windows to be on the dome without additional hardware or software (possible $$ saver), but less flexible than capture technique.  
+    - vDome would become the calibration tool that creates warp / blend data, but once saved the graphics card would actually do the warp/blend, not vDome.
