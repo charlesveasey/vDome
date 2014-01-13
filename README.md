@@ -7,7 +7,7 @@ Developed by Charles Veasey for the Institute of Indian American Arts (IAIA).
 
 Special thanks for prior technical research by: ARTS Labs at the University of New Mexico and Paul Bourke at the University of Western Australia.
 
-##Overview:
+##Overview
 
 vDome is designed to run as background process and accepts any domemaster formatted input as follows:  
   1.  capture  
