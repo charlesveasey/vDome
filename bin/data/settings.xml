@@ -1,4 +1,4 @@
-<vdome domeMaster="2048" frameRate="60" vSync="0">
+<vdome domeMaster="2048" frameRate="30" vSync="false">
 
     <tcp enabled="1" port="1"/>
     
@@ -6,7 +6,7 @@
     
 	<input mode="image" scale="1"/>
 
-	<window height="768" width="6144" x="0" y="0" fullscreen="false"/>
+	<window fullscreen="true" height="768" width="6144" x="0" y="0"/>
 
 	<projectors count="6">
 
@@ -36,4 +36,4 @@
         
     </projectors>
             
-</vdome>
+</vdome>

@@ -201,7 +201,7 @@ void vdome::drawConfig() {
         ofSetHexColor(0xFFFFFF);
         ofDrawBitmapString("Projector #" + ofToString(i+1), px+padx, py+pady*1.75);
         //ofDrawBitmapString("fps: "+ofToString(ofGetFrameRate(), 2), px+padx, py+pady*2.75);
-    
+		
         //tcp.x = px+padx;
         //tcp.y = py+pady*4.5;
         //tcp.draw();

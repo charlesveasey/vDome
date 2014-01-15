@@ -48,7 +48,7 @@ void Plane::setup(){
                                     v[i].y + h/2    ));
     }
 
-    mesh.load("models/plane-mesh-" + ofToString(index+1) + ".ply");
+    mesh.load("plane-mesh-" + ofToString(index+1) + ".ply");
     cout << "plane-mesh-" + ofToString(index+1) + ".ply"  << endl;
 
     for (int i=0; i<v.size(); i++) {
@@ -351,10 +351,10 @@ void Plane::save(ofXml &xml) {
     ofMesh m = mesh;
     vector<ofVec3f> v = m.getVertices();
     for (int i=0; i<v.size(); i++) {
-        v[i] = gridVerts[i] + orgVerts[i];
+        v[i] = keystone.getMatrix().preMult( gridVerts[i] + orgVerts[i] );
         m.setVertex(i, v[i]);
     }
-    m.save("plane_mesh_" + ofToString(index) + ".ply");
+    m.save("plane-mesh-" + ofToString(index+1) + ".ply");
     cout << keyVals[0].x  << endl;
 
     string xmlPrefix = "projectors/projector[";

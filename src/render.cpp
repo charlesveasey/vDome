@@ -11,11 +11,11 @@ void Render::setup() {
 	ofSetFrameRate(frameRate);
     
 	ofEnableDepthTest();
-    ofEnableAlphaBlending();
+    //ofEnableAlphaBlending();
 	//ofDisableArbTex();
     ofBackground(0,0,0);
 	
-    ofEnableSmoothing();
+    //ofEnableSmoothing();
 	ofEnableNormalizedTexCoords();
 }
 
