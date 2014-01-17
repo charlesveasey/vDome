@@ -35,10 +35,12 @@ The image and video file input types are currently only used for testing and cal
   -  Clone to: openFrameworks/addons:  
      - https://github.com/astellato/ofxSyphon  
      - https://github.com/bangnoise/ofxHapPlayer
+  - Suggested IDE: Xcode v4.6.3
 
 ####Win
-  - Video playback utilizes: https://github.com/ofTheo/ofDirectShowVideoPlayer
-  - No need to download seperately, a copy is included in src
+  - Suggested IDE: Microsoft Visual Studio Express 2012
+  - Video playback utilizes: https://github.com/ofTheo/ofDirectShowVideoPlayer  
+    - No need to download seperately, a copy is included in src
 
 ####Linux
   - Not yet tested
