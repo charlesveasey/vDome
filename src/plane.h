@@ -32,7 +32,6 @@ public:
     bool keystoneActive;
     bool gridActive;
 
-
     ofMatrix4x4 mat;
     
     vector<ofVec3f> orgVerts;
@@ -40,8 +39,6 @@ public:
     vector<ofVec3f> gridVerts;
     
     vector<ofPoint> keyVals;
-    
-    
     
 private:
     

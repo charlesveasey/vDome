@@ -172,9 +172,6 @@ bool all;
 // keyboard events
 
 void Projector::keyPressed(int key) {
-    
-    std::cout << key << endl;
-
     if (!keyboard) {
         return;
     }
