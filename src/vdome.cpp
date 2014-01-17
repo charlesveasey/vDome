@@ -76,8 +76,8 @@ void vdome::setup(){
         
     // input
     // 0 = image
-    // 1 = video
-    // 2 = capture
+	// 1 = capture
+    // 2 = video
     // 3 = hap
     // 4 = syphon
     
@@ -231,15 +231,8 @@ void vdome::drawConfig() {
       
             case 1: // mesh
                 title = "Edit: Dome";
-                 switch (editMode) 
-                    case 1:
                         sub = "";             
                         str = "Radius: " + ofToString( roundTo(mesh.radius, .01) );
-                    break;
-                    default:
-                        sub = "";
-                        str = "";
-                    break;
                 break;
                 
             case 2: // projector
@@ -321,21 +314,24 @@ void vdome::drawConfig() {
             case 3: // input
                 title = "Edit: Input";
                 switch (editMode) {
-                    case 1:
+					 case 1:
+						if (input.mode == 1)		sub = "Capture";
+						else if (input.mode == 2)   sub = "Video";
+						else if (input.mode == 3)   sub = "Hap";
+						else if (input.mode == 4)   sub = "Syphon";
+						else						sub = "Image"; //  mode = 0
+						str = "";
+                        break;
+                    case 2:
                         sub = "";
                         str = "Scale: " + ofToString( roundTo(mesh.textureScale, .01) );
                         break;
-                    case 2:
+                    case 3:
                         sub = "Offset";
                         str =   "X: \nY:";
                         break;
-                    break;
-                    default:
-                        sub = "";
-                        str = "";
-                        break;
                 }
-            break;
+				break;
         }
     
         if (editGroup == 2 && config && !saved) {
@@ -610,9 +606,13 @@ void vdome::keyPressed(int key){
             }
             break;
         case 3: // i = input
-            mesh.editMode = editMode;
-            mesh.value = value;
-            mesh.keyPressedInput(key);
+			if (editMode == 1)
+				input.keyPressed(key);
+			else {
+				mesh.editMode = editMode;
+				mesh.value = value;
+				mesh.keyPressedInput(key);
+			}
             break;
     }
     

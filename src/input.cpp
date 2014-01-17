@@ -5,9 +5,14 @@
 #endif
 
 void Input::init(){
+	maxMode = 2;
+
 	#ifdef TARGET_WIN32
 		ofPtr <ofBaseVideoPlayer> ptr(new ofDirectShowPlayer());
 		video.setPlayer(ptr);
+	#endif
+	#ifdef TARGET_OSX
+		maxMode = 4;
 	#endif
 }
 
@@ -23,17 +28,22 @@ void Input::setup(){
     
     // create input
     switch(mode){
-        case 1: // video
-            video.setPixelFormat(OF_PIXELS_RGB);
-            video.loadMovie("media/test.mov"); 
-            texture = video.getTextureReference();
-            video.play();
-            break;
-        case 2: // capture
+        case 1: // capture
             capture.setDeviceID(0);
             capture.setDesiredFrameRate(render.frameRate);
             capture.initGrabber(render.domeMaster,render.domeMaster);
             texture = capture.getTextureReference();
+            break;
+        case 2: // video
+            video.setPixelFormat(OF_PIXELS_RGB);
+			#ifdef TARGET_WIN32
+				video.loadMovie("media/test.avi"); 
+			#endif
+			#ifdef TARGET_OSX
+				video.loadMovie("media/test.mov"); 
+			#endif
+            texture = video.getTextureReference();
+            video.play();
             break;
         case 3: // hap video
 			#ifdef TARGET_OSX
@@ -101,9 +111,9 @@ void Input::unbind(){
 }
 
 void Input::update(){
-    if (mode == 1)
+    if (mode == 2)
         video.update();
-	else if (mode == 2)
+	else if (mode == 1)
         capture.update();
 	#ifdef TARGET_OSX
 		if (mode == 3)
@@ -111,13 +121,32 @@ void Input::update(){
     #endif
 }
 
+void Input::keyPressed(int key) {
+    switch (key) {
+        case OF_KEY_UP:  // up = switch on mode
+			if (mode+1 > maxMode)
+				mode = maxMode;
+			else 
+				mode++;
+			setup();
+            break;
+        case OF_KEY_DOWN:  // up = switch on mode
+			if (mode-1 < 0)
+				mode = 0;
+			else
+				mode--;
+            setup();
+			break;
+    }
+    
+}
 
 void Input::loadXML(ofXml &xml) {
     if (xml.exists("input[@mode]")) {
         string m = xml.getAttribute("input[@mode]");
         if (m == "image")           mode = 0;
-        else if (m == "video")      mode = 1;
-        else if (m == "capture")    mode = 2;
+        else if (m == "video")      mode = 2;
+        else if (m == "capture")    mode = 1;
         else if (m == "hap")        mode = 3;
         else if (m == "syphon")     mode = 4;
     }
@@ -129,8 +158,8 @@ void Input::saveXML(ofXml &xml) {
     string str;
     
     if (mode == 0)        str = "image";
-    else if (mode == 1)   str = "video";
-    else if (mode == 2)   str = "capture";
+    else if (mode == 2)   str = "video";
+    else if (mode == 1)   str = "capture";
     else if (mode == 3)   str = "hap";
     else if (mode == 4)   str = "capture";
     

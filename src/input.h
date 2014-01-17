@@ -14,7 +14,9 @@ public:
     void setup();
     void stop();
     void close();
-    
+  
+    void keyPressed(int key);
+
     void loadXML(ofXml &xml);
     void saveXML(ofXml &xml);
     
@@ -24,6 +26,7 @@ public:
     void unbind();
 
     int mode;
+	int maxMode;
     
     ofTexture texture;
     Render render;
