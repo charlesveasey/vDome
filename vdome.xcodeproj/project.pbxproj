@@ -29,7 +29,7 @@
 		566E94B318432B2700E34861 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 566E94AD18432B2700E34861 /* tinyxmlerror.cpp */; };
 		566E94B418432B2700E34861 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 566E94AE18432B2700E34861 /* tinyxmlparser.cpp */; };
 		566E94B518432B2700E34861 /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 566E94B018432B2700E34861 /* ofxXmlSettings.cpp */; };
-		5678C6EE188231EC00788989 /* ofxQuadWarp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5678C6EC188231EC00788989 /* ofxQuadWarp.cpp */; };
+		5678C6EE188231EC00788989 /* quadWarp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5678C6EC188231EC00788989 /* quadWarp.cpp */; };
 		568406E01846F25A0000A6F1 /* render.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568406DF1846F25A0000A6F1 /* render.cpp */; };
 		568406E31846F4E10000A6F1 /* input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568406E21846F4E10000A6F1 /* input.cpp */; };
 		5696C0531842C08D00E51614 /* dome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5696C04F1842C08D00E51614 /* dome.cpp */; };
@@ -146,8 +146,8 @@
 		566E94AE18432B2700E34861 /* tinyxmlparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlparser.cpp; sourceTree = "<group>"; };
 		566E94B018432B2700E34861 /* ofxXmlSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxXmlSettings.cpp; sourceTree = "<group>"; };
 		566E94B118432B2700E34861 /* ofxXmlSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxXmlSettings.h; sourceTree = "<group>"; };
-		5678C6EC188231EC00788989 /* ofxQuadWarp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxQuadWarp.cpp; sourceTree = "<group>"; };
-		5678C6ED188231EC00788989 /* ofxQuadWarp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxQuadWarp.h; sourceTree = "<group>"; };
+		5678C6EC188231EC00788989 /* quadWarp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = quadWarp.cpp; sourceTree = "<group>"; };
+		5678C6ED188231EC00788989 /* quadWarp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = quadWarp.h; sourceTree = "<group>"; };
 		568406DE1846F2440000A6F1 /* render.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = render.h; sourceTree = "<group>"; };
 		568406DF1846F25A0000A6F1 /* render.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = render.cpp; sourceTree = "<group>"; };
 		568406E11846F4D70000A6F1 /* input.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = input.h; sourceTree = "<group>"; };
@@ -879,8 +879,8 @@
 				560A020C185FFC0000DF7D6E /* plane.h */,
 				56E6ED93186678A400C05874 /* camera.cpp */,
 				56E6ED94186678A400C05874 /* camera.h */,
-				5678C6EC188231EC00788989 /* ofxQuadWarp.cpp */,
-				5678C6ED188231EC00788989 /* ofxQuadWarp.h */,
+				5678C6EC188231EC00788989 /* quadWarp.cpp */,
+				5678C6ED188231EC00788989 /* quadWarp.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -1028,7 +1028,7 @@
 				56C5CAEF184B3E1100249801 /* ofxCvShortImage.cpp in Sources */,
 				560A020D185FFC0000DF7D6E /* plane.cpp in Sources */,
 				56E6ED95186678A400C05874 /* camera.cpp in Sources */,
-				5678C6EE188231EC00788989 /* ofxQuadWarp.cpp in Sources */,
+				5678C6EE188231EC00788989 /* quadWarp.cpp in Sources */,
 				56260861188263E000E74D0A /* command.cpp in Sources */,
 				563E613F18890341002BF411 /* ofxMSAInteractiveObject.cpp in Sources */,
 				56A8FFC5188903D7008A4657 /* SyphonDirectoryObserver.m in Sources */,

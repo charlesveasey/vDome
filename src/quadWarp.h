@@ -1,20 +1,22 @@
 //
-//  ofxQuadWarp.h
+//  QuadWarp.h
 //  Created by lukasz karluk on 19/06/11.
 //
-//  nay added hack to invert on 2011/06/21
-//
+
+// modified by Charles Veasey
+// - mouse position is now delta
+
 #pragma once
 
 #include "ofMain.h"
 #include "ofxOpenCv.h"
 
-class ofxQuadWarp
+class QuadWarp
 {
 public: 
     
-     ofxQuadWarp();
-    ~ofxQuadWarp();
+     QuadWarp();
+    ~QuadWarp();
     
     void setup();
     

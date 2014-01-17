@@ -1,5 +1,5 @@
 #include "ofMain.h"
-#include "ofxQuadWarp.h"
+#include "QuadWarp.h"
 
 class Plane {
 	
@@ -12,7 +12,7 @@ public:
     void drawConfig();
     
     ofVboMesh mesh;
-    ofxQuadWarp keystone;
+    QuadWarp keystone;
     
     void keyPressed(int key);
     void keyReleased(int key);
