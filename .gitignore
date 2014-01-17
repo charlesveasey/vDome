@@ -27,7 +27,8 @@
 vdome.app
 vdomeDebug.app
 vdome.exe
-bin/vdome_debug.exe
+vdome_debug.exe
+vdome_debug.exp
 
 # Folders
 obj/
