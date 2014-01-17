@@ -4,7 +4,7 @@
     
     <dome radius="8.83"/>
     
-	<input mode="grid" scale="1"/>
+	<input mode="syphon" scale="1"/>
 
 	<window fullscreen="false" height="768" width="6144" x="0" y="0"/>
 

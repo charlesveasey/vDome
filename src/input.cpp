@@ -44,8 +44,6 @@ void Input::setup(){
         case 4: // syphon
 			#ifdef TARGET_OSX
 				syphon.setup();
-				syphon.setApplicationName("vDome");
-				syphon.setServerName("capture");
 			#endif
             break;
         default:
