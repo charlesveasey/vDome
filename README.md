@@ -45,7 +45,7 @@ The image and video file input types are currently only used for testing and cal
 ####Linux
   - Not yet tested
 
-##Installing
+##Installation
 ####Mac
   - Install HAP codec:
      - https://github.com/vidvox/hap-qt-codec/
