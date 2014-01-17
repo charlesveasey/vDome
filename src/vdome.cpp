@@ -388,7 +388,7 @@ void vdome::saveXML(string file) {
     render.saveXML(xml);
     window.saveXML(xml);
     mesh.saveXML(xml);
-    mesh.saveMesh("models/dome-mesh.ply");
+    mesh.saveMesh("dome-mesh.ply");
     
     for(int i=0; i<pCount; i++) {
 		projectors[i].saveXML(xml);
