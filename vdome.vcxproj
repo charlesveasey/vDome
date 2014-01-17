@@ -96,9 +96,9 @@
     <ClCompile Include="src\input.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofDirectShowPlayer.cpp" />
-    <ClCompile Include="src\ofxQuadWarp.cpp" />
     <ClCompile Include="src\plane.cpp" />
     <ClCompile Include="src\projector.cpp" />
+    <ClCompile Include="src\quadWarp.cpp" />
     <ClCompile Include="src\render.cpp" />
     <ClCompile Include="src\tcp.cpp" />
     <ClCompile Include="src\testApp.cpp" />
@@ -122,9 +122,9 @@
     <ClInclude Include="src\dome.h" />
     <ClInclude Include="src\input.h" />
     <ClInclude Include="src\ofDirectShowPlayer.h" />
-    <ClInclude Include="src\ofxQuadWarp.h" />
     <ClInclude Include="src\plane.h" />
     <ClInclude Include="src\projector.h" />
+    <ClInclude Include="src\quadWarp.h" />
     <ClInclude Include="src\render.h" />
     <ClInclude Include="src\tcp.h" />
     <ClInclude Include="src\testApp.h" />

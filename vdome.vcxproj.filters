@@ -67,13 +67,13 @@
     <ClCompile Include="src\plane.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\ofxQuadWarp.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="src\ofDirectShowPlayer.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\command.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\quadWarp.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -479,13 +479,13 @@
     <ClInclude Include="src\plane.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\ofxQuadWarp.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="src\ofDirectShowPlayer.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\command.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\quadWarp.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
