@@ -25,6 +25,36 @@ Syphon is useful for a single Mac computer system where your production applicat
 
 The image and video file input types are currently only used for testing and calibrating, so the only way to change the file name is in code.
 
+##Compiling
+####All
+  -  Clone openFrameworks fork: https://github.com/charlesveasey/openFrameworks  
+  -  Clone https://github.com/memo/ofxMSAInteractiveObject and place in openFrameworks/addons folder  
+  -  Clone this (vDome) repository and place in the openFrameworks/apps/myApps folder
+  
+####Mac
+  -  Clone to: openFrameworks/addons:  
+     - https://github.com/astellato/ofxSyphon  
+     - https://github.com/bangnoise/ofxHapPlayer
+
+####Win
+  - Video playback utilizes: https://github.com/ofTheo/ofDirectShowVideoPlayer
+  - No need to download seperately, a copy is included in src
+
+####Linux
+  - Not yet tested
+
+##Installing
+####Mac
+  - Install HAP codec:
+     - https://github.com/vidvox/hap-qt-codec/
+
+####Win
+  - To allow QuickTime video playback install the K-Lite Mega Codec Pack 10.2 
+    - http://www.free-codecs.com/download/k_lite_mega_codec_pack.htm
+
+####Linux
+  - Not yet tested
+
 ##Setup and Calibration
   - Initial setup is done in XML (setting resolution, number of projectors, and input type).
   - Calibration is done directly on the dome. This eliminates the need for a control monitor and saves the headache caused by looking back and forth from control monitor to dome. There are also some new calibration options (camera perspective shearing) that should simplify calibration compared to the last version (vDome-Max).
