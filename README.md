@@ -5,7 +5,9 @@ Multi-channel projection software designed for domes. Provides real-time warping
 
 Developed by Charles Veasey for the Institute of Indian American Arts (IAIA).  
 
-Special thanks for prior technical research by: ARTS Labs at the University of New Mexico and Paul Bourke at the University of Western Australia.
+Funding provided by the United States Department of Defence. Based on prior research from the University of New Mexico (UNM) and IAIA with funding provided by the National Science Foundation.
+
+Special thanks to research by the ARTS Labs at UNM the and Paul Bourke at the University of Western Australia.
 
 ##Overview
 
