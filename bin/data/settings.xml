@@ -1,40 +1,33 @@
-<vdome domeMaster="2048" frameRate="30" vSync="false">
+<vdome domeMaster="2048" frameRate="30" vSync="0">
 
     <tcp enabled="1" port="1"/>
     
     <dome radius="8.83"/>
     
-	<input mode="syphon" scale="1"/>
+	<input mode="image" scale="1"/>
 
-	<window fullscreen="false" height="768" width="6144" x="0" y="0"/>
+	<window fullscreen="false" height="768" width="6144" x="-3468" y="44"/>
 
 	<projectors count="6">
 
 		<!-- #1 -->
-		<projector azimuth="28" brightness="1" contrast="1" distance="9.65" elevation="4.55" fov="32.9" height="768" keystone="0,0,0.999023,0,0,1,0.999023,1" offset="0,0.791999" pan="0" roll="5.96046e-08" saturation="1" scale="1,1" tilt="-2.91" width="1024">
-		</projector>
+		<projector azimuth="0" brightness="1" contrast="1" distance="9" elevation="0" fov="36" height="768" keystone="0,0,0.997072,0,0,1,0.997072,1" offset="0,0.5" pan="0" roll="0" saturation="1" scale="1,1" tilt="-9.2" width="1024"/>
 		
 		<!-- #2 -->
-		<projector azimuth="-74.9099" brightness="1" contrast="1" distance="9.65" elevation="0.55" fov="32.9" height="768" keystone="-0.00214726,-0.0020833,0.998047,0,-0.000976562,1,0.998047,1" offset="0,0.7" pan="0" roll="0" saturation="1" scale="1,1" tilt="-4.91001" width="1024">
-		</projector>
+		<projector azimuth="0" brightness="1" contrast="1" distance="9" elevation="0" fov="36" height="768" keystone="-0.00195217,0,0.995121,0,-0.00195217,1,0.995121,1" offset="0,0.5" pan="0" roll="0" saturation="1" scale="1,1" tilt="-9.2" width="1024"/>
         
 		<!-- #3 -->
-		<projector azimuth="-74.9099" brightness="1.36" contrast="1" distance="10.65" elevation="-3.25" fov="32.9" height="768" lensOffsetX="0.000800474" lensOffsetY="0.731999" pan="0" roll="5.96046e-08" saturation="1" tilt="-4.91001" width="1024">
-		</projector>
+		<projector azimuth="0" brightness="1" contrast="1" distance="9" elevation="0" fov="36" height="768" keystone="-0.00390434,0,0.994143,0,-0.00390434,1,0.994143,1" offset="0,0.5" pan="0" roll="0" saturation="1" scale="1,1" tilt="-9.2" width="1024"/>
         
     	<!-- #4 -->
-		<projector azimuth="571.68" brightness="1.36" contrast="1" distance="9.95" elevation="-4.69" fov="33.59" height="768" pan="0" roll="5.96046e-08" saturation="1" tilt="-5.80001" width="1024">
-		</projector>
+		<projector azimuth="0" brightness="1" contrast="1" distance="9" elevation="0" fov="36" height="768" keystone="-0.00390434,0,0.994143,0,-0.00390434,1,0.994143,1" offset="0,0.5" pan="0" roll="0" saturation="1" scale="1,1" tilt="-9.2" width="1024"/>
     
 		<!-- #5 -->
-		<projector azimuth="140" brightness="1.36" contrast="1" distance="9.65" elevation="-4.29" fov="33.59" height="768" pan="0" roll="5.96046e-08" saturation="1" tilt="-5.80001" width="1024">
-        </projector>
+		<projector azimuth="0" brightness="1" contrast="1" distance="9" elevation="0" fov="36" height="768" keystone="-0.00390434,0,0.994143,0,-0.00390434,1,0.994143,1" offset="0,0.5" pan="0" roll="0" saturation="1" scale="1,1" tilt="-9.2" width="1024"/>
 
 		<!-- #6 -->
-		<projector azimuth="109.08" brightness="1.36" contrast="1" distance="8.42" elevation="-3.06" fov="35.9899" height="768" pan="0" roll="-0.499997" saturation="1" tilt="-34.1" width="1024">
-        </projector>
+		<projector azimuth="0" brightness="1" contrast="1" distance="9" elevation="1" fov="36" height="768" keystone="-0.0146341,0,0.982439,0,-0.0146341,1,0.982439,1" offset="0,0.5" pan="0" roll="0" saturation="1" scale="1,1" tilt="-6" width="1024"/>
         
     </projectors>
             
 </vdome>
-
