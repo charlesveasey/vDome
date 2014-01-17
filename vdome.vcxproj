@@ -90,6 +90,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\addons\ofxMSAInteractiveObject\src\ofxMSAInteractiveObject.cpp" />
     <ClCompile Include="src\camera.cpp" />
     <ClCompile Include="src\command.cpp" />
     <ClCompile Include="src\dome.cpp" />
@@ -117,6 +118,7 @@
     <ClCompile Include="src\window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\addons\ofxMSAInteractiveObject\src\ofxMSAInteractiveObject.h" />
     <ClInclude Include="src\camera.h" />
     <ClInclude Include="src\command.h" />
     <ClInclude Include="src\dome.h" />

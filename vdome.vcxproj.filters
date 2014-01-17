@@ -76,6 +76,9 @@
     <ClCompile Include="src\quadWarp.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMSAInteractiveObject\src\ofxMSAInteractiveObject.cpp">
+      <Filter>addons\ofxMSAInteractiveObject\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -149,6 +152,12 @@
     </Filter>
     <Filter Include="addons\ofxOpenCv\libs\opencv\include\opencv2\video">
       <UniqueIdentifier>{61E04F54-C77F-B674-C2AB-FEC2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxMSAInteractiveObject">
+      <UniqueIdentifier>{4db1901e-acb7-4f88-9c23-66a827787dfd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxMSAInteractiveObject\src">
+      <UniqueIdentifier>{6c251e27-d306-42ba-84ef-8076934cb960}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -487,6 +496,9 @@
     </ClInclude>
     <ClInclude Include="src\quadWarp.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxMSAInteractiveObject\src\ofxMSAInteractiveObject.h">
+      <Filter>addons\ofxMSAInteractiveObject\src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
