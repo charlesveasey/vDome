@@ -133,13 +133,14 @@ void Plane::drawConfig(){
         
     vector<ofVec3f> v = mesh.getVertices();
     
-    float rad = 4;
+    float rad = 6;
     for (int i=0; i<v.size(); i++) {
         if(sel[i])
             ofSetHexColor(0xFFF000);
         else
-            ofSetHexColor(0xFFFFFF);
-        ofDrawSphere(v[i].x, v[i].y, v[i].z, rad );
+            ofSetHexColor(0xFFFFFF)
+            ;
+        ofDrawPlane(v[i].x, v[i].y, v[i].z, rad, rad);
     }
 }
 
