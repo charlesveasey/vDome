@@ -19,7 +19,7 @@ void Input::setup(){
         texture.allocate(render.domeMaster, render.domeMaster, OF_IMAGE_COLOR);
     
     stop();
-    close();
+    //close();
     
     // create input
     switch(mode){
