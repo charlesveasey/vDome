@@ -625,8 +625,8 @@ void vdome::keyReleased(int key) {
             
         case 115: // s
             if (config)  { // mod + s = save file
-                cout << "saveXML " << endl;
                 saveXML(xmlFile);
+                cout << "saveXML " << endl;
             }
             break;
          
