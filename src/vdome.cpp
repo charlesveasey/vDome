@@ -64,15 +64,12 @@ void vdome::setup(){
     
     // tcp server
     tcp.init();
-    tcp.setup();
     
     // window
     window.init();
-    window.setup();
     
     // render
     render.init();
-    render.setup();
         
     // input
     // 0 = image
@@ -84,11 +81,9 @@ void vdome::setup(){
     input.mode = 0;
     input.render = render;    
     input.init();
-    input.setup();
     
     // dome mesh
     dome.init();
-	dome.setup();
     
     // projectors
     pCount = 6; // FIXME: not dynamic with xml
@@ -96,16 +91,11 @@ void vdome::setup(){
     for(int i=0; i<pCount; i++) {
         Projector p;
         p.init(i);
-        p.setup();
         projectors.push_back(p);
     }
     
     // projection shader
 	shader.load("shaders/vdome.vert", "shaders/vdome.frag");
- 
-    // xml settings
-    xmlFile = "settings.xml";
-    loadXML(xmlFile);    
     
     // default config settings
     config = false;
@@ -114,6 +104,10 @@ void vdome::setup(){
     editMode = 1;
     editGroup = 2;
     showFrameRate = true;
+    
+    // xml settings
+    xmlFile = "settings.xml";
+    loadXML(xmlFile);
 }
 
 
