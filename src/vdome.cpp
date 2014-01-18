@@ -87,8 +87,8 @@ void vdome::setup(){
     input.setup();
     
     // dome mesh
-    mesh.init();
-	mesh.setup();
+    dome.init();
+	dome.setup();
     
     // projectors
     pCount = 6; // FIXME: not dynamic with xml
@@ -136,7 +136,7 @@ void vdome::draw(){
 	for(int i=0; i<pCount; i++){
         projectors[i].begin();
         input.bind();
-        mesh.draw();
+        dome.draw();
         input.unbind();
         projectors[i].end();
 	}
@@ -206,8 +206,8 @@ void vdome::drawConfig() {
         //tcp.y = py+pady*4.5;
         //tcp.draw();
         
-        // MESH
-        // 1 = mesh radius
+        // DOME MESH
+        // 1 = dome radius
         
         // PROJECTOR
         // 1 = azimuth, elevation, distance
@@ -229,10 +229,10 @@ void vdome::drawConfig() {
         
         switch (editGroup) {
       
-            case 1: // mesh
+            case 1: // dome mesh
                 title = "Edit: Dome";
                         sub = "";             
-                        str = "Radius: " + ofToString( roundTo(mesh.radius, .01) );
+                        str = "Radius: " + ofToString( roundTo(dome.radius, .01) );
                 break;
                 
             case 2: // projector
@@ -324,7 +324,7 @@ void vdome::drawConfig() {
                         break;
                     case 2:
                         sub = "";
-                        str = "Scale: " + ofToString( roundTo(mesh.textureScale, .01) );
+                        str = "Scale: " + ofToString( roundTo(dome.textureScale, .01) );
                         break;
                     case 3:
                         sub = "Offset";
@@ -368,7 +368,7 @@ void vdome::loadXML(string file) {
     input.loadXML(xml);
     render.loadXML(xml);
     window.loadXML(xml);
-    mesh.loadXML(xml);
+    dome.loadXML(xml);
     
     for(int i=0; i<pCount; i++) {
 		projectors[i].loadXML(xml);
@@ -383,7 +383,7 @@ void vdome::saveXML(string file) {
     input.saveXML(xml);
     render.saveXML(xml);
     window.saveXML(xml);
-    mesh.saveXML(xml);
+    dome.saveXML(xml);
     
     for(int i=0; i<pCount; i++) {
 		projectors[i].saveXML(xml);
@@ -510,7 +510,7 @@ void vdome::keyPressed(int key){
     // 1 - 9 = projectors
         
     // 1 - 9 + alt = projectors modes
-    // 1 = mesh radius
+    // 1 = dome radius
     // 2 = azimuth, elevation, distance
     // 3 = pan, tilt, roll
     // 4 = offset
@@ -593,9 +593,9 @@ void vdome::keyPressed(int key){
     
     switch (editGroup) {
         case 1: // d = dome mesh
-            mesh.editMode = editMode;
-            mesh.value = value;
-            mesh.keyPressed(key);
+            dome.editMode = editMode;
+            dome.value = value;
+            dome.keyPressed(key);
             break;
         case 2: // p = projector
             for (int i=0; i<pCount; i++) {
@@ -608,9 +608,9 @@ void vdome::keyPressed(int key){
 			if (editMode == 1)
 				input.keyPressed(key);
 			else {
-				mesh.editMode = editMode;
-				mesh.value = value;
-				mesh.keyPressedInput(key);
+				dome.editMode = editMode;
+				dome.value = value;
+				dome.keyPressedInput(key);
 			}
             break;
     }
@@ -627,7 +627,7 @@ void vdome::keyReleased(int key) {
         projectors[i].keyReleased(key);
     }
     
-    mesh.keyReleased(key);
+    dome.keyReleased(key);
     
     switch(key){
             

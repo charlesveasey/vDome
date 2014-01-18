@@ -47,7 +47,7 @@ public:
     Window window;
     
     // vitual dome
-    Dome mesh;
+    Dome dome;
     
     // shader
     ofShader shader;
