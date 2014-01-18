@@ -1,0 +1,32 @@
+<vdome domeMaster="2048" frameRate="30" vSync="0">
+
+   <tcp enabled="1" port="1"/>
+    
+   <dome radius="8.83"/>
+    
+	<input mode="capture" scale="1"/>
+
+	<window fullscreen="true" height="768" width="6144" x="0" y="0"/>
+
+	<projectors count="6">
+
+		<!-- #1 -->
+		<projector azimuth="71" brightness="1" contrast="1" distance="8.5" elevation="0" fov="36" height="768" keystone="0.00771484,0.00807292,0.977935,0.00299479,0.0109375,1.00703,0.994438,0.999609" offset="0,0.5" pan="0" roll="0" saturation="1" scale="1,1" tilt="-8.3" width="1024"/>
+		
+		<!-- #2 -->
+		<projector azimuth="-0.6" brightness="1.1" contrast="1" distance="8.5" elevation="-7.45058e-008" fov="36" height="768" keystone="0.00585938,0.00260417,0.983598,-0.0179688,0.0100585,0.999349,0.982426,1.00703" offset="1.49012e-009,0.5" pan="0" roll="1.49012e-008" saturation="1" scale="1,1" tilt="-8.6" width="1024"/>
+        
+		<!-- #3 -->
+		<projector azimuth="-72.1" brightness="1" contrast="1" distance="8.5" elevation="0" fov="36" height="768" keystone="-0.0077163,-0.0169271,0.993359,-0.00143229,0.00293064,0.998307,0.973249,1.00273" offset="0,0.5" pan="0" roll="0" saturation="1" scale="1,1" tilt="-8.5" width="1024"/>
+        
+    	<!-- #4 -->
+		<projector azimuth="-144" brightness="1" contrast="1" distance="8.5" elevation="0" fov="36" height="768" keystone="0.0113285,4.98646e-009,0.986919,0.00572917,-0.00801015,1.01289,0.996883,1.0082" offset="0,0.5" pan="0" roll="0" saturation="1" scale="1,1" tilt="-8.5" width="1024"/>
+    
+		<!-- #5 -->
+		<projector azimuth="-215.7" brightness="1" contrast="1" distance="8.4" elevation="1.49012e-008" fov="36" height="768" keystone="0.00820589,0.0157552,0.975686,-0.000260416,0.0251894,0.995963,0.971687,1.00156" offset="-3.72529e-010,0.5" pan="0" roll="0" saturation="1" scale="1,1" tilt="-8.5" width="1024"/>
+
+		<!-- #6 -->
+		<projector azimuth="20.27" brightness="1" contrast="1" distance="8.7" elevation="-7.19001" fov="36" height="768" keystone="-0.0030241,-0.000390627,0.98301,0.00130208,-0.0137691,1.02721,0.994928,1.00456" offset="-5.58794e-010,0.5" pan="-1.93715e-007" roll="0" saturation="1" scale="1,1" tilt="-40.1999" width="1024"/>
+    
+  </projectors>      
+</vdome>
