@@ -620,9 +620,7 @@ void vdome::keyReleased(int key) {
     for (int i=0; i<pCount; i++) {
         projectors[i].keyReleased(key);
     }
-    
-    dome.keyReleased(key);
-    
+        
     switch(key){
             
         case 115: // s

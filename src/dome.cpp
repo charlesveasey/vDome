@@ -126,10 +126,6 @@ void Dome::keyPressedInput(int key) {
 }
 
 
-void Dome::keyReleased(int key) {
-}
-
-
 void Dome::loadXML(ofXml &xml) {
     if (xml.exists("dome[@radius]"))
         radius = ofToDouble( xml.getAttribute("dome[@radius]") );
