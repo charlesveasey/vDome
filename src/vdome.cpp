@@ -199,21 +199,6 @@ void vdome::drawConfig() {
         //tcp.x = px+padx;
         //tcp.y = py+pady*4.5;
         //tcp.draw();
-        
-        // DOME MESH
-        // 1 = dome radius
-        
-        // PROJECTOR
-        // 1 = azimuth, elevation, distance
-        // 2 = pan, tilt, roll
-        // 3 = offset, offset
-        // 4 = fov
-        // 5 = texture size
-        // 6 = keystone
-        // 7 = grid
-        // 8 = brightness
-        // 9 = contrast
-        // 10 = saturation
        
         ofSetHexColor(0xFFFFFF);
         
