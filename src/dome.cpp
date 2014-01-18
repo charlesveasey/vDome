@@ -75,7 +75,6 @@ void Dome::setup(){
 
 void Dome::draw(){
 	ofRotateX(90);
-    //ofScale(1.1, 1.1, 1.1);
     glEnable(GL_CULL_FACE);
     glCullFace( GL_BACK );
 	vbo.draw();
