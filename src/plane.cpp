@@ -349,7 +349,7 @@ void Plane::save(ofXml &xml) {
     ofMesh m = mesh;
     vector<ofVec3f> v = m.getVertices();
     for (int i=0; i<v.size(); i++) {
-        v[i] = keystone.getMatrix().preMult( gridVerts[i] + orgVerts[i] );
+        v[i] = gridVerts[i] + orgVerts[i];
         m.setVertex(i, v[i]);
     }
     m.save("plane-mesh-" + ofToString(index+1) + ".ply");
