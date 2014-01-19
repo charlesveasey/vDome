@@ -1,10 +1,7 @@
 #include "vdome.h"
 
-/*********************
- *********************
+/******************* MENU ***********************
  
-    MENU
-    ----
  
     (key) Edit
     ----------------------
@@ -35,8 +32,7 @@
     (10) Shear 1
     (11) Shear 2
 
- *********************
- *********************/
+ ************************************************/
 
 
 
@@ -58,7 +54,11 @@ bool saved = false;
 
 
 
-// SETUP
+/******************************************
+ 
+ SETUP
+ 
+ ********************************************/
 
 void vdome::setup(){
     
@@ -86,7 +86,7 @@ void vdome::setup(){
     dome.init();
     
     // projectors
-    pCount = 6; // FIXME: not dynamic with xml
+    pCount = 1; // FIXME: not dynamic with xml
     
     for(int i=0; i<pCount; i++) {
         Projector p;
@@ -108,17 +108,31 @@ void vdome::setup(){
     // xml settings
     xmlFile = "settings.xml";
     loadXML(xmlFile);
+
 }
 
 
-// FRAME UPDATE
+
+
+/******************************************
+ 
+ UPDATE
+ 
+ ********************************************/
 
 void vdome::update() {
     input.update();
 }
 
 
-// FRAME DRAW 
+
+
+
+/******************************************
+ 
+ DRAW
+ 
+ ********************************************/
 
 void vdome::draw(){
     if (showConfig) {
@@ -138,10 +152,10 @@ void vdome::draw(){
 	for(int i=0; i<pCount; i++) {
 		projectors[i].bind();
 		shader.begin();
-		shader.setUniform1f("brightness", projectors[i].brightness);
-		shader.setUniform1f("contrast", projectors[i].contrast);
-		shader.setUniform1f("saturation", projectors[i].saturation);
-		shader.setUniformTexture("texsampler", projectors[i].fbo.getTextureReference(), 0);
+		shader.setUniform1f("brightness", projectors[i].getBrightness());
+		shader.setUniform1f("contrast", projectors[i].getContrast());
+		shader.setUniform1f("saturation", projectors[i].getSaturation());
+		shader.setUniformTexture("texsampler", projectors[i].getTextureReference(), 0);
         projectors[i].draw();
         shader.end();
         projectors[i].unbind();
@@ -149,17 +163,23 @@ void vdome::draw(){
 }
 
 
-// FRAME DRAW CONFIG
+
+
+/******************************************
+ 
+ DRAW CONFIG
+ 
+ ********************************************/
 
 void vdome::drawConfig() {
     for(int i=0; i<pCount; i++) {
 
         if (editGroup == 2 && projectors[i].mouse) {
             if (editMode == 3) {
-                projectors[i].plane.keystone.draw();
+                projectors[i].drawKeystone();
             }
             else if (editMode == 4) {
-                projectors[i].plane.drawConfig();
+                projectors[i].drawPlaneConfig();
             }
         }
         
@@ -167,8 +187,8 @@ void vdome::drawConfig() {
         int pw = 200;
         int ph = 135;
         
-        int px = projectors[i].plane.position[0]+1024/2 - pw/2;
-        int py = projectors[i].plane.position[1]+768/2 - ph/2;
+        int px = projectors[i].getX() + 1024/2 - pw/2;
+        int py = projectors[i].getY() + 768 /2 - ph/2;
         
         int padx = 15;
         int pady = 15;
@@ -219,13 +239,13 @@ void vdome::drawConfig() {
                 switch (editMode) {
                     case 1:
                         sub = "Intensity";
-                        str =   "Brightness: " + ofToString( roundTo(projectors[i].brightness, .001) ) + "\n" +
-                        "Contrast: " + ofToString( roundTo(projectors[i].contrast, .001) );
+                        str =   "Brightness: " + ofToString( roundTo(projectors[i].getBrightness(), .001) ) + "\n" +
+                        "Contrast: " + ofToString( roundTo(projectors[i].getContrast(), .001) );
                         break;
                         
                     case 2:
                         sub = "Color";
-                        str =   "Saturation: " + ofToString( roundTo(projectors[i].saturation, .001) );
+                        str =   "Saturation: " + ofToString( roundTo(projectors[i].getSaturation(), .001) );
                         break;
                         
                     case 3:
@@ -240,33 +260,33 @@ void vdome::drawConfig() {
                         
                     case 5:
                         sub = "Position";
-                        str =   "Azimuth: "+ ofToString( roundTo(projectors[i].azimuth, .01) ) + "\n" +
-                        "Elevation: "+ ofToString( roundTo(projectors[i].elevation, .01) ) + "\n" +
-                        "Distance: "+ ofToString( roundTo(projectors[i].distance, .01) );
+                        str =   "Azimuth: "+ ofToString( roundTo(projectors[i].getAzimuth(), .01) ) + "\n" +
+                        "Elevation: "+ ofToString( roundTo(projectors[i].getElevation(), .01) ) + "\n" +
+                        "Distance: "+ ofToString( roundTo(projectors[i].getDistance(), .01) );
                         break;
                         
                     case 6:
                         sub = "Orientation";
-                        str =   "Roll: "+ ofToString( roundTo(projectors[i].roll, .01) ) + "\n" +
-                        "Tilt: "+ ofToString( roundTo(projectors[i].tilt, .01) ) + "\n" +
-                        "Pan: "+ ofToString( roundTo(projectors[i].pan, .01) );
+                        str =   "Roll: "+ ofToString( roundTo(projectors[i].getRoll(), .01) ) + "\n" +
+                        "Tilt: "+ ofToString( roundTo(projectors[i].getTilt(), .01) ) + "\n" +
+                        "Pan: "+ ofToString( roundTo(projectors[i].getPan(), .01) );
                         break;
                         
                     case 7:
                         sub = "Lens";
-                        str =   "Field of View: "+ ofToString( roundTo(projectors[i].fov, .01) );
+                        str =   "Field of View: "+ ofToString( roundTo(projectors[i].getFov(), .01) );
                         break;
                         
                     case 8:
                         sub = "Offset";
-                        str =   "X: "+ ofToString( roundTo(projectors[i].offset[0], .001) ) + "\n" +
-                                "Y: "+ ofToString( roundTo(projectors[i].offset[1], .001 ) );
+                        str =   "X: "+ ofToString( roundTo(projectors[i].getOffsetX(), .001) ) + "\n" +
+                                "Y: "+ ofToString( roundTo(projectors[i].getOffsetY(), .001 ) );
                         break;
                      
                     case 9:
                         sub = "Scale";
-                        str = "X: "+ ofToString( roundTo(projectors[i].scale[0], .01) ) + "\n" +
-                              "Y: "+ ofToString( roundTo(projectors[i].scale[1], .01) );
+                        str = "X: "+ ofToString( roundTo(projectors[i].getScaleX(), .01) ) + "\n" +
+                              "Y: "+ ofToString( roundTo(projectors[i].getScaleY(), .01) );
                         break;
                         
                     case 10:
@@ -336,7 +356,11 @@ void vdome::drawConfig() {
 
 
 
-// XML SETTINGS
+/******************************************
+ 
+ XML
+
+ *******************************************/
 
 void vdome::loadXML(string file) {
     xml.load(file);
@@ -374,7 +398,14 @@ void vdome::saveXML(string file) {
 }
 
 
-// MOUSE EVENTS
+
+
+
+/******************************************
+ 
+ MOUSE
+ 
+ ********************************************/
 
 void vdome::mousePressed(ofMouseEventArgs& mouseArgs) {
     if (config) {
@@ -401,10 +432,17 @@ void vdome::mouseReleased(ofMouseEventArgs& mouseArgs) {
 }
 
 
-// KEYBOARD EVENTS
+
+
+
+
+/******************************************
+ 
+ KEYBOARD
+ 
+ ********************************************/
 
 void vdome::keyPressed(int key){
-    //cout << "keyPressed " << key << endl;
     
     switch(key){
          
@@ -477,27 +515,12 @@ void vdome::keyPressed(int key){
     }
     
     for (int i=0; i<pCount; i++) {
-        projectors[i].value = value;
-        projectors[i].plane.value = value;
-        projectors[i].plane.keystone.value = value;
+        projectors[i].setValue(value);
     }
     
     if (!config) {
         return;
     }
-    
-    // 1 - 9 = projectors
-        
-    // 1 - 9 + alt = projectors modes
-    // 1 = dome radius
-    // 2 = azimuth, elevation, distance
-    // 3 = pan, tilt, roll
-    // 4 = offset
-    // 5 = fov
-    // 6 = brightness
-    // 7 = contrast
-    // 8 = saturation
-
     
     if (key >= 48 && key <= 57) {
         // assign edit mode
@@ -511,16 +534,16 @@ void vdome::keyPressed(int key){
             if (editGroup == 2) {
                 for (int i=0; i<pCount; i++) {
                     if (editMode == 3) {
-                        projectors[i].plane.keystoneActive = true;
-                        projectors[i].plane.gridActive = false;
+                        projectors[i].setKeystoneActive(true);
+                        projectors[i].setGridActive(false);
                     }
                     else if (editMode == 4) {
-                        projectors[i].plane.keystoneActive = false;
-                        projectors[i].plane.gridActive = true;
+                        projectors[i].setKeystoneActive(false);
+                        projectors[i].setGridActive(true);
                     }
                     else {
-                        projectors[i].plane.keystoneActive = false;
-                        projectors[i].plane.gridActive = false;
+                        projectors[i].setKeystoneActive(false);
+                        projectors[i].setGridActive(false);
                     }
                 }
             }
@@ -549,16 +572,16 @@ void vdome::keyPressed(int key){
         if (editGroup == 2) {
             for (int i=0; i<pCount; i++) {
                 if (editMode == 3) {
-                    projectors[i].plane.keystoneActive = true;
-                    projectors[i].plane.gridActive = false;
+                    projectors[i].setKeystoneActive(true);
+                    projectors[i].setGridActive(false);
                 }
                 else if (editMode == 4) {
-                    projectors[i].plane.keystoneActive = false;
-                    projectors[i].plane.gridActive = true;
+                    projectors[i].setKeystoneActive(false);
+                    projectors[i].setGridActive(true);
                 }
                 else {
-                    projectors[i].plane.keystoneActive = false;
-                    projectors[i].plane.gridActive = false;
+                    projectors[i].setKeystoneActive(false);
+                    projectors[i].setGridActive(false);
                 }
             }
         }
@@ -596,11 +619,7 @@ void vdome::keyPressed(int key){
     
 }
 
-
-
 void vdome::keyReleased(int key) {
-    
-    //cout << "keyReleased " << key << endl;
     
     for (int i=0; i<pCount; i++) {
         projectors[i].keyReleased(key);
@@ -656,17 +675,23 @@ void vdome::keyReleased(int key) {
     }
     
     for (int i=0; i<pCount; i++) {
-        projectors[i].value = value;
-        projectors[i].plane.value = value;
-        projectors[i].plane.keystone.value = value;
+        projectors[i].setValue(value);
     }
 }
+
+
+
+
+/******************************************
+ 
+ ROUND
+ 
+ ********************************************/
+
 
 float round(float d) {
   return floorf(d + 0.5);
 }
-
 float vdome::roundTo(float val, float n){
 	return round(val * 1/n) * n;
 }
-

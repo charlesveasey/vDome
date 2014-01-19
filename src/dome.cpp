@@ -10,6 +10,7 @@ void Dome::init(){
     textureScale = 1;
 }
 
+
 void Dome::setup(){
  	int i,j,index = 0;
 	int i1,i2,i3,i4;
@@ -146,4 +147,3 @@ void Dome::saveXML(ofXml &xml) {
 void Dome::saveMesh(string file) {
     vbo.save(file);
 }
-

@@ -40,4 +40,3 @@ void CommandHistory::redo() {
         history[index]->execute();
     }
 }
-

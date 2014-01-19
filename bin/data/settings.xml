@@ -4,14 +4,14 @@
     
    <dome radius="8.83"/>
     
-	<input mode="capture" scale="1"/>
+	<input mode="image" scale="1"/>
 
-	<window fullscreen="true" height="768" width="6144" x="0" y="0"/>
+	<window fullscreen="true" height="1050" width="1680" x="0" y="0"/>
 
-	<projectors count="6">
+	<projectors count="1">
 
 		<!-- #1 -->
-		<projector azimuth="71" brightness="1" contrast="1" distance="8.5" elevation="0" fov="36" height="768" keystone="0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0" offset="0,0.5" pan="0" roll="0" saturation="1" scale="1,1" tilt="-8.3" width="1024"/>
+		<projector azimuth="71" brightness="1" contrast="1" distance="8.5" elevation="0" fov="36" height="768" keystone="0,0,0.997072,0,0,1,0.997072,1" offset="0,0.5" pan="0" roll="0" saturation="1" scale="1,1" tilt="-8.3" width="0"/>
 		
 		<!-- #2 -->
 		<projector azimuth="-0.6" brightness="1.1" contrast="1" distance="8.5" elevation="-7.45058e-008" fov="36" height="768" keystone="0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0" offset="1.49012e-009,0.5" pan="0" roll="1.49012e-008" saturation="1" scale="1,1" tilt="-8.6" width="1024"/>
@@ -29,4 +29,4 @@
 		<projector azimuth="20.27" brightness="1" contrast="1" distance="8.7" elevation="-7.19001" fov="36" height="768" keystone="0.0,0.0,1.0,0.0,0.0,1.0,1.0,1.0" offset="-5.58794e-010,0.5" pan="-1.93715e-007" roll="0" saturation="1" scale="1,1" tilt="-40.1999" width="1024"/>
     
   </projectors>      
-</vdome>
+</vdome>

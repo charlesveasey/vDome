@@ -34,25 +34,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../../../libs/openFrameworks/utils/ofXml.cpp"
-         timestampString = "407368953.430317"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "639"
-         endingLineNumber = "639"
-         landmarkName = "ofXml::setAttribute(const string&amp; path, const string&amp; value)"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "../../../libs/openFrameworks/utils/ofXml.cpp"
          timestampString = "407368963.03214"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "603"
          endingLineNumber = "603"
-         landmarkName = "ofXml::setAttribute(const string&amp; path, const string&amp; value)"
+         landmarkName = "ofXml::remove(const string&amp; path)"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -65,59 +52,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "596"
          endingLineNumber = "596"
-         landmarkName = "ofXml::setAttribute(const string&amp; path, const string&amp; value)"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "../../../libs/openFrameworks/utils/ofXml.cpp"
-         timestampString = "407368981.914959"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "611"
-         endingLineNumber = "611"
-         landmarkName = "ofXml::setAttribute(const string&amp; path, const string&amp; value)"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "../../../libs/openFrameworks/utils/ofXml.cpp"
-         timestampString = "407369054.540477"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "621"
-         endingLineNumber = "621"
-         landmarkName = "ofXml::setAttribute(const string&amp; path, const string&amp; value)"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "../../../libs/openFrameworks/utils/ofXml.cpp"
-         timestampString = "407369062.515371"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "629"
-         endingLineNumber = "629"
-         landmarkName = "ofXml::setAttribute(const string&amp; path, const string&amp; value)"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "../../../libs/openFrameworks/utils/ofXml.cpp"
-         timestampString = "407369092.990659"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "632"
-         endingLineNumber = "632"
-         landmarkName = "ofXml::setAttribute(const string&amp; path, const string&amp; value)"
+         landmarkName = "ofXml::releaseAll()"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -130,20 +65,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "607"
          endingLineNumber = "607"
-         landmarkName = "ofXml::setAttribute(const string&amp; path, const string&amp; value)"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "../../../libs/openFrameworks/utils/ofXml.cpp"
-         timestampString = "407369375.890426"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "615"
-         endingLineNumber = "615"
-         landmarkName = "ofXml::setAttribute(const string&amp; path, const string&amp; value)"
+         landmarkName = "ofXml::remove(const string&amp; path)"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -156,71 +78,6 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "671"
          endingLineNumber = "671"
-         landmarkName = "ofXml::setAttribute(const string&amp; path, const string&amp; value)"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "../../../libs/openFrameworks/utils/ofXml.cpp"
-         timestampString = "407369428.640913"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "620"
-         endingLineNumber = "620"
-         landmarkName = "ofXml::setAttribute(const string&amp; path, const string&amp; value)"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "../../../libs/openFrameworks/utils/ofXml.cpp"
-         timestampString = "407369467.084073"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "635"
-         endingLineNumber = "635"
-         landmarkName = "ofXml::setAttribute(const string&amp; path, const string&amp; value)"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "../../../libs/openFrameworks/utils/ofXml.cpp"
-         timestampString = "407369468.256305"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "636"
-         endingLineNumber = "636"
-         landmarkName = "ofXml::setAttribute(const string&amp; path, const string&amp; value)"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "../../../libs/openFrameworks/utils/ofXml.cpp"
-         timestampString = "407369559.863148"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "627"
-         endingLineNumber = "627"
-         landmarkName = "ofXml::setAttribute(const string&amp; path, const string&amp; value)"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "../../../libs/openFrameworks/utils/ofXml.cpp"
-         timestampString = "407369573.26194"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "612"
-         endingLineNumber = "612"
          landmarkName = "ofXml::setAttribute(const string&amp; path, const string&amp; value)"
          landmarkType = "5">
       </FileBreakpoint>
@@ -260,7 +117,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "41"
          endingLineNumber = "41"
-         landmarkName = "ofXml::save(const string &amp; path)"
+         landmarkName = "ofXml::load(const string &amp; path)"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -273,7 +130,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "95"
          endingLineNumber = "95"
-         landmarkName = "Input::unbind()"
+         landmarkName = "Input::bind()"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -286,7 +143,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "106"
          endingLineNumber = "106"
-         landmarkName = "Input::update()"
+         landmarkName = "Input::unbind()"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -294,24 +151,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "src/vdome.cpp"
-         timestampString = "411718414.213246"
+         timestampString = "411806790.293273"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "219"
-         endingLineNumber = "219"
-         landmarkName = "vdome::drawConfig()"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "src/vdome.cpp"
-         timestampString = "411718414.213246"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "336"
-         endingLineNumber = "336"
+         startingLineNumber = "341"
+         endingLineNumber = "341"
          landmarkName = "vdome::drawConfig()"
          landmarkType = "5">
       </FileBreakpoint>
