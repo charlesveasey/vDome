@@ -119,6 +119,8 @@ public:
     
     
     // camera position
+    void  setCameraTransform();
+    
     void  setCameraPosition(ofVec3f sph);
     
     float getAzimuth();

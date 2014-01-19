@@ -769,7 +769,17 @@ void Projector::setHeight(float v){
 }
 
 
-// position
+
+// camera transform
+void Projector::setCameraTransform(){
+    camera.resetTransform();
+    camera.roll(roll);
+    camera.tilt(tilt);
+    camera.pan(pan+azimuth);
+    setCameraPosition(ofVec3f(azimuth, elevation, distance));    
+}
+
+// camera position
 void Projector::setCameraPosition(ofVec3f sph){
     ofVec3f car = sphToCar(sph);
     camera.setPosition(car);
@@ -780,7 +790,7 @@ float Projector::getAzimuth(){
 }
 void Projector::setAzimuth(float v){
     azimuth = v;
-    setCameraPosition(ofVec3f(azimuth, elevation, distance));
+    setCameraTransform();
 }
 
 float Projector::getElevation(){
@@ -788,7 +798,7 @@ float Projector::getElevation(){
 }
 void Projector::setElevation(float v){
     elevation = v;
-    setCameraPosition(ofVec3f(azimuth, elevation, distance));
+    setCameraTransform();
 }
 
 float Projector::getDistance(){
@@ -796,7 +806,7 @@ float Projector::getDistance(){
 }
 void Projector::setDistance(float v){
     distance = v;
-    setCameraPosition(ofVec3f(azimuth, elevation, distance));
+    setCameraTransform();
 }
 
 
@@ -806,7 +816,7 @@ float Projector::getRoll(){
 }
 void Projector::setRoll(float v){
     roll = v;
-    camera.roll(roll);    
+    setCameraTransform();
 }
 
 float Projector::getTilt(){
@@ -814,7 +824,7 @@ float Projector::getTilt(){
 }
 void Projector::setTilt(float v){
     tilt = v;
-    camera.tilt(tilt);    
+    setCameraTransform();
 }
 
 float Projector::getPan(){
@@ -822,7 +832,7 @@ float Projector::getPan(){
 }
 void Projector::setPan(float v){
     pan = v;    
-    camera.pan(azimuth + pan);
+    setCameraTransform();
 }
 
 
