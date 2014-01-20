@@ -296,8 +296,7 @@ void Projector::keyPressed(int key) {
                     break;
                     
                 case 9: // projector scale
-                    history.execute( new SetScaleX(*this, 1) );
-                    history.execute( new SetScaleY(*this, 1) );
+                    history.execute( new SetScale(*this, 1, 1) );
                     break;
                     
                 case 10: // projector shear 1
@@ -334,8 +333,8 @@ void Projector::keyPressed(int key) {
                     // grid
                     break;
                     
-                case 5: // projector elevation / distance (super)
-                    if (!superKey)
+                case 5: // projector elevation / distance (mod)
+                    if (!mod)
                         history.execute( new SetElevation(*this, elevation + value) );
                     else
                         history.execute( new SetDistance(*this, distance + value) );
@@ -354,7 +353,7 @@ void Projector::keyPressed(int key) {
                     break;
 
                 case 9: // projector scale
-                    if (!superKey)
+                    if (!mod)
                         history.execute( new SetScaleY(*this, scaleY + value * .1) );
                     else {
                         history.execute( new SetScale(*this, scaleX + value * .1, scaleY + value * .1) );
@@ -362,14 +361,14 @@ void Projector::keyPressed(int key) {
                     break;
                     
                 case 10: // projector shear 1
-                    if (!superKey)
+                    if (!mod)
                         history.execute( new SetShearYZ(*this, shearYZ + value * .1) );
                     else
                         history.execute( new SetShearXZ(*this, shearXZ + value * .1) );
                     break;
                     
                 case 11: // projector shear 2
-                    if (!superKey)
+                    if (!mod)
                         history.execute( new SetShearZY(*this, shearZY + value * .1) );
                     else
                         history.execute( new SetShearXY(*this, shearXY + value * .1) );
@@ -399,8 +398,8 @@ void Projector::keyPressed(int key) {
                     // grid
                     break;
                     
-                case 5: // projector elevation / distance (super)
-                    if (!superKey)
+                case 5: // projector elevation / distance (mod)
+                    if (!mod)
                         history.execute( new SetElevation(*this, elevation - value) );
                     else
                         history.execute( new SetDistance(*this, distance - value) );
@@ -419,21 +418,21 @@ void Projector::keyPressed(int key) {
                     break;
                     
                 case 9: // projector scale
-                    if (!superKey)
+                    if (!mod)
                         history.execute( new SetScaleY(*this, scaleY - value * .1) );
                     else
                         history.execute( new SetScale(*this, scaleX - value * .1, scaleY - value * .1) );
                     break;
                     
                 case 10: // projector shear 1
-                    if (!superKey)
+                    if (!mod)
                         history.execute( new SetShearYZ(*this, shearYZ - value * .1) );
                     else
                         history.execute( new SetShearXZ(*this, shearXZ - value * .1) );
                     break;
                     
                 case 11: // projector shear 2
-                    if (!superKey)
+                    if (!mod)
                         history.execute( new SetShearZY(*this, shearZY - value * .1) );
                     else
                         history.execute( new SetShearXY(*this, shearXY - value * .1) );
@@ -458,8 +457,8 @@ void Projector::keyPressed(int key) {
                     history.execute( new SetAzimuth(*this, azimuth - value) );
                 break;
                     
-                case 6: // projector roll / pan (super)
-                    if (!superKey)
+                case 6: // projector roll / pan (mod)
+                    if (!mod)
                         history.execute( new SetRoll(*this, roll - value) );
                     else
                         history.execute( new SetPan(*this, pan - value) );
@@ -470,7 +469,7 @@ void Projector::keyPressed(int key) {
                     break;
                     
                 case 9: // projector scale
-                    if (!superKey)
+                    if (!mod)
                         history.execute( new SetScaleX(*this, scaleX - value * .1) );
                     else
                         history.execute( new SetScale(*this, scaleX - value * .1, scaleY - value * .1));
@@ -502,8 +501,8 @@ void Projector::keyPressed(int key) {
                     history.execute( new SetAzimuth(*this, azimuth + value) );
                     break;
                     
-                case 6: // projector roll / pan (super)
-                    if (!superKey)
+                case 6: // projector roll / pan (mod)
+                    if (!mod)
                         history.execute( new SetRoll(*this, roll + value) );
                     else
                         history.execute( new SetPan(*this, pan + value) );
@@ -514,7 +513,7 @@ void Projector::keyPressed(int key) {
                     break;
                     
                 case 9: // projector scale
-                    if (!superKey)
+                    if (!mod)
                         history.execute( new SetScaleX(*this, scaleX + value * .1) );
                     else
                         history.execute( new SetScale(*this, scaleX + value * .1, scaleY - value * .1));

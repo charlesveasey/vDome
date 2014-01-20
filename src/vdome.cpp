@@ -37,13 +37,6 @@
  ************************************************/
 
 
-
-// keyboard
-bool shKey = false;
-bool altKey = false;
-bool ctrKey = false;
-bool superKey = false;
-
 // add values
 float value = 1;
 float orgValue = 1;
@@ -472,42 +465,42 @@ void vdome::keyPressed(int key){
             
         case OF_KEY_LEFT_ALT: // alt
             value = altValue;
-            altKey = true;
+            alt = true;
             break;
             
         case OF_KEY_RIGHT_ALT:
             value = altValue;
-            altKey = true;
+            alt = true;
             break;
             
         case OF_KEY_LEFT_CONTROL: // control
-            ctrKey = true;
-            superKey = true;
+            ctrl = true;
+            mod = true;
             break;
             
         case OF_KEY_RIGHT_CONTROL:
-            ctrKey = true;
-            superKey = true;
+            ctrl = true;
+            mod = true;
             break;
             
         case OF_KEY_LEFT_SHIFT: // shift
             value = shiftValue;
-            shKey = true;
+            shift = true;
             break;
             
         case OF_KEY_RIGHT_SHIFT:
             value = shiftValue;
-            shKey = true;
+            shift = true;
             break;
             
         case OF_KEY_LEFT_SUPER: // super
-            superKey = true;
-            ctrKey = true;
+            mod = true;
+            ctrl = true;
             break;
             
         case OF_KEY_RIGHT_SUPER:
-            superKey = true;
-            ctrKey = true;
+            mod = true;
+            ctrl = true;
             break;    
     }
     
@@ -521,7 +514,7 @@ void vdome::keyPressed(int key){
     
     if (key >= 48 && key <= 57) {
         // assign edit mode
-        if (altKey) {
+        if (alt) {
             if (key == 48)
                 editMode = 10;
             else
@@ -552,7 +545,7 @@ void vdome::keyPressed(int key){
             pActive = key-49;
         
         // shift groups, otherwise reset
-        if (!shKey) {
+        if (!shift) {
             for (int i=0; i<pCount; i++) {
                 projectors[i].keyboard = false;
                 projectors[i].mouse = false;
@@ -598,7 +591,7 @@ void vdome::keyPressed(int key){
         case 2: // p = projector
             for (int i=0; i<pCount; i++) {
                 projectors[i].editMode = editMode;
-                projectors[i].superKey = superKey;
+                projectors[i].mod = mod;
                 projectors[i].keyPressed(key);
             }
             break;
@@ -632,41 +625,41 @@ void vdome::keyReleased(int key) {
          
         case OF_KEY_LEFT_ALT: // alt
             value = orgValue;
-            altKey = false;
+            alt = false;
             break;
             
         case OF_KEY_RIGHT_ALT:
             value = orgValue;
-            altKey = false;
+            alt = false;
             break;
             
         case OF_KEY_LEFT_CONTROL: // control
-            ctrKey = false;
-            superKey = false;
+            ctrl = false;
+            mod = false;
             break;
         case OF_KEY_RIGHT_CONTROL:
-            ctrKey = false;
-            superKey = false;
+            ctrl = false;
+            mod = false;
             break;
             
         case OF_KEY_LEFT_SHIFT: // shift
             value = orgValue;
-            shKey = false;
+            shift = false;
             break;
             
         case OF_KEY_RIGHT_SHIFT:
             value = orgValue;
-            shKey = false;
+            shift = false;
             break;
             
         case OF_KEY_LEFT_SUPER:  // super
-            superKey = false;
-            ctrKey = false;
+            mod = false;
+            ctrl = false;
             break;
             
         case OF_KEY_RIGHT_SUPER:
-            superKey = false;
-            ctrKey = false;
+            mod = false;
+            ctrl = false;
             break;
     }
     

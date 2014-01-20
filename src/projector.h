@@ -70,7 +70,7 @@ public:
     bool mouse;
     CommandHistory history;
     int editMode;
-    bool superKey;
+    bool mod;
     
     void setValue(float v);
     

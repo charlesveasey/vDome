@@ -74,5 +74,12 @@ public:
     int editMode;
     int editGroup;
     int keyControl;
+    
+    
+    // keyboard
+    bool shift;
+    bool alt;
+    bool ctrl;
+    bool mod;
 };
 	
