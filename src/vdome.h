@@ -70,11 +70,9 @@ public:
     void loadXML(string file);
     void saveXML(string file);
     
-    // keys
+    // config
     int editMode;
-    int editGroup;
-    int keyControl;
-    
+    int editGroup;    
     
     // keyboard
     bool shift;
