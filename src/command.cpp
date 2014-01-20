@@ -4,7 +4,7 @@ Command::~Command() {}
 
 
 CommandHistory::CommandHistory() : index(-1) {
-	maxHistory = 50;
+	maxHistory = 100;
 }
 
 CommandHistory::~CommandHistory() {
@@ -14,11 +14,11 @@ void CommandHistory::execute(Command* command) {
     int size = history.size();
 
     if (size >= maxHistory) {
-        delete history[0];
+        //delete history[0];
         history.erase(history.begin());
     }
     for (int i = size-1; i>index; i--) {
-        delete history[i];
+        //delete history[i];
         history.erase(history.begin()+i);
     }
     

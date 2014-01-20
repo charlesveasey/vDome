@@ -54,7 +54,15 @@ private:
     float fov;
     float offsetX;
     float offsetY;
-        
+    
+    // camera shear
+    float shearXY;
+    float shearXZ;
+    float shearYX;
+    float shearYZ;
+    float shearZX;
+    float shearZY;
+    
 
 public:
     int index;
@@ -133,7 +141,7 @@ public:
     void  setDistance(float v);
     
     
-    // camear orientation
+    // camera orientation
     float getRoll();
     void  setRoll(float v);
     
@@ -157,9 +165,25 @@ public:
     void  setOffsetY(float v);
     
     
-    // camera shear
-    vector<float> shear;
     
+    // camera shear
+    float getShearXY();
+    void  setShearXY(float v);
+    
+    float getShearXZ();
+    void  setShearXZ(float v);
+
+    float getShearYX();
+    void  setShearYX(float v);
+
+    float getShearYZ();
+    void  setShearYZ(float v);
+
+    float getShearZX();
+    void  setShearZX(float v);
+
+    float getShearZY();
+    void  setShearZY(float v);
     
     
     // cycle
@@ -476,5 +500,91 @@ public:
     }
     void undo() {
         obj.setOffsetY(v);
+    }
+};
+
+
+// camera shear
+class SetShearXY : public Command {
+protected:
+    Projector& obj;
+    float v;
+public:
+    SetShearXY(Projector& obj, float v) : obj(obj), v(v) {}
+    void execute() {
+        obj.setShearXY(v);
+    }
+    void undo() {
+        obj.setShearXY(v);
+    }
+};
+
+class SetShearXZ : public Command {
+protected:
+    Projector& obj;
+    float v;
+public:
+    SetShearXZ(Projector& obj, float v) : obj(obj), v(v) {}
+    void execute() {
+        obj.setShearXZ(v);
+    }
+    void undo() {
+        obj.setShearXZ(v);
+    }
+};
+
+class SetShearYX : public Command {
+protected:
+    Projector& obj;
+    float v;
+public:
+    SetShearYX(Projector& obj, float v) : obj(obj), v(v) {}
+    void execute() {
+        obj.setShearYX(v);
+    }
+    void undo() {
+        obj.setShearYX(v);
+    }
+};
+
+class SetShearYZ : public Command {
+protected:
+    Projector& obj;
+    float v;
+public:
+    SetShearYZ(Projector& obj, float v) : obj(obj), v(v) {}
+    void execute() {
+        obj.setShearYZ(v);
+    }
+    void undo() {
+        obj.setShearYZ(v);
+    }
+};
+
+class SetShearZX : public Command {
+protected:
+    Projector& obj;
+    float v;
+public:
+    SetShearZX(Projector& obj, float v) : obj(obj), v(v) {}
+    void execute() {
+        obj.setShearZX(v);
+    }
+    void undo() {
+        obj.setShearZX(v);
+    }
+};
+
+class SetShearZY : public Command {
+protected:
+    Projector& obj;
+    float v;
+public:
+    SetShearZY(Projector& obj, float v) : obj(obj), v(v) {}
+    void execute() {
+        obj.setShearZY(v);
+    }
+    void undo() {
+        obj.setShearZY(v);
     }
 };

@@ -10,32 +10,8 @@
 class vdome : public ofBaseApp {
 	
 public:
-		
-    void setup();
-    void update();
-    void draw();
-    void drawConfig();
-    void mousePressed(ofMouseEventArgs& mouseArgs);
-    void mouseDragged(ofMouseEventArgs& mouseArgs);
-    void mouseReleased(ofMouseEventArgs& mouseArgs);
-    void keyPressed(int key);
-    void keyReleased(int key);
-    float roundTo(float val, float n);
-    
-    ofVec3f sphToCar(ofVec3f t);
-        
+    // tcp
     Tcp tcp;
-    
-    // xml
-    ofXml xml;
-    string xmlFile;
-    void loadXML(string file);
-    void saveXML(string file);
-    
-    // key map
-    int editMode;
-    int editGroup;
-    int keyControl;
     
     // input
     Input input;
@@ -46,20 +22,57 @@ public:
     // window
     Window window;
     
-    // vitual dome
+    // dome mesh
     Dome dome;
     
     // shader
     ofShader shader;
-
-    // projectors
-    int pCount;
+    
+    // projector
+    
     vector<Projector> projectors;
-
-    int active;
+    
+    // projector count
+    int pCount;
+    
+    // active projector index
+    int pActive;
+    
+    
+    // config
     bool config;
     bool showConfig;
     bool showFrameRate;
     
+    
+	// cycle
+    void setup();
+    void update();
+    void draw();
+    void drawConfig();
+    
+    // mouse
+    void mousePressed(ofMouseEventArgs& mouseArgs);
+    void mouseDragged(ofMouseEventArgs& mouseArgs);
+    void mouseReleased(ofMouseEventArgs& mouseArgs);
+    
+    // keyboard
+    void keyPressed(int key);
+    void keyReleased(int key);
+    
+    // math
+    ofVec3f sphToCar(ofVec3f t);
+    float roundTo(float val, float n);
+    
+    // xml
+    ofXml xml;
+    string xmlFile;
+    void loadXML(string file);
+    void saveXML(string file);
+    
+    // keys
+    int editMode;
+    int editGroup;
+    int keyControl;
 };
 	

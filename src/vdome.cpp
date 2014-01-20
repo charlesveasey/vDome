@@ -1,6 +1,8 @@
 #include "vdome.h"
 
-/******************* MENU ***********************
+/******************************************
+    
+    MENU
  
  
     (key) Edit
@@ -62,7 +64,7 @@ bool saved = false;
 
 void vdome::setup(){
     
-    // tcp server
+    // tcp controlller
     tcp.init();
     
     // window
@@ -87,6 +89,7 @@ void vdome::setup(){
     
     // projectors
     pCount = 1; // FIXME: not dynamic with xml
+    pActive = 1;
     
     for(int i=0; i<pCount; i++) {
         Projector p;
@@ -97,18 +100,16 @@ void vdome::setup(){
     // projection shader
 	shader.load("shaders/vdome.vert", "shaders/vdome.frag");
     
-    // default config settings
+    // config
     config = false;
     showConfig = false;
-    active = 1;
+    showFrameRate = true;
     editMode = 1;
     editGroup = 2;
-    showFrameRate = true;
     
     // xml settings
     xmlFile = "settings.xml";
     loadXML(xmlFile);
-
 }
 
 
@@ -123,7 +124,6 @@ void vdome::setup(){
 void vdome::update() {
     input.update();
 }
-
 
 
 
@@ -291,16 +291,16 @@ void vdome::drawConfig() {
                         
                     case 10:
                         sub = "Shear 1";
-                        str =   "YX: "+ ofToString( roundTo(projectors[i].shear[3], .001) ) + "\n" +
-                        "ZX: "+ ofToString( roundTo(projectors[i].shear[4], .001) ) + "\n" +
-                        "XZ: "+ ofToString( roundTo(projectors[i].shear[1], .001) );
+                        str =   "YZ: "+ ofToString( roundTo(projectors[i].getShearYZ(), .001) ) + "\n" +
+                        "ZX: "+ ofToString( roundTo(projectors[i].getShearZX(), .001) ) + "\n" +
+                        "XZ: "+ ofToString( roundTo(projectors[i].getShearXZ(), .001) );
                         break;
                         
                     case 11:
                         sub = "Shear 2";
-                        str =   "ZY: "+ ofToString( roundTo(projectors[i].shear[5], .001) ) + "\n" +
-                        "YX: "+ ofToString( roundTo(projectors[i].shear[2], .001) ) + "\n" +
-                        "XY: "+ ofToString( roundTo(projectors[i].shear[0], .001) );
+                        str =   "ZY: "+ ofToString( roundTo(projectors[i].getShearZY(), .001) ) + "\n" +
+                        "YX: "+ ofToString( roundTo(projectors[i].getShearYX(), .001) ) + "\n" +
+                        "XY: "+ ofToString( roundTo(projectors[i].getShearXY(), .001) );
                         break;
                         
                     default:
@@ -378,7 +378,6 @@ void vdome::loadXML(string file) {
 	}
 }
 
-
 void vdome::saveXML(string file) {
     xml.setAttribute("projectors[@count]", ofToString(pCount));
     
@@ -430,8 +429,6 @@ void vdome::mouseReleased(ofMouseEventArgs& mouseArgs) {
         }
     }
 }
-
-
 
 
 
@@ -530,7 +527,6 @@ void vdome::keyPressed(int key){
             else
                 editMode = key-48;
             
-            
             if (editGroup == 2) {
                 for (int i=0; i<pCount; i++) {
                     if (editMode == 3) {
@@ -551,9 +547,9 @@ void vdome::keyPressed(int key){
             return;
         }
         if (key == 48)
-            active = 10;
+            pActive = 10;
         else
-            active = key-49;
+            pActive = key-49;
         
         // shift groups, otherwise reset
         if (!shKey) {
@@ -561,12 +557,12 @@ void vdome::keyPressed(int key){
                 projectors[i].keyboard = false;
                 projectors[i].mouse = false;
             }
-            projectors[active].keyboard = true;
-            projectors[active].mouse = true;
+            projectors[pActive].keyboard = true;
+            projectors[pActive].mouse = true;
         }
         else {
-            projectors[active].keyboard = !(projectors[active].keyboard);
-            projectors[active].mouse = !(projectors[active].mouse);
+            projectors[pActive].keyboard = !(projectors[pActive].keyboard);
+            projectors[pActive].mouse = !(projectors[pActive].mouse);
         }
         
         if (editGroup == 2) {
@@ -684,7 +680,7 @@ void vdome::keyReleased(int key) {
 
 /******************************************
  
- ROUND
+ MATH
  
  ********************************************/
 

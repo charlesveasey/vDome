@@ -63,12 +63,13 @@ void Projector::init(int i){
      zx,  zy,   1,   0,
      0,    0,   0,   1
      */
-    shear.push_back(0); // 0 = xy
-    shear.push_back(0); // 1 = xz
-    shear.push_back(0); // 2 = yx
-    shear.push_back(0); // 3 = yz
-    shear.push_back(0); // 4 = zx
-    shear.push_back(0); // 5 = zy
+    
+    shearXY = 0;
+    shearXZ = 0;
+    shearYX = 0;
+    shearYZ = 0;
+    shearZX = 0;
+    shearZY = 0;
     
     setup();
 }
@@ -129,9 +130,9 @@ void Projector::begin() {
         0,    0,   0,   1
     */
     transform.set(
-      scaleX,   shear[0],   shear[1],   0,
-      shear[2],   scaleY,   shear[3],   0,
-      shear[4],   shear[5],          1,   0,
+      scaleX,   shearXY,   shearXZ,   0,
+      shearYX,   scaleY,   shearYZ,   0,
+      shearZX,   shearZY,          1,   0,
              0,          0,          0,   1
     );
 
@@ -300,15 +301,15 @@ void Projector::keyPressed(int key) {
                     break;
                     
                 case 10: // projector shear 1
-                    shear[3] = 0;
-                    shear[1] = 0;
-                    shear[4] = 0;
+                    history.execute( new SetShearXZ(*this, 0) );
+                    history.execute( new SetShearYZ(*this, 0) );
+                    history.execute( new SetShearZX(*this, 0) );
                     break;
                     
                 case 11: // projector shear 2
-                    shear[5] = 0;
-                    shear[0] = 0;
-                    shear[2] = 0;
+                    history.execute( new SetShearZY(*this, 0) );
+                    history.execute( new SetShearYX(*this, 0) );
+                    history.execute( new SetShearXY(*this, 0) );
                     break;
             }
             break;
@@ -362,17 +363,17 @@ void Projector::keyPressed(int key) {
                     
                 case 10: // projector shear 1
                     if (!superKey)
-                        shear[3] += value * .1;
+                        history.execute( new SetShearYZ(*this, shearYZ + value * .1) );
                     else
-                        shear[1] += value * .1;
-                    break;              
+                        history.execute( new SetShearXZ(*this, shearXZ + value * .1) );
+                    break;
                     
                 case 11: // projector shear 2
                     if (!superKey)
-                        shear[5] += value * .1;
+                        history.execute( new SetShearZY(*this, shearZY + value * .1) );
                     else
-                        shear[0] += value * .1;
-                    break;                  
+                        history.execute( new SetShearXY(*this, shearXY + value * .1) );
+                    break;
 
             }
             break;
@@ -426,16 +427,16 @@ void Projector::keyPressed(int key) {
                     
                 case 10: // projector shear 1
                     if (!superKey)
-                        shear[3] -= value * .1;
+                        history.execute( new SetShearYZ(*this, shearYZ - value * .1) );
                     else
-                        shear[1] -= value * .1;
+                        history.execute( new SetShearXZ(*this, shearXZ - value * .1) );
                     break;
                     
                 case 11: // projector shear 2
                     if (!superKey)
-                        shear[5] -= value * .1;
+                        history.execute( new SetShearZY(*this, shearZY - value * .1) );
                     else
-                        shear[0] -= value * .1;
+                        history.execute( new SetShearXY(*this, shearXY - value * .1) );
                     break;
             }
             break;
@@ -476,11 +477,11 @@ void Projector::keyPressed(int key) {
                     break;
                     
                 case 10: // projector shear 1
-                    shear[4] -= value * .1;
+                    history.execute( new SetShearZX(*this, shearZX - value * .1) );
                     break;
                     
                 case 11: // projector shear 2
-                    shear[2] -= value * .1;
+                    history.execute( new SetShearYX(*this, shearYX - value * .1) );
                     break;
 
             }
@@ -520,11 +521,11 @@ void Projector::keyPressed(int key) {
                     break;
                     
                 case 10: // projector shear 1
-                    shear[4] += value * .1;
+                    history.execute( new SetShearZX(*this, shearZX + value * .1) );
                     break;
                     
                 case 11: // projector shear 2
-                    shear[2] += value * .1;
+                    history.execute( new SetShearYX(*this, shearYX + value * .1) );
                     break;
             }
             break;
@@ -886,6 +887,50 @@ float Projector::getScaleY(){
 }
 void Projector::setScaleY(float v){
     scaleY = v;
+}
+
+
+// camera shear
+float Projector::getShearXY(){
+    return shearXY;
+}
+void  Projector::setShearXY(float v){
+    shearXY = v;
+}
+
+float Projector::getShearXZ(){
+    return shearXZ;
+}
+void  Projector::setShearXZ(float v){
+    shearXZ = v;
+}
+
+float Projector::getShearYX(){
+    return shearYX;
+}
+void  Projector::setShearYX(float v){
+    shearYX = v;
+}
+
+float Projector::getShearYZ(){
+    return shearYZ;
+}
+void  Projector::setShearYZ(float v){
+    shearYZ = v;
+}
+
+float Projector::getShearZX(){
+    return shearZX;
+}
+void  Projector::setShearZX(float v){
+    shearZX = v;
+}
+
+float Projector::getShearZY(){
+    return shearZY;
+}
+void  Projector::setShearZY(float v){
+    shearZY = v;
 }
 
 
