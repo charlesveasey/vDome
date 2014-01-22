@@ -165,8 +165,8 @@ void vdome::draw(){
  ********************************************/
 
 void vdome::drawConfig() {
+    
     for(int i=0; i<pCount; i++) {
-
         if (editGroup == 2 && projectors[i].mouse) {
             if (editMode == 3) {
                 projectors[i].drawKeystone();
