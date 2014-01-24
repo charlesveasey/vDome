@@ -4,34 +4,49 @@
 	#include "ofDirectShowPlayer.h"
 #endif
 
-void Input::init(){
-	maxMode = 2;
+/******************************************
+ 
+ CONSTRUCTOR
+ 
+ ********************************************/
 
+Input::Input(){
 	#ifdef TARGET_WIN32
 		ofPtr <ofBaseVideoPlayer> ptr(new ofDirectShowPlayer());
 		video.setPlayer(ptr);
 	#endif
+
+    maxMode = 2;
 	#ifdef TARGET_OSX
 		maxMode = 4;
 	#endif
+    
+    domeMaster = 2048;
+    frameRate = 60;
 }
+
+
+/******************************************
+ 
+ SETUP
+ 
+ ********************************************/
 
 void Input::setup(){
 
     texture.clear();
     
-    if (texture.getWidth() != render.domeMaster || texture.getHeight() != render.domeMaster)
-        texture.allocate(render.domeMaster, render.domeMaster, OF_IMAGE_COLOR);
+    if (texture.getWidth() != domeMaster || texture.getHeight() != domeMaster)
+        texture.allocate(domeMaster, domeMaster, OF_IMAGE_COLOR);
     
     stop();
-    //close();
     
     // create input
     switch(mode){
         case 1: // capture
             capture.setDeviceID(0);
-            capture.setDesiredFrameRate(render.frameRate);
-            capture.initGrabber(render.domeMaster,render.domeMaster);
+            capture.setDesiredFrameRate(frameRate);
+            capture.initGrabber(domeMaster, domeMaster);
             texture = capture.getTextureReference();
             break;
         case 2: // video
@@ -65,12 +80,24 @@ void Input::setup(){
     
 }
 
+/******************************************
+ 
+ STOP
+ 
+ ********************************************/
+
 void Input::stop() {
     video.stop();
 	#ifdef TARGET_OSX
 		hap.stop();
 	#endif
 }
+
+/******************************************
+ 
+ CLOSE
+ 
+ ********************************************/
 
 void Input::close() {
     image.clear();
@@ -83,8 +110,11 @@ void Input::close() {
     #endif
 }
 
-
-
+/******************************************
+ 
+ BIND
+ 
+ ********************************************/
 
 void Input::bind(){
 	#ifdef TARGET_OSX
@@ -121,6 +151,12 @@ void Input::update(){
     #endif
 }
 
+/******************************************
+ 
+ KEYBOARD
+ 
+ ********************************************/
+
 void Input::keyPressed(int key) {
     switch (key) {
         case OF_KEY_UP:  // up = switch on mode
@@ -141,7 +177,17 @@ void Input::keyPressed(int key) {
     
 }
 
+/******************************************
+ 
+ SETTINGS
+ 
+ ********************************************/
+
 void Input::loadXML(ofXml &xml) {
+    
+    if (xml.exists("input@domeMaster]"))
+        domeMaster = ofToInt( xml.getAttribute("[@domeMaster]") );
+    
     if (xml.exists("input[@mode]")) {
         string m = xml.getAttribute("input[@mode]");
         if (m == "image")           mode = 0;
@@ -150,11 +196,15 @@ void Input::loadXML(ofXml &xml) {
         else if (m == "hap")        mode = 3;
         else if (m == "syphon")     mode = 4;
     }
+    
     setup();
 }
 
 
 void Input::saveXML(ofXml &xml) {
+    
+    xml.setAttribute("[input@domeMaster]", ofToString(domeMaster) );    
+    
     string str;
     
     if (mode == 0)        str = "image";

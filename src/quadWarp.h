@@ -14,7 +14,6 @@
 class QuadWarp
 {
 public: 
-    
      QuadWarp();
     ~QuadWarp();
     
@@ -71,8 +70,6 @@ public:
     float value;
 
 protected:
-    
-
     ofPoint position;
     
 	ofPoint anchorSize;
@@ -82,6 +79,4 @@ protected:
     bool bEnabled;
     
     ofPoint lastMouse;
-    
-
 };

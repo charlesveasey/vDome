@@ -1,7 +1,12 @@
 #include "plane.h"
 
-void Plane::init(int i){
-    index = i;
+/******************************************
+ 
+ CONSTRUCTOR
+ 
+ ********************************************/
+
+Plane::Plane(){
     keyVals.push_back(ofPoint(0,0));
     keyVals.push_back(ofPoint(1,0));
     keyVals.push_back(ofPoint(0,1));
@@ -15,11 +20,17 @@ void Plane::init(int i){
 	value = 1;
     width = 1023;
     height = 768;
-    
 }
 
+/******************************************
+ 
+ SETUP
+ 
+ ********************************************/
 
-void Plane::setup(){
+void Plane::setup(int i){
+    index = i;
+    
     int w = width;
     int h = height;
     
@@ -74,6 +85,12 @@ void Plane::setup(){
     }
 }
 
+/******************************************
+ 
+ RESET
+ 
+ ********************************************/
+
 void Plane::resetKeystone(){
     keystone.reset();
 }
@@ -110,6 +127,11 @@ void Plane::resetGrid(){
  
 }
 
+/******************************************
+ 
+ DRAW
+ 
+ ********************************************/
 
 void Plane::draw(){
     vector<ofVec3f> v = mesh.getVertices();
@@ -121,7 +143,6 @@ void Plane::draw(){
     }
     mesh.draw();
 }
-
 
 void Plane::drawConfig(){
     if (drawBox) {
@@ -144,7 +165,12 @@ void Plane::drawConfig(){
     }
 }
 
-//--------------------------------------------------------------
+/******************************************
+ 
+ KEYBOARD
+ 
+ ********************************************/
+
 void Plane::keyPressed(int key){
     if (key == OF_KEY_SHIFT) {
         shift = true;
@@ -200,16 +226,18 @@ void Plane::keyPressed(int key){
     }
 }
 
-
-//--------------------------------------------------------------
 void Plane::keyReleased(int key){
     if (key == OF_KEY_SHIFT) {
         shift = false;
     }
 }
 
+/******************************************
+ 
+ MOUSE
+ 
+ ********************************************/
 
-//--------------------------------------------------------------
 void Plane::onMouseDragged(ofMouseEventArgs& mouseArgs){
         
     ofPoint mousePoint(mouseArgs.x, mouseArgs.y);
@@ -238,7 +266,6 @@ void Plane::onMouseDragged(ofMouseEventArgs& mouseArgs){
     lastM = mousePoint;    
 }
 
-//--------------------------------------------------------------
 void Plane::onMousePressed(ofMouseEventArgs& mouseArgs){
 
     int x = mouseArgs.x;
@@ -283,7 +310,6 @@ void Plane::onMousePressed(ofMouseEventArgs& mouseArgs){
     lastM = ofPoint(x,y);
 }
 
-//--------------------------------------------------------------
 void Plane::onMouseReleased(ofMouseEventArgs& mouseArgs){
     
     int x = mouseArgs.x;
@@ -322,6 +348,11 @@ void Plane::onMouseReleased(ofMouseEventArgs& mouseArgs){
     }
 }
 
+/******************************************
+ 
+ SETTINGS
+ 
+ ********************************************/
 
 void Plane::load(ofXml &xml) {
     mesh.load("plane-mesh-" + ofToString(index+1) + ".ply");
@@ -340,9 +371,8 @@ void Plane::load(ofXml &xml) {
         keyVals[3].x = ofToFloat(ofSplitString(str, ",")[6]);
         keyVals[3].y = ofToFloat(ofSplitString(str, ",")[7]);
     }
-    setup();
+    setup(index);
 }
-
 
 void Plane::save(ofXml &xml) {
     
@@ -372,8 +402,4 @@ void Plane::save(ofXml &xml) {
                      ofToString((keystone.dstPoints[3].y-y)/h) +  "," +
                      ofToString((keystone.dstPoints[2].x-x)/w) +  "," +
                      ofToString((keystone.dstPoints[2].y-y)/h) );
- 
 }
-
-
-

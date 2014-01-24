@@ -3,15 +3,18 @@
 class Render {
 	
 public:
-    
-    void init();
+    Render();
     void setup();
-    
     void loadXML(ofXml &xml);
     void saveXML(ofXml &xml);
-
-    int frameRate;
-    int domeMaster;
+    
+    bool getVSync();
+    void setVSync(bool val);
+    
+    int getFrameRate();
+    void setFrameRate(int val);
+    
+private:
     bool vSync;
-
+    int frameRate;
 };

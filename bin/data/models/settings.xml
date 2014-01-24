@@ -1,10 +1,10 @@
-<vdome domeMaster="2048" frameRate="30" vSync="0">
+<vdome frameRate="30" vSync="0">
     
     <tcp enabled="1" port="1"/>
     
     <dome radius="8.83"/>
     
-	<input mode="image" scale="1"/>
+	<input mode="image" scale="1" domeMaster="2048" />
     
 	<window fullscreen="true" height="768" width="6144" x="0" y="0"/>
     

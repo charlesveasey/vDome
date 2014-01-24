@@ -4,9 +4,8 @@
 class Plane {
 	
 public:
-    
-    void init(int i);
-    void setup();
+    Plane();
+    void setup(int i);
     void update();
     void draw();
     void drawConfig();

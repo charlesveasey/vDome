@@ -1,6 +1,6 @@
 #include "vdome.h"
 
-/******************************************
+/********************************************
     
     MENU
  
@@ -34,20 +34,26 @@
     (10) Shear 1
     (11) Shear 2
 
- ************************************************/
+ ********************************************/
 
 
-// add values
-float value = 1;
-float orgValue = 1;
-float shiftValue = .1;
-float altValue = .01;
+/******************************************
+ 
+ CONSTRUCTOR
+ 
+ ********************************************/
 
-// config draw
-int frameCnt= 0;
-bool saved = false;
-
-
+vdome::vdome() {
+    // add values
+    value = 1;
+    orgValue = 1;
+    shiftValue = .1;
+    altValue = .01;
+    
+    // config draw
+    frameCnt= 0;
+    saved = false;
+}
 
 /******************************************
  
@@ -57,15 +63,10 @@ bool saved = false;
 
 void vdome::setup(){
     
-    // tcp controlller
-    tcp.init();
+    window.setup();
+    render.setup();
+    dome.setup();
     
-    // window
-    window.init();
-    
-    // render
-    render.init();
-        
     // input
     // 0 = image
 	// 1 = capture
@@ -74,14 +75,11 @@ void vdome::setup(){
     // 4 = syphon
     
     input.mode = 0;
-    input.render = render;    
-    input.init();
-    
-    // dome mesh
-    dome.init();
+    input.frameRate = render.getFrameRate();
+    input.setup();
     
     // projectors
-    pCount = 1; // FIXME: not dynamic with xml
+    pCount = 2; // FIXME: not dynamic with xml
     pActive = 1;
     
     for(int i=0; i<pCount; i++) {
@@ -92,6 +90,7 @@ void vdome::setup(){
     
     // projection shader
 	shader.load("shaders/vdome.vert", "shaders/vdome.frag");
+    
     
     // config
     config = false;
@@ -145,9 +144,9 @@ void vdome::draw(){
 	for(int i=0; i<pCount; i++) {
 		projectors[i].bind();
 		shader.begin();
-		shader.setUniform1f("brightness", projectors[i].getBrightness());
-		shader.setUniform1f("contrast", projectors[i].getContrast());
-		shader.setUniform1f("saturation", projectors[i].getSaturation());
+		shader.setUniform1f("brightness", projectors[i].brightness );
+		shader.setUniform1f("contrast", projectors[i].contrast );
+		shader.setUniform1f("saturation", projectors[i].saturation );
 		shader.setUniformTexture("texsampler", projectors[i].getTextureReference(), 0);
         projectors[i].draw();
         shader.end();
@@ -180,8 +179,8 @@ void vdome::drawConfig() {
         int pw = 200;
         int ph = 135;
         
-        int px = projectors[i].getX() + 1024/2 - pw/2;
-        int py = projectors[i].getY() + 768 /2 - ph/2;
+        int px = projectors[i].getPlanePosition().x + 1024/2 - pw/2;
+        int py = projectors[i].getPlanePosition().y + 768/2  - ph/2;
         
         int padx = 15;
         int pady = 15;
@@ -232,13 +231,13 @@ void vdome::drawConfig() {
                 switch (editMode) {
                     case 1:
                         sub = "Intensity";
-                        str =   "Brightness: " + ofToString( roundTo(projectors[i].getBrightness(), .001) ) + "\n" +
-                        "Contrast: " + ofToString( roundTo(projectors[i].getContrast(), .001) );
+                        str =   "Brightness: " + ofToString( roundTo(projectors[i].brightness, .001) ) + "\n" +
+                        "Contrast: " + ofToString( roundTo(projectors[i].contrast, .001) );
                         break;
                         
                     case 2:
                         sub = "Color";
-                        str =   "Saturation: " + ofToString( roundTo(projectors[i].getSaturation(), .001) );
+                        str =   "Saturation: " + ofToString( roundTo(projectors[i].saturation, .001) );
                         break;
                         
                     case 3:
@@ -253,47 +252,47 @@ void vdome::drawConfig() {
                         
                     case 5:
                         sub = "Position";
-                        str =   "Azimuth: "+ ofToString( roundTo(projectors[i].getAzimuth(), .01) ) + "\n" +
-                        "Elevation: "+ ofToString( roundTo(projectors[i].getElevation(), .01) ) + "\n" +
-                        "Distance: "+ ofToString( roundTo(projectors[i].getDistance(), .01) );
+                        str =   "Azimuth: "+ ofToString( roundTo(projectors[i].getCameraPosition().x, .01) ) + "\n" +
+                                "Elevation: "+ ofToString( roundTo(projectors[i].getCameraPosition().y, .01) ) + "\n" +
+                                "Distance: "+ ofToString( roundTo(projectors[i].getCameraPosition().z, .01) );
                         break;
                         
                     case 6:
-                        sub = "Orientation";
-                        str =   "Roll: "+ ofToString( roundTo(projectors[i].getRoll(), .01) ) + "\n" +
-                        "Tilt: "+ ofToString( roundTo(projectors[i].getTilt(), .01) ) + "\n" +
-                        "Pan: "+ ofToString( roundTo(projectors[i].getPan(), .01) );
+                        sub =   "Orientation";
+                        str =   "Roll: "+ ofToString( roundTo(projectors[i].getCameraOrientation().x, .01) ) + "\n" +
+                                "Tilt: "+ ofToString( roundTo(projectors[i].getCameraOrientation().y, .01) ) + "\n" +
+                                "Pan: "+ ofToString( roundTo(projectors[i].getCameraOrientation().z, .01) );
                         break;
                         
                     case 7:
                         sub = "Lens";
-                        str =   "Field of View: "+ ofToString( roundTo(projectors[i].getFov(), .01) );
+                        str =   "Field of View: "+ ofToString( roundTo(projectors[i].getCameraFov(), .01) );
                         break;
                         
                     case 8:
                         sub = "Offset";
-                        str =   "X: "+ ofToString( roundTo(projectors[i].getOffsetX(), .001) ) + "\n" +
-                                "Y: "+ ofToString( roundTo(projectors[i].getOffsetY(), .001 ) );
+                        str =   "X: "+ ofToString( roundTo(projectors[i].getCameraOffset().x, .001) ) + "\n" +
+                                "Y: "+ ofToString( roundTo(projectors[i].getCameraOffset().y, .001 ) );
                         break;
                      
                     case 9:
                         sub = "Scale";
-                        str = "X: "+ ofToString( roundTo(projectors[i].getScaleX(), .01) ) + "\n" +
-                              "Y: "+ ofToString( roundTo(projectors[i].getScaleY(), .01) );
+                        str = "X: "+ ofToString( roundTo(projectors[i].getCameraScale().x, .01) ) + "\n" +
+                              "Y: "+ ofToString( roundTo(projectors[i].getCameraScale().y, .01) );
                         break;
                         
                     case 10:
                         sub = "Shear 1";
-                        str =   "YZ: "+ ofToString( roundTo(projectors[i].getShearYZ(), .001) ) + "\n" +
-                        "ZX: "+ ofToString( roundTo(projectors[i].getShearZX(), .001) ) + "\n" +
-                        "XZ: "+ ofToString( roundTo(projectors[i].getShearXZ(), .001) );
+                        str =   "YZ: "+ ofToString( roundTo(projectors[i].getCameraShear()[3], .001) ) + "\n" +
+                                "ZX: "+ ofToString( roundTo(projectors[i].getCameraShear()[4], .001) ) + "\n" +
+                                "XZ: "+ ofToString( roundTo(projectors[i].getCameraShear()[1], .001) );
                         break;
                         
                     case 11:
                         sub = "Shear 2";
-                        str =   "ZY: "+ ofToString( roundTo(projectors[i].getShearZY(), .001) ) + "\n" +
-                        "YX: "+ ofToString( roundTo(projectors[i].getShearYX(), .001) ) + "\n" +
-                        "XY: "+ ofToString( roundTo(projectors[i].getShearXY(), .001) );
+                        str =   "ZY: "+ ofToString( roundTo(projectors[i].getCameraShear()[5], .001) ) + "\n" +
+                                "YX: "+ ofToString( roundTo(projectors[i].getCameraShear()[2], .001) ) + "\n" +
+                                "XY: "+ ofToString( roundTo(projectors[i].getCameraShear()[0], .001) );
                         break;
                         
                     default:
@@ -346,29 +345,26 @@ void vdome::drawConfig() {
     }
 }
 
-
-
-
 /******************************************
  
- XML
+ SETTINGS
 
  *******************************************/
 
 void vdome::loadXML(string file) {
-    xml.load(file);
-    
-    if (xml.exists("projectors[@count]"))
-        pCount = ofToInt( xml.getAttribute("projectors[@count]") );
-    
-    input.loadXML(xml);
-    render.loadXML(xml);
-    window.loadXML(xml);
-    dome.loadXML(xml);
-    
-    for(int i=0; i<pCount; i++) {
-		projectors[i].loadXML(xml);
-	}
+    if (xml.load(file)) {
+        if (xml.exists("projectors[@count]"))
+            pCount = ofToInt( xml.getAttribute("projectors[@count]") );
+        
+        input.loadXML(xml);
+        render.loadXML(xml);
+        window.loadXML(xml);
+        dome.loadXML(xml);
+        
+        for(int i=0; i<pCount; i++) {
+            projectors[i].loadXML(xml);
+        }
+    }
 }
 
 void vdome::saveXML(string file) {
@@ -388,10 +384,6 @@ void vdome::saveXML(string file) {
         saved = true;
     }
 }
-
-
-
-
 
 /******************************************
  
@@ -422,9 +414,6 @@ void vdome::mouseReleased(ofMouseEventArgs& mouseArgs) {
         }
     }
 }
-
-
-
 
 /******************************************
  
@@ -668,19 +657,16 @@ void vdome::keyReleased(int key) {
     }
 }
 
-
-
-
 /******************************************
  
  MATH
  
  ********************************************/
 
-
 float round(float d) {
   return floorf(d + 0.5);
 }
+
 float vdome::roundTo(float val, float n){
 	return round(val * 1/n) * n;
 }

@@ -1,9 +1,21 @@
 #include "tcp.h"
 
-void Tcp::init(){
+/******************************************
+ 
+ CONSTRUCTOR
+ 
+ ********************************************/
+
+Tcp::Tcp(){
     enabled = true;
     port = 11999;
 }
+
+/******************************************
+ 
+ SETUP
+ 
+ ********************************************/
 
 void Tcp::setup(){
     
@@ -14,6 +26,12 @@ void Tcp::setup(){
 	//optionally set the delimiter to something else.  The delimter in the client and the server have to be the same, default being [/tcp]
 	server.setMessageDelimiter("\n");
 }
+
+/******************************************
+ 
+ SETTINGS
+ 
+ ********************************************/
 
 void Tcp::loadXML(ofXml &xml) {
     if (xml.exists("tcp[@enabled]"))
@@ -34,9 +52,13 @@ void Tcp::saveXML(ofXml &xml) {
 	}    
 }
 
+/******************************************
+ 
+ DRAW
+ 
+ ********************************************/
 
 void Tcp::draw() {
-        
     
     ofSetHexColor(0xFFFFFF);
     ofDrawBitmapString("Port: "+ofToString(server.getPort()), x, y);
@@ -69,6 +91,5 @@ void Tcp::draw() {
 		//draw the info text and the received text bellow it
 		ofDrawBitmapString(info, x, y+20);
 		ofDrawBitmapString(storeText[i], x, y + 40);
-        
 	}
 }

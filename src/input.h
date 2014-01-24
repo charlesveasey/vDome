@@ -1,4 +1,5 @@
 #include "ofMain.h"
+
 #ifdef TARGET_OSX
 	#include "ofxSyphon.h"
 	#include "ofxHapPlayer.h"
@@ -9,14 +10,13 @@
 class Input {
 	
 public:
- 
-    void init();
+    Input();
     void setup();
     void stop();
     void close();
   
     void keyPressed(int key);
-
+    
     void loadXML(ofXml &xml);
     void saveXML(ofXml &xml);
     
@@ -29,16 +29,17 @@ public:
 	int maxMode;
     
     ofTexture texture;
-    Render render;
+    int frameRate;
     
     ofImage image;
     ofVideoPlayer video;
     ofVideoGrabber capture;
     
+    int domeMaster;
+
     #ifdef TARGET_OSX
         ofxHapPlayer hap;
         ofxSyphonClient syphon;
     #endif
-    
 };
 

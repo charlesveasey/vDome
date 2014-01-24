@@ -1,8 +1,5 @@
 #include "projector.h"
 
-bool all = false;
-
-
 /******************************************
  
  INIT
@@ -23,53 +20,32 @@ void Projector::init(int i){
     brightness = 1;
     contrast = 1;
     
-    
     // color
     saturation = 1;
     
-    
-    // plane position
-    x = 0;
-    y = 0;
-    
-    // plane dimensions
-    width = 1024;
-    height = 768;
-    
-    // plane scale
-    scaleX = 1;
-    scaleY = 1;
-    
-    
-    // camera position
-    azimuth = 0;
-    elevation = 0;
-    distance = 5;
+    // plane
+    planePosition.set(0,0);
+    planeDimensions.set(1024,768);
 
-    // camera orienation
-    roll = 0;
-    tilt = 0;
-    pan = 0;
+    // camera
+    cameraPosition.set(0,0,5);    // azi, ele, dis
+    cameraOrientation.set(0,0,0);    // roll, tilt, pan
+    cameraFov = 36;
+    cameraOffset.set(0,0);
+    cameraScale.set(1,1);
     
-    // camera lens
-    fov = 36;
-    
-    offsetX = 0;
-    offsetY = 0;
-    
-    /* camera shear
+    /* shear
      1,   xy,   xz,  0,
      yx,   1,   yz,  0,
      zx,  zy,   1,   0,
      0,    0,   0,   1
      */
-    
-    shearXY = 0;
-    shearXZ = 0;
-    shearYX = 0;
-    shearYZ = 0;
-    shearZX = 0;
-    shearZY = 0;
+    cameraShear.push_back(0); // 0=xy
+    cameraShear.push_back(0); // 1=xz
+    cameraShear.push_back(0); // 2=yx
+    cameraShear.push_back(0); // 3=yz
+    cameraShear.push_back(0); // 4=zx
+    cameraShear.push_back(0); // 5=zy
     
     setup();
 }
@@ -85,30 +61,42 @@ void Projector::init(int i){
 
 void Projector::setup() {
     
+    // projection plane
+    plane.setup(index);
+    
     // create camera
-    camera.resetTransform();
     camera.setScale(1,-1,1); // legacy oF oddity
     camera.setNearClip(5);
+    camera.setLensOffset(cameraOffset);
+    setCameraTransform();
     
     // create camera view
-    view.setWidth(width);
-    view.setHeight(height);
+    view.setWidth(planePosition.x);
+    view.setHeight(planePosition.y);
     
     // create dome master fbo
-    if (fbo.getWidth() != width || fbo.getHeight() != height) {
-        fbo.allocate(width, height, GL_RGB);
+    if (fbo.getWidth() != planeDimensions.x || fbo.getHeight() != planeDimensions.y) {
+        fbo.allocate(planeDimensions.x, planeDimensions.y, GL_RGB);
     }
     
     fbo.begin();
     ofClear(255);
     fbo.end();
-
-    // projection plane
-    plane.init(index);
     
 }
 
 
+
+// camera transform
+void Projector::setCameraTransform(){
+    camera.resetTransform();
+    camera.roll(cameraOrientation.x);
+    camera.tilt(cameraOrientation.y);
+    camera.pan(cameraOrientation.z+cameraPosition.x);
+    // spherical coordinates: azi, ele, dis
+    ofVec3f car = sphToCar(ofVec3f(cameraPosition.x, cameraPosition.y, cameraPosition.z));
+    camera.setPosition(car);
+}
 
 
 
@@ -130,10 +118,10 @@ void Projector::begin() {
         0,    0,   0,   1
     */
     transform.set(
-      scaleX,   shearXY,   shearXZ,   0,
-      shearYX,   scaleY,   shearYZ,   0,
-      shearZX,   shearZY,          1,   0,
-             0,          0,          0,   1
+      cameraScale.x,   cameraShear[0],   cameraShear[1],   0,
+      cameraShear[2],   cameraScale.y,   cameraShear[3],   0,
+      cameraShear[4],   cameraShear[5],             1,   0,
+             0,          0,          0,             1
     );
 
     ofMatrix4x4 m;
@@ -237,6 +225,7 @@ void Projector::keyPressed(int key) {
     }
     
     plane.keyPressed(key);
+
     
     switch (key) {
         case 122:
@@ -275,40 +264,37 @@ void Projector::keyPressed(int key) {
                     break;
                     
                 case 5: // projector position
-                    history.execute( new SetAzimuth(*this, 0) );
-                    history.execute( new SetElevation(*this, 0) );
-                    history.execute( new SetDistance(*this, 5) );
+                    history.execute( new SetCameraPosition(*this, 0,0,5) );
                     break;
                     
                 case 6: // projector orientation
-                    history.execute( new SetRoll(*this, 0) );
-                    history.execute( new SetTilt(*this, 0) );
-                    history.execute( new SetPan(*this, 0) );
+                    history.execute( new SetCameraOrientation(*this, 0,0,0) );
                     break;
                     
                 case 7: // projector fov
-                    history.execute( new SetFov(*this, 33) );
+                    history.execute( new SetCameraFov(*this, 33) );
                     break;
                     
                 case 8: // projector offset
-                    history.execute( new SetOffsetX(*this, 0) );
-                    history.execute( new SetOffsetY(*this, 0) );
+                    history.execute( new SetCameraOffset(*this, 0, 0) );
                     break;
                     
                 case 9: // projector scale
-                    history.execute( new SetScale(*this, 1, 1) );
+                    history.execute( new SetCameraScale(*this, 1, 1) );
                     break;
                     
                 case 10: // projector shear 1
-                    history.execute( new SetShearXZ(*this, 0) );
-                    history.execute( new SetShearYZ(*this, 0) );
-                    history.execute( new SetShearZX(*this, 0) );
+                    cameraShear[3] = 0;
+                    cameraShear[4] = 0;
+                    cameraShear[1] = 0;
+                    history.execute( new SetCameraShear(*this, cameraShear ) );
                     break;
                     
                 case 11: // projector shear 2
-                    history.execute( new SetShearZY(*this, 0) );
-                    history.execute( new SetShearYX(*this, 0) );
-                    history.execute( new SetShearXY(*this, 0) );
+                    cameraShear[5] = 0;
+                    cameraShear[2] = 0;
+                    cameraShear[0] = 0;
+                    history.execute( new SetCameraShear(*this, cameraShear ) );
                     break;
             }
             break;
@@ -335,43 +321,44 @@ void Projector::keyPressed(int key) {
                     
                 case 5: // projector elevation / distance (mod)
                     if (!mod)
-                        history.execute( new SetElevation(*this, elevation + value) );
+                        history.execute( new SetCameraPosition(*this, cameraPosition.x, cameraPosition.y + value, cameraPosition.z) );
                     else
-                        history.execute( new SetDistance(*this, distance + value) );
+                        history.execute( new SetCameraPosition(*this, cameraPosition.x, cameraPosition.y, cameraPosition.z + value) );
                     break;
                     
                 case 6: // projector tilt
-                    history.execute( new SetTilt(*this, tilt + value) );
+                    history.execute( new SetCameraPosition(*this, cameraOrientation.x, cameraOrientation.y + value, cameraOrientation.z) );
                     break;
                     
                 case 7: // projector fov
-                    history.execute( new SetFov(*this, fov + value) );
+                    history.execute( new SetCameraFov(*this, cameraFov + value) );
                     break;
                     
                 case 8: // projector offset y
-                    history.execute( new SetOffsetY(*this, offsetY + value * .1) );
+                    history.execute( new SetCameraOffset(*this, cameraOffset.x, cameraOffset.y + value * .1) );
                     break;
 
                 case 9: // projector scale
                     if (!mod)
-                        history.execute( new SetScaleY(*this, scaleY + value * .1) );
-                    else {
-                        history.execute( new SetScale(*this, scaleX + value * .1, scaleY + value * .1) );
-                    }
+                        history.execute( new SetCameraScale(*this, cameraScale.x, cameraScale.y + value * .1) );
+                    else
+                        history.execute( new SetCameraScale(*this, cameraScale.x + value * .1, cameraScale.y + value * .1) );
                     break;
                     
                 case 10: // projector shear 1
                     if (!mod)
-                        history.execute( new SetShearYZ(*this, shearYZ + value * .1) );
+                        cameraShear[3] += value *.1;
                     else
-                        history.execute( new SetShearXZ(*this, shearXZ + value * .1) );
+                        cameraShear[1] += value *.1;;
+                    history.execute( new SetCameraShear(*this, cameraShear ) );
                     break;
                     
                 case 11: // projector shear 2
                     if (!mod)
-                        history.execute( new SetShearZY(*this, shearZY + value * .1) );
+                        cameraShear[5] += value *.1;
                     else
-                        history.execute( new SetShearXY(*this, shearXY + value * .1) );
+                        cameraShear[0] += value *.1;
+                    history.execute( new SetCameraShear(*this, cameraShear ) );
                     break;
 
             }
@@ -400,42 +387,44 @@ void Projector::keyPressed(int key) {
                     
                 case 5: // projector elevation / distance (mod)
                     if (!mod)
-                        history.execute( new SetElevation(*this, elevation - value) );
+                        history.execute( new SetCameraPosition(*this, cameraPosition.x, cameraPosition.y - value, cameraPosition.z) );
                     else
-                        history.execute( new SetDistance(*this, distance - value) );
+                        history.execute( new SetCameraPosition(*this, cameraPosition.x, cameraPosition.y, cameraPosition.z - value) );
                     break;
                     
                 case 6: // projector tilt
-                    history.execute( new SetTilt(*this, tilt - value) );
+                    history.execute( new SetCameraOrientation(*this, cameraOrientation.x, cameraOrientation.y - value, cameraOrientation.z) );
                     break;
                     
                 case 7: // projector fov
-                    history.execute( new SetFov(*this, getFov() - value) );
+                    history.execute( new SetCameraFov(*this, cameraFov - value) );
                     break;
                     
                 case 8: // projector lensOffsetY
-                    history.execute( new SetOffsetY(*this, offsetY - value * .1) );
+                    history.execute( new SetCameraOffset(*this, cameraOffset.x, cameraOffset.y - value * .1) );
                     break;
                     
                 case 9: // projector scale
                     if (!mod)
-                        history.execute( new SetScaleY(*this, scaleY - value * .1) );
+                        history.execute( new SetCameraScale(*this, cameraScale.x, cameraScale.y - value * .1) );
                     else
-                        history.execute( new SetScale(*this, scaleX - value * .1, scaleY - value * .1) );
+                        history.execute( new SetCameraScale(*this, cameraScale.x - value * .1, cameraScale.y - value * .1) );
                     break;
                     
                 case 10: // projector shear 1
                     if (!mod)
-                        history.execute( new SetShearYZ(*this, shearYZ - value * .1) );
+                        cameraShear[3] -= value *.1;
                     else
-                        history.execute( new SetShearXZ(*this, shearXZ - value * .1) );
+                        cameraShear[1] -= value *.1;;
+                    history.execute( new SetCameraShear(*this, cameraShear ) );
                     break;
                     
                 case 11: // projector shear 2
                     if (!mod)
-                        history.execute( new SetShearZY(*this, shearZY - value * .1) );
+                        cameraShear[5] -= value *.1;
                     else
-                        history.execute( new SetShearXY(*this, shearXY - value * .1) );
+                        cameraShear[0] -= value *.1;
+                    history.execute( new SetCameraShear(*this, cameraShear ) );
                     break;
             }
             break;
@@ -454,35 +443,36 @@ void Projector::keyPressed(int key) {
                     break;
                     
                 case 5: // projector azimuth
-                    history.execute( new SetAzimuth(*this, azimuth - value) );
+                    history.execute( new SetCameraPosition(*this, cameraPosition.x - value, cameraPosition.y, cameraPosition.z) );
                 break;
                     
                 case 6: // projector roll / pan (mod)
                     if (!mod)
-                        history.execute( new SetRoll(*this, roll - value) );
+                        history.execute( new SetCameraOrientation(*this, cameraOrientation.x - value, cameraOrientation.y, cameraOrientation.z) );
                     else
-                        history.execute( new SetPan(*this, pan - value) );
+                        history.execute( new SetCameraOrientation(*this, cameraOrientation.x, cameraOrientation.y, cameraOrientation.z - value) );
                     break;
                     
                 case 8: // projector lens offset x
-                    history.execute( new SetOffsetX(*this, offsetX - value * .1) );
+                    history.execute( new SetCameraOffset(*this, cameraOffset.x - value * .1, cameraOffset.y) );
                     break;
                     
                 case 9: // projector scale
                     if (!mod)
-                        history.execute( new SetScaleX(*this, scaleX - value * .1) );
+                        history.execute( new SetCameraScale(*this, cameraScale.x - value * .1, cameraScale.y) );
                     else
-                        history.execute( new SetScale(*this, scaleX - value * .1, scaleY - value * .1));
+                        history.execute( new SetCameraScale(*this, cameraScale.x - value * .1, cameraScale.y - value * .1) );
                     break;
-                    
+                
                 case 10: // projector shear 1
-                    history.execute( new SetShearZX(*this, shearZX - value * .1) );
+                    cameraShear[4] -= value *.1;
+                    history.execute( new SetCameraShear(*this, cameraShear ) );
                     break;
                     
                 case 11: // projector shear 2
-                    history.execute( new SetShearYX(*this, shearYX - value * .1) );
+                    cameraShear[2] -= value *.1;
+                    history.execute( new SetCameraShear(*this, cameraShear ) );
                     break;
-
             }
             break;
         
@@ -498,34 +488,38 @@ void Projector::keyPressed(int key) {
                     break;
                     
                 case 5: // projector azimuth
-                    history.execute( new SetAzimuth(*this, azimuth + value) );
+                    history.execute( new SetCameraPosition(*this, cameraPosition.x + value, cameraPosition.y, cameraPosition.z) );
                     break;
                     
                 case 6: // projector roll / pan (mod)
                     if (!mod)
-                        history.execute( new SetRoll(*this, roll + value) );
+                        history.execute( new SetCameraOrientation(*this, cameraOrientation.x + value, cameraOrientation.y, cameraOrientation.z) );
                     else
-                        history.execute( new SetPan(*this, pan + value) );
+                        history.execute( new SetCameraOrientation(*this, cameraOrientation.x, cameraOrientation.y, cameraOrientation.z + value) );
                     break;
                     
-                case 8: // projector lensOffsetX
-                    history.execute( new SetOffsetX(*this, offsetX + value * .1) );
+                case 8: // projector lens offset x
+                    history.execute( new SetCameraOffset(*this, cameraOffset.x - value * .1, cameraOffset.y) );
                     break;
                     
                 case 9: // projector scale
                     if (!mod)
-                        history.execute( new SetScaleX(*this, scaleX + value * .1) );
+                        history.execute( new SetCameraScale(*this, cameraScale.x + value * .1, cameraScale.y) );
                     else
-                        history.execute( new SetScale(*this, scaleX + value * .1, scaleY - value * .1));
+                        history.execute( new SetCameraScale(*this, cameraScale.x + value * .1, cameraScale.y + value * .1) );
                     break;
                     
                 case 10: // projector shear 1
-                    history.execute( new SetShearZX(*this, shearZX + value * .1) );
+                    cameraShear[4] += value *.1;
+                    history.execute( new SetCameraShear(*this, cameraShear ) );
                     break;
                     
                 case 11: // projector shear 2
-                    history.execute( new SetShearYX(*this, shearYX + value * .1) );
+                    cameraShear[2] += value *.1;
+                    history.execute( new SetCameraShear(*this, cameraShear ) );
                     break;
+                    
+                    
             }
             break;
             
@@ -545,7 +539,7 @@ void Projector::keyReleased(int key) {
 
 /******************************************
  
- XML
+ SETTINGS
  
  ********************************************/
 
@@ -576,33 +570,33 @@ void Projector::loadXML(ofXml &xml) {
     // plane position
     if (xml.exists(pre + "][@x]")) {
         val = ofToFloat( xml.getAttribute(pre + "][@x]") );
-        history.execute( new SetX(*this, val) );
+        history.execute( new SetPlanePosition(*this, val, planePosition.y) );
     }
     if (xml.exists(pre + "][@y]")) {
         val = ofToFloat( xml.getAttribute(pre + "][@y]") );
-        history.execute( new SetY(*this, val) );
+        history.execute( new SetPlanePosition(*this, planePosition.x, val) );
     }
     
     
     // plane dimensions
     if (xml.exists(pre + "][@width]")) {
         val = ofToFloat( xml.getAttribute(pre + "][@x]") );
-        history.execute( new SetWidth(*this, val) );
+        setPlaneDimensions(val, planeDimensions.y);
     }
     if (xml.exists(pre + "][@height]")) {
         val = ofToFloat( xml.getAttribute(pre + "][@height]") );
-        history.execute( new SetHeight(*this, val) );
+        setPlaneDimensions(planeDimensions.x, val);
     }
     
     
-    // plane scale
+    // camera scale
     if (xml.exists(pre + "][@scaleX]")) {
         val = ofToFloat( xml.getAttribute(pre + "][@scaleX]") );
-        history.execute( new SetScaleX(*this, val) );
+        history.execute( new SetCameraScale(*this, val, cameraScale.y) );
     }
     if (xml.exists(pre + "][@scaleY]")) {
         val = ofToFloat( xml.getAttribute(pre + "][@scaleY]") );
-        history.execute( new SetScaleY(*this, val) );
+        history.execute( new SetCameraScale(*this, cameraScale.x, val) );
     }
     
     
@@ -615,42 +609,41 @@ void Projector::loadXML(ofXml &xml) {
     // camera position
     if (xml.exists(pre + "][@azimuth]")) {
         val = ofToFloat( xml.getAttribute(pre + "][@azimuth]") );
-        history.execute( new SetAzimuth(*this, val) );
+        history.execute( new SetCameraPosition(*this, val, cameraPosition.y, cameraPosition.z) );
     }
     if (xml.exists(pre + "][@elevation]")) {
         val = ofToFloat( xml.getAttribute(pre + "][@elevation]") );
-        history.execute( new SetElevation(*this, val) );
+        history.execute( new SetCameraPosition(*this, cameraPosition.y, val, cameraPosition.z) );
     }
     if (xml.exists(pre + "][@distance]")) {
         val = ofToFloat( xml.getAttribute(pre + "][@distance]") );
-        history.execute( new SetDistance(*this, val) );
+        history.execute( new SetCameraPosition(*this, cameraPosition.x, cameraPosition.y, val) );
     }
     
     // camera orientation
     if (xml.exists(pre + "][@roll]")) {
         val = ofToFloat( xml.getAttribute(pre + "][@roll]") );
-        history.execute( new SetRoll(*this, val) );
+        history.execute( new SetCameraOrientation(*this, val, cameraOrientation.y, cameraOrientation.z) );
     }
     if (xml.exists(pre + "][@tilt]")) {
         val = ofToFloat( xml.getAttribute(pre + "][@tilt]") );
-        history.execute( new SetTilt(*this, val) );
+        history.execute( new SetCameraOrientation(*this, cameraOrientation.x, val, cameraOrientation.z) );
     }
     if (xml.exists(pre + "][@pan]")) {
         val = ofToFloat( xml.getAttribute(pre + "][@pan]") );
-        history.execute( new SetPan(*this, val) );
+        history.execute( new SetCameraOrientation(*this, cameraOrientation.x, cameraOrientation.y, val) );
     }
     
     // camera lens
     if (xml.exists(pre + "][@fov]")) {
         val = ofToFloat( xml.getAttribute(pre + "][@fov]") );
-        history.execute( new SetFov(*this, val) );
+        history.execute( new SetCameraFov(*this, val) );
     }
     if (xml.exists(pre + "][@offset]")) {
         str = xml.getAttribute(pre + "][@offset]");
         float offX  = ofToFloat(ofSplitString(str, ",")[0]);
         float offY  = ofToFloat(ofSplitString(str, ",")[1]);
-        history.execute( new SetOffsetX(*this, offX) );
-        history.execute( new SetOffsetY(*this, offY) );
+        history.execute( new SetCameraOffset(*this, offX, offY) );
     }
     
 }
@@ -658,23 +651,23 @@ void Projector::loadXML(ofXml &xml) {
 void Projector::saveXML(ofXml &xml) {
     string pre = xmlPrefix + ofToString(index);
     
-    int x = width * index;
+    int x = planeDimensions.x * index;
     int y = 0;
     
-    xml.setAttribute(pre + "][@azimuth]", ofToString(azimuth));
+    xml.setAttribute(pre + "][@azimuth]", ofToString(cameraPosition.x));
     xml.setAttribute(pre + "][@brightness]", ofToString(brightness));
     xml.setAttribute(pre + "][@contrast]", ofToString(contrast));
-    xml.setAttribute(pre + "][@distance]", ofToString(distance));
-    xml.setAttribute(pre + "][@elevation]", ofToString(elevation));
-    xml.setAttribute(pre + "][@fov]", ofToString(fov));
-    xml.setAttribute(pre + "][@height]", ofToString(height));
-    xml.setAttribute(pre + "][@offset]", ofToString(offsetX) +  "," + ofToString(offsetY) );
+    xml.setAttribute(pre + "][@distance]", ofToString(cameraPosition.z));
+    xml.setAttribute(pre + "][@elevation]", ofToString(cameraPosition.y));
+    xml.setAttribute(pre + "][@fov]", ofToString(cameraFov));
+    xml.setAttribute(pre + "][@offset]", ofToString(cameraOffset.x) +  "," + ofToString(cameraOffset.y) );
     xml.setAttribute(pre + "][@saturation]", ofToString(saturation));
-    xml.setAttribute(pre + "][@roll]", ofToString(roll));
-    xml.setAttribute(pre + "][@tilt]", ofToString(tilt));
-    xml.setAttribute(pre + "][@pan]", ofToString(pan));
-    xml.setAttribute(pre + "][@width]", ofToString(width));
-    xml.setAttribute(pre + "][@scale]", ofToString(scaleX) +  "," + ofToString(scaleY) );
+    xml.setAttribute(pre + "][@roll]", ofToString(cameraOrientation.x));
+    xml.setAttribute(pre + "][@tilt]", ofToString(cameraOrientation.y));
+    xml.setAttribute(pre + "][@pan]", ofToString(cameraOrientation.z));
+    xml.setAttribute(pre + "][@width]", ofToString(planeDimensions.x));
+    xml.setAttribute(pre + "][@height]", ofToString(planeDimensions.y));    
+    xml.setAttribute(pre + "][@scale]", ofToString(cameraScale.x) +  "," + ofToString(cameraScale.y) );
     
     plane.save(xml);
 }
@@ -686,6 +679,71 @@ void Projector::saveXML(ofXml &xml) {
  ACCESSORS
  
  ********************************************/
+
+
+// plane
+ofVec2f Projector::getPlanePosition(){
+    return planePosition;
+}
+void Projector::setPlanePosition(float x, float y){
+    planePosition.set(x,y);
+}
+
+ofVec2f Projector::getPlaneDimensions(){
+    return planeDimensions;
+}
+void Projector::setPlaneDimensions(float x, float y){
+    planeDimensions.set(x,y);
+}
+
+
+
+// camera
+ofVec3f Projector::getCameraPosition(){
+    return cameraPosition;
+}
+void Projector::setCameraPosition(float azi, float ele, float dis){
+    cameraPosition.set(azi, ele, dis);
+    setCameraTransform();
+}
+
+ofVec3f Projector::getCameraOrientation(){
+    return cameraOrientation;
+}
+void Projector::setCameraOrientation(float roll, float tilt, float pan){
+    cameraOrientation.set(roll, tilt, pan);
+    setCameraTransform();
+}
+
+float Projector::getCameraFov(){
+    return cameraFov;
+}
+void Projector::setCameraFov(float v){
+    cameraFov = v;
+    camera.setFov(v);
+}
+
+ofVec2f Projector::getCameraOffset(){
+    return cameraOffset;
+}
+void Projector::setCameraOffset(float x, float y){
+    camera.setLensOffset(ofVec2f(x,y));
+}
+
+ofVec2f Projector::getCameraScale(){
+    return cameraScale;
+}
+void Projector::setCameraScale(float x, float y){
+    cameraScale.set(x,y);
+}
+
+vector<float> Projector::getCameraShear(){
+    return cameraShear;
+}
+void Projector::setCameraShear(vector<float> v){
+    cameraShear = v;
+}
+
 
 
 // scalar value
@@ -703,7 +761,6 @@ void Projector::setKeystoneActive(bool v) {
     plane.keystoneActive = v;
 }
 
-
 // grid active
 bool Projector::getGridActive() {
     return plane.gridActive;
@@ -712,233 +769,10 @@ void Projector::setGridActive(bool v) {
     plane.gridActive = v;
 }
 
-
-// intensity
-float Projector::getBrightness(){
-    return brightness;
-}
-void Projector::setBrightness(float v){
-    brightness = v;
-}
-
-float Projector::getContrast(){
-    return contrast;
-}
-void Projector::setContrast(float v){
-    contrast = v;
-}
-
-
-// color
-float Projector::getSaturation(){
-    return saturation;
-}
-void Projector::setSaturation(float v){
-    saturation = v;
-}
-
-
-// plane position
-float Projector::getX(){
-    return x;
-}
-void Projector::setX(float v){
-    x = v;
-}
-
-float Projector::getY(){
-    return y;
-}
-void Projector::setY(float v){
-    y = v;
-}
-
-// plane dimensions
-float Projector::getWidth(){
-    return width;
-}
-void Projector::setWidth(float v){
-    width = v;
-}
-
-float Projector::getHeight(){
-    return height;
-}
-void Projector::setHeight(float v){
-    height = v;
-}
-
-
-
-// camera transform
-void Projector::setCameraTransform(){
-    camera.resetTransform();
-    camera.roll(roll);
-    camera.tilt(tilt);
-    camera.pan(pan+azimuth);
-    setCameraPosition(ofVec3f(azimuth, elevation, distance));    
-}
-
-// camera position
-void Projector::setCameraPosition(ofVec3f sph){
-    ofVec3f car = sphToCar(sph);
-    camera.setPosition(car);
-}
-
-float Projector::getAzimuth(){
-    return azimuth;
-}
-void Projector::setAzimuth(float v){
-    azimuth = v;
-    setCameraTransform();
-}
-
-float Projector::getElevation(){
-    return elevation;
-}
-void Projector::setElevation(float v){
-    elevation = v;
-    setCameraTransform();
-}
-
-float Projector::getDistance(){
-    return distance;
-}
-void Projector::setDistance(float v){
-    distance = v;
-    setCameraTransform();
-}
-
-
-// orientation
-float Projector::getRoll(){
-    return roll;
-}
-void Projector::setRoll(float v){
-    roll = v;
-    setCameraTransform();
-}
-
-float Projector::getTilt(){
-    return tilt;
-}
-void Projector::setTilt(float v){
-    tilt = v;
-    setCameraTransform();
-}
-
-float Projector::getPan(){
-    return pan;
-}
-void Projector::setPan(float v){
-    pan = v;    
-    setCameraTransform();
-}
-
-
-// lens
-float Projector::getFov(){
-    return fov;
-}
-void Projector::setFov(float v){
-    fov = v;
-    camera.setFov(v);
-}
-
-
-void Projector::setOffset(float vx, float vy){
-    camera.setLensOffset(ofVec2f(vx, vy));
-}
-
-float Projector::getOffsetX(){
-    return offsetX;
-}
-void Projector::setOffsetX(float v){
-    offsetX = v;
-    setOffset(offsetX, offsetY);
-    
-}
-
-float Projector::getOffsetY(){
-    return offsetY;
-}
-void Projector::setOffsetY(float v){
-    offsetY = v;
-    setOffset(offsetX, offsetY);
-}
-
-
-// scale
-void Projector::setScale(float vx, float vy){
-    scaleX = vx;
-    scaleY = vy;
-}
-
-float Projector::getScaleX(){
-    return scaleX;
-}
-void Projector::setScaleX(float v){
-    scaleX = v;
-}
-
-float Projector::getScaleY(){
-    return scaleY;
-}
-void Projector::setScaleY(float v){
-    scaleY = v;
-}
-
-
-// camera shear
-float Projector::getShearXY(){
-    return shearXY;
-}
-void  Projector::setShearXY(float v){
-    shearXY = v;
-}
-
-float Projector::getShearXZ(){
-    return shearXZ;
-}
-void  Projector::setShearXZ(float v){
-    shearXZ = v;
-}
-
-float Projector::getShearYX(){
-    return shearYX;
-}
-void  Projector::setShearYX(float v){
-    shearYX = v;
-}
-
-float Projector::getShearYZ(){
-    return shearYZ;
-}
-void  Projector::setShearYZ(float v){
-    shearYZ = v;
-}
-
-float Projector::getShearZX(){
-    return shearZX;
-}
-void  Projector::setShearZX(float v){
-    shearZX = v;
-}
-
-float Projector::getShearZY(){
-    return shearZY;
-}
-void  Projector::setShearZY(float v){
-    shearZY = v;
-}
-
-
 // texture
 ofTexture& Projector::getTextureReference(){
 	return fbo.getTextureReference();
 }
-
-
 
 
 /******************************************
@@ -958,3 +792,4 @@ ofVec3f Projector::sphToCar(ofVec3f t) {
     z = cos(azi) * sin(ele) * dis;
     return ofVec3f(x,y,z);
 };
+
