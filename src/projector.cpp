@@ -28,9 +28,9 @@ void Projector::init(int i){
     planeDimensions.set(1024,768);
 
     // camera
-    cameraPosition.set(0,0,5);    // azi, ele, dis
-    cameraOrientation.set(0,0,0);    // roll, tilt, pan
-    cameraFov = 36;
+    cameraPosition.set(0,0,10);    // azi, ele, dis
+    cameraOrientation.set(0,-20,0);    // roll, tilt, pan
+    cameraFov = 40;
     cameraOffset.set(0,0);
     cameraScale.set(1,1);
     
@@ -63,16 +63,19 @@ void Projector::setup() {
     
     // projection plane
     plane.setup(index);
+    planePosition.x = planePosition[0];
+    planePosition.y = planePosition[0];
     
     // create camera
     camera.setScale(1,-1,1); // legacy oF oddity
     camera.setNearClip(5);
     camera.setLensOffset(cameraOffset);
+    camera.setFov(cameraFov);
     setCameraTransform();
     
     // create camera view
-    view.setWidth(planePosition.x);
-    view.setHeight(planePosition.y);
+    view.setWidth(planeDimensions.x);
+    view.setHeight(planeDimensions.y);
     
     // create dome master fbo
     if (fbo.getWidth() != planeDimensions.x || fbo.getHeight() != planeDimensions.y) {
@@ -82,7 +85,6 @@ void Projector::setup() {
     fbo.begin();
     ofClear(255);
     fbo.end();
-    
 }
 
 
@@ -90,6 +92,7 @@ void Projector::setup() {
 // camera transform
 void Projector::setCameraTransform(){
     camera.resetTransform();
+
     camera.roll(cameraOrientation.x);
     camera.tilt(cameraOrientation.y);
     camera.pan(cameraOrientation.z+cameraPosition.x);
@@ -327,7 +330,7 @@ void Projector::keyPressed(int key) {
                     break;
                     
                 case 6: // projector tilt
-                    history.execute( new SetCameraPosition(*this, cameraOrientation.x, cameraOrientation.y + value, cameraOrientation.z) );
+                    history.execute( new SetCameraOrientation(*this, cameraOrientation.x, cameraOrientation.y + value, cameraOrientation.z) );
                     break;
                     
                 case 7: // projector fov
@@ -499,7 +502,7 @@ void Projector::keyPressed(int key) {
                     break;
                     
                 case 8: // projector lens offset x
-                    history.execute( new SetCameraOffset(*this, cameraOffset.x - value * .1, cameraOffset.y) );
+                    history.execute( new SetCameraOffset(*this, cameraOffset.x + value * .1, cameraOffset.y) );
                     break;
                     
                 case 9: // projector scale
@@ -570,11 +573,11 @@ void Projector::loadXML(ofXml &xml) {
     // plane position
     if (xml.exists(pre + "][@x]")) {
         val = ofToFloat( xml.getAttribute(pre + "][@x]") );
-        history.execute( new SetPlanePosition(*this, val, planePosition.y) );
+        history.execute( new SetPlanePosition(*this, val, getPlanePosition().y) );
     }
     if (xml.exists(pre + "][@y]")) {
         val = ofToFloat( xml.getAttribute(pre + "][@y]") );
-        history.execute( new SetPlanePosition(*this, planePosition.x, val) );
+        history.execute( new SetPlanePosition(*this, getPlanePosition().x, val) );
     }
     
     
@@ -683,6 +686,8 @@ void Projector::saveXML(ofXml &xml) {
 
 // plane
 ofVec2f Projector::getPlanePosition(){
+    planePosition.x = plane.position[0];
+    planePosition.y = plane.position[1];
     return planePosition;
 }
 void Projector::setPlanePosition(float x, float y){
@@ -727,7 +732,8 @@ ofVec2f Projector::getCameraOffset(){
     return cameraOffset;
 }
 void Projector::setCameraOffset(float x, float y){
-    camera.setLensOffset(ofVec2f(x,y));
+    cameraOffset.set(x,y);
+    camera.setLensOffset(cameraOffset);
 }
 
 ofVec2f Projector::getCameraScale(){

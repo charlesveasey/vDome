@@ -21,7 +21,7 @@ void Render::setup() {
     ofSetVerticalSync(vSync);
 	ofSetFrameRate(frameRate);
     
-    ofBackground(100,0,0);
+    ofBackground(0,0,0);
 	ofEnableDepthTest();
     ofEnableNormalizedTexCoords();
     

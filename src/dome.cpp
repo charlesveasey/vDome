@@ -10,7 +10,7 @@
  ********************************************/
 
 Dome::Dome(){
-	radius = 10;
+	radius = 20;
 	N = 256;  // Mesh resolution, must be multiple of 4
     textureScale = 1;
 }
