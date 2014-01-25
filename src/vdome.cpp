@@ -1,5 +1,4 @@
 #include "vdome.h"
-#include "../../../libs/glut/lib/osx/GLUT.framework/Versions/A/Headers/glut.h"
 
 /********************************************
     

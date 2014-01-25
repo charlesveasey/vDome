@@ -7,6 +7,10 @@
 #include "projector.h"
 #include "tcp.h"
 
+#ifdef TARGET_OSX
+    #include "../../../libs/glut/lib/osx/GLUT.framework/Versions/A/Headers/glut.h"
+#endif
+
 class vdome : public ofBaseApp {
 	
 public:

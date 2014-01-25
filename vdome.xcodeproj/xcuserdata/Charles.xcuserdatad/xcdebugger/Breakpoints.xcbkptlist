@@ -112,26 +112,13 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "src/vdome.cpp"
-         timestampString = "412364320.566807"
+         timestampString = "412364916.218368"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "328"
-         endingLineNumber = "328"
+         startingLineNumber = "327"
+         endingLineNumber = "327"
          landmarkName = "vdome::drawConfig()"
          landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "src/vdome.h"
-         timestampString = "412313440.681539"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "11"
-         endingLineNumber = "11"
-         landmarkName = "class vdome"
-         landmarkType = "3">
       </FileBreakpoint>
    </FileBreakpoints>
 </Bucket>
