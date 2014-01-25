@@ -500,21 +500,80 @@ void vdome::keyPressed(int key){
         projectors[i].setValue(value);
     }
     
-    if (!config) {
-        return;
-    }
+    
+    ///////////////////////////
 
+    if (!config) { return; }
+
+    ///////////////////////////
+
+    bool last;
     if (key == 96) { // ~ = de/select all projectors
-        all = !all;
+        all = projectors[0].keyboard;
+        for (int i=1; i<pCount; i++) {
+            if (all != projectors[i].keyboard) {
+                all = true;
+                break;
+            }
+            else {
+                all = !all;
+            }
+        }
+        //all = !all;
+        for (int i=0; i<pCount; i++) {
+            projectors[i].keyboard = all;
+            projectors[i].mouse = all;
+        }        
+    }
+    else if (key >= 48 && key <= 57 && !alt)  {
+        
+        if (key == 48)
+            pActive = 10;
+        else
+            pActive = key-49;
+
+        // shift groups, otherwise reset
+        if (!shift) {
+            for (int i=0; i<pCount; i++) {
+                if (i != pActive) {
+                    projectors[i].keyboard = false;
+                    projectors[i].mouse = false;
+                }
+            }
+        }
+        projectors[pActive].keyboard = !(projectors[pActive].keyboard);
+        projectors[pActive].mouse = !(projectors[pActive].mouse);
+        
+        
+        
+        if (editGroup == 2) {
+            for (int i=0; i<pCount; i++) {
+                if (editMode == 3) {
+                    projectors[i].setKeystoneActive(true);
+                    projectors[i].setGridActive(false);
+                }
+                else if (editMode == 4) {
+                    projectors[i].setKeystoneActive(false);
+                    projectors[i].setGridActive(true);
+                }
+                else {
+                    projectors[i].setKeystoneActive(false);
+                    projectors[i].setGridActive(false);
+                }
+            }
+            
+            // move mouse to new selection
+            if (editMode == 3 || editMode == 4) {
+                if (projectors[pActive].mouse)
+                    glutWarpPointer(projectors[pActive].getPlanePosition().x+projectors[pActive].getPlaneDimensions().x/2,
+                                    -(projectors[pActive].getPlanePosition().y+projectors[pActive].getPlaneDimensions().y/2));
+            }
+        }
+        return;
+        
     }
     
-    if (all) {
-        for (int i=0; i<pCount; i++) {
-            projectors[i].keyboard = true;
-            projectors[i].mouse = true;
-            
-        }
-    }
+    
     
     if (key >= 48 && key <= 57) {
         // assign edit mode
@@ -542,50 +601,13 @@ void vdome::keyPressed(int key){
             }
             return;
         }
-        if (key == 48)
-            pActive = 10;
-        else
-            pActive = key-49;
+
         
-        // shift groups, otherwise reset
-        if (!shift) {
-            for (int i=0; i<pCount; i++) {
-                projectors[i].keyboard = false;
-                projectors[i].mouse = false;
-            }
-            projectors[pActive].keyboard = true;
-            projectors[pActive].mouse = true;
-        }
-        else {
-            projectors[pActive].keyboard = !(projectors[pActive].keyboard);
-            projectors[pActive].mouse = !(projectors[pActive].mouse);
-        }
+
         
             
         
-        if (editGroup == 2) {
-            for (int i=0; i<pCount; i++) {
-                if (editMode == 3) {
-                    projectors[i].setKeystoneActive(true);
-                    projectors[i].setGridActive(false);
-                }
-                else if (editMode == 4) {
-                    projectors[i].setKeystoneActive(false);
-                    projectors[i].setGridActive(true);
-                }
-                else {
-                    projectors[i].setKeystoneActive(false);
-                    projectors[i].setGridActive(false);
-                }
-            }
-            
-            // move mouse to new selection
-            if (editMode == 3 || editMode == 4) {
-                glutWarpPointer(projectors[pActive].getPlanePosition().x+projectors[pActive].getPlaneDimensions().x/2,
-                               -(projectors[pActive].getPlanePosition().y+projectors[pActive].getPlaneDimensions().y/2));
-            }
-        }
-        return;
+
     }
     else if (key == 45) {
         editMode = 11;
