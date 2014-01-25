@@ -577,26 +577,13 @@ void Projector::loadXML(ofXml &xml) {
     
     
     // plane dimensions
-    if (xml.exists(pre + "][@width]")) {
-        val = ofToFloat( xml.getAttribute(pre + "][@x]") );
-        setPlaneDimensions(val, planeDimensions.y);
+    if (xml.exists(pre + "][@dimensions]")) {
+        str = xml.getAttribute(pre + "][@dimensions]");
+        float w  = ofToFloat(ofSplitString(str, ",")[0]);
+        float h  = ofToFloat(ofSplitString(str, ",")[1]);
+        setPlaneDimensions(w, h);
     }
-    if (xml.exists(pre + "][@height]")) {
-        val = ofToFloat( xml.getAttribute(pre + "][@height]") );
-        setPlaneDimensions(planeDimensions.x, val);
-    }
-    
-    
-    // camera scale
-    if (xml.exists(pre + "][@scaleX]")) {
-        val = ofToFloat( xml.getAttribute(pre + "][@scaleX]") );
-        history.execute( new SetCameraScale(*this, val, cameraScale.y) );
-    }
-    if (xml.exists(pre + "][@scaleY]")) {
-        val = ofToFloat( xml.getAttribute(pre + "][@scaleY]") );
-        history.execute( new SetCameraScale(*this, cameraScale.x, val) );
-    }
-    
+
     
     
     plane.load(xml);
@@ -636,28 +623,32 @@ void Projector::loadXML(ofXml &xml) {
         history.execute( new SetCameraOffset(*this, offX, offY) );
     }
     
+    // camera scale
+    if (xml.exists(pre + "][@scale]")) {
+        str = xml.getAttribute(pre + "][@scale]");
+        float sx  = ofToFloat(ofSplitString(str, ",")[0]);
+        float sy  = ofToFloat(ofSplitString(str, ",")[1]);
+        history.execute( new SetCameraScale(*this, sx, sy) );
+    }
 }
 
 void Projector::saveXML(ofXml &xml) {
     string pre = xmlPrefix + ofToString(index);
     
-    int x = planeDimensions.x * index;
-    int y = 0;
-    
-    xml.setAttribute(pre + "][@azimuth]", ofToString(cameraPosition.x));
     xml.setAttribute(pre + "][@brightness]", ofToString(brightness));
     xml.setAttribute(pre + "][@contrast]", ofToString(contrast));
-    xml.setAttribute(pre + "][@distance]", ofToString(cameraPosition.z));
-    xml.setAttribute(pre + "][@elevation]", ofToString(cameraPosition.y));
+    xml.setAttribute(pre + "][@saturation]", ofToString(saturation));
+    
+    //camera
+    xml.setAttribute(pre + "][@position]", ofToString(cameraPosition.x) +  "," + ofToString(cameraPosition.y) +  "," + ofToString(cameraPosition.z) );
+    xml.setAttribute(pre + "][@orientation]", ofToString(cameraOrientation.x) +  "," + ofToString(cameraOrientation.y) +  "," + ofToString(cameraOrientation.z) );
     xml.setAttribute(pre + "][@fov]", ofToString(cameraFov));
     xml.setAttribute(pre + "][@offset]", ofToString(cameraOffset.x) +  "," + ofToString(cameraOffset.y) );
-    xml.setAttribute(pre + "][@saturation]", ofToString(saturation));
-    xml.setAttribute(pre + "][@roll]", ofToString(cameraOrientation.x));
-    xml.setAttribute(pre + "][@tilt]", ofToString(cameraOrientation.y));
-    xml.setAttribute(pre + "][@pan]", ofToString(cameraOrientation.z));
-    xml.setAttribute(pre + "][@width]", ofToString(planeDimensions.x));
-    xml.setAttribute(pre + "][@height]", ofToString(planeDimensions.y));    
     xml.setAttribute(pre + "][@scale]", ofToString(cameraScale.x) +  "," + ofToString(cameraScale.y) );
+    
+    // plane
+    xml.setAttribute(pre + "][@dimensions]", ofToString(planeDimensions.x) +  "," + ofToString(planeDimensions.y) );
+
     
     plane.save(xml);
 }

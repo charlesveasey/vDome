@@ -77,5 +77,5 @@ void Window::saveXML(ofXml &xml) {
     xml.setAttribute("window[@y]", ofToString(ofGetWindowPositionY() ));
     xml.setAttribute("window[@width]", ofToString(ofGetWindowWidth() ));
     xml.setAttribute("window[@height]",  ofToString(ofGetWindowHeight() ));
-    xml.setAttribute("window[@height]",  ofToString(fullscreen));
+    xml.setAttribute("window[@fullscreen]",  ofToString(fullscreen));
 }

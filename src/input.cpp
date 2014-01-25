@@ -185,8 +185,8 @@ void Input::keyPressed(int key) {
 
 void Input::loadXML(ofXml &xml) {
     
-    if (xml.exists("input@domeMaster]"))
-        domeMaster = ofToInt( xml.getAttribute("[@domeMaster]") );
+    if (xml.exists("input[@domeMaster]"))
+        domeMaster = ofToInt( xml.getAttribute("input[@domeMaster]") );
     
     if (xml.exists("input[@mode]")) {
         string m = xml.getAttribute("input[@mode]");
@@ -203,7 +203,7 @@ void Input::loadXML(ofXml &xml) {
 
 void Input::saveXML(ofXml &xml) {
     
-    xml.setAttribute("[input@domeMaster]", ofToString(domeMaster) );    
+    xml.setAttribute("input[@domeMaster]", ofToString(domeMaster) );    
     
     string str;
     
