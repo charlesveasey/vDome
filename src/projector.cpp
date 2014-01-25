@@ -223,6 +223,8 @@ void Projector::mouseReleased(ofMouseEventArgs& mouseArgs) {
  ********************************************/
 
 void Projector::keyPressed(int key) {
+    
+	
     if (!keyboard) {
         return;
     }
@@ -236,12 +238,6 @@ void Projector::keyPressed(int key) {
             break;
         case 121:
             history.redo();
-            break;
-
-            
-        case 161: // ~ = de/select all projectors
-            all = !all;
-            keyboard = all;
             break;
             
         case 114: // reset
@@ -431,8 +427,6 @@ void Projector::keyPressed(int key) {
                     break;
             }
             break;
-            
-            
             
             
             

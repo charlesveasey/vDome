@@ -14,7 +14,7 @@ public:
     CommandHistory history;
     int editMode;
     bool mod;
-    bool all = false;    
+    bool all;    
     void setValue(float v);
     
     // intensity
