@@ -9,7 +9,7 @@
 Window::Window(){
     position.set(0,0);
     dimensions.set(1920,1080);
-	fullscreen = true;
+    fullscreen = false;
 }
 
 /******************************************
@@ -21,7 +21,7 @@ Window::Window(){
 void Window::setup(){
     ofSetWindowPosition(position.x,  position.y);
     ofSetWindowShape(dimensions.x, dimensions.y);
-	ofSetFullscreen(fullscreen);    
+	ofSetFullscreen(fullscreen);
 }
 
 /******************************************

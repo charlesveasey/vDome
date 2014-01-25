@@ -96,6 +96,7 @@ void Projector::setCameraTransform(){
     camera.roll(cameraOrientation.x);
     camera.tilt(cameraOrientation.y);
     camera.pan(cameraOrientation.z+cameraPosition.x);
+   
     // spherical coordinates: azi, ele, dis
     ofVec3f car = sphToCar(ofVec3f(cameraPosition.x, cameraPosition.y, cameraPosition.z));
     camera.setPosition(car);
@@ -604,38 +605,30 @@ void Projector::loadXML(ofXml &xml) {
     
     
     // camera position
-    if (xml.exists(pre + "][@azimuth]")) {
-        val = ofToFloat( xml.getAttribute(pre + "][@azimuth]") );
-        history.execute( new SetCameraPosition(*this, val, cameraPosition.y, cameraPosition.z) );
-    }
-    if (xml.exists(pre + "][@elevation]")) {
-        val = ofToFloat( xml.getAttribute(pre + "][@elevation]") );
-        history.execute( new SetCameraPosition(*this, cameraPosition.y, val, cameraPosition.z) );
-    }
-    if (xml.exists(pre + "][@distance]")) {
-        val = ofToFloat( xml.getAttribute(pre + "][@distance]") );
-        history.execute( new SetCameraPosition(*this, cameraPosition.x, cameraPosition.y, val) );
+    if (xml.exists(pre + "][@position]")) {
+        str = xml.getAttribute(pre + "][@position]");
+        float azi  = ofToFloat(ofSplitString(str, ",")[0]);
+        float ele  = ofToFloat(ofSplitString(str, ",")[1]);
+        float dis  = ofToFloat(ofSplitString(str, ",")[2]);
+        history.execute( new SetCameraPosition(*this, azi, ele, dis) );
     }
     
     // camera orientation
-    if (xml.exists(pre + "][@roll]")) {
-        val = ofToFloat( xml.getAttribute(pre + "][@roll]") );
-        history.execute( new SetCameraOrientation(*this, val, cameraOrientation.y, cameraOrientation.z) );
-    }
-    if (xml.exists(pre + "][@tilt]")) {
-        val = ofToFloat( xml.getAttribute(pre + "][@tilt]") );
-        history.execute( new SetCameraOrientation(*this, cameraOrientation.x, val, cameraOrientation.z) );
-    }
-    if (xml.exists(pre + "][@pan]")) {
-        val = ofToFloat( xml.getAttribute(pre + "][@pan]") );
-        history.execute( new SetCameraOrientation(*this, cameraOrientation.x, cameraOrientation.y, val) );
+    if (xml.exists(pre + "][@orientation]")) {
+        str = xml.getAttribute(pre + "][@orientation]");
+        float roll = ofToFloat(ofSplitString(str, ",")[0]);
+        float tilt = ofToFloat(ofSplitString(str, ",")[1]);
+        float pan = ofToFloat(ofSplitString(str, ",")[2]);
+        history.execute( new SetCameraOrientation(*this, roll, tilt, pan) );
     }
     
-    // camera lens
+    // camera lens fov
     if (xml.exists(pre + "][@fov]")) {
         val = ofToFloat( xml.getAttribute(pre + "][@fov]") );
         history.execute( new SetCameraFov(*this, val) );
     }
+    
+    //camera lens offset
     if (xml.exists(pre + "][@offset]")) {
         str = xml.getAttribute(pre + "][@offset]");
         float offX  = ofToFloat(ofSplitString(str, ",")[0]);
