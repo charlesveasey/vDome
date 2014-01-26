@@ -124,36 +124,31 @@ private:
  ********************************************/
 
 
-class LoadXML : public Command {
-protected:
-    Projector& obj;
-    ofXml &xml;
-public:
-    LoadXML(Projector& obj, ofXml &xml) : obj(obj), xml(xml){}
-    void execute() { obj.loadxml(xml); }
-    void undo() { obj.loadxml(xml);  }
-};
-
-
 // intensity
 class SetBrightness : public Command {
 protected:
     Projector& obj;
     float v;
+    float l;
 public:
     SetBrightness(Projector& obj, float v) : obj(obj), v(v) {}
-    void execute() { obj.brightness = v; }
-    void undo() { obj.brightness = v; }
+    void execute() {
+        l = obj.brightness;
+        obj.brightness = v; }
+    void undo() { obj.brightness = l; }
 };
 
 class SetContrast : public Command {
 protected:
     Projector& obj;
     float v;
+    float l;
 public:
     SetContrast(Projector& obj, float v) : obj(obj), v(v) {}
-    void execute() { obj.contrast = v; }
-    void undo() { obj.contrast = v; }
+    void execute() {
+        l = obj.contrast;
+        obj.contrast = v; }
+    void undo() { obj.contrast = l; }
 };
 
 
@@ -163,10 +158,13 @@ class SetSaturation : public Command {
 protected:
     Projector& obj;
     float v;
+    float l;
 public:
     SetSaturation(Projector& obj, float v) : obj(obj), v(v) {}
-    void execute() { obj.saturation = v; }
-    void undo() { obj.saturation = v; }
+    void execute() {
+        l = obj.saturation;
+        obj.saturation = v; }
+    void undo() { obj.saturation = l; }
 };
 
 
@@ -175,11 +173,13 @@ public:
 class SetPlanePosition : public Command {
 protected:
     Projector& obj;
-    float x;
-    float y;
+    float x, y;
+    ofVec2f l;
 public:
     SetPlanePosition(Projector& obj, float x, float y) : obj(obj), x(x), y(y) {}
-    void execute() { obj.setPlanePosition(x, y); }
+    void execute() {
+        l = obj.getPlanePosition();
+        obj.setPlanePosition(x, y); }
     void undo() { obj.setPlanePosition(x, y); }
 };
 
@@ -190,58 +190,81 @@ class SetCameraPosition : public Command {
 protected:
     Projector& obj;
     float azi, ele, dis;
+    ofVec3f l;
 public:
     SetCameraPosition(Projector& obj, float azi, float ele, float dis) : obj(obj), azi(azi), ele(ele), dis(dis) {}
-    void execute() { obj.setCameraPosition(azi, ele, dis); }
-    void undo() { obj.setCameraPosition(azi, ele, dis); }
+    void execute() {
+        l = obj.getCameraPosition();
+        obj.setCameraPosition(azi, ele, dis);
+    }
+    void undo() { obj.setCameraPosition(l.x, l.y, l.z); }
 };
 
 class SetCameraOrientation : public Command {
 protected:
     Projector& obj;
     float roll, tilt, pan;
+    ofVec3f l;
 public:
     SetCameraOrientation(Projector& obj, float roll, float tilt, float pan) : obj(obj), roll(roll), tilt(tilt), pan(pan) {}
-    void execute() { obj.setCameraOrientation(roll, tilt, pan); }
-    void undo() { obj.setCameraOrientation(roll, tilt, pan); }
+    void execute() {
+        l = obj.getCameraOrientation();
+        obj.setCameraOrientation(roll, tilt, pan);
+    }
+    void undo() { obj.setCameraOrientation(l.x, l.y, l.z); }
 };
 
 class SetCameraFov : public Command {
 protected:
     Projector& obj;
     float v;
+    float l;
 public:
     SetCameraFov(Projector& obj, float v) : obj(obj), v(v) {}
-    void execute() { obj.setCameraFov(v); }
-    void undo() { obj.setCameraFov(v); }
+    void execute() {
+        l = obj.getCameraFov();
+        obj.setCameraFov(v);
+    }
+    void undo() { obj.setCameraFov(l); }
 };
 
 class SetCameraOffset : public Command {
 protected:
     Projector& obj;
     float x, y;
+    ofVec2f l;
 public:
     SetCameraOffset(Projector& obj, float x, float y) : obj(obj), x(x), y(y) {}
-    void execute() { obj.setCameraOffset(x,y); }
-    void undo() { obj.setCameraOffset(x,y); }
+    void execute() {
+        l = obj.getCameraOffset();
+        obj.setCameraOffset(x,y);
+    }
+    void undo() { obj.setCameraOffset(l.x,l.y); }
 };
 
 class SetCameraScale : public Command {
 protected:
     Projector& obj;
     float x, y;
+    ofVec2f l;
 public:
     SetCameraScale(Projector& obj, float x, float y) : obj(obj), x(x), y(y) {}
-    void execute() { obj.setCameraScale(x, y); }
-    void undo() { obj.setCameraScale(x, y); }
+    void execute() {
+        l = obj.getCameraScale();
+        obj.setCameraScale(x, y);
+    }
+    void undo() { obj.setCameraScale(l.x, l.y); }
 };
 
 class SetCameraShear : public Command {
 protected:
     Projector& obj;
     vector<float> v;
+    vector<float> l;
 public:
     SetCameraShear(Projector& obj, vector<float>  v) : obj(obj), v(v) {}
-    void execute() { obj.setCameraShear(v); }
-    void undo() { obj.setCameraShear(v); }
+    void execute() {
+        l = obj.getCameraShear();
+        obj.setCameraShear(v); }
+    void undo() { obj.setCameraShear(l); }
 };

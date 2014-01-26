@@ -542,11 +542,6 @@ void Projector::keyReleased(int key) {
  ********************************************/
 
 void Projector::loadXML(ofXml &xml) {
-    history.execute( new LoadXML(*this, xml) );
-}
-void Projector::loadxml(ofXml &xml) {
-    
-    
     string str;
     float val;
     string pre = xmlPrefix + ofToString(index);
@@ -654,7 +649,7 @@ void Projector::saveXML(ofXml &xml) {
     
     // plane
     xml.setAttribute(pre + "][@dimensions]", ofToString(planeDimensions.x) +  "," + ofToString(planeDimensions.y) );
-
+    
     
     plane.save(xml);
 }

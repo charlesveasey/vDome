@@ -11,12 +11,12 @@ CommandHistory::~CommandHistory() {
 }
 
 void CommandHistory::execute(Command* command) {
-    if (history.size() >= maxHistory) {
+    if (history.size() >= maxHistory)
         history.erase(history.begin());
-    }    
+    
     if (history.size() > 1 && index < history.size()-1)
         history.erase(history.begin() + index+1, history.end());
-    
+
     history.push_back(command);
     command->execute();
     index = history.size()-1;
@@ -24,11 +24,12 @@ void CommandHistory::execute(Command* command) {
 }
 
 void CommandHistory::undo() {
-    if (index > 0) {
+    history[index]->undo();
+    
+    if (index > 0)
         index--;
-        history[index]->undo();
-        //std::cout << index << endl;
-    }
+    
+    //std::cout << index << endl;
 }
 
 void CommandHistory::redo() {    

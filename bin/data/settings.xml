@@ -6,16 +6,16 @@
     
 	<input domeMaster="2048" mode="image" scale="1"/>
     
-	<window fullscreen="0" height="1032" width="1920" x="0" y="44"/>
+	<window fullscreen="0" height="1002" width="1920" x="0" y="44"/>
     
 	<projectors count="2">
         
 		<!-- #1 -->
-		<projector brightness="1" contrast="1" dimensions="1024,768" fov="36" keystone="0.00769226,0.00807292,0.975073,0.00299479,0.0109054,1.00703,0.991528,0.999609" offset="0,0" orientation="0,-16,0" position="0,0,9" saturation="1" scale="1,1"/>
+		<projector brightness="1" contrast="1" dimensions="1024,768" fov="36" keystone="0,0,0.998047,0,0,1,0.998047,1" offset="0,0" orientation="0,-18,0" position="0,0,6" saturation="1" scale="1,1"/>
 
 		
 		<!-- #2 -->
-		<projector brightness="1" contrast="1" dimensions="1024,768" fov="36" keystone="0.00574005,0.00807292,0.97312,0.00299479,0.00895333,1.00703,0.989575,0.999609" offset="0,0" orientation="0,-16,0" position="0,0,9" saturation="1" scale="1,1"/>
+		<projector brightness="1" contrast="1" dimensions="1024,768" fov="36" keystone="-0.00195217,0,0.996096,0,-0.00195217,1,0.996096,1" offset="0,0" orientation="0,-18,0" position="0,0,6" saturation="1" scale="1,1"/>
 
 
 		<!-- #3 -->
