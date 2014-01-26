@@ -5,10 +5,6 @@ Multi-channel projection software designed for domes. Provides real-time warping
 
 Developed by Charles Veasey for the Institute of Indian American Arts (IAIA).  
 
-Funding provided by the United States Department of Defence. Based on prior research from the University of New Mexico (UNM) and IAIA with funding provided by the National Science Foundation.
-
-Special thanks to research by the ARTS Labs at UNM and Paul Bourke at the University of Western Australia.
-
 ##Overview
 
 vDome is designed to run as background process and accepts any domemaster formatted input as follows:  
@@ -19,13 +15,13 @@ vDome is designed to run as background process and accepts any domemaster format
 
 Capture is the recommended input type:
   - It allows you to put anything on the dome by hooking up another computer to vDome through a capture card.  
-  - vDome essentially becomes the 2nd monitor on your production machine. For example, drag your After Effects or Unity preview window onto the dome, and edit in real-time.  
+  - vDome becomes the 2nd monitor on your production machine. Drag your After Effects or Unity preview window onto the dome, and edit in real-time.  
   - Playing videos is done through your favorite media player: Quicktime, VLC, etc.  
-  - Eliminates middle-ware such as Syphon.
+  - Eliminates middle-ware.
 
 Syphon is useful for a single Mac computer system where your production application supports the Syphon technology.
 
-The image and video file input types are currently only used for testing and calibrating, so the only way to change the file name is in code.
+The image and video file input types are currently only used for testing and calibrating. The only way to change the file name is in code.
 
 ##Compiling
 ####All
@@ -65,13 +61,11 @@ The image and video file input types are currently only used for testing and cal
 
 ##Future Development
   - Advanced color correction  
-    - mandatory goal  
-    - color channel look up table  
   - Edge-blending  
-    - not needed for our dome, but important for others who don't have hardware masking  
   - Auto-calibration via camera  
-    - for us, auto-color correction has priority over auto-spatial b/c non-led projectors constantly shift spectrum  
-  - Direct support for Nvidia warp and intensity API  
-    - stretch goal, we are using AMD Firepro, but have Nvidia cards to test  
-    - some Nvidia cards now support warping and blending directly (meaning you can conform the actual windows desktop to fit onto the dome)  
-    - vDome would become the calibration tool that creates warp / blend data, but once saved the graphics card would actually do the warp/blend, not vDome
+  - Support for Nvidia warp and intensity API
+  
+## _
+Funding provided by the United States Department of Defence. Based on prior research from the University of New Mexico (UNM) and IAIA with funding provided by the National Science Foundation.
+
+Thanks to research by the ARTS Labs at UNM and Paul Bourke at the University of Western Australia.
