@@ -62,7 +62,7 @@ The image and video file input types are currently only used for testing and cal
   - Advanced color correction  
   - Edge-blending  
   - Auto-calibration via camera  
-  - Support for Nvidia warp and intensity API
+  - Support for Nvidia Warp and Intensity API
   
 ## _
 Funding provided by the United States Department of Defence. Based on prior research from the University of New Mexico (UNM) and IAIA with funding provided by the National Science Foundation.
