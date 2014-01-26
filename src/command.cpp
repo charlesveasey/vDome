@@ -3,7 +3,7 @@
 Command::~Command() {}
 
 
-CommandHistory::CommandHistory() : index(-1) {
+CommandHistory::CommandHistory() : index(0) {
 	maxHistory = 100;
 }
 
@@ -11,26 +11,23 @@ CommandHistory::~CommandHistory() {
 }
 
 void CommandHistory::execute(Command* command) {
-    int size = history.size();
-
-    if (size >= maxHistory) {
-        //delete history[0];
+    if (history.size() >= maxHistory) {
         history.erase(history.begin());
-    }
-    for (int i = size-1; i>index; i--) {
-        //delete history[i];
-        history.erase(history.begin()+i);
-    }
+    }    
+    if (history.size() > 1 && index < history.size()-1)
+        history.erase(history.begin() + index+1, history.end());
     
     history.push_back(command);
     command->execute();
     index = history.size()-1;
+    //std::cout <<"-----"<< index << endl;
 }
 
-void CommandHistory::undo() {    
-    if (index >= 0) {
-        history[index]->undo();
+void CommandHistory::undo() {
+    if (index > 0) {
         index--;
+        history[index]->undo();
+        //std::cout << index << endl;
     }
 }
 
@@ -38,5 +35,6 @@ void CommandHistory::redo() {
     if (index + 1 < history.size()) {
         index++;
         history[index]->execute();
+        //std::cout << index << endl;
     }
 }

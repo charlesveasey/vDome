@@ -88,6 +88,7 @@ public:
     
     // xml
     void loadXML(ofXml &xml);
+    void loadxml(ofXml &xml);
     void saveXML(ofXml &xml);
     
 private:
@@ -121,6 +122,17 @@ private:
  UNDO/REDO COMMANDS
  
  ********************************************/
+
+
+class LoadXML : public Command {
+protected:
+    Projector& obj;
+    ofXml &xml;
+public:
+    LoadXML(Projector& obj, ofXml &xml) : obj(obj), xml(xml){}
+    void execute() { obj.loadxml(xml); }
+    void undo() { obj.loadxml(xml);  }
+};
 
 
 // intensity

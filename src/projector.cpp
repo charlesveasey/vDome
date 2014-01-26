@@ -542,38 +542,44 @@ void Projector::keyReleased(int key) {
  ********************************************/
 
 void Projector::loadXML(ofXml &xml) {
+    history.execute( new LoadXML(*this, xml) );
+}
+void Projector::loadxml(ofXml &xml) {
+    
+    
     string str;
     float val;
     string pre = xmlPrefix + ofToString(index);
-   
+    
     
     // intensity
     if (xml.exists(pre + "][@brightness]")) {
         val = ofToFloat( xml.getAttribute(pre + "][@brightness]") );
-        history.execute( new SetBrightness(*this, val) );
+        brightness = val;
     }
     if (xml.exists(pre + "][@contrast]")) {
         val = ofToFloat( xml.getAttribute(pre + "][@contrast]") );
-        history.execute( new SetContrast(*this, val) );
+        contrast = val;
     }
     
     
     // color
     if (xml.exists(pre + "][@saturation]")) {
         val = ofToFloat( xml.getAttribute(pre + "][@saturation]") );
-        history.execute( new SetSaturation(*this, val) );
+        saturation = val;
     }
     
     
     // plane position
-    if (xml.exists(pre + "][@x]")) {
-        val = ofToFloat( xml.getAttribute(pre + "][@x]") );
-        history.execute( new SetPlanePosition(*this, val, getPlanePosition().y) );
-    }
-    if (xml.exists(pre + "][@y]")) {
-        val = ofToFloat( xml.getAttribute(pre + "][@y]") );
-        history.execute( new SetPlanePosition(*this, getPlanePosition().x, val) );
-    }
+    /*
+     if (xml.exists(pre + "][@x]")) {
+     val = ofToFloat( xml.getAttribute(pre + "][@x]") );
+     history.execute( new SetPlanePosition(*this, val, getPlanePosition().y) );
+     }
+     if (xml.exists(pre + "][@y]")) {
+     val = ofToFloat( xml.getAttribute(pre + "][@y]") );
+     history.execute( new SetPlanePosition(*this, getPlanePosition().x, val) );
+     }*/
     
     
     // plane dimensions
@@ -583,11 +589,11 @@ void Projector::loadXML(ofXml &xml) {
         float h  = ofToFloat(ofSplitString(str, ",")[1]);
         setPlaneDimensions(w, h);
     }
-
+    
     
     
     plane.load(xml);
-   
+    
     
     
     
@@ -597,7 +603,7 @@ void Projector::loadXML(ofXml &xml) {
         float azi  = ofToFloat(ofSplitString(str, ",")[0]);
         float ele  = ofToFloat(ofSplitString(str, ",")[1]);
         float dis  = ofToFloat(ofSplitString(str, ",")[2]);
-        history.execute( new SetCameraPosition(*this, azi, ele, dis) );
+        setCameraPosition(azi, ele, dis);
     }
     
     // camera orientation
@@ -606,13 +612,13 @@ void Projector::loadXML(ofXml &xml) {
         float roll = ofToFloat(ofSplitString(str, ",")[0]);
         float tilt = ofToFloat(ofSplitString(str, ",")[1]);
         float pan = ofToFloat(ofSplitString(str, ",")[2]);
-        history.execute( new SetCameraOrientation(*this, roll, tilt, pan) );
+        setCameraOrientation(roll, tilt, pan);
     }
     
     // camera lens fov
     if (xml.exists(pre + "][@fov]")) {
         val = ofToFloat( xml.getAttribute(pre + "][@fov]") );
-        history.execute( new SetCameraFov(*this, val) );
+        setCameraFov(val);
     }
     
     //camera lens offset
@@ -620,7 +626,7 @@ void Projector::loadXML(ofXml &xml) {
         str = xml.getAttribute(pre + "][@offset]");
         float offX  = ofToFloat(ofSplitString(str, ",")[0]);
         float offY  = ofToFloat(ofSplitString(str, ",")[1]);
-        history.execute( new SetCameraOffset(*this, offX, offY) );
+        setCameraOffset(offX, offY);
     }
     
     // camera scale
@@ -628,7 +634,7 @@ void Projector::loadXML(ofXml &xml) {
         str = xml.getAttribute(pre + "][@scale]");
         float sx  = ofToFloat(ofSplitString(str, ",")[0]);
         float sy  = ofToFloat(ofSplitString(str, ",")[1]);
-        history.execute( new SetCameraScale(*this, sx, sy) );
+        setCameraScale(sx, sy);
     }
 }
 
