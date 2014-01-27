@@ -64,7 +64,7 @@ The image and video file input types are currently only used for testing and cal
   - Auto-calibration via camera  
   - Support for Nvidia Warp and Intensity API
   
-## _
+---
 Funding provided by the United States Department of Defence. Based on prior research from the University of New Mexico (UNM) and IAIA with funding provided by the National Science Foundation.
 
 Thanks to research by the ARTS Labs at UNM and Paul Bourke at the University of Western Australia.
