@@ -11,6 +11,10 @@ Plane::Plane(){
     keyVals.push_back(ofPoint(1,0));
     keyVals.push_back(ofPoint(0,1));
     keyVals.push_back(ofPoint(1,1));
+    keystonePoints.push_back(ofPoint(0,0));
+    keystonePoints.push_back(ofPoint(1,0));
+    keystonePoints.push_back(ofPoint(0,1));
+    keystonePoints.push_back(ofPoint(1,1));
 
     group = false;
     drawBox = false;
@@ -39,6 +43,7 @@ void Plane::setup(int i){
     
     value = 1;
     
+    position.clear();
     position.push_back(x);
     position.push_back(y);
     
@@ -403,3 +408,20 @@ void Plane::save(ofXml &xml) {
                      ofToString((keystone.dstPoints[2].x-x)/w) +  "," +
                      ofToString((keystone.dstPoints[2].y-y)/h) );
 }
+
+vector<ofPoint> Plane::getKeystonePoints() {
+    for (int i=0; i<4; i++) {
+        keystonePoints[i] = keystone.dstPoints[i];
+    }
+    return keystonePoints;
+}
+void Plane::setKeystonePoints(vector<ofPoint> pts){
+    for (int i=0; i<4; i++) {
+        keystonePoints[i] = pts[i];
+    }
+    keystone.setTopLeftCornerPosition(keystonePoints[0]);
+    keystone.setTopRightCornerPosition(keystonePoints[1]);
+    keystone.setBottomLeftCornerPosition(keystonePoints[3]);
+    keystone.setBottomRightCornerPosition(keystonePoints[2]);
+}
+

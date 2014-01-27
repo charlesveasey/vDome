@@ -31,11 +31,14 @@ public:
     ofVec2f getPlaneDimensions();
     void setPlaneDimensions(float w, float h);
     
-    // keystone flag
+    // keystone
     bool getKeystoneActive();
     void setKeystoneActive(bool v);
     
-    // grid flag
+    vector<ofPoint> getKeystonePoints();
+    void setKeystonePoints(vector<ofPoint> pts);
+    
+    // grid
     bool getGridActive();
     void setGridActive(bool v);
     
@@ -183,6 +186,18 @@ public:
     void undo() { obj.setPlanePosition(x, y); }
 };
 
+class SetKeystonePoints : public Command {
+protected:
+    Projector& obj;
+    vector<ofPoint> v;
+    vector<ofPoint> l;
+public:
+    SetKeystonePoints(Projector& obj, vector<ofPoint> v, vector<ofPoint> l) : obj(obj), v(v), l(l) {}
+    void execute() {;
+        obj.setKeystonePoints(v);
+    }
+    void undo() { obj.setKeystonePoints(l); }
+};
 
 
 // camera

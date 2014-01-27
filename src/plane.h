@@ -31,13 +31,16 @@ public:
     bool keystoneActive;
     bool gridActive;
 
+    
     ofMatrix4x4 mat;
     
     vector<ofVec3f> orgVerts;
-    vector<ofVec3f> keyVerts;
     vector<ofVec3f> gridVerts;
-    
     vector<ofPoint> keyVals;
+    
+    vector<ofPoint> getKeystonePoints();
+    void setKeystonePoints(vector<ofPoint> pts);
+    
     
 private:
     
@@ -55,6 +58,8 @@ private:
     
     int width;
     int height;
+    
+    vector<ofPoint> keystonePoints;
  
 };
 

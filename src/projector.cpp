@@ -178,7 +178,6 @@ void Projector::draw() {
     glDisable(GL_CULL_FACE);
 }
 
-
 void Projector::drawPlaneConfig(){
    plane.drawConfig();
 }
@@ -191,17 +190,21 @@ void Projector::drawKeystone(){
 
 
 
-
-
 /******************************************
  
  MOUSE
  
  ********************************************/
 
+vector<ofPoint> last;
+
 void Projector::mousePressed(ofMouseEventArgs& mouseArgs) {
-    if (mouse)
+    if (mouse) {
+        if (plane.keystoneActive) {            
+            last = plane.getKeystonePoints();
+        }
         plane.onMousePressed(mouseArgs);
+    }
 }
 
 void Projector::mouseDragged(ofMouseEventArgs& mouseArgs) {
@@ -210,8 +213,13 @@ void Projector::mouseDragged(ofMouseEventArgs& mouseArgs) {
 }
 
 void Projector::mouseReleased(ofMouseEventArgs& mouseArgs) {
-    if (mouse)
+    if (mouse) {
+        if (plane.keystoneActive) {
+            vector<ofPoint> value = plane.getKeystonePoints();
+            history.execute( new SetKeystonePoints(*this, value, last) );
+        }
         plane.onMouseReleased(mouseArgs);
+    }
 }
 
 
@@ -680,8 +688,6 @@ void Projector::setPlaneDimensions(float x, float y){
     planeDimensions.set(x,y);
 }
 
-
-
 // camera
 ofVec3f Projector::getCameraPosition(){
     return cameraPosition;
@@ -729,8 +735,6 @@ void Projector::setCameraShear(vector<float> v){
     cameraShear = v;
 }
 
-
-
 // scalar value
 void Projector::setValue(float v) {
     value = v;
@@ -738,12 +742,19 @@ void Projector::setValue(float v) {
     plane.keystone.value = value;
 }
 
-// keystone active
+// keystone
 bool Projector::getKeystoneActive() {
     return plane.keystoneActive;
 }
 void Projector::setKeystoneActive(bool v) {
     plane.keystoneActive = v;
+}
+
+vector<ofPoint> Projector::getKeystonePoints() {
+    return plane.getKeystonePoints();
+}
+void Projector::setKeystonePoints(vector<ofPoint> pts) {
+    plane.setKeystonePoints(pts);
 }
 
 // grid active
