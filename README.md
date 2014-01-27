@@ -56,7 +56,7 @@ The image and video file input types are currently only used for testing and cal
 
 ##Setup and Calibration
   - Initial setup is done in XML (setting resolution, number of projectors, and input type).
-  - Calibration is done directly on the dome. This eliminates the need for a control monitor and saves the headache caused by looking back and forth from control monitor to dome. There are also some new calibration options (camera perspective shearing) that should simplify calibration compared to the last version (vDome-Max).
+  - Calibration is done directly on the dome. This eliminates the need for a control monitor and saves the headache caused by looking back and forth from control monitor to dome.
 
 ##Future Development
   - Advanced color correction  
