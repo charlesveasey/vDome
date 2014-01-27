@@ -26,12 +26,6 @@ vec4 t;
 out vec4 outputColor;
 
 void main() {
-    // scale
-    //float offsetx = (1024/2) - (1024/2) * (1/scale);
-    ////float offsety = (768/2) - (768/2) * (1/scale);
-   // float vx = (vtexcoord.x * (1/scale) ) + offsetx;
-    //float vy = (vtexcoord.y * (1/scale) ) + offsety;
-    
     t = texture(texsampler, vtexcoord);
     
     // color
