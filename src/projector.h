@@ -42,6 +42,9 @@ public:
     bool getGridActive();
     void setGridActive(bool v);
     
+    vector<ofVec3f> getGridPoints();
+    void setGridPoints(vector<ofVec3f> v);
+    
     
     // camera
     void  setCameraTransform();
@@ -197,6 +200,19 @@ public:
         obj.setKeystonePoints(v);
     }
     void undo() { obj.setKeystonePoints(l); }
+};
+
+class SetGridPoints : public Command {
+protected:
+    Projector& obj;
+    vector<ofPoint> v;
+    vector<ofPoint> l;
+public:
+    SetGridPoints(Projector& obj, vector<ofPoint> v, vector<ofPoint> l) : obj(obj), v(v), l(l) {}
+    void execute() {;
+        obj.setGridPoints(v);
+    }
+    void undo() { obj.setGridPoints(l); }
 };
 
 

@@ -196,12 +196,17 @@ void Projector::drawKeystone(){
  
  ********************************************/
 
-vector<ofPoint> last;
+vector<ofPoint> lastKey;
+vector<ofVec3f> lastGrid;
+
 
 void Projector::mousePressed(ofMouseEventArgs& mouseArgs) {
     if (mouse) {
         if (plane.keystoneActive) {            
-            last = plane.getKeystonePoints();
+            lastKey = getKeystonePoints();
+        }
+        else if (plane.gridActive) {
+            lastGrid = getGridPoints();
         }
         plane.onMousePressed(mouseArgs);
     }
@@ -216,7 +221,11 @@ void Projector::mouseReleased(ofMouseEventArgs& mouseArgs) {
     if (mouse) {
         if (plane.keystoneActive) {
             vector<ofPoint> value = plane.getKeystonePoints();
-            history.execute( new SetKeystonePoints(*this, value, last) );
+            history.execute( new SetKeystonePoints(*this, value, lastKey) );
+        }
+        else if (plane.gridActive) {
+            vector<ofPoint> value = plane.getGridPoints();
+            history.execute( new SetGridPoints(*this, value, lastGrid) );
         }
         plane.onMouseReleased(mouseArgs);
     }
@@ -764,6 +773,14 @@ bool Projector::getGridActive() {
 void Projector::setGridActive(bool v) {
     plane.gridActive = v;
 }
+
+vector<ofVec3f> Projector::getGridPoints(){
+    return plane.getGridPoints();
+}
+void Projector::setGridPoints(vector<ofVec3f> v){
+    plane.setGridPoints(v);
+}
+
 
 // texture
 ofTexture& Projector::getTextureReference(){

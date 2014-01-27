@@ -41,6 +41,8 @@ public:
     vector<ofPoint> getKeystonePoints();
     void setKeystonePoints(vector<ofPoint> pts);
     
+    vector<ofVec3f> getGridPoints();
+    void setGridPoints(vector<ofVec3f> v);
     
 private:
     

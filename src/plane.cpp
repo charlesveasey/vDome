@@ -425,3 +425,10 @@ void Plane::setKeystonePoints(vector<ofPoint> pts){
     keystone.setBottomRightCornerPosition(keystonePoints[2]);
 }
 
+
+vector<ofVec3f> Plane::getGridPoints() {
+    return gridVerts;
+}
+void Plane::setGridPoints(vector<ofVec3f> v) {
+    gridVerts = v;
+}
