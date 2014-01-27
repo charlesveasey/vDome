@@ -4,9 +4,8 @@
 class Plane {
 	
 public:
-    
-    void init(int i);
-    void setup();
+    Plane();
+    void setup(int i);
     void update();
     void draw();
     void drawConfig();
@@ -32,13 +31,18 @@ public:
     bool keystoneActive;
     bool gridActive;
 
+    
     ofMatrix4x4 mat;
     
     vector<ofVec3f> orgVerts;
-    vector<ofVec3f> keyVerts;
     vector<ofVec3f> gridVerts;
-    
     vector<ofPoint> keyVals;
+    
+    vector<ofPoint> getKeystonePoints();
+    void setKeystonePoints(vector<ofPoint> pts);
+    
+    vector<ofVec3f> getGridPoints();
+    void setGridPoints(vector<ofVec3f> v);
     
 private:
     
@@ -56,6 +60,8 @@ private:
     
     int width;
     int height;
+    
+    vector<ofPoint> keystonePoints;
  
 };
 

@@ -33,8 +33,7 @@ vdome_debug.exp
 # Folders
 obj/
 bin/data/media
-
-
+vdome.xcodeproj/xcuserdata
 
 
 

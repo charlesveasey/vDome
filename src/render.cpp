@@ -1,36 +1,73 @@
 #include "render.h"
 
-void Render::init(){
-    domeMaster = 2048;
+/******************************************
+ 
+ CONSTRUCTOR
+ 
+ ********************************************/
+
+Render::Render(){
     frameRate = 60;
-    vSync = false;
+    vSync = true;
 }
+
+/******************************************
+ 
+ SETUP
+ 
+ ********************************************/
 
 void Render::setup() {
     ofSetVerticalSync(vSync);
 	ofSetFrameRate(frameRate);
     
+    ofBackground(0,0,0);
 	ofEnableDepthTest();
+    ofEnableNormalizedTexCoords();
+    
+    //ofEnableSmoothing();
     //ofEnableAlphaBlending();
 	//ofDisableArbTex();
-    ofBackground(0,0,0);
-	
-    //ofEnableSmoothing();
-	ofEnableNormalizedTexCoords();
 }
 
+/******************************************
+ 
+ ACCESSORS
+ 
+ ********************************************/
+
+bool Render::getVSync() {
+    return vSync;
+  	
+}
+void Render::setVSync(bool val) {
+    vSync = val;
+    ofSetVerticalSync(vSync);
+}
+
+int Render::getFrameRate() {
+    return frameRate;  	
+}
+void Render::setFrameRate(int val) {
+    frameRate = val;
+    ofSetFrameRate(frameRate);
+}
+
+/******************************************
+ 
+ SETTINGS
+ 
+ ********************************************/
+
 void Render::loadXML(ofXml &xml) {
-    if (xml.exists("[@domeMaster]"))
-        domeMaster = ofToInt( xml.getAttribute("[@domeMaster]") );
-    if (xml.exists("[@frameRate]"))
-        frameRate = ofToInt( xml.getAttribute("[@frameRate]") );
     if (xml.exists("[@vSync]"))
         vSync = ofToBool( xml.getAttribute("[@vSync]") );
+    if (xml.exists("[@frameRate]"))
+        frameRate = ofToInt( xml.getAttribute("[@frameRate]") );
     setup();
 }
 
 void Render::saveXML(ofXml &xml) {
-    xml.setAttribute("[@domeMaster]", ofToString(domeMaster) );
-    xml.setAttribute("[@frameRate]", ofToString(frameRate) );
     xml.setAttribute("[@vSync]", ofToString(vSync) );
+    xml.setAttribute("[@frameRate]", ofToString(frameRate) );    
 }

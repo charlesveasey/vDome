@@ -3,12 +3,23 @@
 #include <stdlib.h>
 #include <math.h>
 
+/******************************************
+ 
+ CONSTRUCTOR
+ 
+ ********************************************/
 
-void Dome::init(){
-	radius = 10;
+Dome::Dome(){
+	radius = 20;
 	N = 256;  // Mesh resolution, must be multiple of 4
     textureScale = 1;
 }
+
+/******************************************
+ 
+ SETUP
+ 
+ ********************************************/
 
 void Dome::setup(){
  	int i,j,index = 0;
@@ -72,6 +83,11 @@ void Dome::setup(){
 	}
 }	
 
+/******************************************
+ 
+ DRAW
+ 
+ ********************************************/
 
 void Dome::draw(){
 	ofRotateX(90);
@@ -81,6 +97,12 @@ void Dome::draw(){
     glDisable(GL_CULL_FACE);
 }
 
+
+/******************************************
+ 
+ KEYBOARD
+ 
+ ********************************************/
 
 void Dome::keyPressed(int key) {
     switch (key) {
@@ -103,7 +125,6 @@ void Dome::keyPressed(int key) {
     
 }
 
-
 void Dome::keyPressedInput(int key) {
     switch (key) {
         case OF_KEY_UP:  // up = switch on mode
@@ -121,10 +142,15 @@ void Dome::keyPressedInput(int key) {
                     setup();
                     break;
             }
+            break;
     }
-    
 }
 
+/******************************************
+ 
+ SETTINGS
+ 
+ ********************************************/
 
 void Dome::loadXML(ofXml &xml) {
     if (xml.exists("dome[@radius]"))
@@ -136,14 +162,18 @@ void Dome::loadXML(ofXml &xml) {
     setup();
 }
 
-
 void Dome::saveXML(ofXml &xml) {
     xml.setAttribute("dome[@radius]", ofToString(radius));
     xml.setAttribute("input[@scale]", ofToString(textureScale));    
 }
 
 
+/******************************************
+ 
+ SAVE MESH
+ 
+ ********************************************/
+
 void Dome::saveMesh(string file) {
     vbo.save(file);
 }
-

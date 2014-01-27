@@ -7,59 +7,63 @@
 #include "projector.h"
 #include "tcp.h"
 
+#ifdef TARGET_OSX
+    #include "../../../libs/glut/lib/osx/GLUT.framework/Versions/A/Headers/glut.h"
+#endif
+
 class vdome : public ofBaseApp {
 	
 public:
-		
-    void setup();
-    void update();
-    void draw();
-    void drawConfig();
-    void mousePressed(ofMouseEventArgs& mouseArgs);
-    void mouseDragged(ofMouseEventArgs& mouseArgs);
-    void mouseReleased(ofMouseEventArgs& mouseArgs);
-    void keyPressed(int key);
-    void keyReleased(int key);
-    float roundTo(float val, float n);
+    vdome();
     
-    ofVec3f sphToCar(ofVec3f t);
-        
+private:
     Tcp tcp;
-    
-    // xml
-    ofXml xml;
-    string xmlFile;
-    void loadXML(string file);
-    void saveXML(string file);
-    
-    // key map
-    int editMode;
-    int editGroup;
-    int keyControl;
-    
-    // input
     Input input;
-    
-    // render
     Render render;
-    
-    // window
     Window window;
-    
-    // vitual dome
     Dome dome;
-    
-    // shader
     ofShader shader;
-
-    // projectors
+    
     int pCount;
+    int pActive;
     vector<Projector> projectors;
-
-    int active;
+    
     bool config;
     bool showConfig;
     bool showFrameRate;
     
+    void setup();
+    void update();
+    void draw();
+    void drawConfig();
+    int editMode;
+    int editGroup;
+    int frameCnt;
+    bool saved;
+    
+    bool shift;
+    bool alt;
+    bool ctrl;
+    bool mod;
+    
+    float value;
+    float orgValue;
+    float shiftValue;
+    float altValue;
+    
+    void keyPressed(int key);
+    void keyReleased(int key);
+    
+    void mousePressed(ofMouseEventArgs& mouseArgs);
+    void mouseDragged(ofMouseEventArgs& mouseArgs);
+    void mouseReleased(ofMouseEventArgs& mouseArgs);
+    
+    ofVec3f sphToCar(ofVec3f t);
+    float roundTo(float val, float n);
+    
+    ofXml xml;
+    string xmlFile;
+    void loadXML(string file);
+    void saveXML(string file);
 };
 	

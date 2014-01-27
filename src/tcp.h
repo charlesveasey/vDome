@@ -5,7 +5,7 @@ class Tcp {
 	
 public:
     
-    void init();
+    Tcp();
     void setup();
     void draw();
     

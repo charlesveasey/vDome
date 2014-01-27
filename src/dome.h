@@ -5,8 +5,7 @@
 class Dome {
 	
 public:
-
-    void init();
+    Dome();
     void setup();
 
     void keyPressed(int key);

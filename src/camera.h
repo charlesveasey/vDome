@@ -7,12 +7,7 @@
  *
  */
 
-// TODO: 
-// add set projection matrix
-// support for left handed or right handed?
-
 #pragma once
-
 
 #include "ofRectangle.h"
 #include "ofAppRunner.h"

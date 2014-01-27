@@ -46,10 +46,10 @@ void QuadWarp::enable() {
         return;
     }
     bEnabled = true;
-    ofAddListener(ofEvents().mousePressed, this, &QuadWarp::onMousePressed);
-    ofAddListener(ofEvents().mouseDragged, this, &QuadWarp::onMouseDragged);
-    ofAddListener(ofEvents().mouseReleased, this, &QuadWarp::onMouseReleased);
-    ofAddListener(ofEvents().keyPressed, this, &QuadWarp::keyPressed);
+    //ofAddListener(ofEvents().mousePressed, this, &QuadWarp::onMousePressed);
+    //ofAddListener(ofEvents().mouseDragged, this, &QuadWarp::onMouseDragged);
+    //ofAddListener(ofEvents().mouseReleased, this, &QuadWarp::onMouseReleased);
+    //ofAddListener(ofEvents().keyPressed, this, &QuadWarp::keyPressed);
 }
 
 void QuadWarp::disable() {
@@ -58,10 +58,10 @@ void QuadWarp::disable() {
     }
     try {
         bEnabled = false;
-        ofRemoveListener(ofEvents().mousePressed, this, &QuadWarp::onMousePressed);
-        ofRemoveListener(ofEvents().mouseDragged, this, &QuadWarp::onMouseDragged);
-        ofRemoveListener(ofEvents().mouseReleased, this, &QuadWarp::onMouseReleased);
-        ofRemoveListener(ofEvents().keyPressed, this, &QuadWarp::keyPressed);
+        //ofRemoveListener(ofEvents().mousePressed, this, &QuadWarp::onMousePressed);
+        //ofRemoveListener(ofEvents().mouseDragged, this, &QuadWarp::onMouseDragged);
+        //ofRemoveListener(ofEvents().mouseReleased, this, &QuadWarp::onMouseReleased);
+        //ofRemoveListener(ofEvents().keyPressed, this, &QuadWarp::keyPressed);
 
     }
     catch(Poco::SystemException) {
