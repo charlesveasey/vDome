@@ -427,8 +427,6 @@ void vdome::mouseReleased(ofMouseEventArgs& mouseArgs) {
 bool all;
 void vdome::keyPressed(int key){
     
-    std::cout << key << endl;
-    
     switch(key){
         case 102: // f
             showFrameRate = !showFrameRate;
