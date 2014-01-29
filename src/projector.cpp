@@ -63,8 +63,8 @@ void Projector::setup() {
     
     // projection plane
     plane.setup(index);
-    planePosition.x = planePosition[0];
-    planePosition.y = planePosition[0];
+    planePosition.x = plane.position[0];
+    planePosition.y = plane.position[1];
     
     // create camera
     camera.setScale(1,-1,1); // legacy oF oddity
@@ -682,8 +682,6 @@ void Projector::saveXML(ofXml &xml) {
 
 // plane
 ofVec2f Projector::getPlanePosition(){
-    planePosition.x = plane.position[0];
-    planePosition.y = plane.position[1];
     return planePosition;
 }
 void Projector::setPlanePosition(float x, float y){
