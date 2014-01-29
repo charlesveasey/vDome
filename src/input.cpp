@@ -103,7 +103,7 @@ void Input::close() {
     image.clear();
     video.stop();
     video.close();
-    capture.close();
+    //capture.close();
     #ifdef TARGET_OSX
 		hap.stop();
 		hap.close();
