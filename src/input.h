@@ -29,13 +29,15 @@ public:
 	int maxMode;
     
     ofTexture texture;
+
+
     int frameRate;
     
     ofImage image;
     ofVideoPlayer video;
     ofVideoGrabber capture;
     
-    int domeMaster;
+    int resolution;
 
     #ifdef TARGET_OSX
         ofxHapPlayer hap;

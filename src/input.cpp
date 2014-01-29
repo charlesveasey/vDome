@@ -21,7 +21,7 @@ Input::Input(){
 		maxMode = 4;
 	#endif
     
-    domeMaster = 2048;
+    resolution = 2048;
     frameRate = 60;
 }
 
@@ -36,8 +36,8 @@ void Input::setup(){
 
     texture.clear();
     
-    if (texture.getWidth() != domeMaster || texture.getHeight() != domeMaster)
-        texture.allocate(domeMaster, domeMaster, OF_IMAGE_COLOR);
+    if (texture.getWidth() != resolution || texture.getHeight() != resolution)
+        texture.allocate(resolution, resolution, OF_IMAGE_COLOR);
     
     stop();
     
@@ -46,7 +46,7 @@ void Input::setup(){
         case 1: // capture
             capture.setDeviceID(0);
             capture.setDesiredFrameRate(frameRate);
-            capture.initGrabber(domeMaster, domeMaster);
+            capture.initGrabber(resolution, resolution);
             texture = capture.getTextureReference();
             break;
         case 2: // video
@@ -73,7 +73,7 @@ void Input::setup(){
             break;
         default:
             // load default image
-            image.loadImage("media/grid.jpg");
+            image.loadImage("media/craig.png");
             texture = image.getTextureReference();
             break;
     }
@@ -185,8 +185,8 @@ void Input::keyPressed(int key) {
 
 void Input::loadXML(ofXml &xml) {
     
-    if (xml.exists("input[@domeMaster]"))
-        domeMaster = ofToInt( xml.getAttribute("input[@domeMaster]") );
+    if (xml.exists("input[@resolution]"))
+        resolution = ofToInt( xml.getAttribute("input[@resolution]") );
     
     if (xml.exists("input[@mode]")) {
         string m = xml.getAttribute("input[@mode]");
@@ -203,7 +203,7 @@ void Input::loadXML(ofXml &xml) {
 
 void Input::saveXML(ofXml &xml) {
     
-    xml.setAttribute("input[@domeMaster]", ofToString(domeMaster) );    
+    xml.setAttribute("input[@resolution]", ofToString(resolution) );    
     
     string str;
     

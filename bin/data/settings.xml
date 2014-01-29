@@ -1,12 +1,12 @@
 <vdome frameRate="30" vSync="0">
     
     <tcp enabled="1" port="1"/>
-    
-    <dome radius="8.83"/>
-    
-	<input domeMaster="2048" mode="image" scale="1"/>
+        
+	<input resolution="2048" mode="image" scale="1"/>
     
 	<window fullscreen="0" height="1002" width="1920" x="0" y="44"/>
+    
+    <dome radius="8.83"/>
     
 	<projectors count="2">
         
