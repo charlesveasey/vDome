@@ -31,11 +31,8 @@
 		5696C0531842C08D00E51614 /* dome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5696C04F1842C08D00E51614 /* dome.cpp */; };
 		5696C0541842C08D00E51614 /* vdome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5696C0511842C08D00E51614 /* vdome.cpp */; };
 		56A8FFC2188903D7008A4657 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 56A8FFAD188903D7008A4657 /* .gitignore */; };
-		56A8FFC3188903D7008A4657 /* install.xml in Resources */ = {isa = PBXBuildFile; fileRef = 56A8FFAE188903D7008A4657 /* install.xml */; };
 		56A8FFC4188903D7008A4657 /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56A8FFB3188903D7008A4657 /* Syphon.framework */; };
-		56A8FFC5188903D7008A4657 /* SyphonDirectoryObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 56A8FFB6188903D7008A4657 /* SyphonDirectoryObserver.m */; };
 		56A8FFC6188903D7008A4657 /* SyphonNameboundClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 56A8FFB8188903D7008A4657 /* SyphonNameboundClient.m */; };
-		56A8FFC7188903D7008A4657 /* README in Resources */ = {isa = PBXBuildFile; fileRef = 56A8FFB9188903D7008A4657 /* README */; };
 		56A8FFC8188903D7008A4657 /* ofxSyphonClient.mm in Sources */ = {isa = PBXBuildFile; fileRef = 56A8FFBD188903D7008A4657 /* ofxSyphonClient.mm */; };
 		56A8FFC9188903D7008A4657 /* ofxSyphonServer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 56A8FFBF188903D7008A4657 /* ofxSyphonServer.mm */; };
 		56A8FFCA188903D7008A4657 /* ofxSyphonServerDirectory.mm in Sources */ = {isa = PBXBuildFile; fileRef = 56A8FFC1188903D7008A4657 /* ofxSyphonServerDirectory.mm */; };
@@ -147,13 +144,9 @@
 		5696C0511842C08D00E51614 /* vdome.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vdome.cpp; sourceTree = "<group>"; };
 		5696C0521842C08D00E51614 /* vdome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vdome.h; sourceTree = "<group>"; };
 		56A8FFAD188903D7008A4657 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		56A8FFAE188903D7008A4657 /* install.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = install.xml; sourceTree = "<group>"; };
 		56A8FFB3188903D7008A4657 /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Syphon.framework; sourceTree = "<group>"; };
-		56A8FFB5188903D7008A4657 /* SyphonDirectoryObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyphonDirectoryObserver.h; sourceTree = "<group>"; };
-		56A8FFB6188903D7008A4657 /* SyphonDirectoryObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyphonDirectoryObserver.m; sourceTree = "<group>"; };
 		56A8FFB7188903D7008A4657 /* SyphonNameboundClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyphonNameboundClient.h; sourceTree = "<group>"; };
 		56A8FFB8188903D7008A4657 /* SyphonNameboundClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyphonNameboundClient.m; sourceTree = "<group>"; };
-		56A8FFB9188903D7008A4657 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		56A8FFBB188903D7008A4657 /* ofxSyphon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxSyphon.h; sourceTree = "<group>"; };
 		56A8FFBC188903D7008A4657 /* ofxSyphonClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxSyphonClient.h; sourceTree = "<group>"; };
 		56A8FFBD188903D7008A4657 /* ofxSyphonClient.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ofxSyphonClient.mm; sourceTree = "<group>"; };
@@ -396,9 +389,7 @@
 			isa = PBXGroup;
 			children = (
 				56A8FFAD188903D7008A4657 /* .gitignore */,
-				56A8FFAE188903D7008A4657 /* install.xml */,
 				56A8FFAF188903D7008A4657 /* libs */,
-				56A8FFB9188903D7008A4657 /* README */,
 				56A8FFBA188903D7008A4657 /* src */,
 			);
 			name = ofxSyphon;
@@ -441,8 +432,6 @@
 		56A8FFB4188903D7008A4657 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				56A8FFB5188903D7008A4657 /* SyphonDirectoryObserver.h */,
-				56A8FFB6188903D7008A4657 /* SyphonDirectoryObserver.m */,
 				56A8FFB7188903D7008A4657 /* SyphonNameboundClient.h */,
 				56A8FFB8188903D7008A4657 /* SyphonNameboundClient.m */,
 			);
@@ -930,8 +919,6 @@
 				563E613D18890341002BF411 /* install.xml in Resources */,
 				563E613E18890341002BF411 /* LICENSE.txt in Resources */,
 				56A8FFC2188903D7008A4657 /* .gitignore in Resources */,
-				56A8FFC3188903D7008A4657 /* install.xml in Resources */,
-				56A8FFC7188903D7008A4657 /* README in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -986,7 +973,6 @@
 				5678C6EE188231EC00788989 /* quadWarp.cpp in Sources */,
 				56260861188263E000E74D0A /* command.cpp in Sources */,
 				563E613F18890341002BF411 /* ofxMSAInteractiveObject.cpp in Sources */,
-				56A8FFC5188903D7008A4657 /* SyphonDirectoryObserver.m in Sources */,
 				56A8FFC6188903D7008A4657 /* SyphonNameboundClient.m in Sources */,
 				56A8FFC8188903D7008A4657 /* ofxSyphonClient.mm in Sources */,
 				56A8FFC9188903D7008A4657 /* ofxSyphonServer.mm in Sources */,
