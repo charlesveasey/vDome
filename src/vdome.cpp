@@ -427,20 +427,16 @@ void vdome::mouseReleased(ofMouseEventArgs& mouseArgs) {
 bool all;
 void vdome::keyPressed(int key){
     
+    std::cout << key << endl;
+    
     switch(key){
         case 102: // f
             showFrameRate = !showFrameRate;
             break;
             
-        case 99: // c
-            config = !config;
-            break;
-            
-        case 104: // h
+        case 109: // m
             showConfig = !showConfig;
-            if (showConfig) {
-                config = true;
-            }
+            config = showConfig;
             break;
             
         case 105: // i
