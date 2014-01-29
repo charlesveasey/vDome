@@ -2,7 +2,7 @@
     
     <tcp enabled="1" port="1"/>
         
-	<input resolution="2048" mode="image" scale="1"/>
+	<input mode="image" resolution="2048" scale="1"/>
     
 	<window fullscreen="0" height="1002" width="1920" x="0" y="44"/>
     
@@ -11,11 +11,11 @@
 	<projectors count="2">
         
 		<!-- #1 -->
-		<projector brightness="1" contrast="1" dimensions="1024,768" fov="36" keystone="0,0,0.998047,0,0,1,0.998047,1" offset="0,0" orientation="0,-18,0" position="0,0,6" saturation="1" scale="1,1"/>
+		<projector brightness="1" contrast="1" dimensions="1024,768" fov="36" keystone="0,0,0.997072,0,0,1,0.997072,1" offset="0,1.63913e-08" orientation="0,-18,0" position="0,0,8" saturation="1" scale="1,1"/>
 
 		
 		<!-- #2 -->
-		<projector brightness="1" contrast="1" dimensions="1024,768" fov="36" keystone="-0.00195217,0,0.996096,0,-0.00195217,1,0.996096,1" offset="0,0" orientation="0,-18,0" position="0,0,6" saturation="1" scale="1,1"/>
+		<projector brightness="1" contrast="1" dimensions="1024,768" fov="36" keystone="-0.00292683,0,0.994147,0,-0.00292683,1,0.994147,1" offset="0,1.63913e-08" orientation="0,-18,0" position="0,0,8" saturation="1" scale="1,1"/>
 
 
 		<!-- #3 -->
