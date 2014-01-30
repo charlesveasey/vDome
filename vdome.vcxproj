@@ -102,7 +102,6 @@
     <ClCompile Include="src\quadWarp.cpp" />
     <ClCompile Include="src\render.cpp" />
     <ClCompile Include="src\tcp.cpp" />
-    <ClCompile Include="src\testApp.cpp" />
     <ClCompile Include="..\..\..\addons\ofxNetwork\src\ofxTCPClient.cpp" />
     <ClCompile Include="..\..\..\addons\ofxNetwork\src\ofxTCPManager.cpp" />
     <ClCompile Include="..\..\..\addons\ofxNetwork\src\ofxTCPServer.cpp" />
@@ -129,7 +128,6 @@
     <ClInclude Include="src\quadWarp.h" />
     <ClInclude Include="src\render.h" />
     <ClInclude Include="src\tcp.h" />
-    <ClInclude Include="src\testApp.h" />
     <ClInclude Include="..\..\..\addons\ofxNetwork\src\ofxNetwork.h" />
     <ClInclude Include="..\..\..\addons\ofxNetwork\src\ofxNetworkUtils.h" />
     <ClInclude Include="..\..\..\addons\ofxNetwork\src\ofxTCPClient.h" />

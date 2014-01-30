@@ -1,9 +1,5 @@
 #include "input.h"
 
-#ifdef TARGET_WIN32
-	#include "ofDirectShowPlayer.h"
-#endif
-
 /******************************************
  
  CONSTRUCTOR

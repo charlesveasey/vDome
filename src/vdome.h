@@ -11,6 +11,8 @@
     #include "../../../libs/glut/lib/osx/GLUT.framework/Versions/A/Headers/glut.h"
 #endif
 
+
+
 class vdome : public ofBaseApp {
 	
 public:

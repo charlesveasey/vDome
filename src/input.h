@@ -4,6 +4,9 @@
 	#include "ofxSyphon.h"
 	#include "ofxHapPlayer.h"
 #endif
+#ifdef TARGET_WIN32
+	#include "ofDirectShowPlayer.h"
+#endif
 
 #include "render.h"
 

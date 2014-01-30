@@ -1,5 +1,7 @@
 #include "vdome.h"
-
+#ifdef TARGET_WIN32
+	#include <windows.h>
+#endif
 /********************************************
     
     MENU
@@ -49,8 +51,11 @@ vdome::vdome() {
     
     // config draw
     frameCnt= 0;
-    saved = false;
-    
+    saved = false;    
+	shift = false;
+	alt = false;
+	ctrl = false;
+	mod = false;
 }
 
 /******************************************
@@ -510,7 +515,6 @@ void vdome::keyPressed(int key){
                 all = !all;
             }
         }
-        //all = !all;
         for (int i=0; i<pCount; i++) {
             projectors[i].keyboard = all;
             projectors[i].mouse = all;
@@ -555,9 +559,18 @@ void vdome::keyPressed(int key){
             
             // move mouse to new selection
             if (editMode == 3 || editMode == 4) {
-                if (projectors[pActive].mouse)
-                    glutWarpPointer(projectors[pActive].getPlanePosition().x+projectors[pActive].getPlaneDimensions().x/2,
-                                    -(projectors[pActive].getPlanePosition().y+projectors[pActive].getPlaneDimensions().y/2));
+
+				int xmouse = projectors[pActive].getPlanePosition().x+projectors[pActive].getPlaneDimensions().x/2;
+                int ymouse = projectors[pActive].getPlanePosition().y+projectors[pActive].getPlaneDimensions().y/2;
+
+                if (projectors[pActive].mouse) {
+					#ifdef TARGET_OSX
+						glutWarpPointer(xmouse, -ymouse);
+					#endif
+					#ifdef TARGET_WIN32
+						SetCursorPos(xmouse, ymouse);
+					#endif
+				}
             }
         }
         return;
