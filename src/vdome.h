@@ -10,8 +10,9 @@
 #ifdef TARGET_OSX
     #include "../../../libs/glut/lib/osx/GLUT.framework/Versions/A/Headers/glut.h"
 #endif
-
-
+#ifdef TARGET_WIN32
+    #include <windows.h>
+#endif
 
 class vdome : public ofBaseApp {
 	

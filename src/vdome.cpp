@@ -1,7 +1,5 @@
 #include "vdome.h"
-#ifdef TARGET_WIN32
-	#include <windows.h>
-#endif
+
 /********************************************
     
     MENU
