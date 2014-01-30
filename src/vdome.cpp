@@ -65,7 +65,8 @@ vdome::vdome() {
 void vdome::setup(){
     
     ofSetEscapeQuitsApp(true);
-    
+    ofHideCursor();
+
     window.setup();
     render.setup();
     dome.setup();
@@ -435,6 +436,10 @@ void vdome::keyPressed(int key){
         case 109: // m
             showConfig = !showConfig;
             config = showConfig;
+            if (showConfig)
+                ofShowCursor();
+            else
+                ofHideCursor();            
             break;
             
         case 105: // i
