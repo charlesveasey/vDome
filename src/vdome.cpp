@@ -83,7 +83,7 @@ void vdome::setup(){
     input.setup();
     
     // projectors
-    pCount = 2; // FIXME: not dynamic with xml
+    pCount = 6; // FIXME: not dynamic with xml
     pActive = 1;
     
     for(int i=0; i<pCount; i++) {

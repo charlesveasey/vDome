@@ -4,19 +4,17 @@
         
 	<input mode="image" resolution="2048" scale="1"/>
     
-	<window fullscreen="0" height="1002" width="1920" x="0" y="44"/>
+	<window fullscreen="false" height="1080" width="6144" x="0" y="0"/>
     
     <dome radius="8.83"/>
     
-	<projectors count="2">
+	<projectors count="6">
         
 		<!-- #1 -->
-		<projector brightness="1" contrast="1" dimensions="1024,768" fov="36" keystone="0,0,0.997072,0,0,1,0.997072,1" offset="0,1.63913e-08" orientation="0,-18,0" position="0,0,8" saturation="1" scale="1,1"/>
-
+		<projector brightness="1" contrast="1" dimensions="1024,768" fov="36" keystone="0,0,0.997072,0,0,1,0.997072,1" offset="0,0" orientation="0,-18,0" position="0,0,8" saturation="1" scale="1,1"/>
 		
 		<!-- #2 -->
-		<projector brightness="1" contrast="1" dimensions="1024,768" fov="36" keystone="-0.00292683,0,0.994147,0,-0.00292683,1,0.994147,1" offset="0,1.63913e-08" orientation="0,-18,0" position="0,0,8" saturation="1" scale="1,1"/>
-
+		<projector brightness="1" contrast="1" dimensions="1024,768" fov="36" keystone="-0.00292683,0,0.994147,0,-0.00292683,1,0.994147,1" offset="0,0" orientation="0,-18,0" position="0,0,8" saturation="1" scale="1,1"/>
 
 		<!-- #3 -->
 		<projector brightness="1" contrast="1" fov="36" keystone="0.00770731,0.00807292,0.97698,0.00299479,0.0109268,1.00703,0.993467,0.999609" offset="0,0" orientation="0,-16,0" position="0,0,9" saturation="1" scale="1,1"/>
