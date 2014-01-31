@@ -22,7 +22,7 @@ Plane::Plane(){
     yRes = 10;
     pointIndex = -1;
 	value = 1;
-    width = 1023;
+    width = 1024;
     height = 768;
 }
 
