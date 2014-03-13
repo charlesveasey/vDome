@@ -33,7 +33,7 @@ The image and video file input types are currently only used for testing and cal
      - https://github.com/astellato/ofxSyphon  
      - https://github.com/bangnoise/ofxHapPlayer
   - Suggested IDE: Xcode v4.6.3
-  - Syphon.framework needs to be copied to Frameworks:
+  - Syphon needs to be copied to Frameworks:
     -  Under target, add a Copy Files Build Phase. Drag the Syphon.framework into this phase.
 
 
