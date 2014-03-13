@@ -139,8 +139,8 @@ void Plane::resetGrid(){
  ********************************************/
 
 void Plane::draw(){
-    vector<ofVec3f> v = mesh.getVertices();
 	if (keystoneActive || gridActive) {
+		vector<ofVec3f> v = mesh.getVertices();
 		for (int i=0; i<v.size(); i++) {
 			v[i] = keystone.getMatrix().preMult( gridVerts[i] + orgVerts[i] );
 			mesh.setVertex(i, v[i]);
