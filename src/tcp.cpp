@@ -34,15 +34,24 @@ void Tcp::setup(){
  ********************************************/
 
 void Tcp::loadXML(ofXml &xml) {
-    if (xml.exists("tcp[@enabled]"))
-        enabled = ofToBool( xml.getAttribute("tcp[@enabled]") );
+    if (xml.exists("tcp[@enabled]")) {
+        string str = ofToString(xml.getAttribute("tcp[@enabled]"));
+        if (str == "true")
+            enabled = true;
+        else
+            enabled = false;
+    }
     if (xml.exists("tcp[@port]"))
         port = ofToInt( xml.getAttribute("tcp[@port]") );
     setup();
 }
 
-void Tcp::saveXML(ofXml &xml) {
-    xml.setAttribute("tcp[@enabled]", ofToString(enabled));
+void Tcp::saveXML(ofXml &xml) {    
+    if (enabled)
+        xml.setAttribute("tcp[@enabled]", "true");
+    else
+        xml.setAttribute("tcp[@enabled]", "false");
+    
     xml.setAttribute("tcp[@port]", ofToString(enabled));
     
 	//for each client lets send them a message letting them know what port they are connected on
@@ -51,6 +60,8 @@ void Tcp::saveXML(ofXml &xml) {
 		server.send(i, "hello client - you are connected on port - "+ofToString(server.getClientPort(i)) );
 	}    
 }
+
+
 
 /******************************************
  

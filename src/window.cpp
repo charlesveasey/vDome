@@ -67,8 +67,13 @@ void Window::loadXML(ofXml &xml) {
         dimensions.x = ofToInt( xml.getAttribute("window[@width]") );
     if (xml.exists("window[@height]"))
         dimensions.y = ofToInt( xml.getAttribute("window[@height]") );
-	if (xml.exists("window[@fullscreen]"))
-		fullscreen = ofToBool( xml.getAttribute("window[@fullscreen]") );
+	if (xml.exists("window[@fullscreen]")) {
+        string str;
+        if (str == "true")
+            fullscreen = true;
+        else
+            fullscreen = false;        
+    }
     setup();
 }
 
@@ -77,5 +82,9 @@ void Window::saveXML(ofXml &xml) {
     xml.setAttribute("window[@y]", ofToString(ofGetWindowPositionY() ));
     xml.setAttribute("window[@width]", ofToString(ofGetWindowWidth() ));
     xml.setAttribute("window[@height]",  ofToString(ofGetWindowHeight() ));
-    xml.setAttribute("window[@fullscreen]",  ofToString(fullscreen));
+    
+    if (fullscreen)
+        xml.setAttribute("window[@fullscreen]", "true" );
+    else
+        xml.setAttribute("window[@fullscreen]", "false" );    
 }

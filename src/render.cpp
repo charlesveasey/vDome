@@ -61,14 +61,23 @@ void Render::setFrameRate(int val) {
  ********************************************/
 
 void Render::loadXML(ofXml &xml) {
-    if (xml.exists("[@vSync]"))
-        vSync = ofToBool( xml.getAttribute("[@vSync]") );
+    if (xml.exists("[@vSync]")) {
+        string str = ofToString( xml.getAttribute("[@vSync]") );
+        if (str == "true")
+            vSync = true;
+        else
+            vSync = false;
+    }
     if (xml.exists("[@frameRate]"))
         frameRate = ofToInt( xml.getAttribute("[@frameRate]") );
     setup();
 }
 
 void Render::saveXML(ofXml &xml) {
-    xml.setAttribute("[@vSync]", ofToString(vSync) );
+    if (vSync)
+        xml.setAttribute("[@vSync]", "true" );
+    else
+        xml.setAttribute("[@vSync]", "false" );
+        
     xml.setAttribute("[@frameRate]", ofToString(frameRate) );    
 }

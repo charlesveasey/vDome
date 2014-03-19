@@ -673,7 +673,7 @@ void Projector::saveXML(ofXml &xml) {
     xml.setAttribute(pre + "][@scale]", ofToString(cameraScale.x) +  "," + ofToString(cameraScale.y) );
     
     // plane
-    xml.setAttribute(pre + "][@dimensions]", ofToString(planeDimensions.x) +  "," + ofToString(planeDimensions.y) );
+    //xml.setAttribute(pre + "][@dimensions]", ofToString(planeDimensions.x) +  "," + ofToString(planeDimensions.y) );
     
     
     plane.save(xml);
