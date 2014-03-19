@@ -25,6 +25,7 @@ void Render::setup() {
 	ofEnableDepthTest();
     ofEnableNormalizedTexCoords();
     
+    ofEnableAntiAliasing();
     //ofEnableSmoothing();
     //ofEnableAlphaBlending();
 	//ofDisableArbTex();
