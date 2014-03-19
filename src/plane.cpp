@@ -1,4 +1,5 @@
 #include "plane.h"
+#include "default.h"
 
 /******************************************
  
@@ -22,8 +23,8 @@ Plane::Plane(){
     yRes = 10;
     pointIndex = -1;
 	value = 1;
-    width = 1024;
-    height = 768;
+    width = projectorWidth;
+    height = projectorHeight;
 }
 
 /******************************************
@@ -47,6 +48,9 @@ void Plane::setup(int i){
     position.push_back(x);
     position.push_back(y);
     
+    gridVerts.clear();
+    orgVerts.clear();
+    
     mesh.clear();
     mesh = ofMesh::plane(w, h, xRes, yRes, OF_PRIMITIVE_TRIANGLES);
     
@@ -65,7 +69,7 @@ void Plane::setup(int i){
     }
 
     mesh.load("plane-mesh-" + ofToString(index+1) + ".ply");
-
+    
     for (int i=0; i<v.size(); i++) {
         gridVerts.push_back(ofVec3f(0,0,0));
         orgVerts.push_back(mesh.getVertex(i));
@@ -392,8 +396,8 @@ void Plane::save(ofXml &xml) {
     string xmlPrefix = "projectors/projector[";
     string pre = xmlPrefix + ofToString(index);
     
-    int w = 1024;
-    int h = 768;
+    int w = projectorWidth;
+    int h = projectorHeight;
     int x = index*w;
     int y = 0;
     

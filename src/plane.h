@@ -44,6 +44,9 @@ public:
     vector<ofVec3f> getGridPoints();
     void setGridPoints(vector<ofVec3f> v);
     
+    int width;
+    int height;
+    
 private:
     
     float index;
@@ -58,8 +61,7 @@ private:
     int yRes;
     int pointIndex;
     
-    int width;
-    int height;
+
     
     vector<ofPoint> keystonePoints;
  

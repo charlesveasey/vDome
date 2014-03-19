@@ -1,4 +1,5 @@
 #include "projector.h"
+#include "default.h"
 
 /******************************************
  
@@ -25,7 +26,7 @@ void Projector::init(int i){
     
     // plane
     planePosition.set(0,0);
-    planeDimensions.set(1024,768);
+    planeDimensions.set(projectorWidth,projectorHeight);
 
     // camera
     cameraPosition.set(0,0,10);    // azi, ele, dis
@@ -242,14 +243,12 @@ void Projector::mouseReleased(ofMouseEventArgs& mouseArgs) {
 
 void Projector::keyPressed(int key) {
     
-	
     if (!keyboard) {
         return;
     }
     
     plane.keyPressed(key);
 
-    
     switch (key) {
         case 122:
             history.undo();
@@ -693,6 +692,7 @@ ofVec2f Projector::getPlaneDimensions(){
 }
 void Projector::setPlaneDimensions(float x, float y){
     planeDimensions.set(x,y);
+    setup();
 }
 
 // camera

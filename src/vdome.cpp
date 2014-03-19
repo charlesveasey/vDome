@@ -83,7 +83,7 @@ void vdome::setup(){
     input.setup();
     
     // projectors
-    pCount = 6; // FIXME: not dynamic with xml
+    pCount = projectorCount; // FIXME: not dynamic with xml
     pActive = 1;
     
     for(int i=0; i<pCount; i++) {
@@ -183,8 +183,8 @@ void vdome::drawConfig() {
         int pw = 200;
         int ph = 135;
         
-        int px = projectors[i].getPlanePosition().x + 1024/2 - pw/2;
-        int py = projectors[i].getPlanePosition().y + 768/2  - ph/2;
+        int px = projectors[i].getPlanePosition().x + projectors[i].getPlaneDimensions().x/2 - pw/2;
+        int py = projectors[i].getPlanePosition().y + projectors[i].getPlaneDimensions().y/2  - ph/2;
         
         int padx = 15;
         int pady = 15;
