@@ -6,7 +6,6 @@
 #include "dome.h"
 #include "projector.h"
 #include "tcp.h"
-#include "default.h"
 
 #ifdef TARGET_OSX
     #include "../../../libs/glut/lib/osx/GLUT.framework/Versions/A/Headers/glut.h"

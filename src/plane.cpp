@@ -1,5 +1,7 @@
 #include "plane.h"
-#include "default.h"
+extern float projCount;
+extern float projWidth;
+extern float projHeight;
 
 /******************************************
  
@@ -23,8 +25,8 @@ Plane::Plane(){
     yRes = 10;
     pointIndex = -1;
 	value = 1;
-    width = projectorWidth;
-    height = projectorHeight;
+    width = projWidth;
+    height = projHeight;
 }
 
 /******************************************
@@ -65,10 +67,17 @@ void Plane::setup(int i){
         
         mesh.setTexCoord(i, ofVec2f(
                                     v[i].x + w/2,
-                                    v[i].y + h/2    ));
+                                    v[i].y + h/2    ));        
     }
-
-    mesh.load("plane-mesh-" + ofToString(index+1) + ".ply");
+    
+    // only load mesh if the dimensions match
+    ofMesh tmp;
+    tmp.load("plane-mesh-" + ofToString(index+1) + ".ply");
+    
+    vector<ofVec3f> vTmp = mesh.getVertices();
+    if (vTmp[vTmp.size()-1].x*2 == projWidth && vTmp[v.size()-1].y*2 == projHeight) {
+        mesh.load("plane-mesh-" + ofToString(index+1) + ".ply");
+    }
     
     for (int i=0; i<v.size(); i++) {
         gridVerts.push_back(ofVec3f(0,0,0));
@@ -396,8 +405,8 @@ void Plane::save(ofXml &xml) {
     string xmlPrefix = "projectors/projector[";
     string pre = xmlPrefix + ofToString(index);
     
-    int w = projectorWidth;
-    int h = projectorHeight;
+    int w = projWidth;
+    int h = projHeight;
     int x = index*w;
     int y = 0;
     

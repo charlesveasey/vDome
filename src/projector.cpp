@@ -1,5 +1,7 @@
 #include "projector.h"
-#include "default.h"
+extern float projCount;
+extern float projWidth;
+extern float projHeight;
 
 /******************************************
  
@@ -26,7 +28,7 @@ void Projector::init(int i){
     
     // plane
     planePosition.set(0,0);
-    planeDimensions.set(projectorWidth,projectorHeight);
+    planeDimensions.set(projWidth,projHeight);
 
     // camera
     cameraPosition.set(0,0,10);    // azi, ele, dis
@@ -593,13 +595,20 @@ void Projector::loadXML(ofXml &xml) {
      }*/
     
     
-    // plane dimensions
-    if (xml.exists(pre + "][@dimensions]")) {
-        str = xml.getAttribute(pre + "][@dimensions]");
+    // plane dimensions - global    ---> now setting with global vars
+    /*if (xml.exists("projectors[@dimensions]")) {
+        str = xml.getAttribute("projectors[@dimensions]");
         float w  = ofToFloat(ofSplitString(str, ",")[0]);
         float h  = ofToFloat(ofSplitString(str, ",")[1]);
         setPlaneDimensions(w, h);
     }
+    // plane dimensions - local    
+    else if (xml.exists(pre + "][@dimensions]")) {
+        str = xml.getAttribute(pre + "][@dimensions]");
+        float w  = ofToFloat(ofSplitString(str, ",")[0]);
+        float h  = ofToFloat(ofSplitString(str, ",")[1]);
+        setPlaneDimensions(w, h);
+    }*/
     
     
     

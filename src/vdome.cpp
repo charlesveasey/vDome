@@ -33,6 +33,10 @@
 
  ********************************************/
 
+// global variables
+float projCount = 2;
+float projWidth = 1024;
+float projHeight = 768;
 
 /******************************************
  
@@ -83,14 +87,9 @@ void vdome::setup(){
     input.setup();
     
     // projectors
-    pCount = projectorCount; // FIXME: not dynamic with xml
+    pCount = 2; // FIXME: not dynamic with xml
     pActive = 1;
-    
-    for(int i=0; i<pCount; i++) {
-        Projector p;
-        p.init(i);
-        projectors.push_back(p);
-    }
+
     
     // projection shader
 	shader.load("shaders/vdome.vert", "shaders/vdome.frag");
@@ -106,6 +105,7 @@ void vdome::setup(){
     // xml settings
     xmlFile = "settings.xml";
     loadXML(xmlFile);
+
 }
 
 
@@ -357,8 +357,22 @@ void vdome::drawConfig() {
 
 void vdome::loadXML(string file) {
     if (xml.load(file)) {
-        if (xml.exists("projectors[@count]"))
+        if (xml.exists("projectors[@count]")) {
             pCount = ofToInt( xml.getAttribute("projectors[@count]") );
+            projCount = pCount;
+        }
+        
+        if (xml.exists("projectors[@dimensions]")) {
+            string str = xml.getAttribute("projectors[@dimensions]");
+            projWidth = ofToFloat(ofSplitString(str, ",")[0]);
+            projHeight = ofToFloat(ofSplitString(str, ",")[1]);            
+        }
+        
+        for(int i=0; i<pCount; i++) {
+            Projector p;
+            p.init(i);
+            projectors.push_back(p);
+        }
         
         input.loadXML(xml);
         render.loadXML(xml);
@@ -367,6 +381,13 @@ void vdome::loadXML(string file) {
         
         for(int i=0; i<pCount; i++) {
             projectors[i].loadXML(xml);
+        }
+    }
+    else {
+        for(int i=0; i<pCount; i++) {
+            Projector p;
+            p.init(i);
+            projectors.push_back(p);
         }
     }
 }
