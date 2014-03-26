@@ -80,14 +80,16 @@ void Projector::setup() {
     view.setWidth(planeDimensions.x);
     view.setHeight(planeDimensions.y);
     
-    // create dome master fbo
+    // create camera fbo
     if (fbo.getWidth() != planeDimensions.x || fbo.getHeight() != planeDimensions.y) {
-        fbo.allocate(planeDimensions.x, planeDimensions.y, GL_RGB);
+        fbo.allocate(planeDimensions.x, planeDimensions.y, GL_RGBA);
     }
     
     fbo.begin();
-    ofClear(255);
+        ofClear(255);
     fbo.end();
+    
+    mask.setup();
 }
 
 
@@ -136,12 +138,12 @@ void Projector::begin() {
     camera.setProjectionMatrix(m);
     
     fbo.begin();
-    ofClear(0, 0, 0, 0);
-    camera.begin(view);
+        ofClear(0, 0, 0, 0);
+        camera.begin(view);
 }
 
 void Projector::end() {
-    camera.end();
+        camera.end();
     fbo.end();
 }
 
@@ -156,11 +158,14 @@ void Projector::end() {
  ********************************************/
 
 void Projector::bind() {
+    //mask.begin();
     fbo.getTextureReference().bind();
 }
 
 void Projector::unbind() {
     fbo.getTextureReference().unbind();
+    //mask.end();
+    //mask.draw();
 }
 
 
@@ -173,12 +178,11 @@ void Projector::unbind() {
  
  ********************************************/
 
-
 void Projector::draw() {
-    glEnable(GL_CULL_FACE);
-    glCullFace( GL_FRONT );
+    //glEnable(GL_CULL_FACE);
+    //glCullFace( GL_FRONT );
     plane.draw();
-    glDisable(GL_CULL_FACE);
+    //glDisable(GL_CULL_FACE);
 }
 
 void Projector::drawPlaneConfig(){

@@ -4,13 +4,7 @@ uniform float saturation;
 uniform float brightness;
 uniform float contrast;
 													 
-uniform float red;
-uniform float green;
-uniform float blue;
-
 uniform sampler2DRect texsampler;
-
-uniform float scale;
 
 in vec2 vtexcoord;
 
@@ -22,6 +16,10 @@ vec3 con;
 vec3 avgluma;
 vec3 brt;
 vec4 t;
+
+// mask
+uniform sampler2DRect maskTex;
+
 
 out vec4 outputColor;
 
@@ -37,5 +35,15 @@ void main() {
     intensity = vec3 (dot(con, LumCoeff));
     sat = mix(intensity, con, saturation);
 
-	outputColor = vec4(sat.rgb, t.a);
+
+   // get rgb from tex0
+   // vec3 src = texture(tex0, texCoordVarying).rgb;
+
+    // get alpha from mask
+    float mask = texture(maskTex, vtexcoord).r;
+    
+    //mix the rgb from tex0 with the alpha of the mask
+    outputColor = vec4(sat.rgb , mask);
+    
+    //outputColor = vec4(sat.rgb, t.a);
 }

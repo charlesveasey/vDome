@@ -281,7 +281,9 @@ void Plane::onMouseDragged(ofMouseEventArgs& mouseArgs){
         }
     }
     
-    lastM = mousePoint;    
+    lastM = mousePoint;
+    
+    
 }
 
 void Plane::onMousePressed(ofMouseEventArgs& mouseArgs){

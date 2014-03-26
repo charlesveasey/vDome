@@ -34,7 +34,7 @@
  ********************************************/
 
 // global variables
-float projCount = 2;
+float projCount = 1;
 float projWidth = 1024;
 float projHeight = 768;
 
@@ -87,7 +87,7 @@ void vdome::setup(){
     input.setup();
     
     // projectors
-    pCount = 2; // FIXME: not dynamic with xml
+    pCount = 1; // FIXME: not dynamic with xml
     pActive = 1;
 
     
@@ -131,31 +131,44 @@ void vdome::update() {
  ********************************************/
 
 void vdome::draw(){
-    if (showConfig) {
-        drawConfig();
-    }
         
     ofSetHexColor(0xFFFFFF);
     
 	for(int i=0; i<pCount; i++){
         projectors[i].begin();
-        input.bind();
-        dome.draw();
-        input.unbind();
+            input.bind();
+                dome.draw();
+            input.unbind();
         projectors[i].end();
 	}
-
+    
+    
+    
 	for(int i=0; i<pCount; i++) {
-		projectors[i].bind();
-		shader.begin();
-		shader.setUniform1f("brightness", projectors[i].brightness );
-		shader.setUniform1f("contrast", projectors[i].contrast );
-		shader.setUniform1f("saturation", projectors[i].saturation );
-		shader.setUniformTexture("texsampler", projectors[i].getTextureReference(), 0);
-        projectors[i].draw();
-        shader.end();
+        
+        projectors[i].mask.draw();
+        
+        projectors[i].bind();        
+
+                shader.begin();
+        
+                    shader.setUniform1f("brightness", projectors[i].brightness );
+                    shader.setUniform1f("contrast", projectors[i].contrast );
+                    shader.setUniform1f("saturation", projectors[i].saturation );
+                    shader.setUniformTexture("texsampler", projectors[i].getTextureReference(), 0 );
+                    shader.setUniformTexture("maskTex", projectors[i].mask.maskFbo.getTextureReference(), 1 );
+        
+                    projectors[i].draw();
+        
+                shader.end();
+    
         projectors[i].unbind();
+        
 	}
+    
+    if (showConfig) {
+        drawConfig();
+    }
 }
 
 
@@ -420,6 +433,7 @@ void vdome::mousePressed(ofMouseEventArgs& mouseArgs) {
     if (config) {
         for (int i=0; i<pCount; i++) {
             projectors[i].mousePressed(mouseArgs);
+            projectors[i].mask.onMousePressed(mouseArgs);
         }
     }
 }
@@ -428,6 +442,7 @@ void vdome::mouseDragged(ofMouseEventArgs& mouseArgs) {
     if (config) {
         for (int i=0; i<pCount; i++) {
             projectors[i].mouseDragged(mouseArgs);
+            projectors[i].mask.onMouseDragged(mouseArgs);
         }
     }
 }
@@ -436,6 +451,7 @@ void vdome::mouseReleased(ofMouseEventArgs& mouseArgs) {
     if (config) {
         for (int i=0; i<pCount; i++) {
             projectors[i].mouseReleased(mouseArgs);
+            projectors[i].mask.onMouseReleased(mouseArgs);
         }
     }
 }

@@ -1,6 +1,6 @@
 <vdome frameRate="60" vSync="false">
     
-    <tcp enabled="false" port="1"/>
+    <tcp enabled="true" port="1"/>
         
 	<input mode="image" resolution="2048" scale="1"/>
     
@@ -8,7 +8,7 @@
     
     <dome radius="8.83"/>
     
-	<projectors count="2" dimensions="1920,1080">
+	<projectors count="1" dimensions="1024,768">
         
 		<!-- #1 -->
 		<projector brightness="1" contrast="1" fov="36" keystone="0,0,1,0,0,1,1,1" offset="0,0" orientation="0,-18,0" position="0,0,8" saturation="1" scale="1,1"/>

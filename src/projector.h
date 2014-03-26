@@ -4,6 +4,7 @@
 #include "plane.h"
 #include "camera.h"
 #include "command.h"
+#include "mask.h"
 
 class Projector {
    
@@ -16,6 +17,7 @@ public:
     bool mod;
     bool all;    
     void setValue(float v);
+    Mask mask;
     
     // intensity
     float brightness;

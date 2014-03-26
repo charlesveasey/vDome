@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		560A020D185FFC0000DF7D6E /* plane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560A020B185FFC0000DF7D6E /* plane.cpp */; };
+		561DFF5D18E0D22700C236AA /* mask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 561DFF5B18E0D22700C236AA /* mask.cpp */; };
 		561FA68D1844413B003E6812 /* projector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 561FA68B1844413B003E6812 /* projector.cpp */; };
 		561FA69018445145003E6812 /* window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 561FA68F18445145003E6812 /* window.cpp */; };
 		56260861188263E000E74D0A /* command.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5626085F188263E000E74D0A /* command.cpp */; };
@@ -99,6 +100,8 @@
 /* Begin PBXFileReference section */
 		560A020B185FFC0000DF7D6E /* plane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = plane.cpp; sourceTree = "<group>"; };
 		560A020C185FFC0000DF7D6E /* plane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = plane.h; sourceTree = "<group>"; };
+		561DFF5B18E0D22700C236AA /* mask.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mask.cpp; sourceTree = "<group>"; };
+		561DFF5C18E0D22700C236AA /* mask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mask.h; sourceTree = "<group>"; };
 		561FA68B1844413B003E6812 /* projector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = projector.cpp; sourceTree = "<group>"; };
 		561FA68C1844413B003E6812 /* projector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = projector.h; sourceTree = "<group>"; };
 		561FA68E18445138003E6812 /* window.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = window.h; sourceTree = "<group>"; };
@@ -806,6 +809,8 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				561DFF5B18E0D22700C236AA /* mask.cpp */,
+				561DFF5C18E0D22700C236AA /* mask.h */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				5696C0511842C08D00E51614 /* vdome.cpp */,
 				5696C0521842C08D00E51614 /* vdome.h */,
@@ -817,8 +822,8 @@
 				561FA68E18445138003E6812 /* window.h */,
 				568406DF1846F25A0000A6F1 /* render.cpp */,
 				568406DE1846F2440000A6F1 /* render.h */,
-				568406E21846F4E10000A6F1 /* input.cpp */,
 				568406E11846F4D70000A6F1 /* input.h */,
+				568406E21846F4E10000A6F1 /* input.cpp */,
 				565914071848514C000864E5 /* tcp.cpp */,
 				565914081848514C000864E5 /* tcp.h */,
 				5696C04F1842C08D00E51614 /* dome.cpp */,
@@ -977,6 +982,7 @@
 				56A8FFC8188903D7008A4657 /* ofxSyphonClient.mm in Sources */,
 				56A8FFC9188903D7008A4657 /* ofxSyphonServer.mm in Sources */,
 				56A8FFCA188903D7008A4657 /* ofxSyphonServerDirectory.mm in Sources */,
+				561DFF5D18E0D22700C236AA /* mask.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
