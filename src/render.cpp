@@ -29,6 +29,8 @@ void Render::setup() {
     //ofEnableSmoothing();
     ofEnableAlphaBlending();
 	//ofDisableArbTex();
+    ofEnableBlendMode(OF_BLENDMODE_ALPHA);
+
 }
 
 /******************************************

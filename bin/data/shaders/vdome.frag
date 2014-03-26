@@ -40,10 +40,10 @@ void main() {
    // vec3 src = texture(tex0, texCoordVarying).rgb;
 
     // get alpha from mask
-    float mask = texture(maskTex, vtexcoord).r;
+    float mask = texture(maskTex, vtexcoord).a;
     
     //mix the rgb from tex0 with the alpha of the mask
-    outputColor = vec4(sat.rgb , mask);
+    outputColor = vec4(sat.rgb , 1-mask);
     
     //outputColor = vec4(sat.rgb, t.a);
 }

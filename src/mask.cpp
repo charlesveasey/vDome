@@ -6,7 +6,11 @@
  
  ********************************************/
 
+ofMesh brush;
+
 Mask::Mask(){
+    
+
 
     mouseX = 0;
     mouseY = 0;
@@ -16,14 +20,19 @@ Mask::Mask(){
     
     mouseDown = false;
     
+    brushImage.setUseTexture(true);
+    brushImage.allocate(256, 256, OF_IMAGE_COLOR_ALPHA);
     brushImage.setImageType(OF_IMAGE_COLOR_ALPHA);
     brushImage.loadImage("media/brush copy.png");
     
+    
+    brush = ofMesh::plane(256, 256, 2, 2, OF_PRIMITIVE_TRIANGLES);
+
+    
     maskFbo.allocate(width, height, GL_RGBA);
-    renderFbo.allocate(width, height, GL_RGBA);
     
     maskFbo.begin();
-        ofClear(255);
+        ofClear(255,255,255,0);
     maskFbo.end();
 }
 
@@ -46,17 +55,50 @@ void Mask::end(){
 }
 
 void Mask::draw(){
+    ofEnableAlphaBlending();
+    
+    ofEnableBlendMode(OF_BLENDMODE_SCREEN);
+    maskFbo.begin();
+    //ofClear(255,255,255,0);
+
     if (mouseDown) {
+
+
+
         int brushImageSize = 200;
-        int brushImageX = mouseX - brushImageSize * 0.5;
-        int brushImageY = mouseY - brushImageSize * 0.5;
+        int brushImageX = mouseX - 256 * 0.5;
+        int brushImageY = mouseY - 256 * 0.5;
         
-        maskFbo.begin();
-            ofSetColor(128);
-            //ofRect(brushImageX, brushImageY, brushImageSize, brushImageSize);
-            brushImage.draw(brushImageX, brushImageY, brushImageSize, brushImageSize);
-        maskFbo.end();
+
+        brushImage.bind();
+        
+        ofPushMatrix();
+        ofTranslate(brushImageX, brushImageY);
+        
+        ofSetColor(255, 255, 255, 10);
+        
+        brush.draw();
+        ofPopMatrix();
+        brushImage.unbind();
+        
+        //ofSetColor(255, 255, 255, 255);
+
+        
+        //brushImage.bind();
+    
+      //  ofRect(brushImageX, brushImageY, brushImageSize, brushImageSize);
+       //// ofCircle(brushImageX, brushImageY, brushImageSize/2);
+        
+        //brushImage.unbind();
+
+
+       // ofDisableAlphaBlending();
     }
+    
+    maskFbo.end();
+    
+    ofDisableBlendMode();
+    ofEnableBlendMode(OF_BLENDMODE_ALPHA);
 }
 
 /******************************************
