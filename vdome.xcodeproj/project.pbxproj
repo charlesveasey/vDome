@@ -29,6 +29,7 @@
 		5678C6EE188231EC00788989 /* quadWarp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5678C6EC188231EC00788989 /* quadWarp.cpp */; };
 		568406E01846F25A0000A6F1 /* render.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568406DF1846F25A0000A6F1 /* render.cpp */; };
 		568406E31846F4E10000A6F1 /* input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568406E21846F4E10000A6F1 /* input.cpp */; };
+		5690C74C18EC235200E32DAF /* menu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5690C74A18EC235200E32DAF /* menu.cpp */; };
 		5696C0531842C08D00E51614 /* dome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5696C04F1842C08D00E51614 /* dome.cpp */; };
 		5696C0541842C08D00E51614 /* vdome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5696C0511842C08D00E51614 /* vdome.cpp */; };
 		56A8FFC2188903D7008A4657 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 56A8FFAD188903D7008A4657 /* .gitignore */; };
@@ -142,6 +143,8 @@
 		568406DF1846F25A0000A6F1 /* render.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = render.cpp; sourceTree = "<group>"; };
 		568406E11846F4D70000A6F1 /* input.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = input.h; sourceTree = "<group>"; };
 		568406E21846F4E10000A6F1 /* input.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = input.cpp; sourceTree = "<group>"; };
+		5690C74A18EC235200E32DAF /* menu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = menu.cpp; sourceTree = "<group>"; };
+		5690C74B18EC235200E32DAF /* menu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = menu.h; sourceTree = "<group>"; };
 		5696C04F1842C08D00E51614 /* dome.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dome.cpp; sourceTree = "<group>"; };
 		5696C0501842C08D00E51614 /* dome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dome.h; sourceTree = "<group>"; };
 		5696C0511842C08D00E51614 /* vdome.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vdome.cpp; sourceTree = "<group>"; };
@@ -809,6 +812,8 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				5690C74A18EC235200E32DAF /* menu.cpp */,
+				5690C74B18EC235200E32DAF /* menu.h */,
 				561DFF5B18E0D22700C236AA /* mask.cpp */,
 				561DFF5C18E0D22700C236AA /* mask.h */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
@@ -983,6 +988,7 @@
 				56A8FFC9188903D7008A4657 /* ofxSyphonServer.mm in Sources */,
 				56A8FFCA188903D7008A4657 /* ofxSyphonServerDirectory.mm in Sources */,
 				561DFF5D18E0D22700C236AA /* mask.cpp in Sources */,
+				5690C74C18EC235200E32DAF /* menu.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
