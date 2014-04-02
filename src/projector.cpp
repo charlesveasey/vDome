@@ -18,7 +18,6 @@ void Projector::init(int i){
     mouse = false;
     xmlPrefix = "projectors/projector[";
     
-    
     // intensity
     brightness = 1;
     contrast = 1;
@@ -156,14 +155,11 @@ void Projector::end() {
  ********************************************/
 
 void Projector::bind() {
-    //mask.begin();
     fbo.getTextureReference().bind();
 }
 
 void Projector::unbind() {
     fbo.getTextureReference().unbind();
-    //mask.end();
-    //mask.draw();
 }
 
 
