@@ -161,14 +161,14 @@ void Input::update(){
 
 void Input::keyPressed(int key) {
     switch (key) {
-        case OF_KEY_UP:  // up = switch on mode
+        case OF_KEY_RIGHT:  // up = switch on mode
 			if (mode+1 > maxMode)
 				mode = maxMode;
 			else 
 				mode++;
 			setup();
             break;
-        case OF_KEY_DOWN:  // up = switch on mode
+        case OF_KEY_LEFT:  // up = switch on mode
 			if (mode-1 < 0)
 				mode = 0;
 			else

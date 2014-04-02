@@ -13,10 +13,11 @@ public:
     void begin();
     void end();
     
-    void onMousePressed(ofMouseEventArgs& mouseArgs);    
-    void onMouseDragged(ofMouseEventArgs& mouseArgs);
-    void onMouseReleased(ofMouseEventArgs& mouseArgs);
-
+    // mouse
+    void mousePressed(ofMouseEventArgs& mouseArgs);
+    void mouseDragged(ofMouseEventArgs& mouseArgs);
+    void mouseReleased(ofMouseEventArgs& mouseArgs);
+   
     ofImage brushImage;
     ofFbo maskFbo;
     ofFbo renderFbo;

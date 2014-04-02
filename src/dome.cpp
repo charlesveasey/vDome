@@ -106,17 +106,17 @@ void Dome::draw(){
 
 void Dome::keyPressed(int key) {
     switch (key) {
-        case OF_KEY_UP:  // up = switch on mode
+        case OF_KEY_RIGHT: 
             switch (editMode) {
-                case 1: // mesh radius
+                case RADIUS:
                     radius += value;
                     setup();
                     break;
             }
             break;
-        case OF_KEY_DOWN:  // up = switch on mode
+        case OF_KEY_LEFT: 
             switch (editMode) {
-                case 1: // mesh radius
+                case RADIUS:
                     radius -= value;
                     setup();
                     break;

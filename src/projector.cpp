@@ -179,10 +179,10 @@ void Projector::unbind() {
  ********************************************/
 
 void Projector::draw() {
-    //glEnable(GL_CULL_FACE);
-    //glCullFace( GL_FRONT );
+    glEnable(GL_CULL_FACE);
+    glCullFace( GL_FRONT );
     plane.draw();
-    //glDisable(GL_CULL_FACE);
+    glDisable(GL_CULL_FACE);
 }
 
 void Projector::drawPlaneConfig(){
@@ -192,10 +192,6 @@ void Projector::drawPlaneConfig(){
 void Projector::drawKeystone(){
     plane.keystone.draw();
 }
-
-
-
-
 
 /******************************************
  
@@ -208,11 +204,11 @@ vector<ofVec3f> lastGrid;
 
 
 void Projector::mousePressed(ofMouseEventArgs& mouseArgs) {
-    if (mouse) {
-        if (plane.keystoneActive) {            
+    if (editMode == CORNERPIN || editMode == GRID) {
+        if (editMode == CORNERPIN) {
             lastKey = getKeystonePoints();
         }
-        else if (plane.gridActive) {
+        else if (editMode == GRID) {
             lastGrid = getGridPoints();
         }
         plane.onMousePressed(mouseArgs);
@@ -220,26 +216,23 @@ void Projector::mousePressed(ofMouseEventArgs& mouseArgs) {
 }
 
 void Projector::mouseDragged(ofMouseEventArgs& mouseArgs) {
-    if (mouse)
+    if (editMode == CORNERPIN || editMode == GRID)
         plane.onMouseDragged(mouseArgs);
 }
 
 void Projector::mouseReleased(ofMouseEventArgs& mouseArgs) {
-    if (mouse) {
-        if (plane.keystoneActive) {
+    if (editMode == CORNERPIN || editMode == GRID) {
+        if (editMode == CORNERPIN) {
             vector<ofPoint> value = plane.getKeystonePoints();
             history.execute( new SetKeystonePoints(*this, value, lastKey) );
         }
-        else if (plane.gridActive) {
+        else if (editMode == GRID) {
             vector<ofPoint> value = plane.getGridPoints();
             history.execute( new SetGridPoints(*this, value, lastGrid) );
         }
         plane.onMouseReleased(mouseArgs);
     }
 }
-
-
-
 
 /******************************************
  
@@ -249,11 +242,8 @@ void Projector::mouseReleased(ofMouseEventArgs& mouseArgs) {
 
 void Projector::keyPressed(int key) {
     
-    if (!keyboard) {
-        return;
-    }
-    
-    plane.keyPressed(key);
+    if (editMode == CORNERPIN || editMode == GRID)
+        plane.keyPressed(key);
 
     switch (key) {
         case 122:
@@ -322,226 +312,177 @@ void Projector::keyPressed(int key) {
             break;
             
             
-        case OF_KEY_UP:  // up = switch on mode
+        case OF_KEY_RIGHT:  // up = switch on mode
             switch (editMode) {
-
-                case 1: // projector brightness
+                case NONE:
+                    break;
+                    
+                case BRIGHTNESS:
                     history.execute( new SetBrightness(*this, brightness + value * .1) );
                     break;
-                    
-                case 2: // projector saturation
-                    history.execute( new SetSaturation(*this, saturation + value * .1) );
-                    break;
-                    
-                case 3:
-                    // keystone
-                    break;
-                
-                case 4:
-                    // grid
-                    break;
-                    
-                case 5: // projector elevation / distance (mod)
-                    if (!mod)
-                        history.execute( new SetCameraPosition(*this, cameraPosition.x, cameraPosition.y + value, cameraPosition.z) );
-                    else
-                        history.execute( new SetCameraPosition(*this, cameraPosition.x, cameraPosition.y, cameraPosition.z + value) );
-                    break;
-                    
-                case 6: // projector tilt
-                    history.execute( new SetCameraOrientation(*this, cameraOrientation.x, cameraOrientation.y + value, cameraOrientation.z) );
-                    break;
-                    
-                case 7: // projector fov
-                    history.execute( new SetCameraFov(*this, cameraFov + value) );
-                    break;
-                    
-                case 8: // projector offset y
-                    history.execute( new SetCameraOffset(*this, cameraOffset.x, cameraOffset.y + value * .1) );
-                    break;
-
-                case 9: // projector scale
-                    if (!mod)
-                        history.execute( new SetCameraScale(*this, cameraScale.x, cameraScale.y + value * .1) );
-                    else
-                        history.execute( new SetCameraScale(*this, cameraScale.x + value * .1, cameraScale.y + value * .1) );
-                    break;
-                    
-                case 10: // projector shear 1
-                    if (!mod)
-                        cameraShear[3] += value *.1;
-                    else
-                        cameraShear[1] += value *.1;;
-                    history.execute( new SetCameraShear(*this, cameraShear ) );
-                    break;
-                    
-                case 11: // projector shear 2
-                    if (!mod)
-                        cameraShear[5] += value *.1;
-                    else
-                        cameraShear[0] += value *.1;
-                    history.execute( new SetCameraShear(*this, cameraShear ) );
-                    break;
-
-            }
-            break;
-            
-            
-        case OF_KEY_DOWN: // down = switch on mode
-            
-            switch (editMode) {
-
-                case 1: // projector brightness
-                    history.execute( new SetBrightness(*this, brightness - value * .1) );
-                    break;
-                    
-                case 2: // projector saturation
-                    history.execute( new SetSaturation(*this, saturation - value * .1) );
-                    break;
-                    
-                case 3:
-                    // keystone
-                    break;
-                    
-                case 4:
-                    // grid
-                    break;
-                    
-                case 5: // projector elevation / distance (mod)
-                    if (!mod)
-                        history.execute( new SetCameraPosition(*this, cameraPosition.x, cameraPosition.y - value, cameraPosition.z) );
-                    else
-                        history.execute( new SetCameraPosition(*this, cameraPosition.x, cameraPosition.y, cameraPosition.z - value) );
-                    break;
-                    
-                case 6: // projector tilt
-                    history.execute( new SetCameraOrientation(*this, cameraOrientation.x, cameraOrientation.y - value, cameraOrientation.z) );
-                    break;
-                    
-                case 7: // projector fov
-                    history.execute( new SetCameraFov(*this, cameraFov - value) );
-                    break;
-                    
-                case 8: // projector lensOffsetY
-                    history.execute( new SetCameraOffset(*this, cameraOffset.x, cameraOffset.y - value * .1) );
-                    break;
-                    
-                case 9: // projector scale
-                    if (!mod)
-                        history.execute( new SetCameraScale(*this, cameraScale.x, cameraScale.y - value * .1) );
-                    else
-                        history.execute( new SetCameraScale(*this, cameraScale.x - value * .1, cameraScale.y - value * .1) );
-                    break;
-                    
-                case 10: // projector shear 1
-                    if (!mod)
-                        cameraShear[3] -= value *.1;
-                    else
-                        cameraShear[1] -= value *.1;;
-                    history.execute( new SetCameraShear(*this, cameraShear ) );
-                    break;
-                    
-                case 11: // projector shear 2
-                    if (!mod)
-                        cameraShear[5] -= value *.1;
-                    else
-                        cameraShear[0] -= value *.1;
-                    history.execute( new SetCameraShear(*this, cameraShear ) );
-                    break;
-            }
-            break;
-            
-            
-            
-            
-        case OF_KEY_LEFT:  // left
-            
-            switch (editMode) {
-                    
-                case 1: // projector contrast
-                    history.execute( new SetContrast(*this, contrast - value * .1) );
-                    break;
-                    
-                case 5: // projector azimuth
-                    history.execute( new SetCameraPosition(*this, cameraPosition.x - value, cameraPosition.y, cameraPosition.z) );
-                break;
-                    
-                case 6: // projector roll / pan (mod)
-                    if (!mod)
-                        history.execute( new SetCameraOrientation(*this, cameraOrientation.x - value, cameraOrientation.y, cameraOrientation.z) );
-                    else
-                        history.execute( new SetCameraOrientation(*this, cameraOrientation.x, cameraOrientation.y, cameraOrientation.z - value) );
-                    break;
-                    
-                case 8: // projector lens offset x
-                    history.execute( new SetCameraOffset(*this, cameraOffset.x - value * .1, cameraOffset.y) );
-                    break;
-                    
-                case 9: // projector scale
-                    if (!mod)
-                        history.execute( new SetCameraScale(*this, cameraScale.x - value * .1, cameraScale.y) );
-                    else
-                        history.execute( new SetCameraScale(*this, cameraScale.x - value * .1, cameraScale.y - value * .1) );
-                    break;
-                
-                case 10: // projector shear 1
-                    cameraShear[4] -= value *.1;
-                    history.execute( new SetCameraShear(*this, cameraShear ) );
-                    break;
-                    
-                case 11: // projector shear 2
-                    cameraShear[2] -= value *.1;
-                    history.execute( new SetCameraShear(*this, cameraShear ) );
-                    break;
-            }
-            break;
-        
-            
-            
-            
-        case OF_KEY_RIGHT:  // right
-            
-            switch (editMode) {
-                    
-                case 1: // projector contrast
+                case CONTRAST:
                     history.execute( new SetContrast(*this, contrast + value * .1) );
                     break;
                     
-                case 5: // projector azimuth
+                case SATURATION:
+                    history.execute( new SetSaturation(*this, saturation + value * .1) );
+                    break;
+                    
+                case CORNERPIN:
+                    break;
+                case GRID:
+                    break;
+                    
+                case AZIMUTH:
                     history.execute( new SetCameraPosition(*this, cameraPosition.x + value, cameraPosition.y, cameraPosition.z) );
                     break;
-                    
-                case 6: // projector roll / pan (mod)
-                    if (!mod)
-                        history.execute( new SetCameraOrientation(*this, cameraOrientation.x + value, cameraOrientation.y, cameraOrientation.z) );
-                    else
-                        history.execute( new SetCameraOrientation(*this, cameraOrientation.x, cameraOrientation.y, cameraOrientation.z + value) );
+                case ELEVATION:
+                    history.execute( new SetCameraPosition(*this, cameraPosition.x, cameraPosition.y + value, cameraPosition.z) );
+                    break;
+                case DISTANCE:
+                    history.execute( new SetCameraPosition(*this, cameraPosition.x, cameraPosition.y, cameraPosition.z + value) );
+                    break;
+ 
+                case ROLL:
+                    history.execute( new SetCameraOrientation(*this, cameraOrientation.x + value, cameraOrientation.y, cameraOrientation.z) );
+                    break;
+                case TILT:
+                    history.execute( new SetCameraOrientation(*this, cameraOrientation.x, cameraOrientation.y + value, cameraOrientation.z) );
+                    break;
+                case PAN:
+                    history.execute( new SetCameraOrientation(*this, cameraOrientation.x, cameraOrientation.y, cameraOrientation.z + value) );
                     break;
                     
-                case 8: // projector lens offset x
-                    history.execute( new SetCameraOffset(*this, cameraOffset.x + value * .1, cameraOffset.y) );
+                case FOV: 
+                    history.execute( new SetCameraFov(*this, cameraFov + value) );
+                    break;
+
+                case SCALE: 
+                    history.execute( new SetCameraScale(*this, cameraScale.x + value * .1, cameraScale.y + value * .1) );
+                    break;
+                case SCALE_X:
+                    history.execute( new SetCameraScale(*this, cameraScale.x + value * .1, cameraScale.y) );
+                    break;
+                case SCALE_Y:
+                    history.execute( new SetCameraScale(*this, cameraScale.x, cameraScale.y + value * .1) );
                     break;
                     
-                case 9: // projector scale
-                    if (!mod)
-                        history.execute( new SetCameraScale(*this, cameraScale.x + value * .1, cameraScale.y) );
-                    else
-                        history.execute( new SetCameraScale(*this, cameraScale.x + value * .1, cameraScale.y + value * .1) );
+                case SHEAR_XY:
+                    cameraShear[0] += value *.1;
+                    history.execute( new SetCameraShear(*this, cameraShear ) );
                     break;
-                    
-                case 10: // projector shear 1
+                case SHEAR_XZ:
+                    cameraShear[1] += value *.1;
+                    history.execute( new SetCameraShear(*this, cameraShear ) );
+                    break;
+                case SHEAR_YX:
+                    cameraShear[2] += value *.1;
+                    history.execute( new SetCameraShear(*this, cameraShear ) );
+                    break;
+                case SHEAR_YZ:
+                    cameraShear[3] += value *.1;
+                    history.execute( new SetCameraShear(*this, cameraShear ) );
+                    break;
+                case SHEAR_ZX:
                     cameraShear[4] += value *.1;
                     history.execute( new SetCameraShear(*this, cameraShear ) );
                     break;
+                case SHEAR_ZY:
+                    cameraShear[5] += value *.1;
+                    history.execute( new SetCameraShear(*this, cameraShear ) );
+                    break;
+            }
+            break;
+            
+
+            
+        case OF_KEY_LEFT:  // up = switch on mode
+            switch (editMode) {
+                case NONE:
+                    break;
                     
-                case 11: // projector shear 2
-                    cameraShear[2] += value *.1;
+                case BRIGHTNESS:
+                    history.execute( new SetBrightness(*this, brightness - value * .1) );
+                    break;
+                case CONTRAST:
+                    history.execute( new SetContrast(*this, contrast - value * .1) );
+                    break;
+                    
+                case SATURATION:
+                    history.execute( new SetSaturation(*this, saturation - value * .1) );
+                    break;
+                    
+                case CORNERPIN:
+                    break;
+                case GRID:
+                    break;
+                    
+                case AZIMUTH:
+                    history.execute( new SetCameraPosition(*this, cameraPosition.x - value, cameraPosition.y, cameraPosition.z) );
+                    break;
+                case ELEVATION:
+                    history.execute( new SetCameraPosition(*this, cameraPosition.x, cameraPosition.y - value, cameraPosition.z) );
+                    break;
+                case DISTANCE:
+                    history.execute( new SetCameraPosition(*this, cameraPosition.x, cameraPosition.y, cameraPosition.z - value) );
+                    break;
+                    
+                case ROLL:
+                    history.execute( new SetCameraOrientation(*this, cameraOrientation.x - value, cameraOrientation.y, cameraOrientation.z) );
+                    break;
+                case TILT:
+                    history.execute( new SetCameraOrientation(*this, cameraOrientation.x, cameraOrientation.y - value, cameraOrientation.z) );
+                    break;
+                case PAN:
+                    history.execute( new SetCameraOrientation(*this, cameraOrientation.x, cameraOrientation.y, cameraOrientation.z - value) );
+                    break;
+                    
+                case FOV:
+                    history.execute( new SetCameraFov(*this, cameraFov - value) );
+                    break;
+                    
+                case SCALE:
+                    history.execute( new SetCameraScale(*this, cameraScale.x - value * .1, cameraScale.y - value * .1) );
+                    break;
+                case SCALE_X:
+                    history.execute( new SetCameraScale(*this, cameraScale.x - value * .1, cameraScale.y) );
+                    break;
+                case SCALE_Y:
+                    history.execute( new SetCameraScale(*this, cameraScale.x, cameraScale.y - value * .1) );
+                    break;
+                    
+                case SHEAR_XY:
+                    cameraShear[0] -= value *.1;
+                    history.execute( new SetCameraShear(*this, cameraShear ) );
+                    break;
+                case SHEAR_XZ:
+                    cameraShear[1] -= value *.1;
+                    history.execute( new SetCameraShear(*this, cameraShear ) );
+                    break;
+                case SHEAR_YX:
+                    cameraShear[2] -= value *.1;
+                    history.execute( new SetCameraShear(*this, cameraShear ) );
+                    break;
+                case SHEAR_YZ:
+                    cameraShear[3] -= value *.1;
+                    history.execute( new SetCameraShear(*this, cameraShear ) );
+                    break;
+                case SHEAR_ZX:
+                    cameraShear[4] -= value *.1;
+                    history.execute( new SetCameraShear(*this, cameraShear ) );
+                    break;
+                case SHEAR_ZY:
+                    cameraShear[5] -= value *.1;
                     history.execute( new SetCameraShear(*this, cameraShear ) );
                     break;
                     
                     
             }
             break;
+            
+            
+
+
             
         default:
             break;

@@ -12,12 +12,22 @@ public:
     int index;
     bool keyboard;
     bool mouse;
+    bool active;
     CommandHistory history;
     int editMode;
     bool mod;
     bool all;    
     void setValue(float v);
     Mask mask;
+    
+    enum editModes{BRIGHTNESS,CONTRAST,SATURATION,
+                    CORNERPIN, GRID,
+                    AZIMUTH, ELEVATION, DISTANCE,
+                    ROLL, TILT, PAN,
+                    FOV,
+                    SCALE, SCALE_X, SCALE_Y,
+                    SHEAR_XY, SHEAR_XZ, SHEAR_YX, SHEAR_YZ, SHEAR_ZX, SHEAR_ZY,
+                    NONE};
     
     // intensity
     float brightness;

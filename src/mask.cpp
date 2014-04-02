@@ -107,17 +107,17 @@ void Mask::draw(){
  
  ********************************************/
 
-void Mask::onMousePressed(ofMouseEventArgs& mouseArgs){
+void Mask::mousePressed(ofMouseEventArgs& mouseArgs){
     mouseDown = true;
     mouseX = mouseArgs.x;
     mouseY = mouseArgs.y;
 }
 
-void Mask::onMouseDragged(ofMouseEventArgs& mouseArgs){
+void Mask::mouseDragged(ofMouseEventArgs& mouseArgs){
     mouseX = mouseArgs.x;
     mouseY = mouseArgs.y;
 }
 
-void Mask::onMouseReleased(ofMouseEventArgs& mouseArgs){
+void Mask::mouseReleased(ofMouseEventArgs& mouseArgs){
     mouseDown = false;
 }
