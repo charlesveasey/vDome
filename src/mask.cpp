@@ -10,8 +10,6 @@ ofMesh brush;
 
 Mask::Mask(){
     
-
-
     mouseX = 0;
     mouseY = 0;
     
@@ -65,9 +63,9 @@ void Mask::draw(){
 
 
 
-        int brushImageSize = 200;
-        int brushImageX = mouseX - 256 * 0.5;
-        int brushImageY = mouseY - 256 * 0.5;
+        int brushImageSize = 256;
+        int brushImageX = mouseX;
+        int brushImageY = mouseY1;
         
 
         brushImage.bind();
@@ -80,19 +78,6 @@ void Mask::draw(){
         brush.draw();
         ofPopMatrix();
         brushImage.unbind();
-        
-        //ofSetColor(255, 255, 255, 255);
-
-        
-        //brushImage.bind();
-    
-      //  ofRect(brushImageX, brushImageY, brushImageSize, brushImageSize);
-       //// ofCircle(brushImageX, brushImageY, brushImageSize/2);
-        
-        //brushImage.unbind();
-
-
-       // ofDisableAlphaBlending();
     }
     
     maskFbo.end();
