@@ -8,15 +8,15 @@ public:
     
     void draw();
     
-    // mouse
     void mousePressed(ofMouseEventArgs& mouseArgs);
     void mouseDragged(ofMouseEventArgs& mouseArgs);
     void mouseReleased(ofMouseEventArgs& mouseArgs);
    
     ofImage brushImage;
+    ofMesh brush;
     ofFbo maskFbo;
-    ofFbo renderFbo;
-    
+        
+private:
     bool mouseDown;
     
     int mouseX;

@@ -6,8 +6,6 @@
  
  ********************************************/
 
-ofMesh brush;
-
 Mask::Mask(){
     
     mouseX = 0;
@@ -18,18 +16,15 @@ Mask::Mask(){
     
     brushImageSize = 256;
     brushImageAlpha = 10;
-
     
     mouseDown = false;
     
     brushImage.setUseTexture(true);
     brushImage.allocate(brushImageSize, brushImageSize, OF_IMAGE_COLOR_ALPHA);
     brushImage.setImageType(OF_IMAGE_COLOR_ALPHA);
-    brushImage.loadImage("media/brush copy.png");
-    
-    
+    brushImage.loadImage("brushes/brush.png");
+        
     brush = ofMesh::plane(brushImageSize, brushImageSize, 2, 2, OF_PRIMITIVE_TRIANGLES);
-
     
     maskFbo.allocate(width, height, GL_RGBA);
     
@@ -51,18 +46,11 @@ void Mask::draw(){
     maskFbo.begin();
 
     if (mouseDown) {
-        int brushImageSize = brushImageSize;
-        int brushImageX = mouseX;
-        int brushImageY = mouseY;
-
         brushImage.bind();
-        
-        ofPushMatrix();
-        ofTranslate(brushImageX, brushImageY);
-        
         ofSetColor(255, 255, 255, brushImageAlpha);
-        
-        brush.draw();
+        ofPushMatrix();
+            ofTranslate(mouseX, mouseY);
+            brush.draw();
         ofPopMatrix();
         brushImage.unbind();
     }

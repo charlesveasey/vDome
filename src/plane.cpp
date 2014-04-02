@@ -72,11 +72,11 @@ void Plane::setup(int i){
     
     // only load mesh if the dimensions match
     ofMesh tmp;
-    tmp.load("plane-mesh-" + ofToString(index+1) + ".ply");
+    tmp.load("models/plane-mesh-" + ofToString(index+1) + ".ply");
     
     vector<ofVec3f> vTmp = mesh.getVertices();
-    if (vTmp[vTmp.size()-1].x*2 == projWidth && vTmp[v.size()-1].y*2 == projHeight) {
-        mesh.load("plane-mesh-" + ofToString(index+1) + ".ply");
+    if (vTmp[vTmp.size()-1].x == projWidth && vTmp[v.size()-1].y == projHeight) {
+        mesh.load("models/plane-mesh-" + ofToString(index+1) + ".ply");
     }
     
     for (int i=0; i<v.size(); i++) {
@@ -375,7 +375,7 @@ void Plane::onMouseReleased(ofMouseEventArgs& mouseArgs){
  ********************************************/
 
 void Plane::load(ofXml &xml) {
-    mesh.load("plane-mesh-" + ofToString(index+1) + ".ply");
+    mesh.load("models/plane-mesh-" + ofToString(index+1) + ".ply");
     string xmlPrefix = "projectors/projector[";
     
     string pre = xmlPrefix + ofToString(index);
@@ -402,7 +402,7 @@ void Plane::save(ofXml &xml) {
         v[i] = gridVerts[i] + orgVerts[i];
         m.setVertex(i, v[i]);
     }
-    m.save("plane-mesh-" + ofToString(index+1) + ".ply");
+    m.save("models/plane-mesh-" + ofToString(index+1) + ".ply");
 
     string xmlPrefix = "projectors/projector[";
     string pre = xmlPrefix + ofToString(index);
