@@ -6,12 +6,7 @@ class Mask {
 public:
     Mask();
     
-	void setup();
-	void update();
-	void draw();
-    
-    void begin();
-    void end();
+    void draw();
     
     // mouse
     void mousePressed(ofMouseEventArgs& mouseArgs);
@@ -29,4 +24,8 @@ public:
     
     int width;
     int height;
+    
+    int brushImageSize;
+    int brushImageAlpha;
+
 };
