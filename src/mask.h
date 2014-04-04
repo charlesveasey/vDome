@@ -12,10 +12,16 @@ public:
     void mouseDragged(ofMouseEventArgs& mouseArgs);
     void mouseReleased(ofMouseEventArgs& mouseArgs);
    
+    void keyPressed(int key);
+    void keyReleased(int key);
+
     ofImage brushImage;
     ofMesh brush;
     ofFbo maskFbo;
-        
+
+    float brushOpacity;
+    float brushScale;
+
 private:
     bool mouseDown;
     
@@ -25,7 +31,8 @@ private:
     int width;
     int height;
     
-    int brushImageSize;
-    int brushImageAlpha;
+    int brushWidth;
+    int brushHeight;
 
+    bool erase;
 };

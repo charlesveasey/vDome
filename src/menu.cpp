@@ -20,7 +20,7 @@ Menu::Menu(){
     menuMain->items.push_back("Blend              ->");
     menuMain->items.push_back("Color              ->");
     menuMain->items.push_back("Setup              ->");
-                            
+    
     menuInput = new MenuItem;
     menuInput->menuId = INPUT;
     menuInput->parent = &menuMain;
@@ -44,7 +44,14 @@ Menu::Menu(){
     menuBlend->currentItem = 0;
     menuBlend->items.push_back("Brightness");
     menuBlend->items.push_back("Contrast");
-    menuBlend->items.push_back("Brush");
+    menuBlend->items.push_back("Brush              ->");
+    
+    menuBrush = new MenuItem;
+    menuBrush->menuId = BRUSH;
+    menuBrush->parent = &menuBlend;
+    menuBrush->currentItem = 0;
+    menuBrush->items.push_back("Brush Scale");
+    menuBrush->items.push_back("Brush Opacity");
     
     menuColor = new MenuItem;
     menuColor->menuId = COLOR;
@@ -210,6 +217,17 @@ void Menu::drawMain(int i){
                     }
                     break;
                     
+                case BRUSH:
+                    switch (j) {
+                        case BRUSH_SCALE:
+                            val = ofToString(roundTo(projectors->at(i).mask.brushScale, .001));
+                            break;
+                        case BRUSH_OPACITY:
+                            val = ofToString(roundTo(projectors->at(i).mask.brushOpacity, .001));
+                            break;
+                    }
+                    break;
+                    
                 case COLOR:
                     switch (j) {
                         case SATURATION:
@@ -307,7 +325,8 @@ void Menu::drawMain(int i){
                     break;
             }
             
-            if (str != "Brush") {
+            // value string
+            if (str != "Brush              ->") { // exception
                 while (str.size() + val.size() < 21) {
                     str += " ";
                 }
@@ -453,6 +472,15 @@ void Menu::select() {
                     break;
             }
             break;
+        case BLEND:
+            switch (item) {
+                case 2:
+                    currentMenu = &menuBrush;
+                    break;
+                default:
+                    break;
+            }
+            break;
             
         default:
             break;
@@ -477,7 +505,6 @@ void Menu::mousePressed(ofMouseEventArgs& mouseArgs) {
     if (active) {
         for (int i=0; i<projCount; i++) {
             projectors->at(i).mousePressed(mouseArgs);
-            projectors->at(i).mask.mousePressed(mouseArgs);
         }
      }
 }
@@ -486,7 +513,6 @@ void Menu::mouseDragged(ofMouseEventArgs& mouseArgs) {
     if (active) {
         for (int i=0; i<projCount; i++) {
             projectors->at(i).mouseDragged(mouseArgs);
-            projectors->at(i).mask.mouseDragged(mouseArgs);
         }
     }
 }
@@ -495,11 +521,9 @@ void Menu::mouseReleased(ofMouseEventArgs& mouseArgs) {
     if (active) {
         for (int i=0; i<projCount; i++) {
             projectors->at(i).mouseReleased(mouseArgs);
-            projectors->at(i).mask.mouseReleased(mouseArgs);
         }
     }
 }
-
 
 
 /******************************************
@@ -509,6 +533,12 @@ void Menu::mouseReleased(ofMouseEventArgs& mouseArgs) {
  ********************************************/
 
 void Menu::keyPressed(int key) {
+    
+    if (active) {
+        for (int i=0; i<projCount; i++) {
+            projectors->at(i).mask.keyPressed(key);
+        }
+    }
     
     switch(key){
             
@@ -702,6 +732,23 @@ void Menu::setEditMode() {
                     break;
             }
             break;
+            
+        case BRUSH:
+            switch (j) {
+                case BRUSH_SCALE:
+                    for (int k=0; k<projCount; k++) {
+                        if (projectors->at(k).active)
+                            projectors->at(k).editMode = projectors->at(k).BRUSH_SCALE;
+                    }
+                    break;
+                case BRUSH_OPACITY:
+                    for (int k=0; k<projCount; k++) {
+                        if (projectors->at(k).active)
+                            projectors->at(k).editMode = projectors->at(k).BRUSH_OPACITY;
+                    }
+                    break;
+            }
+            break;
         
         case WARP:
             switch (j) {
@@ -877,8 +924,9 @@ void Menu::keyReleased(int key) {
     
     for (int i=0; i<projCount; i++) {
         projectors->at(i).keyReleased(key);
+        projectors->at(i).mask.keyReleased(key);
     }
-    
+
     switch(key){
             
         case OF_KEY_ALT:

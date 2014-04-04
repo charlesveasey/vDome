@@ -147,7 +147,6 @@ void Projector::end() {
 
 
 
-
 /******************************************
  
  BIND
@@ -161,8 +160,6 @@ void Projector::bind() {
 void Projector::unbind() {
     fbo.getTextureReference().unbind();
 }
-
-
 
 
 
@@ -207,11 +204,18 @@ void Projector::mousePressed(ofMouseEventArgs& mouseArgs) {
         }
         plane.onMousePressed(mouseArgs);
     }
+    else if (editMode == BRUSH_SCALE || editMode == BRUSH_OPACITY) {
+        mask.mousePressed(mouseArgs);
+    }
 }
 
 void Projector::mouseDragged(ofMouseEventArgs& mouseArgs) {
-    if (editMode == CORNERPIN || editMode == GRID)
+    if (editMode == CORNERPIN || editMode == GRID) {
         plane.onMouseDragged(mouseArgs);
+    }
+    else if (editMode == BRUSH_SCALE || editMode == BRUSH_OPACITY) {
+        mask.mouseDragged(mouseArgs);
+    }
 }
 
 void Projector::mouseReleased(ofMouseEventArgs& mouseArgs) {
@@ -225,6 +229,9 @@ void Projector::mouseReleased(ofMouseEventArgs& mouseArgs) {
             history.execute( new SetGridPoints(*this, value, lastGrid) );
         }
         plane.onMouseReleased(mouseArgs);
+    }
+    else if (editMode == BRUSH_SCALE || editMode == BRUSH_OPACITY) {
+        mask.mouseReleased(mouseArgs);
     }
 }
 
@@ -317,6 +324,12 @@ void Projector::keyPressed(int key) {
                 case CONTRAST:
                     history.execute( new SetContrast(*this, contrast + value * .1) );
                     break;
+                case BRUSH_SCALE:
+                    history.execute( new SetBrushScale(*this, mask.brushScale + value * .1) );
+                    break;
+                case BRUSH_OPACITY:
+                    history.execute( new SetBrushOpacity(*this, mask.brushOpacity + value) );
+                    break;
                     
                 case SATURATION:
                     history.execute( new SetSaturation(*this, saturation + value * .1) );
@@ -400,6 +413,12 @@ void Projector::keyPressed(int key) {
                     break;
                 case CONTRAST:
                     history.execute( new SetContrast(*this, contrast - value * .1) );
+                    break;
+                case BRUSH_SCALE:
+                    history.execute( new SetBrushScale(*this, mask.brushScale - value * .1) );
+                    break;
+                case BRUSH_OPACITY:
+                    history.execute( new SetBrushOpacity(*this, mask.brushOpacity - value) );
                     break;
                     
                 case SATURATION:

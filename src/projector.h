@@ -27,7 +27,7 @@ public:
                     FOV,
                     SCALE, SCALE_X, SCALE_Y,
                     SHEAR_XY, SHEAR_XZ, SHEAR_YX, SHEAR_YZ, SHEAR_ZX, SHEAR_ZY,
-                    NONE};
+                    NONE, BRUSH_SCALE, BRUSH_OPACITY};
     
     // intensity
     float brightness;
@@ -169,7 +169,31 @@ public:
     void undo() { obj.contrast = l; }
 };
 
+class SetBrushScale : public Command {
+protected:
+    Projector& obj;
+    float v;
+    float l;
+public:
+    SetBrushScale(Projector& obj, float v) : obj(obj), v(v) {}
+    void execute() {
+        l = obj.mask.brushScale;
+        obj.mask.brushScale = v; }
+    void undo() { obj.mask.brushScale = l; }
+};
 
+class SetBrushOpacity : public Command {
+protected:
+    Projector& obj;
+    float v;
+    float l;
+public:
+    SetBrushOpacity(Projector& obj, float v) : obj(obj), v(v) {}
+    void execute() {
+        l = obj.mask.brushOpacity;
+        obj.mask.brushOpacity = v; }
+    void undo() { obj.mask.brushOpacity = l; }
+};
 
 // color
 class SetSaturation : public Command {

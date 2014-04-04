@@ -19,10 +19,8 @@ public:
 
     // state
     int frameCnt;
-    bool saved;
-    
+    bool saved;    
     bool active;
-    
     int pActive;
     
     struct MenuItem {
@@ -32,11 +30,12 @@ public:
         MenuItem **parent;
     };
     
-    // menu
+    // menus
     MenuItem *menuMain;
     MenuItem *menuInput;
     MenuItem *menuWarp;
     MenuItem *menuBlend;
+    MenuItem *menuBrush;
     MenuItem *menuColor;
     MenuItem *menuSetup;
     MenuItem *menuRadius;
@@ -48,11 +47,13 @@ public:
     MenuItem **currentMenu;
 
     enum menus {MAIN, INPUT, WARP, BLEND, COLOR, SETUP,
-        RADIUS, POSITION, ORIENTATION, LENS, SCALE, SHEAR};
+         RADIUS, POSITION, ORIENTATION, LENS, SCALE, SHEAR, BRUSH};
 
+    // menu items
     enum inputItems {SOURCE, FORMAT, INPUT_SCALE};
     enum warpItems  {CORNERPIN, GRID};
-    enum blendItems {BRIGHTNESS, CONTRAST, BRUSH};
+    enum blendItems {BRIGHTNESS, CONTRAST, B_BRUSH};
+    enum brushItems {BRUSH_SCALE, BRUSH_OPACITY};
     enum colorItems {SATURATION};
     enum radiusItems{DOME_RADIUS};
     enum posItems   {AZIMUTH, ELEVATION, DISTANCE};
@@ -61,7 +62,6 @@ public:
     enum scaleItems {SCALE_XY, SCALE_X, SCALE_Y};
     enum shearItems {SHEAR_YZ, SHEAR_ZX, SHEAR_XZ,
                      SHEAR_ZY, SHEAR_YX, SHEAR_XY};
-
     
     // layout
     int px;
