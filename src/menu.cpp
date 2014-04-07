@@ -429,63 +429,33 @@ void Menu::select() {
     switch ((*currentMenu)->menuId) {
         case MAIN:
             switch (item) {
-                case 0:
-                    currentMenu = &menuInput;
-                    break;
-                case 1:
-                    currentMenu = &menuWarp;
-                    break;
-                case 2:
-                    currentMenu = &menuBlend;
-                    break;
-                case 3:
-                    currentMenu = &menuColor;
-                    break;
-                case 4:
-                    currentMenu = &menuSetup;
-                    break;
-                default:
-                    break;
+                case 0: currentMenu = &menuInput; break;
+                case 1: currentMenu = &menuWarp; break;
+                case 2: currentMenu = &menuBlend; break;
+                case 3: currentMenu = &menuColor; break;
+                case 4: currentMenu = &menuSetup; break;
+                default: break;
             }
             break;
         case SETUP:
             switch (item) {
-                case 0:
-                    currentMenu = &menuRadius;
-                    break;
-                case 1:
-                    currentMenu = &menuPosition;
-                    break;
-                case 2:
-                    currentMenu = &menuOrientation;
-                    break;
-                case 3:
-                    currentMenu = &menuLens;
-                    break;
-                case 4:
-                    currentMenu = &menuScale;
-                    break;
-                case 5:
-                    currentMenu = &menuShear;
-                    break;
-                default:
-                    break;
+                case 0: currentMenu = &menuRadius; break;
+                case 1: currentMenu = &menuPosition; break;
+                case 2: currentMenu = &menuOrientation; break;
+                case 3: currentMenu = &menuLens; break;
+                case 4: currentMenu = &menuScale; break;
+                case 5: currentMenu = &menuShear; break;
+                default: break;
             }
             break;
         case BLEND:
             switch (item) {
-                case 2:
-                    currentMenu = &menuBrush;
-                    break;
-                default:
-                    break;
+                case 2: currentMenu = &menuBrush; break;
+                default: break;
             }
             break;
-            
-        default:
-            break;
+        default: break;
     }
-    
     setEditMode();
 }
 
@@ -669,36 +639,40 @@ void Menu::keyPressed(int key) {
         // map key to projector
         if (key == 48) pActive = 10;
         else pActive = key-49;
-        
-        // shift groups, otherwise reset
-        if (!shift) {
-            for (int i=0; i<projCount; i++) {
-                if (i != pActive) {
-                    projectors->at(i).keyboard = false;
-                    projectors->at(i).mouse = false;
-                    projectors->at(i).active = false;
-                }
-            }
-        }
        
-        // activate keyboard / mouse input
-        projectors->at(pActive).keyboard = !(projectors->at(pActive).keyboard);
-        projectors->at(pActive).mouse = !(projectors->at(pActive).mouse);
-        projectors->at(pActive).active = !(projectors->at(pActive).active);
-        
-        // move mouse to new selection
-        int xmouse = projectors->at(pActive).getPlanePosition().x+projectors->at(pActive).getPlaneDimensions().x/2;
-        int ymouse = projectors->at(pActive).getPlanePosition().y+projectors->at(pActive).getPlaneDimensions().y/2;
-        
-        if (projectors->at(pActive).active) {
-            #ifdef TARGET_OSX
-                glutWarpPointer(xmouse, -ymouse);
-            #endif
-            #ifdef TARGET_WIN32
+        if (pActive < projCount) {
+           
+           // shift groups, otherwise reset
+           if (!shift) {
+               for (int i=0; i<projCount; i++) {
+                   if (i != pActive) {
+                       projectors->at(i).keyboard = false;
+                       projectors->at(i).mouse = false;
+                       projectors->at(i).active = false;
+                   }
+               }
+           }
+           
+           // activate keyboard / mouse input
+           projectors->at(pActive).keyboard = !(projectors->at(pActive).keyboard);
+           projectors->at(pActive).mouse = !(projectors->at(pActive).mouse);
+           projectors->at(pActive).active = !(projectors->at(pActive).active);
+           
+           // move mouse to new selection
+           int xmouse = projectors->at(pActive).getPlanePosition().x+projectors->at(pActive).getPlaneDimensions().x/2;
+           int ymouse = projectors->at(pActive).getPlanePosition().y+projectors->at(pActive).getPlaneDimensions().y/2;
+           
+           if (projectors->at(pActive).active) {
+                #ifdef TARGET_OSX
+                    glutWarpPointer(xmouse, -ymouse);
+                #endif
+                #ifdef TARGET_WIN32
                 SetCursorPos(xmouse, ymouse);
-            #endif
-        }
-       setEditMode();
+                #endif
+           }
+           setEditMode();
+       }
+
         
     }
     
@@ -919,6 +893,7 @@ void Menu::setEditMode() {
             break;
     }
 }
+
 
 void Menu::keyReleased(int key) {
     

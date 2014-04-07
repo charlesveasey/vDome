@@ -81,9 +81,8 @@ void vdome::draw(){
     
 	for(int i=0; i<projCount; i++) {
         
-        projectors[i].mask.draw();
         
-        projectors[i].bind();        
+        projectors[i].bind();
 
                 shader.begin();
         
@@ -93,8 +92,6 @@ void vdome::draw(){
                     shader.setUniformTexture("texsampler", projectors[i].getTextureReference(), 0 );
                     shader.setUniformTexture("maskTex", projectors[i].mask.maskFbo.getTextureReference(), 1 );
         
-                    ofSetColor( 255, 255, 255, 0 );
-
                     projectors[i].draw();
         
                 shader.end();

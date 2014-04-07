@@ -28,7 +28,7 @@ public:
                     SCALE, SCALE_X, SCALE_Y,
                     SHEAR_XY, SHEAR_XZ, SHEAR_YX, SHEAR_YZ, SHEAR_ZX, SHEAR_ZY,
                     NONE, BRUSH_SCALE, BRUSH_OPACITY};
-    
+        
     // intensity
     float brightness;
     float contrast;
@@ -57,7 +57,6 @@ public:
     vector<ofVec3f> getGridPoints();
     void setGridPoints(vector<ofVec3f> v);
     
-    
     // camera
     void  setCameraTransform();
     
@@ -78,7 +77,6 @@ public:
     
     vector<float> getCameraShear();
     void setCameraShear(vector<float>);
-    
     
     // cycle
     void init(int i);

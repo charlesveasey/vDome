@@ -63,6 +63,8 @@ public:
     enum shearItems {SHEAR_YZ, SHEAR_ZX, SHEAR_XZ,
                      SHEAR_ZY, SHEAR_YX, SHEAR_XY};
     
+    void findEdit(int mode);
+    
     // layout
     int px;
     int py;

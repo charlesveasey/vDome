@@ -86,7 +86,7 @@ void Projector::setup() {
     
     fbo.begin();
         ofClear(255);
-    fbo.end();
+    fbo.end();    
 }
 
 
@@ -154,6 +154,8 @@ void Projector::end() {
  ********************************************/
 
 void Projector::bind() {
+    if (active)
+        mask.draw();
     fbo.getTextureReference().bind();
 }
 
@@ -488,14 +490,8 @@ void Projector::keyPressed(int key) {
                     cameraShear[5] -= value *.1;
                     history.execute( new SetCameraShear(*this, cameraShear ) );
                     break;
-                    
-                    
             }
             break;
-            
-            
-
-
             
         default:
             break;
@@ -506,10 +502,6 @@ void Projector::keyReleased(int key) {
     if (keyboard)
         plane.keyReleased(key);
 }
-
-
-
-
 
 /******************************************
  
@@ -614,6 +606,8 @@ void Projector::loadXML(ofXml &xml) {
         float sy  = ofToFloat(ofSplitString(str, ",")[1]);
         setCameraScale(sx, sy);
     }
+    
+    mask.load(index);
 }
 
 void Projector::saveXML(ofXml &xml) {
@@ -635,6 +629,7 @@ void Projector::saveXML(ofXml &xml) {
     
     
     plane.save(xml);
+    mask.save(index);
 }
 
 

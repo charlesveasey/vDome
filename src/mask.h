@@ -6,6 +6,7 @@ class Mask {
 public:
     Mask();
     
+    void setup();
     void draw();
     
     void mousePressed(ofMouseEventArgs& mouseArgs);
@@ -21,6 +22,9 @@ public:
 
     float brushOpacity;
     float brushScale;
+    void save(int i);
+    void load(int i);
+    
 
 private:
     bool mouseDown;
@@ -35,4 +39,8 @@ private:
     int brushHeight;
 
     bool erase;
+    
+    ofImage maskFboImage;
+    string filename;
+    int indx;
 };
