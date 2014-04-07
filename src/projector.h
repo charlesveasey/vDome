@@ -321,6 +321,34 @@ public:
     void undo() { obj.setCameraScale(l.x, l.y); }
 };
 
+class SetCameraScaleX : public Command {
+protected:
+    Projector& obj;
+    float x;
+    ofVec2f l;
+public:
+    SetCameraScaleX(Projector& obj, float x) : obj(obj), x(x) {}
+    void execute() {
+        l = obj.getCameraScale();
+        obj.setCameraScale(x, obj.getCameraScale().y);
+    }
+    void undo() { obj.setCameraScale(l.x, l.y); }
+};
+
+class SetCameraScaleY : public Command {
+protected:
+    Projector& obj;
+    float y;
+    ofVec2f l;
+public:
+    SetCameraScaleY(Projector& obj, float y) : obj(obj), y(y) {}
+    void execute() {
+        l = obj.getCameraScale();
+        obj.setCameraScale(obj.getCameraScale().x, y);
+    }
+    void undo() { obj.setCameraScale(l.x, l.y); }
+};
+
 class SetCameraShear : public Command {
 protected:
     Projector& obj;

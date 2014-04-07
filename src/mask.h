@@ -24,6 +24,7 @@ public:
     float brushScale;
     void save(int i);
     void load(int i);
+    void reset();
     
 
 private:

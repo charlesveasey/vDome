@@ -504,12 +504,6 @@ void Menu::mouseReleased(ofMouseEventArgs& mouseArgs) {
 
 void Menu::keyPressed(int key) {
     
-    if (active) {
-        for (int i=0; i<projCount; i++) {
-            projectors->at(i).mask.keyPressed(key);
-        }
-    }
-    
     switch(key){
             
         // SHORTCUTS
@@ -544,6 +538,17 @@ void Menu::keyPressed(int key) {
             ctrl = true;
             break;
             
+    }
+    
+    
+    if (active) {
+        for (int i=0; i<projCount; i++) {
+            projectors->at(i).mask.keyPressed(key);
+        }
+    }
+    
+    for (int k=0; k<projCount; k++) {
+        projectors->at(k).keyPressed(key);
     }
     
     
@@ -600,9 +605,7 @@ void Menu::keyPressed(int key) {
                 
         }
         
-        for (int k=0; k<projCount; k++) {                
-            projectors->at(k).keyPressed(key);
-        }
+
     }
     
     // SET EDIT MODE
@@ -667,15 +670,12 @@ void Menu::keyPressed(int key) {
                     glutWarpPointer(xmouse, -ymouse);
                 #endif
                 #ifdef TARGET_WIN32
-                SetCursorPos(xmouse, ymouse);
+                    SetCursorPos(xmouse, ymouse);
                 #endif
            }
            setEditMode();
        }
-
-        
     }
-    
 }
 
 void Menu::setEditMode() {

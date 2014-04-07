@@ -38,7 +38,7 @@ void Mask::setup(){
     maskFbo.allocate(width, height);
     
     maskFbo.begin();
-    ofClear(255,255,255,0);
+        ofClear(255,255,255,0);
     maskFbo.end();
     
     ofDisableNormalizedTexCoords();
@@ -138,4 +138,16 @@ void Mask::save(int i){
     string filename;
     filename = "masks/mask-" + ofToString(i) + ".png";    
     maskFboImage.saveImage(filename);
+}
+
+/******************************************
+ 
+ RESET
+ 
+ ********************************************/
+
+void Mask::reset(){
+    maskFbo.begin();
+        ofClear(255,255,255,0);
+    maskFbo.end();
 }
