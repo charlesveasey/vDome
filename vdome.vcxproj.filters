@@ -76,6 +76,12 @@
     <ClCompile Include="..\..\..\addons\ofxMSAInteractiveObject\src\ofxMSAInteractiveObject.cpp">
       <Filter>addons\ofxMSAInteractiveObject\src</Filter>
     </ClCompile>
+    <ClCompile Include="src\mask.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\menu.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -493,6 +499,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\addons\ofxMSAInteractiveObject\src\ofxMSAInteractiveObject.h">
       <Filter>addons\ofxMSAInteractiveObject\src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mask.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\menu.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

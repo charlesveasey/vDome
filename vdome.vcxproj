@@ -96,6 +96,8 @@
     <ClCompile Include="src\dome.cpp" />
     <ClCompile Include="src\input.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\mask.cpp" />
+    <ClCompile Include="src\menu.cpp" />
     <ClCompile Include="src\ofDirectShowPlayer.cpp" />
     <ClCompile Include="src\plane.cpp" />
     <ClCompile Include="src\projector.cpp" />
@@ -122,6 +124,8 @@
     <ClInclude Include="src\command.h" />
     <ClInclude Include="src\dome.h" />
     <ClInclude Include="src\input.h" />
+    <ClInclude Include="src\mask.h" />
+    <ClInclude Include="src\menu.h" />
     <ClInclude Include="src\ofDirectShowPlayer.h" />
     <ClInclude Include="src\plane.h" />
     <ClInclude Include="src\projector.h" />
