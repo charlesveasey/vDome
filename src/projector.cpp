@@ -49,6 +49,8 @@ void Projector::init(int i){
     cameraShear.push_back(0); // 4=zx
     cameraShear.push_back(0); // 5=zy
     
+    mask.init(i);
+    
     setup();
 }
 
@@ -209,6 +211,7 @@ void Projector::mousePressed(ofMouseEventArgs& mouseArgs) {
     else if (editMode == BRUSH_SCALE || editMode == BRUSH_OPACITY) {
         mask.mousePressed(mouseArgs);
     }
+
 }
 
 void Projector::mouseDragged(ofMouseEventArgs& mouseArgs) {
@@ -234,6 +237,7 @@ void Projector::mouseReleased(ofMouseEventArgs& mouseArgs) {
     }
     else if (editMode == BRUSH_SCALE || editMode == BRUSH_OPACITY) {
         mask.mouseReleased(mouseArgs);
+        history.execute( new SetBrushPoints(*this, history.getIndex()) );
     }
 }
 
@@ -244,9 +248,7 @@ void Projector::mouseReleased(ofMouseEventArgs& mouseArgs) {
  ********************************************/
 
 void Projector::keyPressed(int key) {
-    
-    cout  << "projector: " << key << endl;
-    
+        
     if (editMode == CORNERPIN || editMode == GRID)
         plane.keyPressed(key);
 
@@ -270,12 +272,12 @@ void Projector::keyPressed(int key) {
                                   mask.brushScale = 1; break;
                 case CORNERPIN: plane.resetKeystone(); break;
                 case GRID: plane.resetGrid(); break;
-                case AZIMUTH: history.execute( new SetCameraPosition(*this, 0, getCameraPosition().y, getCameraPosition().z )); break;
-                case ELEVATION: history.execute( new SetCameraPosition(*this, getCameraPosition().x, 0, getCameraPosition().z )); break;
-                case DISTANCE: history.execute( new SetCameraPosition(*this, getCameraPosition().x, getCameraPosition().y, 5 )); break;
-                case TILT: history.execute( new SetCameraOrientation(*this, getCameraOrientation().x, 0, getCameraOrientation().z )); break;
-                case ROLL: history.execute( new SetCameraOrientation(*this, 0, getCameraOrientation().y, getCameraOrientation().z )); break;
-                case PAN: history.execute( new SetCameraOrientation(*this, getCameraOrientation().x, getCameraOrientation().y, 0) ); break;
+                case AZIMUTH: history.execute( new SetCameraPosition(*this, 0, cameraPosition.y, cameraPosition.z )); break;
+                case ELEVATION: history.execute( new SetCameraPosition(*this, cameraPosition.x, 0, cameraPosition.z )); break;
+                case DISTANCE: history.execute( new SetCameraPosition(*this, cameraPosition.x, cameraPosition.y, 5 )); break;
+                case TILT: history.execute( new SetCameraOrientation(*this, cameraPosition.x, 0, cameraPosition.z )); break;
+                case ROLL: history.execute( new SetCameraOrientation(*this, 0, cameraOrientation.y, cameraOrientation.z )); break;
+                case PAN: history.execute( new SetCameraOrientation(*this, cameraOrientation.x, cameraOrientation.y, 0) ); break;
                 case FOV: history.execute( new SetCameraFov(*this, 33) ); break;
                 case SCALE: history.execute( new SetCameraScale(*this, 1, 1) ); break;
                 case SCALE_X: history.execute( new SetCameraScaleX(*this, 1) ); break;
@@ -547,7 +549,6 @@ void Projector::loadXML(ofXml &xml) {
     
     
     
-    
     // camera position
     if (xml.exists(pre + "][@position]")) {
         str = xml.getAttribute(pre + "][@position]");
@@ -588,7 +589,7 @@ void Projector::loadXML(ofXml &xml) {
         setCameraScale(sx, sy);
     }
     
-    mask.load(index);
+    mask.load();
 }
 
 void Projector::saveXML(ofXml &xml) {
@@ -610,7 +611,7 @@ void Projector::saveXML(ofXml &xml) {
     
     
     plane.save(xml);
-    mask.save(index);
+    mask.save();
 }
 
 

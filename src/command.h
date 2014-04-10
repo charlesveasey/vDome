@@ -18,6 +18,7 @@ public :
     void execute(Command* command);
     void undo();
     void redo();
+    int getIndex();
 private :
     vector<Command*> history;
     int index;

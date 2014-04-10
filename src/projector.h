@@ -193,6 +193,20 @@ public:
     void undo() { obj.mask.brushOpacity = l; }
 };
 
+class SetBrushPoints : public Command {
+protected:
+    Projector& obj;
+    int v = -1;
+public:
+    SetBrushPoints(Projector& obj, int v) : obj(obj), v(v) {}
+    void execute() {
+        v = obj.mask.store(v);
+    }
+    void undo() {
+        obj.mask.recall(v);
+    }
+};
+
 // color
 class SetSaturation : public Command {
 protected:

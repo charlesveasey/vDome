@@ -34,3 +34,7 @@ void CommandHistory::redo() {
         history[index]->execute();
     }
 }
+
+int CommandHistory::getIndex() {
+    return index;
+}

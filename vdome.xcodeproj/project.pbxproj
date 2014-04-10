@@ -812,11 +812,11 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				5690C74B18EC235200E32DAF /* menu.h */,
 				5690C74A18EC235200E32DAF /* menu.cpp */,
 				561DFF5C18E0D22700C236AA /* mask.h */,
 				561DFF5B18E0D22700C236AA /* mask.cpp */,
-				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				5696C0511842C08D00E51614 /* vdome.cpp */,
 				5696C0521842C08D00E51614 /* vdome.h */,
 				5626085F188263E000E74D0A /* command.cpp */,

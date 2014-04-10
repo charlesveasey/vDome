@@ -397,7 +397,6 @@ void Menu::drawWarp(int i){
 
 void Menu::drawProjector(int i){
     ofDrawBitmapString("Projector #" + ofToString(i+1), px+padx, py+pady * 1.75);
-   
 }
 
 void Menu::drawFPS(int i){
