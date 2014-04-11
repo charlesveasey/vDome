@@ -1,4 +1,6 @@
 #include "mask.h"
+extern float projWidth;
+extern float projHeight;
 
 /******************************************
  
@@ -46,7 +48,10 @@ void Mask::init(int i){
  ********************************************/
 
 void Mask::setup(){
-    if (maskFbo.getWidth() != width || maskFbo.getHeight() != height)
+    width = projWidth;
+    height = projHeight;
+    
+    if (maskFbo.getWidth() != projWidth || maskFbo.getHeight() != projHeight)
         maskFbo.allocate(width, height, GL_RGBA32F_ARB);
     
     maskFbo.begin();
