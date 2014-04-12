@@ -152,6 +152,7 @@ public:
         l = obj.brightness;
         obj.brightness = v; }
     void undo() { obj.brightness = l; }
+    void redo() { execute(); }
 };
 
 class SetContrast : public Command {
@@ -165,6 +166,7 @@ public:
         l = obj.contrast;
         obj.contrast = v; }
     void undo() { obj.contrast = l; }
+    void redo() { execute(); }
 };
 
 class SetBrushScale : public Command {
@@ -178,6 +180,7 @@ public:
         l = obj.mask.brushScale;
         obj.mask.brushScale = v; }
     void undo() { obj.mask.brushScale = l; }
+    void redo() { execute(); }
 };
 
 class SetBrushOpacity : public Command {
@@ -191,19 +194,28 @@ public:
         l = obj.mask.brushOpacity;
         obj.mask.brushOpacity = v; }
     void undo() { obj.mask.brushOpacity = l; }
+    void redo() { execute(); }
 };
 
 class SetBrushPoints : public Command {
 protected:
     Projector& obj;
-    int v = -1;
+    int v;
+    int l;
 public:
-    SetBrushPoints(Projector& obj, int v) : obj(obj), v(v) {}
+    SetBrushPoints(Projector& obj, int v) : obj(obj), v(v), l(l) {}
     void execute() {
+        l = obj.mask.lastFIndex;
         v = obj.mask.store(v);
+        cout << "execute: " << "l: " << l << " " << "v: " <<  v << endl;
     }
     void undo() {
+        obj.mask.recall(l);
+        cout << "undo: " << "l: " << l << " " << "v: " <<  v << endl;
+    }
+    void redo() {
         obj.mask.recall(v);
+        cout << "redo: " << "l: " << l << " " << "v: " <<  v << endl;
     }
 };
 
@@ -219,6 +231,7 @@ public:
         l = obj.saturation;
         obj.saturation = v; }
     void undo() { obj.saturation = l; }
+    void redo() { execute(); }
 };
 
 
@@ -235,6 +248,7 @@ public:
         l = obj.getPlanePosition();
         obj.setPlanePosition(x, y); }
     void undo() { obj.setPlanePosition(x, y); }
+    void redo() { execute(); }
 };
 
 class SetKeystonePoints : public Command {
@@ -248,6 +262,7 @@ public:
         obj.setKeystonePoints(v);
     }
     void undo() { obj.setKeystonePoints(l); }
+    void redo() { execute(); }
 };
 
 class SetGridPoints : public Command {
@@ -261,6 +276,7 @@ public:
         obj.setGridPoints(v);
     }
     void undo() { obj.setGridPoints(l); }
+    void redo() { execute(); }
 };
 
 
@@ -277,6 +293,7 @@ public:
         obj.setCameraPosition(azi, ele, dis);
     }
     void undo() { obj.setCameraPosition(l.x, l.y, l.z); }
+    void redo() { execute(); }
 };
 
 class SetCameraOrientation : public Command {
@@ -291,6 +308,7 @@ public:
         obj.setCameraOrientation(roll, tilt, pan);
     }
     void undo() { obj.setCameraOrientation(l.x, l.y, l.z); }
+    void redo() { execute(); }
 };
 
 class SetCameraFov : public Command {
@@ -305,6 +323,7 @@ public:
         obj.setCameraFov(v);
     }
     void undo() { obj.setCameraFov(l); }
+    void redo() { execute(); }
 };
 
 class SetCameraOffset : public Command {
@@ -319,6 +338,7 @@ public:
         obj.setCameraOffset(x,y);
     }
     void undo() { obj.setCameraOffset(l.x,l.y); }
+    void redo() { execute(); }
 };
 
 class SetCameraScale : public Command {
@@ -333,6 +353,7 @@ public:
         obj.setCameraScale(x, y);
     }
     void undo() { obj.setCameraScale(l.x, l.y); }
+    void redo() { execute(); }
 };
 
 class SetCameraScaleX : public Command {
@@ -347,6 +368,7 @@ public:
         obj.setCameraScale(x, obj.getCameraScale().y);
     }
     void undo() { obj.setCameraScale(l.x, l.y); }
+    void redo() { execute(); }
 };
 
 class SetCameraScaleY : public Command {
@@ -361,6 +383,7 @@ public:
         obj.setCameraScale(obj.getCameraScale().x, y);
     }
     void undo() { obj.setCameraScale(l.x, l.y); }
+    void redo() { execute(); }
 };
 
 class SetCameraShear : public Command {
@@ -374,4 +397,5 @@ public:
         l = obj.getCameraShear();
         obj.setCameraShear(v); }
     void undo() { obj.setCameraShear(l); }
+    void redo() { execute(); }
 };

@@ -29,6 +29,8 @@ Mask::Mask(){
     brushOpacity = 50;
     
     brush = ofMesh::plane(brushWidth, brushHeight, 2, 2, OF_PRIMITIVE_TRIANGLES);
+    
+    lastFIndex = -1;
 }
 
 /******************************************
@@ -164,8 +166,8 @@ void Mask::write(string filename){
 
 void Mask::read(string filename){
     maskFboImage.clear();
-    maskFboImage.loadImage(filename);
-    setup();
+    if (maskFboImage.loadImage(filename))
+        setup();
 }
 
 // prestore mask pixels on mouse down to record previous state
@@ -177,6 +179,7 @@ void Mask::prestore() {
 
 // store mask pixels on mouse up for smoother ui, called by Command
 int Mask::store(int fIndex) {
+    lastFIndex = fIndex;
     string filename;
     filename = "masks/tmp/mask-" + ofToString(pIndex) + "-" + ofToString(fIndex) + ".png";
     hImage.saveImage(filename);   

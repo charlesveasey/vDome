@@ -31,7 +31,7 @@ void CommandHistory::undo() {
 void CommandHistory::redo() {    
     if (index + 1 < history.size()) {
         index++;
-        history[index]->execute();
+        history[index]->redo();
     }
 }
 
