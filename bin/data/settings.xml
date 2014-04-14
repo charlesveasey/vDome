@@ -11,10 +11,10 @@
 	<projectors count="2" dimensions="1024,768">
         
 		<!-- #1 -->
-		<projector brightness="1" contrast="1" cornerpin="0,0,1,0,0,1,1,1" fov="36" gamma="1,1,1,1" hsl="1,1,1" keystone="0,0,1,0,0,1,1,1" offset="0,0" orientation="0,-18,0" position="0,0,8" scale="1,1"/>
+		<projector brightness="1" contrast="1" cornerpin="0,0,1,0,0,1,1,1" fov="36" gamma="1,1,1,1" hsl="1,1,1" keystone="0,0,1,0,0,1,1,1" orientation="0,-18,0" position="0,0,8" scale="1,1"/>
 		
 		<!-- #2 -->
-		<projector brightness="1" contrast="1" cornerpin="0,0,1,0,0,1,1,1" fov="36" gamma="1,1,1,1" hsl="1,1,1" keystone="0,0,1,0,0,1,1,1" offset="0,0" orientation="0,-18,0" position="0,0,8" scale="1,1"/>
+		<projector brightness="1" contrast="1" cornerpin="0,0,1,0,0,1,1,1" fov="36" gamma="1,1,1,1" hsl="1,1,1" keystone="0,0,1,0,0,1,1,1" orientation="0,-18,0" position="0,0,8" scale="1,1"/>
 
     </projectors>      
 </vdome>

@@ -596,12 +596,12 @@ void Projector::loadXML(ofXml &xml) {
     }
     
     //camera lens offset
-    if (xml.exists(pre + "][@offset]")) {
-        str = xml.getAttribute(pre + "][@offset]");
-        float offX  = ofToFloat(ofSplitString(str, ",")[0]);
-        float offY  = ofToFloat(ofSplitString(str, ",")[1]);
-        setCameraOffset(offX, offY);
-    }
+    //if (xml.exists(pre + "][@offset]")) {
+    //    str = xml.getAttribute(pre + "][@offset]");
+    //    float offX  = ofToFloat(ofSplitString(str, ",")[0]);
+    //    float offY  = ofToFloat(ofSplitString(str, ",")[1]);
+    //    setCameraOffset(offX, offY);
+    //}
     
     // camera scale
     if (xml.exists(pre + "][@scale]")) {
@@ -629,7 +629,7 @@ void Projector::saveXML(ofXml &xml) {
     xml.setAttribute(pre + "][@position]", ofToString(cameraPosition.x) +  "," + ofToString(cameraPosition.y) +  "," + ofToString(cameraPosition.z) );
     xml.setAttribute(pre + "][@orientation]", ofToString(cameraOrientation.x) +  "," + ofToString(cameraOrientation.y) +  "," + ofToString(cameraOrientation.z) );
     xml.setAttribute(pre + "][@fov]", ofToString(cameraFov));
-    xml.setAttribute(pre + "][@offset]", ofToString(cameraOffset.x) +  "," + ofToString(cameraOffset.y) );
+    //xml.setAttribute(pre + "][@offset]", ofToString(cameraOffset.x) +  "," + ofToString(cameraOffset.y) );
     xml.setAttribute(pre + "][@scale]", ofToString(cameraScale.x) +  "," + ofToString(cameraScale.y) );
     xml.setAttribute(pre + "][@scale]", ofToString(cameraScale.x) +  "," + ofToString(cameraScale.y) );
   
