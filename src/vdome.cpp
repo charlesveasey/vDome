@@ -81,16 +81,24 @@ void vdome::draw(){
     
 	for(int i=0; i<projCount; i++) {
         
-        
         projectors[i].bind();
 
                 shader.begin();
         
-                    shader.setUniform1f("brightness", projectors[i].brightness );
-                    shader.setUniform1f("contrast", projectors[i].contrast );
-                    shader.setUniform1f("saturation", projectors[i].saturation );
-                    shader.setUniformTexture("texsampler", projectors[i].getTextureReference(), 0 );
-                    shader.setUniformTexture("maskTex", projectors[i].mask.maskFbo.getTextureReference(), 1 );
+                    shader.setUniform1f("brightness", projectors[i].brightness);
+                    shader.setUniform1f("contrast", projectors[i].contrast);
+        
+                    shader.setUniform1f("hue", projectors[i].hue);
+                    shader.setUniform1f("saturation", projectors[i].saturation);
+                    shader.setUniform1f("lightness", projectors[i].lightness);
+ 
+                    shader.setUniform1f("gamma", projectors[i].gamma);
+                    shader.setUniform1f("gammaR", projectors[i].gammaR);
+                    shader.setUniform1f("gammaG", projectors[i].gammaG);
+                    shader.setUniform1f("gammaB", projectors[i].gammaB);
+
+                    shader.setUniformTexture("texsampler", projectors[i].getTextureReference(), 0);
+                    shader.setUniformTexture("maskTex", projectors[i].mask.maskFbo.getTextureReference(), 1);
         
                     projectors[i].draw();
         

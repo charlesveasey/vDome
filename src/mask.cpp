@@ -60,14 +60,17 @@ void Mask::setup(){
         ofClear(255,255,255,0);
     maskFbo.end();
     
-    ofDisableAlphaBlending();
-    ofDisableNormalizedTexCoords();
-    maskFbo.begin();
-    ofSetColor(255, 255, 255, 255);
-        maskFboImage.draw(0,0, 1024, 768);
-    maskFbo.end();
-    ofEnableNormalizedTexCoords();
-    ofEnableAlphaBlending();
+    if (maskFboImage.isAllocated()) {
+    
+        ofDisableAlphaBlending();
+        ofDisableNormalizedTexCoords();
+        maskFbo.begin();
+        ofSetColor(255, 255, 255, 255);
+            maskFboImage.draw(0,0, 1024, 768);
+        maskFbo.end();
+        ofEnableNormalizedTexCoords();
+        ofEnableAlphaBlending();
+    }
 }
 
 /******************************************

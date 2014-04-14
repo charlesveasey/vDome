@@ -57,8 +57,25 @@ Menu::Menu(){
     menuColor->menuId = COLOR;
     menuColor->parent = &menuMain;
     menuColor->currentItem = 0;
-    menuColor->items.push_back("Saturation");
-    //menuColor->items.push_back("Hue");
+    menuColor->items.push_back("HSL                ->");
+    menuColor->items.push_back("Gamma              ->");
+    
+    menuHSL = new MenuItem;
+    menuHSL->menuId = HSL;
+    menuHSL->parent = &menuColor;
+    menuHSL->currentItem = 0;
+    menuHSL->items.push_back("Hue");
+    menuHSL->items.push_back("Saturation");
+    menuHSL->items.push_back("Lightness");
+    
+    menuGamma = new MenuItem;
+    menuGamma->menuId = GAMMA;
+    menuGamma->parent = &menuColor;
+    menuGamma->currentItem = 0;
+    menuGamma->items.push_back("Gamma");
+    menuGamma->items.push_back("Gamma Red");
+    menuGamma->items.push_back("Gamma Green");
+    menuGamma->items.push_back("Gamma Blue");
     
     menuSetup = new MenuItem;
     menuSetup->menuId = SETUP;
@@ -140,7 +157,6 @@ Menu::Menu(){
     ph = 135;
     padx = 15;
     pady = 15;
-    
 }
 
 /******************************************
@@ -148,7 +164,6 @@ Menu::Menu(){
  Draw
  
  ********************************************/
-
 
 void Menu::drawHighlight(){
     ofSetHexColor(0xF9ED6B);
@@ -228,10 +243,33 @@ void Menu::drawMain(int i){
                     }
                     break;
                     
-                case COLOR:
+                case HSL:
                     switch (j) {
+                        case HUE:
+                            val = ofToString(roundTo(projectors->at(i).hue, .001));
+                            break;
                         case SATURATION:
                             val = ofToString(roundTo(projectors->at(i).saturation, .001));
+                            break;
+                        case LIGHTNESS:
+                            val = ofToString(roundTo(projectors->at(i).lightness, .001));
+                            break;
+                    }
+                    break;
+ 
+                case GAMMA:
+                    switch (j) {
+                        case GAMMA_RGB:
+                            val = ofToString(roundTo(projectors->at(i).gamma, .001));
+                            break;
+                        case GAMMA_R:
+                            val = ofToString(roundTo(projectors->at(i).gammaR, .001));
+                            break;
+                        case GAMMA_G:
+                            val = ofToString(roundTo(projectors->at(i).gammaG, .001));
+                            break;
+                        case GAMMA_B:
+                            val = ofToString(roundTo(projectors->at(i).gammaB, .001));
                             break;
                     }
                     break;
@@ -326,7 +364,7 @@ void Menu::drawMain(int i){
             }
             
             // value string
-            if (str != "Brush              ->") { // exception
+            if (str.find("->") != 19) { // nested menu exception
                 while (str.size() + val.size() < 21) {
                     str += " ";
                 }
@@ -394,7 +432,6 @@ void Menu::drawWarp(int i){
     }
 }
 
-
 void Menu::drawProjector(int i){
     ofDrawBitmapString("Projector #" + ofToString(i+1), px+padx, py+pady * 1.75);
 }
@@ -406,7 +443,6 @@ void Menu::drawFPS(int i){
     }
 }
 
-
 void Menu::toggle() {
     active = !active;
     if (active)
@@ -414,7 +450,6 @@ void Menu::toggle() {
     else
         ofHideCursor();
 }
-
 
 /******************************************
  
@@ -453,6 +488,13 @@ void Menu::select() {
                 default: break;
             }
             break;
+        case COLOR:
+            switch (item) {
+                case 0: currentMenu = &menuHSL; break;
+                case 1: currentMenu = &menuGamma; break;
+                default: break;
+            }
+            break;
         default: break;
     }
     setEditMode();
@@ -462,7 +504,6 @@ void Menu::back() {
     currentMenu = (*currentMenu)->parent;
     setEditMode();
 }
-
 
 /******************************************
  
@@ -493,7 +534,6 @@ void Menu::mouseReleased(ofMouseEventArgs& mouseArgs) {
         }
     }
 }
-
 
 /******************************************
  
@@ -744,12 +784,59 @@ void Menu::setEditMode() {
             }
             break;
             
-        case COLOR:
+        case HSL:
             switch (j) {
+                case HUE:
+                    for (int k=0; k<projCount; k++) {
+                        if (projectors->at(k).active){
+                            projectors->at(k).editMode = projectors->at(k).HUE;
+                        }
+                    }
+                    break;
                 case SATURATION:
                     for (int k=0; k<projCount; k++) {
                         if (projectors->at(k).active){
                             projectors->at(k).editMode = projectors->at(k).SATURATION;
+                        }
+                    }
+                    break;
+                case LIGHTNESS:
+                    for (int k=0; k<projCount; k++) {
+                        if (projectors->at(k).active){
+                            projectors->at(k).editMode = projectors->at(k).LIGHTNESS;
+                        }
+                    }
+                    break;
+            }
+            break;
+            
+        case GAMMA:
+            switch (j) {
+                case GAMMA_RGB:
+                    for (int k=0; k<projCount; k++) {
+                        if (projectors->at(k).active){
+                            projectors->at(k).editMode = projectors->at(k).GAMMA;
+                        }
+                    }
+                    break;
+                case GAMMA_R:
+                    for (int k=0; k<projCount; k++) {
+                        if (projectors->at(k).active){
+                            projectors->at(k).editMode = projectors->at(k).GAMMA_R;
+                        }
+                    }
+                    break;
+                case GAMMA_G:
+                    for (int k=0; k<projCount; k++) {
+                        if (projectors->at(k).active){
+                            projectors->at(k).editMode = projectors->at(k).GAMMA_G;
+                        }
+                    }
+                    break;
+                case GAMMA_B:
+                    for (int k=0; k<projCount; k++) {
+                        if (projectors->at(k).active){
+                            projectors->at(k).editMode = projectors->at(k).GAMMA_B;
                         }
                     }
                     break;

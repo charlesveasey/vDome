@@ -23,7 +23,14 @@ void Projector::init(int i){
     contrast = 1;
     
     // color
+    hue = 1;
     saturation = 1;
+    lightness = 1;
+    
+    gamma = 1;
+    gammaR = 1;
+    gammaG = 1;
+    gammaB = 1;
     
     // plane
     planePosition.set(0,0);
@@ -53,9 +60,6 @@ void Projector::init(int i){
     
     setup();
 }
-
-
-
 
 /******************************************
  
@@ -106,8 +110,6 @@ void Projector::setCameraTransform(){
     camera.setPosition(car);
 }
 
-
-
 /******************************************
  
  BEGIN
@@ -146,9 +148,6 @@ void Projector::end() {
     fbo.end();
 }
 
-
-
-
 /******************************************
  
  BIND
@@ -164,8 +163,6 @@ void Projector::bind() {
 void Projector::unbind() {
     fbo.getTextureReference().unbind();
 }
-
-
 
 /******************************************
  
@@ -193,10 +190,6 @@ void Projector::drawKeystone(){
  MOUSE
  
  ********************************************/
-
-vector<ofPoint> lastKey;
-vector<ofVec3f> lastGrid;
-
 
 void Projector::mousePressed(ofMouseEventArgs& mouseArgs) {
     if (editMode == CORNERPIN || editMode == GRID) {
@@ -261,27 +254,41 @@ void Projector::keyPressed(int key) {
             break;
             
         case 114: // (r) reset
-                        
             switch (editMode) {
                 case BRIGHTNESS: history.execute( new SetBrightness(*this, 1) ); break;
                 case CONTRAST: history.execute( new SetContrast(*this, 1) ); break;
+                
+                case HUE: history.execute( new SetHue(*this, 1) ); break;
                 case SATURATION: history.execute( new SetSaturation(*this, 1) ); break;
-                case BRUSH_OPACITY: mask.reset(); 
+                case LIGHTNESS: history.execute( new SetLightness(*this, 1) ); break;
+
+                case GAMMA: history.execute( new SetGamma(*this, 1) ); break;
+                case GAMMA_R: history.execute( new SetGammaR(*this, 1) ); break;
+                case GAMMA_G: history.execute( new SetGammaG(*this, 1) ); break;
+                case GAMMA_B: history.execute( new SetGammaB(*this, 1) ); break;
+                    
+                case BRUSH_OPACITY: mask.reset();
                                     mask.brushOpacity = 50; break;
                 case BRUSH_SCALE: mask.reset();
                                   mask.brushScale = 1; break;
+                
                 case CORNERPIN: plane.resetKeystone(); break;
                 case GRID: plane.resetGrid(); break;
+                
                 case AZIMUTH: history.execute( new SetCameraPosition(*this, 0, cameraPosition.y, cameraPosition.z )); break;
                 case ELEVATION: history.execute( new SetCameraPosition(*this, cameraPosition.x, 0, cameraPosition.z )); break;
                 case DISTANCE: history.execute( new SetCameraPosition(*this, cameraPosition.x, cameraPosition.y, 5 )); break;
+                
                 case TILT: history.execute( new SetCameraOrientation(*this, cameraPosition.x, 0, cameraPosition.z )); break;
                 case ROLL: history.execute( new SetCameraOrientation(*this, 0, cameraOrientation.y, cameraOrientation.z )); break;
                 case PAN: history.execute( new SetCameraOrientation(*this, cameraOrientation.x, cameraOrientation.y, 0) ); break;
+                
                 case FOV: history.execute( new SetCameraFov(*this, 33) ); break;
+                
                 case SCALE: history.execute( new SetCameraScale(*this, 1, 1) ); break;
                 case SCALE_X: history.execute( new SetCameraScaleX(*this, 1) ); break;
                 case SCALE_Y: history.execute( new SetCameraScaleY(*this, 1) ); break;
+               
                 case SHEAR_XY:  cameraShear[0] = 0;
                                 history.execute( new SetCameraShear(*this, cameraShear )); break;
                 case SHEAR_XZ:  cameraShear[1] = 0;
@@ -296,7 +303,6 @@ void Projector::keyPressed(int key) {
                                 history.execute( new SetCameraShear(*this, cameraShear )); break;
             }
             break;
-            
             
         case OF_KEY_RIGHT:  // up = switch on mode
             switch (editMode) {
@@ -316,8 +322,27 @@ void Projector::keyPressed(int key) {
                     history.execute( new SetBrushOpacity(*this, mask.brushOpacity + value) );
                     break;
                     
+                case HUE:
+                    history.execute( new SetHue(*this, hue + value * .1) );
+                    break;
                 case SATURATION:
                     history.execute( new SetSaturation(*this, saturation + value * .1) );
+                    break;
+                case LIGHTNESS:
+                    history.execute( new SetLightness(*this, lightness + value * .1) );
+                    break;
+                    
+                case GAMMA:
+                    history.execute( new SetGamma(*this, gamma + value * .1) );
+                    break;
+                case GAMMA_R:
+                    history.execute( new SetGammaR(*this, gammaR + value * .1) );
+                    break;
+                case GAMMA_G:
+                    history.execute( new SetGammaG(*this, gammaG + value * .1) );
+                    break;
+                case GAMMA_B:
+                    history.execute( new SetGammaB(*this, gammaB + value * .1) );
                     break;
                     
                 case CORNERPIN:
@@ -386,8 +411,6 @@ void Projector::keyPressed(int key) {
             }
             break;
             
-
-            
         case OF_KEY_LEFT:  // up = switch on mode
             switch (editMode) {
                 case NONE:
@@ -406,8 +429,27 @@ void Projector::keyPressed(int key) {
                     history.execute( new SetBrushOpacity(*this, mask.brushOpacity - value) );
                     break;
                     
+                case HUE:
+                    history.execute( new SetHue(*this, hue - value * .1) );
+                    break;
                 case SATURATION:
                     history.execute( new SetSaturation(*this, saturation - value * .1) );
+                    break;
+                case LIGHTNESS:
+                    history.execute( new SetLightness(*this, lightness - value * .1) );
+                    break;
+                    
+                case GAMMA:
+                    history.execute( new SetGamma(*this, gamma - value * .1) );
+                    break;
+                case GAMMA_R:
+                    history.execute( new SetGammaR(*this, gammaR - value * .1) );
+                    break;
+                case GAMMA_G:
+                    history.execute( new SetGammaG(*this, gammaG - value * .1) );
+                    break;
+                case GAMMA_B:
+                    history.execute( new SetGammaB(*this, gammaB - value * .1) );
                     break;
                     
                 case CORNERPIN:
@@ -510,43 +552,23 @@ void Projector::loadXML(ofXml &xml) {
     
     
     // color
-    if (xml.exists(pre + "][@saturation]")) {
-        val = ofToFloat( xml.getAttribute(pre + "][@saturation]") );
-        saturation = val;
+    if (xml.exists(pre + "][@hsl]")) {
+        str = xml.getAttribute(pre + "][@hsl]");
+        hue = ofToFloat(ofSplitString(str, ",")[0]);
+        saturation = ofToFloat(ofSplitString(str, ",")[1]);
+        lightness = ofToFloat(ofSplitString(str, ",")[2]);
+    }
+    if (xml.exists(pre + "][@gamma]")) {
+        str = xml.getAttribute(pre + "][@gamma]");
+        gamma = ofToFloat(ofSplitString(str, ",")[0]);
+        gammaR = ofToFloat(ofSplitString(str, ",")[1]);
+        gammaG = ofToFloat(ofSplitString(str, ",")[2]);
+        gammaB = ofToFloat(ofSplitString(str, ",")[3]);
     }
     
     
-    // plane position
-    /*
-     if (xml.exists(pre + "][@x]")) {
-     val = ofToFloat( xml.getAttribute(pre + "][@x]") );
-     history.execute( new SetPlanePosition(*this, val, getPlanePosition().y) );
-     }
-     if (xml.exists(pre + "][@y]")) {
-     val = ofToFloat( xml.getAttribute(pre + "][@y]") );
-     history.execute( new SetPlanePosition(*this, getPlanePosition().x, val) );
-     }*/
-    
-    
-    // plane dimensions - global    ---> now setting with global vars
-    /*if (xml.exists("projectors[@dimensions]")) {
-        str = xml.getAttribute("projectors[@dimensions]");
-        float w  = ofToFloat(ofSplitString(str, ",")[0]);
-        float h  = ofToFloat(ofSplitString(str, ",")[1]);
-        setPlaneDimensions(w, h);
-    }
-    // plane dimensions - local    
-    else if (xml.exists(pre + "][@dimensions]")) {
-        str = xml.getAttribute(pre + "][@dimensions]");
-        float w  = ofToFloat(ofSplitString(str, ",")[0]);
-        float h  = ofToFloat(ofSplitString(str, ",")[1]);
-        setPlaneDimensions(w, h);
-    }*/
-    
-    
-    
+    // plane warp
     plane.load(xml);
-    
     
     
     // camera position
@@ -595,20 +617,24 @@ void Projector::loadXML(ofXml &xml) {
 void Projector::saveXML(ofXml &xml) {
     string pre = xmlPrefix + ofToString(index);
     
+    // blend
     xml.setAttribute(pre + "][@brightness]", ofToString(brightness));
     xml.setAttribute(pre + "][@contrast]", ofToString(contrast));
-    xml.setAttribute(pre + "][@saturation]", ofToString(saturation));
     
+    // color 
+    xml.setAttribute(pre + "][@hsl]", ofToString(hue) +  "," + ofToString(saturation) +  "," + ofToString(lightness)  );
+    xml.setAttribute(pre + "][@gamma]", ofToString(gamma) +  "," + ofToString(gammaR) +  "," + ofToString(gammaG) +  "," + ofToString(gammaB) );
+
     //camera
     xml.setAttribute(pre + "][@position]", ofToString(cameraPosition.x) +  "," + ofToString(cameraPosition.y) +  "," + ofToString(cameraPosition.z) );
     xml.setAttribute(pre + "][@orientation]", ofToString(cameraOrientation.x) +  "," + ofToString(cameraOrientation.y) +  "," + ofToString(cameraOrientation.z) );
     xml.setAttribute(pre + "][@fov]", ofToString(cameraFov));
     xml.setAttribute(pre + "][@offset]", ofToString(cameraOffset.x) +  "," + ofToString(cameraOffset.y) );
     xml.setAttribute(pre + "][@scale]", ofToString(cameraScale.x) +  "," + ofToString(cameraScale.y) );
-    
+    xml.setAttribute(pre + "][@scale]", ofToString(cameraScale.x) +  "," + ofToString(cameraScale.y) );
+  
     // plane
     //xml.setAttribute(pre + "][@dimensions]", ofToString(planeDimensions.x) +  "," + ofToString(planeDimensions.y) );
-    
     
     plane.save(xml);
     mask.save();

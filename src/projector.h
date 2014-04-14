@@ -13,14 +13,16 @@ public:
     bool keyboard;
     bool mouse;
     bool active;
-    CommandHistory history;
     int editMode;
     bool mod;
     bool all;    
     void setValue(float v);
     Mask mask;
-    
-    enum editModes{BRIGHTNESS,CONTRAST,SATURATION,
+    CommandHistory history;
+   
+    enum editModes{ BRIGHTNESS,CONTRAST,
+                    HUE, SATURATION, LIGHTNESS,
+                    GAMMA, GAMMA_R, GAMMA_G, GAMMA_B,
                     CORNERPIN, GRID,
                     AZIMUTH, ELEVATION, DISTANCE,
                     ROLL, TILT, PAN,
@@ -34,7 +36,14 @@ public:
     float contrast;
     
     // color
+    float hue;
     float saturation;
+    float lightness;
+    
+    float gamma;
+    float gammaR;
+    float gammaG;
+    float gammaB;
     
     // plane
     ofVec2f getPlanePosition();
@@ -92,12 +101,14 @@ public:
     
     ofTexture& getTextureReference();
     
+    vector<ofPoint> lastKey;
+    vector<ofVec3f> lastGrid;
+    
     // mouse
     void mousePressed(ofMouseEventArgs& mouseArgs);
     void mouseDragged(ofMouseEventArgs& mouseArgs);
     void mouseReleased(ofMouseEventArgs& mouseArgs);
-    
-    
+        
     // keyboard
     void keyPressed(int key);
     void keyReleased(int key);
@@ -220,6 +231,20 @@ public:
 };
 
 // color
+class SetHue : public Command {
+protected:
+    Projector& obj;
+    float v;
+    float l;
+public:
+    SetHue(Projector& obj, float v) : obj(obj), v(v) {}
+    void execute() {
+        l = obj.hue;
+        obj.hue = v; }
+    void undo() { obj.hue = l; }
+    void redo() { execute(); }
+};
+
 class SetSaturation : public Command {
 protected:
     Projector& obj;
@@ -234,7 +259,75 @@ public:
     void redo() { execute(); }
 };
 
+class SetLightness : public Command {
+protected:
+    Projector& obj;
+    float v;
+    float l;
+public:
+    SetLightness(Projector& obj, float v) : obj(obj), v(v) {}
+    void execute() {
+        l = obj.lightness;
+        obj.lightness = v; }
+    void undo() { obj.lightness = l; }
+    void redo() { execute(); }
+};
 
+class SetGamma : public Command {
+protected:
+    Projector& obj;
+    float v;
+    float l;
+public:
+    SetGamma(Projector& obj, float v) : obj(obj), v(v) {}
+    void execute() {
+        l = obj.gamma;
+        obj.gamma = v; }
+    void undo() { obj.gamma = l; }
+    void redo() { execute(); }
+};
+
+class SetGammaR : public Command {
+protected:
+    Projector& obj;
+    float v;
+    float l;
+public:
+    SetGammaR(Projector& obj, float v) : obj(obj), v(v) {}
+    void execute() {
+        l = obj.gammaR;
+        obj.gammaR = v; }
+    void undo() { obj.gammaR = l; }
+    void redo() { execute(); }
+};
+
+class SetGammaG : public Command {
+protected:
+    Projector& obj;
+    float v;
+    float l;
+public:
+    SetGammaG(Projector& obj, float v) : obj(obj), v(v) {}
+    void execute() {
+        l = obj.gammaG;
+        obj.gammaG = v; }
+    void undo() { obj.gammaG = l; }
+    void redo() { execute(); }
+};
+
+class SetGammaB : public Command {
+protected:
+    Projector& obj;
+    float v;
+    float l;
+public:
+    SetGammaB(Projector& obj, float v) : obj(obj), v(v) {}
+    void execute() {
+        l = obj.gammaB;
+        obj.gammaB = v; }
+    void undo() { obj.gammaB = l; }
+    void redo() { execute(); }
+};
 
 // plane
 class SetPlanePosition : public Command {

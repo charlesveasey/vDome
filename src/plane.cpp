@@ -378,8 +378,8 @@ void Plane::load(ofXml &xml) {
     
     string pre = xmlPrefix + ofToString(index);
     
-    if (xml.exists(pre + "][@keystone]")) {
-        string str = xml.getAttribute(pre + "][@keystone]");
+    if (xml.exists(pre + "][@cornerpin]")) {
+        string str = xml.getAttribute(pre + "][@cornerpin]");
         keyVals[0].x = ofToFloat(ofSplitString(str, ",")[0]);
         keyVals[0].y = ofToFloat(ofSplitString(str, ",")[1]);
         keyVals[1].x = ofToFloat(ofSplitString(str, ",")[2]);
@@ -410,7 +410,7 @@ void Plane::save(ofXml &xml) {
     int x = index*w;
     int y = 0;
     
-    xml.setAttribute(pre + "][@keystone]",
+    xml.setAttribute(pre + "][@cornerpin]",
                      
                      ofToString((keystone.dstPoints[0].x-x)/w) +  "," +
                      ofToString((keystone.dstPoints[0].y-y)/h) +  "," +
