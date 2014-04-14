@@ -2,7 +2,7 @@
     
     <tcp enabled="true" port="1"/>
         
-	<input file="test.mov" resolution="2048" scale="1" source="video"/>
+	<input file="test.mov" resolution="2048" scale="1" source="image"/>
     
 	<window fullscreen="false" height="1002" width="1920" x="792" y="44"/>
     
