@@ -13,12 +13,15 @@ Input::Input(){
 	#endif
 
     maxSource = 2;
-	#ifdef TARGET_OSX
-		maxSource = 4;
-	#endif
-    
     resolution = 2048;
     frameRate = 60;
+    
+    #ifdef TARGET_OSX
+        maxSource = 4;
+        file = "test.mov";
+    #else
+        file = "test.avi";
+    #endif
 }
 
 /******************************************
@@ -44,14 +47,9 @@ void Input::setup(){
             capture.initGrabber(resolution, resolution);
             texture = capture.getTextureReference();
             break;
-        case 2: // video
+        case 2: // media
             video.setPixelFormat(OF_PIXELS_RGB);
-			#ifdef TARGET_WIN32
-				video.loadMovie("media/test.avi"); 
-			#endif
-			#ifdef TARGET_OSX
-				video.loadMovie("media/test.mov"); 
-			#endif
+            video.loadMovie("media/"+file);
             texture = video.getTextureReference();
             video.play();
             break;
@@ -67,7 +65,6 @@ void Input::setup(){
 			#endif
             break;
         default:
-            // load default image
             image.loadImage("media/grid.jpg");
             texture = image.getTextureReference();
             break;
@@ -189,7 +186,7 @@ void Input::loadXML(ofXml &xml) {
     if (xml.exists("input[@resolution]"))
         resolution = ofToInt( xml.getAttribute("input[@resolution]") );
     
-    if (xml.exists("input[@mode]")) {
+    if (xml.exists("input[@source]")) {
         string m = xml.getAttribute("input[@source]");
         if (m == "image")           source = 0;
         else if (m == "video")      source = 2;
@@ -197,6 +194,9 @@ void Input::loadXML(ofXml &xml) {
         else if (m == "hap")        source = 3;
         else if (m == "syphon")     source = 4;
     }
+    
+    if (xml.exists("input[@file]"))
+        file = ofToString( xml.getAttribute("input[@file]") );
     
     setup();
 }
@@ -215,4 +215,6 @@ void Input::saveXML(ofXml &xml) {
     else if (source == 4)   str = "capture";
     
     xml.setAttribute("input[@source]", str );
+   
+    xml.setAttribute("input[@file]", file );
 }

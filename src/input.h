@@ -30,10 +30,10 @@ public:
 
     int source;
 	int maxSource;
+    string file;
     
     ofTexture texture;
-
-
+    
     int frameRate;
     
     ofImage image;
