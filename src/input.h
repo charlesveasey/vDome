@@ -28,8 +28,8 @@ public:
     void bind();
     void unbind();
 
-    int mode;
-	int maxMode;
+    int source;
+	int maxSource;
     
     ofTexture texture;
 

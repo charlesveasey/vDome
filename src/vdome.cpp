@@ -39,7 +39,7 @@ void vdome::setup(){
     // 3 = hap
     // 4 = syphon
     
-    input.mode = 0;
+    input.source = 0;
     input.frameRate = render.getFrameRate();
     input.setup();
 

@@ -206,10 +206,10 @@ void Menu::drawMain(int i){
                 case INPUT:
                     switch (j) {
                         case SOURCE:
-                            if (input->mode == 1)		 val = "Capture";
-                            else if (input->mode == 2)   val = "Video";
-                            else if (input->mode == 3)   val = "Hap";
-                            else if (input->mode == 4)   val = "Syphon";
+                            if (input->source == 1)		 val = "Capture";
+                            else if (input->source == 2)   val = "Video";
+                            else if (input->source == 3)   val = "Hap";
+                            else if (input->source == 4)   val = "Syphon";
                             else						 val = "Image";
                             break;
                         case FORMAT:
