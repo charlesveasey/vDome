@@ -4,7 +4,7 @@ Command::~Command() {}
 
 
 CommandHistory::CommandHistory() : index(0) {
-	maxHistory = 100;
+	maxHistory = 10;
 }
 
 CommandHistory::~CommandHistory() {
@@ -28,11 +28,11 @@ void CommandHistory::undo() {
         index--;
 }
 
-void CommandHistory::redo() {    
-    if (index + 1 < history.size()) {
-        index++;
+void CommandHistory::redo() {
+    if (index < history.size())
         history[index]->redo();
-    }
+    if (index + 1 < history.size())
+        index++;
 }
 
 int CommandHistory::getIndex() {
