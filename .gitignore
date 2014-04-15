@@ -33,6 +33,7 @@ vdome_debug.exp
 # Folders
 obj/
 bin/data/media
+bin/data/masks/tmp
 vdome.xcodeproj/xcuserdata
 
 
