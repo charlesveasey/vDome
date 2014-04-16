@@ -20,9 +20,13 @@ public :
     void undo();
     void redo();
     int getIndex();
+    int getLastCommand();
+    int getSize();
+    
 private :
     vector<Command*> history;
     int index;
     int maxHistory;
+    int lastCommand; // 0 = exec, 1 = undo, 2 = redo
 };
 

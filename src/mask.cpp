@@ -30,7 +30,7 @@ Mask::Mask(){
     
     brush = ofMesh::plane(brushWidth, brushHeight, 2, 2, OF_PRIMITIVE_TRIANGLES);
     
-    lastFIndex = -1;
+    fileIndex = 0;
 }
 
 /******************************************
@@ -61,7 +61,6 @@ void Mask::setup(){
     maskFbo.end();
     
     if (maskFboImage.isAllocated()) {
-    
         ofDisableAlphaBlending();
         ofDisableNormalizedTexCoords();
         maskFbo.begin();
@@ -173,20 +172,18 @@ void Mask::read(string filename){
         setup();
 }
 
-// prestore mask pixels on mouse down to record previous state
 void Mask::prestore() {
     hPixels.clear();
     maskFbo.readToPixels(hPixels);
     hImage.setFromPixels(hPixels);
 }
 
-// store mask pixels on mouse up for smoother ui, called by Command
 int Mask::store(int fIndex) {
-    lastFIndex = fIndex;
+    prestore();
+    fileIndex = fIndex;
     string filename;
     filename = "masks/tmp/mask-" + ofToString(pIndex) + "-" + ofToString(fIndex) + ".png";
     hImage.saveImage(filename);   
-    //cout << "store: " << filename << endl;
     return fIndex;
 }
 
@@ -194,7 +191,6 @@ void Mask::recall(int fIndex) {
     string filename;
     filename = "masks/tmp/mask-" + ofToString(pIndex) + "-" + ofToString(fIndex) + ".png";
     read(filename);
-    //cout << "recall: " << filename << endl;
 }
 
 /******************************************

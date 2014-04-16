@@ -157,6 +157,7 @@ Menu::Menu(){
     ph = 135;
     padx = 15;
     pady = 15;
+    
 }
 
 /******************************************
@@ -579,17 +580,11 @@ void Menu::keyPressed(int key) {
             
     }
     
-    
-    if (active) {
-        for (int i=0; i<projCount; i++) {
-            projectors->at(i).mask.keyPressed(key);
-        }
-    }
-    
+
     for (int k=0; k<projCount; k++) {
-        projectors->at(k).keyPressed(key);
+        if (projectors->at(k).active)
+            projectors->at(k).keyPressed(key);
     }
-    
     
     
     // MENU

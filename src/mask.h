@@ -34,7 +34,7 @@ public:
     
     int mouseX;
     int mouseY;
-    int lastFIndex;
+    float fileIndex;
     
     
 private:

@@ -213,29 +213,16 @@ protected:
     Projector& obj;
     int v;
     int l;
+    CommandHistory *history;
 public:
-    SetBrushPoints(Projector& obj) : obj(obj), v(v), l(l) {}
+    SetBrushPoints(Projector& obj, CommandHistory *history) : obj(obj), v(v), l(l), history(history) {}
     void execute() {
-        v = obj.mask.fileIndex;
-        if (v == 0)
-            l = 10;
-        else
-            l = v-1;
+        l = obj.mask.fileIndex;
+        v = l+1;
         obj.mask.store(v);
-        cout << "execute: " << v << endl;
     }
-    void undo() {
-        //if (l < 0)
-       //     obj.mask.recall(9);
-       // else
-            obj.mask.recall(l);
-        
-        cout << "undo: " << l << endl;
-    }
-    void redo() {
-        obj.mask.recall(v);
-        cout << "redo: " <<  v << " " << l << endl;
-    }
+    void undo() { obj.mask.recall(l); }
+    void redo() { obj.mask.recall(v); }
 };
 
 // color

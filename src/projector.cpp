@@ -58,7 +58,7 @@ void Projector::init(int i){
     
     mask.init(i);
     
-    setup();
+    setup();    
 }
 
 /******************************************
@@ -191,6 +191,8 @@ void Projector::drawKeystone(){
  
  ********************************************/
 
+bool first = true;
+
 void Projector::mousePressed(ofMouseEventArgs& mouseArgs) {
     if (editMode == CORNERPIN || editMode == GRID) {
         if (editMode == CORNERPIN) {
@@ -203,8 +205,10 @@ void Projector::mousePressed(ofMouseEventArgs& mouseArgs) {
     }
     else if (editMode == BRUSH_SCALE || editMode == BRUSH_OPACITY) {
         mask.mousePressed(mouseArgs);
+        if (mask.fileIndex >= 12)
+            mask.fileIndex = 0;
+        mask.store(mask.fileIndex);
     }
-
 }
 
 void Projector::mouseDragged(ofMouseEventArgs& mouseArgs) {
@@ -230,7 +234,7 @@ void Projector::mouseReleased(ofMouseEventArgs& mouseArgs) {
     }
     else if (editMode == BRUSH_SCALE || editMode == BRUSH_OPACITY) {
         mask.mouseReleased(mouseArgs);
-        history.execute( new SetBrushPoints(*this, history.getIndex()) );
+        history.execute( new SetBrushPoints(*this, &history) );
     }
 }
 
@@ -244,6 +248,9 @@ void Projector::keyPressed(int key) {
         
     if (editMode == CORNERPIN || editMode == GRID)
         plane.keyPressed(key);
+
+    else if (editMode == BRUSH_SCALE || BRUSH_OPACITY)
+        mask.keyPressed(key);
 
     switch (key) {
         case 122: // (z)
