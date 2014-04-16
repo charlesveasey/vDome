@@ -31,7 +31,7 @@ Mask::Mask(){
     
     brush = ofMesh::plane(brushWidth, brushHeight, 2, 2, OF_PRIMITIVE_TRIANGLES);
     
-    fileIndex = 0;
+    hIndex = 0;
 }
 
 /******************************************
@@ -122,9 +122,9 @@ void Mask::mousePressed(ofMouseEventArgs& mouseArgs){
     mouseDown = true;
     mouseX = mouseArgs.x;
     mouseY = mouseArgs.y;
-    if (fileIndex >= (maxHistory+2) )
-        fileIndex = 0;
-    store(fileIndex);
+    if (hIndex >= (maxHistory+2) )
+        hIndex = 0;
+    store(hIndex);
 }
 
 void Mask::mouseDragged(ofMouseEventArgs& mouseArgs){
@@ -186,7 +186,7 @@ void Mask::read(string filename){
 }
 
 int Mask::store(int fIndex) {
-    fileIndex = fIndex;
+    hIndex = fIndex;
     hPixels.clear();
     maskFbo.readToPixels(hPixels);
     hPixels.pasteInto(history[fIndex], 0, 0);

@@ -217,7 +217,7 @@ protected:
 public:
     SetBrushPoints(Projector& obj, CommandHistory *history) : obj(obj), v(v), l(l), history(history) {}
     void execute() {
-        l = obj.mask.fileIndex;
+        l = obj.mask.hIndex;
         v = l+1;
         obj.mask.store(v);
     }

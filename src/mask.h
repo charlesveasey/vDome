@@ -33,7 +33,7 @@ public:
     
     int mouseX;
     int mouseY;
-    float fileIndex;
+    float hIndex;
     
     vector<ofPixels> history;
     
@@ -57,7 +57,6 @@ private:
     void read(string filename);
     
     ofPixels hPixels;
-    ofImage hImage;
     
     bool bufferAllocated;
 };
