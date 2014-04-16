@@ -2,6 +2,7 @@
 extern float projCount;
 extern float projWidth;
 extern float projHeight;
+extern int maxHistory;
 
 /******************************************
  
@@ -204,10 +205,7 @@ void Projector::mousePressed(ofMouseEventArgs& mouseArgs) {
         plane.onMousePressed(mouseArgs);
     }
     else if (editMode == BRUSH_SCALE || editMode == BRUSH_OPACITY) {
-        mask.mousePressed(mouseArgs);
-        if (mask.fileIndex >= 12)
-            mask.fileIndex = 0;
-        mask.store(mask.fileIndex);
+        mask.mousePressed(mouseArgs);       
     }
 }
 

@@ -1,6 +1,7 @@
 #include "mask.h"
 extern float projWidth;
 extern float projHeight;
+extern int maxHistory;
 
 /******************************************
  
@@ -52,6 +53,16 @@ void Mask::init(int i){
 void Mask::setup(){
     width = projWidth;
     height = projHeight;
+    
+    if (!bufferAllocated) {
+        for (int i=0; i<=(maxHistory+2); i++) {
+            ofPixels buffer;
+            buffer.allocate(width, height, OF_IMAGE_COLOR_ALPHA);
+            history.push_back(buffer);
+        }
+    }
+    
+    bufferAllocated = true;
     
     if (maskFbo.getWidth() != projWidth || maskFbo.getHeight() != projHeight)
         maskFbo.allocate(width, height, GL_RGBA32F_ARB);
@@ -111,7 +122,9 @@ void Mask::mousePressed(ofMouseEventArgs& mouseArgs){
     mouseDown = true;
     mouseX = mouseArgs.x;
     mouseY = mouseArgs.y;
-    prestore();
+    if (fileIndex >= (maxHistory+2) )
+        fileIndex = 0;
+    store(fileIndex);
 }
 
 void Mask::mouseDragged(ofMouseEventArgs& mouseArgs){
@@ -172,25 +185,18 @@ void Mask::read(string filename){
         setup();
 }
 
-void Mask::prestore() {
+int Mask::store(int fIndex) {
+    fileIndex = fIndex;
     hPixels.clear();
     maskFbo.readToPixels(hPixels);
-    hImage.setFromPixels(hPixels);
-}
-
-int Mask::store(int fIndex) {
-    prestore();
-    fileIndex = fIndex;
-    string filename;
-    filename = "masks/tmp/mask-" + ofToString(pIndex) + "-" + ofToString(fIndex) + ".png";
-    hImage.saveImage(filename);   
+    hPixels.pasteInto(history[fIndex], 0, 0);
     return fIndex;
 }
 
 void Mask::recall(int fIndex) {
-    string filename;
-    filename = "masks/tmp/mask-" + ofToString(pIndex) + "-" + ofToString(fIndex) + ".png";
-    read(filename);
+    maskFboImage.clear();
+    maskFboImage.setFromPixels(history[fIndex]);
+    setup();
 }
 
 /******************************************

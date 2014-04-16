@@ -1,9 +1,9 @@
 #include "command.h"
+extern int maxHistory;
 
 Command::~Command() {}
 
 CommandHistory::CommandHistory() : index(0) {
-	maxHistory = 10;
     lastCommand = 0;
 }
 

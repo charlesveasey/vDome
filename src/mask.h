@@ -26,7 +26,6 @@ public:
     
     void save();
     void load();
-    void prestore();
     int store(int fIndex);
     void recall(int fIndex);
     
@@ -36,6 +35,7 @@ public:
     int mouseY;
     float fileIndex;
     
+    vector<ofPixels> history;
     
 private:
     bool mouseDown;
@@ -58,4 +58,6 @@ private:
     
     ofPixels hPixels;
     ofImage hImage;
+    
+    bool bufferAllocated;
 };

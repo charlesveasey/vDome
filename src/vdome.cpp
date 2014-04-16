@@ -4,6 +4,8 @@
 float projCount = 1;
 float projWidth = 1024;
 float projHeight = 768;
+int maxHistory = 50;
+
 
 /******************************************
  
@@ -219,7 +221,4 @@ void vdome::keyReleased(int key){
 
 void vdome::exit(){
     cout << "exit" << endl;
-    ofDirectory dir;
-    if (dir.doesDirectoryExist("masks/tmp"));
-        dir.removeDirectory("masks/tmp", true);
 }

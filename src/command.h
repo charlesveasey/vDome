@@ -26,7 +26,6 @@ public :
 private :
     vector<Command*> history;
     int index;
-    int maxHistory;
     int lastCommand; // 0 = exec, 1 = undo, 2 = redo
 };
 
