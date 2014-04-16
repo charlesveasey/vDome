@@ -28,5 +28,6 @@ public:
     float value;
     
     float textureScale;
+    
+    enum editModes{RADIUS};
 };
-	

@@ -22,13 +22,15 @@ void Render::setup() {
 	ofSetFrameRate(frameRate);
     
     ofBackground(0,0,0);
-	ofEnableDepthTest();
+	//ofEnableDepthTest();
     ofEnableNormalizedTexCoords();
     
-    ofEnableAntiAliasing();
+    //ofEnableAntiAliasing();
     //ofEnableSmoothing();
-    //ofEnableAlphaBlending();
+    ofEnableAlphaBlending();
 	//ofDisableArbTex();
+    ofEnableBlendMode(OF_BLENDMODE_ALPHA);
+
 }
 
 /******************************************

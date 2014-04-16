@@ -28,12 +28,12 @@ public:
     void bind();
     void unbind();
 
-    int mode;
-	int maxMode;
+    int source;
+	int maxSource;
+    string file;
     
     ofTexture texture;
-
-
+    
     int frameRate;
     
     ofImage image;

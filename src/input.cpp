@@ -12,15 +12,17 @@ Input::Input(){
 		video.setPlayer(ptr);
 	#endif
 
-    maxMode = 2;
-	#ifdef TARGET_OSX
-		maxMode = 4;
-	#endif
-    
+    maxSource = 2;
     resolution = 2048;
     frameRate = 60;
+    
+    #ifdef TARGET_OSX
+        maxSource = 4;
+        file = "test.mov";
+    #else
+        file = "test.avi";
+    #endif
 }
-
 
 /******************************************
  
@@ -38,21 +40,16 @@ void Input::setup(){
     stop();
     
     // create input
-    switch(mode){
+    switch(source){
         case 1: // capture
             capture.setDeviceID(0);
             capture.setDesiredFrameRate(frameRate);
             capture.initGrabber(resolution, resolution);
             texture = capture.getTextureReference();
             break;
-        case 2: // video
+        case 2: // media
             video.setPixelFormat(OF_PIXELS_RGB);
-			#ifdef TARGET_WIN32
-				video.loadMovie("media/test.avi"); 
-			#endif
-			#ifdef TARGET_OSX
-				video.loadMovie("media/test.mov"); 
-			#endif
+            video.loadMovie("media/"+file);
             texture = video.getTextureReference();
             video.play();
             break;
@@ -68,7 +65,6 @@ void Input::setup(){
 			#endif
             break;
         default:
-            // load default image
             image.loadImage("media/grid.jpg");
             texture = image.getTextureReference();
             break;
@@ -114,24 +110,24 @@ void Input::close() {
 
 void Input::bind(){
 	#ifdef TARGET_OSX
-		if (mode == 3)
+		if (source == 3)
 			hap.getTexture()->bind();
-		else if (mode == 4)
+		else if (source == 4)
 			syphon.bind();
     #endif
-	if (mode != 3 && mode != 4) {
+	if (source != 3 && source != 4) {
 		texture.bind();
 	}
 }
 
 void Input::unbind(){
 	#ifdef TARGET_OSX
-		if (mode == 3)
+		if (source == 3)
 			hap.getTexture()->unbind();
-		else if (mode == 4)
+		else if (source == 4)
 			syphon.unbind();
     #endif
-	if (mode != 3 && mode != 4) {
+	if (source != 3 && source != 4) {
 		texture.unbind();
 	}
 }
@@ -143,12 +139,12 @@ void Input::unbind(){
  ********************************************/
 
 void Input::update(){
-    if (mode == 2)
+    if (source == 2)
         video.update();
-	else if (mode == 1)
+	else if (source == 1)
         capture.update();
 	#ifdef TARGET_OSX
-		if (mode == 3)
+		if (source == 3)
 		    hap.update();
     #endif
 }
@@ -161,18 +157,18 @@ void Input::update(){
 
 void Input::keyPressed(int key) {
     switch (key) {
-        case OF_KEY_UP:  // up = switch on mode
-			if (mode+1 > maxMode)
-				mode = maxMode;
+        case OF_KEY_RIGHT:  // up = switch on mode
+			if (source+1 > maxSource)
+				source = maxSource;
 			else 
-				mode++;
+				source++;
 			setup();
             break;
-        case OF_KEY_DOWN:  // up = switch on mode
-			if (mode-1 < 0)
-				mode = 0;
+        case OF_KEY_LEFT:  // up = switch on mode
+			if (source-1 < 0)
+				source = 0;
 			else
-				mode--;
+				source--;
             setup();
 			break;
     }
@@ -190,14 +186,17 @@ void Input::loadXML(ofXml &xml) {
     if (xml.exists("input[@resolution]"))
         resolution = ofToInt( xml.getAttribute("input[@resolution]") );
     
-    if (xml.exists("input[@mode]")) {
-        string m = xml.getAttribute("input[@mode]");
-        if (m == "image")           mode = 0;
-        else if (m == "video")      mode = 2;
-        else if (m == "capture")    mode = 1;
-        else if (m == "hap")        mode = 3;
-        else if (m == "syphon")     mode = 4;
+    if (xml.exists("input[@source]")) {
+        string m = xml.getAttribute("input[@source]");
+        if (m == "image")           source = 0;
+        else if (m == "video")      source = 2;
+        else if (m == "capture")    source = 1;
+        else if (m == "hap")        source = 3;
+        else if (m == "syphon")     source = 4;
     }
+    
+    if (xml.exists("input[@file]"))
+        file = ofToString( xml.getAttribute("input[@file]") );
     
     setup();
 }
@@ -209,11 +208,13 @@ void Input::saveXML(ofXml &xml) {
     
     string str;
     
-    if (mode == 0)        str = "image";
-    else if (mode == 2)   str = "video";
-    else if (mode == 1)   str = "capture";
-    else if (mode == 3)   str = "hap";
-    else if (mode == 4)   str = "capture";
+    if (source == 0)        str = "image";
+    else if (source == 2)   str = "video";
+    else if (source == 1)   str = "capture";
+    else if (source == 3)   str = "hap";
+    else if (source == 4)   str = "capture";
     
-    xml.setAttribute("input[@mode]", str );
+    xml.setAttribute("input[@source]", str );
+   
+    xml.setAttribute("input[@file]", file );
 }
