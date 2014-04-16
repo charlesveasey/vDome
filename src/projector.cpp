@@ -756,12 +756,10 @@ void Projector::setGridPoints(vector<ofVec3f> v){
     plane.setGridPoints(v);
 }
 
-
 // texture
 ofTexture& Projector::getTextureReference(){
 	return fbo.getTextureReference();
 }
-
 
 /******************************************
  

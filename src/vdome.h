@@ -38,5 +38,7 @@ private:
     string xmlFile;
     void loadXML(string file);
     void saveXML(string file);
+    
+    void exit();
 };
 	

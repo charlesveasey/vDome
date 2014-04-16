@@ -210,3 +210,16 @@ void vdome::keyPressed(int key){
 void vdome::keyReleased(int key){
     menu.keyReleased(key);
 }
+
+/******************************************
+ 
+ EXIT
+ 
+ ********************************************/
+
+void vdome::exit(){
+    cout << "exit" << endl;
+    ofDirectory dir;
+    if (dir.doesDirectoryExist("masks/tmp"));
+        dir.removeDirectory("masks/tmp", true);
+}
