@@ -46,13 +46,17 @@ void Tcp::loadXML(ofXml &xml) {
     setup();
 }
 
-void Tcp::saveXML(ofXml &xml) {    
-    if (enabled)
-        xml.setAttribute("tcp[@enabled]", "true");
-    else
-        xml.setAttribute("tcp[@enabled]", "false");
+void Tcp::saveXML(ofXml &xml) {
+    xml.setTo("tcp");
     
-    xml.setAttribute("tcp[@port]", ofToString(enabled));
+    if (enabled)
+        xml.setAttribute("enabled", "true");
+    else
+        xml.setAttribute("enabled", "false");
+    
+    xml.setAttribute("port", ofToString(enabled));
+    
+    xml.setToParent();
     
 	//for each client lets send them a message letting them know what port they are connected on
 	for(int i = 0; i < server.getLastID(); i++){

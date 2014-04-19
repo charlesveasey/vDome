@@ -203,8 +203,8 @@ void Input::loadXML(ofXml &xml) {
 
 
 void Input::saveXML(ofXml &xml) {
-    
-    xml.setAttribute("input[@resolution]", ofToString(resolution) );    
+    xml.setTo("input");
+    xml.setAttribute("resolution", ofToString(resolution) );
     
     string str;
     
@@ -214,7 +214,7 @@ void Input::saveXML(ofXml &xml) {
     else if (source == 3)   str = "hap";
     else if (source == 4)   str = "capture";
     
-    xml.setAttribute("input[@source]", str );
-   
-    xml.setAttribute("input[@file]", file );
+    xml.setAttribute("source", str );
+    xml.setAttribute("file", file );
+    xml.setToParent();
 }

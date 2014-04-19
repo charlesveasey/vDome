@@ -157,7 +157,9 @@ void vdome::loadXML(string file) {
 }
 
 void vdome::saveXML(string file) {
-    xml.setAttribute("projectors[@count]", ofToString(projCount));
+    xml.setTo("projectors");
+    xml.setAttribute("count", ofToString(projCount));
+    xml.setToParent();
     
     tcp.saveXML(xml);
     input.saveXML(xml);

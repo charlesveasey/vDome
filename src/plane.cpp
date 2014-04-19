@@ -401,17 +401,13 @@ void Plane::save(ofXml &xml) {
         m.setVertex(i, v[i]);
     }
     m.save("models/plane-mesh-" + ofToString(index+1) + ".ply");
-
-    string xmlPrefix = "projectors/projector[";
-    string pre = xmlPrefix + ofToString(index);
     
     int w = projWidth;
     int h = projHeight;
     int x = index*w;
     int y = 0;
     
-    xml.setAttribute(pre + "][@cornerpin]",
-                     
+    xml.setAttribute("cornerpin",
                      ofToString((keystone.dstPoints[0].x-x)/w) +  "," +
                      ofToString((keystone.dstPoints[0].y-y)/h) +  "," +
                      ofToString((keystone.dstPoints[1].x-x)/w) +  "," +

@@ -77,9 +77,9 @@ void Render::loadXML(ofXml &xml) {
 
 void Render::saveXML(ofXml &xml) {
     if (vSync)
-        xml.setAttribute("[@vSync]", "true" );
+        xml.setAttribute("vSync", "true" );
     else
-        xml.setAttribute("[@vSync]", "false" );
+        xml.setAttribute("vSync", "false" );
         
-    xml.setAttribute("[@frameRate]", ofToString(frameRate) );    
+    xml.setAttribute("frameRate", ofToString(frameRate) );    
 }

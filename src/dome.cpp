@@ -163,8 +163,12 @@ void Dome::loadXML(ofXml &xml) {
 }
 
 void Dome::saveXML(ofXml &xml) {
-    xml.setAttribute("dome[@radius]", ofToString(radius));
-    xml.setAttribute("input[@scale]", ofToString(textureScale));    
+    xml.setTo("dome");
+    xml.setAttribute("radius", ofToString(radius));
+    xml.setToParent();
+    xml.setTo("input");
+    xml.setAttribute("scale", ofToString(textureScale));
+    xml.setToParent();
 }
 
 

@@ -620,29 +620,33 @@ void Projector::loadXML(ofXml &xml) {
 }
 
 void Projector::saveXML(ofXml &xml) {
+    
     string pre = xmlPrefix + ofToString(index);
+    xml.setTo(pre + "]");
     
     // blend
-    xml.setAttribute(pre + "][@brightness]", ofToString(brightness));
-    xml.setAttribute(pre + "][@contrast]", ofToString(contrast));
+    xml.setAttribute("brightness", ofToString(brightness));
+    xml.setAttribute("contrast", ofToString(contrast));
     
     // color 
-    xml.setAttribute(pre + "][@hsl]", ofToString(hue) +  "," + ofToString(saturation) +  "," + ofToString(lightness)  );
-    xml.setAttribute(pre + "][@gamma]", ofToString(gamma) +  "," + ofToString(gammaR) +  "," + ofToString(gammaG) +  "," + ofToString(gammaB) );
+    xml.setAttribute("hsl", ofToString(hue) +  "," + ofToString(saturation) +  "," + ofToString(lightness)  );
+    xml.setAttribute("gamma", ofToString(gamma) +  "," + ofToString(gammaR) +  "," + ofToString(gammaG) +  "," + ofToString(gammaB) );
 
     //camera
-    xml.setAttribute(pre + "][@position]", ofToString(cameraPosition.x) +  "," + ofToString(cameraPosition.y) +  "," + ofToString(cameraPosition.z) );
-    xml.setAttribute(pre + "][@orientation]", ofToString(cameraOrientation.x) +  "," + ofToString(cameraOrientation.y) +  "," + ofToString(cameraOrientation.z) );
-    xml.setAttribute(pre + "][@fov]", ofToString(cameraFov));
-    //xml.setAttribute(pre + "][@offset]", ofToString(cameraOffset.x) +  "," + ofToString(cameraOffset.y) );
-    xml.setAttribute(pre + "][@scale]", ofToString(cameraScale.x) +  "," + ofToString(cameraScale.y) );
-    xml.setAttribute(pre + "][@scale]", ofToString(cameraScale.x) +  "," + ofToString(cameraScale.y) );
+    xml.setAttribute("position", ofToString(cameraPosition.x) +  "," + ofToString(cameraPosition.y) +  "," + ofToString(cameraPosition.z) );
+    xml.setAttribute("orientation", ofToString(cameraOrientation.x) +  "," + ofToString(cameraOrientation.y) +  "," + ofToString(cameraOrientation.z) );
+    xml.setAttribute("fov", ofToString(cameraFov));
+    //xml.setAttribute("offset", ofToString(cameraOffset.x) +  "," + ofToString(cameraOffset.y) );
+    xml.setAttribute("scale", ofToString(cameraScale.x) +  "," + ofToString(cameraScale.y) );
   
     // plane
-    //xml.setAttribute(pre + "][@dimensions]", ofToString(planeDimensions.x) +  "," + ofToString(planeDimensions.y) );
+    //xml.setAttribute("dimensions", ofToString(planeDimensions.x) +  "," + ofToString(planeDimensions.y) );
     
     plane.save(xml);
     mask.save();
+    
+    xml.setToParent();
+    xml.setToParent();
 }
 
 
