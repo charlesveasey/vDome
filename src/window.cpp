@@ -1,9 +1,10 @@
 #include "window.h"
+namespace vd {
 
 /******************************************
- 
+
  CONSTRUCTOR
- 
+
  ********************************************/
 
 Window::Window(){
@@ -13,9 +14,9 @@ Window::Window(){
 }
 
 /******************************************
- 
+
  SETUP
- 
+
  ********************************************/
 
 void Window::setup(){
@@ -25,9 +26,9 @@ void Window::setup(){
 }
 
 /******************************************
- 
+
  ACCESSORS
- 
+
  ********************************************/
 
 ofVec2f Window::getPosition() {
@@ -53,9 +54,9 @@ void Window::setDimensions(int w, int h) {
 }
 
 /******************************************
- 
+
  SETTINGS
- 
+
  ********************************************/
 
 void Window::loadXML(ofXml &xml) {
@@ -72,7 +73,7 @@ void Window::loadXML(ofXml &xml) {
         if (str == "true")
             fullscreen = true;
         else
-            fullscreen = false;        
+            fullscreen = false;
     }
     setup();
 }
@@ -83,11 +84,12 @@ void Window::saveXML(ofXml &xml) {
     xml.setAttribute("y", ofToString(ofGetWindowPositionY() ));
     xml.setAttribute("width", ofToString(ofGetWindowWidth() ));
     xml.setAttribute("height",  ofToString(ofGetWindowHeight() ));
-    
+
     if (fullscreen)
         xml.setAttribute("fullscreen", "true" );
     else
         xml.setAttribute("fullscreen", "false" );
-    
+
     xml.setToParent();
+}
 }

@@ -6,14 +6,14 @@
 // modified by Charles Veasey
 // - mouse position is now delta
 
-#include "QuadWarp.h"
-
+#include "quadWarp.h"
+namespace vd {
 
 QuadWarp::QuadWarp() {
     anchorSize.set(10,10);
     anchorSizeHalf = anchorSize * 0.5;
     selectedCornerIndex = -1;
-    
+
     bEnabled = false;
     bShow = false;
 	value = 1;
@@ -117,12 +117,12 @@ ofMatrix4x4 QuadWarp::getMatrixInverse() {
 }
 
 ofMatrix4x4 QuadWarp::getMatrix(ofPoint * srcPoints, ofPoint * dstPoints) {
-    
+
 	//we need our points as opencv points
 	//be nice to do this without opencv?
 	CvPoint2D32f cvsrc[4];
-	CvPoint2D32f cvdst[4];	
-    
+	CvPoint2D32f cvdst[4];
+
 	//we set the warp coordinates
 	//source coordinates as the dimensions of our window
 	cvsrc[0].x = srcPoints[0].x;
@@ -133,7 +133,7 @@ ofMatrix4x4 QuadWarp::getMatrix(ofPoint * srcPoints, ofPoint * dstPoints) {
 	cvsrc[2].y = srcPoints[2].y;
 	cvsrc[3].x = srcPoints[3].x;
 	cvsrc[3].y = srcPoints[3].y;
-    
+
 	cvdst[0].x = dstPoints[0].x;
 	cvdst[0].y = dstPoints[0].y;
 	cvdst[1].x = dstPoints[1].x;
@@ -142,66 +142,66 @@ ofMatrix4x4 QuadWarp::getMatrix(ofPoint * srcPoints, ofPoint * dstPoints) {
 	cvdst[2].y = dstPoints[2].y;
 	cvdst[3].x = dstPoints[3].x;
 	cvdst[3].y = dstPoints[3].y;
-    
+
 	//we create a matrix that will store the results
 	//from openCV - this is a 3x3 2D matrix that is
 	//row ordered
 	CvMat * translate = cvCreateMat(3,3,CV_32FC1);
-	
+
 	//this is the slightly easier - but supposidly less
-	//accurate warping method 
-	//cvWarpPerspectiveQMatrix(cvsrc, cvdst, translate); 
-    
-    
+	//accurate warping method
+	//cvWarpPerspectiveQMatrix(cvsrc, cvdst, translate);
+
+
 	//for the more accurate method we need to create
 	//a couple of matrixes that just act as containers
-	//to store our points  - the nice thing with this 
+	//to store our points  - the nice thing with this
 	//method is you can give it more than four points!
-	
+
 	CvMat* src_mat = cvCreateMat(4, 2, CV_32FC1);
 	CvMat* dst_mat = cvCreateMat(4, 2, CV_32FC1);
-    
+
 	//copy our points into the matrixes
 	cvSetData(src_mat, cvsrc, sizeof(CvPoint2D32f));
 	cvSetData(dst_mat, cvdst, sizeof(CvPoint2D32f));
-    
+
 	//figure out the warping!
 	//warning - older versions of openCV had a bug
 	//in this function.
 	cvFindHomography(src_mat, dst_mat, translate);
-    
+
 	//get the matrix as a list of floats
 	float *mat = translate->data.fl;
-    
-    
+
+
 	//we need to copy these values
 	//from the 3x3 2D openCV matrix which is row ordered
 	//
 	// ie:   [0][1][2] x
 	//       [3][4][5] y
 	//       [6][7][8] w
-	
+
 	//to openGL's 4x4 3D column ordered matrix
-	//        x  y  z  w   
+	//        x  y  z  w
 	// ie:   [0][3][ ][6]
 	//       [1][4][ ][7]
 	//		 [ ][ ][ ][ ]
 	//       [2][5][ ][9]
-	//       
-    
+	//
+
     ofMatrix4x4 matrixTemp;
 	matrixTemp.getPtr()[0]  = mat[0];
 	matrixTemp.getPtr()[4]  = mat[1];
 	matrixTemp.getPtr()[12] = mat[2];
-	
+
 	matrixTemp.getPtr()[1]  = mat[3];
 	matrixTemp.getPtr()[5]  = mat[4];
-	matrixTemp.getPtr()[13] = mat[5];	
-	
+	matrixTemp.getPtr()[13] = mat[5];
+
 	matrixTemp.getPtr()[3]  = mat[6];
 	matrixTemp.getPtr()[7]  = mat[7];
 	matrixTemp.getPtr()[15] = mat[8];
-    
+
     cvReleaseMat(&translate);
     cvReleaseMat(&src_mat);
     cvReleaseMat(&dst_mat);
@@ -227,8 +227,8 @@ void QuadWarp::onMousePressed(ofMouseEventArgs& mouseArgs) {
         if(bShow){
             ofPoint mousePoint(mouseArgs.x, mouseArgs.y);
             mousePoint -= position;
-            
-            
+
+
             if (mousePoint.x < anchorSize.x + dstPoints[0].x) { // left
                 if (mousePoint.y < anchorSize.y) { // top
                      selectedCornerIndex = 0;
@@ -245,10 +245,10 @@ void QuadWarp::onMousePressed(ofMouseEventArgs& mouseArgs) {
                      selectedCornerIndex = 2;
                 }
             }
-            
+
             lastMouse = mousePoint;
         }
-    
+
 }
 
 
@@ -276,12 +276,12 @@ void QuadWarp::onMouseReleased(ofMouseEventArgs& mouseArgs) {
 }
 
 void QuadWarp::keyPressed(ofKeyEventArgs& keyArgs) {
-   
+
     if(bShow){
         if(selectedCornerIndex < 0 || selectedCornerIndex > 3) {
             return;
         }
-        
+
         switch (keyArgs.key) {
             case OF_KEY_LEFT:
                 dstPoints[selectedCornerIndex].x = (dstPoints[selectedCornerIndex].x-1);
@@ -298,7 +298,7 @@ void QuadWarp::keyPressed(ofKeyEventArgs& keyArgs) {
            // case 'b':
              //   cout<<"GOT IT"<<endl;
              //   break;
-                
+
             default:
                 break;
         }
@@ -365,7 +365,7 @@ void QuadWarp::draw() {
     if(!bShow) {
         return;
     }
-    
+
     //drawCorners();
     drawQuadOutline();
 }
@@ -387,19 +387,21 @@ void QuadWarp::drawCorners() {
     ofRect(dstPoints[3].x + position.x,
            dstPoints[3].y + position.y - anchorSize.y,
            anchorSize.x, anchorSize.y);
-    
+
 }
 
 void QuadWarp::drawQuadOutline() {
     if(!bShow) {
         return;
     }
-    
+
     for(int i=0; i<4; i++) {
         int j = (i+1) % 4;
-        ofLine(dstPoints[i].x + position.x, 
-               dstPoints[i].y + position.y, 
-               dstPoints[j].x + position.x, 
+        ofLine(dstPoints[i].x + position.x,
+               dstPoints[i].y + position.y,
+               dstPoints[j].x + position.x,
                dstPoints[j].y + position.y);
     }
+}
+
 }

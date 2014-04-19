@@ -5,9 +5,10 @@
 #include "camera.h"
 #include "command.h"
 #include "mask.h"
+namespace vd {
 
 class Projector {
-   
+
 public:
     int index;
     bool keyboard;
@@ -15,11 +16,11 @@ public:
     bool active;
     int editMode;
     bool mod;
-    bool all;    
+    bool all;
     void setValue(float v);
     Mask mask;
     CommandHistory history;
-   
+
     enum editModes{ BRIGHTNESS,CONTRAST,
                     HUE, SATURATION, LIGHTNESS,
                     GAMMA, GAMMA_R, GAMMA_G, GAMMA_B,
@@ -30,63 +31,63 @@ public:
                     SCALE, SCALE_X, SCALE_Y,
                     SHEAR_XY, SHEAR_XZ, SHEAR_YX, SHEAR_YZ, SHEAR_ZX, SHEAR_ZY,
                     NONE, BRUSH_SCALE, BRUSH_OPACITY};
-        
+
     // intensity
     float brightness;
     float contrast;
-    
+
     // color
     float hue;
     float saturation;
     float lightness;
-    
+
     float gamma;
     float gammaR;
     float gammaG;
     float gammaB;
-    
+
     // plane
     ofVec2f getPlanePosition();
     void setPlanePosition(float x, float y);
-    
+
     ofVec2f getPlaneDimensions();
     void setPlaneDimensions(float w, float h);
-    
+
     // keystone
     bool getKeystoneActive();
     void setKeystoneActive(bool v);
-    
+
     vector<ofPoint> getKeystonePoints();
     void setKeystonePoints(vector<ofPoint> pts);
-    
+
     // grid
     bool getGridActive();
     void setGridActive(bool v);
-    
+
     vector<ofVec3f> getGridPoints();
     void setGridPoints(vector<ofVec3f> v);
-    
+
     // camera
     void  setCameraTransform();
-    
+
     ofVec3f getCameraPosition();
     void setCameraPosition(float azi, float ele, float dis);
 
     ofVec3f getCameraOrientation();
     void setCameraOrientation(float roll, float tilt, float pan);
-    
+
     float getCameraFov();
     void setCameraFov(float v);
 
     ofVec2f getCameraOffset();
     void setCameraOffset(float x, float y);
-    
+
     ofVec2f getCameraScale();
     void setCameraScale(float x, float y);
-    
+
     vector<float> getCameraShear();
     void setCameraShear(vector<float>);
-    
+
     // cycle
     void init(int i);
     void setup();
@@ -95,44 +96,44 @@ public:
     void bind();
     void unbind();
     void draw();
-    
+
     void drawPlaneConfig();
     void drawKeystone();
-    
+
     ofTexture& getTextureReference();
-    
+
     vector<ofPoint> lastKey;
     vector<ofVec3f> lastGrid;
-    
+
     // mouse
     void mousePressed(ofMouseEventArgs& mouseArgs);
     void mouseDragged(ofMouseEventArgs& mouseArgs);
     void mouseReleased(ofMouseEventArgs& mouseArgs);
-        
+
     // keyboard
     void keyPressed(int key);
     void keyReleased(int key);
-    
+
     // xml
     void loadXML(ofXml &xml);
     void loadxml(ofXml &xml);
     void saveXML(ofXml &xml);
-    
+
 private:
-    camera camera;
+    Camera camera;
     ofFbo fbo;
     ofRectangle view;
     Plane plane;
 
     float value;
-    
+
     string xmlPrefix;
     ofVec3f sphToCar(ofVec3f t);
 
     // plane
     ofVec2f planePosition;
     ofVec2f planeDimensions;
-    
+
     // camera
     ofVec3f cameraPosition;
     ofVec3f cameraOrientation;
@@ -145,9 +146,9 @@ private:
 
 
 /******************************************
- 
+
  UNDO/REDO COMMANDS
- 
+
  ********************************************/
 
 
@@ -199,7 +200,7 @@ protected:
     Projector& obj;
     float v;
     float l;
-public: 
+public:
     SetBrushOpacity(Projector& obj, float v) : obj(obj), v(v) {}
     void execute() {
         l = obj.mask.brushOpacity;
@@ -478,3 +479,5 @@ public:
     void undo() { obj.setCameraShear(l); }
     void redo() { obj.setCameraShear(v); }
 };
+
+}

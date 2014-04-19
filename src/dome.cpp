@@ -2,11 +2,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+namespace vd {
 
 /******************************************
- 
+
  CONSTRUCTOR
- 
+
  ********************************************/
 
 Dome::Dome(){
@@ -16,9 +17,9 @@ Dome::Dome(){
 }
 
 /******************************************
- 
+
  SETUP
- 
+
  ********************************************/
 
 void Dome::setup(){
@@ -37,11 +38,11 @@ void Dome::setup(){
     vbo.clear();
 	vbo.enableTextures();
 	vbo.enableNormals();
-    
+
 	vbo.addVertex(ofVec3f(0,0,0));
 	vbo.addNormal(ofVec3f(0,0,0));
 	vbo.addTexCoord(ofVec2f(0,0));
-    
+
 	for (j=0;j<=N/4;j++) {
 		for (i=0;i<=N;i++) {
 			theta = i * 2 * PI / N;
@@ -50,13 +51,13 @@ void Dome::setup(){
 			y = radius * cos(phi) * sin(theta);
 			z = radius * sin(phi);
 			vbo.addVertex(ofVec3f(x,y,z));
-            
+
 			len = sqrt(x*x + y*y + z*z);
 			nx = x/len;
    			ny = y/len;
    			nz = z/len;
 			vbo.addNormal(ofVec3f(nx,ny,nz));
-            
+
 			phi = atan2(sqrt(x*x+y*y),z); // 0 ... pi/2
 			theta = atan2(y,x); // -pi ... pi
 			r = phi / PI/2 * 4 * textureScale; // 0 ... 1 --->
@@ -66,7 +67,7 @@ void Dome::setup(){
 			index++;
 		}
     }
-    
+
 	for (j=0;j<N/4;j++) {
 		for (i=0;i<N;i++) {
 			i1 =  j    * (N+1) + i       + 1;
@@ -81,12 +82,12 @@ void Dome::setup(){
 			vbo.addTriangle(i1, i3, i4);
 		}
 	}
-}	
+}
 
 /******************************************
- 
+
  DRAW
- 
+
  ********************************************/
 
 void Dome::draw(){
@@ -99,14 +100,14 @@ void Dome::draw(){
 
 
 /******************************************
- 
+
  KEYBOARD
- 
+
  ********************************************/
 
 void Dome::keyPressed(int key) {
     switch (key) {
-        case OF_KEY_RIGHT: 
+        case OF_KEY_RIGHT:
             switch (editMode) {
                 case RADIUS:
                     radius += value;
@@ -114,7 +115,7 @@ void Dome::keyPressed(int key) {
                     break;
             }
             break;
-        case OF_KEY_LEFT: 
+        case OF_KEY_LEFT:
             switch (editMode) {
                 case RADIUS:
                     radius -= value;
@@ -122,7 +123,7 @@ void Dome::keyPressed(int key) {
                     break;
             }
     }
-    
+
 }
 
 void Dome::keyPressedInput(int key) {
@@ -147,18 +148,18 @@ void Dome::keyPressedInput(int key) {
 }
 
 /******************************************
- 
+
  SETTINGS
- 
+
  ********************************************/
 
 void Dome::loadXML(ofXml &xml) {
     if (xml.exists("dome[@radius]"))
         radius = ofToDouble( xml.getAttribute("dome[@radius]") );
-    
+
     if (xml.exists("input[@scale"))
         textureScale = ofToFloat( xml.getAttribute("input[@scale]") );
-    
+
     setup();
 }
 
@@ -173,11 +174,13 @@ void Dome::saveXML(ofXml &xml) {
 
 
 /******************************************
- 
+
  SAVE MESH
- 
+
  ********************************************/
 
 void Dome::saveMesh(string file) {
     vbo.save(file);
+}
+
 }

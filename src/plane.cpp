@@ -1,12 +1,14 @@
 #include "plane.h"
+namespace vd {
+
 extern float projCount;
 extern float projWidth;
 extern float projHeight;
 
 /******************************************
- 
+
  CONSTRUCTOR
- 
+
  ********************************************/
 
 Plane::Plane(){
@@ -30,65 +32,65 @@ Plane::Plane(){
 }
 
 /******************************************
- 
+
  SETUP
- 
+
  ********************************************/
 
 void Plane::setup(int i){
     index = i;
-    
+
     int w = width;
     int h = height;
-    
+
     int x = index*w;
     int y = 0;
-    
+
     value = 1;
-    
+
     position.clear();
     position.push_back(x);
     position.push_back(y);
-    
+
     gridVerts.clear();
     orgVerts.clear();
-    
+
     mesh.clear();
     mesh = ofMesh::plane(w, h, xRes, yRes, OF_PRIMITIVE_TRIANGLES);
-    
+
     vector<ofVec3f> v = mesh.getVertices();
-    
+
     for (int i=0; i<v.size(); i++) {
-        
+
         mesh.setVertex(i, ofVec3f(
                                   v[i].x + w/2 + x,
                                   v[i].y + h/2 + y,
                                   v[i].z    ));
-        
+
         mesh.setTexCoord(i, ofVec2f(
                                     v[i].x + w/2,
-                                    v[i].y + h/2    ));        
+                                    v[i].y + h/2    ));
     }
-    
+
     // only load mesh if the dimensions match
     ofMesh tmp;
     tmp.load("models/plane-mesh-" + ofToString(index+1) + ".ply");
-    
+
     vector<ofVec3f> vTmp = mesh.getVertices();
     if (vTmp[vTmp.size()-1].x == projWidth && vTmp[v.size()-1].y == projHeight) {
         mesh.load("models/plane-mesh-" + ofToString(index+1) + ".ply");
     }
-    
+
     for (int i=0; i<v.size(); i++) {
         gridVerts.push_back(ofVec3f(0,0,0));
         orgVerts.push_back(mesh.getVertex(i));
     }
-    
+
     ofPoint tl(keyVals[0].x*w+x, keyVals[0].y*h+y);
     ofPoint tr(keyVals[1].x*w+x, keyVals[1].y*h+y);
     ofPoint bl(keyVals[2].x*w+x, keyVals[2].y*h+y);
     ofPoint br(keyVals[3].x*w+x, keyVals[3].y*h+y);
-    
+
     keystone.setAnchorSize(w/2, h/2);
     keystone.setSourceRect(ofRectangle(x,y,w,h));
     keystone.setTopLeftCornerPosition(tl);
@@ -104,9 +106,9 @@ void Plane::setup(int i){
 }
 
 /******************************************
- 
+
  RESET
- 
+
  ********************************************/
 
 void Plane::resetKeystone(){
@@ -118,37 +120,37 @@ void Plane::resetGrid(){
     int h = height;
     int x = index*w;
     int y = 0;
-    
+
     position[0] = x;
     position[1] = y;
-    
+
     mesh.clear();
     mesh = ofMesh::plane(w, h, xRes, yRes, OF_PRIMITIVE_TRIANGLES);
-    
+
     vector<ofVec3f> v = mesh.getVertices();
-    
+
     for (int i=0; i<v.size(); i++) {
         mesh.setVertex(i, ofVec3f(
                                   v[i].x + w/2 + x,
                                   v[i].y + h/2 + y,
                                   v[i].z    ));
-        
+
         mesh.setTexCoord(i, ofVec2f(
                                     v[i].x + w/2,
                                     v[i].y + h/2    ));
     }
-    
+
     for (int i=0; i<v.size(); i++) {
         gridVerts[i] = ofVec3f(0,0,0);
         orgVerts[i] = mesh.getVertex(i);
     }
- 
+
 }
 
 /******************************************
- 
+
  DRAW
- 
+
  ********************************************/
 
 void Plane::draw(){
@@ -169,9 +171,9 @@ void Plane::drawConfig(){
         ofSetHexColor(0xFFFFFF);
         ofRect(boxOrigin.x, boxOrigin.y, boxUpdate.x-boxOrigin.x, boxUpdate.y-boxOrigin.y);
     }
-        
+
     vector<ofVec3f> v = mesh.getVertices();
-    
+
     float rad = 6;
     for (int i=0; i<v.size(); i++) {
         if(sel[i])
@@ -184,18 +186,18 @@ void Plane::drawConfig(){
 }
 
 /******************************************
- 
+
  KEYBOARD
- 
+
  ********************************************/
 
 void Plane::keyPressed(int key){
     if (key == OF_KEY_SHIFT) {
         shift = true;
     }
-    
+
     else if (key == OF_KEY_UP) {
-        
+
         for (int i=0; i<sel.size(); i++) {
             if (sel[i]) {
                 float x = mesh.getVertex(i).x;
@@ -207,7 +209,7 @@ void Plane::keyPressed(int key){
         }
     }
     else if (key == OF_KEY_DOWN) {
-        
+
         for (int i=0; i<sel.size(); i++) {
             if (sel[i]) {
                 float x = mesh.getVertex(i).x;
@@ -219,7 +221,7 @@ void Plane::keyPressed(int key){
         }
     }
     else if (key == OF_KEY_LEFT) {
-        
+
         for (int i=0; i<sel.size(); i++) {
             if (sel[i]) {
                 float x = mesh.getVertex(i).x;
@@ -231,7 +233,7 @@ void Plane::keyPressed(int key){
         }
     }
     else if (key == OF_KEY_RIGHT) {
-        
+
         for (int i=0; i<sel.size(); i++) {
             if (sel[i]) {
                 float x = mesh.getVertex(i).x;
@@ -251,15 +253,15 @@ void Plane::keyReleased(int key){
 }
 
 /******************************************
- 
+
  MOUSE
- 
+
  ********************************************/
 
 void Plane::onMouseDragged(ofMouseEventArgs& mouseArgs){
-        
+
     ofPoint mousePoint(mouseArgs.x, mouseArgs.y);
-    
+
     if (keystoneActive) {
         keystone.onMouseDragged(mouseArgs);
     }
@@ -269,10 +271,10 @@ void Plane::onMouseDragged(ofMouseEventArgs& mouseArgs){
             boxUpdate = ofPoint(mousePoint.x, mousePoint.y);
             return;
         }
-        
+
         if (pointIndex == -1)
             return;
-        
+
         for (int i=0; i<sel.size(); i++) {
             if (sel[i]) {
                 ofPoint newPoint = ofPoint(gridVerts[i].x, gridVerts[i].y) - ((lastM - mousePoint) * value);
@@ -280,7 +282,7 @@ void Plane::onMouseDragged(ofMouseEventArgs& mouseArgs){
             }
         }
     }
-    
+
     lastM = mousePoint;
 }
 
@@ -288,7 +290,7 @@ void Plane::onMousePressed(ofMouseEventArgs& mouseArgs){
 
     int x = mouseArgs.x;
     int y = mouseArgs.y;
-    
+
     if (keystoneActive) {
         keystone.onMousePressed(mouseArgs);
     }
@@ -298,12 +300,12 @@ void Plane::onMousePressed(ofMouseEventArgs& mouseArgs){
 
         for (int i=0; i<v.size(); i++) {
             float distance = ofDist(v[i].x, v[i].y, x, y);
-            
+
             if (distance < rad) {
                 pointIndex = i;
-                
+
                 if (!sel[i]) {
-                    
+
                     if (shift) {
                         sel[i] = true;
                     }
@@ -329,27 +331,27 @@ void Plane::onMousePressed(ofMouseEventArgs& mouseArgs){
 }
 
 void Plane::onMouseReleased(ofMouseEventArgs& mouseArgs){
-    
+
     int x = mouseArgs.x;
     int y = mouseArgs.y;
-    
+
     if (gridActive && group) {
         vector<ofVec3f> v = mesh.getVertices();
-        
+
         float rad = 20;
-        
+
         ofRectangle rect;
         rect = ofRectangle(boxOrigin.x, boxOrigin.y, boxUpdate.x-boxOrigin.x, boxUpdate.y-boxOrigin.y);
-        
-        
+
+
         for (int i=0; i<v.size(); i++) {
-            
+
             if ( (v[i].x) + rad    >= rect.getTopLeft().x
                 && (v[i].x) - rad   <= rect.getBottomRight().x) {
-                
+
                 if ( (v[i].y) + rad >= rect.getTopLeft().y
                     && (v[i].y) - rad    <= rect.getBottomRight().y) {
-                    
+
                     sel[i] = true;
                 }
                 else  {
@@ -360,24 +362,24 @@ void Plane::onMouseReleased(ofMouseEventArgs& mouseArgs){
                 sel[i] = false;
             }
         }
-        
+
         drawBox = false;
         group = false;
     }
 }
 
 /******************************************
- 
+
  SETTINGS
- 
+
  ********************************************/
 
 void Plane::load(ofXml &xml) {
     mesh.load("models/plane-mesh-" + ofToString(index+1) + ".ply");
     string xmlPrefix = "projectors/projector[";
-    
+
     string pre = xmlPrefix + ofToString(index);
-    
+
     if (xml.exists(pre + "][@cornerpin]")) {
         string str = xml.getAttribute(pre + "][@cornerpin]");
         keyVals[0].x = ofToFloat(ofSplitString(str, ",")[0]);
@@ -393,7 +395,7 @@ void Plane::load(ofXml &xml) {
 }
 
 void Plane::save(ofXml &xml) {
-    
+
     ofMesh m = mesh;
     vector<ofVec3f> v = m.getVertices();
     for (int i=0; i<v.size(); i++) {
@@ -401,12 +403,12 @@ void Plane::save(ofXml &xml) {
         m.setVertex(i, v[i]);
     }
     m.save("models/plane-mesh-" + ofToString(index+1) + ".ply");
-    
+
     int w = projWidth;
     int h = projHeight;
     int x = index*w;
     int y = 0;
-    
+
     xml.setAttribute("cornerpin",
                      ofToString((keystone.dstPoints[0].x-x)/w) +  "," +
                      ofToString((keystone.dstPoints[0].y-y)/h) +  "," +
@@ -434,10 +436,11 @@ void Plane::setKeystonePoints(vector<ofPoint> pts){
     keystone.setBottomRightCornerPosition(keystonePoints[2]);
 }
 
-
 vector<ofVec3f> Plane::getGridPoints() {
     return gridVerts;
 }
 void Plane::setGridPoints(vector<ofVec3f> v) {
     gridVerts = v;
+}
+
 }

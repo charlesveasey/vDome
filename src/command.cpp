@@ -1,4 +1,6 @@
 #include "command.h"
+namespace vd {
+
 extern int maxHistory;
 
 Command::~Command() {}
@@ -16,7 +18,7 @@ void CommandHistory::execute(Command* command) {
         history.erase(history.begin() + index, history.end());
     history.push_back(command);
     command->execute();
-    index = history.size()-1;    
+    index = history.size()-1;
     lastCommand = 0;
 }
 
@@ -25,7 +27,7 @@ void CommandHistory::undo() {
         if (index > 0)
             index--;
     }
-    history[index]->undo();    
+    history[index]->undo();
     lastCommand = 1;
 }
 
@@ -34,7 +36,7 @@ void CommandHistory::redo() {
         if (index < history.size()-1)
             index++;
     }
-    history[index]->redo();    
+    history[index]->redo();
     lastCommand = 2;
 }
 
@@ -48,4 +50,6 @@ int CommandHistory::getLastCommand() {
 
 int CommandHistory::getSize() {
     return history.size();
+}
+
 }
