@@ -165,13 +165,13 @@ void Mask::keyReleased(int key){
 
 void Mask::load(){
     string filename;
-    filename = "masks/mask-" + ofToString(pIndex) + ".png";
+    filename = "masks/mask-" + ofToString(pIndex+1) + ".png";
     read(filename);
 }
 
 void Mask::save(){
     string filename;
-    filename = "masks/mask-" + ofToString(pIndex) + ".png";
+    filename = "masks/mask-" + ofToString(pIndex+1) + ".png";
     write(filename);
 }
 
