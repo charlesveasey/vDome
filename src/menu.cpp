@@ -687,10 +687,10 @@ void Menu::keyPressed(int key) {
 
            if (projectors->at(pActive).active) {
                 #ifdef TARGET_OSX
-                    glutWarpPointer(xmouse, -ymouse);
+                    glutWarpPointer(xmouse+ofGetWindowPositionX(), -ymouse-ofGetWindowPositionY());
                 #endif
                 #ifdef TARGET_WIN32
-                    SetCursorPos(xmouse, ymouse);
+                    SetCursorPos(xmouse+ofGetWindowPositionX(), ymouse+ofGetWindowPositionX());
                 #endif
            }
            setEditMode();
