@@ -690,7 +690,7 @@ void Menu::keyPressed(int key) {
                     glutWarpPointer(xmouse+ofGetWindowPositionX(), -ymouse-ofGetWindowPositionY());
                 #endif
                 #ifdef TARGET_WIN32
-                    SetCursorPos(xmouse+ofGetWindowPositionX(), ymouse+ofGetWindowPositionX());
+                    SetCursorPos(xmouse+ofGetWindowPositionX(), ymouse+ofGetWindowPositionY());
                 #endif
            }
            setEditMode();
