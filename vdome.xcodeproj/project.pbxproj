@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		560A020D185FFC0000DF7D6E /* plane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 560A020B185FFC0000DF7D6E /* plane.cpp */; };
+		5611B0D319037DE5006A4679 /* Syphon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5611B0D219037DE5006A4679 /* Syphon.framework */; };
 		561DFF5D18E0D22700C236AA /* mask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 561DFF5B18E0D22700C236AA /* mask.cpp */; };
 		561FA68D1844413B003E6812 /* projector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 561FA68B1844413B003E6812 /* projector.cpp */; };
 		561FA69018445145003E6812 /* window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 561FA68F18445145003E6812 /* window.cpp */; };
@@ -93,6 +94,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */,
+				5611B0D319037DE5006A4679 /* Syphon.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,6 +103,7 @@
 /* Begin PBXFileReference section */
 		560A020B185FFC0000DF7D6E /* plane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = plane.cpp; sourceTree = "<group>"; };
 		560A020C185FFC0000DF7D6E /* plane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = plane.h; sourceTree = "<group>"; };
+		5611B0D219037DE5006A4679 /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Syphon.framework; path = ../../../addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework; sourceTree = "<group>"; };
 		561DFF5B18E0D22700C236AA /* mask.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mask.cpp; sourceTree = "<group>"; };
 		561DFF5C18E0D22700C236AA /* mask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mask.h; sourceTree = "<group>"; };
 		561FA68B1844413B003E6812 /* projector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = projector.cpp; sourceTree = "<group>"; };
@@ -798,6 +801,7 @@
 		E4B69B4A0A3A1720003C02F2 = {
 			isa = PBXGroup;
 			children = (
+				5611B0D219037DE5006A4679 /* Syphon.framework */,
 				566A6D58186035B1008EE87B /* logo.icns */,
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				E4EB6923138AFD0F00A09F29 /* Project.xcconfig */,
