@@ -11,7 +11,7 @@
 #ifdef TARGET_WIN32
 #include <windows.h>
 #endif
-
+namespace vd {
 
 class Menu {
 public:
@@ -19,17 +19,17 @@ public:
 
     // state
     int frameCnt;
-    bool saved;    
+    bool saved;
     bool active;
     int pActive;
-    
+
     struct MenuItem {
         int currentItem;
         vector<string> items;
         int menuId;
         MenuItem **parent;
     };
-    
+
     // menus
     MenuItem *menuMain;
     MenuItem *menuInput;
@@ -66,9 +66,9 @@ public:
     enum scaleItems {SCALE_XY, SCALE_X, SCALE_Y};
     enum shearItems {SHEAR_YZ, SHEAR_ZX, SHEAR_XZ,
                      SHEAR_ZY, SHEAR_YX, SHEAR_XY};
-    
+
     void findEdit(int mode);
-    
+
     // layout
     int px;
     int py;
@@ -82,23 +82,23 @@ public:
     bool alt;
     bool ctrl;
     bool all;
-    
+
     // value
     float value;
     float orgValue;
     float shiftValue;
     float altValue;
-    
+
     // pointers
     vector<Projector> *projectors;
     Dome *dome;
     Input *input;
-        
+
     // draw methods
  	void draw();
     void drawMain(int i);
     void drawInput();
-    
+
     void drawProjector(int i);
     void drawFPS(int i);
     void drawHighlight();
@@ -106,22 +106,24 @@ public:
     void drawSaved();
     void drawActive(int i);
     void drawWarp(int i);
-    
+
     // navigation
     void select();
     void back();
     void setEditMode();
-    
+
     // mouse methods
     void mousePressed(ofMouseEventArgs& mouseArgs);
     void mouseDragged(ofMouseEventArgs& mouseArgs);
     void mouseReleased(ofMouseEventArgs& mouseArgs);
-    
+
     // keyboard methods
     void keyPressed(int key);
     void keyReleased(int key);
-        
+
     // utils
-    void toggle();    
+    void toggle();
     float roundTo(float val, float n);
 };
+
+}

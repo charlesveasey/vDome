@@ -1,9 +1,10 @@
 #include "tcp.h"
+namespace vd {
 
 /******************************************
- 
+
  CONSTRUCTOR
- 
+
  ********************************************/
 
 Tcp::Tcp(){
@@ -12,15 +13,15 @@ Tcp::Tcp(){
 }
 
 /******************************************
- 
+
  SETUP
- 
+
  ********************************************/
 
 void Tcp::setup(){
-    
+
     if (!enabled) return;
-    
+
 	//setup the server to listen on 11999
 	server.setup(port);
 	//optionally set the delimiter to something else.  The delimter in the client and the server have to be the same, default being [/tcp]
@@ -28,9 +29,9 @@ void Tcp::setup(){
 }
 
 /******************************************
- 
+
  SETTINGS
- 
+
  ********************************************/
 
 void Tcp::loadXML(ofXml &xml) {
@@ -48,61 +49,63 @@ void Tcp::loadXML(ofXml &xml) {
 
 void Tcp::saveXML(ofXml &xml) {
     xml.setTo("tcp");
-    
+
     if (enabled)
         xml.setAttribute("enabled", "true");
     else
         xml.setAttribute("enabled", "false");
-    
+
     xml.setAttribute("port", ofToString(enabled));
-    
+
     xml.setToParent();
-    
+
 	//for each client lets send them a message letting them know what port they are connected on
 	for(int i = 0; i < server.getLastID(); i++){
 		if( !server.isClientConnected(i) )continue;
 		server.send(i, "hello client - you are connected on port - "+ofToString(server.getClientPort(i)) );
-	}    
+	}
 }
 
 /******************************************
- 
+
  DRAW
- 
+
  ********************************************/
 
 void Tcp::draw() {
-    
+
     ofSetHexColor(0xFFFFFF);
     ofDrawBitmapString("Port: "+ofToString(server.getPort()), x, y);
-                       
-                       
+
+
 	//for each connected client lets get the data being sent and lets print it to the screen
 	for(unsigned int i = 0; i < (unsigned int)server.getLastID(); i++){
-        
+
 		if( !server.isClientConnected(i) )continue;
-        
+
 		//get the ip and port of the client
 		string port = ofToString( server.getClientPort(i) );
 		string ip   = server.getClientIP(i);
 		string info = "client "+ofToString(i)+" -connected from "+ip+" on port: "+port;
-        
-        
+
+
 		//if we don't have a string allocated yet
 		//lets create one
 		if(i >= storeText.size() ){
 			storeText.push_back( string() );
 		}
-        
+
 		//we only want to update the text we have recieved there is data
 		string str = server.receive(i);
-        
+
 		if(str.length() > 0){
 			storeText[i] = str;
 		}
-        
+
 		//draw the info text and the received text bellow it
 		ofDrawBitmapString(info, x, y+20);
 		ofDrawBitmapString(storeText[i], x, y + 40);
 	}
+}
+
 }

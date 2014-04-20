@@ -3,6 +3,7 @@
 #include <vector>
 
 using namespace std;
+namespace vd {
 
 class Command {
 public:
@@ -22,10 +23,11 @@ public :
     int getIndex();
     int getLastCommand();
     int getSize();
-    
+
 private :
     vector<Command*> history;
     int index;
     int lastCommand; // 0 = exec, 1 = undo, 2 = redo
 };
 
+}

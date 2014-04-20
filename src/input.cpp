@@ -1,9 +1,10 @@
 #include "input.h"
+namespace vd {
 
 /******************************************
- 
+
  CONSTRUCTOR
- 
+
  ********************************************/
 
 Input::Input(){
@@ -15,7 +16,7 @@ Input::Input(){
     maxSource = 2;
     resolution = 2048;
     frameRate = 60;
-    
+
     #ifdef TARGET_OSX
         maxSource = 4;
         file = "test.mov";
@@ -25,20 +26,20 @@ Input::Input(){
 }
 
 /******************************************
- 
+
  SETUP
- 
+
  ********************************************/
 
 void Input::setup(){
 
     texture.clear();
-    
+
     if (texture.getWidth() != resolution || texture.getHeight() != resolution)
         texture.allocate(resolution, resolution, OF_IMAGE_COLOR);
-    
+
     stop();
-    
+
     // create input
     switch(source){
         case 1: // capture
@@ -69,13 +70,13 @@ void Input::setup(){
             texture = image.getTextureReference();
             break;
     }
-    
+
 }
 
 /******************************************
- 
+
  STOP
- 
+
  ********************************************/
 
 void Input::stop() {
@@ -86,9 +87,9 @@ void Input::stop() {
 }
 
 /******************************************
- 
+
  CLOSE
- 
+
  ********************************************/
 
 void Input::close() {
@@ -103,9 +104,9 @@ void Input::close() {
 }
 
 /******************************************
- 
+
  BIND
- 
+
  ********************************************/
 
 void Input::bind(){
@@ -133,9 +134,9 @@ void Input::unbind(){
 }
 
 /******************************************
- 
+
  UPDATE
- 
+
  ********************************************/
 
 void Input::update(){
@@ -150,9 +151,9 @@ void Input::update(){
 }
 
 /******************************************
- 
+
  KEYBOARD
- 
+
  ********************************************/
 
 void Input::keyPressed(int key) {
@@ -160,7 +161,7 @@ void Input::keyPressed(int key) {
         case OF_KEY_RIGHT:  // up = switch on mode
 			if (source+1 > maxSource)
 				source = maxSource;
-			else 
+			else
 				source++;
 			setup();
             break;
@@ -172,20 +173,20 @@ void Input::keyPressed(int key) {
             setup();
 			break;
     }
-    
+
 }
 
 /******************************************
- 
+
  SETTINGS
- 
+
  ********************************************/
 
 void Input::loadXML(ofXml &xml) {
-    
+
     if (xml.exists("input[@resolution]"))
         resolution = ofToInt( xml.getAttribute("input[@resolution]") );
-    
+
     if (xml.exists("input[@source]")) {
         string m = xml.getAttribute("input[@source]");
         if (m == "image")           source = 0;
@@ -194,10 +195,10 @@ void Input::loadXML(ofXml &xml) {
         else if (m == "hap")        source = 3;
         else if (m == "syphon")     source = 4;
     }
-    
+
     if (xml.exists("input[@file]"))
         file = ofToString( xml.getAttribute("input[@file]") );
-    
+
     setup();
 }
 
@@ -205,16 +206,18 @@ void Input::loadXML(ofXml &xml) {
 void Input::saveXML(ofXml &xml) {
     xml.setTo("input");
     xml.setAttribute("resolution", ofToString(resolution) );
-    
+
     string str;
-    
+
     if (source == 0)        str = "image";
     else if (source == 2)   str = "video";
     else if (source == 1)   str = "capture";
     else if (source == 3)   str = "hap";
     else if (source == 4)   str = "capture";
-    
+
     xml.setAttribute("source", str );
     xml.setAttribute("file", file );
     xml.setToParent();
+}
+
 }

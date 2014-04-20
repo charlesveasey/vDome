@@ -1,12 +1,14 @@
 #include "menu.h"
+namespace vd {
+
 extern float projCount;
 extern float projWidth;
 extern float projHeight;
 
 /******************************************
- 
+
  CONSTRUCTOR
- 
+
  ********************************************/
 
 Menu::Menu(){
@@ -20,24 +22,24 @@ Menu::Menu(){
     menuMain->items.push_back("Blend              ->");
     menuMain->items.push_back("Color              ->");
     menuMain->items.push_back("Setup              ->");
-    
+
     menuInput = new MenuItem;
     menuInput->menuId = INPUT;
     menuInput->parent = &menuMain;
-    menuInput->currentItem = 0;    
+    menuInput->currentItem = 0;
     menuInput->items.push_back("Source");
     menuInput->items.push_back("Format");
     menuInput->items.push_back("Scale");
     //menuInput->items.push_back("Offset X");
     //menuInput->items.push_back("Offset Y");
-    
+
     menuWarp = new MenuItem;
     menuWarp->menuId = WARP;
     menuWarp->parent = &menuMain;
     menuWarp->currentItem = 0;
     menuWarp->items.push_back("Cornerpin");
     menuWarp->items.push_back("Grid");
-   
+
     menuBlend = new MenuItem;
     menuBlend->menuId = BLEND;
     menuBlend->parent = &menuMain;
@@ -45,21 +47,21 @@ Menu::Menu(){
     menuBlend->items.push_back("Brightness");
     menuBlend->items.push_back("Contrast");
     menuBlend->items.push_back("Brush              ->");
-    
+
     menuBrush = new MenuItem;
     menuBrush->menuId = BRUSH;
     menuBrush->parent = &menuBlend;
     menuBrush->currentItem = 0;
     menuBrush->items.push_back("Brush Scale");
     menuBrush->items.push_back("Brush Opacity");
-    
+
     menuColor = new MenuItem;
     menuColor->menuId = COLOR;
     menuColor->parent = &menuMain;
     menuColor->currentItem = 0;
     menuColor->items.push_back("HSL                ->");
     menuColor->items.push_back("Gamma              ->");
-    
+
     menuHSL = new MenuItem;
     menuHSL->menuId = HSL;
     menuHSL->parent = &menuColor;
@@ -67,7 +69,7 @@ Menu::Menu(){
     menuHSL->items.push_back("Hue");
     menuHSL->items.push_back("Saturation");
     menuHSL->items.push_back("Lightness");
-    
+
     menuGamma = new MenuItem;
     menuGamma->menuId = GAMMA;
     menuGamma->parent = &menuColor;
@@ -76,7 +78,7 @@ Menu::Menu(){
     menuGamma->items.push_back("Gamma Red");
     menuGamma->items.push_back("Gamma Green");
     menuGamma->items.push_back("Gamma Blue");
-    
+
     menuSetup = new MenuItem;
     menuSetup->menuId = SETUP;
     menuSetup->parent = &menuMain;
@@ -87,7 +89,7 @@ Menu::Menu(){
     menuSetup->items.push_back("Lens               ->");
     menuSetup->items.push_back("Scale              ->");
     menuSetup->items.push_back("Shear              ->");
-    
+
     menuRadius = new MenuItem;
     menuRadius->menuId = RADIUS;
     menuRadius->parent = &menuSetup;
@@ -109,7 +111,7 @@ Menu::Menu(){
     menuOrientation->items.push_back("Tilt");
     menuOrientation->items.push_back("Roll");
     menuOrientation->items.push_back("Pan");
-    
+
     menuLens = new MenuItem;
     menuLens->menuId = LENS;
     menuLens->parent = &menuSetup;
@@ -134,36 +136,36 @@ Menu::Menu(){
     menuShear->items.push_back("Shear ZY");
     menuShear->items.push_back("Shear YX");
     menuShear->items.push_back("Scale XY");
-    
+
     currentMenu = &menuMain;
-    
+
     frameCnt= 0;
     saved = false;
     active = false;
-    
+
     // add values
     value = 1;
     orgValue = 1;
     shiftValue = .1;
     altValue = .01;
-    
+
     // config draw
 	shift = false;
 	alt = false;
 	ctrl = false;
-    
+
     // layout
     pw = 200;
     ph = 135;
     padx = 15;
     pady = 15;
-    
+
 }
 
 /******************************************
- 
+
  Draw
- 
+
  ********************************************/
 
 void Menu::drawHighlight(){
@@ -182,7 +184,7 @@ void Menu::drawBackground(){
     }
     else {
         ofSetHexColor(0x000000);
-    }    
+    }
     // background shape
     ofFill();
     ofRect(px, py, 1, pw, ph);
@@ -191,17 +193,17 @@ void Menu::drawBackground(){
 void Menu::drawMain(int i){
     string str;
     string val;
-    
+
     for(int j=0; j<(*currentMenu)->items.size(); j++) {
         str = (*currentMenu)->items[j];
-       
+
         if (j == (*currentMenu)->currentItem)
             drawHighlight();
-        
+
         if ((*currentMenu)->menuId != MAIN &&
             (*currentMenu)->menuId != WARP &&
             (*currentMenu)->menuId != SETUP) {
-                        
+
             switch ((*currentMenu)->menuId) {
 
                 case INPUT:
@@ -221,7 +223,7 @@ void Menu::drawMain(int i){
                             break;
                     }
                     break;
-                    
+
                 case BLEND:
                     switch (j) {
                         case BRIGHTNESS:
@@ -232,7 +234,7 @@ void Menu::drawMain(int i){
                             break;
                     }
                     break;
-                    
+
                 case BRUSH:
                     switch (j) {
                         case BRUSH_SCALE:
@@ -243,7 +245,7 @@ void Menu::drawMain(int i){
                             break;
                     }
                     break;
-                    
+
                 case HSL:
                     switch (j) {
                         case HUE:
@@ -257,7 +259,7 @@ void Menu::drawMain(int i){
                             break;
                     }
                     break;
- 
+
                 case GAMMA:
                     switch (j) {
                         case GAMMA_RGB:
@@ -274,16 +276,16 @@ void Menu::drawMain(int i){
                             break;
                     }
                     break;
-                    
+
                 case RADIUS:
                     switch (j) {
                         case 0:
                             val = ofToString(roundTo(dome->radius, .01));
                             break;
                     }
-                    
+
                     break;
-                    
+
                 case POSITION:
                     switch (j) {
                         case AZIMUTH:
@@ -296,9 +298,9 @@ void Menu::drawMain(int i){
                             val = ofToString(roundTo(projectors->at(i).getCameraPosition().z, .01));
                             break;
                     }
-                    
+
                     break;
- 
+
                 case ORIENTATION:
                     switch (j) {
                         case TILT:
@@ -311,18 +313,18 @@ void Menu::drawMain(int i){
                             val = ofToString(roundTo(projectors->at(i).getCameraOrientation().z, .01));
                             break;
                     }
-                    
+
                     break;
-                    
+
                 case LENS:
                     switch (j) {
                         case FOV:
                             val = ofToString(roundTo(projectors->at(i).getCameraFov(), .01));
                             break;
                     }
-                    
+
                     break;
-                    
+
                 case SCALE:
                     switch (j) {
                         case SCALE_XY:
@@ -335,10 +337,10 @@ void Menu::drawMain(int i){
                             val = ofToString(roundTo(projectors->at(i).getCameraScale().y, .01));
                             break;
                     }
-                    
+
                     break;
-                
-                    
+
+
                 case SHEAR:
                     switch (j) {
                         case SHEAR_YZ:
@@ -360,10 +362,10 @@ void Menu::drawMain(int i){
                             val = ofToString(roundTo(projectors->at(i).getCameraShear()[0], .001));
                             break;
                     }
-                    
+
                     break;
             }
-            
+
             // value string
             if (str.find("->") != 19) { // nested menu exception
                 while (str.size() + val.size() < 21) {
@@ -372,9 +374,9 @@ void Menu::drawMain(int i){
                 str += val;
             }
         }
-        
+
         ofDrawBitmapString(str, px+padx, py+pady * (3.25+j) );
-        
+
         if (j == (*currentMenu)->currentItem)
             ofSetHexColor(0xFFFFFF);
     }
@@ -384,12 +386,12 @@ void Menu::drawMain(int i){
 
 void Menu::draw(){
     if (!active) return;
-    
+
     for(int i=0; i<projCount; i++) {
         // set position
         px = projectors->at(i).getPlanePosition().x + projWidth/2 - pw/2;
         py = projectors->at(i).getPlanePosition().y + projHeight/2  - ph/2;
-    
+
         drawBackground();
         ofSetHexColor(0xFFFFFF);
         drawProjector(i);
@@ -405,7 +407,7 @@ void Menu::drawSaved(){
     if (saved) {
         ofSetHexColor(0xFFFFFF);
         ofDrawBitmapString("SAVED", px+padx+125, py+pady*1.75);
-        
+
     }
 }
 
@@ -423,7 +425,7 @@ void Menu::drawWarp(int i){
     // draw cornerpin or plane
     if (projectors->at(i).editMode == projectors->at(i).CORNERPIN
         || projectors->at(i).editMode == projectors->at(i).GRID) {
-        
+
         if (projectors->at(i).editMode == projectors->at(i).CORNERPIN) {
             projectors->at(i).drawKeystone();
         }
@@ -453,13 +455,13 @@ void Menu::toggle() {
 }
 
 /******************************************
- 
+
  NAVIGATION
- 
+
  ********************************************/
 
 void Menu::select() {
-    
+
     int item = (*currentMenu)->currentItem;
     switch ((*currentMenu)->menuId) {
         case MAIN:
@@ -507,9 +509,9 @@ void Menu::back() {
 }
 
 /******************************************
- 
+
  MOUSE
- 
+
  ********************************************/
 
 void Menu::mousePressed(ofMouseEventArgs& mouseArgs) {
@@ -537,17 +539,17 @@ void Menu::mouseReleased(ofMouseEventArgs& mouseArgs) {
 }
 
 /******************************************
- 
+
  KEYBOARD
- 
+
  ********************************************/
 
 void Menu::keyPressed(int key) {
-    
+
     switch(key){
-            
+
         // SHORTCUTS
-            
+
         // m = show menu
         case 109:
             active = !active;
@@ -556,75 +558,75 @@ void Menu::keyPressed(int key) {
             else
                 ofHideCursor();
             break;
-            
-            
+
+
         // MODIFIERS
-            
-        case OF_KEY_ALT: 
+
+        case OF_KEY_ALT:
             value = altValue;
             alt = true;
             break;
-            
+
         case OF_KEY_CONTROL:
             ctrl = true;
             break;
-            
+
         case OF_KEY_SHIFT:
             value = shiftValue;
             shift = true;
             break;
-            
-        case OF_KEY_SUPER: 
+
+        case OF_KEY_SUPER:
             ctrl = true;
             break;
-            
+
     }
-    
+
 
     for (int k=0; k<projCount; k++) {
         if (projectors->at(k).active)
             projectors->at(k).keyPressed(key);
     }
-    
-    
+
+
     // MENU
     ///////////////////////////
     if (!active) { return; }
     ///////////////////////////
-    
-    
-    
+
+
+
     // NAVIGATION
-    
+
     switch (key){
         case OF_KEY_UP:
             if ((*currentMenu)->currentItem > 0)
                 (*currentMenu)->currentItem--;
             break;
-            
+
         case OF_KEY_DOWN:
             if ((*currentMenu)->currentItem < (*currentMenu)->items.size()-1)
                 (*currentMenu)->currentItem++;
             break;
-            
+
         case OF_KEY_RETURN:
             select();
             break;
-            
+
         case OF_KEY_BACKSPACE:
             back();
             break;
     }
-    
-    
+
+
     // SET VALUE
     for (int i=0; i<projCount; i++) {
         projectors->at(i).setValue(value);
     }
     dome->value = value;
-    
+
     if (key == OF_KEY_LEFT || key == OF_KEY_RIGHT) {
-        
+
         switch((*currentMenu)->menuId) {
             case INPUT:
                 switch ((*currentMenu)->currentItem) {
@@ -634,21 +636,21 @@ void Menu::keyPressed(int key) {
                 }
                 break;
             case RADIUS: // d = dome mesh
-                dome->keyPressed(key);  
+                dome->keyPressed(key);
                 break;
-                
+
         }
-        
+
 
     }
-    
+
     // SET EDIT MODE
     else if (key == OF_KEY_UP || key == OF_KEY_DOWN){
         setEditMode();
     }
-    
+
     // SELECT PROJECTORS
-    
+
     // ~ = de/select all projectors
     else if (key == 96) {
         all = projectors->at(0).keyboard;
@@ -668,17 +670,17 @@ void Menu::keyPressed(int key) {
         }
         setEditMode();
     }
-    
-    
+
+
     // 1 - 10 projectors
    if (key >= 48 && key <= 57)  {
-       
+
         // map key to projector
         if (key == 48) pActive = 10;
         else pActive = key-49;
-       
+
         if (pActive < projCount) {
-           
+
            // shift groups, otherwise reset
            if (!shift) {
                for (int i=0; i<projCount; i++) {
@@ -689,16 +691,16 @@ void Menu::keyPressed(int key) {
                    }
                }
            }
-           
+
            // activate keyboard / mouse input
            projectors->at(pActive).keyboard = !(projectors->at(pActive).keyboard);
            projectors->at(pActive).mouse = !(projectors->at(pActive).mouse);
            projectors->at(pActive).active = !(projectors->at(pActive).active);
-           
+
            // move mouse to new selection
            int xmouse = projectors->at(pActive).getPlanePosition().x+projectors->at(pActive).getPlaneDimensions().x/2;
            int ymouse = projectors->at(pActive).getPlanePosition().y+projectors->at(pActive).getPlaneDimensions().y/2;
-           
+
            if (projectors->at(pActive).active) {
                 #ifdef TARGET_OSX
                     glutWarpPointer(xmouse, -ymouse);
@@ -713,17 +715,17 @@ void Menu::keyPressed(int key) {
 }
 
 void Menu::setEditMode() {
-    
+
     for (int k=0; k<projCount; k++) {
         projectors->at(k).editMode = projectors->at(k).NONE;
         projectors->at(k).setKeystoneActive(false);
         projectors->at(k).setGridActive(false);
     }
-    
+
     int j = (*currentMenu)->currentItem;
-    
+
     switch ((*currentMenu)->menuId) {
-            
+
         case BLEND:
             switch (j) {
                 case BRIGHTNESS:
@@ -740,7 +742,7 @@ void Menu::setEditMode() {
                     break;
             }
             break;
-            
+
         case BRUSH:
             switch (j) {
                 case BRUSH_SCALE:
@@ -757,7 +759,7 @@ void Menu::setEditMode() {
                     break;
             }
             break;
-        
+
         case WARP:
             switch (j) {
                 case CORNERPIN:
@@ -778,7 +780,7 @@ void Menu::setEditMode() {
                     break;
             }
             break;
-            
+
         case HSL:
             switch (j) {
                 case HUE:
@@ -804,7 +806,7 @@ void Menu::setEditMode() {
                     break;
             }
             break;
-            
+
         case GAMMA:
             switch (j) {
                 case GAMMA_RGB:
@@ -837,7 +839,7 @@ void Menu::setEditMode() {
                     break;
             }
             break;
-            
+
         case RADIUS:
             switch (j) {
                 case DOME_RADIUS:
@@ -845,7 +847,7 @@ void Menu::setEditMode() {
                     break;
             }
             break;
-            
+
         case POSITION:
             switch (j) {
                 case AZIMUTH:
@@ -856,7 +858,7 @@ void Menu::setEditMode() {
                     break;
                 case ELEVATION:
                     for (int k=0; k<projCount; k++) {
-                        if (projectors->at(k).active) 
+                        if (projectors->at(k).active)
                             projectors->at(k).editMode = projectors->at(k).ELEVATION;
                     }
                     break;
@@ -868,7 +870,7 @@ void Menu::setEditMode() {
                     break;
             }
             break;
-            
+
         case ORIENTATION:
             switch (j) {
                 case ROLL:
@@ -887,11 +889,11 @@ void Menu::setEditMode() {
                     for (int k=0; k<projCount; k++) {
                         if (projectors->at(k).active)
                             projectors->at(k).editMode = projectors->at(k).PAN;
-                    }   
+                    }
                     break;
             }
             break;
-            
+
         case LENS:
             switch (j) {
                 case FOV:
@@ -901,9 +903,9 @@ void Menu::setEditMode() {
                     }
                     break;
             }
-            
+
             break;
-            
+
         case SCALE:
             switch (j) {
                 case SCALE_XY:
@@ -925,9 +927,9 @@ void Menu::setEditMode() {
                     }
                     break;
             }
-            
+
             break;
-            
+
         case SHEAR:
             switch (j) {
                 case SHEAR_YZ:
@@ -977,33 +979,33 @@ void Menu::setEditMode() {
 
 
 void Menu::keyReleased(int key) {
-    
+
     for (int i=0; i<projCount; i++) {
         projectors->at(i).keyReleased(key);
         projectors->at(i).mask.keyReleased(key);
     }
 
     switch(key){
-            
+
         case OF_KEY_ALT:
             value = orgValue;
             alt = false;
             break;
-            
+
         case OF_KEY_CONTROL:
             ctrl = false;
             break;
-            
+
         case OF_KEY_SHIFT:
             value = orgValue;
             shift = false;
             break;
-            
+
         case OF_KEY_SUPER:
             ctrl = false;
             break;
     }
-    
+
     for (int i=0; i<projCount; i++) {
         projectors->at(i).setValue(value);
     }
@@ -1011,9 +1013,9 @@ void Menu::keyReleased(int key) {
 }
 
 /******************************************
- 
+
  MATH
- 
+
  ********************************************/
 
 float round(float d) {
@@ -1022,4 +1024,6 @@ float round(float d) {
 
 float Menu::roundTo(float val, float n){
 	return round(val * 1/n) * n;
+}
+
 }

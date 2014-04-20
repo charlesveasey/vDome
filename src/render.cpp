@@ -1,9 +1,10 @@
 #include "render.h"
+namespace vd {
 
 /******************************************
- 
+
  CONSTRUCTOR
- 
+
  ********************************************/
 
 Render::Render(){
@@ -12,19 +13,19 @@ Render::Render(){
 }
 
 /******************************************
- 
+
  SETUP
- 
+
  ********************************************/
 
 void Render::setup() {
     ofSetVerticalSync(vSync);
 	ofSetFrameRate(frameRate);
-    
+
     ofBackground(0,0,0);
 	//ofEnableDepthTest();
     ofEnableNormalizedTexCoords();
-    
+
     //ofEnableAntiAliasing();
     //ofEnableSmoothing();
     ofEnableAlphaBlending();
@@ -34,14 +35,14 @@ void Render::setup() {
 }
 
 /******************************************
- 
+
  ACCESSORS
- 
+
  ********************************************/
 
 bool Render::getVSync() {
     return vSync;
-  	
+
 }
 void Render::setVSync(bool val) {
     vSync = val;
@@ -49,7 +50,7 @@ void Render::setVSync(bool val) {
 }
 
 int Render::getFrameRate() {
-    return frameRate;  	
+    return frameRate;
 }
 void Render::setFrameRate(int val) {
     frameRate = val;
@@ -57,9 +58,9 @@ void Render::setFrameRate(int val) {
 }
 
 /******************************************
- 
+
  SETTINGS
- 
+
  ********************************************/
 
 void Render::loadXML(ofXml &xml) {
@@ -80,6 +81,8 @@ void Render::saveXML(ofXml &xml) {
         xml.setAttribute("vSync", "true" );
     else
         xml.setAttribute("vSync", "false" );
-        
-    xml.setAttribute("frameRate", ofToString(frameRate) );    
+
+    xml.setAttribute("frameRate", ofToString(frameRate) );
+}
+
 }

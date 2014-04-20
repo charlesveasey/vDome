@@ -1,3 +1,3 @@
-ofxNetwork
 ofxOpenCv
-ofxQuadWarp
+ofxNetwork
+ofxMSAInteractiveObject

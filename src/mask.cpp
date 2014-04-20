@@ -1,25 +1,27 @@
 #include "mask.h"
+namespace vd {
+
 extern float projWidth;
 extern float projHeight;
 extern int maxHistory;
 
 /******************************************
- 
+
  CONSTRUCTOR
- 
+
  ********************************************/
 
 Mask::Mask(){
     erase = false;
-    
+
     mouseX = 0;
     mouseY = 0;
-    
+
     width = 1024;
     height = 768;
-    
+
     mouseDown = false;
-    
+
     brushImage.setUseTexture(true);
     brushImage.setImageType(OF_IMAGE_COLOR_ALPHA);
     maskFboImage.bpp = 16;
@@ -28,16 +30,16 @@ Mask::Mask(){
     brushHeight = brushImage.getHeight();
     brushScale = 1;
     brushOpacity = 50;
-    
+
     brush = ofMesh::plane(brushWidth, brushHeight, 2, 2, OF_PRIMITIVE_TRIANGLES);
-    
+
     hIndex = 0;
 }
 
 /******************************************
- 
+
  INIT
- 
+
  ********************************************/
 
 void Mask::init(int i){
@@ -45,15 +47,15 @@ void Mask::init(int i){
 }
 
 /******************************************
- 
+
  SETUP
- 
+
  ********************************************/
 
 void Mask::setup(){
     width = projWidth;
     height = projHeight;
-    
+
     if (!bufferAllocated) {
         for (int i=0; i<=(maxHistory+2); i++) {
             ofPixels buffer;
@@ -61,16 +63,16 @@ void Mask::setup(){
             history.push_back(buffer);
         }
     }
-    
+
     bufferAllocated = true;
-    
+
     if (maskFbo.getWidth() != projWidth || maskFbo.getHeight() != projHeight)
         maskFbo.allocate(width, height, GL_RGBA32F_ARB);
-    
+
     maskFbo.begin();
         ofClear(255,255,255,0);
     maskFbo.end();
-    
+
     if (maskFboImage.isAllocated()) {
         ofDisableAlphaBlending();
         ofDisableNormalizedTexCoords();
@@ -84,9 +86,9 @@ void Mask::setup(){
 }
 
 /******************************************
- 
+
  DRAW
- 
+
  ********************************************/
 
 void Mask::draw(){
@@ -106,16 +108,16 @@ void Mask::draw(){
         ofPopMatrix();
         brushImage.unbind();
         maskFbo.end();
-        
+
         ofDisableBlendMode();
         ofEnableBlendMode(OF_BLENDMODE_ALPHA);
-    }    
+    }
 }
 
 /******************************************
- 
+
  MOUSE
- 
+
  ********************************************/
 
 void Mask::mousePressed(ofMouseEventArgs& mouseArgs){
@@ -137,9 +139,9 @@ void Mask::mouseReleased(ofMouseEventArgs& mouseArgs){
 }
 
 /******************************************
- 
+
  KEYBOARD
- 
+
  ********************************************/
 
 void Mask::keyPressed(int key){
@@ -155,9 +157,9 @@ void Mask::keyReleased(int key){
 }
 
 /******************************************
- 
+
  SETTINGS
- 
+
  ********************************************/
 
 void Mask::load(){
@@ -200,13 +202,15 @@ void Mask::recall(int fIndex) {
 }
 
 /******************************************
- 
+
  RESET
- 
+
  ********************************************/
 
 void Mask::reset(){
     maskFbo.begin();
         ofClear(255,255,255,0);
     maskFbo.end();
+}
+
 }

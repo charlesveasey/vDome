@@ -1,18 +1,19 @@
 #include "ofMain.h"
-#include "QuadWarp.h"
+#include "quadWarp.h"
+namespace vd {
 
 class Plane {
-	
+
 public:
     Plane();
     void setup(int i);
     void update();
     void draw();
     void drawConfig();
-    
+
     ofVboMesh mesh;
     QuadWarp keystone;
-    
+
     void keyPressed(int key);
     void keyReleased(int key);
     void onMouseDragged(ofMouseEventArgs& mouseArgs);
@@ -20,35 +21,34 @@ public:
     void onMouseReleased(ofMouseEventArgs& mouseArgs);
     void load(ofXml &xml);
     void save(ofXml &xml);
-    
+
     void resetKeystone();
     void resetGrid();
-    
+
     vector<float>position;
-    
+
     float value;
-    
+
     bool keystoneActive;
     bool gridActive;
 
-    
     ofMatrix4x4 mat;
-    
+
     vector<ofVec3f> orgVerts;
     vector<ofVec3f> gridVerts;
     vector<ofPoint> keyVals;
-    
+
     vector<ofPoint> getKeystonePoints();
     void setKeystonePoints(vector<ofPoint> pts);
-    
+
     vector<ofVec3f> getGridPoints();
     void setGridPoints(vector<ofVec3f> v);
-    
+
     int width;
     int height;
-    
+
 private:
-    
+
     float index;
     bool shift;
     ofPoint lastM;
@@ -60,10 +60,8 @@ private:
     int xRes;
     int yRes;
     int pointIndex;
-    
 
-    
     vector<ofPoint> keystonePoints;
- 
 };
 
+}

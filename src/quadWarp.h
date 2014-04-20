@@ -10,18 +10,19 @@
 
 #include "ofMain.h"
 #include "ofxOpenCv.h"
+namespace vd {
 
 class QuadWarp
 {
-public: 
+public:
      QuadWarp();
     ~QuadWarp();
-    
+
     void setup();
-    
+
     void setPosition(float x, float y);
     void setAnchorSize(float w, float h);
-    
+
     void setSourceRect(ofRectangle rect);
     void setSourcePoints(vector<ofPoint> points);
     ofPoint* getSourcePoints();
@@ -29,17 +30,17 @@ public:
     void setTargetPoints(vector<ofPoint> points);
     ofPoint* getTargetPoints();
     void setMatrix(ofMatrix4x4 matrix);
-    
+
     void enable();
     void disable();
-    
+
     void update();
     void reset();
-    
+
     ofMatrix4x4 getMatrix();
     ofMatrix4x4 getMatrixInverse();
     ofMatrix4x4 getMatrix(ofPoint * srcPoints, ofPoint * dstPoints);
-    
+
     void setCorners(vector<ofPoint> corners);
     void setCorner(ofPoint p, int cornerIndex);
     void setTopLeftCornerPosition(ofPoint p);
@@ -55,10 +56,10 @@ public:
     void draw();
     void drawCorners();
     void drawQuadOutline();
-    
+
     void loadPoints();
     void savePoints();
-    
+
 	ofPoint srcPoints[4];
 	ofPoint	dstPoints[4];
     bool bShow;
@@ -71,12 +72,14 @@ public:
 
 protected:
     ofPoint position;
-    
+
 	ofPoint anchorSize;
     ofPoint anchorSizeHalf;
     int selectedCornerIndex;
-    
+
     bool bEnabled;
-    
+
     ofPoint lastMouse;
 };
+
+}
