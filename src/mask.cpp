@@ -34,6 +34,7 @@ Mask::Mask(){
     brush = ofMesh::plane(brushWidth, brushHeight, 2, 2, OF_PRIMITIVE_TRIANGLES);
 
     hIndex = 0;
+	bufferAllocated = false;
 }
 
 /******************************************
