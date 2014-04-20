@@ -380,9 +380,7 @@ void Menu::drawMain(int i){
         if (j == (*currentMenu)->currentItem)
             ofSetHexColor(0xFFFFFF);
     }
-
 }
-
 
 void Menu::draw(){
     if (!active) return;
@@ -441,8 +439,9 @@ void Menu::drawProjector(int i){
 
 void Menu::drawFPS(int i){
     if (!saved) {
-        if (!projectors->at(i).active)
+        if (!projectors->at(i).active) {
             ofDrawBitmapString(ofToString(ofGetFrameRate(), 2), px+padx + 125, py+pady * 1.75);
+		}
     }
 }
 
@@ -547,9 +546,7 @@ void Menu::mouseReleased(ofMouseEventArgs& mouseArgs) {
 void Menu::keyPressed(int key) {
 
     switch(key){
-
         // SHORTCUTS
-
         // m = show menu
         case 109:
             active = !active;
@@ -559,9 +556,7 @@ void Menu::keyPressed(int key) {
                 ofHideCursor();
             break;
 
-
         // MODIFIERS
-
         case OF_KEY_ALT:
             value = altValue;
             alt = true;
@@ -579,25 +574,19 @@ void Menu::keyPressed(int key) {
         case OF_KEY_SUPER:
             ctrl = true;
             break;
-
     }
-
 
     for (int k=0; k<projCount; k++) {
         if (projectors->at(k).active)
             projectors->at(k).keyPressed(key);
     }
 
-
     // MENU
     ///////////////////////////
     if (!active) { return; }
     ///////////////////////////
-
-
-
-    // NAVIGATION
-
+    
+	// NAVIGATION
     switch (key){
         case OF_KEY_UP:
             if ((*currentMenu)->currentItem > 0)
@@ -618,7 +607,6 @@ void Menu::keyPressed(int key) {
             break;
     }
 
-
     // SET VALUE
     for (int i=0; i<projCount; i++) {
         projectors->at(i).setValue(value);
@@ -638,10 +626,7 @@ void Menu::keyPressed(int key) {
             case RADIUS: // d = dome mesh
                 dome->keyPressed(key);
                 break;
-
         }
-
-
     }
 
     // SET EDIT MODE
@@ -670,7 +655,6 @@ void Menu::keyPressed(int key) {
         }
         setEditMode();
     }
-
 
     // 1 - 10 projectors
    if (key >= 48 && key <= 57)  {

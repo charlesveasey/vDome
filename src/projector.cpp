@@ -35,6 +35,8 @@ void Projector::init(int i){
     gammaG = 1;
     gammaB = 1;
 
+	active = false;
+
     // plane
     planePosition.set(0,0);
     planeDimensions.set(projWidth,projHeight);
