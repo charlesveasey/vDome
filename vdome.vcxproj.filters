@@ -64,9 +64,6 @@
     <ClCompile Include="src\plane.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\ofDirectShowPlayer.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="src\command.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -81,6 +78,9 @@
     </ClCompile>
     <ClCompile Include="src\menu.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofDirectShowVideoPlayer\ofDirectShowPlayer.cpp">
+      <Filter>addons\ofDirectShowVideoPlayer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -161,6 +161,9 @@
     </Filter>
     <Filter Include="addons\ofxMSAInteractiveObject\src">
       <UniqueIdentifier>{6c251e27-d306-42ba-84ef-8076934cb960}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofDirectShowVideoPlayer">
+      <UniqueIdentifier>{dc28fd45-c617-4e12-be2f-c0e2308a57ee}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -488,9 +491,6 @@
     <ClInclude Include="src\plane.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\ofDirectShowPlayer.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="src\command.h">
       <Filter>src</Filter>
     </ClInclude>
@@ -505,6 +505,9 @@
     </ClInclude>
     <ClInclude Include="src\menu.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofDirectShowVideoPlayer\ofDirectShowPlayer.h">
+      <Filter>addons\ofDirectShowVideoPlayer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
