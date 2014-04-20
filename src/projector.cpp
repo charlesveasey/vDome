@@ -98,6 +98,8 @@ void Projector::setup() {
     fbo.begin();
         ofClear(255);
     fbo.end();
+    
+    mask.setup();
 }
 
 
