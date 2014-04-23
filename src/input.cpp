@@ -167,6 +167,9 @@ void Input::bind(){
         #endif
 	}
     
+    if (source == CAPTURE)
+        texture.bind();
+    
     #ifdef TARGET_OSX
         if (source == SYPHON)
             syphon.bind();
@@ -191,6 +194,9 @@ void Input::unbind(){
             texture.unbind();
         #endif
 	}
+    
+    if (source == CAPTURE)
+         texture.unbind();
     
 	#ifdef TARGET_OSX
 		if (source == SYPHON)
