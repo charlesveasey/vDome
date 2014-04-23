@@ -70,9 +70,6 @@
     <ClCompile Include="src\quadWarp.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxMSAInteractiveObject\src\ofxMSAInteractiveObject.cpp">
-      <Filter>addons\ofxMSAInteractiveObject\src</Filter>
-    </ClCompile>
     <ClCompile Include="src\mask.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -81,6 +78,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\addons\ofDirectShowVideoPlayer\ofDirectShowPlayer.cpp">
       <Filter>addons\ofDirectShowVideoPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMediaType\libs\ofxMediaType\src\MediaTypeMap.cpp">
+      <Filter>addons\ofxMediaType\libs\ofxMediaType\src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -156,14 +156,32 @@
     <Filter Include="addons\ofxOpenCv\libs\opencv\include\opencv2\video">
       <UniqueIdentifier>{61E04F54-C77F-B674-C2AB-FEC2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="addons\ofxMSAInteractiveObject">
-      <UniqueIdentifier>{4db1901e-acb7-4f88-9c23-66a827787dfd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxMSAInteractiveObject\src">
-      <UniqueIdentifier>{6c251e27-d306-42ba-84ef-8076934cb960}</UniqueIdentifier>
-    </Filter>
     <Filter Include="addons\ofDirectShowVideoPlayer">
       <UniqueIdentifier>{dc28fd45-c617-4e12-be2f-c0e2308a57ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxMediaType">
+      <UniqueIdentifier>{f501ff6d-4fd7-4c33-ae90-8704a1af2215}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxMediaType\src">
+      <UniqueIdentifier>{c2410590-f017-4465-b3e3-44bba3f07321}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxMediaType\libs">
+      <UniqueIdentifier>{825dbd2a-2f79-49b9-be79-0f932b774978}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxMediaType\libs\ofxMediaType">
+      <UniqueIdentifier>{4a80e2c6-430a-4785-8c9f-c1df2ffdb8aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxMediaType\libs\ofxMediaType\include">
+      <UniqueIdentifier>{8ba20d93-fb6d-496a-899d-d0d431ba44fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxMediaType\libs\ofxMediaType\src">
+      <UniqueIdentifier>{56495460-c4d3-437a-8f2e-262ce16f46ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxMediaType\libs\ofxMediaType\include\ofx">
+      <UniqueIdentifier>{23a7c1dd-d27d-49d0-ad11-0c921f0885c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxMediaType\libs\ofxMediaType\include\ofx\Media">
+      <UniqueIdentifier>{bd183c2c-220e-44e1-9500-ff0d16cce07e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -497,9 +515,6 @@
     <ClInclude Include="src\quadWarp.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxMSAInteractiveObject\src\ofxMSAInteractiveObject.h">
-      <Filter>addons\ofxMSAInteractiveObject\src</Filter>
-    </ClInclude>
     <ClInclude Include="src\mask.h">
       <Filter>src</Filter>
     </ClInclude>
@@ -508,6 +523,15 @@
     </ClInclude>
     <ClInclude Include="..\..\..\addons\ofDirectShowVideoPlayer\ofDirectShowPlayer.h">
       <Filter>addons\ofDirectShowVideoPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxMediaType\src\ofxMediaType.h">
+      <Filter>addons\ofxMediaType\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxMediaType\libs\ofxMediaType\include\ofx\Media\AbstractMediaTypeProvider.h">
+      <Filter>addons\ofxMediaType\libs\ofxMediaType\include\ofx\Media</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxMediaType\libs\ofxMediaType\include\ofx\Media\MediaTypeMap.h">
+      <Filter>addons\ofxMediaType\libs\ofxMediaType\include\ofx\Media</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
