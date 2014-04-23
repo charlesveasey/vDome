@@ -1,3 +1,2 @@
-ofxOpenCv
-ofxNetwork
-ofxMediaType
+ofxLibav
+
