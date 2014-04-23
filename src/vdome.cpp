@@ -214,6 +214,11 @@ void vdome::keyPressed(int key){
 void vdome::keyReleased(int key){
     menu.keyReleased(key);
 }
+    
+void vdome::dragEvent(ofDragInfo dragInfo){
+    cout << "drag event" << endl;
+}
+
 
 /******************************************
 

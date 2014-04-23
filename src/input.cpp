@@ -20,9 +20,13 @@ Input::Input(){
     #ifdef TARGET_OSX
         maxSource = 4;
         file = "test.mov";
+        vRenderer = AVF;
     #else
         file = "test.avi";
     #endif
+    
+    isVideo = false;
+    mediaTypeMap = MediaTypeMap::getDefault();
 }
 
 /******************************************
@@ -32,7 +36,7 @@ Input::Input(){
  ********************************************/
 
 void Input::setup(){
-
+    
     texture.clear();
 
     if (texture.getWidth() != resolution || texture.getHeight() != resolution)
@@ -49,15 +53,40 @@ void Input::setup(){
             texture = capture.getTextureReference();
             break;
         case 2: // media
-            video.setPixelFormat(OF_PIXELS_RGB);
-            video.loadMovie("media/"+file);
-            texture = video.getTextureReference();
-            video.play();
+            
+            if (isVideo) {
+                
+                parseVideoCodec();
+                
+#               ifdef TARGET_OSX
+                if (vRenderer == AVF){
+                    avf.loadMovie("media/"+file);
+                    avf.setLoopState(OF_LOOP_NORMAL);
+                }
+                else if (vRenderer == QT){
+                    qt.loadMovie("media/"+file, OF_QTKIT_DECODE_PIXELS_AND_TEXTURE);
+                    qt.play();
+                }
+                else if (vRenderer == HAP){
+                    hap.loadMovie("media/"+file, OF_QTKIT_DECODE_TEXTURE_ONLY);
+                    hap.play();
+                }
+                #else
+                video.setPixelFormat(OF_PIXELS_RGB);
+                video.loadMovie("media/"+file);
+                video.play();
+                texture = video.getTextureReference();
+                #endif
+            }
+            else {
+                image.loadImage("media/grid.jpg");
+                texture = image.getTextureReference();
+            }
+
             break;
         case 3: // hap video
 			#ifdef TARGET_OSX
-				hap.loadMovie("media/hap.mov", OF_QTKIT_DECODE_TEXTURE_ONLY);
-				hap.play();
+
 			#endif
             break;
         case 4: // syphon
@@ -110,27 +139,50 @@ void Input::close() {
  ********************************************/
 
 void Input::bind(){
-	#ifdef TARGET_OSX
-		if (source == 3)
-			hap.getTexture()->bind();
-		else if (source == 4)
-			syphon.bind();
-    #endif
+    
 	if (source != 3 && source != 4) {
-		texture.bind();
+        #ifdef TARGET_OSX
+            if (vRenderer == AVF)
+                avf.getTextureReference().bind();
+            else if (vRenderer == QT) {
+                if (qt.getTexture() != NULL)
+                    qt.getTexture()->bind();
+            }
+            else if (vRenderer == HAP)
+                hap.getTexture()->bind();
+        #else
+           texture.bind();
+        #endif
 	}
+    
+    #ifdef TARGET_OSX
+        if (source == 4)
+            syphon.bind();
+    #endif
 }
 
 void Input::unbind(){
+ 
+	if (source != 3 && source != 4) {
+        #ifdef TARGET_OSX
+            if (vRenderer == AVF)
+                avf.getTextureReference().unbind();
+            else if (vRenderer == QT) {
+                if (qt.getTexture() != NULL)
+                    qt.getTexture()->unbind();
+            }
+            else if (vRenderer == HAP)
+                hap.getTexture()->unbind();
+        #else
+            texture.unbind();
+        #endif
+	}
+    
 	#ifdef TARGET_OSX
-		if (source == 3)
-			hap.getTexture()->unbind();
-		else if (source == 4)
+		if (source == 4)
 			syphon.unbind();
     #endif
-	if (source != 3 && source != 4) {
-		texture.unbind();
-	}
+
 }
 
 /******************************************
@@ -140,11 +192,29 @@ void Input::unbind(){
  ********************************************/
 
 void Input::update(){
-    if (source == 2)
-        video.update();
+    
+    if (source == 2) {
+        
+        #ifdef TARGET_OSX
+            if (vRenderer == AVF){
+                avf.update();
+                if (avf.isLoaded())
+                    avf.play();
+            }
+            else if (vRenderer == QT)
+                qt.update();
+            else if (vRenderer == HAP)
+                hap.update();
+        
+        #else
+            video.update();
+        #endif
+    }
+    
 	else if (source == 1)
         capture.update();
-	#ifdef TARGET_OSX
+	
+    #ifdef TARGET_OSX
 		if (source == 3)
 		    hap.update();
     #endif
@@ -196,12 +266,21 @@ void Input::loadXML(ofXml &xml) {
         else if (m == "syphon")     source = 4;
     }
 
-    if (xml.exists("input[@file]"))
+    if (xml.exists("input[@file]")) {
         file = ofToString( xml.getAttribute("input[@file]") );
-
+        oFile.open(file);
+        pFile = oFile.getPocoFile();
+        mediaType = mediaTypeMap->getMediaTypeForPath(pFile.path()).toString();
+        string sub = ofSplitString(mediaType, "/")[0];
+        
+        if (sub == "video")
+            isVideo = true;
+        else
+            isVideo = false;
+    }
+    
     setup();
 }
-
 
 void Input::saveXML(ofXml &xml) {
     xml.setTo("input");
@@ -218,6 +297,11 @@ void Input::saveXML(ofXml &xml) {
     xml.setAttribute("source", str );
     xml.setAttribute("file", file );
     xml.setToParent();
+}
+
+    
+void Input::parseVideoCodec(){
+    
 }
 
 }
