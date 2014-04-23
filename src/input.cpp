@@ -18,7 +18,7 @@ Input::Input(){
     frameRate = 60;
 
     #ifdef TARGET_OSX
-        maxSource = 4;
+        maxSource = 3;
         file = "test.mov";
         vRenderer = AVF;
     #else
