@@ -43,6 +43,7 @@ void Input::setup(){
         texture.allocate(resolution, resolution, OF_IMAGE_COLOR);
 
     stop();
+    //close();
 
     // create input
     switch(source){
@@ -57,28 +58,29 @@ void Input::setup(){
             if (isVideo) {
                 
                 #ifdef TARGET_OSX
-                parseVideoCodec("media/"+file);
+                parseVideoCodec(file);
+                
                 if (vRenderer == AVF){
-                    avf.loadMovie("media/"+file);
+                    avf.loadMovie(file);
                     avf.setLoopState(OF_LOOP_NORMAL);
                 }
                 else if (vRenderer == QT){
-                    qt.loadMovie("media/"+file, OF_QTKIT_DECODE_PIXELS_AND_TEXTURE);
+                    qt.loadMovie(file, OF_QTKIT_DECODE_PIXELS_AND_TEXTURE);
                     qt.play();
                 }
                 else if (vRenderer == HAP){
-                    hap.loadMovie("media/"+file, OF_QTKIT_DECODE_TEXTURE_ONLY);
+                    hap.loadMovie(file, OF_QTKIT_DECODE_TEXTURE_ONLY);
                     hap.play();
                 }
                 #else
                 video.setPixelFormat(OF_PIXELS_RGB);
-                video.loadMovie("media/"+file);
+                video.loadMovie(file);
                 video.play();
                 texture = video.getTextureReference();
                 #endif
             }
             else {
-                image.loadImage("media/grid.jpg");
+                image.loadImage(file);
                 texture = image.getTextureReference();
             }
 
@@ -110,7 +112,9 @@ void Input::setup(){
 void Input::stop() {
     video.stop();
 	#ifdef TARGET_OSX
-		hap.stop();
+		//hap.stop();
+        qt.stop();
+        avf.stop();
 	#endif
 }
 
@@ -127,7 +131,11 @@ void Input::close() {
     //capture.close();
     #ifdef TARGET_OSX
 		hap.stop();
-		hap.close();
+        hap.closeMovie();
+        qt.stop();
+        qt.close();
+        avf.stop();
+        avf.closeMovie();
     #endif
 }
 
@@ -194,20 +202,22 @@ void Input::update(){
     
     if (source == 2) {
         
-        #ifdef TARGET_OSX
-            if (vRenderer == AVF){
-                avf.update();
-                if (avf.isLoaded())
-                    avf.play();
-            }
-            else if (vRenderer == QT)
-                qt.update();
-            else if (vRenderer == HAP)
-                hap.update();
-        
-        #else
-            video.update();
-        #endif
+        if (isVideo) {
+            #ifdef TARGET_OSX
+                if (vRenderer == AVF){
+                    avf.update();
+                    if (avf.isLoaded())
+                        avf.play();
+                }
+                else if (vRenderer == QT)
+                    qt.update();
+                else if (vRenderer == HAP)
+                    hap.update();
+            
+            #else
+                video.update();
+            #endif
+        }
     }
     
 	else if (source == 1)
@@ -244,7 +254,22 @@ void Input::keyPressed(int key) {
     }
 
 }
-
+    
+/******************************************
+ 
+ FILE
+ 
+ ********************************************/
+    
+void Input::dragEvent(ofDragInfo dragInfo){
+    cout << "drag event" << endl;
+    file = dragInfo.files[0];
+    parseFileType(file);
+    
+    cout << "\n\n\n" << file << endl;
+    setup();
+}
+    
 /******************************************
 
  SETTINGS
@@ -266,16 +291,8 @@ void Input::loadXML(ofXml &xml) {
     }
 
     if (xml.exists("input[@file]")) {
-        file = ofToString( xml.getAttribute("input[@file]") );
-        oFile.open(file);
-        pFile = oFile.getPocoFile();
-        mediaType = mediaTypeMap->getMediaTypeForPath(pFile.path()).toString();
-        string sub = ofSplitString(mediaType, "/")[0];
-        
-        if (sub == "video")
-            isVideo = true;
-        else
-            isVideo = false;
+        file = "media/" +ofToString( xml.getAttribute("input[@file]") );
+        parseFileType(file);
     }
     
     setup();
@@ -298,10 +315,30 @@ void Input::saveXML(ofXml &xml) {
     xml.setToParent();
 }
 
+/******************************************
+ 
+ FILE METADATA
+ 
+ ********************************************/
+    
+void Input::parseFileType(string filepath){
+    oFile.open(filepath);
+    pFile = oFile.getPocoFile();
+    mediaType = mediaTypeMap->getMediaTypeForPath(pFile.path()).toString();
+    string sub = ofSplitString(mediaType, "/")[0];
+    
+    if (sub == "video")
+        isVideo = true;
+    else
+        isVideo = false;
+    
+    oFile.close();
+}
+    
 #ifdef TARGET_OSX
 void Input::parseVideoCodec(string filepath){
     AVMediaInfo info = AVProbe::probe(filepath);
-    string codecCode;
+    string codecCode = "";
     
     cout << "filename:" << " " << info.path.getFileName() << endl;
     cout << "Metadata:" << endl;

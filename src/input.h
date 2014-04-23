@@ -26,6 +26,7 @@ public:
     void close();
 
     void keyPressed(int key);
+    void dragEvent(ofDragInfo dragInfo);
 
     void loadXML(ofXml &xml);
     void saveXML(ofXml &xml);
@@ -66,6 +67,7 @@ public:
     MediaTypeMap::SharedPtr mediaTypeMap;
     Poco::File pFile;
     ofFile oFile;
+    void parseFileType(string filepath);
     
     // codec
     #ifdef TARGET_OSX
