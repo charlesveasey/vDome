@@ -56,9 +56,9 @@ void Input::setup(){
             
             if (isVideo) {
                 
-                parseVideoCodec();
+                parseVideoCodec("media/"+file);
                 
-#               ifdef TARGET_OSX
+                #ifdef TARGET_OSX
                 if (vRenderer == AVF){
                     avf.loadMovie("media/"+file);
                     avf.setLoopState(OF_LOOP_NORMAL);
@@ -300,7 +300,76 @@ void Input::saveXML(ofXml &xml) {
 }
 
     
-void Input::parseVideoCodec(){
+void Input::parseVideoCodec(string filepath){
+    AVMediaInfo info = AVProbe::probe(filepath);
+    string codecCode;
+    
+    cout << "filename:" << " " << info.path.getFileName() << endl;
+    cout << "Metadata:" << endl;
+    
+    Poco::Net::NameValueCollection::ConstIterator iter = info.metadata.begin();
+    while(iter != info.metadata.end())
+    {
+        cout << iter->first << "=" << iter->second << endl;
+        ++iter;
+    }
+    
+    for(size_t i = 0; i < info.streams.size(); i++)
+    {
+        cout << endl;
+        cout << "stream (" << ofToString(i+1) << "/" << info.streams.size() << ")" << endl;
+        cout << "=========================================================================" << endl;
+        
+        AVStreamInfo stream = info.streams[i];
+        
+        if(stream.codecType == AVMEDIA_TYPE_VIDEO)
+        {
+            cout << setw(20) << "type:" << " " << "VIDEO STREAM" << endl;
+            cout << setw(20) << "width:" << " " << stream.videoWidth << endl;
+            cout << setw(20) << "height:" << " " << stream.videoHeight << endl;
+            cout << setw(20) << "decoded format:" << " " << stream.videoDecodedFormat << endl;
+            
+        }
+        else if(stream.codecType == AVMEDIA_TYPE_AUDIO)
+        {
+            cout << setw(20) << "type:" << " " << "AUDIO STREAM" << endl;
+            cout << setw(20) << "num channels:" << " " << stream.audioNumChannels << endl;
+            cout << setw(20) << "bits / sample:" << " " << stream.audioBitsPerSample << endl;
+            cout << setw(20) << "sample rate:" << " " << stream.audioSampleRate << endl;
+            
+        }
+        else
+        {
+        }
+        
+        cout << setw(20) << "codec:" << " " << stream.codecName << " [" << stream.codecLongName << "]" << endl;
+        
+        codecCode = ofToString(stream.codecTag);
+        
+        cout << setw(20) << "codec tag:" << " " << codecCode << endl;
+        cout << setw(20) << "stream codec tag:" << " " << stream.streamCodecTag << endl;
+        cout << setw(20) << "profile:" << " " << stream.codecProfile << endl;
+        cout << endl;
+        
+        cout << setw(20) << "avg. bitrate:" << " " << stream.averageBitRate << endl;
+        cout << setw(20) << "avg. framerate:" << " " << (double)stream.averageFrameRate.num / stream.averageFrameRate.den << endl;
+        
+        cout << setw(20) << "Metadata:" << endl;
+        
+        Poco::Net::NameValueCollection::ConstIterator iter = stream.metadata.begin();
+        while(iter != stream.metadata.end())
+        {
+            cout << setw(30) << iter->first << "=" << iter->second << endl;
+            ++iter;
+        }
+        
+        if (codecCode == "avc1")
+            vRenderer = AVF;
+        else if (codecCode == "Hap1")
+            vRenderer = HAP;
+        else
+            vRenderer = QT;
+    }
     
 }
 

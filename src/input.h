@@ -67,8 +67,9 @@ public:
     ofFile oFile;
     
     AVProbe probe;
-    
-    void parseVideoCodec();
+    enum codecs {CODEC_AV1, CODEC_HAP};
+
+    void parseVideoCodec(string filepath);
 };
 
 }
