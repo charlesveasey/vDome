@@ -50,7 +50,7 @@ public:
 
     int resolution;
 
-    enum vRendererTypes {AVF, QT, HAP};
+    enum vRendererTypes {AVF, QT, HAP, X};
     int vRenderer;
     
     bool isVideo;

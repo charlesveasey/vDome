@@ -72,6 +72,12 @@ void Input::setup(){
                     hap.loadMovie(file, OF_QTKIT_DECODE_TEXTURE_ONLY);
                     hap.play();
                 }
+                else if (vRenderer == X){
+                    video.setPixelFormat(OF_PIXELS_RGB);
+                    video.loadMovie(file);
+                    video.play();
+                    texture = video.getTextureReference();
+                }
                 #else
                 video.setPixelFormat(OF_PIXELS_RGB);
                 video.loadMovie(file);
@@ -157,6 +163,8 @@ void Input::bind(){
             }
             else if (vRenderer == HAP)
                 hap.getTexture()->bind();
+            else if (vRenderer == X)
+                texture.bind();
         #else
            texture.bind();
         #endif
@@ -180,6 +188,8 @@ void Input::unbind(){
             }
             else if (vRenderer == HAP)
                 hap.getTexture()->unbind();
+            else if (vRenderer == X)
+                texture.unbind();
         #else
             texture.unbind();
         #endif
@@ -213,7 +223,8 @@ void Input::update(){
                     qt.update();
                 else if (vRenderer == HAP)
                     hap.update();
-            
+                else if (vRenderer == X)
+                    video.update();
             #else
                 video.update();
             #endif
@@ -404,7 +415,7 @@ void Input::parseVideoCodec(string filepath){
         else if (codecCode == "Hap1")
             vRenderer = HAP;
         else
-            vRenderer = QT;
+            vRenderer = QT; //X
     }
     
 }
