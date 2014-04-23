@@ -56,9 +56,8 @@ void Input::setup(){
             
             if (isVideo) {
                 
-                parseVideoCodec("media/"+file);
-                
                 #ifdef TARGET_OSX
+                parseVideoCodec("media/"+file);
                 if (vRenderer == AVF){
                     avf.loadMovie("media/"+file);
                     avf.setLoopState(OF_LOOP_NORMAL);
@@ -299,7 +298,7 @@ void Input::saveXML(ofXml &xml) {
     xml.setToParent();
 }
 
-    
+#ifdef TARGET_OSX
 void Input::parseVideoCodec(string filepath){
     AVMediaInfo info = AVProbe::probe(filepath);
     string codecCode;
@@ -372,5 +371,5 @@ void Input::parseVideoCodec(string filepath){
     }
     
 }
-
+ #endif
 }

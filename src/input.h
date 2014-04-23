@@ -4,13 +4,14 @@
 	#include "ofxSyphon.h"
 	#include "ofxHapPlayer.h"
     #include "ofxAVFVideoPlayer.h"
+    #include "ofxLibav.h"
 #endif
 #ifdef TARGET_WIN32
 	#include "ofDirectShowPlayer.h"
 #endif
 
 #include "ofxMediaType.h"
-#include "ofxLibav.h"
+
 #include "render.h"
 using namespace ofx::Media;
 
@@ -60,16 +61,18 @@ public:
         ofQTKitPlayer qt;
     #endif
     
-    // file metadata
+    // mime type
     string mediaType;
     MediaTypeMap::SharedPtr mediaTypeMap;
     Poco::File pFile;
     ofFile oFile;
     
-    AVProbe probe;
-    enum codecs {CODEC_AV1, CODEC_HAP};
-
-    void parseVideoCodec(string filepath);
+    // codec
+    #ifdef TARGET_OSX
+        AVProbe probe;
+        enum codecs {CODEC_AV1, CODEC_HAP};
+        void parseVideoCodec(string filepath);
+    #endif
 };
 
 }
