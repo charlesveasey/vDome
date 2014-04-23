@@ -115,7 +115,7 @@ void Input::setup(){
 void Input::stop() {
     video.stop();
 	#ifdef TARGET_OSX
-		//hap.stop();
+		hap.stop();
         qt.stop();
         avf.stop();
 	#endif
@@ -240,14 +240,14 @@ void Input::update(){
 
 void Input::keyPressed(int key) {
     switch (key) {
-        case OF_KEY_RIGHT:  // up = switch on mode
+        case OF_KEY_RIGHT:
 			if (source+1 > maxSource)
 				source = maxSource;
 			else
 				source++;
 			setup();
             break;
-        case OF_KEY_LEFT:  // up = switch on mode
+        case OF_KEY_LEFT:
 			if (source-1 < 0)
 				source = 0;
 			else
