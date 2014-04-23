@@ -37,6 +37,7 @@ public:
     void unbind();
 
     int source;
+    enum sources {MEDIA, CAPTURE, SYPHON};
 	int maxSource;
     string file;
 

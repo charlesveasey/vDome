@@ -47,14 +47,8 @@ void Input::setup(){
 
     // create input
     switch(source){
-        case 1: // capture
-            capture.setDeviceID(0);
-            capture.setDesiredFrameRate(frameRate);
-            capture.initGrabber(resolution, resolution);
-            texture = capture.getTextureReference();
-            break;
-        case 2: // media
-            
+        
+        case MEDIA: // media
             if (isVideo) {
                 
                 #ifdef TARGET_OSX
@@ -89,18 +83,21 @@ void Input::setup(){
                 image.loadImage(file);
                 texture = image.getTextureReference();
             }
-
             break;
-        case 3: // hap video
-			#ifdef TARGET_OSX
-
-			#endif
+            
+        case CAPTURE: // capture
+            capture.setDeviceID(0);
+            capture.setDesiredFrameRate(frameRate);
+            capture.initGrabber(resolution, resolution);
+            texture = capture.getTextureReference();
             break;
-        case 4: // syphon
+            
+        case SYPHON: // syphon
 			#ifdef TARGET_OSX
 				syphon.setup();
 			#endif
             break;
+            
         default:
             image.loadImage("media/grid.jpg");
             texture = image.getTextureReference();
@@ -153,7 +150,7 @@ void Input::close() {
 
 void Input::bind(){
     
-	if (source != 3 && source != 4) {
+	if (source == MEDIA) {
         #ifdef TARGET_OSX
             if (vRenderer == AVF)
                 avf.getTextureReference().bind();
@@ -171,14 +168,14 @@ void Input::bind(){
 	}
     
     #ifdef TARGET_OSX
-        if (source == 4)
+        if (source == SYPHON)
             syphon.bind();
     #endif
 }
 
 void Input::unbind(){
  
-	if (source != 3 && source != 4) {
+	if (source == MEDIA) {
         #ifdef TARGET_OSX
             if (vRenderer == AVF)
                 avf.getTextureReference().unbind();
@@ -196,7 +193,7 @@ void Input::unbind(){
 	}
     
 	#ifdef TARGET_OSX
-		if (source == 4)
+		if (source == SYPHON)
 			syphon.unbind();
     #endif
 
@@ -210,7 +207,7 @@ void Input::unbind(){
 
 void Input::update(){
     
-    if (source == 2) {
+    if (source == MEDIA) {
         
         if (isVideo) {
             #ifdef TARGET_OSX
@@ -231,13 +228,8 @@ void Input::update(){
         }
     }
     
-	else if (source == 1)
+	else if (source == CAPTURE)
         capture.update();
-	
-    #ifdef TARGET_OSX
-		if (source == 3)
-		    hap.update();
-    #endif
 }
 
 /******************************************
@@ -263,7 +255,6 @@ void Input::keyPressed(int key) {
             setup();
 			break;
     }
-
 }
     
 /******************************************
@@ -273,11 +264,8 @@ void Input::keyPressed(int key) {
  ********************************************/
     
 void Input::dragEvent(ofDragInfo dragInfo){
-    cout << "drag event" << endl;
     file = dragInfo.files[0];
-    parseFileType(file);
-    
-    cout << "\n\n\n" << file << endl;
+    parseFileType(file);    
     setup();
 }
     
@@ -294,11 +282,9 @@ void Input::loadXML(ofXml &xml) {
 
     if (xml.exists("input[@source]")) {
         string m = xml.getAttribute("input[@source]");
-        if (m == "image")           source = 0;
-        else if (m == "video")      source = 2;
-        else if (m == "capture")    source = 1;
-        else if (m == "hap")        source = 3;
-        else if (m == "syphon")     source = 4;
+        if (m == "media")          source = MEDIA;
+        else if (m == "capture")   source = CAPTURE;
+        else if (m == "syphon")    source = SYPHON;
     }
 
     if (xml.exists("input[@file]")) {
@@ -315,11 +301,9 @@ void Input::saveXML(ofXml &xml) {
 
     string str;
 
-    if (source == 0)        str = "image";
-    else if (source == 2)   str = "video";
-    else if (source == 1)   str = "capture";
-    else if (source == 3)   str = "hap";
-    else if (source == 4)   str = "capture";
+    if (source == MEDIA)        str = "media";
+    else if (source == CAPTURE)   str = "capture";
+    else if (source == SYPHON)   str = "syphon";
 
     xml.setAttribute("source", str );
     xml.setAttribute("file", file );
