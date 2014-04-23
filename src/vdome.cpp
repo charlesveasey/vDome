@@ -216,6 +216,17 @@ void vdome::keyReleased(int key){
 }
 
 /******************************************
+ 
+ FILE
+ 
+ ********************************************/
+
+void vdome::dragEvent(ofDragInfo dragInfo){
+    input.dragEvent(dragInfo);
+}
+
+
+/******************************************
 
  EXIT
 

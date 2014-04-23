@@ -1,3 +1,2 @@
-ofxOpenCv
-ofxNetwork
-ofxMSAInteractiveObject
+
+

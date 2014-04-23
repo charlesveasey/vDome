@@ -209,11 +209,9 @@ void Menu::drawMain(int i){
                 case INPUT:
                     switch (j) {
                         case SOURCE:
-                            if (input->source == 1)		 val = "Capture";
-                            else if (input->source == 2)   val = "Video";
-                            else if (input->source == 3)   val = "Hap";
-                            else if (input->source == 4)   val = "Syphon";
-                            else						 val = "Image";
+                            if (input->source == 0)		 val = "Media";
+                            else if (input->source == 1)   val = "Capture";
+                            else if (input->source == 2)   val = "Syphon";
                             break;
                         case FORMAT:
                             val = "Domemaster";

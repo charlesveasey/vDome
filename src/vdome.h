@@ -3,6 +3,7 @@
 #include "window.h"
 #include "tcp.h"
 #include "menu.h"
+
 namespace vd {
 
 class vdome : public ofBaseApp {
@@ -31,6 +32,8 @@ private:
     void mousePressed(ofMouseEventArgs& mouseArgs);
     void mouseDragged(ofMouseEventArgs& mouseArgs);
     void mouseReleased(ofMouseEventArgs& mouseArgs);
+
+    void dragEvent(ofDragInfo dragInfo);
 
     ofVec3f sphToCar(ofVec3f t);
 
