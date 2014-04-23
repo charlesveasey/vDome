@@ -113,7 +113,6 @@ void Input::setup(){
  ********************************************/
 
 void Input::stop() {
-    image.clear();
     video.stop();
     if(capture.isInitialized())
         capture.close();
