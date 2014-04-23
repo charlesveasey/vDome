@@ -43,7 +43,7 @@ void Input::setup(){
         texture.allocate(resolution, resolution, OF_IMAGE_COLOR);
 
     stop();
-    //close();
+    close();
 
     // create input
     switch(source){
@@ -113,7 +113,10 @@ void Input::setup(){
  ********************************************/
 
 void Input::stop() {
+    image.clear();
     video.stop();
+    if(capture.isInitialized())
+        capture.close();
 	#ifdef TARGET_OSX
 		hap.stop();
         qt.stop();
@@ -129,15 +132,12 @@ void Input::stop() {
 
 void Input::close() {
     image.clear();
-    video.stop();
     video.close();
-    //capture.close();
+    if(capture.isInitialized())
+        capture.close();
     #ifdef TARGET_OSX
-		hap.stop();
         hap.closeMovie();
-        qt.stop();
         qt.close();
-        avf.stop();
         avf.closeMovie();
     #endif
 }
