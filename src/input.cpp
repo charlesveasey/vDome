@@ -337,8 +337,7 @@ void Input::keyPressed(int key) {
  ********************************************/
     
 void Input::dragEvent(ofDragInfo dragInfo){
-    file = dragInfo.files[0];
-    parseFileType(file);    
+    parseFileType(dragInfo.files[0]);    
     setup();
 }
     
@@ -361,8 +360,7 @@ void Input::loadXML(ofXml &xml) {
     }
 
     if (xml.exists("input[@file]")) {
-        file = "media/" +ofToString( xml.getAttribute("input[@file]") );
-        parseFileType(file);
+        parseFileType(ofToString( xml.getAttribute("input[@file]") ));
     }
     
     setup();
@@ -379,7 +377,7 @@ void Input::saveXML(ofXml &xml) {
     else if (source == SYPHON)   str = "syphon";
 
     xml.setAttribute("source", str );
-    xml.setAttribute("file", filename );
+    xml.setAttribute("file", file );
     xml.setToParent();
 }
 
@@ -392,6 +390,7 @@ void Input::saveXML(ofXml &xml) {
 void Input::parseFileType(string filepath){
     oFile.open(filepath);
     pFile = oFile.getPocoFile();
+	file = oFile.getAbsolutePath();
     filename = oFile.getFileName();
     mediaType = mediaTypeMap->getMediaTypeForPath(pFile.path()).toString();
     string sub = ofSplitString(mediaType, "/")[0];
