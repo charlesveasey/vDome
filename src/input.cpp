@@ -19,7 +19,7 @@ Input::Input(){
 
     #ifdef TARGET_OSX
         maxSource = 3;
-        file = "test.mov";
+        file = "media/grid.jpg";
         vRenderer = AVF;
     #else
         file = "test.avi";
@@ -151,16 +151,21 @@ void Input::bind(){
     
 	if (source == MEDIA) {
         #ifdef TARGET_OSX
-            if (vRenderer == AVF)
-                avf.getTextureReference().bind();
-            else if (vRenderer == QT) {
-                if (qt.getTexture() != NULL)
-                    qt.getTexture()->bind();
+            if (isVideo) {
+                if (vRenderer == AVF)
+                    avf.getTextureReference().bind();
+                else if (vRenderer == QT) {
+                    if (qt.getTexture() != NULL)
+                        qt.getTexture()->bind();
+                }
+                else if (vRenderer == HAP)
+                    hap.getTexture()->bind();
+                else if (vRenderer == X)
+                    texture.bind();
             }
-            else if (vRenderer == HAP)
-                hap.getTexture()->bind();
-            else if (vRenderer == X)
+            else {
                 texture.bind();
+            }
         #else
            texture.bind();
         #endif
@@ -179,16 +184,21 @@ void Input::unbind(){
  
 	if (source == MEDIA) {
         #ifdef TARGET_OSX
-            if (vRenderer == AVF)
-                avf.getTextureReference().unbind();
-            else if (vRenderer == QT) {
-                if (qt.getTexture() != NULL)
-                    qt.getTexture()->unbind();
+            if (isVideo) {
+                if (vRenderer == AVF)
+                    avf.getTextureReference().unbind();
+                else if (vRenderer == QT) {
+                    if (qt.getTexture() != NULL)
+                        qt.getTexture()->unbind();
+                }
+                else if (vRenderer == HAP)
+                    hap.getTexture()->unbind();
+                else if (vRenderer == X)
+                    texture.unbind();
             }
-            else if (vRenderer == HAP)
-                hap.getTexture()->unbind();
-            else if (vRenderer == X)
+            else {
                 texture.unbind();
+            }
         #else
             texture.unbind();
         #endif
@@ -311,7 +321,7 @@ void Input::saveXML(ofXml &xml) {
     else if (source == SYPHON)   str = "syphon";
 
     xml.setAttribute("source", str );
-    xml.setAttribute("file", file );
+    xml.setAttribute("file", filename );
     xml.setToParent();
 }
 
@@ -324,6 +334,7 @@ void Input::saveXML(ofXml &xml) {
 void Input::parseFileType(string filepath){
     oFile.open(filepath);
     pFile = oFile.getPocoFile();
+    filename = oFile.getFileName();
     mediaType = mediaTypeMap->getMediaTypeForPath(pFile.path()).toString();
     string sub = ofSplitString(mediaType, "/")[0];
     

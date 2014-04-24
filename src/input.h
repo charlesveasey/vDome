@@ -40,6 +40,7 @@ public:
     enum sources {MEDIA, CAPTURE, SYPHON};
 	int maxSource;
     string file;
+    string filename;
 
     ofTexture texture;
 
