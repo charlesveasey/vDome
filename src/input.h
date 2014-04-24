@@ -8,6 +8,7 @@
 #endif
 #ifdef TARGET_WIN32
 	#include "ofDirectShowPlayer.h"
+	#include "ofxWMFVideoPlayer.h"
 #endif
 
 #include "ofxMediaType.h"
@@ -52,7 +53,7 @@ public:
 
     int resolution;
 
-    enum vRendererTypes {AVF, QT, HAP, X};
+    enum vRendererTypes {AVF, QT, HAP, X, WMF, DS};
     int vRenderer;
     
     bool isVideo;
@@ -64,9 +65,13 @@ public:
         ofQTKitPlayer qt;
     #endif
     
+	#ifdef TARGET_WIN32
+		ofxWMFVideoPlayer wmf;
+	#endif
+
     // mime type
     string mediaType;
-    MediaTypeMap::SharedPtr mediaTypeMap;
+    MediaTypeMap * mediaTypeMap;
     Poco::File pFile;
     ofFile oFile;
     void parseFileType(string filepath);

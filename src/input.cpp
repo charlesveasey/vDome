@@ -8,25 +8,33 @@ namespace vd {
  ********************************************/
 
 Input::Input(){
-	#ifdef TARGET_WIN32
-		ofPtr <ofBaseVideoPlayer> ptr(new ofDirectShowPlayer());
-		video.setPlayer(ptr);
-	#endif
-
     maxSource = 2;
     resolution = 2048;
     frameRate = 60;
 
+    isVideo = false;
+    mediaTypeMap = new MediaTypeMap("media/mime.types");
+    file = "media/grid.jpg";
+
     #ifdef TARGET_OSX
         maxSource = 3;
-        file = "media/grid.jpg";
         vRenderer = AVF;
-    #else
-        file = "test.avi";
     #endif
-    
-    isVideo = false;
-    mediaTypeMap = MediaTypeMap::getDefault();
+
+	#ifdef TARGET_WIN32
+		vRenderer = WMF;
+		if (vRenderer == WMF) {
+			
+		}
+		else if (vRenderer == DS) {
+			ofPtr <ofBaseVideoPlayer> ptr(new ofDirectShowPlayer());
+			video.setPlayer(ptr);
+		}
+	#endif
+
+	#ifdef TARGET_LINUX
+    #endif
+
 }
 
 /******************************************
@@ -52,31 +60,45 @@ void Input::setup(){
             if (isVideo) {
                 
                 #ifdef TARGET_OSX
-                parseVideoCodec(file);
+					parseVideoCodec(file);
                 
-                if (vRenderer == AVF){
-                    avf.loadMovie(file);
-                    avf.setLoopState(OF_LOOP_NORMAL);
-                }
-                else if (vRenderer == QT){
-                    qt.loadMovie(file, OF_QTKIT_DECODE_PIXELS_AND_TEXTURE);
-                    qt.play();
-                }
-                else if (vRenderer == HAP){
-                    hap.loadMovie(file, OF_QTKIT_DECODE_TEXTURE_ONLY);
-                    hap.play();
-                }
-                else if (vRenderer == X){
-                    video.setPixelFormat(OF_PIXELS_RGB);
-                    video.loadMovie(file);
-                    video.play();
-                    texture = video.getTextureReference();
-                }
-                #else
-                video.setPixelFormat(OF_PIXELS_RGB);
-                video.loadMovie(file);
-                video.play();
-                texture = video.getTextureReference();
+					if (vRenderer == AVF){
+						avf.loadMovie(file);
+						avf.setLoopState(OF_LOOP_NORMAL);
+					}
+					else if (vRenderer == QT){
+						qt.loadMovie(file, OF_QTKIT_DECODE_PIXELS_AND_TEXTURE);
+						qt.play();
+					}
+					else if (vRenderer == HAP){
+						hap.loadMovie(file, OF_QTKIT_DECODE_TEXTURE_ONLY);
+						hap.play();
+					}
+					else if (vRenderer == X){
+						video.loadMovie(file);
+						video.play();
+						texture = video.getTextureReference();
+					}
+				#endif
+
+				#ifdef TARGET_WIN32
+					if (vRenderer == WMF) {
+						wmf.loadMovie(file);
+						wmf.play();
+						wmf.setLoop(true);
+					}
+					else if (vRenderer == DS) {
+						video.loadMovie(file);
+						video.play();
+						texture = video.getTextureReference();
+					}
+				#endif
+
+                #ifdef TARGET_LINUX
+					video.setPixelFormat(OF_PIXELS_RGB);
+					video.loadMovie(file);
+					video.play();
+					texture = video.getTextureReference();
                 #endif
             }
             else {
@@ -166,8 +188,22 @@ void Input::bind(){
             else {
                 texture.bind();
             }
-        #else
-           texture.bind();
+		#endif
+
+		#ifdef TARGET_WIN32
+			if (isVideo) {
+				if (vRenderer == WMF)
+					wmf.bind();
+				else if (vRenderer == DS)
+					texture.bind();
+			}
+			else {
+				texture.bind();
+			}
+		#endif
+
+        #ifdef TARGET_LINUX
+            texture.bind();
         #endif
 	}
     
@@ -199,7 +235,21 @@ void Input::unbind(){
             else {
                 texture.unbind();
             }
-        #else
+		#endif
+
+		#ifdef TARGET_WIN32
+			if (isVideo) {
+				if (vRenderer == WMF)
+					wmf.unbind();
+				else if (vRenderer == DS)
+					texture.unbind();
+			}
+			else {
+				texture.unbind();
+			}
+		#endif
+
+        #ifdef TARGET_LINUX
             texture.unbind();
         #endif
 	}
@@ -225,6 +275,7 @@ void Input::update(){
     if (source == MEDIA) {
         
         if (isVideo) {
+
             #ifdef TARGET_OSX
                 if (vRenderer == AVF){
                     avf.update();
@@ -240,6 +291,13 @@ void Input::update(){
             #else
                 video.update();
             #endif
+
+			#ifdef TARGET_WIN32
+				if (vRenderer == WMF)
+					wmf.update();
+				else if (vRenderer == DS)
+					video.update();
+			#endif
         }
     }
     
