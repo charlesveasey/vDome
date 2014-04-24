@@ -38,7 +38,7 @@ Menu::Menu(){
     menuWarp->parent = &menuMain;
     menuWarp->currentItem = 0;
     menuWarp->items.push_back("Cornerpin");
-    menuWarp->items.push_back("Grid");
+	menuWarp->items.push_back("Grid");
 
     menuBlend = new MenuItem;
     menuBlend->menuId = BLEND;
@@ -209,9 +209,10 @@ void Menu::drawMain(int i){
                 case INPUT:
                     switch (j) {
                         case SOURCE:
-                            if (input->source == 0)		 val = "Media";
-                            else if (input->source == 1)   val = "Capture";
-                            else if (input->source == 2)   val = "Syphon";
+                            if (input->source == 0)		 val = "Grid";
+							else if (input->source == 1)   val = "Media";
+                            else if (input->source == 2)   val = "Capture";
+                            else if (input->source == 3)   val = "Syphon";
                             break;
                         case FORMAT:
                             val = "Domemaster";

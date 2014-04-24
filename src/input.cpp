@@ -14,7 +14,7 @@ Input::Input(){
 
     isVideo = false;
     mediaTypeMap = new MediaTypeMap("media/mime.types");
-    file = "media/grid.jpg";
+    file = "";
 
     #ifdef TARGET_OSX
         maxSource = 3;
@@ -55,8 +55,14 @@ void Input::setup(){
 
     // create input
     switch(source){
-        
-        case MEDIA: // media
+
+        case GRID: 
+			isVideo = false;
+			image.loadImage("media/warp/grid-2k.png");
+            texture = image.getTextureReference();
+            break;
+
+        case MEDIA: 
             if (isVideo) {
                 
                 #ifdef TARGET_OSX
@@ -107,21 +113,21 @@ void Input::setup(){
             }
             break;
             
-        case CAPTURE: // capture
+        case CAPTURE: 
             capture.setDeviceID(0);
             capture.setDesiredFrameRate(frameRate);
             capture.initGrabber(resolution, resolution);
             texture = capture.getTextureReference();
             break;
             
-        case SYPHON: // syphon
+        case SYPHON:
 			#ifdef TARGET_OSX
 				syphon.setup();
 			#endif
             break;
             
         default:
-            image.loadImage("media/grid.jpg");
+            image.loadImage("media/warp/grid-2k.png");
             texture = image.getTextureReference();
             break;
     }
@@ -143,6 +149,11 @@ void Input::stop() {
         qt.stop();
         avf.stop();
 	#endif
+
+	#ifdef TARGET_WIN32
+		if (wmf.isPlaying())
+			wmf.stop();
+    #endif
 }
 
 /******************************************
@@ -161,6 +172,10 @@ void Input::close() {
         qt.close();
         avf.closeMovie();
     #endif
+
+	#ifdef TARGET_WIN32
+		//wmf.close();
+    #endif
 }
 
 /******************************************
@@ -171,7 +186,11 @@ void Input::close() {
 
 void Input::bind(){
     
-	if (source == MEDIA) {
+	if (source == GRID) {
+		texture.bind();
+	}
+
+	else if (source == MEDIA) {
         #ifdef TARGET_OSX
             if (isVideo) {
                 if (vRenderer == AVF)
@@ -218,7 +237,11 @@ void Input::bind(){
 
 void Input::unbind(){
  
-	if (source == MEDIA) {
+	if (source == GRID) {
+		texture.unbind();
+	}
+
+	else if (source == MEDIA) {
         #ifdef TARGET_OSX
             if (isVideo) {
                 if (vRenderer == AVF)
@@ -318,6 +341,8 @@ void Input::keyPressed(int key) {
 				source = maxSource;
 			else
 				source++;
+			if (source == MEDIA)
+				parseFileType(file);
 			setup();
             break;
         case OF_KEY_LEFT:
@@ -325,6 +350,8 @@ void Input::keyPressed(int key) {
 				source = 0;
 			else
 				source--;
+			if (source == MEDIA)
+				parseFileType(file);
             setup();
 			break;
     }
@@ -337,6 +364,7 @@ void Input::keyPressed(int key) {
  ********************************************/
     
 void Input::dragEvent(ofDragInfo dragInfo){
+	source = MEDIA;
     parseFileType(dragInfo.files[0]);    
     setup();
 }
@@ -354,7 +382,8 @@ void Input::loadXML(ofXml &xml) {
 
     if (xml.exists("input[@source]")) {
         string m = xml.getAttribute("input[@source]");
-        if (m == "media")          source = MEDIA;
+		if (m == "grid")		   source = GRID;
+        else if (m == "media")     source = MEDIA;
         else if (m == "capture")   source = CAPTURE;
         else if (m == "syphon")    source = SYPHON;
     }
@@ -372,9 +401,10 @@ void Input::saveXML(ofXml &xml) {
 
     string str;
 
-    if (source == MEDIA)        str = "media";
+	if (source == GRID)			  str = "grid";
+    else if (source == MEDIA)     str = "media";
     else if (source == CAPTURE)   str = "capture";
-    else if (source == SYPHON)   str = "syphon";
+    else if (source == SYPHON)    str = "syphon";
 
     xml.setAttribute("source", str );
     xml.setAttribute("file", file );
