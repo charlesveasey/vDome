@@ -555,6 +555,12 @@ void Menu::keyPressed(int key) {
                 ofHideCursor();
             break;
 
+		// ctrl + o = open media file dialog
+        case 111:
+            if (ctrl)
+				input->openFileDialog();
+            break;
+
         // MODIFIERS
         case OF_KEY_ALT:
             value = altValue;

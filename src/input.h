@@ -37,6 +37,8 @@ public:
     void bind();
     void unbind();
 
+	void openFileDialog();
+
     int source;
     enum sources {GRID, MEDIA, CAPTURE, SYPHON};
 	int maxSource;

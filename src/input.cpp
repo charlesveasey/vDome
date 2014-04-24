@@ -368,6 +368,16 @@ void Input::dragEvent(ofDragInfo dragInfo){
     parseFileType(dragInfo.files[0]);    
     setup();
 }
+
+void Input::openFileDialog(){
+	source = MEDIA;
+	ofFileDialogResult openFileResult = ofSystemLoadDialog("Select a media file");
+	if (openFileResult.bSuccess){
+		parseFileType(openFileResult.filePath);    
+		setup();
+			
+	}
+}
     
 /******************************************
 
