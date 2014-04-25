@@ -51,6 +51,12 @@ void vdome::setup(){
     // xml settings
     xmlFile = "settings.xml";
     loadXML(xmlFile);
+
+    #ifdef TARGET_OSX
+        transparent.afterMainSetup(ofxTransparentWindow::SCREENSAVER, // change float mode here
+                                   window.getPosition().x, window.getPosition().y, window.getDimensions().x, window.getDimensions().y);
+    #endif
+
 }
 
 /******************************************
@@ -70,7 +76,7 @@ void vdome::update() {
  ********************************************/
 
 void vdome::draw(){
-
+    
     ofSetHexColor(0xFFFFFF);
 
 	for(int i=0; i<projCount; i++){

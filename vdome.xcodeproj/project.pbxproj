@@ -49,6 +49,8 @@
 		56A1C6AC1907633A00154E4F /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56A1C6AB1907633A00154E4F /* CoreMedia.framework */; };
 		56A1C6AE190763CE00154E4F /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56A1C6AD190763CE00154E4F /* Syphon.framework */; };
 		56A1C6AF190763FB00154E4F /* Syphon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 56A1C6AD190763CE00154E4F /* Syphon.framework */; };
+		56BB409A1909E80F00BF74E4 /* ofxTransparentWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56BB40931909E80F00BF74E4 /* ofxTransparentWindow.cpp */; };
+		56BB409B1909E80F00BF74E4 /* ofxTransparentWindowUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 56BB40961909E80F00BF74E4 /* ofxTransparentWindowUtil.m */; };
 		8619dc281df3f00f1f656b7f825c5d1d /* AVInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45c5829bca9a8edaabdd7fb04a6910d6 /* AVInfo.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
@@ -287,6 +289,12 @@
 		567AA6B419075B460064C745 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = ../../../../../../../System/Library/Frameworks/QuartzCore.framework; sourceTree = "<group>"; };
 		56A1C6AB1907633A00154E4F /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = ../../../../../../../System/Library/Frameworks/CoreMedia.framework; sourceTree = "<group>"; };
 		56A1C6AD190763CE00154E4F /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Syphon.framework; sourceTree = "<group>"; };
+		56BB40901909E80F00BF74E4 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		56BB40911909E80F00BF74E4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		56BB40931909E80F00BF74E4 /* ofxTransparentWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxTransparentWindow.cpp; sourceTree = "<group>"; };
+		56BB40941909E80F00BF74E4 /* ofxTransparentWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxTransparentWindow.h; sourceTree = "<group>"; };
+		56BB40951909E80F00BF74E4 /* ofxTransparentWindowUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxTransparentWindowUtil.h; sourceTree = "<group>"; };
+		56BB40961909E80F00BF74E4 /* ofxTransparentWindowUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ofxTransparentWindowUtil.m; sourceTree = "<group>"; };
 		753566993e483b913a48b3c699d99925 /* AVMediaInfo.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = AVMediaInfo.cpp; path = ../../../addons/ofxLibav/libs/ofxLibav/src/AVMediaInfo.cpp; sourceTree = SOURCE_ROOT; };
 		7cf230d43b5b4b38f4b480e22c87ea7e /* avfilter.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = avfilter.h; path = ../../../addons/ofxLibav/libs/libav/include/libavfilter/avfilter.h; sourceTree = SOURCE_ROOT; };
 		82991838a068baa737826a7fe89aaf66 /* version.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = version.h; path = ../../../addons/ofxLibav/libs/libav/include/libavcodec/version.h; sourceTree = SOURCE_ROOT; };
@@ -923,6 +931,28 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		56BB407C1909E80F00BF74E4 /* ofxTransparentWindow */ = {
+			isa = PBXGroup;
+			children = (
+				56BB40901909E80F00BF74E4 /* LICENSE */,
+				56BB40911909E80F00BF74E4 /* README.md */,
+				56BB40921909E80F00BF74E4 /* src */,
+			);
+			name = ofxTransparentWindow;
+			path = ../../../addons/ofxTransparentWindow;
+			sourceTree = "<group>";
+		};
+		56BB40921909E80F00BF74E4 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				56BB40931909E80F00BF74E4 /* ofxTransparentWindow.cpp */,
+				56BB40941909E80F00BF74E4 /* ofxTransparentWindow.h */,
+				56BB40951909E80F00BF74E4 /* ofxTransparentWindowUtil.h */,
+				56BB40961909E80F00BF74E4 /* ofxTransparentWindowUtil.m */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		6c2e3d392b0089a54dbd717eb6c1b611 /* libavcodec */ = {
 			isa = PBXGroup;
 			children = (
@@ -967,6 +997,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				56BB407C1909E80F00BF74E4 /* ofxTransparentWindow */,
 				567AA550190759ED0064C745 /* ofxAVFVideoPlayer */,
 				567AA580190759ED0064C745 /* ofxHapPlayer */,
 				567AA59E190759ED0064C745 /* ofxMediaType */,
@@ -1218,6 +1249,7 @@
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				567AA693190759ED0064C745 /* ofxCvHaarFinder.cpp in Sources */,
 				567AA683190759ED0064C745 /* HapOFPixelBufferTexture.m in Sources */,
+				56BB409A1909E80F00BF74E4 /* ofxTransparentWindow.cpp in Sources */,
 				567AA68C190759ED0064C745 /* ofxTCPServer.cpp in Sources */,
 				567AA549190759BA0064C745 /* plane.cpp in Sources */,
 				567AA69D190759EE0064C745 /* ofxSyphonServer.mm in Sources */,
@@ -1226,6 +1258,7 @@
 				567AA54E190759BA0064C745 /* vdome.cpp in Sources */,
 				567AA544190759BA0064C745 /* command.cpp in Sources */,
 				567AA68A190759ED0064C745 /* ofxTCPClient.cpp in Sources */,
+				56BB409B1909E80F00BF74E4 /* ofxTransparentWindowUtil.m in Sources */,
 				567AA690190759ED0064C745 /* ofxCvContourFinder.cpp in Sources */,
 				567AA69B190759EE0064C745 /* SyphonNameboundClient.m in Sources */,
 				567AA54D190759BA0064C745 /* tcp.cpp in Sources */,
@@ -1482,6 +1515,8 @@
 					../../../addons/ofxMediaType/libs/ofxMediaType/include/ofx/Media,
 					../../../addons/ofxMediaType/libs/ofxMediaType/src,
 					../../../addons/ofxMediaType/src,
+					../../../addons/ofxTransparentWindow/src,
+					../../../addons/ofxTransparentWindow/libs,
 				);
 				ICON = "$(ICON_NAME_DEBUG)";
 				ICON_FILE = "$(ICON_FILE_PATH)$(ICON)";
@@ -1622,6 +1657,7 @@
 					../../../addons/ofxMediaType/libs/ofxMediaType/include/ofx/Media,
 					../../../addons/ofxMediaType/libs/ofxMediaType/src,
 					../../../addons/ofxMediaType/src,
+					../../../addons/ofxTransparentWindow/src,
 				);
 				ICON = "$(ICON_NAME_RELEASE)";
 				ICON_FILE = "$(ICON_FILE_PATH)$(ICON)";

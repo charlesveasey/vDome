@@ -32,8 +32,8 @@ void Window::setup(){
  ********************************************/
 
 ofVec2f Window::getPosition() {
-    position.x = ofGetWindowPositionX();
-    position.y = ofGetWindowPositionY();
+    //position.x = ofGetWindowPositionX();
+    //position.y = ofGetWindowPositionY();
     return ofVec2f(position.x, position.y);
 }
 void Window::setPosition(int x, int y) {
@@ -43,8 +43,8 @@ void Window::setPosition(int x, int y) {
 }
 
 ofVec2f Window::getDimensions() {
-    dimensions.x = ofGetWindowWidth();
-    dimensions.y = ofGetWindowHeight();
+    //dimensions.x = ofGetWindowWidth();
+    //dimensions.y = ofGetWindowHeight();
     return ofVec2f(dimensions.x, dimensions.y);
 }
 void Window::setDimensions(int w, int h) {
