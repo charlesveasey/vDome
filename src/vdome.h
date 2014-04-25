@@ -3,7 +3,10 @@
 #include "window.h"
 #include "tcp.h"
 #include "menu.h"
-#include "ofxTransparentWindow.h"
+
+#ifdef TARGET_OSX
+	#include "ofxTransparentWindow.h"
+#endif
 
 namespace vd {
 
