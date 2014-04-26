@@ -100,6 +100,15 @@
     <ClCompile Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\scheduler.cpp">
       <Filter>addons\ofxWMFVideoPlayer\src\presenter</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\libs\openFrameworks\video\ofGstUtils.cpp">
+      <Filter>addons\other</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libs\openFrameworks\video\ofGstVideoGrabber.cpp">
+      <Filter>addons\other</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libs\openFrameworks\video\ofGstVideoPlayer.cpp">
+      <Filter>addons\other</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -212,6 +221,9 @@
     </Filter>
     <Filter Include="addons\ofxWMFVideoPlayer\src\presenter\common">
       <UniqueIdentifier>{a8876b39-82e8-4de4-92bb-809ab0db6840}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\other">
+      <UniqueIdentifier>{c30f0cb7-eee6-4e61-8f88-35104140f7ef}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -631,6 +643,15 @@
     </ClInclude>
     <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\trace.h">
       <Filter>addons\ofxWMFVideoPlayer\src\presenter\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\libs\openFrameworks\video\ofGstUtils.h">
+      <Filter>addons\other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\libs\openFrameworks\video\ofGstVideoGrabber.h">
+      <Filter>addons\other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\libs\openFrameworks\video\ofGstVideoPlayer.h">
+      <Filter>addons\other</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

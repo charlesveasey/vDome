@@ -12,6 +12,7 @@
 #endif
 
 #include "ofxMediaType.h"
+#include "ofGstVideoPlayer.h"
 
 #include "render.h"
 using namespace ofx::Media;
@@ -55,7 +56,7 @@ public:
 
     int resolution;
 
-    enum vRendererTypes {AVF, QT, HAP, X, WMF, DS};
+    enum vRendererTypes {AVF, QT, HAP, X, WMF, DS, GST};
     int vRenderer;
     
     bool isVideo;

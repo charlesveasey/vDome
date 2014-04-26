@@ -22,12 +22,15 @@ Input::Input(){
     #endif
 
 	#ifdef TARGET_WIN32
-		vRenderer = WMF;
+		vRenderer = GST;
 		if (vRenderer == WMF) {
-			
 		}
 		else if (vRenderer == DS) {
 			ofPtr <ofBaseVideoPlayer> ptr(new ofDirectShowPlayer());
+			video.setPlayer(ptr);
+		}
+		else if (vRenderer == GST) {
+			ofPtr <ofGstVideoPlayer> ptr(new ofGstVideoPlayer());
 			video.setPlayer(ptr);
 		}
 	#endif
@@ -94,6 +97,11 @@ void Input::setup(){
 						wmf.setLoop(true);
 					}
 					else if (vRenderer == DS) {
+						video.loadMovie(file);
+						video.play();
+						texture = video.getTextureReference();
+					}
+					else if (vRenderer == GST) {
 						video.loadMovie(file);
 						video.play();
 						texture = video.getTextureReference();
@@ -213,7 +221,7 @@ void Input::bind(){
 			if (isVideo) {
 				if (vRenderer == WMF)
 					wmf.bind();
-				else if (vRenderer == DS)
+				else if (vRenderer == DS || vRenderer == GST)
 					texture.bind();
 			}
 			else {
@@ -264,7 +272,7 @@ void Input::unbind(){
 			if (isVideo) {
 				if (vRenderer == WMF)
 					wmf.unbind();
-				else if (vRenderer == DS)
+				else if (vRenderer == DS || vRenderer == GST)
 					texture.unbind();
 			}
 			else {
@@ -318,7 +326,7 @@ void Input::update(){
 			#ifdef TARGET_WIN32
 				if (vRenderer == WMF)
 					wmf.update();
-				else if (vRenderer == DS)
+				else if (vRenderer == DS || vRenderer == GST)
 					video.update();
 			#endif
         }
