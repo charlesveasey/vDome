@@ -108,6 +108,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\mask.cpp" />
     <ClCompile Include="src\menu.cpp" />
+    <ClCompile Include="src\ofPBO.cpp" />
     <ClCompile Include="src\plane.cpp" />
     <ClCompile Include="src\projector.cpp" />
     <ClCompile Include="src\quadWarp.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="src\input.h" />
     <ClInclude Include="src\mask.h" />
     <ClInclude Include="src\menu.h" />
+    <ClInclude Include="src\ofPBO.h" />
     <ClInclude Include="src\plane.h" />
     <ClInclude Include="src\projector.h" />
     <ClInclude Include="src\quadWarp.h" />

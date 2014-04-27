@@ -11,7 +11,7 @@ Input::Input(){
     maxSource = 2;
     resolution = 2048;
     frameRate = 60;
-
+	usePbo = true;
     isVideo = false;
     mediaTypeMap = new MediaTypeMap("media/mime.types");
     file = "";
@@ -32,6 +32,8 @@ Input::Input(){
 		else if (vRenderer == GST) {
 			ofPtr <ofGstVideoPlayer> ptr(new ofGstVideoPlayer());
 			video.setPlayer(ptr);
+			if (usePbo)
+				video.setUseTexture(false);
 		}
 	#endif
 
@@ -50,8 +52,11 @@ void Input::setup(){
     
     texture.clear();
 
-    if (texture.getWidth() != resolution || texture.getHeight() != resolution)
-        texture.allocate(resolution, resolution, OF_IMAGE_COLOR);
+    if (texture.getWidth() != resolution || texture.getHeight() != resolution) {
+        texture.allocate(resolution, resolution, GL_RGB);
+		if (usePbo)
+			pbo.allocate(texture,2);
+	}
 
     stop();
     close();
@@ -104,7 +109,6 @@ void Input::setup(){
 					else if (vRenderer == GST) {
 						video.loadMovie(file);
 						video.play();
-						texture = video.getTextureReference();
 					}
 				#endif
 
@@ -194,10 +198,15 @@ void Input::close() {
 
 void Input::bind(){
     
+	if (usePbo && updateTexture) {
+		pbo.updateTexture();
+		updateTexture = false;
+	}
+
+
 	if (source == GRID) {
 		texture.bind();
 	}
-
 	else if (source == MEDIA) {
         #ifdef TARGET_OSX
             if (isVideo) {
@@ -319,7 +328,9 @@ void Input::update(){
                     hap.update();
                 else if (vRenderer == X)
                     video.update();
-            #else
+			#endif
+
+            #ifdef TARGET_LINUX
                 video.update();
             #endif
 
@@ -327,8 +338,13 @@ void Input::update(){
 				if (vRenderer == WMF)
 					wmf.update();
 				else if (vRenderer == DS || vRenderer == GST)
-					video.update();
+					video.update();	
+				}
 			#endif
+
+		if (usePbo && video.isFrameNew() ) {
+				pbo.loadData(video.getPixelsRef());
+				updateTexture = true;
         }
     }
     

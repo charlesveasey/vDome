@@ -109,6 +109,9 @@
     <ClCompile Include="..\..\..\libs\openFrameworks\video\ofGstVideoPlayer.cpp">
       <Filter>addons\other</Filter>
     </ClCompile>
+    <ClCompile Include="src\ofPBO.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -652,6 +655,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\libs\openFrameworks\video\ofGstVideoPlayer.h">
       <Filter>addons\other</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ofPBO.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -13,6 +13,7 @@
 
 #include "ofxMediaType.h"
 #include "ofGstVideoPlayer.h"
+#include "ofPBO.h"
 
 #include "render.h"
 using namespace ofx::Media;
@@ -47,6 +48,9 @@ public:
     string filename;
 
     ofTexture texture;
+	ofPBO pbo;
+	bool usePbo;
+	bool updateTexture;
 
     int frameRate;
 
