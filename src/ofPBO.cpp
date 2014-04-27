@@ -10,6 +10,7 @@
 
 ofPBO::ofPBO() {
 	// TODO Auto-generated constructor stub
+	index = 0;
 
 }
 

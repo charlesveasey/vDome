@@ -51,6 +51,8 @@ public:
 	ofPBO pbo;
 	bool usePbo;
 	bool updateTexture;
+	void newFrame(ofPixels & pixels);
+	bool nFrame;
 
     int frameRate;
 

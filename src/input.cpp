@@ -10,9 +10,10 @@ namespace vd {
 Input::Input(){
     maxSource = 2;
     resolution = 2048;
-    frameRate = 60;
+    frameRate = 30;
 	usePbo = true;
     isVideo = false;
+	nFrame = false;
     mediaTypeMap = new MediaTypeMap("media/mime.types");
     file = "";
 
@@ -32,6 +33,7 @@ Input::Input(){
 		else if (vRenderer == GST) {
 			ofPtr <ofGstVideoPlayer> ptr(new ofGstVideoPlayer());
 			video.setPlayer(ptr);
+			ofAddListener(ptr->getGstVideoUtils()->bufferEvent,this,&Input::newFrame);
 			if (usePbo)
 				video.setUseTexture(false);
 		}
@@ -52,14 +54,14 @@ void Input::setup(){
     
     texture.clear();
 
-    if (texture.getWidth() != resolution || texture.getHeight() != resolution) {
+    //if (texture.getWidth() != resolution || texture.getHeight() != resolution) {
         texture.allocate(resolution, resolution, GL_RGB);
 		if (usePbo)
 			pbo.allocate(texture,2);
-	}
+	//}
 
     stop();
-    close();
+	close();
 
     // create input
     switch(source){
@@ -139,7 +141,7 @@ void Input::setup(){
             break;
             
         default:
-            image.loadImage("media/warp/grid-2k.png");
+			image.loadImage("media/warp/grid-2k.png");
             texture = image.getTextureReference();
             break;
     }
@@ -198,12 +200,6 @@ void Input::close() {
 
 void Input::bind(){
     
-	if (usePbo && updateTexture) {
-		pbo.updateTexture();
-		updateTexture = false;
-	}
-
-
 	if (source == GRID) {
 		texture.bind();
 	}
@@ -337,20 +333,34 @@ void Input::update(){
 			#ifdef TARGET_WIN32
 				if (vRenderer == WMF)
 					wmf.update();
-				else if (vRenderer == DS || vRenderer == GST)
+				else if (vRenderer == DS) {
 					video.update();	
 				}
-			#endif
+				else if (vRenderer == GST) {
 
-		if (usePbo && video.isFrameNew() ) {
-				pbo.loadData(video.getPixelsRef());
-				updateTexture = true;
-        }
+					if (nFrame) {
+						video.update();
+					}
+
+					if (usePbo && nFrame) {
+						pbo.loadData(video.getPixelsRef());
+						pbo.updateTexture();
+						nFrame = false;
+					}
+				}
+			#endif
+		}
     }
     
 	else if (source == CAPTURE)
         capture.update();
 }
+
+void Input::newFrame(ofPixels & pixels) {
+	nFrame = true;
+	//cout << " new frame" << endl;
+}
+
 
 /******************************************
 
