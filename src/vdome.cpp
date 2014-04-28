@@ -5,7 +5,7 @@ namespace vd {
 float projCount = 1;
 float projWidth = 1024;
 float projHeight = 768;
-int maxHistory = 50;
+int maxHistory = 10;
 
 /******************************************
 
@@ -53,8 +53,8 @@ void vdome::setup(){
     loadXML(xmlFile);
 
     #ifdef TARGET_OSX
-        transparent.afterMainSetup(ofxTransparentWindow::SCREENSAVER, // change float mode here
-                                   window.getPosition().x, window.getPosition().y, window.getDimensions().x, window.getDimensions().y);
+        //transparent.afterMainSetup(ofxTransparentWindow::SCREENSAVER, // change float mode here
+        //                           window.getPosition().x, window.getPosition().y, window.getDimensions().x, window.getDimensions().y);
     #endif
 
 }

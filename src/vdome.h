@@ -4,9 +4,9 @@
 #include "tcp.h"
 #include "menu.h"
 
-#ifdef TARGET_OSX
-	#include "ofxTransparentWindow.h"
-#endif
+//#ifdef TARGET_OSX
+//	#include "ofxTransparentWindow.h"
+//#endif
 
 namespace vd {
 
@@ -46,9 +46,9 @@ private:
     void loadXML(string file);
     void saveXML(string file);
 
-    #ifdef TARGET_OSX
-        ofxTransparentWindow	transparent;
-    #endif
+    //#ifdef TARGET_OSX
+    //    ofxTransparentWindow	transparent;
+    //#endif
 
     
     void exit();
