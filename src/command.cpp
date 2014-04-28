@@ -27,8 +27,10 @@ void CommandHistory::undo() {
         if (index > 0)
             index--;
     }
-    history[index]->undo();
-    lastCommand = 1;
+    if (history.size() > 1) {
+        history[index]->undo();
+        lastCommand = 1;
+    }
 }
 
 void CommandHistory::redo() {

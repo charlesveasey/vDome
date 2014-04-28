@@ -622,6 +622,17 @@ void Projector::loadXML(ofXml &xml) {
         setCameraScale(sx, sy);
     }
 
+    // camera shear
+    if (xml.exists(pre + "][@shear]")) {
+        str = xml.getAttribute(pre + "][@shear]");
+        cameraShear[0] = ofToFloat(ofSplitString(str, ",")[0]);
+        cameraShear[1] = ofToFloat(ofSplitString(str, ",")[1]);
+        cameraShear[2] = ofToFloat(ofSplitString(str, ",")[2]);
+        cameraShear[3] = ofToFloat(ofSplitString(str, ",")[3]);
+        cameraShear[4] = ofToFloat(ofSplitString(str, ",")[4]);
+        cameraShear[5] = ofToFloat(ofSplitString(str, ",")[5]);
+    }
+
     mask.load();
 }
 
@@ -644,6 +655,8 @@ void Projector::saveXML(ofXml &xml) {
     xml.setAttribute("fov", ofToString(cameraFov));
     //xml.setAttribute("offset", ofToString(cameraOffset.x) +  "," + ofToString(cameraOffset.y) );
     xml.setAttribute("scale", ofToString(cameraScale.x) +  "," + ofToString(cameraScale.y) );
+    xml.setAttribute("shear", ofToString(cameraShear[0]) +  "," + ofToString(cameraShear[1]) +  "," + ofToString(cameraShear[2]) +
+                        "," + ofToString(cameraShear[3]) +  "," + ofToString(cameraShear[4]) +  "," + ofToString(cameraShear[5]));
 
     // plane
     //xml.setAttribute("dimensions", ofToString(planeDimensions.x) +  "," + ofToString(planeDimensions.y) );
