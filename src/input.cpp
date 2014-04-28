@@ -55,17 +55,17 @@ Input::Input(){
  ********************************************/
 
 void Input::setup(){
-    
-    texture.clear();
-
-    //if (texture.getWidth() != resolution || texture.getHeight() != resolution) {
-        texture.allocate(resolution, resolution, GL_RGB);
-		if (usePbo)
-			pbo.allocate(texture,2);
-	//}
-
     stop();
 	close();
+    texture.clear();
+
+    if (usePbo) { // not reallocating causing issues with PBO
+        if (texture.getWidth() != resolution || texture.getHeight() != resolution) {
+            texture.allocate(resolution, resolution, GL_RGB);
+            if (usePbo)
+                pbo.allocate(texture,2);
+        }
+    }
 
     // create input
     switch(source){
