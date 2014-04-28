@@ -9,10 +9,10 @@
 #ifdef TARGET_WIN32
 	#include "ofDirectShowPlayer.h"
 	#include "ofxWMFVideoPlayer.h"
+    #include "ofGstVideoPlayer.h"
 #endif
 
 #include "ofxMediaType.h"
-#include "ofGstVideoPlayer.h"
 #include "ofPBO.h"
 
 #include "render.h"
@@ -62,7 +62,7 @@ public:
 
     int resolution;
 
-    enum vRendererTypes {AVF, QT, HAP, X, WMF, DS, GST};
+    enum vRendererTypes {AVF, QT2, HAP, QT, WMF, DS, GST};
     int vRenderer;
     
     bool isVideo;

@@ -17,9 +17,13 @@ Input::Input(){
     mediaTypeMap = new MediaTypeMap("media/mime.types");
     file = "";
 
+    #ifdef TARGET_WIN32
+        ofxWMFVideoPlayer wmf;
+    #endif
+    
     #ifdef TARGET_OSX
         maxSource = 3;
-        vRenderer = AVF;
+        vRenderer = QT;
     #endif
 
 	#ifdef TARGET_WIN32
@@ -76,13 +80,13 @@ void Input::setup(){
             if (isVideo) {
                 
                 #ifdef TARGET_OSX
-					parseVideoCodec(file);
+					//parseVideoCodec(file);
                 
 					if (vRenderer == AVF){
 						avf.loadMovie(file);
 						avf.setLoopState(OF_LOOP_NORMAL);
 					}
-					else if (vRenderer == QT){
+					else if (vRenderer == QT2){
 						qt.loadMovie(file, OF_QTKIT_DECODE_PIXELS_AND_TEXTURE);
 						qt.play();
 					}
@@ -90,7 +94,7 @@ void Input::setup(){
 						hap.loadMovie(file, OF_QTKIT_DECODE_TEXTURE_ONLY);
 						hap.play();
 					}
-					else if (vRenderer == X){
+					else if (vRenderer == QT){
 						video.loadMovie(file);
 						video.play();
 						texture = video.getTextureReference();
@@ -127,11 +131,12 @@ void Input::setup(){
             }
             break;
             
-        case CAPTURE: 
+        case CAPTURE:
+            //texture.clear();
             capture.setDeviceID(0);
             capture.setDesiredFrameRate(frameRate);
             capture.initGrabber(resolution, resolution);
-            texture = capture.getTextureReference();
+            //texture = capture.getTextureReference();
             break;
             
         case SYPHON:
@@ -208,13 +213,12 @@ void Input::bind(){
             if (isVideo) {
                 if (vRenderer == AVF)
                     avf.getTextureReference().bind();
-                else if (vRenderer == QT) {
-                    if (qt.getTexture() != NULL)
-                        qt.getTexture()->bind();
+                else if (vRenderer == QT2) {
+                    qt.getTexture()->bind();
                 }
                 else if (vRenderer == HAP)
                     hap.getTexture()->bind();
-                else if (vRenderer == X)
+                else if (vRenderer == QT)
                     texture.bind();
             }
             else {
@@ -240,7 +244,7 @@ void Input::bind(){
 	}
     
     if (source == CAPTURE)
-        texture.bind();
+        capture.getTextureReference().bind();
     
     #ifdef TARGET_OSX
         if (source == SYPHON)
@@ -259,13 +263,12 @@ void Input::unbind(){
             if (isVideo) {
                 if (vRenderer == AVF)
                     avf.getTextureReference().unbind();
-                else if (vRenderer == QT) {
-                    if (qt.getTexture() != NULL)
-                        qt.getTexture()->unbind();
+                else if (vRenderer == QT2) {
+                    qt.getTexture()->unbind();
                 }
                 else if (vRenderer == HAP)
                     hap.getTexture()->unbind();
-                else if (vRenderer == X)
+                else if (vRenderer == QT)
                     texture.unbind();
             }
             else {
@@ -291,7 +294,7 @@ void Input::unbind(){
 	}
     
     if (source == CAPTURE)
-         texture.unbind();
+         capture.getTextureReference().unbind();
     
 	#ifdef TARGET_OSX
 		if (source == SYPHON)
@@ -318,11 +321,11 @@ void Input::update(){
                     if (avf.isLoaded())
                         avf.play();
                 }
-                else if (vRenderer == QT)
+                else if (vRenderer == QT2)
                     qt.update();
                 else if (vRenderer == HAP)
                     hap.update();
-                else if (vRenderer == X)
+                else if (vRenderer == QT)
                     video.update();
 			#endif
 
