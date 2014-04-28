@@ -30,7 +30,7 @@ Plane::Plane(){
     width = projWidth;
     height = projHeight;
 }
-
+    
 /******************************************
 
  SETUP
@@ -76,8 +76,9 @@ void Plane::setup(int i){
     ofMesh tmp;
     tmp.load("models/plane-mesh-" + ofToString(index+1) + ".ply");
 
+    
     vector<ofVec3f> vTmp = mesh.getVertices();
-    if (vTmp[vTmp.size()-1].x == projWidth && vTmp[v.size()-1].y == projHeight) {
+    if (vTmp[vTmp.size()-1].x-x == projWidth && vTmp[v.size()-1].y-y == projHeight) {
         mesh.load("models/plane-mesh-" + ofToString(index+1) + ".ply");
     }
 
