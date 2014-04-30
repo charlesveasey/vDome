@@ -43,8 +43,8 @@ private:
 
     ofXml xml;
     string xmlFile;
-    void loadXML(string file);
-    void saveXML(string file);
+    void loadXML(ofXml &xml);
+    void saveXML(ofXml &xml);
 
     //#ifdef TARGET_OSX
     //    ofxTransparentWindow	transparent;

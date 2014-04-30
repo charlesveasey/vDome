@@ -27,7 +27,7 @@ vdome::vdome() {
 
 void vdome::setup(){
 
-    ofSetEscapeQuitsApp(true);
+    ofSetEscapeQuitsApp(false);
     ofHideCursor();
 
     window.setup();
@@ -50,7 +50,18 @@ void vdome::setup(){
 
     // xml settings
     xmlFile = "settings.xml";
-    loadXML(xmlFile);
+    
+    if (xml.load(xmlFile)) {
+        loadXML(xml);
+    }
+    else {
+        for(int i=0; i<projCount; i++) {
+            Projector p;
+            p.init(i);
+            projectors.push_back(p);
+        }
+    }
+    
 
     #ifdef TARGET_OSX
         //transparent.afterMainSetup(ofxTransparentWindow::SCREENSAVER, // change float mode here
@@ -125,44 +136,35 @@ void vdome::draw(){
 
  *******************************************/
 
-void vdome::loadXML(string file) {
-    if (xml.load(file)) {
-        if (xml.exists("projectors[@count]")) {
-            projCount = ofToInt( xml.getAttribute("projectors[@count]") );
-            projCount = projCount;
-        }
-
-        if (xml.exists("projectors[@dimensions]")) {
-            string str = xml.getAttribute("projectors[@dimensions]");
-            projWidth = ofToFloat(ofSplitString(str, ",")[0]);
-            projHeight = ofToFloat(ofSplitString(str, ",")[1]);
-        }
-
-        for(int i=0; i<projCount; i++) {
-            Projector p;
-            p.init(i);
-            projectors.push_back(p);
-        }
-
-        input.loadXML(xml);
-        render.loadXML(xml);
-        window.loadXML(xml);
-        dome.loadXML(xml);
-
-        for(int i=0; i<projCount; i++) {
-            projectors[i].loadXML(xml);
-        }
+void vdome::loadXML(ofXml &xml) {
+    if (xml.exists("projectors[@count]")) {
+        projCount = ofToInt( xml.getAttribute("projectors[@count]") );
+        projCount = projCount;
     }
-    else {
-        for(int i=0; i<projCount; i++) {
-            Projector p;
-            p.init(i);
-            projectors.push_back(p);
-        }
+
+    if (xml.exists("projectors[@dimensions]")) {
+        string str = xml.getAttribute("projectors[@dimensions]");
+        projWidth = ofToFloat(ofSplitString(str, ",")[0]);
+        projHeight = ofToFloat(ofSplitString(str, ",")[1]);
+    }
+
+    for(int i=0; i<projCount; i++) {
+        Projector p;
+        p.init(i);
+        projectors.push_back(p);
+    }
+
+    input.loadXML(xml);
+    render.loadXML(xml);
+    window.loadXML(xml);
+    dome.loadXML(xml);
+
+    for(int i=0; i<projCount; i++) {
+        projectors[i].loadXML(xml);
     }
 }
 
-void vdome::saveXML(string file) {
+void vdome::saveXML(ofXml &xml) {
     xml.setTo("projectors");
     xml.setAttribute("count", ofToString(projCount));
     xml.setToParent();
@@ -177,7 +179,7 @@ void vdome::saveXML(string file) {
 		projectors[i].saveXML(xml);
 	}
 
-    if (xml.save(file)) {
+    if (xml.save(xmlFile)) {
         menu.saved = true;
     }
 }
@@ -210,7 +212,7 @@ void vdome::mouseReleased(ofMouseEventArgs& mouseArgs) {
 void vdome::keyPressed(int key){
     if (key == 115) { // s
         if (menu.active && menu.ctrl)  { // ctrl + s = save file
-            saveXML(xmlFile);
+            saveXML(xml);
             cout << "saveXML " << endl;
         }
     }
