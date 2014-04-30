@@ -1,8 +1,6 @@
 #include "ofMain.h"
 #include "vdome.h"
-//#include "ofGlProgrammableRenderer.h"
 #include "ofAppGLFWWindow.h"
-
 #include "../../../openFrameworks/gl/ofGLProgrammableRenderer.cpp"
 
 int main( ){
