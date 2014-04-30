@@ -17,19 +17,19 @@ Menu::Menu(){
     menuMain->menuId = MAIN;
     menuMain->parent = &menuMain;
     menuMain->currentItem = 0;
-    menuMain->items.push_back("Input              ->");
-    menuMain->items.push_back("Warp               ->");
-    menuMain->items.push_back("Blend              ->");
-    menuMain->items.push_back("Color              ->");
-    menuMain->items.push_back("Setup              ->");
+    menuMain->items.push_back(new Item("Input              ->", true));
+    menuMain->items.push_back(new Item("Warp               ->", true));
+    menuMain->items.push_back(new Item("Blend              ->", true));
+    menuMain->items.push_back(new Item("Color              ->", true));
+    menuMain->items.push_back(new Item("Setup              ->", true));
 
     menuInput = new MenuItem;
     menuInput->menuId = INPUT;
     menuInput->parent = &menuMain;
     menuInput->currentItem = 0;
-    menuInput->items.push_back("Source");
-    menuInput->items.push_back("Format");
-    menuInput->items.push_back("Scale");
+    menuInput->items.push_back(new Item("Source"));
+    menuInput->items.push_back(new Item("Format"));
+    menuInput->items.push_back(new Item("Scale"));
     //menuInput->items.push_back("Offset X");
     //menuInput->items.push_back("Offset Y");
 
@@ -37,105 +37,105 @@ Menu::Menu(){
     menuWarp->menuId = WARP;
     menuWarp->parent = &menuMain;
     menuWarp->currentItem = 0;
-    menuWarp->items.push_back("Cornerpin");
-	menuWarp->items.push_back("Grid");
+    menuWarp->items.push_back(new Item("Cornerpin"));
+	menuWarp->items.push_back(new Item("Grid"));
 
     menuBlend = new MenuItem;
     menuBlend->menuId = BLEND;
     menuBlend->parent = &menuMain;
     menuBlend->currentItem = 0;
-    menuBlend->items.push_back("Brightness");
-    menuBlend->items.push_back("Contrast");
-    menuBlend->items.push_back("Brush              ->");
+    menuBlend->items.push_back(new Item("Brightness"));
+    menuBlend->items.push_back(new Item("Contrast"));
+    menuBlend->items.push_back(new Item("Brush              ->", true));
 
     menuBrush = new MenuItem;
     menuBrush->menuId = BRUSH;
     menuBrush->parent = &menuBlend;
     menuBrush->currentItem = 0;
-    menuBrush->items.push_back("Brush Scale");
-    menuBrush->items.push_back("Brush Opacity");
+    menuBrush->items.push_back(new Item("Brush Scale"));
+    menuBrush->items.push_back(new Item("Brush Opacity"));
 
     menuColor = new MenuItem;
     menuColor->menuId = COLOR;
     menuColor->parent = &menuMain;
     menuColor->currentItem = 0;
-    menuColor->items.push_back("HSL                ->");
-    menuColor->items.push_back("Gamma              ->");
+    menuColor->items.push_back(new Item("HSL                ->", true));
+    menuColor->items.push_back(new Item("Gamma              ->", true));
 
     menuHSL = new MenuItem;
     menuHSL->menuId = HSL;
     menuHSL->parent = &menuColor;
     menuHSL->currentItem = 0;
-    menuHSL->items.push_back("Hue");
-    menuHSL->items.push_back("Saturation");
-    menuHSL->items.push_back("Lightness");
+    menuHSL->items.push_back(new Item("Hue"));
+    menuHSL->items.push_back(new Item("Saturation"));
+    menuHSL->items.push_back(new Item("Lightness"));
 
     menuGamma = new MenuItem;
     menuGamma->menuId = GAMMA;
     menuGamma->parent = &menuColor;
     menuGamma->currentItem = 0;
-    menuGamma->items.push_back("Gamma");
-    menuGamma->items.push_back("Gamma Red");
-    menuGamma->items.push_back("Gamma Green");
-    menuGamma->items.push_back("Gamma Blue");
+    menuGamma->items.push_back(new Item("Gamma"));
+    menuGamma->items.push_back(new Item("Gamma Red"));
+    menuGamma->items.push_back(new Item("Gamma Green"));
+    menuGamma->items.push_back(new Item("Gamma Blue"));
 
     menuSetup = new MenuItem;
     menuSetup->menuId = SETUP;
     menuSetup->parent = &menuMain;
     menuSetup->currentItem = 0;
-    menuSetup->items.push_back("Radius             ->");
-    menuSetup->items.push_back("Position           ->");
-    menuSetup->items.push_back("Orientation        ->");
-    menuSetup->items.push_back("Lens               ->");
-    menuSetup->items.push_back("Scale              ->");
-    menuSetup->items.push_back("Shear              ->");
+    menuSetup->items.push_back(new Item("Radius             ->", true));
+    menuSetup->items.push_back(new Item("Position           ->", true));
+    menuSetup->items.push_back(new Item("Orientation        ->", true));
+    menuSetup->items.push_back(new Item("Lens               ->", true));
+    menuSetup->items.push_back(new Item("Scale              ->", true));
+    menuSetup->items.push_back(new Item("Shear              ->", true));
 
     menuRadius = new MenuItem;
     menuRadius->menuId = RADIUS;
     menuRadius->parent = &menuSetup;
     menuRadius->currentItem = 0;
-    menuRadius->items.push_back("Dome Radius");
+    menuRadius->items.push_back(new Item("Dome Radius"));
 
     menuPosition = new MenuItem;
     menuPosition->menuId = POSITION;
     menuPosition->parent = &menuSetup;
     menuPosition->currentItem = 0;
-    menuPosition->items.push_back("Azimuth");
-    menuPosition->items.push_back("Elevation");
-    menuPosition->items.push_back("Distance");
+    menuPosition->items.push_back(new Item("Azimuth"));
+    menuPosition->items.push_back(new Item("Elevation"));
+    menuPosition->items.push_back(new Item("Distance"));
 
     menuOrientation = new MenuItem;
     menuOrientation->menuId = ORIENTATION;
     menuOrientation->parent = &menuSetup;
     menuOrientation->currentItem = 0;
-    menuOrientation->items.push_back("Tilt");
-    menuOrientation->items.push_back("Roll");
-    menuOrientation->items.push_back("Pan");
+    menuOrientation->items.push_back(new Item("Tilt"));
+    menuOrientation->items.push_back(new Item("Roll"));
+    menuOrientation->items.push_back(new Item("Pan"));
 
     menuLens = new MenuItem;
     menuLens->menuId = LENS;
     menuLens->parent = &menuSetup;
     menuLens->currentItem = 0;
-    menuLens->items.push_back("Field of View");
+    menuLens->items.push_back(new Item("Field of View"));
 
     menuScale = new MenuItem;
     menuScale->menuId = SCALE;
     menuScale->parent = &menuSetup;
     menuScale->currentItem = 0;
-    menuScale->items.push_back("Scale");
-    menuScale->items.push_back("Scale X");
-    menuScale->items.push_back("Scale Y");
+    menuScale->items.push_back(new Item("Scale"));
+    menuScale->items.push_back(new Item("Scale X"));
+    menuScale->items.push_back(new Item("Scale Y"));
 
     menuShear = new MenuItem;
     menuShear->menuId = SHEAR;
     menuShear->parent = &menuSetup;
     menuShear->currentItem = 0;
-    menuShear->items.push_back("Shear YZ");
-    menuShear->items.push_back("Shear ZX");
-    menuShear->items.push_back("Scale XZ");
-    menuShear->items.push_back("Shear ZY");
-    menuShear->items.push_back("Shear YX");
-    menuShear->items.push_back("Scale XY");
+    menuShear->items.push_back(new Item("Shear YZ"));
+    menuShear->items.push_back(new Item("Shear ZX"));
+    menuShear->items.push_back(new Item("Scale XZ"));
+    menuShear->items.push_back(new Item("Shear ZY"));
+    menuShear->items.push_back(new Item("Shear YX"));
+    menuShear->items.push_back(new Item("Scale XY"));
 
     currentMenu = &menuMain;
 
@@ -195,7 +195,7 @@ void Menu::drawMain(int i){
     string val;
 
     for(int j=0; j<(*currentMenu)->items.size(); j++) {
-        str = (*currentMenu)->items[j];
+        str = (*currentMenu)->items[j]->str;
 
         if (j == (*currentMenu)->currentItem)
             drawHighlight();
@@ -209,10 +209,13 @@ void Menu::drawMain(int i){
                 case INPUT:
                     switch (j) {
                         case SOURCE:
-                            if (input->source == 0)		 val = "Grid";
-							else if (input->source == 1)   val = "Media";
-                            else if (input->source == 2)   val = "Capture";
-                            else if (input->source == 3)   val = "Syphon";
+                            if (input->source == 0)		 val = "Media";
+							else if (input->source == 1)   val = "Capture";
+                            else if (input->source == 2)   val = "Syphon";
+                            else if (input->source == 3)   val = "Grid";
+                            else if (input->source == 4)   val = "Black";
+                            else if (input->source == 5)   val = "White";
+                            else if (input->source == 6)   val = "Grey";
                             break;
                         case FORMAT:
                             val = "Domemaster";
@@ -554,7 +557,12 @@ void Menu::keyPressed(int key) {
             else
                 ofHideCursor();
             break;
-
+        case 32:
+            if (input->isVideo) {
+                input->togglePause();
+            }
+            break;
+            
 		// ctrl + o = open media file dialog
         case 111:
             if (ctrl)
@@ -579,6 +587,7 @@ void Menu::keyPressed(int key) {
         case OF_KEY_SUPER:
             ctrl = true;
             break;
+            
     }
 
     for (int k=0; k<projCount; k++) {
@@ -602,7 +611,14 @@ void Menu::keyPressed(int key) {
             if ((*currentMenu)->currentItem < (*currentMenu)->items.size()-1)
                 (*currentMenu)->currentItem++;
             break;
-
+        
+        case OF_KEY_RIGHT:
+            if ( (*currentMenu)->items.at( (*currentMenu)->currentItem )->isParent ) {
+                select();
+                return;
+            }
+            break;
+            
         case OF_KEY_RETURN:
             select();
             break;

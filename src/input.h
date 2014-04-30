@@ -27,6 +27,7 @@ public:
     void setup();
     void stop();
     void close();
+    void togglePause();
 
     void keyPressed(int key);
     void dragEvent(ofDragInfo dragInfo);
@@ -38,11 +39,11 @@ public:
 
     void bind();
     void unbind();
-
+    
 	void openFileDialog();
 
     int source;
-    enum sources {GRID, MEDIA, CAPTURE, SYPHON};
+    enum sources {MEDIA, CAPTURE, SYPHON, GRID, BLACK, WHITE, GREY};
 	int maxSource;
     string file;
     string filename;
@@ -61,6 +62,7 @@ public:
     ofVideoGrabber capture;
 
     int resolution;
+    bool loop;
 
     enum vRendererTypes {AVF, QT2, HAP, QT, WMF, DS, GST};
     int vRenderer;
@@ -91,6 +93,8 @@ public:
         enum codecs {CODEC_AV1, CODEC_HAP};
         void parseVideoCodec(string filepath);
     #endif
+    
+    void fillTexture(ofColor color);
 };
 
 }

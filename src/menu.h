@@ -13,6 +13,20 @@
 #endif
 namespace vd {
 
+class Item {
+public:
+    string str;
+    bool isParent;
+    Item(string s){
+        str = s;
+        isParent = false;
+    }
+    Item(string s, bool p){
+        str = s;
+        isParent = p;
+    }
+};
+    
 class Menu {
 public:
     Menu();
@@ -25,10 +39,11 @@ public:
 
     struct MenuItem {
         int currentItem;
-        vector<string> items;
+        vector<Item*> items;
         int menuId;
         MenuItem **parent;
     };
+    
 
     // menus
     MenuItem *menuMain;

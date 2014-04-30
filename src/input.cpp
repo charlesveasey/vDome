@@ -8,9 +8,10 @@ namespace vd {
  ********************************************/
 
 Input::Input(){
-    maxSource = 2;
+    maxSource = 5;
     resolution = 2048;
     frameRate = 30;
+    loop = false;
 	usePbo = true;
     isVideo = false;
 	nFrame = false;
@@ -22,7 +23,7 @@ Input::Input(){
     #endif
     
     #ifdef TARGET_OSX
-        maxSource = 3;
+        maxSource += 1;
         vRenderer = QT;
     #endif
 
@@ -69,7 +70,19 @@ void Input::setup(){
 
     // create input
     switch(source){
-
+            
+        case BLACK:
+			fillTexture(ofColor(0));
+            break;
+ 
+        case WHITE:
+			fillTexture(ofColor(255));
+            break;
+            
+        case GREY:
+			fillTexture(ofColor(128));
+            break;
+            
         case GRID: 
 			isVideo = false;
 			image.loadImage("media/warp/grid-2k.png");
@@ -84,15 +97,21 @@ void Input::setup(){
                 
 					if (vRenderer == AVF){
 						avf.loadMovie(file);
-						avf.setLoopState(OF_LOOP_NORMAL);
+                        avf.play();
+                        if (loop) avf.setLoopState(OF_LOOP_NORMAL);
+                        else avf.setLoopState(OF_LOOP_NONE);
 					}
 					else if (vRenderer == QT2){
 						qt.loadMovie(file, OF_QTKIT_DECODE_PIXELS_AND_TEXTURE);
 						qt.play();
+                        if (loop) qt.setLoopState(OF_LOOP_NORMAL);
+                        else qt.setLoopState(OF_LOOP_NONE);
 					}
 					else if (vRenderer == HAP){
 						hap.loadMovie(file, OF_QTKIT_DECODE_TEXTURE_ONLY);
 						hap.play();
+                        if (loop) hap.setLoopState(OF_LOOP_NORMAL);
+                        else hap.setLoopState(OF_LOOP_NONE);
 					}
 					else if (vRenderer == QT){
 						video.loadMovie(file);
@@ -105,7 +124,8 @@ void Input::setup(){
 					if (vRenderer == WMF) {
 						wmf.loadMovie(file);
 						wmf.play();
-						wmf.setLoop(true);
+                        if (loop) wmf.setLoop(true);
+                        else wmf.setLoop(false);
 					}
 					else if (vRenderer == DS) {
 						video.loadMovie(file);
@@ -124,6 +144,9 @@ void Input::setup(){
 					video.play();
 					texture = video.getTextureReference();
                 #endif
+                
+                if (loop) video.setLoopState(OF_LOOP_NORMAL);
+                else video.setLoopState(OF_LOOP_NONE);
             }
             else {
                 image.loadImage(file);
@@ -132,11 +155,12 @@ void Input::setup(){
             break;
             
         case CAPTURE:
-            //texture.clear();
+            fillTexture(ofColor(0));
             capture.setDeviceID(0);
             capture.setDesiredFrameRate(frameRate);
-            capture.initGrabber(resolution, resolution);
-            //texture = capture.getTextureReference();
+            if (capture.initGrabber(resolution, resolution)) {
+                texture = capture.getTextureReference();
+            }
             break;
             
         case SYPHON:
@@ -196,6 +220,32 @@ void Input::close() {
 		//wmf.close();
     #endif
 }
+    
+/******************************************
+ 
+ PLAY/PAUSE
+ 
+ ********************************************/
+    
+void Input::togglePause() {
+    if (!video.isPlaying()) {
+        if (vRenderer == AVF){
+            avf.play();
+        }
+        else if (vRenderer == QT2){
+            qt.play();
+        }
+        else if (vRenderer == HAP){
+            hap.play();
+        }
+        else if (vRenderer == QT){
+            video.play();
+        }
+    }
+    else{
+        video.stop();
+    }
+}
 
 /******************************************
 
@@ -205,7 +255,8 @@ void Input::close() {
 
 void Input::bind(){
     
-	if (source == GRID) {
+	if (source == GRID || source == BLACK ||
+        source == WHITE || source == GREY) {
 		texture.bind();
 	}
 	else if (source == MEDIA) {
@@ -244,7 +295,7 @@ void Input::bind(){
 	}
     
     if (source == CAPTURE)
-        capture.getTextureReference().bind();
+        texture.bind();
     
     #ifdef TARGET_OSX
         if (source == SYPHON)
@@ -254,7 +305,8 @@ void Input::bind(){
 
 void Input::unbind(){
  
-	if (source == GRID) {
+	if (source == GRID || source == BLACK ||
+        source == WHITE || source == GREY) {
 		texture.unbind();
 	}
 
@@ -294,7 +346,7 @@ void Input::unbind(){
 	}
     
     if (source == CAPTURE)
-         capture.getTextureReference().unbind();
+         texture.unbind();
     
 	#ifdef TARGET_OSX
 		if (source == SYPHON)
@@ -376,8 +428,17 @@ void Input::keyPressed(int key) {
         case OF_KEY_RIGHT:
 			if (source+1 > maxSource)
 				source = maxSource;
-			else
-				source++;
+			else {
+                source++;
+                #ifdef TARGET_WIN32
+                if (source == SYPHON)
+                    source++;
+                #endif
+                #ifdef TARGET_LINUX
+                if (source == SYPHON)
+                    source++;
+                #endif
+            }
 			if (source == MEDIA)
 				parseFileType(file);
 			setup();
@@ -385,8 +446,17 @@ void Input::keyPressed(int key) {
         case OF_KEY_LEFT:
 			if (source-1 < 0)
 				source = 0;
-			else
+			else {
 				source--;
+                #ifdef TARGET_WIN32
+                if (source == SYPHON)
+                    source--;
+                #endif
+                #ifdef TARGET_LINUX
+                if (source == SYPHON)
+                    source--;
+                #endif
+            }
 			if (source == MEDIA)
 				parseFileType(file);
             setup();
@@ -417,26 +487,56 @@ void Input::openFileDialog(){
 }
     
 /******************************************
+ 
+ FILL
+ 
+ ********************************************/
+
+void Input::fillTexture(ofColor color){
+    isVideo = false;
+    image.clear();
+    image.allocate(resolution, resolution, OF_IMAGE_COLOR);
+    for (int x = 0; x < resolution; x++) {
+        for (int y = 0; y < resolution; y++) {
+            image.setColor(x, y, color);
+        }
+    }
+    image.update();
+    texture = image.getTextureReference();
+}
+
+/******************************************
 
  SETTINGS
 
  ********************************************/
 
 void Input::loadXML(ofXml &xml) {
-
+    string v;
+    
     if (xml.exists("input[@resolution]"))
         resolution = ofToInt( xml.getAttribute("input[@resolution]") );
 
     if (xml.exists("input[@source]")) {
-        string m = xml.getAttribute("input[@source]");
-		if (m == "grid")		   source = GRID;
-        else if (m == "media")     source = MEDIA;
-        else if (m == "capture")   source = CAPTURE;
-        else if (m == "syphon")    source = SYPHON;
+        v = xml.getAttribute("input[@source]");
+		if (v == "grid")		   source = GRID;
+        else if (v == "media")     source = MEDIA;
+        else if (v == "capture")   source = CAPTURE;
+        else if (v == "syphon")    source = SYPHON;
+        else if (v == "black")     source = BLACK;
+        else if (v == "white")     source = WHITE;
+        else if (v == "grey")      source = GREY;
+
     }
 
     if (xml.exists("input[@file]")) {
         parseFileType(ofToString( xml.getAttribute("input[@file]") ));
+    }
+    
+    if (xml.exists("input[@loop]")) {
+        v = xml.getAttribute("input[@loop]");
+        if (v == "true") loop = true;
+        else             loop = false;
     }
     
     setup();
@@ -452,9 +552,14 @@ void Input::saveXML(ofXml &xml) {
     else if (source == MEDIA)     str = "media";
     else if (source == CAPTURE)   str = "capture";
     else if (source == SYPHON)    str = "syphon";
-
+    else if (source == BLACK)    str = "black";
+    else if (source == WHITE)    str = "white";
+    else if (source == GREY)    str = "grey";
+    
     xml.setAttribute("source", str );
     xml.setAttribute("file", file );
+    if (loop) xml.setAttribute("loop", "true");
+    else      xml.setAttribute("loop", "false");
     xml.setToParent();
 }
 
