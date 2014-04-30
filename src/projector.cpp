@@ -642,22 +642,28 @@ void Projector::saveXML(ofXml &xml) {
     xml.setTo(pre + "]");
 
     // blend
-    xml.setAttribute("brightness", ofToString(brightness));
-    xml.setAttribute("contrast", ofToString(contrast));
+    xml.setAttribute("brightness", ofToString(roundTo(brightness, .001)));
+    xml.setAttribute("contrast", ofToString(roundTo(contrast, .001)));
 
     // color
-    xml.setAttribute("hsl", ofToString(hue) +  "," + ofToString(saturation) +  "," + ofToString(lightness)  );
-    xml.setAttribute("gamma", ofToString(gamma) +  "," + ofToString(gammaR) +  "," + ofToString(gammaG) +  "," + ofToString(gammaB) );
+    xml.setAttribute("hsl", ofToString(roundTo(hue, .001)) +  "," + ofToString(roundTo(saturation, .001)) +  "," + ofToString(roundTo(lightness, .001))  );
+    xml.setAttribute("gamma", ofToString(roundTo(gamma, .001)) +  "," + ofToString(roundTo(gammaR, .001)) +  "," + ofToString(roundTo(gammaG, .001)) +  "," + ofToString(roundTo(gammaB, .001)) );
 
     //camera
-    xml.setAttribute("position", ofToString(cameraPosition.x) +  "," + ofToString(cameraPosition.y) +  "," + ofToString(cameraPosition.z) );
-    xml.setAttribute("orientation", ofToString(cameraOrientation.x) +  "," + ofToString(cameraOrientation.y) +  "," + ofToString(cameraOrientation.z) );
-    xml.setAttribute("fov", ofToString(cameraFov));
+    xml.setAttribute("position", ofToString(roundTo(cameraPosition.x, .01)) +  "," + ofToString(roundTo(cameraPosition.y, .01)) +  "," + ofToString(roundTo(cameraPosition.z, .01)) );
+    xml.setAttribute("orientation", ofToString(roundTo(cameraOrientation.x, .01)) +  "," + ofToString(roundTo(cameraOrientation.y, .01)) +  "," + ofToString(roundTo(cameraOrientation.z, .01)) );
+    xml.setAttribute("fov", ofToString(roundTo(cameraFov, .01)));
     //xml.setAttribute("offset", ofToString(cameraOffset.x) +  "," + ofToString(cameraOffset.y) );
-    xml.setAttribute("scale", ofToString(cameraScale.x) +  "," + ofToString(cameraScale.y) );
-    xml.setAttribute("shear", ofToString(cameraShear[0]) +  "," + ofToString(cameraShear[1]) +  "," + ofToString(cameraShear[2]) +
-                        "," + ofToString(cameraShear[3]) +  "," + ofToString(cameraShear[4]) +  "," + ofToString(cameraShear[5]));
+    
+    
+    
+    
+    xml.setAttribute("scale", ofToString(roundTo(cameraScale.x, .001)) +  "," + ofToString(roundTo(cameraScale.y, .001)) );
+    xml.setAttribute("shear", ofToString(roundTo(cameraShear[0], .001)) +  "," + ofToString(roundTo(cameraShear[1], .001)) +  "," + ofToString(roundTo(cameraShear[2], .001)) +
+                        "," + ofToString(roundTo(cameraShear[3], .001)) +  "," + ofToString(roundTo(cameraShear[4], .001)) +  "," + ofToString(roundTo(cameraShear[5], .001)) );
 
+    
+    
     // plane
     //xml.setAttribute("dimensions", ofToString(planeDimensions.x) +  "," + ofToString(planeDimensions.y) );
 
@@ -783,11 +789,19 @@ ofTexture& Projector::getTextureReference(){
 }
 
 /******************************************
-
- SPHERICAL TO CARTESIAN COORDINATES
-
+ 
+ MATH
+ 
  ********************************************/
 
+float Projector::round(float d) {
+    return floorf(d + 0.5);
+}
+
+float Projector::roundTo(float val, float n){
+    return round(val * 1/n) * n;
+}
+    
 ofVec3f Projector::sphToCar(ofVec3f t) {
     float azi, ele, dis;
     float x, y, z;

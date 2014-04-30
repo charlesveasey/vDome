@@ -141,6 +141,8 @@ private:
     ofVec2f cameraOffset;
     ofVec2f cameraScale;
     vector<float> cameraShear;
+    float round(float d);
+    float roundTo(float val, float n);
 };
 
 
