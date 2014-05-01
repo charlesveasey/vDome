@@ -94,10 +94,11 @@ void Mask::setup(){
 
 void Mask::draw(){
     if (mouseDown) {
+        
         if (erase)
-            ofEnableBlendMode(OF_BLENDMODE_ALPHA);
+            ofEnableBlendMode(OF_BLENDMODE_SUBTRACT);
         else
-            ofEnableBlendMode(OF_BLENDMODE_SCREEN);
+            ofEnableBlendMode(OF_BLENDMODE_ADD);
 
         maskFbo.begin();
         brushImage.bind();
@@ -112,6 +113,7 @@ void Mask::draw(){
 
         ofDisableBlendMode();
         ofEnableBlendMode(OF_BLENDMODE_ALPHA);
+        
     }
 }
 
