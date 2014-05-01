@@ -32,11 +32,13 @@ public:
                     FOV,
                     SCALE, SCALE_X, SCALE_Y,
                     SHEAR_XY, SHEAR_XZ, SHEAR_YX, SHEAR_YZ, SHEAR_ZX, SHEAR_ZY,
-                    NONE, BRUSH_SCALE, BRUSH_OPACITY};
+                    NONE, BRUSH_SCALE, BRUSH_OPACITY, WHITE, BLACK};
 
     // intensity
     float brightness;
     float contrast;
+    int whiteLevel;
+    int blackLevel;
 
     // color
     float hue;
@@ -183,6 +185,34 @@ public:
         obj.contrast = v; }
     void undo() { obj.contrast = l; }
     void redo() { obj.contrast = v; }
+};
+    
+class SetBlackLevel : public Command {
+protected:
+    Projector& obj;
+    int v;
+    int l;
+public:
+    SetBlackLevel(Projector& obj, int v) : obj(obj), v(v) {}
+    void execute() {
+        l = obj.blackLevel;
+        obj.blackLevel = v; }
+    void undo() { obj.blackLevel = l; }
+    void redo() { obj.blackLevel = v; }
+};
+    
+class SetWhiteLevel : public Command {
+protected:
+    Projector& obj;
+    int v;
+    int l;
+public:
+    SetWhiteLevel(Projector& obj, int v) : obj(obj), v(v) {}
+    void execute() {
+        l = obj.whiteLevel;
+        obj.whiteLevel = v; }
+    void undo() { obj.whiteLevel = l; }
+    void redo() { obj.whiteLevel = v; }
 };
 
 class SetBrushScale : public Command {

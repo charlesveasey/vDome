@@ -16,6 +16,9 @@ const float AvgLumG = 0.5;
 const float AvgLumB = 0.5;
 const vec3 LumCoeff = vec3 (0.2125, 0.7154, 0.0721);
 
+// INTENSITY: LEVELS
+uniform float blackLevel;
+uniform float whiteLevel;
 
 // COLOR: HSL
 uniform float hue;
@@ -143,11 +146,13 @@ vec3 ContrastSaturationBrightness(vec3 color, float brt, float sat, float con) {
 	return conColor;
 }
 
-
 float GammaCorrection(float color, float gamma) {
     return pow(color, 1.0 / gamma);
 }
 
+vec3 LevelsControlOutputRange(vec3 color, vec3 minOutput, vec3 maxOutput) {
+    return mix(vec3(minOutput), vec3(maxOutput), color);
+}
 
 void main() {
     t = texture(texsampler, vtexcoord);
@@ -163,7 +168,10 @@ void main() {
     cRGB.g = GammaCorrection(cRGB.g, gammaG * gamma);
     cRGB.b = GammaCorrection(cRGB.b, gammaB * gamma);
     
-    float mask = texture(maskTex, vtexcoord).a;    
+    cRGB = LevelsControlOutputRange(cRGB, vec3(blackLevel/255, blackLevel/255, blackLevel/255),
+                                    vec3(whiteLevel/255, whiteLevel/255, whiteLevel/255));
+    
+    float mask = texture(maskTex, vtexcoord).a;
     outputColor = vec4(cRGB.rgb, 1-mask);
 }
 

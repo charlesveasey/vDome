@@ -24,6 +24,8 @@ void Projector::init(int i){
     // intensity
     brightness = 1;
     contrast = 1;
+    blackLevel = 0;
+    whiteLevel = 255;
 
     // color
     hue = 1;
@@ -294,7 +296,9 @@ void Projector::keyPressed(int key) {
             switch (editMode) {
                 case BRIGHTNESS: history.execute( new SetBrightness(*this, 1) ); break;
                 case CONTRAST: history.execute( new SetContrast(*this, 1) ); break;
-
+                case BLACK: history.execute( new SetBlackLevel(*this, 0) ); break;
+                case WHITE: history.execute( new SetWhiteLevel(*this, 255) ); break;
+                    
                 case HUE: history.execute( new SetHue(*this, 1) ); break;
                 case SATURATION: history.execute( new SetSaturation(*this, 1) ); break;
                 case LIGHTNESS: history.execute( new SetLightness(*this, 1) ); break;
@@ -352,6 +356,7 @@ void Projector::keyPressed(int key) {
                 case CONTRAST:
                     history.execute( new SetContrast(*this, contrast + value * .1) );
                     break;
+
                 case BRUSH_SCALE:
                     history.execute( new SetBrushScale(*this, mask.brushScale + value * .1) );
                     break;
@@ -359,6 +364,13 @@ void Projector::keyPressed(int key) {
                     history.execute( new SetBrushOpacity(*this, mask.brushOpacity + value) );
                     break;
 
+                case BLACK:
+                    history.execute( new SetBlackLevel(*this, blackLevel + value) );
+                    break;
+                case WHITE:
+                    history.execute( new SetWhiteLevel(*this, whiteLevel + value) );
+                    break;
+                    
                 case HUE:
                     history.execute( new SetHue(*this, hue + value * .1) );
                     break;
@@ -465,7 +477,14 @@ void Projector::keyPressed(int key) {
                 case BRUSH_OPACITY:
                     history.execute( new SetBrushOpacity(*this, mask.brushOpacity - value) );
                     break;
-
+               
+                case BLACK:
+                    history.execute( new SetBlackLevel(*this, blackLevel - value) );
+                    break;
+                case WHITE:
+                    history.execute( new SetWhiteLevel(*this, whiteLevel - value) );
+                    break;
+                    
                 case HUE:
                     history.execute( new SetHue(*this, hue - value * .1) );
                     break;
@@ -586,7 +605,11 @@ void Projector::loadXML(ofXml &xml) {
         val = ofToFloat( xml.getAttribute(pre + "][@contrast]") );
         contrast = val;
     }
-
+    if (xml.exists(pre + "][@levels]")) {
+        str = xml.getAttribute(pre + "][@levels]");
+        blackLevel = ofToFloat(ofSplitString(str, ",")[0]);
+        whiteLevel = ofToFloat(ofSplitString(str, ",")[1]);
+    }
 
     // color
     if (xml.exists(pre + "][@hsl]")) {
@@ -670,7 +693,8 @@ void Projector::saveXML(ofXml &xml) {
     // blend
     xml.setAttribute("brightness", ofToString(roundTo(brightness, .001)));
     xml.setAttribute("contrast", ofToString(roundTo(contrast, .001)));
-
+    xml.setAttribute("levels", ofToString(blackLevel) +  "," + ofToString(whiteLevel));
+    
     // color
     xml.setAttribute("hsl", ofToString(roundTo(hue, .001)) +  "," + ofToString(roundTo(saturation, .001)) +  "," + ofToString(roundTo(lightness, .001))  );
     xml.setAttribute("gamma", ofToString(roundTo(gamma, .001)) +  "," + ofToString(roundTo(gammaR, .001)) +  "," + ofToString(roundTo(gammaG, .001)) +  "," + ofToString(roundTo(gammaB, .001)) );

@@ -126,6 +126,8 @@ void vdome::draw(){
 
                 shader.setUniform1f("brightness", projectors[i].brightness);
                 shader.setUniform1f("contrast", projectors[i].contrast);
+                shader.setUniform1f("blackLevel", projectors[i].blackLevel);
+                shader.setUniform1f("whiteLevel", projectors[i].whiteLevel);
 
                 shader.setUniform1f("hue", projectors[i].hue);
                 shader.setUniform1f("saturation", projectors[i].saturation);

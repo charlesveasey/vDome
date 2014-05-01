@@ -50,6 +50,7 @@ public:
     MenuItem *menuInput;
     MenuItem *menuWarp;
     MenuItem *menuBlend;
+    MenuItem *menuLevels;
     MenuItem *menuBrush;
     MenuItem *menuColor;
     MenuItem *menuHSL;
@@ -64,12 +65,13 @@ public:
     MenuItem **currentMenu;
 
     enum menus {MAIN, INPUT, WARP, BLEND, COLOR, HSL, GAMMA, SETUP,
-         RADIUS, POSITION, ORIENTATION, LENS, SCALE, SHEAR, BRUSH};
+         RADIUS, POSITION, ORIENTATION, LENS, SCALE, SHEAR, BRUSH, LEVELS};
 
     // menu items
     enum inputItems {SOURCE, FORMAT, INPUT_SCALE};
     enum warpItems  {CORNERPIN, GRID};
-    enum blendItems {BRIGHTNESS, CONTRAST, B_BRUSH};
+    enum blendItems {BRIGHTNESS, CONTRAST, B_LEVELS, B_BRUSH};
+    enum levelsItems{BLACK, WHITE};
     enum brushItems {BRUSH_SCALE, BRUSH_OPACITY};
     enum colorItems {COLOR_HSL, COLOR_GAMMA};
     enum hslItems   {HUE, SATURATION, LIGHTNESS};

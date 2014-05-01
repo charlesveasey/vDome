@@ -46,8 +46,16 @@ Menu::Menu(){
     menuBlend->currentItem = 0;
     menuBlend->items.push_back(new Item("Brightness"));
     menuBlend->items.push_back(new Item("Contrast"));
+    menuBlend->items.push_back(new Item("Levels             ->", true));
     menuBlend->items.push_back(new Item("Brush              ->", true));
 
+    menuLevels = new MenuItem;
+    menuLevels->menuId = LEVELS;
+    menuLevels->parent = &menuBlend;
+    menuLevels->currentItem = 0;
+    menuLevels->items.push_back(new Item("Black"));
+    menuLevels->items.push_back(new Item("White"));
+    
     menuBrush = new MenuItem;
     menuBrush->menuId = BRUSH;
     menuBrush->parent = &menuBlend;
@@ -237,6 +245,17 @@ void Menu::drawMain(int i){
                     }
                     break;
 
+                case LEVELS:
+                    switch (j) {
+                        case BLACK:
+                            val = ofToString(projectors->at(i).blackLevel);
+                            break;
+                        case WHITE:
+                            val = ofToString(projectors->at(i).whiteLevel);
+                            break;
+                    }
+                    break;
+                
                 case BRUSH:
                     switch (j) {
                         case BRUSH_SCALE:
@@ -488,7 +507,8 @@ void Menu::select() {
             break;
         case BLEND:
             switch (item) {
-                case 2: currentMenu = &menuBrush; break;
+                case 2: currentMenu = &menuLevels; break;
+                case 3: currentMenu = &menuBrush; break;
                 default: break;
             }
             break;
@@ -747,7 +767,24 @@ void Menu::setEditMode() {
                     break;
             }
             break;
-
+        
+        case LEVELS:
+            switch (j) {
+                case BLACK:
+                    for (int k=0; k<projCount; k++) {
+                        if (projectors->at(k).active)
+                            projectors->at(k).editMode = projectors->at(k).BLACK;
+                    }
+                    break;
+                case WHITE:
+                    for (int k=0; k<projCount; k++) {
+                        if (projectors->at(k).active)
+                            projectors->at(k).editMode = projectors->at(k).WHITE;
+                    }
+                    break;
+            }
+            break;
+            
         case BRUSH:
             switch (j) {
                 case BRUSH_SCALE:

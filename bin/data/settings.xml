@@ -2,19 +2,19 @@
     
     <tcp enabled="true" port="1"/>
         
-	<input file="" resolution="2048" scale="1" source="grid"/>
+	<input file="/Users/Charles/Code/of_v0.8.1_osx_release/apps/vDome/vDome/bin/data" loop="false" resolution="2048" scale="1" source="grid"/>
     
-	<window fullscreen="false" height="948" width="1920" x="144" y="44"/>
+	<window fullscreen="false" height="948" width="1920" x="163" y="214"/>
     
     <dome radius="8.83"/>
     
 	<projectors count="2" dimensions="1024,768">
         
 		<!-- #1 -->
-		<projector brightness="1" contrast="1" cornerpin="0,0,1,0,0,1,1,1" fov="36" gamma="1,1,1,1" hsl="1,1,1" orientation="0,-18,0" position="0,0,8" scale="1,1" shear="0,0,0,0,0,0"/>
+		<projector brightness="1" contrast="1" cornerpin="0,0,1,0,0,1,1,1" fov="36" gamma="1,1,1,1" hsl="1,1,1" levels="0,255" orientation="0,-18,0" position="0,0,8" scale="1,1" shear="0,0,0,0,0,0"/>
 		
 		<!-- #2 -->
-		<projector brightness="1" contrast="1" cornerpin="0,0,1,0,0,1,1,1" fov="36" gamma="1,1,1,1" hsl="1,1,1" orientation="0,-18,0" position="0,0,8" scale="1,1" shear="0,0,0,0,0,0"/>
+		<projector brightness="1" contrast="1" cornerpin="0,0,1,0,0,1,1,1" fov="36" gamma="1,1,1,1" hsl="1,1,1" levels="0,255" orientation="0,-18,0" position="0,0,8" scale="1,1" shear="0,0,0,0,0,0"/>
 
     </projectors>      
 </vdome>
