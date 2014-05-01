@@ -97,34 +97,53 @@ void vdome::draw(){
             input.unbind();
         projectors[i].end();
 	}
-
-	for(int i=0; i<projCount; i++) {
-
+    
+    for(int i=0; i<projCount; i++){
+        ofDisableNormalizedTexCoords();
+        projectors[i].renderFbo.begin();
+        ofClear(0);
         projectors[i].bind();
-
-                shader.begin();
-
-                    shader.setUniform1f("brightness", projectors[i].brightness);
-                    shader.setUniform1f("contrast", projectors[i].contrast);
-
-                    shader.setUniform1f("hue", projectors[i].hue);
-                    shader.setUniform1f("saturation", projectors[i].saturation);
-                    shader.setUniform1f("lightness", projectors[i].lightness);
-
-                    shader.setUniform1f("gamma", projectors[i].gamma);
-                    shader.setUniform1f("gammaR", projectors[i].gammaR);
-                    shader.setUniform1f("gammaG", projectors[i].gammaG);
-                    shader.setUniform1f("gammaB", projectors[i].gammaB);
-
-                    shader.setUniformTexture("texsampler", projectors[i].getTextureReference(), 0);
-                    shader.setUniformTexture("maskTex", projectors[i].mask.maskFbo.getTextureReference(), 1);
-
-                    projectors[i].draw();
-
-                shader.end();
+       
+        ofPushMatrix();
+         // plane is in absolute coordinates, offset since moving to 3-pass for mask
+            ofTranslate(-projectors[i].getPlanePosition().x*i, 0);
+            projectors[i].draw();
+        ofPopMatrix();
 
         projectors[i].unbind();
+        projectors[i].renderFbo.end();
+        ofEnableNormalizedTexCoords();
+	}
 
+	for(int i=0; i<projCount; i++) {
+        projectors[i].renderFbo.getTextureReference().bind();
+        
+            if (projectors[i].active) {
+                projectors[i].mask.draw();
+            }
+        
+            shader.begin();
+
+                shader.setUniform1f("brightness", projectors[i].brightness);
+                shader.setUniform1f("contrast", projectors[i].contrast);
+
+                shader.setUniform1f("hue", projectors[i].hue);
+                shader.setUniform1f("saturation", projectors[i].saturation);
+                shader.setUniform1f("lightness", projectors[i].lightness);
+
+                shader.setUniform1f("gamma", projectors[i].gamma);
+                shader.setUniform1f("gammaR", projectors[i].gammaR);
+                shader.setUniform1f("gammaG", projectors[i].gammaG);
+                shader.setUniform1f("gammaB", projectors[i].gammaB);
+
+                shader.setUniformTexture("texsampler", projectors[i].renderFbo.getTextureReference(), 0);
+                shader.setUniformTexture("maskTex", projectors[i].mask.maskFbo.getTextureReference(), 1);
+
+                projectors[i].renderPlane.draw();
+    
+            shader.end();
+
+        projectors[i].renderFbo.getTextureReference().unbind();
 	}
 
     menu.draw();

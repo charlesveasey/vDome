@@ -19,6 +19,8 @@ public:
     bool all;
     void setValue(float v);
     Mask mask;
+    ofFbo renderFbo;
+    ofVboMesh renderPlane;
     CommandHistory history;
 
     enum editModes{ BRIGHTNESS,CONTRAST,

@@ -93,11 +93,37 @@ void Projector::setup() {
     // create camera fbo
     if (fbo.getWidth() != planeDimensions.x || fbo.getHeight() != planeDimensions.y) {
         fbo.allocate(planeDimensions.x, planeDimensions.y, GL_RGBA);
+        renderFbo.setUseTexture(true);
+        renderFbo.allocate(planeDimensions.x, planeDimensions.y, GL_RGBA);
+        
+        int x = planePosition.x;
+        int y = planePosition.y;
+        int w = planeDimensions.x;
+        int h = planeDimensions.y;
+
+        
+        renderPlane = ofMesh::plane(w, h, 2, 2, OF_PRIMITIVE_TRIANGLES);
+        vector<ofVec3f> v = renderPlane.getVertices();
+        
+        for (int i=0; i<v.size(); i++) {
+            renderPlane.setVertex(i, ofVec3f(
+                                      v[i].x + w/2 + x,
+                                      v[i].y + h/2 + y,
+                                      v[i].z    ));
+            
+            renderPlane.setTexCoord(i, ofVec2f(
+                                        v[i].x + w/2,
+                                        v[i].y + h/2    ));
+        }
     }
 
     fbo.begin();
         ofClear(255);
     fbo.end();
+    
+    renderFbo.begin();
+        ofClear(255);
+    renderFbo.end();
     
     mask.setup();
 }
@@ -162,8 +188,8 @@ void Projector::end() {
  ********************************************/
 
 void Projector::bind() {
-    if (active)
-        mask.draw();
+    //if (active)
+    //    mask.draw();
     fbo.getTextureReference().bind();
 }
 
@@ -178,10 +204,10 @@ void Projector::unbind() {
  ********************************************/
 
 void Projector::draw() {
-    glEnable(GL_CULL_FACE);
-    glCullFace( GL_FRONT );
+    //glEnable(GL_CULL_FACE);
+    //glCullFace( GL_FRONT );
     plane.draw();
-    glDisable(GL_CULL_FACE);
+    //glDisable(GL_CULL_FACE);
 }
 
 void Projector::drawPlaneConfig(){
