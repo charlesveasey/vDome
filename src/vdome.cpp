@@ -1,4 +1,5 @@
 #include "vdome.h"
+#include "ofxWinWindow.h"
 namespace vd {
 
 // global variables
@@ -62,6 +63,16 @@ void vdome::setup(){
         }
     }
     
+    #ifdef TARGET_WIN32
+	ofxWinWindow * nwindow = (ofxWinWindow*)ofGetWindowPtr();
+	nwindow->hideBorder();
+	//nwindow->keepWindowOnTop(true);
+
+	//HWND handleWindow;
+	//AllocConsole();
+	//handleWindow = FindWindowA("ConsoleWindowClass", NULL);
+	//ShowWindow(handleWindow, 0);
+	#endif
 
     #ifdef TARGET_OSX
         //transparent.afterMainSetup(ofxTransparentWindow::SCREENSAVER, // change float mode here
