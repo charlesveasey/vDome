@@ -112,6 +112,9 @@
     <ClCompile Include="src\ofPBO.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxWinWindow\src\ofxWinWindow.cpp">
+      <Filter>addons\ofxWinWindow\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -227,6 +230,12 @@
     </Filter>
     <Filter Include="addons\other">
       <UniqueIdentifier>{c30f0cb7-eee6-4e61-8f88-35104140f7ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxWinWindow">
+      <UniqueIdentifier>{dd028ea1-f0c1-44ae-8c3f-e1db489be271}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxWinWindow\src">
+      <UniqueIdentifier>{69afa6a2-1b8d-4a07-a59f-f752792d520d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -658,6 +667,9 @@
     </ClInclude>
     <ClInclude Include="src\ofPBO.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxWinWindow\src\ofxWinWindow.h">
+      <Filter>addons\ofxWinWindow\src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
