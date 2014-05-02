@@ -12,7 +12,7 @@ Input::Input(){
     resolution = 2048;
     frameRate = 30;
     loop = false;
-	usePbo = true;
+	usePbo = false;
     isVideo = false;
 	nFrame = false;
     mediaTypeMap = new MediaTypeMap("media/mime.types");
@@ -28,7 +28,7 @@ Input::Input(){
     #endif
 
 	#ifdef TARGET_WIN32
-		vRenderer = GST;
+		vRenderer = WMF;
 		if (vRenderer == WMF) {
 		}
 		else if (vRenderer == DS) {
@@ -135,6 +135,13 @@ void Input::setup(){
 					else if (vRenderer == GST) {
 						video.loadMovie(file);
 						video.play();
+						if (!usePbo)
+							texture = video.getTextureReference();
+					}
+					else if (vRenderer == QT){
+						video.loadMovie(file);
+						video.play();
+						texture = video.getTextureReference();
 					}
 				#endif
 
@@ -228,22 +235,81 @@ void Input::close() {
  ********************************************/
     
 void Input::togglePause() {
-    if (!video.isPlaying()) {
-        if (vRenderer == AVF){
-            avf.play();
-        }
-        else if (vRenderer == QT2){
-            qt.play();
-        }
-        else if (vRenderer == HAP){
-            hap.play();
-        }
-        else if (vRenderer == QT){
-            video.play();
-        }
+	bool isPlaying = false;
+
+		#ifdef TARGET_OSX
+			if (vRenderer == AVF)
+				isPlaying = avf.isPlaying();
+			else if (vRenderer == QT2)
+				isPlaying = qt.isPlaying();
+			else if (vRenderer == HAP)
+				isPlaying = hap.isPlaying();
+			else if (vRenderer == QT)
+				isPlaying = video.isPlaying();
+		#endif
+		#ifdef TARGET_WIN32
+			if (vRenderer == WMF)
+				isPlaying = wmf.isPlaying();
+			else if (vRenderer == DS)
+				isPlaying = video.isPlaying();
+			else if (vRenderer == GST)
+				isPlaying = video.isPlaying();
+			else if (vRenderer == QT)
+				isPlaying = video.isPlaying();
+		#endif
+		#ifdef TARGET_LINUX
+			isPlaying = video.isPlaying();
+		#endif
+
+	if (!isPlaying) {
+		#ifdef TARGET_OSX
+			if (vRenderer == AVF)
+				avf.play();
+			else if (vRenderer == QT2)
+				qt.play();
+			else if (vRenderer == HAP)
+				hap.play();
+			else if (vRenderer == QT)
+				video.play();
+		#endif
+		#ifdef TARGET_WIN32
+			if (vRenderer == WMF)
+				wmf.play();
+			else if (vRenderer == DS)
+				video.play();
+			else if (vRenderer == GST)
+				video.play();
+			else if (vRenderer == QT)
+				video.play();
+		#endif
+		#ifdef TARGET_LINUX
+			video.play();
+		#endif
     }
     else{
-        video.stop();
+		#ifdef TARGET_OSX
+			if (vRenderer == AVF)
+				avf.stop();
+			else if (vRenderer == QT2)
+				qt.stop();
+			else if (vRenderer == HAP)
+				hap.stop();
+			else if (vRenderer == QT)
+				video.stop();
+		#endif
+		#ifdef TARGET_WIN32
+			if (vRenderer == WMF)
+				wmf.stop();
+			else if (vRenderer == DS)
+				video.stop();
+			else if (vRenderer == GST)
+				video.stop();
+			else if (vRenderer == QT)
+				video.stop();
+		#endif
+		#ifdef TARGET_LINUX
+			video.stop();
+		#endif
     }
 }
 
@@ -283,6 +349,8 @@ void Input::bind(){
 					wmf.bind();
 				else if (vRenderer == DS || vRenderer == GST)
 					texture.bind();
+				else if (vRenderer == QT)
+                    texture.bind();
 			}
 			else {
 				texture.bind();
@@ -333,6 +401,8 @@ void Input::unbind(){
 				if (vRenderer == WMF)
 					wmf.unbind();
 				else if (vRenderer == DS || vRenderer == GST)
+					texture.unbind();
+				else if (vRenderer == QT)
 					texture.unbind();
 			}
 			else {
@@ -402,6 +472,9 @@ void Input::update(){
 						pbo.updateTexture();
 						nFrame = false;
 					}
+				}
+				else if (vRenderer == QT) {
+					video.update();	
 				}
 			#endif
 		}
