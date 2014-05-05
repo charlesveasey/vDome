@@ -30,6 +30,7 @@ Menu::Menu(){
     menuInput->items.push_back(new Item("Source"));
     menuInput->items.push_back(new Item("Format"));
     menuInput->items.push_back(new Item("Scale"));
+    menuInput->items.push_back(new Item("Enable"));
     //menuInput->items.push_back("Offset X");
     //menuInput->items.push_back("Offset Y");
 
@@ -230,6 +231,10 @@ void Menu::drawMain(int i){
                             break;
                         case INPUT_SCALE:
                             val = ofToString(roundTo(dome->textureScale, .01));
+                            break;
+                        case ENABLE:
+                            if (projectors->at(i).enable) val = "On";
+                            else val = "Off";
                             break;
                     }
                     break;
@@ -750,7 +755,18 @@ void Menu::setEditMode() {
     int j = (*currentMenu)->currentItem;
 
     switch ((*currentMenu)->menuId) {
-
+        
+        case INPUT:
+            switch (j) {
+                case ENABLE:
+                    for (int k=0; k<projCount; k++) {
+                        if (projectors->at(k).active)
+                            projectors->at(k).editMode = projectors->at(k).ENABLE;
+                    }
+                    break;
+            }
+            break;
+            
         case BLEND:
             switch (j) {
                 case BRIGHTNESS:

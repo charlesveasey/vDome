@@ -14,6 +14,7 @@ public:
     bool keyboard;
     bool mouse;
     bool active;
+    bool enable;
     int editMode;
     bool mod;
     bool all;
@@ -32,7 +33,7 @@ public:
                     FOV,
                     SCALE, SCALE_X, SCALE_Y,
                     SHEAR_XY, SHEAR_XZ, SHEAR_YX, SHEAR_YZ, SHEAR_ZX, SHEAR_ZY,
-                    NONE, BRUSH_SCALE, BRUSH_OPACITY, WHITE, BLACK};
+                    NONE, BRUSH_SCALE, BRUSH_OPACITY, WHITE, BLACK, ENABLE};
 
     // intensity
     float brightness;
@@ -158,6 +159,21 @@ private:
  ********************************************/
 
 
+// intensity
+class SetEnable : public Command {
+protected:
+    Projector& obj;
+    bool v;
+    bool l;
+public:
+    SetEnable(Projector& obj, bool v) : obj(obj), v(v) {}
+    void execute() {
+        l = obj.enable;
+        obj.enable = v; }
+    void undo() { obj.enable = l; }
+    void redo() { obj.enable = v; }
+};
+    
 // intensity
 class SetBrightness : public Command {
 protected:

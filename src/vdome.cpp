@@ -91,6 +91,8 @@ void vdome::draw(){
     ofSetHexColor(0xFFFFFF);
 
 	for(int i=0; i<projCount; i++){
+        if (!projectors[i].enable) continue;
+        
         projectors[i].begin();
             input.bind();
                 dome.draw();
@@ -99,6 +101,8 @@ void vdome::draw(){
 	}
     
     for(int i=0; i<projCount; i++){
+        if (!projectors[i].enable) continue;
+
         ofDisableNormalizedTexCoords();
         projectors[i].renderFbo.begin();
         ofClear(0);
@@ -116,6 +120,8 @@ void vdome::draw(){
 	}
 
 	for(int i=0; i<projCount; i++) {
+        if (!projectors[i].enable) continue;
+
         projectors[i].renderFbo.getTextureReference().bind();
         
             if (projectors[i].active) {

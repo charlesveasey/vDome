@@ -38,6 +38,7 @@ void Projector::init(int i){
     gammaB = 1;
 
 	active = false;
+    enable = true;
 
     // plane
     planePosition.set(0,0);
@@ -277,7 +278,7 @@ void Projector::mouseReleased(ofMouseEventArgs& mouseArgs) {
  ********************************************/
 
 void Projector::keyPressed(int key) {
-
+    
     if (editMode == CORNERPIN || editMode == GRID)
         plane.keyPressed(key);
 
@@ -285,6 +286,7 @@ void Projector::keyPressed(int key) {
         mask.keyPressed(key);
 
     switch (key) {
+            
         case 122: // (z)
             history.undo();
             break;
@@ -294,6 +296,8 @@ void Projector::keyPressed(int key) {
 
         case 114: // (r) reset
             switch (editMode) {
+                case ENABLE: history.execute( new SetEnable(*this, true) ); break;
+
                 case BRIGHTNESS: history.execute( new SetBrightness(*this, 1) ); break;
                 case CONTRAST: history.execute( new SetContrast(*this, 1) ); break;
                 case BLACK: history.execute( new SetBlackLevel(*this, 0) ); break;
@@ -349,7 +353,11 @@ void Projector::keyPressed(int key) {
             switch (editMode) {
                 case NONE:
                     break;
-
+                    
+                case ENABLE:
+                    history.execute( new SetEnable(*this, true) );
+                    break;
+                
                 case BRIGHTNESS:
                     history.execute( new SetBrightness(*this, brightness + value * .1) );
                     break;
@@ -464,7 +472,11 @@ void Projector::keyPressed(int key) {
             switch (editMode) {
                 case NONE:
                     break;
-
+                
+                case ENABLE:
+                    history.execute( new SetEnable(*this, false) );
+                    break;
+                    
                 case BRIGHTNESS:
                     history.execute( new SetBrightness(*this, brightness - value * .1) );
                     break;

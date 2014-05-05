@@ -68,7 +68,7 @@ public:
          RADIUS, POSITION, ORIENTATION, LENS, SCALE, SHEAR, BRUSH, LEVELS};
 
     // menu items
-    enum inputItems {SOURCE, FORMAT, INPUT_SCALE};
+    enum inputItems {SOURCE, FORMAT, INPUT_SCALE, ENABLE};
     enum warpItems  {CORNERPIN, GRID};
     enum blendItems {BRIGHTNESS, CONTRAST, B_LEVELS, B_BRUSH};
     enum levelsItems{BLACK, WHITE};
