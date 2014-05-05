@@ -110,7 +110,7 @@ void vdome::draw(){
        
         ofPushMatrix();
          // plane is in absolute coordinates, offset since moving to 3-pass for mask
-            ofTranslate(-projectors[i].getPlanePosition().x*i, 0);
+            ofTranslate(-projectors[i].getPlanePosition().x, 0);
             projectors[i].draw();
         ofPopMatrix();
 
