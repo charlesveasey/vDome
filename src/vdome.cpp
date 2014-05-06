@@ -30,7 +30,7 @@ void vdome::setup(){
     ofSetEscapeQuitsApp(false);
     ofHideCursor();
 
-    window.setup();
+    //window.setup();
     render.setup();
     dome.setup();
 
@@ -61,13 +61,6 @@ void vdome::setup(){
             projectors.push_back(p);
         }
     }
-    
-
-    #ifdef TARGET_OSX
-        //transparent.afterMainSetup(ofxTransparentWindow::SCREENSAVER, // change float mode here
-        //                           window.getPosition().x, window.getPosition().y, window.getDimensions().x, window.getDimensions().y);
-    #endif
-
 }
 
 /******************************************

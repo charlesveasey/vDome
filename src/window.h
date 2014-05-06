@@ -1,4 +1,9 @@
 #include "ofMain.h"
+
+#ifdef TARGET_OSX
+	#include "ofxTransparentWindow.h"
+#endif
+
 namespace vd {
 
 class Window {
@@ -20,6 +25,10 @@ private:
     ofVec2f position;
     ofVec2f dimensions;
 	bool fullscreen;
+    #ifdef TARGET_OSX
+        ofxTransparentWindow	transparent;
+    #endif
+
 };
 
 }

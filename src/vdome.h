@@ -4,10 +4,6 @@
 #include "tcp.h"
 #include "menu.h"
 
-//#ifdef TARGET_OSX
-//	#include "ofxTransparentWindow.h"
-//#endif
-
 namespace vd {
 
 class vdome : public ofBaseApp {
@@ -45,11 +41,6 @@ private:
     string xmlFile;
     void loadXML(ofXml &xml);
     void saveXML(ofXml &xml);
-
-    //#ifdef TARGET_OSX
-    //    ofxTransparentWindow	transparent;
-    //#endif
-
     
     void exit();
 };

@@ -20,9 +20,15 @@ Window::Window(){
  ********************************************/
 
 void Window::setup(){
-    ofSetWindowPosition(position.x,  position.y);
-    ofSetWindowShape(dimensions.x, dimensions.y);
-	ofSetFullscreen(fullscreen);
+    
+    #ifdef TARGET_OSX
+        transparent.afterMainSetup(ofxTransparentWindow::SCREENSAVER, // change float mode here
+                                   getPosition().x, getPosition().y, getDimensions().x, getDimensions().y);
+    #else
+        ofSetWindowPosition(position.x,  position.y);
+        ofSetWindowShape(dimensions.x, dimensions.y);
+        ofSetFullscreen(fullscreen);
+    #endif
 }
 
 /******************************************
