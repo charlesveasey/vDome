@@ -86,10 +86,10 @@ void Window::loadXML(ofXml &xml) {
 
 void Window::saveXML(ofXml &xml) {
     xml.setTo("window");
-    xml.setAttribute("x", ofToString(ofGetWindowPositionX() ));
-    xml.setAttribute("y", ofToString(ofGetWindowPositionY() ));
-    xml.setAttribute("width", ofToString(ofGetWindowWidth() ));
-    xml.setAttribute("height",  ofToString(ofGetWindowHeight() ));
+    xml.setAttribute("x", ofToString(position.x));
+    xml.setAttribute("y", ofToString(position.y));
+    xml.setAttribute("width", ofToString(dimensions.x));
+    xml.setAttribute("height",  ofToString(dimensions.y));
 
     if (fullscreen)
         xml.setAttribute("fullscreen", "true" );
