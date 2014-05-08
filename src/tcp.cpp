@@ -8,7 +8,7 @@ namespace vd {
  ********************************************/
 
 Tcp::Tcp(){
-    enabled = true;
+    enabled = false;
     port = 11999;
 }
 
