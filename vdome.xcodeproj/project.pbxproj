@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		23611ab5ad40b70e230002b7dc0f3f71 /* AVStreamInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 06d1151ac55ed8e3bfb78cfc448c15b9 /* AVStreamInfo.cpp */; };
+		56747478191BF9250014815D /* ofxBezierSurface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56747473191BF9250014815D /* ofxBezierSurface.cpp */; };
 		567AA543190759BA0064C745 /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567AA529190759BA0064C745 /* camera.cpp */; };
 		567AA544190759BA0064C745 /* command.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567AA52B190759BA0064C745 /* command.cpp */; };
 		567AA545190759BA0064C745 /* dome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567AA52D190759BA0064C745 /* dome.cpp */; };
@@ -117,6 +118,8 @@
 		3bd28d6f34850369360ccef500caaa12 /* AVMediaInfo.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = AVMediaInfo.h; path = ../../../addons/ofxLibav/libs/ofxLibav/includes/ofx/Media/AVMediaInfo.h; sourceTree = SOURCE_ROOT; };
 		45c5829bca9a8edaabdd7fb04a6910d6 /* AVInfo.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = AVInfo.cpp; path = ../../../addons/ofxLibav/libs/ofxLibav/src/AVInfo.cpp; sourceTree = SOURCE_ROOT; };
 		55802346b35ec38fe285b340e207744b /* avio.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = avio.h; path = ../../../addons/ofxLibav/libs/libav/include/libavformat/avio.h; sourceTree = SOURCE_ROOT; };
+		56747473191BF9250014815D /* ofxBezierSurface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBezierSurface.cpp; sourceTree = "<group>"; };
+		56747474191BF9250014815D /* ofxBezierSurface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBezierSurface.h; sourceTree = "<group>"; };
 		567AA529190759BA0064C745 /* camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = camera.cpp; sourceTree = "<group>"; };
 		567AA52A190759BA0064C745 /* camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = camera.h; sourceTree = "<group>"; };
 		567AA52B190759BA0064C745 /* command.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = command.cpp; sourceTree = "<group>"; };
@@ -444,6 +447,24 @@
 				06d1151ac55ed8e3bfb78cfc448c15b9 /* AVStreamInfo.cpp */,
 			);
 			name = src;
+			sourceTree = "<group>";
+		};
+		5674745A191BF91F0014815D /* ofxBezierSurface */ = {
+			isa = PBXGroup;
+			children = (
+				56747472191BF9250014815D /* src */,
+			);
+			name = ofxBezierSurface;
+			path = ../../../addons/ofxBezierSurface;
+			sourceTree = "<group>";
+		};
+		56747472191BF9250014815D /* src */ = {
+			isa = PBXGroup;
+			children = (
+				56747473191BF9250014815D /* ofxBezierSurface.cpp */,
+				56747474191BF9250014815D /* ofxBezierSurface.h */,
+			);
+			path = src;
 			sourceTree = "<group>";
 		};
 		567AA550190759ED0064C745 /* ofxAVFVideoPlayer */ = {
@@ -1000,6 +1021,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				5674745A191BF91F0014815D /* ofxBezierSurface */,
 				56BB407C1909E80F00BF74E4 /* ofxTransparentWindow */,
 				567AA550190759ED0064C745 /* ofxAVFVideoPlayer */,
 				567AA580190759ED0064C745 /* ofxHapPlayer */,
@@ -1193,7 +1215,7 @@
 			attributes = {
 				LastUpgradeCheck = 0460;
 			};
-			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "vdome" */;
+			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "vDome" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1256,6 +1278,7 @@
 				567AA683190759ED0064C745 /* HapOFPixelBufferTexture.m in Sources */,
 				56BB409A1909E80F00BF74E4 /* ofxTransparentWindow.cpp in Sources */,
 				567AA68C190759ED0064C745 /* ofxTCPServer.cpp in Sources */,
+				56747478191BF9250014815D /* ofxBezierSurface.cpp in Sources */,
 				567AA549190759BA0064C745 /* plane.cpp in Sources */,
 				567AA69D190759EE0064C745 /* ofxSyphonServer.mm in Sources */,
 				567AA547190759BA0064C745 /* mask.cpp in Sources */,
@@ -1523,6 +1546,7 @@
 					../../../addons/ofxMediaType/src,
 					../../../addons/ofxTransparentWindow/src,
 					../../../addons/ofxTransparentWindow/libs,
+					../../../addons/ofxBezierSurface/src,
 				);
 				ICON = "$(ICON_NAME_DEBUG)";
 				ICON_FILE = "$(ICON_FILE_PATH)$(ICON)";
@@ -1664,6 +1688,7 @@
 					../../../addons/ofxMediaType/libs/ofxMediaType/src,
 					../../../addons/ofxMediaType/src,
 					../../../addons/ofxTransparentWindow/src,
+					../../../addons/ofxBezierSurface/src,
 				);
 				ICON = "$(ICON_NAME_RELEASE)";
 				ICON_FILE = "$(ICON_FILE_PATH)$(ICON)";
@@ -1745,7 +1770,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "vdome" */ = {
+		E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "vDome" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E4B69B4E0A3A1720003C02F2 /* Debug */,

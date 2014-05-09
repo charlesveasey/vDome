@@ -1,51 +1,53 @@
 #include "ofMain.h"
 #include "quadWarp.h"
+#include "ofxBezierSurface.h"
 namespace vd {
 
 class Plane {
 
 public:
     Plane();
+    
+    int width;
+    int height;
+    
     void setup(int i);
     void update();
     void draw();
     void drawConfig();
 
-    ofVboMesh mesh;
-    QuadWarp keystone;
-
-    void keyPressed(int key);
-    void keyReleased(int key);
-    void onMouseDragged(ofMouseEventArgs& mouseArgs);
-    void onMousePressed(ofMouseEventArgs& mouseArgs);
-    void onMouseReleased(ofMouseEventArgs& mouseArgs);
-    void load(ofXml &xml);
-    void save(ofXml &xml);
-
-    void resetKeystone();
+    void resetCornerpin();
     void resetGrid();
 
     vector<float>position;
 
     float value;
 
-    bool keystoneActive;
+    ofMatrix4x4 lm;
+    bool bfirst = true;
+    
+    QuadWarp cornerpin;
+    ofxBezierSurface grid;
+   
+    bool cornerpinActive;
     bool gridActive;
 
-    ofMatrix4x4 mat;
+    vector<ofPoint> cornerpinValues;
 
-    vector<ofVec3f> orgVerts;
-    vector<ofVec3f> gridVerts;
-    vector<ofPoint> keyVals;
-
-    vector<ofPoint> getKeystonePoints();
-    void setKeystonePoints(vector<ofPoint> pts);
-
+    void keyPressed(int key);
+    void keyReleased(int key);
+    void onMouseDragged(ofMouseEventArgs& mouseArgs);
+    void onMousePressed(ofMouseEventArgs& mouseArgs);
+    void onMouseReleased(ofMouseEventArgs& mouseArgs);
+    
+    void load(ofXml &xml);
+    void save(ofXml &xml);
+    
+    vector<ofPoint> getCornerpinPoints();
+    void setCornerpinPoints(vector<ofPoint> pts);
+    
     vector<ofVec3f> getGridPoints();
     void setGridPoints(vector<ofVec3f> v);
-
-    int width;
-    int height;
 
 private:
 
@@ -60,8 +62,7 @@ private:
     int xRes;
     int yRes;
     int pointIndex;
-
-    vector<ofPoint> keystonePoints;
+    vector<ofPoint> cornerpinPoints;
 };
 
 }

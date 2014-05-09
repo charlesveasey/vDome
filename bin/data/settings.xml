@@ -1,6 +1,6 @@
 <vdome frameRate="60" vSync="true">
     
-    <tcp enabled="true" port="1"/>
+    <tcp enabled="false" port="0"/>
         
 	<input file="/Users/Charles/Code/of_v0.8.1_osx_release/apps/vDome/vDome/bin/data" loop="false" resolution="2048" scale="1" source="grid"/>
     
@@ -11,10 +11,10 @@
 	<projectors count="2" dimensions="1024,768">
         
 		<!-- #1 -->
-		<projector brightness="1" contrast="1" cornerpin="0,0,1,0,0,1,1,1" fov="36" gamma="1,1,1,1" hsl="1,1,1" levels="0,255" orientation="0,-18,0" position="0,0,8" scale="1,1" shear="0,0,0,0,0,0"/>
+		<projector brightness="1" contrast="1" fov="36" gamma="1,1,1,1" hsl="1,1,1" levels="0,255" orientation="0,-18,0" position="0,0,8" scale="1,1" shear="0,0,0,0,0,0"/>
 		
 		<!-- #2 -->
-		<projector brightness="1" contrast="1" cornerpin="0,0,1,0,0,1,1,1" fov="36" gamma="1,1,1,1" hsl="1,1,1" levels="0,255" orientation="0,-18,0" position="0,0,8" scale="1,1" shear="0,0,0,0,0,0"/>
+		<projector brightness="1" contrast="1" fov="36" gamma="1,1,1,1" hsl="1,1,1" levels="0,255" orientation="0,-18,0" position="0,0,8" scale="1,1" shear="0,0,0,0,0,0"/>
 
     </projectors>      
 </vdome>

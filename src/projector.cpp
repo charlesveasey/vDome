@@ -207,10 +207,10 @@ void Projector::unbind() {
  ********************************************/
 
 void Projector::draw() {
-    //glEnable(GL_CULL_FACE);
-    //glCullFace( GL_FRONT );
+    glEnable(GL_CULL_FACE);
+    glCullFace( GL_FRONT );
     plane.draw();
-    //glDisable(GL_CULL_FACE);
+    glDisable(GL_CULL_FACE);
 }
 
 void Projector::drawPlaneConfig(){
@@ -218,7 +218,10 @@ void Projector::drawPlaneConfig(){
 }
 
 void Projector::drawKeystone(){
-    plane.keystone.draw();
+    ofPushMatrix();
+    ofTranslate(plane.position[0], plane.position[1]);
+        plane.cornerpin.draw();
+    ofPopMatrix();
 }
 
 /******************************************
@@ -256,7 +259,7 @@ void Projector::mouseDragged(ofMouseEventArgs& mouseArgs) {
 void Projector::mouseReleased(ofMouseEventArgs& mouseArgs) {
     if (editMode == CORNERPIN || editMode == GRID) {
         if (editMode == CORNERPIN) {
-            vector<ofPoint> value = plane.getKeystonePoints();
+            vector<ofPoint> value = plane.getCornerpinPoints();
             history.execute( new SetKeystonePoints(*this, value, lastKey) );
         }
         else if (editMode == GRID) {
@@ -317,7 +320,7 @@ void Projector::keyPressed(int key) {
                 case BRUSH_SCALE: mask.reset();
                                   mask.brushScale = 1; break;
 
-                case CORNERPIN: plane.resetKeystone(); break;
+                case CORNERPIN: plane.resetCornerpin(); break;
                 case GRID: plane.resetGrid(); break;
 
                 case AZIMUTH: history.execute( new SetCameraPosition(*this, 0, cameraPosition.y, cameraPosition.z )); break;
@@ -812,22 +815,22 @@ void Projector::setCameraShear(vector<float> v){
 void Projector::setValue(float v) {
     value = v;
     plane.value = value;
-    plane.keystone.value = value;
+    plane.cornerpin.value = value;
 }
 
 // keystone
 bool Projector::getKeystoneActive() {
-    return plane.keystoneActive;
+    return plane.cornerpinActive;
 }
 void Projector::setKeystoneActive(bool v) {
-    plane.keystoneActive = v;
+    plane.cornerpinActive = v;
 }
 
 vector<ofPoint> Projector::getKeystonePoints() {
-    return plane.getKeystonePoints();
+    return plane.getCornerpinPoints();
 }
 void Projector::setKeystonePoints(vector<ofPoint> pts) {
-    plane.setKeystonePoints(pts);
+    plane.setCornerpinPoints(pts);
 }
 
 // grid active

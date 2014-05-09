@@ -46,7 +46,7 @@ void vdome::setup(){
     input.setup();
 
     // projection shader
-	shader.load("shaders/vdome.vert", "shaders/vdome.frag");
+	shader.load("settings/shaders/vdome.vert", "settings/shaders/vdome.frag");
 
     // xml settings
     xmlFile = "settings.xml";
@@ -101,11 +101,7 @@ void vdome::draw(){
         ofClear(0);
         projectors[i].bind();
        
-        ofPushMatrix();
-         // plane is in absolute coordinates, offset since moving to 3-pass for mask
-            ofTranslate(-projectors[i].getPlanePosition().x, 0);
             projectors[i].draw();
-        ofPopMatrix();
 
         projectors[i].unbind();
         projectors[i].renderFbo.end();

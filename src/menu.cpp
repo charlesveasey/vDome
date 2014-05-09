@@ -39,7 +39,7 @@ Menu::Menu(){
     menuWarp->parent = &menuMain;
     menuWarp->currentItem = 0;
     menuWarp->items.push_back(new Item("Cornerpin"));
-	menuWarp->items.push_back(new Item("Grid"));
+	menuWarp->items.push_back(new Item("Bezier Grid"));
 
     menuBlend = new MenuItem;
     menuBlend->menuId = BLEND;

@@ -119,7 +119,6 @@ ofMatrix4x4 QuadWarp::getMatrixInverse() {
 ofMatrix4x4 QuadWarp::getMatrix(ofPoint * srcPoints, ofPoint * dstPoints) {
 
 	//we need our points as opencv points
-	//be nice to do this without opencv?
 	CvPoint2D32f cvsrc[4];
 	CvPoint2D32f cvdst[4];
 
@@ -226,7 +225,7 @@ void QuadWarp::reset() {
 void QuadWarp::onMousePressed(ofMouseEventArgs& mouseArgs) {
         if(bShow){
             ofPoint mousePoint(mouseArgs.x, mouseArgs.y);
-            mousePoint -= position;
+            //mousePoint -= position;
 
 
             if (mousePoint.x < anchorSize.x + dstPoints[0].x) { // left

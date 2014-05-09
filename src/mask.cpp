@@ -25,7 +25,7 @@ Mask::Mask(){
     brushImage.setUseTexture(true);
     brushImage.setImageType(OF_IMAGE_COLOR_ALPHA);
     maskFboImage.bpp = 16;
-    brushImage.loadImage("brushes/brush.png");
+    brushImage.loadImage("settings/brushes/brush.png");
     brushWidth = brushImage.getWidth();
     brushHeight = brushImage.getHeight();
     brushScale = 1;
@@ -167,13 +167,13 @@ void Mask::keyReleased(int key){
 
 void Mask::load(){
     string filename;
-    filename = "masks/mask-" + ofToString(pIndex+1) + ".png";
+    filename = "settings/masks/mask-" + ofToString(pIndex+1) + ".png";
     read(filename);
 }
 
 void Mask::save(){
     string filename;
-    filename = "masks/mask-" + ofToString(pIndex+1) + ".png";
+    filename = "settings/masks/mask-" + ofToString(pIndex+1) + ".png";
     write(filename);
 }
 
