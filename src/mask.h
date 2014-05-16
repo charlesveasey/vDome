@@ -9,6 +9,11 @@ public:
     void init(int i);
     void setup();
     void draw();
+    void save();
+    void load();
+    int store(int fIndex);
+    void recall(int fIndex);
+    void reset();
 
     void mousePressed(ofMouseEventArgs& mouseArgs);
     void mouseDragged(ofMouseEventArgs& mouseArgs);
@@ -24,40 +29,28 @@ public:
     float brushOpacity;
     float brushScale;
 
-    void save();
-    void load();
-    int store(int fIndex);
-    void recall(int fIndex);
-
-    void reset();
-
     int mouseX;
     int mouseY;
     float hIndex;
-
-    vector<ofPixels> history;
+    
+    ofImage *maskFboImage;
 
 private:
-    bool mouseDown;
-
+    void write(string filename);
+    void read(string filename);
+    
+    ofPixels hPixels;
+    ofPixels maskFboPixels;
+    
     int width;
     int height;
 
     int brushWidth;
     int brushHeight;
-
+    bool mouseDown;
     bool erase;
-
     int pIndex;
-
-    ofImage maskFboImage;
-    string filename;
-    ofPixels maskFboPixels;
-    void write(string filename);
-    void read(string filename);
-
-    ofPixels hPixels;
-
     bool bufferAllocated;
+    string filename;
 };
 }

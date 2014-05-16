@@ -1,48 +1,52 @@
 #pragma once
 #include "ofMain.h"
 #include "window.h"
-#include "tcp.h"
+#include "socket.h"
 #include "menu.h"
+#include "saveThread.h"
+#include <GLFW/glfw3.h>
 
 namespace vd {
-
+  
 class vdome : public ofBaseApp {
 
 public:
     vdome();
 
 private:
+    void setup();
+    void update();
+    void draw();
+    
+    void keyPressed(int key);
+    void keyReleased(int key);
+    
+    void mousePressed(ofMouseEventArgs& mouseArgs);
+    void mouseDragged(ofMouseEventArgs& mouseArgs);
+    void mouseReleased(ofMouseEventArgs& mouseArgs);
+   
+    void dragEvent(ofDragInfo dragInfo);
+
+    void loadXML(ofXml &xml);
+    void saveXML(ofXml &xml);
+    
+    void exit();
+    
     Menu menu;
-    Tcp tcp;
+    Socket socket;
     Input input;
     Render render;
     Window window;
     Dome dome;
     ofShader shader;
-
     vector<Projector> projectors;
-
-    void setup();
-    void update();
-    void draw();
-
-    void keyPressed(int key);
-    void keyReleased(int key);
-
-    void mousePressed(ofMouseEventArgs& mouseArgs);
-    void mouseDragged(ofMouseEventArgs& mouseArgs);
-    void mouseReleased(ofMouseEventArgs& mouseArgs);
-
-    void dragEvent(ofDragInfo dragInfo);
-
     ofVec3f sphToCar(ofVec3f t);
 
     ofXml xml;
     string xmlFile;
-    void loadXML(ofXml &xml);
-    void saveXML(ofXml &xml);
-    
-    void exit();
+    SaveThread saveThread;
+    bool autosave;
 };
 
 }
+

@@ -39,6 +39,8 @@ void Projector::init(int i){
 
 	active = false;
     enable = true;
+    
+    fboSample = 4;
 
     // plane
     planePosition.set(0,0);
@@ -97,7 +99,7 @@ void Projector::setup() {
     if (fbo.getWidth() != planeDimensions.x || fbo.getHeight() != planeDimensions.y) {
         fbo.allocate(planeDimensions.x, planeDimensions.y, GL_RGBA);
         renderFbo.setUseTexture(true);
-        renderFbo.allocate(planeDimensions.x, planeDimensions.y, GL_RGBA);
+        renderFbo.allocate(planeDimensions.x, planeDimensions.y, GL_RGBA, fboSample);
         
         int x = planePosition.x;
         int y = planePosition.y;
@@ -129,6 +131,7 @@ void Projector::setup() {
     renderFbo.end();
     
     mask.setup();
+    
 }
 
 
@@ -139,10 +142,10 @@ void Projector::setCameraTransform(){
 
     camera.roll(cameraOrientation.x);
     camera.tilt(cameraOrientation.y);
-    camera.pan(cameraOrientation.z+cameraPosition.x);
+    camera.pan(cameraOrientation.z+cameraPosition.x*-1);
 
     // spherical coordinates: azi, ele, dis
-    ofVec3f car = sphToCar(ofVec3f(cameraPosition.x, cameraPosition.y, cameraPosition.z));
+    ofVec3f car = sphToCar(ofVec3f(cameraPosition.x*-1, cameraPosition.y, cameraPosition.z));
     camera.setPosition(car);
 }
 
@@ -191,8 +194,6 @@ void Projector::end() {
  ********************************************/
 
 void Projector::bind() {
-    //if (active)
-    //    mask.draw();
     fbo.getTextureReference().bind();
 }
 
@@ -727,8 +728,6 @@ void Projector::saveXML(ofXml &xml) {
     xml.setAttribute("shear", ofToString(roundTo(cameraShear[0], .001)) +  "," + ofToString(roundTo(cameraShear[1], .001)) +  "," + ofToString(roundTo(cameraShear[2], .001)) +
                         "," + ofToString(roundTo(cameraShear[3], .001)) +  "," + ofToString(roundTo(cameraShear[4], .001)) +  "," + ofToString(roundTo(cameraShear[5], .001)) );
 
-    
-    
     // plane
     //xml.setAttribute("dimensions", ofToString(planeDimensions.x) +  "," + ofToString(planeDimensions.y) );
 
@@ -738,7 +737,6 @@ void Projector::saveXML(ofXml &xml) {
     xml.setToParent();
     xml.setToParent();
 }
-
 
 
 /******************************************
@@ -768,7 +766,7 @@ void Projector::setPlaneDimensions(float x, float y){
 ofVec3f Projector::getCameraPosition(){
     return cameraPosition;
 }
-void Projector::setCameraPosition(float azi, float ele, float dis){
+void Projector::setCameraPosition(float azi, float ele, float dis){    
     cameraPosition.set(azi, ele, dis);
     setCameraTransform();
 }

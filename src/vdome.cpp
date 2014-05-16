@@ -5,7 +5,8 @@ namespace vd {
 float projCount = 1;
 float projWidth = 1024;
 float projHeight = 768;
-int maxHistory = 10;
+int maxHistory = 25;
+vector<ofPixels> maskHistory;
 
 /******************************************
 
@@ -17,6 +18,8 @@ vdome::vdome() {
     menu.input = &input;
     menu.dome = &dome;
     menu.projectors = &projectors;
+    socket.input = &input;
+    autosave = false;
 }
 
 /******************************************
@@ -26,21 +29,13 @@ vdome::vdome() {
  ********************************************/
 
 void vdome::setup(){
-
     ofSetEscapeQuitsApp(false);
     ofHideCursor();
 
-    //window.setup();
     render.setup();
     dome.setup();
 
-    // input
-    // 0 = image
-	// 1 = capture
-    // 2 = video
-    // 3 = hap
-    // 4 = syphon
-
+    // input setup
     input.source = 0;
     input.frameRate = render.getFrameRate();
     input.setup();
@@ -50,7 +45,9 @@ void vdome::setup(){
 
     // xml settings
     xmlFile = "settings.xml";
-    
+    saveThread.xml.push_back(&xml);
+    saveThread.files.push_back(xmlFile);
+
     if (xml.load(xmlFile)) {
         loadXML(xml);
     }
@@ -61,6 +58,23 @@ void vdome::setup(){
             projectors.push_back(p);
         }
     }
+    
+    for(int i=0; i<projCount; i++) {
+        Projector p = projectors[i];
+        saveThread.xml.push_back(p.plane.wXml);
+        saveThread.files.push_back("settings/warp/warp-"+ofToString(i+1)+".xml");
+        saveThread.image.push_back(projectors[i].mask.maskFboImage);
+        saveThread.imageFiles.push_back("settings/masks/mask-" + ofToString(i+1) + ".png");
+    }
+    
+    maskHistory.clear();
+    for (int i=0; i<=(maxHistory+2); i++) {
+        ofPixels buffer;
+        buffer.allocate(projWidth, projHeight, OF_IMAGE_COLOR_ALPHA);
+        maskHistory.push_back(buffer);
+    }
+    
+    menu.autosave = autosave;
 }
 
 /******************************************
@@ -71,6 +85,8 @@ void vdome::setup(){
 
 void vdome::update() {
     input.update();
+    if (socket.enabled)
+        socket.update();
 }
 
 /******************************************
@@ -108,14 +124,13 @@ void vdome::draw(){
         ofEnableNormalizedTexCoords();
 	}
 
-	for(int i=0; i<projCount; i++) {
+	for(int i=0; i<projCount; i++) {        
         if (!projectors[i].enable) continue;
 
         projectors[i].renderFbo.getTextureReference().bind();
         
-            if (projectors[i].active) {
+            if (projectors[i].active)
                 projectors[i].mask.draw();
-            }
         
             shader.begin();
 
@@ -135,7 +150,7 @@ void vdome::draw(){
 
                 shader.setUniformTexture("texsampler", projectors[i].renderFbo.getTextureReference(), 0);
                 shader.setUniformTexture("maskTex", projectors[i].mask.maskFbo.getTextureReference(), 1);
-
+        
                 projectors[i].renderPlane.draw();
     
             shader.end();
@@ -143,7 +158,13 @@ void vdome::draw(){
         projectors[i].renderFbo.getTextureReference().unbind();
 	}
 
-    menu.draw();
+    if (menu.active) {
+        if (saveThread.saved) {
+            menu.saved = true;
+            saveThread.saved = false;
+        }
+        menu.draw();
+    }
 }
 
 /******************************************
@@ -174,9 +195,16 @@ void vdome::loadXML(ofXml &xml) {
     render.loadXML(xml);
     window.loadXML(xml);
     dome.loadXML(xml);
+    socket.loadXML(xml);
 
     for(int i=0; i<projCount; i++) {
         projectors[i].loadXML(xml);
+    }
+    
+    if (xml.exists("[@autosave]")) {
+        string str = ofToString( xml.getAttribute("[@autosave]") );
+        if (str == "on")    autosave = true;
+        else                autosave = false;
     }
 }
 
@@ -185,19 +213,17 @@ void vdome::saveXML(ofXml &xml) {
     xml.setAttribute("count", ofToString(projCount));
     xml.setToParent();
 
-    tcp.saveXML(xml);
+    socket.saveXML(xml);
     input.saveXML(xml);
     render.saveXML(xml);
     window.saveXML(xml);
     dome.saveXML(xml);
 
     for(int i=0; i<projCount; i++) {
-		projectors[i].saveXML(xml);
+        projectors[i].saveXML(xml);
 	}
 
-    if (xml.save(xmlFile)) {
-        menu.saved = true;
-    }
+    saveThread.save();
 }
 
 /******************************************
@@ -217,6 +243,8 @@ void vdome::mouseDragged(ofMouseEventArgs& mouseArgs) {
 
 void vdome::mouseReleased(ofMouseEventArgs& mouseArgs) {
     menu.mouseReleased(mouseArgs);
+    if (autosave && menu.active)
+        saveXML(xml);
 }
 
 /******************************************
@@ -226,17 +254,19 @@ void vdome::mouseReleased(ofMouseEventArgs& mouseArgs) {
  ********************************************/
 
 void vdome::keyPressed(int key){
-    if (key == 115) { // s
-        if (menu.active && menu.ctrl)  { // ctrl + s = save file
+    if (key == 115 && !autosave) { // s
+        if (menu.active && menu.ctrl)
             saveXML(xml);
-            cout << "saveXML " << endl;
-        }
     }
     menu.keyPressed(key);
 }
 
 void vdome::keyReleased(int key){
     menu.keyReleased(key);
+    if (key != OF_KEY_UP || key == OF_KEY_DOWN) {
+        if (autosave && menu.active)
+            saveXML(xml);
+    }
 }
 
 /******************************************
@@ -249,7 +279,6 @@ void vdome::dragEvent(ofDragInfo dragInfo){
     input.dragEvent(dragInfo);
 }
 
-
 /******************************************
 
  EXIT
@@ -257,7 +286,8 @@ void vdome::dragEvent(ofDragInfo dragInfo){
  ********************************************/
 
 void vdome::exit(){
-    cout << "exit" << endl;
+    input.stop();
+    input.close();
 }
 
 }

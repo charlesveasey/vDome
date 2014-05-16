@@ -7,7 +7,6 @@ int main( ){
     ofSetLogLevel(OF_LOG_SILENT);
 	ofSetCurrentRenderer(ofGLProgrammableRenderer::TYPE);
     ofAppGLFWWindow win;
-	//win.setMultiDisplayFullscreen(false);
-    ofSetupOpenGL(&win, 1680,1080, OF_WINDOW);
+    ofSetupOpenGL(&win, 1920,1080, OF_WINDOW);
 	ofRunApp(new vd::vdome());
 }

@@ -1,26 +1,25 @@
+#pragma once
 #include "ofMain.h"
-#include "ofxNetwork.h"
+#include "ofxOsc.h"
+#include "input.h"
 namespace vd {
 
-class Tcp {
+class Socket {
 
 public:
-
-    Tcp();
+    Socket();
     void setup();
-    void draw();
+    void update();
 
     void loadXML(ofXml &xml);
     void saveXML(ofXml &xml);
 
-    ofxTCPServer server;
-    vector <string> storeText;
-
+    ofxOscReceiver oscReceiver;
+    
     int port;
     bool enabled;
-
-    int x;
-    int y;
+    
+    Input *input;
 };
 
 }

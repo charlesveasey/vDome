@@ -1,3 +1,4 @@
+#pragma once
 #include "ofMain.h"
 #include "quadWarp.h"
 #include "ofxBezierSurface.h"
@@ -18,22 +19,7 @@ public:
 
     void resetCornerpin();
     void resetGrid();
-
-    vector<float>position;
-
-    float value;
-
-    ofMatrix4x4 lm;
-    bool bfirst = true;
     
-    QuadWarp cornerpin;
-    ofxBezierSurface grid;
-   
-    bool cornerpinActive;
-    bool gridActive;
-
-    vector<ofPoint> cornerpinValues;
-
     void keyPressed(int key);
     void keyReleased(int key);
     void onMouseDragged(ofMouseEventArgs& mouseArgs);
@@ -42,15 +28,24 @@ public:
     
     void load(ofXml &xml);
     void save(ofXml &xml);
-    
+
+    ofXml *wXml;
+    float value;
+    ofMatrix4x4 lm;
+    bool bfirst = true;
+    QuadWarp cornerpin;
+    ofxBezierSurface grid;
+    bool cornerpinActive;
+    bool gridActive;
+    vector<ofPoint> cornerpinValues;
     vector<ofPoint> getCornerpinPoints();
     void setCornerpinPoints(vector<ofPoint> pts);
+    vector<float>position;
     
     vector<ofVec3f> getGridPoints();
     void setGridPoints(vector<ofVec3f> v);
 
 private:
-
     float index;
     bool shift;
     ofPoint lastM;

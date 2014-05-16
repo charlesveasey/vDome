@@ -12,12 +12,15 @@ Input::Input(){
     resolution = 2048;
     frameRate = 30;
     loop = false;
-	usePbo = true;
+	usePbo = false;
     isVideo = false;
 	nFrame = false;
     mediaTypeMap = new MediaTypeMap("media/mime.types");
     file = "";
+    fileIndex = 0;
+    imageDuration = 10;
 
+    
     #ifdef TARGET_WIN32
         ofxWMFVideoPlayer wmf;
     #endif
@@ -44,6 +47,7 @@ Input::Input(){
 		}
 	#endif
 
+    
 	#ifdef TARGET_LINUX
     #endif
 
@@ -56,6 +60,7 @@ Input::Input(){
  ********************************************/
 
 void Input::setup(){
+    
     stop();
 	close();
     texture.clear();
@@ -71,16 +76,13 @@ void Input::setup(){
     // create input
     switch(source){
             
-        case BLACK:
-			fillTexture(ofColor(0));
+        case BLACK: fillTexture(ofColor(0));
             break;
  
-        case WHITE:
-			fillTexture(ofColor(255));
+        case WHITE: fillTexture(ofColor(255));
             break;
             
-        case GREY:
-			fillTexture(ofColor(128));
+        case GREY: fillTexture(ofColor(128));
             break;
             
         case GRID: 
@@ -98,20 +100,14 @@ void Input::setup(){
 					if (vRenderer == AVF){
 						avf.loadMovie(file);
                         avf.play();
-                        if (loop) avf.setLoopState(OF_LOOP_NORMAL);
-                        else avf.setLoopState(OF_LOOP_NONE);
 					}
 					else if (vRenderer == QT2){
 						qt.loadMovie(file, OF_QTKIT_DECODE_PIXELS_AND_TEXTURE);
 						qt.play();
-                        if (loop) qt.setLoopState(OF_LOOP_NORMAL);
-                        else qt.setLoopState(OF_LOOP_NONE);
 					}
 					else if (vRenderer == HAP){
 						hap.loadMovie(file, OF_QTKIT_DECODE_TEXTURE_ONLY);
 						hap.play();
-                        if (loop) hap.setLoopState(OF_LOOP_NORMAL);
-                        else hap.setLoopState(OF_LOOP_NONE);
 					}
 					else if (vRenderer == QT){
 						video.loadMovie(file);
@@ -145,12 +141,12 @@ void Input::setup(){
 					texture = video.getTextureReference();
                 #endif
                 
-                if (loop) video.setLoopState(OF_LOOP_NORMAL);
-                else video.setLoopState(OF_LOOP_NONE);
+                setLoop(loop);
             }
             else {
                 image.loadImage(file);
                 texture = image.getTextureReference();
+                if (imageDuration && fileList.size() > 1)  startTimer();
             }
             break;
             
@@ -179,10 +175,40 @@ void Input::setup(){
 
 /******************************************
 
- STOP
+ CONTROLS
 
  ********************************************/
 
+void Input::play() {
+    if (isVideo) {
+        if      (vRenderer == AVF)  avf.play();
+        else if (vRenderer == QT2)  qt.play();
+        else if (vRenderer == HAP)  hap.play();
+        else if (vRenderer == QT)   video.play();
+    }
+    else {
+        if (fileIndex >= fileList.size())
+            fileIndex = 0;
+        startTimer();
+    }
+}
+    
+void Input::toggle() {
+    if (isVideo) {
+        if (!video.isPlaying()) {
+            if      (vRenderer == AVF)  avf.play();
+            else if (vRenderer == QT2)  qt.play();
+            else if (vRenderer == HAP)  hap.play();
+            else if (vRenderer == QT)   video.play();
+        }
+        else stop();
+    }
+    else {
+        if (timerRunning)   stopTimer();
+        else                startTimer();
+    }
+}
+    
 void Input::stop() {
     video.stop();
     if(capture.isInitialized())
@@ -198,12 +224,6 @@ void Input::stop() {
 			wmf.stop();
     #endif
 }
-
-/******************************************
-
- CLOSE
-
- ********************************************/
 
 void Input::close() {
     image.clear();
@@ -221,32 +241,91 @@ void Input::close() {
     #endif
 }
     
-/******************************************
- 
- PLAY/PAUSE
- 
- ********************************************/
+void Input::prev() {
+    getPrevFile();
+}
     
-void Input::togglePause() {
-    if (!video.isPlaying()) {
-        if (vRenderer == AVF){
-            avf.play();
-        }
-        else if (vRenderer == QT2){
-            qt.play();
-        }
-        else if (vRenderer == HAP){
-            hap.play();
-        }
-        else if (vRenderer == QT){
-            video.play();
-        }
-    }
-    else{
-        video.stop();
+void Input::next() {
+    getNextFile();
+}
+
+void Input::seek(float f) {
+    if (isVideo) {
+        if      (vRenderer == AVF)  avf.setPosition(f/1000);
+        else if (vRenderer == QT2)  qt.setPosition(f/1000);
+        else if (vRenderer == HAP)  hap.setPosition(f/1000);
+        else if (vRenderer == QT)   video.setPosition(f/1000);
     }
 }
 
+void Input::prevFrame() {
+    if (isVideo) {
+        if      (vRenderer == AVF)  avf.previousFrame();
+        else if (vRenderer == QT2)  qt.previousFrame();
+        else if (vRenderer == HAP)  hap.previousFrame();
+        else if (vRenderer == QT)   video.previousFrame();
+    }
+}
+
+void Input::nextFrame() {
+    if (isVideo) {
+        if      (vRenderer == AVF)  avf.nextFrame();
+        else if (vRenderer == QT2)  qt.nextFrame();
+        else if (vRenderer == HAP)  hap.nextFrame();
+        else if (vRenderer == QT)   video.nextFrame();
+    }
+}
+    
+bool Input::getLoop() {
+    return loop;
+}
+
+void Input::setLoop(bool b) {
+    loop = b;
+    ofLoopType v;
+    
+    if (loop && fileList.size() <= 1)
+        v = OF_LOOP_NORMAL;
+    else
+        v = OF_LOOP_NONE;
+    
+    if      (vRenderer == AVF)  avf.setLoopState(v);
+    else if (vRenderer == QT2)  qt.setLoopState(v);
+    else if (vRenderer == HAP)  hap.setLoopState(v);
+    else if (vRenderer == QT)   video.setLoopState(v);
+}
+
+string Input::getSource() {
+    return "";
+}
+
+void Input::setSource(string s) {
+    if      (s == "media")      source = MEDIA;
+    else if (s == "capture")    source = CAPTURE;
+    else if (s == "syphon")     source = SYPHON;
+    else if (s == "grid")       source = GRID;
+    else if (s == "black")      source = BLACK;
+    else if (s == "white")      source = WHITE;
+    else if (s == "grey")       source = GREY;
+}
+
+string Input::getFile() {
+    return file;
+}
+
+void Input::setFile(string s) {
+    file = s;
+}
+
+float Input::getPosition() {
+    float pos;
+    if      (vRenderer == AVF)  pos = avf.getPosition();
+    else if (vRenderer == QT2)  pos = qt.getPosition();
+    else if (vRenderer == HAP)  pos = hap.getPosition();
+    else if (vRenderer == QT)   pos = video.getPosition();
+    return pos;
+}
+    
 /******************************************
 
  BIND
@@ -254,7 +333,8 @@ void Input::togglePause() {
  ********************************************/
 
 void Input::bind(){
-    
+    texture.setTextureWrap(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
+
 	if (source == GRID || source == BLACK ||
         source == WHITE || source == GREY) {
 		texture.bind();
@@ -264,17 +344,15 @@ void Input::bind(){
             if (isVideo) {
                 if (vRenderer == AVF)
                     avf.getTextureReference().bind();
-                else if (vRenderer == QT2) {
+                else if (vRenderer == QT2)
                     qt.getTexture()->bind();
-                }
                 else if (vRenderer == HAP)
                     hap.getTexture()->bind();
                 else if (vRenderer == QT)
                     texture.bind();
             }
-            else {
+            else
                 texture.bind();
-            }
 		#endif
 
 		#ifdef TARGET_WIN32
@@ -284,9 +362,8 @@ void Input::bind(){
 				else if (vRenderer == DS || vRenderer == GST)
 					texture.bind();
 			}
-			else {
+			else
 				texture.bind();
-			}
 		#endif
 
         #ifdef TARGET_LINUX
@@ -377,8 +454,13 @@ void Input::update(){
                     qt.update();
                 else if (vRenderer == HAP)
                     hap.update();
-                else if (vRenderer == QT)
+                else if (vRenderer == QT) {
                     video.update();
+                    if (video.getIsMovieDone()) {
+                        getNextFile();
+                    }
+
+                }
 			#endif
 
             #ifdef TARGET_LINUX
@@ -405,6 +487,10 @@ void Input::update(){
 				}
 			#endif
 		}
+        else {
+            if (timerRunning)
+                evalTimer();
+        }
     }
     
 	else if (source == CAPTURE)
@@ -413,7 +499,6 @@ void Input::update(){
 
 void Input::newFrame(ofPixels & pixels) {
 	nFrame = true;
-	//cout << " new frame" << endl;
 }
 
 
@@ -426,64 +511,80 @@ void Input::newFrame(ofPixels & pixels) {
 void Input::keyPressed(int key) {
     switch (key) {
         case OF_KEY_RIGHT:
-			if (source+1 > maxSource)
-				source = maxSource;
-			else {
-                source++;
-                #ifdef TARGET_WIN32
-                if (source == SYPHON)
-                    source++;
-                #endif
-                #ifdef TARGET_LINUX
-                if (source == SYPHON)
-                    source++;
-                #endif
+            
+            switch (editMode) {
+                case SOURCE:
+                    if (source+1 > maxSource)
+                        source = maxSource;
+                    else {
+                        source++;
+                        #ifdef TARGET_WIN32
+                        if (source == SYPHON)
+                            source++;
+                        #endif
+                        #ifdef TARGET_LINUX
+                        if (source == SYPHON)
+                            source++;
+                        #endif
+                    }
+                    if (source == MEDIA)
+                        parseFileType(file);
+                    setup();
+                    break;
+                    
+                case LOOP:
+                    setLoop(true);
+                    break;
             }
-			if (source == MEDIA)
-				parseFileType(file);
-			setup();
             break;
+        
         case OF_KEY_LEFT:
-			if (source-1 < 0)
-				source = 0;
-			else {
-				source--;
-                #ifdef TARGET_WIN32
-                if (source == SYPHON)
-                    source--;
-                #endif
-                #ifdef TARGET_LINUX
-                if (source == SYPHON)
-                    source--;
-                #endif
+            switch (editMode) {
+
+                case SOURCE:
+                    if (source-1 < 0)
+                        source = 0;
+                    else {
+                        source--;
+                        #ifdef TARGET_WIN32
+                        if (source == SYPHON)
+                            source--;
+                        #endif
+                        #ifdef TARGET_LINUX
+                        if (source == SYPHON)
+                            source--;
+                        #endif
+                    }
+                    if (source == MEDIA)
+                        parseFileType(file);
+                    setup();
+                    break;
+                
+                case LOOP:
+                    setLoop(false);
+                    break;
             }
-			if (source == MEDIA)
-				parseFileType(file);
-            setup();
-			break;
+            break;
     }
 }
     
 /******************************************
  
- FILE
+ FILE OPEN EVENTS
  
  ********************************************/
     
 void Input::dragEvent(ofDragInfo dragInfo){
-	source = MEDIA;
-    parseFileType(dragInfo.files[0]);    
-    setup();
+    openMediaFile(dragInfo.files);
 }
 
 void Input::openFileDialog(){
-	source = MEDIA;
-	ofFileDialogResult openFileResult = ofSystemLoadDialog("Select a media file");
-	if (openFileResult.bSuccess){
-		parseFileType(openFileResult.filePath);    
-		setup();
-			
-	}
+    ofFileDialogResult openFileResult = ofSystemLoadDialog("Select a media file");
+	if (openFileResult.bSuccess) {
+        vector<string> files;
+        files.push_back(openFileResult.filePath);
+        openMediaFile(files);
+    }
 }
     
 /******************************************
@@ -535,7 +636,7 @@ void Input::loadXML(ofXml &xml) {
     
     if (xml.exists("input[@loop]")) {
         v = xml.getAttribute("input[@loop]");
-        if (v == "true") loop = true;
+        if (v == "on") loop = true;
         else             loop = false;
     }
     
@@ -544,7 +645,7 @@ void Input::loadXML(ofXml &xml) {
 
 void Input::saveXML(ofXml &xml) {
     xml.setTo("input");
-    xml.setAttribute("resolution", ofToString(resolution) );
+    xml.setAttribute("resolution", ofToString(resolution));
 
     string str;
 
@@ -552,111 +653,144 @@ void Input::saveXML(ofXml &xml) {
     else if (source == MEDIA)     str = "media";
     else if (source == CAPTURE)   str = "capture";
     else if (source == SYPHON)    str = "syphon";
-    else if (source == BLACK)    str = "black";
-    else if (source == WHITE)    str = "white";
-    else if (source == GREY)    str = "grey";
+    else if (source == BLACK)     str = "black";
+    else if (source == WHITE)     str = "white";
+    else if (source == GREY)      str = "grey";
     
     xml.setAttribute("source", str );
     xml.setAttribute("file", file );
-    if (loop) xml.setAttribute("loop", "true");
-    else      xml.setAttribute("loop", "false");
+    if (loop) xml.setAttribute("loop", "on");
+    else      xml.setAttribute("loop", "off");
     xml.setToParent();
 }
 
 /******************************************
  
- FILE METADATA
+ IMAGE TIMER
  
  ********************************************/
+
+void Input::startTimer(){
+    startTime = ofGetElapsedTimeMillis();  // get the start time
+    endTime = 1000 * imageDuration;
+    timerRunning = true;
+}
+   
+void Input::evalTimer(){
+    float timer = ofGetElapsedTimeMillis() - startTime;
+        
+    if (timer >= endTime) {
+        stopTimer();
+        getNextFile();
+    }
+}
+    
+void Input::stopTimer(){
+    startTime = 0;
+    timerRunning = false;
+}
+
+/******************************************
+ 
+ FILE
+ 
+ ********************************************/
+
+void Input::openMediaFile(vector<string> files){
+    stop();
+    fileList.clear();
+    fileIndex = 0;
+	source = MEDIA;
+    
+    for (int i=0; i<files.size(); i++) {
+        fileList.push_back(files[i]);
+    }
+    if (fileList.size())
+        parseFileType(fileList[0]);
+}
+
+void Input::getPrevFile(){
+    if (fileList.size() > 1) {
+        if (fileIndex >= 1) {
+            fileIndex--;
+            parseFileType(fileList[fileIndex]);
+        }
+        if (fileIndex < 1) {
+            stopTimer();
+        }
+    }
+}
+    
+void Input::getNextFile(){
+    if (fileList.size() > 1) {
+        fileIndex++;
+        if (fileIndex >= fileList.size()) {
+            if (loop)   fileIndex = 0;
+        }
+        
+        if (fileIndex < fileList.size()) {
+            parseFileType(fileList[fileIndex]);
+        }
+        
+        if (fileIndex+1 >= fileList.size()) {
+            if (!loop) stopTimer();
+        }
+    }
+}
     
 void Input::parseFileType(string filepath){
     oFile.open(filepath);
     pFile = oFile.getPocoFile();
 	file = oFile.getAbsolutePath();
     filename = oFile.getFileName();
-    mediaType = mediaTypeMap->getMediaTypeForPath(pFile.path()).toString();
-    string sub = ofSplitString(mediaType, "/")[0];
-    
-    if (sub == "video")
-        isVideo = true;
-    else
-        isVideo = false;
+
+    if (oFile.isDirectory()) {
+        ofDirectory dir;
+        dir.listDir(file);
+        dir.sort(); // in linux the file system doesn't return file lists ordered in alphabetical order
+        if (dir.size()) {
+            vector <string> files;
+          	for(int i = 0; i < (int)dir.size(); i++){
+                files.push_back(dir.getPath(i));
+            }
+            openMediaFile(files);
+        }
+    }
+    else if (oFile.isFile()) {
+        mediaType = mediaTypeMap->getMediaTypeForPath(pFile.path()).toString();
+        string sub = ofSplitString(mediaType, "/")[0];
+        
+        if (oFile.getExtension() == "m3u") {
+            playlist = filepath;
+            parsePlaylist(playlist);
+        }
+        else {
+            if (sub == "video")         isVideo = true;
+            else if  (sub == "image")   isVideo = false;
+
+            if (sub == "video" || sub == "image")
+                setup();
+            else
+                getNextFile();
+        }
+    }
     
     oFile.close();
 }
     
-#ifdef TARGET_OSX
-void Input::parseVideoCodec(string filepath){
-    AVMediaInfo info = AVProbe::probe(filepath);
-    string codecCode = "";
+void Input::parsePlaylist(string filepath){
+    m3u.load(filepath);
+    vector<M3UItem> items = m3u.getItems();
     
-    cout << "filename:" << " " << info.path.getFileName() << endl;
-    cout << "Metadata:" << endl;
+    fileList.clear();
     
-    Poco::Net::NameValueCollection::ConstIterator iter = info.metadata.begin();
-    while(iter != info.metadata.end())
-    {
-        cout << iter->first << "=" << iter->second << endl;
-        ++iter;
+    for (int i=0; i<items.size(); i++) {
+        fileList.push_back(items[i].file);
     }
     
-    for(size_t i = 0; i < info.streams.size(); i++)
-    {
-        cout << endl;
-        cout << "stream (" << ofToString(i+1) << "/" << info.streams.size() << ")" << endl;
-        cout << "=========================================================================" << endl;
-        
-        AVStreamInfo stream = info.streams[i];
-        
-        if(stream.codecType == AVMEDIA_TYPE_VIDEO)
-        {
-            cout << setw(20) << "type:" << " " << "VIDEO STREAM" << endl;
-            cout << setw(20) << "width:" << " " << stream.videoWidth << endl;
-            cout << setw(20) << "height:" << " " << stream.videoHeight << endl;
-            cout << setw(20) << "decoded format:" << " " << stream.videoDecodedFormat << endl;
-            
-        }
-        else if(stream.codecType == AVMEDIA_TYPE_AUDIO)
-        {
-            cout << setw(20) << "type:" << " " << "AUDIO STREAM" << endl;
-            cout << setw(20) << "num channels:" << " " << stream.audioNumChannels << endl;
-            cout << setw(20) << "bits / sample:" << " " << stream.audioBitsPerSample << endl;
-            cout << setw(20) << "sample rate:" << " " << stream.audioSampleRate << endl;
-            
-        }
-        else
-        {
-        }
-        
-        cout << setw(20) << "codec:" << " " << stream.codecName << " [" << stream.codecLongName << "]" << endl;
-        
-        codecCode = ofToString(stream.codecTag);
-        
-        cout << setw(20) << "codec tag:" << " " << codecCode << endl;
-        cout << setw(20) << "stream codec tag:" << " " << stream.streamCodecTag << endl;
-        cout << setw(20) << "profile:" << " " << stream.codecProfile << endl;
-        cout << endl;
-        
-        cout << setw(20) << "avg. bitrate:" << " " << stream.averageBitRate << endl;
-        cout << setw(20) << "avg. framerate:" << " " << (double)stream.averageFrameRate.num / stream.averageFrameRate.den << endl;
-        
-        cout << setw(20) << "Metadata:" << endl;
-        
-        Poco::Net::NameValueCollection::ConstIterator iter = stream.metadata.begin();
-        while(iter != stream.metadata.end())
-        {
-            cout << setw(30) << iter->first << "=" << iter->second << endl;
-            ++iter;
-        }
-        
-        if (codecCode == "avc1")
-            vRenderer = AVF;
-        else if (codecCode == "Hap1")
-            vRenderer = HAP;
-        else
-            vRenderer = QT; //X
+    if (fileList.size()) {
+        parseFileType(fileList[0]);
     }
-    
 }
- #endif
+    
 }

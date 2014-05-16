@@ -30,6 +30,7 @@ Plane::Plane(){
     width = projWidth;
     height = projHeight;
     
+    wXml = new ofXml;
 }
     
 /******************************************
@@ -187,12 +188,11 @@ void Plane::onMouseReleased(ofMouseEventArgs& mouseArgs){
  ********************************************/
 
 void Plane::load(ofXml &xml) {
-    
-    ofXml warpXML;
-    warpXML.load("settings/warp/warp-"+ofToString(index+1)+".xml");
+    wXml->clear();
+    wXml->load("settings/warp/warp-"+ofToString(index+1)+".xml");
 
-    if (warpXML.exists("cornerpin[@points]")) {
-        string str = warpXML.getAttribute("cornerpin[@points]");
+    if (wXml->exists("cornerpin[@points]")) {
+        string str = wXml->getAttribute("cornerpin[@points]");
         cornerpinValues[0].x = ofToFloat(ofSplitString(str, ",")[0]);
         cornerpinValues[0].y = ofToFloat(ofSplitString(str, ",")[1]);
         cornerpinValues[1].x = ofToFloat(ofSplitString(str, ",")[2]);
@@ -203,20 +203,18 @@ void Plane::load(ofXml &xml) {
         cornerpinValues[3].y = ofToFloat(ofSplitString(str, ",")[7]);
     }
     
-    warpXML.setTo("bezier");
+    wXml->setTo("bezier");
     string str;
     vector<ofVec3f> vec;
-    for (int i = 0; i<warpXML.getNumChildren(); i++) {
-        if (warpXML.exists("point["+ofToString(i)+"][@xyz]")) {
-            str = warpXML.getAttribute("point["+ofToString(i)+"][@xyz]");
+    for (int i = 0; i<wXml->getNumChildren(); i++) {
+        if (wXml->exists("point["+ofToString(i)+"][@xyz]")) {
+            str = wXml->getAttribute("point["+ofToString(i)+"][@xyz]");
             int x = ofToInt(ofSplitString(str, ",")[0]);
             int y = ofToInt(ofSplitString(str, ",")[1]);
             int z = ofToInt(ofSplitString(str, ",")[2]);
             vec.push_back(ofVec3f(x,y,z));
         }
     }
-    //setup(index);
-    
     
     int w = width;
     int h = height;
@@ -250,16 +248,16 @@ void Plane::save(ofXml &xml) {
     int h = projHeight;
     int x = index*w;
     int y = 0;
+        
+    wXml->clear();
 
-    ofXml warpXML;
-    warpXML.addChild("projector");
-    warpXML.setTo("projector");
+    wXml->addChild("projector");
+    wXml->setTo("projector");
     
+    wXml->addChild("cornerpin");
+    wXml->setTo("cornerpin");
     
-    warpXML.addChild("cornerpin");
-    warpXML.setTo("cornerpin");
-    
-    warpXML.setAttribute("points",
+    wXml->setAttribute("points",
                          ofToString((cornerpin.dstPoints[0].x)/w) +  "," +
                          ofToString((cornerpin.dstPoints[0].y)/h) +  "," +
                          ofToString((cornerpin.dstPoints[1].x)/w) +  "," +
@@ -269,21 +267,17 @@ void Plane::save(ofXml &xml) {
                          ofToString((cornerpin.dstPoints[2].x)/w) +  "," +
                          ofToString((cornerpin.dstPoints[2].y)/h) );
     
-    
-    warpXML.setToParent();
-    warpXML.addChild("bezier");
-    warpXML.setTo("bezier");
+    wXml->setToParent();
+    wXml->addChild("bezier");
+    wXml->setTo("bezier");
     
     vector<ofVec3f> vec = grid.getControlPnts();
     for (int i = 0; i<vec.size(); i++) {
-        warpXML.addChild("point");
-        warpXML.setToChild(i);
-        warpXML.setAttribute("xyz", ofToString(vec[i].x) + "," + ofToString(vec[i].y) + "," + ofToString(vec[i].z));
-        warpXML.setToParent();
+        wXml->addChild("point");
+        wXml->setToChild(i);
+        wXml->setAttribute("xyz", ofToString(vec[i].x) + "," + ofToString(vec[i].y) + "," + ofToString(vec[i].z));
+        wXml->setToParent();
     }
-
-    
-    warpXML.save("settings/warp/warp-"+ofToString(index+1)+".xml");
 }
 
 vector<ofPoint> Plane::getCornerpinPoints() {
@@ -303,10 +297,10 @@ void Plane::setCornerpinPoints(vector<ofPoint> pts){
 }
 
 vector<ofVec3f> Plane::getGridPoints() {
-    return grid.getVertices();
+    return grid.getControlPnts();
 }
 void Plane::setGridPoints(vector<ofVec3f> v) {
-    grid.setVertices(v);
+    grid.setControlPnts(v);
 }
 
 }

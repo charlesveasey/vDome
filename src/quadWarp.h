@@ -47,8 +47,12 @@ public:
     void setTopRightCornerPosition(ofPoint p);
     void setBottomRightCornerPosition(ofPoint p);
     void setBottomLeftCornerPosition(ofPoint p);
-    bool isCornerSelected(int cornerIndex) { return selectedCornerIndex == cornerIndex; }
-
+    
+    void onMousePressed(ofMouseEventArgs& mouseArgs);
+    void onMouseDragged(ofMouseEventArgs &mouseArgs);
+    void onMouseReleased(ofMouseEventArgs& mouseArgs);
+    void keyPressed(ofKeyEventArgs& keyArgs);
+    
     void show();
     void hide();
     void toggleShow();
@@ -63,22 +67,16 @@ public:
 	ofPoint srcPoints[4];
 	ofPoint	dstPoints[4];
     bool bShow;
+    bool isCornerSelected(int cornerIndex) { return selectedCornerIndex == cornerIndex; }
 
-    void onMousePressed(ofMouseEventArgs& mouseArgs);
-    void onMouseDragged(ofMouseEventArgs &mouseArgs);
-    void onMouseReleased(ofMouseEventArgs& mouseArgs);
-    void keyPressed(ofKeyEventArgs& keyArgs);
     float value;
 
 protected:
     ofPoint position;
-
 	ofPoint anchorSize;
     ofPoint anchorSizeHalf;
     int selectedCornerIndex;
-
     bool bEnabled;
-
     ofPoint lastMouse;
 };
 

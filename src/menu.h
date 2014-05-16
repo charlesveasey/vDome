@@ -1,5 +1,4 @@
 #pragma once
-
 #include "ofMain.h"
 #include "projector.h"
 #include "dome.h"
@@ -8,6 +7,7 @@
 #ifdef TARGET_OSX
 #include "../../../libs/glut/lib/osx/GLUT.framework/Versions/A/Headers/glut.h"
 #endif
+
 #ifdef TARGET_WIN32
 #include <windows.h>
 #endif
@@ -30,7 +30,37 @@ public:
 class Menu {
 public:
     Menu();
-
+    
+    // draw methods
+ 	void draw();
+    void drawMain(int i);
+    void drawInput();
+    
+    void drawProjector(int i);
+    void drawFPS(int i);
+    void drawHighlight();
+    void drawBackground();
+    void drawSaved();
+    void drawActive(int i);
+    void drawWarp(int i);
+    
+    // navigation
+    void select();
+    void back();
+    void setEditMode();
+    
+    // mouse methods
+    void mousePressed(ofMouseEventArgs& mouseArgs);
+    void mouseDragged(ofMouseEventArgs& mouseArgs);
+    void mouseReleased(ofMouseEventArgs& mouseArgs);
+    
+    // keyboard methods
+    void keyPressed(int key);
+    void keyReleased(int key);
+    
+    // utils
+    void toggle();
+    float roundTo(float val, float n);
     // state
     int frameCnt;
     bool saved;
@@ -44,10 +74,11 @@ public:
         MenuItem **parent;
     };
     
-
     // menus
     MenuItem *menuMain;
     MenuItem *menuInput;
+    MenuItem *menuInputVideo;
+    MenuItem *menuInputTransform;
     MenuItem *menuWarp;
     MenuItem *menuBlend;
     MenuItem *menuLevels;
@@ -64,11 +95,13 @@ public:
     MenuItem *menuShear;
     MenuItem **currentMenu;
 
-    enum menus {MAIN, INPUT, WARP, BLEND, COLOR, HSL, GAMMA, SETUP,
+    enum menus {MAIN, INPUT, INPUT_VIDEO, INPUT_TRANSFORM, WARP, BLEND, COLOR, HSL, GAMMA, SETUP,
          RADIUS, POSITION, ORIENTATION, LENS, SCALE, SHEAR, BRUSH, LEVELS};
 
     // menu items
-    enum inputItems {SOURCE, FORMAT, INPUT_SCALE, ENABLE};
+    enum inputItems {SOURCE, FORMAT, LOOP, ENABLE, TRANSFORM};
+    enum intputTransformItems {INPUT_FLIP, INPUT_ROTATE, INPUT_SCALE};
+
     enum warpItems  {CORNERPIN, GRID};
     enum blendItems {BRIGHTNESS, CONTRAST, B_LEVELS, B_BRUSH};
     enum levelsItems{BLACK, WHITE};
@@ -110,37 +143,8 @@ public:
     vector<Projector> *projectors;
     Dome *dome;
     Input *input;
-
-    // draw methods
- 	void draw();
-    void drawMain(int i);
-    void drawInput();
-
-    void drawProjector(int i);
-    void drawFPS(int i);
-    void drawHighlight();
-    void drawBackground();
-    void drawSaved();
-    void drawActive(int i);
-    void drawWarp(int i);
-
-    // navigation
-    void select();
-    void back();
-    void setEditMode();
-
-    // mouse methods
-    void mousePressed(ofMouseEventArgs& mouseArgs);
-    void mouseDragged(ofMouseEventArgs& mouseArgs);
-    void mouseReleased(ofMouseEventArgs& mouseArgs);
-
-    // keyboard methods
-    void keyPressed(int key);
-    void keyReleased(int key);
-
-    // utils
-    void toggle();
-    float roundTo(float val, float n);
+    
+    bool autosave;
 };
 
 }
