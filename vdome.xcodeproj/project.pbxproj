@@ -25,6 +25,7 @@
 		5621F32819242B08007B29DB /* ofxTCPManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5621F32119242B08007B29DB /* ofxTCPManager.cpp */; };
 		5621F32919242B08007B29DB /* ofxTCPServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5621F32319242B08007B29DB /* ofxTCPServer.cpp */; };
 		5621F32A19242B08007B29DB /* ofxUDPManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5621F32519242B08007B29DB /* ofxUDPManager.cpp */; };
+		5663515E1927118500FD6D0F /* ofxMultiGLFWWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 566351591927118500FD6D0F /* ofxMultiGLFWWindow.cpp */; };
 		56747478191BF9250014815D /* ofxBezierSurface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56747473191BF9250014815D /* ofxBezierSurface.cpp */; };
 		567AA543190759BA0064C745 /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567AA529190759BA0064C745 /* camera.cpp */; };
 		567AA544190759BA0064C745 /* command.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567AA52B190759BA0064C745 /* command.cpp */; };
@@ -165,6 +166,8 @@
 		5621F32419242B08007B29DB /* ofxTCPServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxTCPServer.h; sourceTree = "<group>"; };
 		5621F32519242B08007B29DB /* ofxUDPManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxUDPManager.cpp; sourceTree = "<group>"; };
 		5621F32619242B08007B29DB /* ofxUDPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxUDPManager.h; sourceTree = "<group>"; };
+		566351591927118500FD6D0F /* ofxMultiGLFWWindow.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = ofxMultiGLFWWindow.cpp; sourceTree = "<group>"; };
+		5663515A1927118500FD6D0F /* ofxMultiGLFWWindow.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = ofxMultiGLFWWindow.h; sourceTree = "<group>"; };
 		56747473191BF9250014815D /* ofxBezierSurface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBezierSurface.cpp; sourceTree = "<group>"; };
 		56747474191BF9250014815D /* ofxBezierSurface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBezierSurface.h; sourceTree = "<group>"; };
 		567AA529190759BA0064C745 /* camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = camera.cpp; sourceTree = "<group>"; };
@@ -533,6 +536,24 @@
 				5621F32419242B08007B29DB /* ofxTCPServer.h */,
 				5621F32519242B08007B29DB /* ofxUDPManager.cpp */,
 				5621F32619242B08007B29DB /* ofxUDPManager.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		566351461927118500FD6D0F /* ofxMultiGLFWWindow */ = {
+			isa = PBXGroup;
+			children = (
+				566351581927118500FD6D0F /* src */,
+			);
+			name = ofxMultiGLFWWindow;
+			path = ../../../addons/ofxMultiGLFWWindow;
+			sourceTree = "<group>";
+		};
+		566351581927118500FD6D0F /* src */ = {
+			isa = PBXGroup;
+			children = (
+				566351591927118500FD6D0F /* ofxMultiGLFWWindow.cpp */,
+				5663515A1927118500FD6D0F /* ofxMultiGLFWWindow.h */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -1058,6 +1079,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				566351461927118500FD6D0F /* ofxMultiGLFWWindow */,
 				5621F31919242B08007B29DB /* ofxNetwork */,
 				5621F2E0192429BB007B29DB /* ofxOsc */,
 				56AD7F2F1923712A00A5FEE6 /* ofxM3U */,
@@ -1269,6 +1291,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				567AA545190759BA0064C745 /* dome.cpp in Sources */,
+				5663515E1927118500FD6D0F /* ofxMultiGLFWWindow.cpp in Sources */,
 				5621F32719242B08007B29DB /* ofxTCPClient.cpp in Sources */,
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				567AA693190759ED0064C745 /* ofxCvHaarFinder.cpp in Sources */,

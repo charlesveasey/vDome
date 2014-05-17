@@ -20,6 +20,9 @@ Mask::Mask(){
 
     width = 1024;
     height = 768;
+    
+    tx = 0;
+    ty = 0;
 
     mouseDown = false;
     maskFboImage = new ofImage();
@@ -96,7 +99,7 @@ void Mask::draw(){
         brushImage.bind();
         ofSetColor(brushOpacity, brushOpacity, brushOpacity, brushOpacity);
         ofPushMatrix();
-            ofTranslate(mouseX-(width*pIndex), mouseY);
+            ofTranslate(mouseX-tx, mouseY);
             ofScale(brushScale, brushScale);
             brush.draw();
         ofPopMatrix();

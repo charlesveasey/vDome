@@ -19,7 +19,6 @@ void Projector::init(int i){
 
     keyboard = false;
     mouse = false;
-    xmlPrefix = "projectors/projector[";
 
     // intensity
     brightness = 1;
@@ -43,7 +42,7 @@ void Projector::init(int i){
     fboSample = 4;
 
     // plane
-    planePosition.set(0,0);
+    //planePosition.set(0,0);
     planeDimensions.set(projWidth,projHeight);
 
     // camera
@@ -63,9 +62,11 @@ void Projector::init(int i){
     cameraShear.push_back(0); // 1=xz
     cameraShear.push_back(0); // 2=yx
     cameraShear.push_back(0); // 3=yz
-    cameraShear.push_back(0); // 4=zx
+    cameraShear.push_back(0); //1 4=zx
     cameraShear.push_back(0); // 5=zy
 
+    mask.tx = planePosition.x;
+    mask.ty = planePosition.y;
     mask.init(i);
 
     setup();
@@ -80,10 +81,11 @@ void Projector::init(int i){
 void Projector::setup() {
 
     // projection plane
+    plane.position.clear();
+    plane.position.push_back(planePosition.x);
+    plane.position.push_back(planePosition.y);
     plane.setup(index);
-    planePosition.x = plane.position[0];
-    planePosition.y = plane.position[1];
-
+    
     // create camera
     camera.setScale(1,-1,1); // legacy oF oddity
     camera.setNearClip(5);
@@ -609,33 +611,37 @@ void Projector::keyReleased(int key) {
 void Projector::loadXML(ofXml &xml) {
     string str;
     float val;
-    string pre = xmlPrefix + ofToString(index);
 
+    if (xml.exists("@dimensions")) {
+        str = xml.getAttribute("@dimensions");
+        projWidth = ofToFloat(ofSplitString(str, ",")[0]);
+        projHeight = ofToFloat(ofSplitString(str, ",")[1]);
+    }
 
     // intensity
-    if (xml.exists(pre + "][@brightness]")) {
-        val = ofToFloat( xml.getAttribute(pre + "][@brightness]") );
+    if (xml.exists("@brightness")) {
+        val = ofToFloat( xml.getAttribute("@brightness") );
         brightness = val;
     }
-    if (xml.exists(pre + "][@contrast]")) {
-        val = ofToFloat( xml.getAttribute(pre + "][@contrast]") );
+    if (xml.exists("@contrast")) {
+        val = ofToFloat( xml.getAttribute("@contrast") );
         contrast = val;
     }
-    if (xml.exists(pre + "][@levels]")) {
-        str = xml.getAttribute(pre + "][@levels]");
+    if (xml.exists("@levels")) {
+        str = xml.getAttribute("@levels");
         blackLevel = ofToFloat(ofSplitString(str, ",")[0]);
         whiteLevel = ofToFloat(ofSplitString(str, ",")[1]);
     }
 
     // color
-    if (xml.exists(pre + "][@hsl]")) {
-        str = xml.getAttribute(pre + "][@hsl]");
+    if (xml.exists("@hsl")) {
+        str = xml.getAttribute("@hsl");
         hue = ofToFloat(ofSplitString(str, ",")[0]);
         saturation = ofToFloat(ofSplitString(str, ",")[1]);
         lightness = ofToFloat(ofSplitString(str, ",")[2]);
     }
-    if (xml.exists(pre + "][@gamma]")) {
-        str = xml.getAttribute(pre + "][@gamma]");
+    if (xml.exists("@gamma")) {
+        str = xml.getAttribute("@gamma");
         gamma = ofToFloat(ofSplitString(str, ",")[0]);
         gammaR = ofToFloat(ofSplitString(str, ",")[1]);
         gammaG = ofToFloat(ofSplitString(str, ",")[2]);
@@ -648,8 +654,8 @@ void Projector::loadXML(ofXml &xml) {
 
 
     // camera position
-    if (xml.exists(pre + "][@position]")) {
-        str = xml.getAttribute(pre + "][@position]");
+    if (xml.exists("@position")) {
+        str = xml.getAttribute("@position");
         float azi  = ofToFloat(ofSplitString(str, ",")[0]);
         float ele  = ofToFloat(ofSplitString(str, ",")[1]);
         float dis  = ofToFloat(ofSplitString(str, ",")[2]);
@@ -657,8 +663,8 @@ void Projector::loadXML(ofXml &xml) {
     }
 
     // camera orientation
-    if (xml.exists(pre + "][@orientation]")) {
-        str = xml.getAttribute(pre + "][@orientation]");
+    if (xml.exists("@orientation")) {
+        str = xml.getAttribute("@orientation");
         float roll = ofToFloat(ofSplitString(str, ",")[0]);
         float tilt = ofToFloat(ofSplitString(str, ",")[1]);
         float pan = ofToFloat(ofSplitString(str, ",")[2]);
@@ -666,30 +672,30 @@ void Projector::loadXML(ofXml &xml) {
     }
 
     // camera lens fov
-    if (xml.exists(pre + "][@fov]")) {
-        val = ofToFloat( xml.getAttribute(pre + "][@fov]") );
+    if (xml.exists("@fov")) {
+        val = ofToFloat( xml.getAttribute("@fov") );
         setCameraFov(val);
     }
 
     //camera lens offset
-    //if (xml.exists(pre + "][@offset]")) {
-    //    str = xml.getAttribute(pre + "][@offset]");
+    //if (xml.exists("@offset")) {
+    //    str = xml.getAttribute("@offset");
     //    float offX  = ofToFloat(ofSplitString(str, ",")[0]);
     //    float offY  = ofToFloat(ofSplitString(str, ",")[1]);
     //    setCameraOffset(offX, offY);
     //}
 
     // camera scale
-    if (xml.exists(pre + "][@scale]")) {
-        str = xml.getAttribute(pre + "][@scale]");
+    if (xml.exists("@scale")) {
+        str = xml.getAttribute("@scale");
         float sx  = ofToFloat(ofSplitString(str, ",")[0]);
         float sy  = ofToFloat(ofSplitString(str, ",")[1]);
         setCameraScale(sx, sy);
     }
 
     // camera shear
-    if (xml.exists(pre + "][@shear]")) {
-        str = xml.getAttribute(pre + "][@shear]");
+    if (xml.exists("@shear")) {
+        str = xml.getAttribute("@shear");
         cameraShear[0] = ofToFloat(ofSplitString(str, ",")[0]);
         cameraShear[1] = ofToFloat(ofSplitString(str, ",")[1]);
         cameraShear[2] = ofToFloat(ofSplitString(str, ",")[2]);
@@ -703,9 +709,9 @@ void Projector::loadXML(ofXml &xml) {
 
 void Projector::saveXML(ofXml &xml) {
 
-    string pre = xmlPrefix + ofToString(index);
-    xml.setTo(pre + "]");
-
+    //string pre = xmlPrefix + ofToString(index);
+    //xml.setTo(pre + "");
+    
     // blend
     xml.setAttribute("brightness", ofToString(roundTo(brightness, .001)));
     xml.setAttribute("contrast", ofToString(roundTo(contrast, .001)));
@@ -733,9 +739,9 @@ void Projector::saveXML(ofXml &xml) {
 
     plane.save(xml);
     mask.save();
+    
+    //xml.setToParent();
 
-    xml.setToParent();
-    xml.setToParent();
 }
 
 

@@ -4,7 +4,7 @@
 #include "socket.h"
 #include "menu.h"
 #include "saveThread.h"
-#include <GLFW/glfw3.h>
+#include "ofxMultiGLFWWindow.h"
 
 namespace vd {
   
@@ -36,9 +36,9 @@ private:
     Socket socket;
     Input input;
     Render render;
-    Window window;
     Dome dome;
     ofShader shader;
+    vector<Window> windows;
     vector<Projector> projectors;
     ofVec3f sphToCar(ofVec3f t);
 
@@ -46,6 +46,10 @@ private:
     string xmlFile;
     SaveThread saveThread;
     bool autosave;
+    
+    ofxMultiGLFWWindow *glfw;
+    int wIndex;
+    vector<GLFWwindow*> *glfwWindows;
 };
 
 }

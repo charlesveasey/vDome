@@ -434,8 +434,8 @@ void Menu::drawMain(int i){
     }
 }
 
-void Menu::draw(){
-    for(int i=0; i<projCount; i++) {
+void Menu::draw(int i){
+    //for(int i=0; i<projCount; i++) {
         // set position
         px = projectors->at(i).getPlanePosition().x + projWidth/2 - pw/2;
         py = projectors->at(i).getPlanePosition().y + projHeight/2  - ph/2;
@@ -448,7 +448,7 @@ void Menu::draw(){
         drawWarp(i);
         drawActive(i);
         drawSaved();
-    }
+    //}
 }
 
 void Menu::drawSaved(){
@@ -497,10 +497,18 @@ void Menu::drawFPS(int i){
 
 void Menu::toggle() {
     active = !active;
-    if (active)
-        ofShowCursor();
-    else
-        ofHideCursor();
+    if (active) {
+        for (int i=0; i<windows->size(); i++) {
+            glfw->setWindow(windows->at(i).glfwWindow);
+            ofShowCursor();
+        }
+    }
+    else {
+        for (int i=0; i<windows->size(); i++) {
+            glfw->setWindow(windows->at(i).glfwWindow);
+            ofHideCursor();
+        }
+    }
 }
 
 /******************************************
@@ -606,12 +614,9 @@ void Menu::keyPressed(int key) {
         // SHORTCUTS
         // m = show menu
         case 109:
-            active = !active;
-            if (active)
-                ofShowCursor();
-            else
-                ofHideCursor();
+            toggle();
             break;
+        // space = play/pause video
         case 32:
             if (input->isVideo) {
                 input->toggle();

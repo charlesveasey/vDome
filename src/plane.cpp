@@ -45,14 +45,10 @@ void Plane::setup(int i){
     int w = width;
     int h = height;
 
-    int x = index*w;
-    int y = 0;
+    int x = position[0];
+    int y = position[1];
 
     value = 1;
-
-    position.clear();
-    position.push_back(x);
-    position.push_back(y);
     
     ofPoint tl(cornerpinValues[0].x, cornerpinValues[0].y);
     ofPoint tr(cornerpinValues[1].x, cornerpinValues[1].y);

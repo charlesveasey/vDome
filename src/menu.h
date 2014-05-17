@@ -3,6 +3,7 @@
 #include "projector.h"
 #include "dome.h"
 #include "input.h"
+#include "window.h"
 
 #ifdef TARGET_OSX
 #include "../../../libs/glut/lib/osx/GLUT.framework/Versions/A/Headers/glut.h"
@@ -32,7 +33,7 @@ public:
     Menu();
     
     // draw methods
- 	void draw();
+ 	void draw(int i);
     void drawMain(int i);
     void drawInput();
     
@@ -140,10 +141,12 @@ public:
     float altValue;
 
     // pointers
-    vector<Projector> *projectors;
     Dome *dome;
     Input *input;
-    
+    vector<Window> *windows;
+    vector<Projector> *projectors;
+    ofxMultiGLFWWindow *glfw;
+
     bool autosave;
 };
 

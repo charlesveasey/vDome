@@ -33,6 +33,9 @@ public:
     int mouseY;
     float hIndex;
     
+    int tx;
+    int ty;
+    
     ofImage *maskFboImage;
 
 private:
@@ -52,5 +55,6 @@ private:
     int pIndex;
     bool bufferAllocated;
     string filename;
+
 };
 }
