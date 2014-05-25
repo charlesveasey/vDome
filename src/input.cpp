@@ -146,7 +146,7 @@ void Input::setup(){
             else {
                 image.loadImage(file);
                 texture = image.getTextureReference();
-                if (imageDuration && fileList.size() > 1)  startTimer();
+                if (imageDuration > 0 && fileList.size() > 1)  startTimer();
             }
             break;
             
@@ -640,6 +640,20 @@ void Input::loadXML(ofXml &xml) {
         else             loop = false;
     }
     
+    if (xml.exists("input[@imageDuration]"))
+        imageDuration = ofToFloat( xml.getAttribute("input[@imageDuration]") );
+    
+    if (xml.exists("input[@videoRenderer]")) {
+        v = ofToString( xml.getAttribute("input[@videoRenderer]") );
+        if (v == "avf")         vRenderer = AVF;
+        else if (v == "qt2")    vRenderer = QT2;
+        else if (v == "qt")     vRenderer = QT;
+        else if (v == "hap")    vRenderer = HAP;
+        else if (v == "wmf")    vRenderer = WMF;
+        else if (v == "ds")     vRenderer = DS;
+        else if (v == "gst")    vRenderer = GST;
+    }
+    
     setup();
 }
 
@@ -661,6 +675,8 @@ void Input::saveXML(ofXml &xml) {
     xml.setAttribute("file", file );
     if (loop) xml.setAttribute("loop", "on");
     else      xml.setAttribute("loop", "off");
+    
+    xml.setAttribute("imageDuration", ofToString(imageDuration));
     xml.setToParent();
 }
 

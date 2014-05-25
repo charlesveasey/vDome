@@ -63,7 +63,7 @@ void Plane::setup(int i){
     cornerpin.setBottomRightCornerPosition(br);
     cornerpin.setup();
 
-    grid.setup(width, height, 5, 20);
+    grid.setup(width, height, 6, 20);
     
     vector<ofVec3f> v = grid.getVertices();
     for (int i=0; i<v.size(); i++) {
@@ -134,13 +134,29 @@ void Plane::drawConfig(){
  ********************************************/
 
 void Plane::keyPressed(int key){
-    if (gridActive)
-        grid.keyPressed(key);
+    ofKeyEventArgs keyArgs;
+    keyArgs.key = key;
+    if (cornerpinActive)
+        cornerpin.keyPressed(keyArgs);
+    else if (gridActive) {
+        grid.keyPressed(keyArgs);
+        if (key == 45){ // - = decrease points
+            if (grid.getControlPntDim() > 2)
+                grid.setControlPntDim(grid.getControlPntDim()-1);
+        }
+        else if (key == 61){ // - = increase points
+            grid.setControlPntDim(grid.getControlPntDim()+1);
+        }
+    }
 }
 
 void Plane::keyReleased(int key){
-    if (gridActive)
-        grid.keyReleased(key);
+    ofKeyEventArgs keyArgs;
+    keyArgs.key = key;
+    if (cornerpinActive)
+        cornerpin.keyReleased(keyArgs);
+    else if (gridActive)
+        grid.keyReleased(keyArgs);
 }
 
 /******************************************
@@ -154,9 +170,8 @@ void Plane::onMouseDragged(ofMouseEventArgs& mouseArgs){
     mouseArgs.y -= position[1];
     if (cornerpinActive)
         cornerpin.onMouseDragged(mouseArgs);
-    else if (gridActive) {
+    else if (gridActive)
         grid.mouseDragged(mouseArgs);
-    }
 }
 
 void Plane::onMousePressed(ofMouseEventArgs& mouseArgs){
@@ -164,17 +179,15 @@ void Plane::onMousePressed(ofMouseEventArgs& mouseArgs){
     mouseArgs.y -= position[1];
     if (cornerpinActive)
         cornerpin.onMousePressed(mouseArgs);
-    if (gridActive){
+    else if (gridActive)
         grid.mousePressed(mouseArgs);
-    }
 }
 
 void Plane::onMouseReleased(ofMouseEventArgs& mouseArgs){
-    if (gridActive){
-        mouseArgs.x -= position[0];
-        mouseArgs.y -= position[1];
+    mouseArgs.x -= position[0];
+    mouseArgs.y -= position[1];
+    if (gridActive)
         grid.mouseReleased(mouseArgs);
-    }
 }
 
 /******************************************

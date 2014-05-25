@@ -52,6 +52,7 @@ public:
     void onMouseDragged(ofMouseEventArgs &mouseArgs);
     void onMouseReleased(ofMouseEventArgs& mouseArgs);
     void keyPressed(ofKeyEventArgs& keyArgs);
+    void keyReleased(ofKeyEventArgs& keyArgs);
     
     void show();
     void hide();
@@ -78,6 +79,7 @@ protected:
     int selectedCornerIndex;
     bool bEnabled;
     ofPoint lastMouse;
+    bool ctrl;
 };
 
 }

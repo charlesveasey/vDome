@@ -1,32 +1,14 @@
-<vdome autosave="off" frameRate="60" vSync="off">
+<vdome autosave="off" frameRate="60" vSync="on">
     
     <socket enabled="on" port="12345"/>
     
-	<input file="/Users/Charles/Code/of_v0.8.1_osx_release/apps/vDome/vDome/bin/data/media/images/fisheye-tower-1536px.jpg" loop="on" resolution="2048" scale="1" source="media"/>
+	<input file="/Users/Charles/Code/of_v0.8.1_osx_release/apps/vDome/vDome/bin/data/media/images/fisheye-tower-1536px.jpg"
+           loop="on" resolution="2048" scale="1" source="grid" imageDuration="5" videoRenderer="qt" />
     
-	<window border="off" float="off" fullscreen="off" height="768" width="1680" x="0" y="0"/>
+    <dome radius="10"/>
     
-    <dome radius="8.83"/>
-    
-	<projectors count="2" dimensions="1024,768">
-        
-		<!-- #1 -->
-		<projector brightness="1" contrast="1" fov="40" gamma="1,1,1,1" hsl="1,1,1" levels="0,255" orientation="0,-20,0" position="70.2,0,8" scale="1,1" shear="0,0,0,0,0,0"/>
-		
-		<!-- #2 -->
-		<projector brightness="1" contrast="1" fov="40" gamma="1,1,1,1" hsl="1,1,1" levels="0,255" orientation="0,-20,0" position="-1,0,8" scale="1,1" shear="0,0,0,0,0,0"/>
-        
-		<!-- #3 -->
-        <projector brightness="1" contrast="1" fov="40" gamma="1,1,1,1" hsl="1,1,1" levels="0,255" orientation="0,-20,0" position="-70.2,0,8" scale="1,1" shear="0,0,0,0,0,0"/>
-        
-        <!-- #4 -->
-        <projector brightness="1" contrast="1" fov="40" gamma="1,1,1,1" hsl="1,1,1" levels="0,255" orientation="0,-20,0" position="-142,0,8" scale="1,1" shear="0,0,0,0,0,0"/>
-        
-        <!-- #5 -->
-        <projector brightness="1" contrast="1" fov="40" gamma="1.1,1,1,1" hsl="1,1,1" levels="0,255" orientation="0,-20,0" position="141.6,0,8" scale="1,1" shear="0,0,0,0,0,0"/>
-        
-        <!-- #6 -->
-        <projector brightness="0.85" contrast="1" fov="40" gamma="0.89,1,1.01,0.92" hsl="1,1,1" levels="0,255" orientation="0,-50.1,0" position="20,0,8" scale="1,1" shear="0,0,0,0,0,0"/>
-        
-    </projectors>      
+	<window border="off" float="off" fullscreen="off" height="1080" width="2048" x="0" y="0">
+        <projector brightness="1" contrast="1" dimensions="1920,1080" fov="40" gamma="1,1,1,1" hsl="1,1,1" levels="0,255" orientation="0,-20,0" position="0,0,10" scale="1,1" shear="0,0,0,0,0,0"/>
+    </window>
+
 </vdome>

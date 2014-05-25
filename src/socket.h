@@ -13,13 +13,15 @@ public:
 
     void loadXML(ofXml &xml);
     void saveXML(ofXml &xml);
-
-    ofxOscReceiver oscReceiver;
     
     int port;
     bool enabled;
     
     Input *input;
+
+private:
+    ofxOscReceiver oscReceiver;
+
 };
 
 }

@@ -60,7 +60,6 @@ public:
     void loadXML(ofXml &xml);
     void saveXML(ofXml &xml);
     
-    
     ofTexture texture;
     
     int editMode;
@@ -76,7 +75,8 @@ public:
     bool usePbo;
     int frameRate;
     int resolution;
-
+    float imageDuration;
+    
     int vRenderer;
     enum vRendererTypes {AVF, QT2, HAP, QT, WMF, DS, GST};
     
@@ -112,7 +112,6 @@ private:
     
     bool loop;
     string filename;
-    float imageDuration;
     bool nFrame;
     bool updateTexture;
 

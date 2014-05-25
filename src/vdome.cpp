@@ -79,8 +79,7 @@ void vdome::setup(){
         maskHistory.push_back(buffer);
     }
     
-    menu.autosave = autosave;
-
+    menu.autosave = autosave;    
 }
 
 /******************************************
@@ -112,61 +111,63 @@ void vdome::update() {
  ********************************************/
     
 void vdome::draw(){
-    
     ofSetHexColor(0xFFFFFF);
 
     int wi = glfw->getWindowIndex();
-
     
     for (int i=windows[wi].firstProjector; i<=windows[wi].lastProjector; i++) {
     
-        projectors[i].begin();
-            input.bind();
-                dome.draw();
-            input.unbind();
-        projectors[i].end();
+        if (projectors[i].enable) {
 
-        ofDisableNormalizedTexCoords();
-        projectors[i].renderFbo.begin();
-        ofClear(0);
-        projectors[i].bind();
-       
-            projectors[i].draw();
+            projectors[i].begin();
+                input.bind();
+                    dome.draw();
+                input.unbind();
+            projectors[i].end();
 
-        projectors[i].unbind();
-        projectors[i].renderFbo.end();
-        ofEnableNormalizedTexCoords();
+            ofDisableNormalizedTexCoords();
+            projectors[i].renderFbo.begin();
+            ofClear(0);
+            projectors[i].bind();
+           
+                projectors[i].draw();
 
-        projectors[i].renderFbo.getTextureReference().bind();
+            projectors[i].unbind();
+            projectors[i].renderFbo.end();
+            ofEnableNormalizedTexCoords();
+
+            projectors[i].renderFbo.getTextureReference().bind();
+            
+                if (projectors[i].active)
+                    projectors[i].mask.draw();
+            
+                shader.begin();
+
+                    shader.setUniform1f("brightness", projectors[i].brightness);
+                    shader.setUniform1f("contrast", projectors[i].contrast);
+                    shader.setUniform1f("blackLevel", projectors[i].blackLevel);
+                    shader.setUniform1f("whiteLevel", projectors[i].whiteLevel);
+
+                    shader.setUniform1f("hue", projectors[i].hue);
+                    shader.setUniform1f("saturation", projectors[i].saturation);
+                    shader.setUniform1f("lightness", projectors[i].lightness);
+
+                    shader.setUniform1f("gamma", projectors[i].gamma);
+                    shader.setUniform1f("gammaR", projectors[i].gammaR);
+                    shader.setUniform1f("gammaG", projectors[i].gammaG);
+                    shader.setUniform1f("gammaB", projectors[i].gammaB);
+
+                    shader.setUniformTexture("texsampler", projectors[i].renderFbo.getTextureReference(), 0);
+                    shader.setUniformTexture("maskTex", projectors[i].mask.maskFbo.getTextureReference(), 1);
+            
+                    projectors[i].renderPlane.draw();
+
+                shader.end();
+
+            projectors[i].renderFbo.getTextureReference().unbind();
+
+        }
         
-            if (projectors[i].active)
-                projectors[i].mask.draw();
-        
-            shader.begin();
-
-                shader.setUniform1f("brightness", projectors[i].brightness);
-                shader.setUniform1f("contrast", projectors[i].contrast);
-                shader.setUniform1f("blackLevel", projectors[i].blackLevel);
-                shader.setUniform1f("whiteLevel", projectors[i].whiteLevel);
-
-                shader.setUniform1f("hue", projectors[i].hue);
-                shader.setUniform1f("saturation", projectors[i].saturation);
-                shader.setUniform1f("lightness", projectors[i].lightness);
-
-                shader.setUniform1f("gamma", projectors[i].gamma);
-                shader.setUniform1f("gammaR", projectors[i].gammaR);
-                shader.setUniform1f("gammaG", projectors[i].gammaG);
-                shader.setUniform1f("gammaB", projectors[i].gammaB);
-
-                shader.setUniformTexture("texsampler", projectors[i].renderFbo.getTextureReference(), 0);
-                shader.setUniformTexture("maskTex", projectors[i].mask.maskFbo.getTextureReference(), 1);
-        
-                projectors[i].renderPlane.draw();
-
-            shader.end();
-
-        projectors[i].renderFbo.getTextureReference().unbind();
-
         if (menu.active) {
             menu.draw( projectors[i].index );
         }
@@ -182,7 +183,7 @@ void vdome::draw(){
  *******************************************/
 
 void vdome::loadXML(ofXml &xml) {
-
+    
     input.loadXML(xml);
     render.loadXML(xml);
     dome.loadXML(xml);
