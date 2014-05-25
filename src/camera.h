@@ -8,7 +8,6 @@
  */
 
 #pragma once
-
 #include "ofRectangle.h"
 #include "ofAppRunner.h"
 #include "ofNode.h"

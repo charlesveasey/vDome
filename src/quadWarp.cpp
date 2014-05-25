@@ -46,10 +46,6 @@ void QuadWarp::enable() {
         return;
     }
     bEnabled = true;
-    //ofAddListener(ofEvents().mousePressed, this, &QuadWarp::onMousePressed);
-    //ofAddListener(ofEvents().mouseDragged, this, &QuadWarp::onMouseDragged);
-    //ofAddListener(ofEvents().mouseReleased, this, &QuadWarp::onMouseReleased);
-    //ofAddListener(ofEvents().keyPressed, this, &QuadWarp::keyPressed);
 }
 
 void QuadWarp::disable() {
@@ -58,11 +54,6 @@ void QuadWarp::disable() {
     }
     try {
         bEnabled = false;
-        //ofRemoveListener(ofEvents().mousePressed, this, &QuadWarp::onMousePressed);
-        //ofRemoveListener(ofEvents().mouseDragged, this, &QuadWarp::onMouseDragged);
-        //ofRemoveListener(ofEvents().mouseReleased, this, &QuadWarp::onMouseReleased);
-        //ofRemoveListener(ofEvents().keyPressed, this, &QuadWarp::keyPressed);
-
     }
     catch(Poco::SystemException) {
         return; // we're leaving anyways so no need to delete
@@ -119,7 +110,6 @@ ofMatrix4x4 QuadWarp::getMatrixInverse() {
 ofMatrix4x4 QuadWarp::getMatrix(ofPoint * srcPoints, ofPoint * dstPoints) {
 
 	//we need our points as opencv points
-	//be nice to do this without opencv?
 	CvPoint2D32f cvsrc[4];
 	CvPoint2D32f cvdst[4];
 
@@ -220,47 +210,63 @@ void QuadWarp::reset() {
     dstPoints[3].set(srcPoints[3]);
 }
 
-
-
 //----------------------------------------------------- interaction.
 void QuadWarp::onMousePressed(ofMouseEventArgs& mouseArgs) {
-        if(bShow){
-            ofPoint mousePoint(mouseArgs.x, mouseArgs.y);
-            mousePoint -= position;
+    if(bShow){
+        ofPoint mousePoint(mouseArgs.x, mouseArgs.y);
 
-
-            if (mousePoint.x < anchorSize.x + dstPoints[0].x) { // left
-                if (mousePoint.y < anchorSize.y) { // top
-                     selectedCornerIndex = 0;
-                }
-                else { // bottom
-                     selectedCornerIndex = 3;
-                }
+        
+        if (mousePoint.x < anchorSize.x + dstPoints[0].x) { // left
+            if (mousePoint.y < anchorSize.y) { // top
+                 selectedCornerIndex = 0;
             }
-            else { // right
-                if (mousePoint.y < anchorSize.y) { // top
-                     selectedCornerIndex = 1;
-                }
-                else { // bottom
-                     selectedCornerIndex = 2;
-                }
+            else { // bottom
+                 selectedCornerIndex = 3;
             }
-
-            lastMouse = mousePoint;
+        }
+        else { // right
+            if (mousePoint.y < anchorSize.y) { // top
+                 selectedCornerIndex = 1;
+            }
+            else { // bottom
+                 selectedCornerIndex = 2;
+            }
         }
 
+        lastMouse = mousePoint;
+    }
 }
 
-
 void QuadWarp::onMouseDragged(ofMouseEventArgs& mouseArgs) {
-        if(bShow){
-            if(selectedCornerIndex < 0 || selectedCornerIndex > 3) {
-                return;
-            }
-            ofPoint mousePoint(mouseArgs.x, mouseArgs.y);
-            dstPoints[selectedCornerIndex].set( dstPoints[selectedCornerIndex]- (lastMouse - mousePoint) * value);
-            lastMouse = mousePoint;
+    if(bShow){
+        if(selectedCornerIndex < 0 || selectedCornerIndex > 3) {
+            return;
         }
+        ofPoint mousePoint(mouseArgs.x, mouseArgs.y);
+        
+        if (ctrl) {
+            dstPoints[selectedCornerIndex].set( dstPoints[selectedCornerIndex]- (lastMouse - mousePoint) * value);
+
+            if (selectedCornerIndex == 0) {
+                dstPoints[1].set( dstPoints[1]- (lastMouse - mousePoint) * value *-1);
+            }
+            else if (selectedCornerIndex == 1) {
+                dstPoints[0].set( dstPoints[0]- (lastMouse - mousePoint) * value *-1);
+            }
+            else if (selectedCornerIndex == 2) {
+                dstPoints[3].set( dstPoints[3]- (lastMouse - mousePoint) * value *-1);
+            }
+            else if (selectedCornerIndex == 3) {
+                dstPoints[2].set( dstPoints[2]- (lastMouse - mousePoint) * value *-1);
+            }
+        }
+        
+
+        else
+            dstPoints[selectedCornerIndex].set( dstPoints[selectedCornerIndex]- (lastMouse - mousePoint) * value);
+        
+        lastMouse = mousePoint;
+    }
 }
 
 void QuadWarp::onMouseReleased(ofMouseEventArgs& mouseArgs) {
@@ -268,20 +274,17 @@ void QuadWarp::onMouseReleased(ofMouseEventArgs& mouseArgs) {
         if(selectedCornerIndex < 0 || selectedCornerIndex > 3) {
             return;
         }
-        ofPoint mousePoint(mouseArgs.x, mouseArgs.y);
-        //mousePoint -= position;
-        //dstPoints[selectedCornerIndex].set(mousePoint);
-        //selectedCornerIndex = -1;
     }
 }
 
 void QuadWarp::keyPressed(ofKeyEventArgs& keyArgs) {
-
     if(bShow){
+        if (keyArgs.key == OF_KEY_COMMAND || keyArgs.key == OF_KEY_CONTROL)
+            ctrl = true;
+        
         if(selectedCornerIndex < 0 || selectedCornerIndex > 3) {
             return;
         }
-
         switch (keyArgs.key) {
             case OF_KEY_LEFT:
                 dstPoints[selectedCornerIndex].x = (dstPoints[selectedCornerIndex].x-1);
@@ -295,17 +298,17 @@ void QuadWarp::keyPressed(ofKeyEventArgs& keyArgs) {
             case OF_KEY_DOWN:
                 dstPoints[selectedCornerIndex].y = (dstPoints[selectedCornerIndex].y+1);
                 break;
-           // case 'b':
-             //   cout<<"GOT IT"<<endl;
-             //   break;
-
             default:
                 break;
         }
-        //dstPoints[selectedCornerIndex].set(dstPoints[selectedCornerIndex]+1);
-        //selectedCornerIndex = -1;
     }
 }
+    
+void QuadWarp::keyReleased(ofKeyEventArgs& keyArgs) {
+    if (keyArgs.key == OF_KEY_COMMAND || keyArgs.key == OF_KEY_CONTROL)
+        ctrl = false;
+}
+    
 
 //----------------------------------------------------- corners.
 void QuadWarp::setCorners(vector<ofPoint> corners) {

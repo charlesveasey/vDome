@@ -12,14 +12,14 @@ extern float projHeight;
  ********************************************/
 
 Plane::Plane(){
-    keyVals.push_back(ofPoint(0,0));
-    keyVals.push_back(ofPoint(1,0));
-    keyVals.push_back(ofPoint(0,1));
-    keyVals.push_back(ofPoint(1,1));
-    keystonePoints.push_back(ofPoint(0,0));
-    keystonePoints.push_back(ofPoint(1,0));
-    keystonePoints.push_back(ofPoint(0,1));
-    keystonePoints.push_back(ofPoint(1,1));
+    cornerpinValues.push_back(ofPoint(0,0));
+    cornerpinValues.push_back(ofPoint(1,0));
+    cornerpinValues.push_back(ofPoint(0,1));
+    cornerpinValues.push_back(ofPoint(1,1));
+    cornerpinPoints.push_back(ofPoint(0,0));
+    cornerpinPoints.push_back(ofPoint(1,0));
+    cornerpinPoints.push_back(ofPoint(0,1));
+    cornerpinPoints.push_back(ofPoint(1,1));
 
     group = false;
     drawBox = false;
@@ -29,6 +29,8 @@ Plane::Plane(){
 	value = 1;
     width = projWidth;
     height = projHeight;
+    
+    wXml = new ofXml;
 }
     
 /******************************************
@@ -43,67 +45,31 @@ void Plane::setup(int i){
     int w = width;
     int h = height;
 
-    int x = index*w;
-    int y = 0;
+    int x = position[0];
+    int y = position[1];
 
     value = 1;
-
-    position.clear();
-    position.push_back(x);
-    position.push_back(y);
-
-    gridVerts.clear();
-    orgVerts.clear();
-
-    mesh.clear();
-    mesh = ofMesh::plane(w, h, xRes, yRes, OF_PRIMITIVE_TRIANGLES);
-
-    vector<ofVec3f> v = mesh.getVertices();
-
-    for (int i=0; i<v.size(); i++) {
-
-        mesh.setVertex(i, ofVec3f(
-                                  v[i].x + w/2 + x,
-                                  v[i].y + h/2 + y,
-                                  v[i].z    ));
-
-        mesh.setTexCoord(i, ofVec2f(
-                                    v[i].x + w/2,
-                                    v[i].y + h/2    ));
-    }
-
-    // only load mesh if the dimensions match
-    ofMesh tmp;
-    tmp.load("models/plane-mesh-" + ofToString(index+1) + ".ply");
-
     
-    vector<ofVec3f> vTmp = mesh.getVertices();
-    if (vTmp[vTmp.size()-1].x-x == projWidth && vTmp[v.size()-1].y-y == projHeight) {
-        mesh.load("models/plane-mesh-" + ofToString(index+1) + ".ply");
-    }
+    ofPoint tl(cornerpinValues[0].x, cornerpinValues[0].y);
+    ofPoint tr(cornerpinValues[1].x, cornerpinValues[1].y);
+    ofPoint bl(cornerpinValues[2].x, cornerpinValues[2].y);
+    ofPoint br(cornerpinValues[3].x, cornerpinValues[3].y);
 
+    cornerpin.setAnchorSize(w/2, h/2);
+    cornerpin.setSourceRect(ofRectangle(0,0,w,h));
+    cornerpin.setTopLeftCornerPosition(tl);
+    cornerpin.setTopRightCornerPosition(tr);
+    cornerpin.setBottomLeftCornerPosition(bl);
+    cornerpin.setBottomRightCornerPosition(br);
+    cornerpin.setup();
+
+    grid.setup(width, height, 6, 20);
+    
+    vector<ofVec3f> v = grid.getVertices();
     for (int i=0; i<v.size(); i++) {
-        gridVerts.push_back(ofVec3f(0,0,0));
-        orgVerts.push_back(mesh.getVertex(i));
+        v[i] = cornerpin.getMatrix().preMult(v[i]);
     }
-
-    ofPoint tl(keyVals[0].x*w+x, keyVals[0].y*h+y);
-    ofPoint tr(keyVals[1].x*w+x, keyVals[1].y*h+y);
-    ofPoint bl(keyVals[2].x*w+x, keyVals[2].y*h+y);
-    ofPoint br(keyVals[3].x*w+x, keyVals[3].y*h+y);
-
-    keystone.setAnchorSize(w/2, h/2);
-    keystone.setSourceRect(ofRectangle(x,y,w,h));
-    keystone.setTopLeftCornerPosition(tl);
-    keystone.setTopRightCornerPosition(tr);
-    keystone.setBottomLeftCornerPosition(bl);
-    keystone.setBottomRightCornerPosition(br);
-    keystone.setup();
-
-    for (int i=0; i<v.size(); i++) {
-       v[i] = keystone.getMatrix().preMult( gridVerts[i] + orgVerts[i]  );
-       mesh.setVertex(i, v[i]);
-    }
+    grid.setVertices(v);
 }
 
 /******************************************
@@ -112,40 +78,12 @@ void Plane::setup(int i){
 
  ********************************************/
 
-void Plane::resetKeystone(){
-    keystone.reset();
+void Plane::resetCornerpin(){
+    cornerpin.reset();
 }
 
 void Plane::resetGrid(){
-    int w = width;
-    int h = height;
-    int x = index*w;
-    int y = 0;
-
-    position[0] = x;
-    position[1] = y;
-
-    mesh.clear();
-    mesh = ofMesh::plane(w, h, xRes, yRes, OF_PRIMITIVE_TRIANGLES);
-
-    vector<ofVec3f> v = mesh.getVertices();
-
-    for (int i=0; i<v.size(); i++) {
-        mesh.setVertex(i, ofVec3f(
-                                  v[i].x + w/2 + x,
-                                  v[i].y + h/2 + y,
-                                  v[i].z    ));
-
-        mesh.setTexCoord(i, ofVec2f(
-                                    v[i].x + w/2,
-                                    v[i].y + h/2    ));
-    }
-
-    for (int i=0; i<v.size(); i++) {
-        gridVerts[i] = ofVec3f(0,0,0);
-        orgVerts[i] = mesh.getVertex(i);
-    }
-
+    grid.reset();
 }
 
 /******************************************
@@ -155,34 +93,37 @@ void Plane::resetGrid(){
  ********************************************/
 
 void Plane::draw(){
-	if (keystoneActive || gridActive) {
-		vector<ofVec3f> v = mesh.getVertices();
-		for (int i=0; i<v.size(); i++) {
-			v[i] = keystone.getMatrix().preMult( gridVerts[i] + orgVerts[i] );
-			mesh.setVertex(i, v[i]);
+	if (cornerpinActive || gridActive) {
+        vector<ofVec3f> c = grid.getControlPnts();
+        
+        ofMatrix4x4 m = cornerpin.getMatrix();
+
+        if (bfirst) {
+            lm.makeIdentityMatrix();
+            bfirst = false;
+        }
+        else lm = lm.getInverse();
+        
+        for (int i=0; i<c.size(); i++) {
+            c[i] = lm.preMult(c[i]);
 		}
+        for (int i=0; i<c.size(); i++) {
+            c[i] = m.preMult(c[i]);
+		}
+        
+        grid.setControlPnts(c);
+        
+        lm = m;
 	}
-    mesh.draw();
+    grid.draw();
 }
 
-void Plane::drawConfig(){
-    if (drawBox) {
-        ofNoFill();
-        glLineWidth(2);
-        ofSetHexColor(0xFFFFFF);
-        ofRect(boxOrigin.x, boxOrigin.y, boxUpdate.x-boxOrigin.x, boxUpdate.y-boxOrigin.y);
-    }
-
-    vector<ofVec3f> v = mesh.getVertices();
-
-    float rad = 6;
-    for (int i=0; i<v.size(); i++) {
-        if(sel[i])
-            ofSetHexColor(0xFFF000);
-        else
-            ofSetHexColor(0xFFFFFF)
-            ;
-        ofDrawPlane(v[i].x, v[i].y, v[i].z, rad, rad);
+void Plane::drawConfig(){    
+    if (gridActive) {
+        ofPushMatrix();
+        ofTranslate(position[0], position[1]);
+            grid.drawControls();
+        ofPopMatrix();
     }
 }
 
@@ -193,64 +134,29 @@ void Plane::drawConfig(){
  ********************************************/
 
 void Plane::keyPressed(int key){
-    if (key == OF_KEY_SHIFT) {
-        shift = true;
-    }
-
-    else if (key == OF_KEY_UP) {
-
-        for (int i=0; i<sel.size(); i++) {
-            if (sel[i]) {
-                float x = mesh.getVertex(i).x;
-                float y = mesh.getVertex(i).y;
-                float z = mesh.getVertex(i).z;
-                y--;
-                mesh.setVertex( i, ofVec3f(x,y,z) );
-            }
+    ofKeyEventArgs keyArgs;
+    keyArgs.key = key;
+    if (cornerpinActive)
+        cornerpin.keyPressed(keyArgs);
+    else if (gridActive) {
+        grid.keyPressed(keyArgs);
+        if (key == 45){ // - = decrease points
+            if (grid.getControlPntDim() > 2)
+                grid.setControlPntDim(grid.getControlPntDim()-1);
         }
-    }
-    else if (key == OF_KEY_DOWN) {
-
-        for (int i=0; i<sel.size(); i++) {
-            if (sel[i]) {
-                float x = mesh.getVertex(i).x;
-                float y = mesh.getVertex(i).y;
-                float z = mesh.getVertex(i).z;
-                y++;
-                mesh.setVertex( i, ofVec3f(x,y,z) );
-            }
-        }
-    }
-    else if (key == OF_KEY_LEFT) {
-
-        for (int i=0; i<sel.size(); i++) {
-            if (sel[i]) {
-                float x = mesh.getVertex(i).x;
-                float y = mesh.getVertex(i).y;
-                float z = mesh.getVertex(i).z;
-                x--;
-                mesh.setVertex( i, ofVec3f(x,y,z) );
-            }
-        }
-    }
-    else if (key == OF_KEY_RIGHT) {
-
-        for (int i=0; i<sel.size(); i++) {
-            if (sel[i]) {
-                float x = mesh.getVertex(i).x;
-                float y = mesh.getVertex(i).y;
-                float z = mesh.getVertex(i).z;
-                x++;
-                mesh.setVertex( i, ofVec3f(x,y,z) );
-            }
+        else if (key == 61){ // - = increase points
+            grid.setControlPntDim(grid.getControlPntDim()+1);
         }
     }
 }
 
 void Plane::keyReleased(int key){
-    if (key == OF_KEY_SHIFT) {
-        shift = false;
-    }
+    ofKeyEventArgs keyArgs;
+    keyArgs.key = key;
+    if (cornerpinActive)
+        cornerpin.keyReleased(keyArgs);
+    else if (gridActive)
+        grid.keyReleased(keyArgs);
 }
 
 /******************************************
@@ -260,113 +166,28 @@ void Plane::keyReleased(int key){
  ********************************************/
 
 void Plane::onMouseDragged(ofMouseEventArgs& mouseArgs){
-
-    ofPoint mousePoint(mouseArgs.x, mouseArgs.y);
-
-    if (keystoneActive) {
-        keystone.onMouseDragged(mouseArgs);
-    }
-    else if (gridActive) {
-        if (group) {
-            drawBox = true;
-            boxUpdate = ofPoint(mousePoint.x, mousePoint.y);
-            return;
-        }
-
-        if (pointIndex == -1)
-            return;
-
-        for (int i=0; i<sel.size(); i++) {
-            if (sel[i]) {
-                ofPoint newPoint = ofPoint(gridVerts[i].x, gridVerts[i].y) - ((lastM - mousePoint) * value);
-                gridVerts[i] = ofVec3f(newPoint.x, newPoint.y, newPoint.z);
-            }
-        }
-    }
-
-    lastM = mousePoint;
+    mouseArgs.x -= position[0];
+    mouseArgs.y -= position[1];
+    if (cornerpinActive)
+        cornerpin.onMouseDragged(mouseArgs);
+    else if (gridActive)
+        grid.mouseDragged(mouseArgs);
 }
 
 void Plane::onMousePressed(ofMouseEventArgs& mouseArgs){
-
-    int x = mouseArgs.x;
-    int y = mouseArgs.y;
-
-    if (keystoneActive) {
-        keystone.onMousePressed(mouseArgs);
-    }
-    else if (gridActive) {
-        vector<ofVec3f> v = mesh.getVertices();
-        float rad = 20;
-
-        for (int i=0; i<v.size(); i++) {
-            float distance = ofDist(v[i].x, v[i].y, x, y);
-
-            if (distance < rad) {
-                pointIndex = i;
-
-                if (!sel[i]) {
-
-                    if (shift) {
-                        sel[i] = true;
-                    }
-                    else {
-                        sel.clear();
-                        sel[i] = true;
-                    }
-                }
-                group = false;
-                break;
-            }
-            else {
-                pointIndex = -1;
-                group = true;
-                drawBox = true;
-                boxOrigin = ofPoint(x,y);
-                boxUpdate = boxOrigin;
-            }
-        }
-    }
-
-    lastM = ofPoint(x,y);
+    mouseArgs.x -= position[0];
+    mouseArgs.y -= position[1];
+    if (cornerpinActive)
+        cornerpin.onMousePressed(mouseArgs);
+    else if (gridActive)
+        grid.mousePressed(mouseArgs);
 }
 
 void Plane::onMouseReleased(ofMouseEventArgs& mouseArgs){
-
-    int x = mouseArgs.x;
-    int y = mouseArgs.y;
-
-    if (gridActive && group) {
-        vector<ofVec3f> v = mesh.getVertices();
-
-        float rad = 20;
-
-        ofRectangle rect;
-        rect = ofRectangle(boxOrigin.x, boxOrigin.y, boxUpdate.x-boxOrigin.x, boxUpdate.y-boxOrigin.y);
-
-
-        for (int i=0; i<v.size(); i++) {
-
-            if ( (v[i].x) + rad    >= rect.getTopLeft().x
-                && (v[i].x) - rad   <= rect.getBottomRight().x) {
-
-                if ( (v[i].y) + rad >= rect.getTopLeft().y
-                    && (v[i].y) - rad    <= rect.getBottomRight().y) {
-
-                    sel[i] = true;
-                }
-                else  {
-                    sel[i] = false;
-                }
-            }
-            else  {
-                sel[i] = false;
-            }
-        }
-
-        drawBox = false;
-        group = false;
-    }
+    mouseArgs.x -= position[0];
+    mouseArgs.y -= position[1];
+    if (gridActive)
+        grid.mouseReleased(mouseArgs);
 }
 
 /******************************************
@@ -376,72 +197,119 @@ void Plane::onMouseReleased(ofMouseEventArgs& mouseArgs){
  ********************************************/
 
 void Plane::load(ofXml &xml) {
-    mesh.load("models/plane-mesh-" + ofToString(index+1) + ".ply");
-    string xmlPrefix = "projectors/projector[";
+    wXml->clear();
+    wXml->load("settings/warp/warp-"+ofToString(index+1)+".xml");
 
-    string pre = xmlPrefix + ofToString(index);
-
-    if (xml.exists(pre + "][@cornerpin]")) {
-        string str = xml.getAttribute(pre + "][@cornerpin]");
-        keyVals[0].x = ofToFloat(ofSplitString(str, ",")[0]);
-        keyVals[0].y = ofToFloat(ofSplitString(str, ",")[1]);
-        keyVals[1].x = ofToFloat(ofSplitString(str, ",")[2]);
-        keyVals[1].y = ofToFloat(ofSplitString(str, ",")[3]);
-        keyVals[2].x = ofToFloat(ofSplitString(str, ",")[4]);
-        keyVals[2].y = ofToFloat(ofSplitString(str, ",")[5]);
-        keyVals[3].x = ofToFloat(ofSplitString(str, ",")[6]);
-        keyVals[3].y = ofToFloat(ofSplitString(str, ",")[7]);
+    if (wXml->exists("cornerpin[@points]")) {
+        string str = wXml->getAttribute("cornerpin[@points]");
+        cornerpinValues[0].x = ofToFloat(ofSplitString(str, ",")[0]);
+        cornerpinValues[0].y = ofToFloat(ofSplitString(str, ",")[1]);
+        cornerpinValues[1].x = ofToFloat(ofSplitString(str, ",")[2]);
+        cornerpinValues[1].y = ofToFloat(ofSplitString(str, ",")[3]);
+        cornerpinValues[2].x = ofToFloat(ofSplitString(str, ",")[4]);
+        cornerpinValues[2].y = ofToFloat(ofSplitString(str, ",")[5]);
+        cornerpinValues[3].x = ofToFloat(ofSplitString(str, ",")[6]);
+        cornerpinValues[3].y = ofToFloat(ofSplitString(str, ",")[7]);
     }
-    setup(index);
+    
+    wXml->setTo("bezier");
+    string str;
+    vector<ofVec3f> vec;
+    for (int i = 0; i<wXml->getNumChildren(); i++) {
+        if (wXml->exists("point["+ofToString(i)+"][@xyz]")) {
+            str = wXml->getAttribute("point["+ofToString(i)+"][@xyz]");
+            int x = ofToInt(ofSplitString(str, ",")[0]);
+            int y = ofToInt(ofSplitString(str, ",")[1]);
+            int z = ofToInt(ofSplitString(str, ",")[2]);
+            vec.push_back(ofVec3f(x,y,z));
+        }
+    }
+    
+    int w = width;
+    int h = height;
+    
+    int x = index*w;
+    int y = 0;
+    
+    ofPoint tl(cornerpinValues[0].x*w, cornerpinValues[0].y*h);
+    ofPoint tr(cornerpinValues[1].x*w, cornerpinValues[1].y*h);
+    ofPoint bl(cornerpinValues[2].x*w, cornerpinValues[2].y*h);
+    ofPoint br(cornerpinValues[3].x*w, cornerpinValues[3].y*h);
+    
+    cornerpin.setAnchorSize(w/2, h/2);
+    cornerpin.setSourceRect(ofRectangle(0,0,w,h));
+    cornerpin.setTopLeftCornerPosition(tl);
+    cornerpin.setTopRightCornerPosition(tr);
+    cornerpin.setBottomLeftCornerPosition(bl);
+    cornerpin.setBottomRightCornerPosition(br);
+    
+    gridActive = true;
+    draw();
+    gridActive = false;
+
+    if (vec.size() > 0) {
+        grid.setControlPnts(vec);
+    }
 }
 
 void Plane::save(ofXml &xml) {
-
-    ofMesh m = mesh;
-    vector<ofVec3f> v = m.getVertices();
-    for (int i=0; i<v.size(); i++) {
-        v[i] = gridVerts[i] + orgVerts[i];
-        m.setVertex(i, v[i]);
-    }
-    m.save("models/plane-mesh-" + ofToString(index+1) + ".ply");
-
     int w = projWidth;
     int h = projHeight;
     int x = index*w;
     int y = 0;
+        
+    wXml->clear();
 
-    xml.setAttribute("cornerpin",
-                     ofToString((keystone.dstPoints[0].x-x)/w) +  "," +
-                     ofToString((keystone.dstPoints[0].y-y)/h) +  "," +
-                     ofToString((keystone.dstPoints[1].x-x)/w) +  "," +
-                     ofToString((keystone.dstPoints[1].y-y)/h) +  "," +
-                     ofToString((keystone.dstPoints[3].x-x)/w) +  "," +
-                     ofToString((keystone.dstPoints[3].y-y)/h) +  "," +
-                     ofToString((keystone.dstPoints[2].x-x)/w) +  "," +
-                     ofToString((keystone.dstPoints[2].y-y)/h) );
+    wXml->addChild("projector");
+    wXml->setTo("projector");
+    
+    wXml->addChild("cornerpin");
+    wXml->setTo("cornerpin");
+    
+    wXml->setAttribute("points",
+                         ofToString((cornerpin.dstPoints[0].x)/w) +  "," +
+                         ofToString((cornerpin.dstPoints[0].y)/h) +  "," +
+                         ofToString((cornerpin.dstPoints[1].x)/w) +  "," +
+                         ofToString((cornerpin.dstPoints[1].y)/h) +  "," +
+                         ofToString((cornerpin.dstPoints[3].x)/w) +  "," +
+                         ofToString((cornerpin.dstPoints[3].y)/h) +  "," +
+                         ofToString((cornerpin.dstPoints[2].x)/w) +  "," +
+                         ofToString((cornerpin.dstPoints[2].y)/h) );
+    
+    wXml->setToParent();
+    wXml->addChild("bezier");
+    wXml->setTo("bezier");
+    
+    vector<ofVec3f> vec = grid.getControlPnts();
+    for (int i = 0; i<vec.size(); i++) {
+        wXml->addChild("point");
+        wXml->setToChild(i);
+        wXml->setAttribute("xyz", ofToString(vec[i].x) + "," + ofToString(vec[i].y) + "," + ofToString(vec[i].z));
+        wXml->setToParent();
+    }
 }
 
-vector<ofPoint> Plane::getKeystonePoints() {
+vector<ofPoint> Plane::getCornerpinPoints() {
     for (int i=0; i<4; i++) {
-        keystonePoints[i] = keystone.dstPoints[i];
+        cornerpinPoints[i] = cornerpin.dstPoints[i];
     }
-    return keystonePoints;
+    return cornerpinPoints;
 }
-void Plane::setKeystonePoints(vector<ofPoint> pts){
+void Plane::setCornerpinPoints(vector<ofPoint> pts){
     for (int i=0; i<4; i++) {
-        keystonePoints[i] = pts[i];
+        cornerpinPoints[i] = pts[i];
     }
-    keystone.setTopLeftCornerPosition(keystonePoints[0]);
-    keystone.setTopRightCornerPosition(keystonePoints[1]);
-    keystone.setBottomLeftCornerPosition(keystonePoints[3]);
-    keystone.setBottomRightCornerPosition(keystonePoints[2]);
+    cornerpin.setTopLeftCornerPosition(cornerpinPoints[0]);
+    cornerpin.setTopRightCornerPosition(cornerpinPoints[1]);
+    cornerpin.setBottomLeftCornerPosition(cornerpinPoints[3]);
+    cornerpin.setBottomRightCornerPosition(cornerpinPoints[2]);
 }
 
 vector<ofVec3f> Plane::getGridPoints() {
-    return gridVerts;
+    return grid.getControlPnts();
 }
 void Plane::setGridPoints(vector<ofVec3f> v) {
-    gridVerts = v;
+    grid.setControlPnts(v);
 }
 
 }

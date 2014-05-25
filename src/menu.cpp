@@ -29,16 +29,27 @@ Menu::Menu(){
     menuInput->currentItem = 0;
     menuInput->items.push_back(new Item("Source"));
     menuInput->items.push_back(new Item("Format"));
-    menuInput->items.push_back(new Item("Scale"));
-    //menuInput->items.push_back("Offset X");
-    //menuInput->items.push_back("Offset Y");
+    menuInput->items.push_back(new Item("Loop"));
+    menuInput->items.push_back(new Item("Enable"));
+    menuInput->items.push_back(new Item("Transform          ->", true));
+
+    
+    menuInputTransform = new MenuItem;
+    menuInputTransform->menuId = INPUT_TRANSFORM;
+    menuInputTransform->parent = &menuInput;
+    menuInputTransform->currentItem = 0;
+    menuInputTransform->items.push_back(new Item("Flip"));
+    menuInputTransform->items.push_back(new Item("Rotate"));
+    menuInputTransform->items.push_back(new Item("Scale"));
+    //menuInputTransform->items.push_back("Offset X");
+    //menuInputTransform->items.push_back("Offset Y");
 
     menuWarp = new MenuItem;
     menuWarp->menuId = WARP;
     menuWarp->parent = &menuMain;
     menuWarp->currentItem = 0;
     menuWarp->items.push_back(new Item("Cornerpin"));
-	menuWarp->items.push_back(new Item("Grid"));
+	menuWarp->items.push_back(new Item("Bezier Grid"));
 
     menuBlend = new MenuItem;
     menuBlend->menuId = BLEND;
@@ -149,6 +160,7 @@ Menu::Menu(){
 
     frameCnt= 0;
     saved = false;
+    autosave = false;
     active = false;
 
     // add values
@@ -167,7 +179,6 @@ Menu::Menu(){
     ph = 135;
     padx = 15;
     pady = 15;
-
 }
 
 /******************************************
@@ -182,7 +193,7 @@ void Menu::drawHighlight(){
 
 void Menu::drawBackground(){
     // background color
-    if (saved) {
+    if (saved && !autosave) {
         frameCnt++;
         if (frameCnt == 60) {
             saved = false;
@@ -228,8 +239,28 @@ void Menu::drawMain(int i){
                         case FORMAT:
                             val = "Domemaster";
                             break;
+                        case LOOP:
+                            if (input->getLoop()) val = "On";
+                            else val = "Off";
+                            break;
+                        case ENABLE:
+                            if (projectors->at(i).enable) val = "On";
+                            else val = "Off";
+                            break;
+                    }
+                    break;
+                    
+                case INPUT_TRANSFORM:
+                    switch (j) {
+                        case INPUT_FLIP:
+                            if (dome->textureFlip) val = "On";
+                            else val = "Off";
+                            break;
+                        case INPUT_ROTATE:
+                            val = ofToString(roundTo(dome->textureRotate, .001));
+                            break;
                         case INPUT_SCALE:
-                            val = ofToString(roundTo(dome->textureScale, .01));
+                            val = ofToString(roundTo(dome->textureScale, .001));
                             break;
                     }
                     break;
@@ -403,10 +434,8 @@ void Menu::drawMain(int i){
     }
 }
 
-void Menu::draw(){
-    if (!active) return;
-
-    for(int i=0; i<projCount; i++) {
+void Menu::draw(int i){
+    //for(int i=0; i<projCount; i++) {
         // set position
         px = projectors->at(i).getPlanePosition().x + projWidth/2 - pw/2;
         py = projectors->at(i).getPlanePosition().y + projHeight/2  - ph/2;
@@ -419,11 +448,11 @@ void Menu::draw(){
         drawWarp(i);
         drawActive(i);
         drawSaved();
-    }
+    //}
 }
 
 void Menu::drawSaved(){
-    if (saved) {
+    if (saved && !autosave) {
         ofSetHexColor(0xFFFFFF);
         ofDrawBitmapString("SAVED", px+padx+125, py+pady*1.75);
 
@@ -431,7 +460,7 @@ void Menu::drawSaved(){
 }
 
 void Menu::drawActive(int i){
-    if (!saved) {
+    if (!saved || autosave) {
         if (projectors->at(i).keyboard || projectors->at(i).mouse) {
             ofSetHexColor(0xFFF000);
             ofDrawBitmapString("Active", px+padx+120, py+pady*1.75);
@@ -459,7 +488,7 @@ void Menu::drawProjector(int i){
 }
 
 void Menu::drawFPS(int i){
-    if (!saved) {
+    if (!saved || autosave) {
         if (!projectors->at(i).active) {
             ofDrawBitmapString(ofToString(ofGetFrameRate(), 2), px+padx + 125, py+pady * 1.75);
 		}
@@ -468,10 +497,18 @@ void Menu::drawFPS(int i){
 
 void Menu::toggle() {
     active = !active;
-    if (active)
-        ofShowCursor();
-    else
-        ofHideCursor();
+    if (active) {
+        for (int i=0; i<windows->size(); i++) {
+            glfw->setWindow(windows->at(i).glfwWindow);
+            ofShowCursor();
+        }
+    }
+    else {
+        for (int i=0; i<windows->size(); i++) {
+            glfw->setWindow(windows->at(i).glfwWindow);
+            ofHideCursor();
+        }
+    }
 }
 
 /******************************************
@@ -491,6 +528,12 @@ void Menu::select() {
                 case 2: currentMenu = &menuBlend; break;
                 case 3: currentMenu = &menuColor; break;
                 case 4: currentMenu = &menuSetup; break;
+                default: break;
+            }
+            break;
+        case INPUT:
+            switch (item) {
+                case 4: currentMenu = &menuInputTransform; break;
                 default: break;
             }
             break;
@@ -571,15 +614,12 @@ void Menu::keyPressed(int key) {
         // SHORTCUTS
         // m = show menu
         case 109:
-            active = !active;
-            if (active)
-                ofShowCursor();
-            else
-                ofHideCursor();
+            toggle();
             break;
+        // space = play/pause video
         case 32:
             if (input->isVideo) {
-                input->togglePause();
+                input->toggle();
             }
             break;
             
@@ -659,8 +699,15 @@ void Menu::keyPressed(int key) {
         switch((*currentMenu)->menuId) {
             case INPUT:
                 switch ((*currentMenu)->currentItem) {
-                    case SOURCE:
+                    default:
                         input->keyPressed(key);
+                        break;
+                }
+                break;
+            case INPUT_TRANSFORM:
+                switch ((*currentMenu)->currentItem) {
+                    default:
+                        dome->keyPressed(key);
                         break;
                 }
                 break;
@@ -746,11 +793,48 @@ void Menu::setEditMode() {
         projectors->at(k).setKeystoneActive(false);
         projectors->at(k).setGridActive(false);
     }
+    dome->editMode = dome->NONE;
+    input->editMode = input->NONE;
+
 
     int j = (*currentMenu)->currentItem;
 
     switch ((*currentMenu)->menuId) {
-
+        
+        case INPUT:
+            switch (j) {
+                case SOURCE:
+                    input->editMode = input->SOURCE;
+                    break;
+                case FORMAT:
+                    break;
+                case LOOP:
+                    input->editMode = input->LOOP;
+                    break;
+                case ENABLE:
+                    for (int k=0; k<projCount; k++) {
+                        if (projectors->at(k).active)
+                            projectors->at(k).editMode = projectors->at(k).ENABLE;
+                    }
+                    dome->editMode = dome->NONE;
+                    break;
+            }
+            break;
+            
+        case INPUT_TRANSFORM:
+            switch (j) {
+                case INPUT_FLIP:
+                    dome->editMode = dome->T_FLIP;
+                    break;
+                case INPUT_ROTATE:
+                    dome->editMode = dome->T_ROTATE;
+                    break;
+                case INPUT_SCALE:
+                    dome->editMode = dome->T_SCALE;
+                    break;
+            }
+            break;
+            
         case BLEND:
             switch (j) {
                 case BRIGHTNESS:

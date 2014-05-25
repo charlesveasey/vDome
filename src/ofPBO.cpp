@@ -7,11 +7,8 @@
 
 #include "ofPBO.h"
 
-
 ofPBO::ofPBO() {
-	// TODO Auto-generated constructor stub
 	index = 0;
-
 }
 
 ofPBO::~ofPBO() {
@@ -19,7 +16,6 @@ ofPBO::~ofPBO() {
 		glDeleteBuffersARB(pboIds.size(), &pboIds[0]);
 	}
 }
-
 
 void ofPBO::allocate(ofTexture & tex, int numPBOs){
 	pboIds.resize(numPBOs);

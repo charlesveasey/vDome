@@ -1,5 +1,4 @@
 #pragma once
-
 #include "ofMain.h"
 #include "plane.h"
 #include "camera.h"
@@ -10,10 +9,75 @@ namespace vd {
 class Projector {
 
 public:
+    
+    void init(int i);
+    void setup();
+    void begin();
+    void end();
+    void bind();
+    void unbind();
+    void draw();
+    
+    void drawPlaneConfig();
+    void drawKeystone();
+    
+    void mousePressed(ofMouseEventArgs& mouseArgs);
+    void mouseDragged(ofMouseEventArgs& mouseArgs);
+    void mouseReleased(ofMouseEventArgs& mouseArgs);
+    
+    void keyPressed(int key);
+    void keyReleased(int key);
+    
+    void loadXML(ofXml &xml);
+    void saveXML(ofXml &xml);
+    
+    // plane
+    ofVec2f getPlanePosition();
+    void setPlanePosition(float x, float y);
+    
+    ofVec2f getPlaneDimensions();
+    void setPlaneDimensions(float w, float h);
+    
+    // keystone
+    bool getKeystoneActive();
+    void setKeystoneActive(bool v);
+    
+    vector<ofPoint> getKeystonePoints();
+    void setKeystonePoints(vector<ofPoint> pts);
+    
+    // grid
+    bool getGridActive();
+    void setGridActive(bool v);
+    
+    vector<ofVec3f> getGridPoints();
+    void setGridPoints(vector<ofVec3f> v);
+    
+    // camera
+    void  setCameraTransform();
+    
+    ofVec3f getCameraPosition();
+    void setCameraPosition(float azi, float ele, float dis);
+    
+    ofVec3f getCameraOrientation();
+    void setCameraOrientation(float roll, float tilt, float pan);
+    
+    float getCameraFov();
+    void setCameraFov(float v);
+    
+    ofVec2f getCameraOffset();
+    void setCameraOffset(float x, float y);
+    
+    ofVec2f getCameraScale();
+    void setCameraScale(float x, float y);
+    
+    vector<float> getCameraShear();
+    void setCameraShear(vector<float>);
+    
     int index;
     bool keyboard;
     bool mouse;
     bool active;
+    bool enable;
     int editMode;
     bool mod;
     bool all;
@@ -32,7 +96,7 @@ public:
                     FOV,
                     SCALE, SCALE_X, SCALE_Y,
                     SHEAR_XY, SHEAR_XZ, SHEAR_YX, SHEAR_YZ, SHEAR_ZX, SHEAR_ZY,
-                    NONE, BRUSH_SCALE, BRUSH_OPACITY, WHITE, BLACK};
+                    NONE, BRUSH_SCALE, BRUSH_OPACITY, WHITE, BLACK, ENABLE};
 
     // intensity
     float brightness;
@@ -50,87 +114,18 @@ public:
     float gammaG;
     float gammaB;
 
-    // plane
-    ofVec2f getPlanePosition();
-    void setPlanePosition(float x, float y);
-
-    ofVec2f getPlaneDimensions();
-    void setPlaneDimensions(float w, float h);
-
-    // keystone
-    bool getKeystoneActive();
-    void setKeystoneActive(bool v);
-
-    vector<ofPoint> getKeystonePoints();
-    void setKeystonePoints(vector<ofPoint> pts);
-
-    // grid
-    bool getGridActive();
-    void setGridActive(bool v);
-
-    vector<ofVec3f> getGridPoints();
-    void setGridPoints(vector<ofVec3f> v);
-
-    // camera
-    void  setCameraTransform();
-
-    ofVec3f getCameraPosition();
-    void setCameraPosition(float azi, float ele, float dis);
-
-    ofVec3f getCameraOrientation();
-    void setCameraOrientation(float roll, float tilt, float pan);
-
-    float getCameraFov();
-    void setCameraFov(float v);
-
-    ofVec2f getCameraOffset();
-    void setCameraOffset(float x, float y);
-
-    ofVec2f getCameraScale();
-    void setCameraScale(float x, float y);
-
-    vector<float> getCameraShear();
-    void setCameraShear(vector<float>);
-
-    // cycle
-    void init(int i);
-    void setup();
-    void begin();
-    void end();
-    void bind();
-    void unbind();
-    void draw();
-
-    void drawPlaneConfig();
-    void drawKeystone();
-
+    Plane plane;
     ofTexture& getTextureReference();
-
     vector<ofPoint> lastKey;
     vector<ofVec3f> lastGrid;
-
-    // mouse
-    void mousePressed(ofMouseEventArgs& mouseArgs);
-    void mouseDragged(ofMouseEventArgs& mouseArgs);
-    void mouseReleased(ofMouseEventArgs& mouseArgs);
-
-    // keyboard
-    void keyPressed(int key);
-    void keyReleased(int key);
-
-    // xml
-    void loadXML(ofXml &xml);
-    void loadxml(ofXml &xml);
-    void saveXML(ofXml &xml);
 
 private:
     Camera camera;
     ofFbo fbo;
     ofRectangle view;
-    Plane plane;
 
     float value;
-
+    int fboSample;
     string xmlPrefix;
     ofVec3f sphToCar(ofVec3f t);
 
@@ -158,6 +153,21 @@ private:
  ********************************************/
 
 
+// intensity
+class SetEnable : public Command {
+protected:
+    Projector& obj;
+    bool v;
+    bool l;
+public:
+    SetEnable(Projector& obj, bool v) : obj(obj), v(v) {}
+    void execute() {
+        l = obj.enable;
+        obj.enable = v; }
+    void undo() { obj.enable = l; }
+    void redo() { obj.enable = v; }
+};
+    
 // intensity
 class SetBrightness : public Command {
 protected:

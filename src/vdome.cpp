@@ -6,8 +6,11 @@ namespace vd {
 float projCount = 1;
 float projWidth = 1024;
 float projHeight = 768;
-int maxHistory = 10;
+int maxHistory = 25;
+vector<ofPixels> maskHistory;
 
+int winCount = 1;
+    
 /******************************************
 
  CONSTRUCTOR
@@ -17,7 +20,10 @@ int maxHistory = 10;
 vdome::vdome() {
     menu.input = &input;
     menu.dome = &dome;
+    menu.windows = &windows;
     menu.projectors = &projectors;
+    socket.input = &input;
+    autosave = false;
 }
 
 /******************************************
@@ -27,31 +33,27 @@ vdome::vdome() {
  ********************************************/
 
 void vdome::setup(){
-
     ofSetEscapeQuitsApp(false);
-    ofHideCursor();
 
-    window.setup();
+    glfw = (ofxMultiGLFWWindow*)ofGetWindowPtr();
+    glfwWindows = &glfw->windows;
+    
     render.setup();
     dome.setup();
 
-    // input
-    // 0 = image
-	// 1 = capture
-    // 2 = video
-    // 3 = hap
-    // 4 = syphon
-
+    // input setup
     input.source = 0;
     input.frameRate = render.getFrameRate();
     input.setup();
 
     // projection shader
-	shader.load("shaders/vdome.vert", "shaders/vdome.frag");
+	shader.load("settings/shaders/vdome.vert", "settings/shaders/vdome.frag");
 
     // xml settings
     xmlFile = "settings.xml";
-    
+    saveThread.xml.push_back(&xml);
+    saveThread.files.push_back(xmlFile);
+
     if (xml.load(xmlFile)) {
         loadXML(xml);
     }
@@ -63,6 +65,7 @@ void vdome::setup(){
         }
     }
     
+<<<<<<< HEAD
     #ifdef TARGET_WIN32
 	ofxWinWindow * nwindow = (ofxWinWindow*)ofGetWindowPtr();
 	nwindow->hideBorder();
@@ -79,6 +82,24 @@ void vdome::setup(){
         //                           window.getPosition().x, window.getPosition().y, window.getDimensions().x, window.getDimensions().y);
     #endif
 
+=======
+    for(int i=0; i<projCount; i++) {
+        Projector p = projectors[i];
+        saveThread.xml.push_back(p.plane.wXml);
+        saveThread.files.push_back("settings/warp/warp-"+ofToString(i+1)+".xml");
+        saveThread.image.push_back(projectors[i].mask.maskFboImage);
+        saveThread.imageFiles.push_back("settings/masks/mask-" + ofToString(i+1) + ".png");
+    }
+    
+    maskHistory.clear();
+    for (int i=0; i<=(maxHistory+2); i++) {
+        ofPixels buffer;
+        buffer.allocate(projWidth, projHeight, OF_IMAGE_COLOR_ALPHA);
+        maskHistory.push_back(buffer);
+    }
+    
+    menu.autosave = autosave;    
+>>>>>>> d-tmp
 }
 
 /******************************************
@@ -88,7 +109,19 @@ void vdome::setup(){
  ********************************************/
 
 void vdome::update() {
-    input.update();
+    if (wIndex == 0) {
+        input.update();
+        
+        if (socket.enabled)
+            socket.update();
+    }
+    
+    if (menu.active) {
+        if (saveThread.saved) {
+            menu.saved = true;
+            saveThread.saved = false;
+        }
+    }
 }
 
 /******************************************
@@ -96,70 +129,71 @@ void vdome::update() {
  DRAW
 
  ********************************************/
-
-void vdome::draw(){
     
+void vdome::draw(){
     ofSetHexColor(0xFFFFFF);
 
-	for(int i=0; i<projCount; i++){
-        projectors[i].begin();
-            input.bind();
-                dome.draw();
-            input.unbind();
-        projectors[i].end();
-	}
+    int wi = glfw->getWindowIndex();
     
-    for(int i=0; i<projCount; i++){
-        ofDisableNormalizedTexCoords();
-        projectors[i].renderFbo.begin();
-        ofClear(0);
-        projectors[i].bind();
-       
-        ofPushMatrix();
-         // plane is in absolute coordinates, offset since moving to 3-pass for mask
-            ofTranslate(-projectors[i].getPlanePosition().x*i, 0);
-            projectors[i].draw();
-        ofPopMatrix();
-
-        projectors[i].unbind();
-        projectors[i].renderFbo.end();
-        ofEnableNormalizedTexCoords();
-	}
-
-	for(int i=0; i<projCount; i++) {
-        projectors[i].renderFbo.getTextureReference().bind();
-        
-            if (projectors[i].active) {
-                projectors[i].mask.draw();
-            }
-        
-            shader.begin();
-
-                shader.setUniform1f("brightness", projectors[i].brightness);
-                shader.setUniform1f("contrast", projectors[i].contrast);
-                shader.setUniform1f("blackLevel", projectors[i].blackLevel);
-                shader.setUniform1f("whiteLevel", projectors[i].whiteLevel);
-
-                shader.setUniform1f("hue", projectors[i].hue);
-                shader.setUniform1f("saturation", projectors[i].saturation);
-                shader.setUniform1f("lightness", projectors[i].lightness);
-
-                shader.setUniform1f("gamma", projectors[i].gamma);
-                shader.setUniform1f("gammaR", projectors[i].gammaR);
-                shader.setUniform1f("gammaG", projectors[i].gammaG);
-                shader.setUniform1f("gammaB", projectors[i].gammaB);
-
-                shader.setUniformTexture("texsampler", projectors[i].renderFbo.getTextureReference(), 0);
-                shader.setUniformTexture("maskTex", projectors[i].mask.maskFbo.getTextureReference(), 1);
-
-                projectors[i].renderPlane.draw();
+    for (int i=windows[wi].firstProjector; i<=windows[wi].lastProjector; i++) {
     
-            shader.end();
+        if (projectors[i].enable) {
 
-        projectors[i].renderFbo.getTextureReference().unbind();
-	}
+            projectors[i].begin();
+                input.bind();
+                    dome.draw();
+                input.unbind();
+            projectors[i].end();
 
-    menu.draw();
+            ofDisableNormalizedTexCoords();
+            projectors[i].renderFbo.begin();
+            ofClear(0);
+            projectors[i].bind();
+           
+                projectors[i].draw();
+
+            projectors[i].unbind();
+            projectors[i].renderFbo.end();
+            ofEnableNormalizedTexCoords();
+
+            projectors[i].renderFbo.getTextureReference().bind();
+            
+                if (projectors[i].active)
+                    projectors[i].mask.draw();
+            
+                shader.begin();
+
+                    shader.setUniform1f("brightness", projectors[i].brightness);
+                    shader.setUniform1f("contrast", projectors[i].contrast);
+                    shader.setUniform1f("blackLevel", projectors[i].blackLevel);
+                    shader.setUniform1f("whiteLevel", projectors[i].whiteLevel);
+
+                    shader.setUniform1f("hue", projectors[i].hue);
+                    shader.setUniform1f("saturation", projectors[i].saturation);
+                    shader.setUniform1f("lightness", projectors[i].lightness);
+
+                    shader.setUniform1f("gamma", projectors[i].gamma);
+                    shader.setUniform1f("gammaR", projectors[i].gammaR);
+                    shader.setUniform1f("gammaG", projectors[i].gammaG);
+                    shader.setUniform1f("gammaB", projectors[i].gammaB);
+
+                    shader.setUniformTexture("texsampler", projectors[i].renderFbo.getTextureReference(), 0);
+                    shader.setUniformTexture("maskTex", projectors[i].mask.maskFbo.getTextureReference(), 1);
+            
+                    projectors[i].renderPlane.draw();
+
+                shader.end();
+
+            projectors[i].renderFbo.getTextureReference().unbind();
+
+        }
+        
+        if (menu.active) {
+            menu.draw( projectors[i].index );
+        }
+        
+    }
+
 }
 
 /******************************************
@@ -169,51 +203,85 @@ void vdome::draw(){
  *******************************************/
 
 void vdome::loadXML(ofXml &xml) {
-    if (xml.exists("projectors[@count]")) {
-        projCount = ofToInt( xml.getAttribute("projectors[@count]") );
-        projCount = projCount;
-    }
-
-    if (xml.exists("projectors[@dimensions]")) {
-        string str = xml.getAttribute("projectors[@dimensions]");
-        projWidth = ofToFloat(ofSplitString(str, ",")[0]);
-        projHeight = ofToFloat(ofSplitString(str, ",")[1]);
-    }
-
-    for(int i=0; i<projCount; i++) {
-        Projector p;
-        p.init(i);
-        projectors.push_back(p);
-    }
-
+    
     input.loadXML(xml);
     render.loadXML(xml);
-    window.loadXML(xml);
     dome.loadXML(xml);
+    socket.loadXML(xml);
 
-    for(int i=0; i<projCount; i++) {
-        projectors[i].loadXML(xml);
+    winCount = 0;
+    projCount = 0;
+
+    if (xml.exists("window")) {
+        winCount = xml.getNumChildren("window");
+        for (int i=0; i<winCount; i++) {
+            Window w;
+            xml.setTo("window["+ ofToString(i) + "]");
+            
+            w.firstProjector = projCount;
+            projCount += xml.getNumChildren();
+            w.lastProjector = projCount-1;
+            if (i > 0)
+                glfw->createWindow();
+            w.glfwWindow = glfwWindows->at(i);
+            
+            for (int j=0; j<projCount-w.firstProjector; j++) {
+                Projector p;
+                p.setPlanePosition(j*projWidth, 0);
+                projectors.push_back(p);
+            }
+            
+            windows.push_back(w);
+            xml.setToParent();
+        }
+    }
+    int c=0;
+    for (int i=0; i<winCount; i++) {
+        xml.setTo("window["+ ofToString(i) + "]");
+        windows[i].loadXML(xml);
+        
+        for (int j=0; j<=windows[i].lastProjector-windows[i].firstProjector; j++) {
+            xml.setTo("projector["+ ofToString(j) + "]");
+            projectors[c].init(c);
+            projectors[c].loadXML(xml);
+            xml.setToParent();
+            c++;
+        }
+        
+        xml.setToParent();
+    }
+    
+    if (xml.exists("[@autosave]")) {
+        string str = ofToString( xml.getAttribute("[@autosave]") );
+        if (str == "on")    autosave = true;
+        else                autosave = false;
     }
 }
 
 void vdome::saveXML(ofXml &xml) {
-    xml.setTo("projectors");
-    xml.setAttribute("count", ofToString(projCount));
-    xml.setToParent();
-
-    tcp.saveXML(xml);
+    
+    socket.saveXML(xml);
     input.saveXML(xml);
     render.saveXML(xml);
-    window.saveXML(xml);
     dome.saveXML(xml);
+    
+    int c = 0;
+    for (int i=0; i<winCount; i++) {
+        
+        xml.setTo("window["+ ofToString(i) + "]");
+        windows[i].saveXML(xml);
 
-    for(int i=0; i<projCount; i++) {
-		projectors[i].saveXML(xml);
-	}
+        for (int j=0; j<=windows[i].lastProjector-windows[i].firstProjector; j++) {
+            xml.setTo("projector["+ ofToString(j) + "]");
+            projectors[c].saveXML(xml);
+            xml.setToParent();
+            c++;
+        }
+        
+        xml.setToParent();
 
-    if (xml.save(xmlFile)) {
-        menu.saved = true;
     }
+    saveThread.save();
 }
 
 /******************************************
@@ -233,6 +301,8 @@ void vdome::mouseDragged(ofMouseEventArgs& mouseArgs) {
 
 void vdome::mouseReleased(ofMouseEventArgs& mouseArgs) {
     menu.mouseReleased(mouseArgs);
+    if (autosave && menu.active)
+        saveXML(xml);
 }
 
 /******************************************
@@ -242,17 +312,19 @@ void vdome::mouseReleased(ofMouseEventArgs& mouseArgs) {
  ********************************************/
 
 void vdome::keyPressed(int key){
-    if (key == 115) { // s
-        if (menu.active && menu.ctrl)  { // ctrl + s = save file
+    if (key == 115 && !autosave) { // s
+        if (menu.active && menu.ctrl)
             saveXML(xml);
-            cout << "saveXML " << endl;
-        }
     }
     menu.keyPressed(key);
 }
 
 void vdome::keyReleased(int key){
     menu.keyReleased(key);
+    if (key != OF_KEY_UP || key == OF_KEY_DOWN) {
+        if (autosave && menu.active)
+            saveXML(xml);
+    }
 }
 
 /******************************************
@@ -265,7 +337,6 @@ void vdome::dragEvent(ofDragInfo dragInfo){
     input.dragEvent(dragInfo);
 }
 
-
 /******************************************
 
  EXIT
@@ -273,7 +344,8 @@ void vdome::dragEvent(ofDragInfo dragInfo){
  ********************************************/
 
 void vdome::exit(){
-    cout << "exit" << endl;
+    input.stop();
+    input.close();
 }
 
 }

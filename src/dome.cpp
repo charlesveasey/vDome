@@ -14,6 +14,8 @@ Dome::Dome(){
 	radius = 20;
 	N = 256;  // Mesh resolution, must be multiple of 4
     textureScale = 1;
+    textureFlip = false;
+    textureRotate = 0;
 }
 
 /******************************************
@@ -23,6 +25,7 @@ Dome::Dome(){
  ********************************************/
 
 void Dome::setup(){
+    
  	int i,j,index = 0;
 	int i1,i2,i3,i4;
 	double theta,phi,r;
@@ -42,6 +45,7 @@ void Dome::setup(){
 	vbo.addVertex(ofVec3f(0,0,0));
 	vbo.addNormal(ofVec3f(0,0,0));
 	vbo.addTexCoord(ofVec2f(0,0));
+    
 
 	for (j=0;j<=N/4;j++) {
 		for (i=0;i<=N;i++) {
@@ -60,10 +64,15 @@ void Dome::setup(){
 
 			phi = atan2(sqrt(x*x+y*y),z); // 0 ... pi/2
 			theta = atan2(y,x); // -pi ... pi
-			r = phi / PI/2 * 4 * textureScale; // 0 ... 1 --->
+			r = phi / PI/2 * 4 / textureScale; // 0 ... 1 --->
 			u = 0.5 * (r * cos(theta) + 1);
 			v = 0.5 * (r * sin(theta) + 1);
-			vbo.addTexCoord(ofVec2f(u,1-v)); // reverse
+            
+            if (textureFlip)
+                vbo.addTexCoord(ofVec2f(u,v));
+            else
+                vbo.addTexCoord(ofVec2f(u,1-v)); // reverse
+            
 			index++;
 		}
     }
@@ -82,6 +91,7 @@ void Dome::setup(){
 			vbo.addTriangle(i1, i3, i4);
 		}
 	}
+    
 }
 
 /******************************************
@@ -91,11 +101,14 @@ void Dome::setup(){
  ********************************************/
 
 void Dome::draw(){
+    ofPushMatrix();
 	ofRotateX(90);
+    ofRotateZ(textureRotate*-1);
     glEnable(GL_CULL_FACE);
     glCullFace( GL_BACK );
 	vbo.draw();
     glDisable(GL_CULL_FACE);
+    ofPopMatrix();
 }
 
 
@@ -113,6 +126,18 @@ void Dome::keyPressed(int key) {
                     radius += value;
                     setup();
                     break;
+                case T_ROTATE:
+                    textureRotate += value;
+                    setup();
+                    break;
+                case T_SCALE:
+                    textureScale += value * .01;
+                    setup();
+                    break;
+                case T_FLIP:
+                    textureFlip = true;
+                    setup();
+                    break;
             }
             break;
         case OF_KEY_LEFT:
@@ -121,30 +146,21 @@ void Dome::keyPressed(int key) {
                     radius -= value;
                     setup();
                     break;
-            }
-    }
-
-}
-
-void Dome::keyPressedInput(int key) {
-    switch (key) {
-        case OF_KEY_UP:  // up = switch on mode
-            switch (editMode) {
-                case 1: // mesh texture scale
-                    textureScale += value;
+                case T_ROTATE:
+                    textureRotate -= value;
+                    setup();
+                    break;
+                case T_SCALE:
+                    textureScale -= value * .01;
+                    setup();
+                    break;
+                case T_FLIP:
+                    textureFlip = false;
                     setup();
                     break;
             }
-            break;
-        case OF_KEY_DOWN:  // up = switch on mode
-            switch (editMode) {
-                case 1: // mesh texture scale
-                    textureScale -= value;
-                    setup();
-                    break;
-            }
-            break;
     }
+
 }
 
 /******************************************

@@ -4,6 +4,7 @@ namespace vd {
 extern float projWidth;
 extern float projHeight;
 extern int maxHistory;
+extern vector<ofPixels> maskHistory;
 
 /******************************************
 
@@ -19,13 +20,16 @@ Mask::Mask(){
 
     width = 1024;
     height = 768;
+    
+    tx = 0;
+    ty = 0;
 
     mouseDown = false;
-
+    maskFboImage = new ofImage();
     brushImage.setUseTexture(true);
     brushImage.setImageType(OF_IMAGE_COLOR_ALPHA);
-    maskFboImage.bpp = 16;
-    brushImage.loadImage("brushes/brush.png");
+    maskFboImage->bpp = 16;
+    brushImage.loadImage("settings/brushes/brush.png");
     brushWidth = brushImage.getWidth();
     brushHeight = brushImage.getHeight();
     brushScale = 1;
@@ -35,6 +39,7 @@ Mask::Mask(){
 
     hIndex = 0;
 	bufferAllocated = false;
+    
 }
 
 /******************************************
@@ -57,16 +62,6 @@ void Mask::setup(){
     width = projWidth;
     height = projHeight;
 
-    if (!bufferAllocated) {
-        for (int i=0; i<=(maxHistory+2); i++) {
-            ofPixels buffer;
-            buffer.allocate(width, height, OF_IMAGE_COLOR_ALPHA);
-            history.push_back(buffer);
-        }
-    }
-
-    bufferAllocated = true;
-
     if (maskFbo.getWidth() != projWidth || maskFbo.getHeight() != projHeight)
         maskFbo.allocate(width, height, GL_RGBA32F_ARB);
 
@@ -74,12 +69,12 @@ void Mask::setup(){
         ofClear(255,255,255,0);
     maskFbo.end();
 
-    if (maskFboImage.isAllocated()) {
+    if (maskFboImage->isAllocated()) {
         ofDisableAlphaBlending();
         ofDisableNormalizedTexCoords();
         maskFbo.begin();
         ofSetColor(255, 255, 255, 255);
-            maskFboImage.draw(0,0, 1024, 768);
+            maskFboImage->draw(0,0, 1024, 768);
         maskFbo.end();
         ofEnableNormalizedTexCoords();
         ofEnableAlphaBlending();
@@ -98,13 +93,13 @@ void Mask::draw(){
         if (erase)
             ofEnableBlendMode(OF_BLENDMODE_SUBTRACT);
         else
-            ofEnableBlendMode(OF_BLENDMODE_ADD);
+            ofEnableBlendMode(OF_BLENDMODE_SCREEN);
 
         maskFbo.begin();
         brushImage.bind();
         ofSetColor(brushOpacity, brushOpacity, brushOpacity, brushOpacity);
         ofPushMatrix();
-            ofTranslate(mouseX-(width*pIndex), mouseY);
+            ofTranslate(mouseX-tx, mouseY);
             ofScale(brushScale, brushScale);
             brush.draw();
         ofPopMatrix();
@@ -167,26 +162,26 @@ void Mask::keyReleased(int key){
 
 void Mask::load(){
     string filename;
-    filename = "masks/mask-" + ofToString(pIndex+1) + ".png";
+    filename = "settings/masks/mask-" + ofToString(pIndex+1) + ".png";
     read(filename);
 }
 
 void Mask::save(){
     string filename;
-    filename = "masks/mask-" + ofToString(pIndex+1) + ".png";
+    filename = "settings/masks/mask-" + ofToString(pIndex+1) + ".png";
     write(filename);
 }
 
 void Mask::write(string filename){
     maskFboPixels.clear();
     maskFbo.readToPixels(maskFboPixels);
-    maskFboImage.setFromPixels(maskFboPixels);
-    maskFboImage.saveImage(filename);
+    maskFboImage->setFromPixels(maskFboPixels);
+    //maskFboImage->saveImage(filename);
 }
 
 void Mask::read(string filename){
-    maskFboImage.clear();
-    if (maskFboImage.loadImage(filename))
+    maskFboImage->clear();
+    if (maskFboImage->loadImage(filename))
         setup();
 }
 
@@ -194,13 +189,13 @@ int Mask::store(int fIndex) {
     hIndex = fIndex;
     hPixels.clear();
     maskFbo.readToPixels(hPixels);
-    hPixels.pasteInto(history[fIndex], 0, 0);
+    hPixels.pasteInto(maskHistory[fIndex], 0, 0);
     return fIndex;
 }
 
 void Mask::recall(int fIndex) {
-    maskFboImage.clear();
-    maskFboImage.setFromPixels(history[fIndex]);
+    maskFboImage->clear();
+    maskFboImage->setFromPixels(maskHistory[fIndex]);
     setup();
 }
 
