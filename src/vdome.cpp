@@ -1,5 +1,8 @@
 #include "vdome.h"
-#include "ofxWinWindow.h"
+#ifdef TARGET_WIN32
+    #include "ofxWinWindow.h"
+#endif
+
 namespace vd {
 
 // global variables
@@ -65,24 +68,17 @@ void vdome::setup(){
         }
     }
     
-<<<<<<< HEAD
     #ifdef TARGET_WIN32
-	ofxWinWindow * nwindow = (ofxWinWindow*)ofGetWindowPtr();
-	nwindow->hideBorder();
-	//nwindow->keepWindowOnTop(true);
+        ofxWinWindow * nwindow = (ofxWinWindow*)ofGetWindowPtr();
+        nwindow->hideBorder();
+        nwindow->keepWindowOnTop(true);
 
-	//HWND handleWindow;
-	//AllocConsole();
-	//handleWindow = FindWindowA("ConsoleWindowClass", NULL);
-	//ShowWindow(handleWindow, 0);
+        HWND handleWindow;
+        AllocConsole();
+        handleWindow = FindWindowA("ConsoleWindowClass", NULL);
+        ShowWindow(handleWindow, 0);
 	#endif
 
-    #ifdef TARGET_OSX
-        //transparent.afterMainSetup(ofxTransparentWindow::SCREENSAVER, // change float mode here
-        //                           window.getPosition().x, window.getPosition().y, window.getDimensions().x, window.getDimensions().y);
-    #endif
-
-=======
     for(int i=0; i<projCount; i++) {
         Projector p = projectors[i];
         saveThread.xml.push_back(p.plane.wXml);
@@ -99,7 +95,6 @@ void vdome::setup(){
     }
     
     menu.autosave = autosave;    
->>>>>>> d-tmp
 }
 
 /******************************************

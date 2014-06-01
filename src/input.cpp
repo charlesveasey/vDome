@@ -201,6 +201,86 @@ void Input::play() {
 }
     
 void Input::toggle() {
+    
+    
+	bool isPlaying = false;
+    
+    #ifdef TARGET_OSX
+    if (vRenderer == AVF)
+        isPlaying = avf.isPlaying();
+    else if (vRenderer == QT2)
+        isPlaying = qt.isPlaying();
+    else if (vRenderer == HAP)
+        isPlaying = hap.isPlaying();
+    else if (vRenderer == QT)
+        isPlaying = video.isPlaying();
+    #endif
+    #ifdef TARGET_WIN32
+    if (vRenderer == WMF)
+        isPlaying = wmf.isPlaying();
+    else if (vRenderer == DS)
+        isPlaying = video.isPlaying();
+    else if (vRenderer == GST)
+        isPlaying = video.isPlaying();
+    else if (vRenderer == QT)
+        isPlaying = video.isPlaying();
+    #endif
+    #ifdef TARGET_LINUX
+    isPlaying = video.isPlaying();
+    #endif
+
+    if (!isPlaying) {
+    #ifdef TARGET_OSX
+        if (vRenderer == AVF)
+            avf.play();
+        else if (vRenderer == QT2)
+            qt.play();
+        else if (vRenderer == HAP)
+            hap.play();
+        else if (vRenderer == QT)
+            video.play();
+    #endif
+    #ifdef TARGET_WIN32
+        if (vRenderer == WMF)
+            wmf.play();
+        else if (vRenderer == DS)
+            video.play();
+        else if (vRenderer == GST)
+            video.play();
+        else if (vRenderer == QT)
+            video.play();
+    #endif
+    #ifdef TARGET_LINUX
+        video.play();
+    #endif
+    }
+    else{
+    #ifdef TARGET_OSX
+        if (vRenderer == AVF)
+            avf.stop();
+        else if (vRenderer == QT2)
+            qt.stop();
+        else if (vRenderer == HAP)
+            hap.stop();
+        else if (vRenderer == QT)
+            video.stop();
+    #endif
+    #ifdef TARGET_WIN32
+        if (vRenderer == WMF)
+            wmf.stop();
+        else if (vRenderer == DS)
+            video.stop();
+        else if (vRenderer == GST)
+            video.stop();
+        else if (vRenderer == QT)
+            video.stop();
+    #endif
+    #ifdef TARGET_LINUX
+        video.stop();
+    #endif
+    }
+
+    
     if (isVideo) {
         if (!video.isPlaying()) {
             if      (vRenderer == AVF)  avf.play();
@@ -252,84 +332,6 @@ void Input::prev() {
     getPrevFile();
 }
     
-<<<<<<< HEAD
-void Input::togglePause() {
-	bool isPlaying = false;
-
-		#ifdef TARGET_OSX
-			if (vRenderer == AVF)
-				isPlaying = avf.isPlaying();
-			else if (vRenderer == QT2)
-				isPlaying = qt.isPlaying();
-			else if (vRenderer == HAP)
-				isPlaying = hap.isPlaying();
-			else if (vRenderer == QT)
-				isPlaying = video.isPlaying();
-		#endif
-		#ifdef TARGET_WIN32
-			if (vRenderer == WMF)
-				isPlaying = wmf.isPlaying();
-			else if (vRenderer == DS)
-				isPlaying = video.isPlaying();
-			else if (vRenderer == GST)
-				isPlaying = video.isPlaying();
-			else if (vRenderer == QT)
-				isPlaying = video.isPlaying();
-		#endif
-		#ifdef TARGET_LINUX
-			isPlaying = video.isPlaying();
-		#endif
-
-	if (!isPlaying) {
-		#ifdef TARGET_OSX
-			if (vRenderer == AVF)
-				avf.play();
-			else if (vRenderer == QT2)
-				qt.play();
-			else if (vRenderer == HAP)
-				hap.play();
-			else if (vRenderer == QT)
-				video.play();
-		#endif
-		#ifdef TARGET_WIN32
-			if (vRenderer == WMF)
-				wmf.play();
-			else if (vRenderer == DS)
-				video.play();
-			else if (vRenderer == GST)
-				video.play();
-			else if (vRenderer == QT)
-				video.play();
-		#endif
-		#ifdef TARGET_LINUX
-			video.play();
-		#endif
-    }
-    else{
-		#ifdef TARGET_OSX
-			if (vRenderer == AVF)
-				avf.stop();
-			else if (vRenderer == QT2)
-				qt.stop();
-			else if (vRenderer == HAP)
-				hap.stop();
-			else if (vRenderer == QT)
-				video.stop();
-		#endif
-		#ifdef TARGET_WIN32
-			if (vRenderer == WMF)
-				wmf.stop();
-			else if (vRenderer == DS)
-				video.stop();
-			else if (vRenderer == GST)
-				video.stop();
-			else if (vRenderer == QT)
-				video.stop();
-		#endif
-		#ifdef TARGET_LINUX
-			video.stop();
-		#endif
-=======
 void Input::next() {
     getNextFile();
 }
@@ -349,7 +351,6 @@ void Input::prevFrame() {
         else if (vRenderer == QT2)  qt.previousFrame();
         else if (vRenderer == HAP)  hap.previousFrame();
         else if (vRenderer == QT)   video.previousFrame();
->>>>>>> d-tmp
     }
 }
 

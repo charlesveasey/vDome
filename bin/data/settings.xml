@@ -7,8 +7,9 @@
     
     <dome radius="10"/>
     
-	<window border="off" float="off" fullscreen="off" height="1080" width="2048" x="0" y="0">
-        <projector brightness="1" contrast="1" dimensions="1920,1080" fov="40" gamma="1,1,1,1" hsl="1,1,1" levels="0,255" orientation="0,-20,0" position="0,0,10" scale="1,1" shear="0,0,0,0,0,0"/>
+	<window border="off" float="off" fullscreen="off" height="768" width="2048" x="0" y="0">
+        <projector brightness="1" contrast="1" dimensions="1024,768" fov="40" gamma="1,1,1,1" hsl="1,1,1" levels="0,255" orientation="0,-20,0" position="0,0,10" scale="1,1" shear="0,0,0,0,0,0"/>
+        <projector brightness="1" contrast="1" dimensions="1024,768" fov="40" gamma="1,1,1,1" hsl="1,1,1" levels="0,255" orientation="0,-20,0" position="0,0,10" scale="1,1" shear="0,0,0,0,0,0"/>
     </window>
 
 </vdome>
