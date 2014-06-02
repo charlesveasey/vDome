@@ -58,7 +58,7 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);..\..\..\addons\ofxNetwork\libs;..\..\..\addons\ofxNetwork\src;..\..\..\addons\ofxOpenCv\libs;..\..\..\addons\ofxOpenCv\src;..\..\..\addons\ofxOpenCv\libs\opencv;..\..\..\addons\ofxOpenCv\libs\opencv\include;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\calib3d;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\contrib;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\features2d;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\highgui;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\imgproc;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\legacy;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\ml;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\objdetect;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\ts;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\video;..\..\..\addons\ofxOpenCv\libs\opencv\lib;..\..\..\addons\ofxOpenCv\libs\opencv\lib\vs;..\..\..\addons\ofxQuadWarp\libs;..\..\..\addons\ofxQuadWarp\src;..\..\..\addons\ofDirectShowVideoPlayer;..\..\..\addons\ofxMediaType\src;..\..\..\addons\ofxMediaType\libs\ofxMediaType\include;..\..\..\addons\ofxWMFVideoPlayer\libs;..\..\..\addons\ofxWMFVideoPlayer\src;..\..\..\addons\ofxWMFVideoPlayer\src\presenter;..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common;C:\gstreamer\1.0\x86\include;C:\gstreamer\1.0\x86\include\gstreamer-1.0;C:\gstreamer\1.0\x86\include\glib-2.0;C:\gstreamer\1.0\x86\lib\glib-2.0\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);..\..\..\addons\ofxOpenCv\libs;..\..\..\addons\ofxOpenCv\src;..\..\..\addons\ofxOpenCv\libs\opencv;..\..\..\addons\ofxOpenCv\libs\opencv\include;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\calib3d;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\contrib;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\features2d;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\highgui;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\imgproc;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\legacy;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\ml;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\objdetect;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\ts;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\video;..\..\..\addons\ofxOpenCv\libs\opencv\lib;..\..\..\addons\ofxOpenCv\libs\opencv\lib\vs;..\..\..\addons\ofxOsc\libs;..\..\..\addons\ofxOsc\libs\oscpack;..\..\..\addons\ofxOsc\libs\oscpack\src;..\..\..\addons\ofxOsc\libs\oscpack\src\ip;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\posix;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\win32;..\..\..\addons\ofxOsc\libs\oscpack\src\osc;..\..\..\addons\ofxOsc\src;..\..\..\addons\ofDirectShowVideoPlayer;..\..\..\addons\ofxMediaType\src;..\..\..\addons\ofxMediaType\libs\ofxMediaType\include;..\..\..\addons\ofxWMFVideoPlayer\libs;..\..\..\addons\ofxWMFVideoPlayer\src;..\..\..\addons\ofxWMFVideoPlayer\src\presenter;..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common;..\..\..\addons\ofxMultiGLFWWindow\src;..\..\..\addons\ofxBezierSurface\src;..\..\..\addons\ofxM3U\src;C:\gstreamer\1.0\x86\include;C:\gstreamer\1.0\x86\include\gstreamer-1.0;C:\gstreamer\1.0\x86\include\glib-2.0;C:\gstreamer\1.0\x86\lib\glib-2.0\include;..\..\..\addons\ofxWinWindow\src</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
@@ -75,7 +75,7 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);..\..\..\addons\ofxNetwork\libs;..\..\..\addons\ofxNetwork\src;..\..\..\addons\ofxOpenCv\libs;..\..\..\addons\ofxOpenCv\src;..\..\..\addons\ofxOpenCv\libs\opencv;..\..\..\addons\ofxOpenCv\libs\opencv\include;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\calib3d;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\contrib;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\features2d;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\highgui;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\imgproc;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\legacy;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\ml;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\objdetect;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\ts;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\video;..\..\..\addons\ofxOpenCv\libs\opencv\lib;..\..\..\addons\ofxOpenCv\libs\opencv\lib\vs;..\..\..\addons\ofxQuadWarp\libs;..\..\..\addons\ofxQuadWarp\src;..\..\..\addons\ofDirectShowVideoPlayer;..\..\..\addons\ofxMediaType\src;..\..\..\addons\ofxMediaType\libs\ofxMediaType\include;..\..\..\addons\ofxMediaType\libs\ofxMediaType\src;..\..\..\addons\ofxWMFVideoPlayer\libs;..\..\..\addons\ofxWMFVideoPlayer\src;..\..\..\addons\ofxWMFVideoPlayer\src\presenter;..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common;C:\gstreamer\1.0\x86\include;C:\gstreamer\1.0\x86\include\gstreamer-1.0;C:\gstreamer\1.0\x86\include\glib-2.0;C:\gstreamer\1.0\x86\lib\glib-2.0\include;..\..\..\addons\ofxWinWindow\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);..\..\..\addons\ofxOpenCv\libs;..\..\..\addons\ofxOpenCv\src;..\..\..\addons\ofxOpenCv\libs\opencv;..\..\..\addons\ofxOpenCv\libs\opencv\include;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\calib3d;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\contrib;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\features2d;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\highgui;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\imgproc;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\legacy;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\ml;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\objdetect;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\ts;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\video;..\..\..\addons\ofxOpenCv\libs\opencv\lib;..\..\..\addons\ofxOpenCv\libs\opencv\lib\vs;..\..\..\addons\ofxOsc\libs;..\..\..\addons\ofxOsc\libs\oscpack;..\..\..\addons\ofxOsc\libs\oscpack\src;..\..\..\addons\ofxOsc\libs\oscpack\src\ip;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\posix;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\win32;..\..\..\addons\ofxOsc\libs\oscpack\src\osc;..\..\..\addons\ofxOsc\src;..\..\..\addons\ofDirectShowVideoPlayer;..\..\..\addons\ofxMediaType\src;..\..\..\addons\ofxMediaType\libs\ofxMediaType\include;..\..\..\addons\ofxWMFVideoPlayer\libs;..\..\..\addons\ofxWMFVideoPlayer\src;..\..\..\addons\ofxWMFVideoPlayer\src\presenter;..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common;..\..\..\addons\ofxMultiGLFWWindow\src;..\..\..\addons\ofxBezierSurface\src;..\..\..\addons\ofxM3U\src;C:\gstreamer\1.0\x86\include;C:\gstreamer\1.0\x86\include\gstreamer-1.0;C:\gstreamer\1.0\x86\include\glib-2.0;C:\gstreamer\1.0\x86\lib\glib-2.0\include;..\..\..\addons\ofxWinWindow\src</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
@@ -91,7 +91,24 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\addons\ofDirectShowVideoPlayer\ofDirectShowPlayer.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxBezierSurface\src\ofxBezierSurface.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxM3U\src\ofxM3U.cpp" />
     <ClCompile Include="..\..\..\addons\ofxMediaType\libs\ofxMediaType\src\MediaTypeMap.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxMultiGLFWWindow\src\ofxMultiGLFWWindow.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\IpEndpointName.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\posix\NetworkingUtils.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\posix\UdpSocket.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\win32\NetworkingUtilsWin.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\win32\UdpSocketWin.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscOutboundPacketStream.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscPrintReceivedElements.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscReceivedElements.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscTypes.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscBundle.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscMessage.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscParameterSync.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscReceiver.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscSender.cpp" />
     <ClCompile Include="..\..\..\addons\ofxWinWindow\src\ofxWinWindow.cpp" />
     <ClCompile Include="..\..\..\addons\ofxWMFVideoPlayer\src\ofxWMFVideoPlayer.cpp" />
     <ClCompile Include="..\..\..\addons\ofxWMFVideoPlayer\src\ofxWMFVideoPlayerUtils.cpp" />
@@ -114,11 +131,6 @@
     <ClCompile Include="src\projector.cpp" />
     <ClCompile Include="src\quadWarp.cpp" />
     <ClCompile Include="src\render.cpp" />
-    <ClCompile Include="src\tcp.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxNetwork\src\ofxTCPClient.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxNetwork\src\ofxTCPManager.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxNetwork\src\ofxTCPServer.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxNetwork\src\ofxUDPManager.cpp" />
     <ClCompile Include="..\..\..\addons\ofxOpenCv\src\ofxCvColorImage.cpp" />
     <ClCompile Include="..\..\..\addons\ofxOpenCv\src\ofxCvContourFinder.cpp" />
     <ClCompile Include="..\..\..\addons\ofxOpenCv\src\ofxCvFloatImage.cpp" />
@@ -126,14 +138,38 @@
     <ClCompile Include="..\..\..\addons\ofxOpenCv\src\ofxCvHaarFinder.cpp" />
     <ClCompile Include="..\..\..\addons\ofxOpenCv\src\ofxCvImage.cpp" />
     <ClCompile Include="..\..\..\addons\ofxOpenCv\src\ofxCvShortImage.cpp" />
+    <ClCompile Include="src\socket.cpp" />
     <ClCompile Include="src\vdome.cpp" />
     <ClCompile Include="src\window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\addons\ofDirectShowVideoPlayer\ofDirectShowPlayer.h" />
+    <ClInclude Include="..\..\..\addons\ofxBezierSurface\src\ofxBezierSurface.h" />
+    <ClInclude Include="..\..\..\addons\ofxM3U\src\ofxM3U.h" />
     <ClInclude Include="..\..\..\addons\ofxMediaType\libs\ofxMediaType\include\ofx\Media\AbstractMediaTypeProvider.h" />
     <ClInclude Include="..\..\..\addons\ofxMediaType\libs\ofxMediaType\include\ofx\Media\MediaTypeMap.h" />
     <ClInclude Include="..\..\..\addons\ofxMediaType\src\ofxMediaType.h" />
+    <ClInclude Include="..\..\..\addons\ofxMultiGLFWWindow\src\ofxMultiGLFWWindow.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\IpEndpointName.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\NetworkingUtils.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\PacketListener.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\TimerListener.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\UdpSocket.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\MessageMappingOscPacketListener.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscException.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscHostEndianness.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscOutboundPacketStream.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscPacketListener.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscPrintReceivedElements.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscReceivedElements.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscTypes.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOsc.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscArg.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscBundle.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscMessage.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscParameterSync.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscReceiver.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscSender.h" />
     <ClInclude Include="..\..\..\addons\ofxWinWindow\src\ofxWinWindow.h" />
     <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\ofxWMFVideoPlayer.h" />
     <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\ofxWMFVideoPlayerUtils.h" />
@@ -172,13 +208,6 @@
     <ClInclude Include="src\projector.h" />
     <ClInclude Include="src\quadWarp.h" />
     <ClInclude Include="src\render.h" />
-    <ClInclude Include="src\tcp.h" />
-    <ClInclude Include="..\..\..\addons\ofxNetwork\src\ofxNetwork.h" />
-    <ClInclude Include="..\..\..\addons\ofxNetwork\src\ofxNetworkUtils.h" />
-    <ClInclude Include="..\..\..\addons\ofxNetwork\src\ofxTCPClient.h" />
-    <ClInclude Include="..\..\..\addons\ofxNetwork\src\ofxTCPManager.h" />
-    <ClInclude Include="..\..\..\addons\ofxNetwork\src\ofxTCPServer.h" />
-    <ClInclude Include="..\..\..\addons\ofxNetwork\src\ofxUDPManager.h" />
     <ClInclude Include="..\..\..\addons\ofxOpenCv\src\ofxCvBlob.h" />
     <ClInclude Include="..\..\..\addons\ofxOpenCv\src\ofxCvColorImage.h" />
     <ClInclude Include="..\..\..\addons\ofxOpenCv\src\ofxCvConstants.h" />
@@ -272,6 +301,8 @@
     <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\video\background_segm.hpp" />
     <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\video\tracking.hpp" />
     <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\video\video.hpp" />
+    <ClInclude Include="src\saveThread.h" />
+    <ClInclude Include="src\socket.h" />
     <ClInclude Include="src\vdome.h" />
     <ClInclude Include="src\window.h" />
   </ItemGroup>

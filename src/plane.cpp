@@ -21,6 +21,7 @@ Plane::Plane(){
     cornerpinPoints.push_back(ofPoint(0,1));
     cornerpinPoints.push_back(ofPoint(1,1));
 
+	bfirst = true;
     group = false;
     drawBox = false;
     xRes = 10;

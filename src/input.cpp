@@ -20,17 +20,12 @@ Input::Input(){
     fileIndex = 0;
     imageDuration = 10;
 
-    
-    #ifdef TARGET_WIN32
-        ofxWMFVideoPlayer wmf;
-    #endif
-    
     #ifdef TARGET_OSX
         maxSource += 1;
         vRenderer = QT;
     #endif
-
 	#ifdef TARGET_WIN32
+		ofxWMFVideoPlayer wmf;
 		vRenderer = WMF;
 		if (vRenderer == WMF) {
 		}
@@ -46,11 +41,6 @@ Input::Input(){
 				video.setUseTexture(false);
 		}
 	#endif
-
-    
-	#ifdef TARGET_LINUX
-    #endif
-
 }
 
 /******************************************
@@ -188,10 +178,19 @@ void Input::setup(){
 
 void Input::play() {
     if (isVideo) {
-        if      (vRenderer == AVF)  avf.play();
-        else if (vRenderer == QT2)  qt.play();
-        else if (vRenderer == HAP)  hap.play();
-        else if (vRenderer == QT)   video.play();
+		#ifdef TARGET_OSX
+			if      (vRenderer == AVF)  avf.play();
+			else if (vRenderer == QT2)  qt.play();
+			else if (vRenderer == HAP)  hap.play();
+			else if (vRenderer == QT)   video.play();
+		#endif
+		#ifdef TARGET_WIN32
+			if		(vRenderer == WMF)	wmf.play();
+			else						video.play();
+		#endif
+		#ifdef TARGET_LINUX	
+			video.play();
+		#endif
     }
     else {
         if (fileIndex >= fileList.size())
@@ -199,130 +198,62 @@ void Input::play() {
         startTimer();
     }
 }
+
+bool Input::isPlaying() {
+	bool isP = false;
+	#ifdef TARGET_OSX
+		if		(vRenderer == AVF)	isP = avf.isPlaying();
+		else if (vRenderer == QT2)	isP = qt.isPlaying();
+		else if (vRenderer == HAP)	isP = hap.isPlaying();
+		else if (vRenderer == QT)	isP = video.isPlaying();
+	#endif
+	#ifdef TARGET_WIN32
+		if		(vRenderer == WMF)	isP = wmf.isPlaying();
+		else						isP = video.isPlaying();
+	#endif
+	#ifdef TARGET_LINUX				
+		isP = video.isPlaying();
+	#endif
+	return isP;
+}
     
 void Input::toggle() {
-    
-    
-	bool isPlaying = false;
-    
-    #ifdef TARGET_OSX
-    if (vRenderer == AVF)
-        isPlaying = avf.isPlaying();
-    else if (vRenderer == QT2)
-        isPlaying = qt.isPlaying();
-    else if (vRenderer == HAP)
-        isPlaying = hap.isPlaying();
-    else if (vRenderer == QT)
-        isPlaying = video.isPlaying();
-    #endif
-    #ifdef TARGET_WIN32
-    if (vRenderer == WMF)
-        isPlaying = wmf.isPlaying();
-    else if (vRenderer == DS)
-        isPlaying = video.isPlaying();
-    else if (vRenderer == GST)
-        isPlaying = video.isPlaying();
-    else if (vRenderer == QT)
-        isPlaying = video.isPlaying();
-    #endif
-    #ifdef TARGET_LINUX
-    isPlaying = video.isPlaying();
-    #endif
-
-    if (!isPlaying) {
-    #ifdef TARGET_OSX
-        if (vRenderer == AVF)
-            avf.play();
-        else if (vRenderer == QT2)
-            qt.play();
-        else if (vRenderer == HAP)
-            hap.play();
-        else if (vRenderer == QT)
-            video.play();
-    #endif
-    #ifdef TARGET_WIN32
-        if (vRenderer == WMF)
-            wmf.play();
-        else if (vRenderer == DS)
-            video.play();
-        else if (vRenderer == GST)
-            video.play();
-        else if (vRenderer == QT)
-            video.play();
-    #endif
-    #ifdef TARGET_LINUX
-        video.play();
-    #endif
-    }
-    else{
-    #ifdef TARGET_OSX
-        if (vRenderer == AVF)
-            avf.stop();
-        else if (vRenderer == QT2)
-            qt.stop();
-        else if (vRenderer == HAP)
-            hap.stop();
-        else if (vRenderer == QT)
-            video.stop();
-    #endif
-    #ifdef TARGET_WIN32
-        if (vRenderer == WMF)
-            wmf.stop();
-        else if (vRenderer == DS)
-            video.stop();
-        else if (vRenderer == GST)
-            video.stop();
-        else if (vRenderer == QT)
-            video.stop();
-    #endif
-    #ifdef TARGET_LINUX
-        video.stop();
-    #endif
-    }
-
-    
-    if (isVideo) {
-        if (!video.isPlaying()) {
-            if      (vRenderer == AVF)  avf.play();
-            else if (vRenderer == QT2)  qt.play();
-            else if (vRenderer == HAP)  hap.play();
-            else if (vRenderer == QT)   video.play();
-        }
-        else stop();
+	if (isVideo) {    
+		if (!isPlaying())	 play();
+		else				 stop();
     }
     else {
-        if (timerRunning)   stopTimer();
-        else                startTimer();
+        if (timerRunning)   play();
+        else                stop();
     }
 }
     
 void Input::stop() {
-    video.stop();
-    if(capture.isInitialized())
+    if (capture.isInitialized())
         capture.close();
+
 	#ifdef TARGET_OSX
 		hap.stop();
         qt.stop();
         avf.stop();
 	#endif
-
 	#ifdef TARGET_WIN32
 		if (wmf.isPlaying())
 			wmf.stop();
     #endif
+	video.stop();
 }
 
 void Input::close() {
     image.clear();
     video.close();
-    if(capture.isInitialized())
+    if (capture.isInitialized())
         capture.close();
     #ifdef TARGET_OSX
         hap.closeMovie();
         qt.close();
         avf.closeMovie();
     #endif
-
 	#ifdef TARGET_WIN32
 		//wmf.close();
     #endif
@@ -337,29 +268,56 @@ void Input::next() {
 }
 
 void Input::seek(float f) {
-    if (isVideo) {
-        if      (vRenderer == AVF)  avf.setPosition(f/1000);
-        else if (vRenderer == QT2)  qt.setPosition(f/1000);
-        else if (vRenderer == HAP)  hap.setPosition(f/1000);
-        else if (vRenderer == QT)   video.setPosition(f/1000);
+	if (isVideo) {
+		#ifdef TARGET_OSX
+			if		(vRenderer == AVF)  avf.setPosition(f/1000);
+			else if (vRenderer == QT2)  qt.setPosition(f/1000);
+			else if (vRenderer == HAP)  hap.setPosition(f/1000);
+			else if (vRenderer == QT)   video.setPosition(f/1000);
+		#endif
+		#ifdef TARGET_WIN32
+			if		(vRenderer == WMF)	wmf.setPosition(f/1000);
+			else						video.setPosition(f/1000);
+		#endif
+		#ifdef TARGET_LINUX	
+			video.setPosition(f/1000);
+		#endif
     }
 }
 
 void Input::prevFrame() {
     if (isVideo) {
-        if      (vRenderer == AVF)  avf.previousFrame();
-        else if (vRenderer == QT2)  qt.previousFrame();
-        else if (vRenderer == HAP)  hap.previousFrame();
-        else if (vRenderer == QT)   video.previousFrame();
+		#ifdef TARGET_OSX
+			if      (vRenderer == AVF)  avf.previousFrame();
+			else if (vRenderer == QT2)  qt.previousFrame();
+			else if (vRenderer == HAP)  hap.previousFrame();
+			else if (vRenderer == QT)   video.previousFrame();
+		#endif
+		#ifdef TARGET_WIN32
+			if		(vRenderer == WMF)	return;
+			else						video.previousFrame();
+		#endif
+		#ifdef TARGET_LINUX	
+			video.previousFrame();
+		#endif
     }
 }
 
 void Input::nextFrame() {
     if (isVideo) {
-        if      (vRenderer == AVF)  avf.nextFrame();
-        else if (vRenderer == QT2)  qt.nextFrame();
-        else if (vRenderer == HAP)  hap.nextFrame();
-        else if (vRenderer == QT)   video.nextFrame();
+		#ifdef TARGET_OSX
+			if      (vRenderer == AVF)  avf.nextFrame();
+			else if (vRenderer == QT2)  qt.nextFrame();
+			else if (vRenderer == HAP)  hap.nextFrame();
+			else if (vRenderer == QT)   video.nextFrame();
+		#endif
+		#ifdef TARGET_WIN32
+			if		(vRenderer == WMF)	return;
+			else						video.nextFrame();
+		#endif
+		#ifdef TARGET_LINUX
+			video.nextFrame();
+		#endif
     }
 }
     
@@ -376,10 +334,19 @@ void Input::setLoop(bool b) {
     else
         v = OF_LOOP_NONE;
     
-    if      (vRenderer == AVF)  avf.setLoopState(v);
-    else if (vRenderer == QT2)  qt.setLoopState(v);
-    else if (vRenderer == HAP)  hap.setLoopState(v);
-    else if (vRenderer == QT)   video.setLoopState(v);
+	#ifdef TARGET_OSX
+		if      (vRenderer == AVF)  avf.setLoopState(v);
+		else if (vRenderer == QT2)  qt.setLoopState(v);
+		else if (vRenderer == HAP)  hap.setLoopState(v);
+		else if (vRenderer == QT)   video.setLoopState(v);
+	#endif
+	#ifdef TARGET_WIN32
+		if		(vRenderer == WMF)	wmf.setLoop(v);
+		else						video.setLoopState(v);
+	#endif
+	#ifdef TARGET_LINUX
+		video.setLoopState(v);
+	#endif
 }
 
 string Input::getSource() {
@@ -405,11 +372,19 @@ void Input::setFile(string s) {
 }
 
 float Input::getPosition() {
-    float pos;
-    if      (vRenderer == AVF)  pos = avf.getPosition();
-    else if (vRenderer == QT2)  pos = qt.getPosition();
-    else if (vRenderer == HAP)  pos = hap.getPosition();
-    else if (vRenderer == QT)   pos = video.getPosition();
+    float pos = 0.0;
+	#ifdef TARGET_OSX
+		if      (vRenderer == AVF)  pos = avf.getPosition();
+		else if (vRenderer == QT2)  pos = qt.getPosition();
+		else if (vRenderer == HAP)  pos = hap.getPosition();
+		else if (vRenderer == QT)   pos = video.getPosition();
+	#endif
+	#ifdef TARGET_WIN32
+		if		(vRenderer == WMF)	wmf.getPosition();
+		else						video.getPosition();
+	#endif
+	#ifdef TARGET_LINUX
+	#endif
     return pos;
 }
     

@@ -59,6 +59,8 @@ public:
     
     void loadXML(ofXml &xml);
     void saveXML(ofXml &xml);
+
+	bool isPlaying();
     
     ofTexture texture;
     

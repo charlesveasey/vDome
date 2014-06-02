@@ -32,7 +32,7 @@ public:
     ofXml *wXml;
     float value;
     ofMatrix4x4 lm;
-    bool bfirst = true;
+    bool bfirst;
     QuadWarp cornerpin;
     ofxBezierSurface grid;
     bool cornerpinActive;
