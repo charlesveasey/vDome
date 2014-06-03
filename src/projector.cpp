@@ -133,10 +133,7 @@ void Projector::setup() {
     renderFbo.end();
     
     mask.setup();
-    
 }
-
-
 
 // camera transform
 void Projector::setCameraTransform(){
@@ -336,6 +333,9 @@ void Projector::keyPressed(int key) {
 
                 case FOV: history.execute( new SetCameraFov(*this, 33) ); break;
 
+                case OFFSET_X: history.execute( new SetCameraOffset(*this, 0, cameraOffset.y) ); break;
+                case OFFSET_Y: history.execute( new SetCameraOffset(*this, cameraOffset.x, 0) ); break;
+
                 case SCALE: history.execute( new SetCameraScale(*this, 1, 1) ); break;
                 case SCALE_X: history.execute( new SetCameraScaleX(*this, 1) ); break;
                 case SCALE_Y: history.execute( new SetCameraScaleY(*this, 1) ); break;
@@ -436,6 +436,12 @@ void Projector::keyPressed(int key) {
                 case FOV:
                     history.execute( new SetCameraFov(*this, cameraFov + value) );
                     break;
+                    
+                case OFFSET_X:
+                    history.execute( new SetCameraOffset(*this, cameraOffset.x + value  * .1, cameraOffset.y) );
+                    break;
+                case OFFSET_Y:
+                    history.execute( new SetCameraOffset(*this, cameraOffset.x, cameraOffset.y + value * .1) );
 
                 case SCALE:
                     history.execute( new SetCameraScale(*this, cameraScale.x + value * .1, cameraScale.y + value * .1) );
@@ -553,6 +559,13 @@ void Projector::keyPressed(int key) {
 
                 case FOV:
                     history.execute( new SetCameraFov(*this, cameraFov - value) );
+                    break;
+                    
+                case OFFSET_X:
+                    history.execute( new SetCameraOffset(*this, cameraOffset.x - value * .1, cameraOffset.y) );
+                    break;
+                case OFFSET_Y:
+                    history.execute( new SetCameraOffset(*this, cameraOffset.x, cameraOffset.y - value * .1) );
                     break;
 
                 case SCALE:
@@ -678,12 +691,12 @@ void Projector::loadXML(ofXml &xml) {
     }
 
     //camera lens offset
-    //if (xml.exists("@offset")) {
-    //    str = xml.getAttribute("@offset");
-    //    float offX  = ofToFloat(ofSplitString(str, ",")[0]);
-    //    float offY  = ofToFloat(ofSplitString(str, ",")[1]);
-    //    setCameraOffset(offX, offY);
-    //}
+    if (xml.exists("@offset")) {
+        str = xml.getAttribute("@offset");
+        float offX  = ofToFloat(ofSplitString(str, ",")[0]);
+        float offY  = ofToFloat(ofSplitString(str, ",")[1]);
+        setCameraOffset(offX, offY);
+    }
 
     // camera scale
     if (xml.exists("[@scale]")) {
@@ -708,11 +721,6 @@ void Projector::loadXML(ofXml &xml) {
 }
 
 void Projector::saveXML(ofXml &xml) {
-
-    //string pre = xmlPrefix + ofToString(index);
-    //xml.setTo(pre + "");
-    
-    
     // blend
     xml.setAttribute("brightness", ofToString(roundTo(brightness, .001)));
     xml.setAttribute("contrast", ofToString(roundTo(contrast, .001)));
@@ -726,15 +734,10 @@ void Projector::saveXML(ofXml &xml) {
     xml.setAttribute("position", ofToString(roundTo(cameraPosition.x, .01)) +  "," + ofToString(roundTo(cameraPosition.y, .01)) +  "," + ofToString(roundTo(cameraPosition.z, .01)) );
     xml.setAttribute("orientation", ofToString(roundTo(cameraOrientation.x, .01)) +  "," + ofToString(roundTo(cameraOrientation.y, .01)) +  "," + ofToString(roundTo(cameraOrientation.z, .01)) );
     xml.setAttribute("fov", ofToString(roundTo(cameraFov, .01)));
-    //xml.setAttribute("offset", ofToString(cameraOffset.x) +  "," + ofToString(cameraOffset.y) );
-    
-    
-    
-    
+    xml.setAttribute("offset", ofToString(cameraOffset.x) +  "," + ofToString(cameraOffset.y) );
     xml.setAttribute("scale", ofToString(roundTo(cameraScale.x, .001)) +  "," + ofToString(roundTo(cameraScale.y, .001)) );
     xml.setAttribute("shear", ofToString(roundTo(cameraShear[0], .001)) +  "," + ofToString(roundTo(cameraShear[1], .001)) +  "," + ofToString(roundTo(cameraShear[2], .001)) +
                         "," + ofToString(roundTo(cameraShear[3], .001)) +  "," + ofToString(roundTo(cameraShear[4], .001)) +  "," + ofToString(roundTo(cameraShear[5], .001)) );
-
     // plane
     //xml.setAttribute("dimensions", ofToString(planeDimensions.x) +  "," + ofToString(planeDimensions.y) );
 
@@ -742,7 +745,6 @@ void Projector::saveXML(ofXml &xml) {
     mask.save();
     
     //xml.setToParent();
-
 }
 
 

@@ -41,8 +41,6 @@ Menu::Menu(){
     menuInputTransform->items.push_back(new Item("Flip"));
     menuInputTransform->items.push_back(new Item("Rotate"));
     menuInputTransform->items.push_back(new Item("Scale"));
-    //menuInputTransform->items.push_back("Offset X");
-    //menuInputTransform->items.push_back("Offset Y");
 
     menuWarp = new MenuItem;
     menuWarp->menuId = WARP;
@@ -136,6 +134,8 @@ Menu::Menu(){
     menuLens->parent = &menuSetup;
     menuLens->currentItem = 0;
     menuLens->items.push_back(new Item("Field of View"));
+    menuLens->items.push_back(new Item("Offset X"));
+    menuLens->items.push_back(new Item("Offset Y"));
 
     menuScale = new MenuItem;
     menuScale->menuId = SCALE;
@@ -372,6 +372,12 @@ void Menu::drawMain(int i){
                     switch (j) {
                         case FOV:
                             val = ofToString(roundTo(projectors->at(i).getCameraFov(), .01));
+                            break;
+                        case OFFSET_X:
+                            val = ofToString(roundTo(projectors->at(i).getCameraOffset().x, .001));
+                            break;
+                        case OFFSET_Y:
+                            val = ofToString(roundTo(projectors->at(i).getCameraOffset().y, .001));
                             break;
                     }
 
@@ -1026,6 +1032,18 @@ void Menu::setEditMode() {
                     for (int k=0; k<projCount; k++) {
                         if (projectors->at(k).active)
                             projectors->at(k).editMode = projectors->at(k).FOV;
+                    }
+                    break;
+                case OFFSET_X:
+                    for (int k=0; k<projCount; k++) {
+                        if (projectors->at(k).active)
+                            projectors->at(k).editMode = projectors->at(k).OFFSET_X;
+                    }
+                    break;
+                case OFFSET_Y:
+                    for (int k=0; k<projCount; k++) {
+                        if (projectors->at(k).active)
+                            projectors->at(k).editMode = projectors->at(k).OFFSET_Y;
                     }
                     break;
             }

@@ -93,7 +93,7 @@ public:
                     CORNERPIN, GRID,
                     AZIMUTH, ELEVATION, DISTANCE,
                     ROLL, TILT, PAN,
-                    FOV,
+                    FOV, OFFSET_X, OFFSET_Y,
                     SCALE, SCALE_X, SCALE_Y,
                     SHEAR_XY, SHEAR_XZ, SHEAR_YX, SHEAR_YZ, SHEAR_ZX, SHEAR_ZY,
                     NONE, BRUSH_SCALE, BRUSH_OPACITY, WHITE, BLACK, ENABLE};

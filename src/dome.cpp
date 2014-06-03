@@ -172,10 +172,8 @@ void Dome::keyPressed(int key) {
 void Dome::loadXML(ofXml &xml) {
     if (xml.exists("dome[@radius]"))
         radius = ofToDouble( xml.getAttribute("dome[@radius]") );
-
     if (xml.exists("input[@scale"))
         textureScale = ofToFloat( xml.getAttribute("input[@scale]") );
-
     setup();
 }
 

@@ -1,15 +1,15 @@
-<vdome autosave="off" frameRate="60" vSync="on">
+<vDome autosave="off" frameRate="60" vSync="on">
     
     <socket enabled="on" port="12345"/>
     
 	<input file="/Users/Charles/Code/of_v0.8.1_osx_release/apps/vDome/vDome/bin/data/media/images/fisheye-tower-1536px.jpg"
-           loop="on" resolution="2048" scale="1" source="grid" imageDuration="5" videoRenderer="qt" />
+           loop="on" resolution="2048" scale="1" source="grid" imageDuration="5" />
     
     <dome radius="10"/>
     
 	<window border="off" float="off" fullscreen="off" height="768" width="2048" x="0" y="0">
-        <projector brightness="1" contrast="1" dimensions="1024,768" fov="40" gamma="1,1,1,1" hsl="1,1,1" levels="0,255" orientation="0,-20,0" position="0,0,10" scale="1,1" shear="0,0,0,0,0,0"/>
-        <projector brightness="1" contrast="1" dimensions="1024,768" fov="40" gamma="1,1,1,1" hsl="1,1,1" levels="0,255" orientation="0,-20,0" position="0,0,10" scale="1,1" shear="0,0,0,0,0,0"/>
+        <projector brightness="1" contrast="1" dimensions="1024,768" fov="40" gamma="1,1,1,1" hsl="1,1,1" levels="0,255" orientation="0,-20,0" position="0,0,10" scale="1,1" shear="0,0,0,0,0,0" offset=".5,.1" />
+        <projector brightness="1" contrast="1" dimensions="1024,768" fov="40" gamma="1,1,1,1" hsl="1,1,1" levels="0,255" orientation="0,-20,0" position="0,0,10" scale="1,1" shear="0,0,0,0,0,0" />
     </window>
 
-</vdome>
+</vDome>

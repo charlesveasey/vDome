@@ -113,7 +113,7 @@ public:
     enum radiusItems{DOME_RADIUS};
     enum posItems   {AZIMUTH, ELEVATION, DISTANCE};
     enum orienItems {TILT, ROLL, PAN};
-    enum lensItems  {FOV};
+    enum lensItems  {FOV, OFFSET_X, OFFSET_Y};
     enum scaleItems {SCALE_XY, SCALE_X, SCALE_Y};
     enum shearItems {SHEAR_YZ, SHEAR_ZX, SHEAR_XZ,
                      SHEAR_ZY, SHEAR_YX, SHEAR_XY};
