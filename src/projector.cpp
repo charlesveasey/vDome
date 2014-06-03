@@ -442,6 +442,7 @@ void Projector::keyPressed(int key) {
                     break;
                 case OFFSET_Y:
                     history.execute( new SetCameraOffset(*this, cameraOffset.x, cameraOffset.y + value * .1) );
+					break;
 
                 case SCALE:
                     history.execute( new SetCameraScale(*this, cameraScale.x + value * .1, cameraScale.y + value * .1) );
@@ -691,8 +692,8 @@ void Projector::loadXML(ofXml &xml) {
     }
 
     //camera lens offset
-    if (xml.exists("@offset")) {
-        str = xml.getAttribute("@offset");
+    if (xml.exists("[@offset]")) {
+        str = xml.getAttribute("[@offset]");
         float offX  = ofToFloat(ofSplitString(str, ",")[0]);
         float offY  = ofToFloat(ofSplitString(str, ",")[1]);
         setCameraOffset(offX, offY);
@@ -734,7 +735,7 @@ void Projector::saveXML(ofXml &xml) {
     xml.setAttribute("position", ofToString(roundTo(cameraPosition.x, .01)) +  "," + ofToString(roundTo(cameraPosition.y, .01)) +  "," + ofToString(roundTo(cameraPosition.z, .01)) );
     xml.setAttribute("orientation", ofToString(roundTo(cameraOrientation.x, .01)) +  "," + ofToString(roundTo(cameraOrientation.y, .01)) +  "," + ofToString(roundTo(cameraOrientation.z, .01)) );
     xml.setAttribute("fov", ofToString(roundTo(cameraFov, .01)));
-    xml.setAttribute("offset", ofToString(cameraOffset.x) +  "," + ofToString(cameraOffset.y) );
+    xml.setAttribute("offset", ofToString(roundTo(cameraOffset.x, .001)) +  "," + ofToString(roundTo(cameraOffset.y, .001)) );
     xml.setAttribute("scale", ofToString(roundTo(cameraScale.x, .001)) +  "," + ofToString(roundTo(cameraScale.y, .001)) );
     xml.setAttribute("shear", ofToString(roundTo(cameraShear[0], .001)) +  "," + ofToString(roundTo(cameraShear[1], .001)) +  "," + ofToString(roundTo(cameraShear[2], .001)) +
                         "," + ofToString(roundTo(cameraShear[3], .001)) +  "," + ofToString(roundTo(cameraShear[4], .001)) +  "," + ofToString(roundTo(cameraShear[5], .001)) );
@@ -800,6 +801,8 @@ ofVec2f Projector::getCameraOffset(){
     return cameraOffset;
 }
 void Projector::setCameraOffset(float x, float y){
+	cameraOffset.set(0,0);
+    camera.setLensOffset(cameraOffset);
     cameraOffset.set(x,y);
     camera.setLensOffset(cameraOffset);
 }

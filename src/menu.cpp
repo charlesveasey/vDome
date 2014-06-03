@@ -12,7 +12,6 @@ extern float projHeight;
  ********************************************/
 
 Menu::Menu(){
-
     menuMain = new MenuItem;
     menuMain->menuId = MAIN;
     menuMain->parent = &menuMain;
