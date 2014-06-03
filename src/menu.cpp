@@ -441,20 +441,18 @@ void Menu::drawMain(int i){
 }
 
 void Menu::draw(int i){
-    //for(int i=0; i<projCount; i++) {
-        // set position
-        px = projectors->at(i).getPlanePosition().x + projWidth/2 - pw/2;
-        py = projectors->at(i).getPlanePosition().y + projHeight/2  - ph/2;
+    // set position
+    px = projectors->at(i).getPlanePosition().x + projWidth/2 - pw/2;
+    py = projectors->at(i).getPlanePosition().y + projHeight/2  - ph/2;
 
-        drawBackground();
-        ofSetHexColor(0xFFFFFF);
-        drawProjector(i);
-        drawFPS(i);
-        drawMain(i);
-        drawWarp(i);
-        drawActive(i);
-        drawSaved();
-    //}
+    drawBackground();
+    ofSetHexColor(0xFFFFFF);
+    drawProjector(i);
+    drawFPS(i);
+    drawMain(i);
+    drawWarp(i);
+    drawActive(i);
+    drawSaved();
 }
 
 void Menu::drawSaved(){

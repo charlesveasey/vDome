@@ -127,10 +127,14 @@ void vdome::update() {
     
 void vdome::draw(){
     ofSetHexColor(0xFFFFFF);
+	int wi = 0;
 
-    int wi = glfw->getWindowIndex();
-    
-    for (int i=windows[wi].firstProjector; i<=windows[wi].lastProjector; i++) {
+    #ifdef TARGET_WIN32
+		for (int i=0; i< projCount; i++) {
+	#else
+		 wi = glfw->getWindowIndex();
+		 for (int i=windows[wi].firstProjector; i<=windows[wi].lastProjector; i++) {
+	#endif
     
         if (projectors[i].enable) {
 
@@ -307,10 +311,18 @@ void vdome::mouseReleased(ofMouseEventArgs& mouseArgs) {
  ********************************************/
 
 void vdome::keyPressed(int key){
-    if (key == 115 && !autosave) { // s
+    if (key == 115 && !autosave) { // ctrl + s = save
         if (menu.active && menu.ctrl)
             saveXML(xml);
     }
+
+	#ifdef TARGET_WIN32 || TARGET_LINUX
+		if (key == 113) { // ctrl + q  = quit
+			if (ofGetKeyPressed(OF_KEY_CONTROL))
+				ofExit();
+		}
+	#endif
+
     menu.keyPressed(key);
 }
 
