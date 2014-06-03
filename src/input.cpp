@@ -84,9 +84,7 @@ void Input::setup(){
         case MEDIA: 
             if (isVideo) {
                 
-                #ifdef TARGET_OSX
-					//parseVideoCodec(file);
-                
+                #ifdef TARGET_OSX                
 					if (vRenderer == AVF){
 						avf.loadMovie(file);
                         avf.play();

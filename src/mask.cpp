@@ -176,7 +176,6 @@ void Mask::write(string filename){
     maskFboPixels.clear();
     maskFbo.readToPixels(maskFboPixels);
     maskFboImage->setFromPixels(maskFboPixels);
-    //maskFboImage->saveImage(filename);
 }
 
 void Mask::read(string filename){
