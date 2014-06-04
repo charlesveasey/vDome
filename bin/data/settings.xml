@@ -2,14 +2,13 @@
     
     <socket enabled="on" port="12345"/>
     
-	<input file="/Users/Charles/Code/of_v0.8.1_osx_release/apps/vDome/vDome/bin/data/media/images/fisheye-tower-1536px.jpg"
-           loop="on" resolution="2048" scale="1" source="grid" imageDuration="5" />
+	<input file="\Users\Charles\Code\of_v0.8.1_osx_release\apps\vDome\vDome\bin\data\media\images\fisheye-tower-1536px.jpg" imageDuration="5" loop="on" resolution="2048" scale="1" source="grid"/>
     
     <dome radius="10"/>
     
-	<window border="off" float="off" fullscreen="off" height="768" width="2048" x="0" y="0">
-        <projector brightness="1" contrast="1" dimensions="1024,768" fov="40" gamma="1,1,1,1" hsl="1,1,1" levels="0,255" orientation="0,-20,0" position="0,0,10" scale="1,1" shear="0,0,0,0,0,0" offset=".5,.1" />
-        <projector brightness="1" contrast="1" dimensions="1024,768" fov="40" gamma="1,1,1,1" hsl="1,1,1" levels="0,255" orientation="0,-20,0" position="0,0,10" scale="1,1" shear="0,0,0,0,0,0" />
+	<window border="off" float="off" fullscreen="off" height="768" width="1680" x="-1920" y="0">
+        <projector brightness="1" contrast="1" dimensions="1024,768" fov="72" gamma="1,1,1,1" hsl="1,1,1" levels="0,255" offset="0,0" orientation="0,-18,0" position="0,0,10" scale="1,1" shear="0,0,0,0,0,0"/>
+        <projector brightness="1" contrast="1" dimensions="1024,768" fov="72" gamma="1,1,1,1" hsl="1,1,1" levels="0,255" offset="0,0" orientation="0,-18,0" position="0,0,10" scale="1,1" shear="0,0,0,0,0,0"/>
     </window>
 
-</vDome>
+</vDome>

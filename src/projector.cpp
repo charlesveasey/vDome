@@ -48,7 +48,7 @@ void Projector::init(int i){
     // camera
     cameraPosition.set(0,0,10);    // azi, ele, dis
     cameraOrientation.set(0,-20,0);    // roll, tilt, pan
-    cameraFov = 40;
+    cameraFov = 72;
     cameraOffset.set(0,0);
     cameraScale.set(1,1);
 
@@ -331,7 +331,7 @@ void Projector::keyPressed(int key) {
                 case ROLL: history.execute( new SetCameraOrientation(*this, 0, cameraOrientation.y, cameraOrientation.z )); break;
                 case PAN: history.execute( new SetCameraOrientation(*this, cameraOrientation.x, cameraOrientation.y, 0) ); break;
 
-                case FOV: history.execute( new SetCameraFov(*this, 33) ); break;
+                case FOV: history.execute( new SetCameraFov(*this, 72) ); break;
 
                 case OFFSET_X: history.execute( new SetCameraOffset(*this, 0, cameraOffset.y) ); break;
                 case OFFSET_Y: history.execute( new SetCameraOffset(*this, cameraOffset.x, 0) ); break;
@@ -794,7 +794,7 @@ float Projector::getCameraFov(){
 }
 void Projector::setCameraFov(float v){
     cameraFov = v;
-    camera.setFov(v);
+    camera.setFov(v/2);
 }
 
 ofVec2f Projector::getCameraOffset(){
