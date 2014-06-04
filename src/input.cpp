@@ -146,12 +146,10 @@ void Input::setup(){
             break;
             
         case CAPTURE:
-            fillTexture(ofColor(0));
             capture.setDeviceID(0);
             capture.setDesiredFrameRate(frameRate);
-            if (capture.initGrabber(resolution, resolution)) {
-                texture = capture.getTextureReference();
-            }
+            capture.initGrabber(resolution, resolution, true);
+            texture = capture.getTextureReference();
             break;
             
         case SYPHON:
@@ -560,8 +558,9 @@ void Input::update(){
         }
     }
     
-	else if (source == CAPTURE)
+	else if (source == CAPTURE) {
         capture.update();
+	}
 }
 
 void Input::newFrame(ofPixels & pixels) {

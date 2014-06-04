@@ -27,6 +27,7 @@ vdome::vdome() {
     menu.projectors = &projectors;
     socket.input = &input;
     autosave = false;
+	wIndex = 0;
 }
 
 /******************************************
