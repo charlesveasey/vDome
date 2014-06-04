@@ -99,6 +99,7 @@ void Plane::draw(){
         
         ofMatrix4x4 m = cornerpin.getMatrix();
 
+		/*
         if (bfirst) {
             lm.makeIdentityMatrix();
             bfirst = false;
@@ -110,10 +111,17 @@ void Plane::draw(){
 		}
         for (int i=0; i<c.size(); i++) {
             c[i] = m.preMult(c[i]);
-		}
+		}*/
         
         grid.setControlPnts(c);
         
+		vector<ofVec3f> v = grid.getVertices();
+		for (int i=0; i<v.size(); i++) {
+			v[i] = cornerpin.getMatrix().preMult(v[i]);
+		}
+		
+		grid.setVertices(v);
+
         lm = m;
 	}
     grid.draw();

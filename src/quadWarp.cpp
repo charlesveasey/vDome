@@ -17,6 +17,7 @@ QuadWarp::QuadWarp() {
     bEnabled = false;
     bShow = false;
 	value = 1;
+	ctrl = false;
 }
 
 QuadWarp::~QuadWarp() {
