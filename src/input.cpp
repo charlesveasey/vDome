@@ -25,7 +25,6 @@ Input::Input(){
         vRenderer = QT;
     #endif
 	#ifdef TARGET_WIN32
-		//ofxWMFVideoPlayer wmf;
 		vRenderer = DS;
 		if (vRenderer == WMF) {
 		}
