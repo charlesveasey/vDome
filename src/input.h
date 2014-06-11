@@ -63,6 +63,8 @@ public:
 	bool isPlaying();
     
     ofTexture texture;
+    ofTexture *tex;
+
     
     int editMode;
     enum editModes{NONE, SOURCE, LOOP};

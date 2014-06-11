@@ -25,8 +25,8 @@ Input::Input(){
         vRenderer = QT;
     #endif
 	#ifdef TARGET_WIN32
-		ofxWMFVideoPlayer wmf;
-		vRenderer = WMF;
+		//ofxWMFVideoPlayer wmf;
+		vRenderer = DS;
 		if (vRenderer == WMF) {
 		}
 		else if (vRenderer == DS) {
@@ -62,6 +62,8 @@ void Input::setup(){
                 pbo.allocate(texture,2);
         }
     }
+    
+
 
     // create input
     switch(source){
@@ -99,8 +101,11 @@ void Input::setup(){
 					}
 					else if (vRenderer == QT){
 						video.loadMovie(file);
-						video.play();
-						texture = video.getTextureReference();
+                        tex = &video.getTextureReference();
+                        pbo.allocate(*tex, 2);
+                        video.play();
+                        //pbo.startThread(true, false);
+						//texture = video.getTextureReference();
 					}
 				#endif
 
@@ -407,7 +412,8 @@ void Input::bind(){
                 else if (vRenderer == HAP)
                     hap.getTexture()->bind();
                 else if (vRenderer == QT)
-                    texture.bind();
+                    //texture.bind();
+                    tex->bind();
             }
             else
                 texture.bind();
@@ -458,7 +464,8 @@ void Input::unbind(){
                 else if (vRenderer == HAP)
                     hap.getTexture()->unbind();
                 else if (vRenderer == QT)
-                    texture.unbind();
+                    //texture.unbind();
+                    tex->unbind();
             }
             else {
                 texture.unbind();
