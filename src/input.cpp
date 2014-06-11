@@ -118,8 +118,10 @@ void Input::setup(){
 					}
 					else if (vRenderer == DS) {
 						video.loadMovie(file);
+						tex = &video.getTextureReference();
+						pbo.allocate(*tex, 2);
 						video.play();
-						texture = video.getTextureReference();
+						//texture = video.getTextureReference();
 					}
 					else if (vRenderer == GST) {
 						video.loadMovie(file);
@@ -154,7 +156,9 @@ void Input::setup(){
             capture.setDeviceID(0);
             capture.setDesiredFrameRate(frameRate);
             capture.initGrabber(resolution, resolution, true);
-            texture = capture.getTextureReference();
+            //texture = capture.getTextureReference();
+			tex = &capture.getTextureReference();
+			pbo.allocate(*tex, 2);
             break;
             
         case SYPHON:
@@ -424,7 +428,8 @@ void Input::bind(){
 				if (vRenderer == WMF)
 					wmf.bind();
 				else if (vRenderer == DS || vRenderer == GST)
-					texture.bind();
+					//texture.bind();
+					tex->bind();
 				else if (vRenderer == QT)
                     texture.bind();
 			}
@@ -438,8 +443,9 @@ void Input::bind(){
 	}
     
     if (source == CAPTURE)
-        texture.bind();
-    
+        //texture.bind();
+        tex->bind();
+
     #ifdef TARGET_OSX
         if (source == SYPHON)
             syphon.bind();
@@ -477,7 +483,8 @@ void Input::unbind(){
 				if (vRenderer == WMF)
 					wmf.unbind();
 				else if (vRenderer == DS || vRenderer == GST)
-					texture.unbind();
+					//texture.unbind();
+					tex->unbind();
 				else if (vRenderer == QT)
 					texture.unbind();
 			}
@@ -492,7 +499,8 @@ void Input::unbind(){
 	}
     
     if (source == CAPTURE)
-         texture.unbind();
+         //texture.unbind();
+		 tex->unbind();
     
 	#ifdef TARGET_OSX
 		if (source == SYPHON)

@@ -94,9 +94,6 @@
     <ClCompile Include="..\..\..\libs\openFrameworks\video\ofGstVideoPlayer.cpp">
       <Filter>addons\other</Filter>
     </ClCompile>
-    <ClCompile Include="src\ofPBO.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\addons\ofxWinWindow\src\ofxWinWindow.cpp">
       <Filter>addons\ofxWinWindow\src</Filter>
     </ClCompile>
@@ -153,6 +150,9 @@
     </ClCompile>
     <ClCompile Include="src\socket.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxPBO\src\ofPBO.cpp">
+      <Filter>addons\ofxPBO\src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -314,6 +314,12 @@
     </Filter>
     <Filter Include="addons\ofxOsc\libs\oscpack\src\ip\win32">
       <UniqueIdentifier>{869354d1-73dd-45ca-9433-389a7f6f4545}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxPBO">
+      <UniqueIdentifier>{e9458584-6611-4f1f-a641-863564ac040f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxPBO\src">
+      <UniqueIdentifier>{2778b61c-8fe6-4a84-b7bf-6f661eecd8bc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -722,9 +728,6 @@
     <ClInclude Include="..\..\..\libs\openFrameworks\video\ofGstVideoPlayer.h">
       <Filter>addons\other</Filter>
     </ClInclude>
-    <ClInclude Include="src\ofPBO.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\addons\ofxWinWindow\src\ofxWinWindow.h">
       <Filter>addons\ofxWinWindow\src</Filter>
     </ClInclude>
@@ -802,6 +805,9 @@
     </ClInclude>
     <ClInclude Include="src\socket.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxPBO\src\ofPBO.h">
+      <Filter>addons\ofxPBO\src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
