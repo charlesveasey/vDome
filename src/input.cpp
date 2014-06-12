@@ -474,7 +474,7 @@ void Input::unbind(){
 				else if (vRenderer == DS || vRenderer == GST)
 					tex->unbind();
 				else if (vRenderer == QT)
-					texture.unbind();
+					tex.unbind();
 			}
 			else {
 				tex->unbind();
@@ -552,16 +552,19 @@ void Input::update(){
 					video.update();	
 				}
 				else if (vRenderer == GST) {
-					if (nFrame)
-						video.update();
-					if (usePbo && nFrame) {
-						pbo.loadData(video.getPixelsRef());
-						pbo.updateTexture();
-						nFrame = false;
+                    video.update();
+                    if (video.isFrameNew())
+                        swapTexture = true;
+                    if (video.getIsMovieDone())
+                        getNextFile();
 					}
 				}
 				else if (vRenderer == QT) {
-					video.update();	
+                    video.update();
+                    if (video.isFrameNew())
+                        swapTexture = true;
+                    if (video.getIsMovieDone())
+                        getNextFile();
 				}
 			#endif
 		}
