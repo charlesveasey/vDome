@@ -19,6 +19,9 @@ Input::Input(){
     file = "";
     fileIndex = 0;
     imageDuration = 10;
+    currentTexture = 0;
+    firstTexture = true;
+    swapTexture = false;
 
     #ifdef TARGET_OSX
         maxSource += 1;
@@ -26,8 +29,7 @@ Input::Input(){
     #endif
 	#ifdef TARGET_WIN32
 		vRenderer = DS;
-		if (vRenderer == WMF) {
-		}
+		if (vRenderer == WMF) {}
 		else if (vRenderer == DS) {
 			ofPtr <ofBaseVideoPlayer> ptr(new ofDirectShowPlayer());
 			video.setPlayer(ptr);
@@ -40,6 +42,11 @@ Input::Input(){
 				video.setUseTexture(false);
 		}
 	#endif
+    
+    
+    for (int i=0; i<2; i++) {
+        textures[i] = new ofTexture();
+    }
 }
 
 /******************************************
@@ -52,17 +59,13 @@ void Input::setup(){
     
     stop();
 	close();
-    texture.clear();
 
-    if (usePbo) { // not reallocating causing issues with PBO
-        if (texture.getWidth() != resolution || texture.getHeight() != resolution) {
-            texture.allocate(resolution, resolution, GL_RGB);
-            if (usePbo)
-                pbo.allocate(texture,2);
+    // allocate
+    if (texture.getWidth() != resolution || texture.getHeight() != resolution) {
+        for (int i=0; i<2; i++) {
+            textures[i]->allocate(resolution, resolution, GL_RGB);
         }
     }
-    
-
 
     // create input
     switch(source){
@@ -79,7 +82,7 @@ void Input::setup(){
         case GRID: 
 			isVideo = false;
 			image.loadImage("media/warp/grid-2k.png");
-            texture = image.getTextureReference();
+            tex = &image.getTextureReference();
             break;
 
         case MEDIA: 
@@ -88,7 +91,6 @@ void Input::setup(){
                 #ifdef TARGET_OSX                
 					if (vRenderer == AVF){
 						avf.loadMovie(file);
-                        avf.play();
 					}
 					else if (vRenderer == QT2){
 						qt.loadMovie(file, OF_QTKIT_DECODE_PIXELS_AND_TEXTURE);
@@ -96,6 +98,7 @@ void Input::setup(){
 					}
 					else if (vRenderer == HAP){
 						hap.loadMovie(file, OF_QTKIT_DECODE_TEXTURE_ONLY);
+                        tex = hap.getTexture();
 						hap.play();
 					}
 					else if (vRenderer == QT){
@@ -103,8 +106,6 @@ void Input::setup(){
                         tex = &video.getTextureReference();
                         pbo.allocate(*tex, 2);
                         video.play();
-                        //pbo.startThread(true, false);
-						//texture = video.getTextureReference();
 					}
 				#endif
 
@@ -120,18 +121,16 @@ void Input::setup(){
 						tex = &video.getTextureReference();
 						pbo.allocate(*tex, 2);
 						video.play();
-						//texture = video.getTextureReference();
 					}
 					else if (vRenderer == GST) {
 						video.loadMovie(file);
 						video.play();
-						if (!usePbo)
-							texture = video.getTextureReference();
+                        tex = &video.getTextureReference();
 					}
 					else if (vRenderer == QT){
 						video.loadMovie(file);
 						video.play();
-						texture = video.getTextureReference();
+						tex = &video.getTextureReference();
 					}
 				#endif
 
@@ -146,7 +145,7 @@ void Input::setup(){
             }
             else {
                 image.loadImage(file);
-                texture = image.getTextureReference();
+                tex = &image.getTextureReference();
                 if (imageDuration > 0 && fileList.size() > 1)  startTimer();
             }
             break;
@@ -155,7 +154,6 @@ void Input::setup(){
             capture.setDeviceID(0);
             capture.setDesiredFrameRate(frameRate);
             capture.initGrabber(resolution, resolution, true);
-            //texture = capture.getTextureReference();
 			tex = &capture.getTextureReference();
 			pbo.allocate(*tex, 2);
             break;
@@ -168,7 +166,7 @@ void Input::setup(){
             
         default:
 			image.loadImage("media/warp/grid-2k.png");
-            texture = image.getTextureReference();
+            tex = &image.getTextureReference();
             break;
     }
 
@@ -233,9 +231,6 @@ void Input::toggle() {
 }
     
 void Input::stop() {
-    if (capture.isInitialized())
-        capture.close();
-
 	#ifdef TARGET_OSX
 		hap.stop();
         qt.stop();
@@ -399,27 +394,26 @@ float Input::getPosition() {
  ********************************************/
 
 void Input::bind(){
-    texture.setTextureWrap(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
+    tex->setTextureWrap(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
 
 	if (source == GRID || source == BLACK ||
         source == WHITE || source == GREY) {
-		texture.bind();
+		tex->bind();
 	}
 	else if (source == MEDIA) {
         #ifdef TARGET_OSX
             if (isVideo) {
                 if (vRenderer == AVF)
-                    avf.getTextureReference().bind();
+                    tex->bind();
                 else if (vRenderer == QT2)
-                    qt.getTexture()->bind();
+                    tex->bind();
                 else if (vRenderer == HAP)
-                    hap.getTexture()->bind();
+                    tex->bind();
                 else if (vRenderer == QT)
-                    //texture.bind();
                     tex->bind();
             }
             else
-                texture.bind();
+                tex->bind();
 		#endif
 
 		#ifdef TARGET_WIN32
@@ -427,7 +421,6 @@ void Input::bind(){
 				if (vRenderer == WMF)
 					wmf.bind();
 				else if (vRenderer == DS || vRenderer == GST)
-					//texture.bind();
 					tex->bind();
 				else if (vRenderer == QT)
                     texture.bind();
@@ -442,7 +435,6 @@ void Input::bind(){
 	}
     
     if (source == CAPTURE)
-        //texture.bind();
         tex->bind();
 
     #ifdef TARGET_OSX
@@ -455,25 +447,23 @@ void Input::unbind(){
  
 	if (source == GRID || source == BLACK ||
         source == WHITE || source == GREY) {
-		texture.unbind();
+		tex->unbind();
 	}
 
 	else if (source == MEDIA) {
         #ifdef TARGET_OSX
             if (isVideo) {
                 if (vRenderer == AVF)
-                    avf.getTextureReference().unbind();
-                else if (vRenderer == QT2) {
-                    qt.getTexture()->unbind();
-                }
+                    tex->unbind();
+                else if (vRenderer == QT2)
+                    tex->unbind();
                 else if (vRenderer == HAP)
-                    hap.getTexture()->unbind();
+                    tex->unbind();
                 else if (vRenderer == QT)
-                    //texture.unbind();
                     tex->unbind();
             }
             else {
-                texture.unbind();
+                tex->unbind();
             }
 		#endif
 
@@ -482,13 +472,12 @@ void Input::unbind(){
 				if (vRenderer == WMF)
 					wmf.unbind();
 				else if (vRenderer == DS || vRenderer == GST)
-					//texture.unbind();
 					tex->unbind();
 				else if (vRenderer == QT)
 					texture.unbind();
 			}
 			else {
-				texture.unbind();
+				tex->unbind();
 			}
 		#endif
 
@@ -498,7 +487,6 @@ void Input::unbind(){
 	}
     
     if (source == CAPTURE)
-         //texture.unbind();
 		 tex->unbind();
     
 	#ifdef TARGET_OSX
@@ -522,20 +510,34 @@ void Input::update(){
 
             #ifdef TARGET_OSX
                 if (vRenderer == AVF){
-                    avf.update();
-                    if (avf.isLoaded())
+                    if (avf.isLoaded()) {
                         avf.play();
+                        tex = &avf.getTextureReference();
+                    }
+                    avf.update();
+                    if (avf.isFrameNew())
+                        swapTexture = true;
                 }
-                else if (vRenderer == QT2)
+                else if (vRenderer == QT2) {
                     qt.update();
-                else if (vRenderer == HAP)
+                    if (qt.isFrameNew()) {
+                        tex = qt.getTexture();
+                        swapTexture = true;
+                    }
+                }
+                else if (vRenderer == HAP) {
                     hap.update();
+                    if (hap.isFrameNew()) {
+                        tex = hap.getTexture();
+                        swapTexture = true;
+                    }
+                }
                 else if (vRenderer == QT) {
                     video.update();
-                    if (video.getIsMovieDone()) {
+                    if (video.isFrameNew())
+                        swapTexture = true;
+                    if (video.getIsMovieDone())
                         getNextFile();
-                    }
-
                 }
 			#endif
 
@@ -550,11 +552,8 @@ void Input::update(){
 					video.update();	
 				}
 				else if (vRenderer == GST) {
-
-					if (nFrame) {
+					if (nFrame)
 						video.update();
-					}
-
 					if (usePbo && nFrame) {
 						pbo.loadData(video.getPixelsRef());
 						pbo.updateTexture();
@@ -574,7 +573,22 @@ void Input::update(){
     
 	else if (source == CAPTURE) {
         capture.update();
+        if (capture.isFrameNew())
+            swapTexture = true;
 	}
+    
+    
+    if (swapTexture) {
+        if (!firstTexture) {
+            currentTexture++;
+            if (currentTexture >= 2)  currentTexture = 0;
+            textures[currentTexture] = tex;
+            if (currentTexture == 0)  tex = textures[1];
+            else                      tex = textures[0];
+            firstTexture = false;
+        }
+    }
+    
 }
 
 void Input::newFrame(ofPixels & pixels) {
@@ -683,7 +697,7 @@ void Input::fillTexture(ofColor color){
         }
     }
     image.update();
-    texture = image.getTextureReference();
+    tex = &image.getTextureReference();
 }
 
 /******************************************

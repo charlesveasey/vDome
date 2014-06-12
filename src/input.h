@@ -64,6 +64,7 @@ public:
     
     ofTexture texture;
     ofTexture *tex;
+    ofTexture *textures[2];
 
     
     int editMode;
@@ -135,6 +136,10 @@ private:
     float startTime;
     float endTime;
     bool timerRunning;
+    
+    int currentTexture;
+    bool firstTexture;
+    bool swapTexture;
 };
     
 
