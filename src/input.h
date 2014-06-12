@@ -137,7 +137,7 @@ private:
     float endTime;
     bool timerRunning;
     
-    int currentTexture = 0;
+    int currentTexture;
     bool firstTexture;
     bool swapTexture;
 };
