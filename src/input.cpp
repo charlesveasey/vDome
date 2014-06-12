@@ -124,13 +124,15 @@ void Input::setup(){
 					}
 					else if (vRenderer == GST) {
 						video.loadMovie(file);
+						tex = &video.getTextureReference();
+						pbo.allocate(*tex, 2);
 						video.play();
-                        tex = &video.getTextureReference();
 					}
 					else if (vRenderer == QT){
 						video.loadMovie(file);
-						video.play();
 						tex = &video.getTextureReference();
+						pbo.allocate(*tex, 2);
+						video.play();
 					}
 				#endif
 
@@ -395,105 +397,39 @@ float Input::getPosition() {
 
 void Input::bind(){
     tex->setTextureWrap(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
-
-	if (source == GRID || source == BLACK ||
-        source == WHITE || source == GREY) {
-		tex->bind();
-	}
-	else if (source == MEDIA) {
-        #ifdef TARGET_OSX
-            if (isVideo) {
-                if (vRenderer == AVF)
-                    tex->bind();
-                else if (vRenderer == QT2)
-                    tex->bind();
-                else if (vRenderer == HAP)
-                    tex->bind();
-                else if (vRenderer == QT)
-                    tex->bind();
-            }
-            else
-                tex->bind();
-		#endif
-
-		#ifdef TARGET_WIN32
-			if (isVideo) {
-				if (vRenderer == WMF)
-					wmf.bind();
-				else if (vRenderer == DS || vRenderer == GST)
-					tex->bind();
-				else if (vRenderer == QT)
-                    texture.bind();
+	#ifdef TARGET_WIN32
+		if (source == MEDIA && isVideo) {
+			if (vRenderer == WMF) {
+				wmf.bind();
+				return;
 			}
-			else
-				texture.bind();
-		#endif
-
-        #ifdef TARGET_LINUX
-            texture.bind();
-        #endif
-	}
-    
-    if (source == CAPTURE)
-        tex->bind();
-
-    #ifdef TARGET_OSX
-        if (source == SYPHON)
-            syphon.bind();
-    #endif
+		}
+	#endif
+	#ifdef TARGET_OSX
+		if (source == SYPHON) {
+			syphon.bind();
+			return;
+		}
+	#endif        
+	tex->bind();
 }
 
 void Input::unbind(){
- 
-	if (source == GRID || source == BLACK ||
-        source == WHITE || source == GREY) {
-		tex->unbind();
-	}
-
-	else if (source == MEDIA) {
-        #ifdef TARGET_OSX
-            if (isVideo) {
-                if (vRenderer == AVF)
-                    tex->unbind();
-                else if (vRenderer == QT2)
-                    tex->unbind();
-                else if (vRenderer == HAP)
-                    tex->unbind();
-                else if (vRenderer == QT)
-                    tex->unbind();
-            }
-            else {
-                tex->unbind();
-            }
-		#endif
-
-		#ifdef TARGET_WIN32
-			if (isVideo) {
-				if (vRenderer == WMF)
-					wmf.unbind();
-				else if (vRenderer == DS || vRenderer == GST)
-					tex->unbind();
-				else if (vRenderer == QT)
-					tex.unbind();
+	#ifdef TARGET_WIN32
+		if (source == MEDIA && isVideo) {
+			if (vRenderer == WMF) {
+				wmf.unbind();
+				return;
 			}
-			else {
-				tex->unbind();
-			}
-		#endif
-
-        #ifdef TARGET_LINUX
-            texture.unbind();
-        #endif
-	}
-    
-    if (source == CAPTURE)
-		 tex->unbind();
-    
+		}
+	#endif
 	#ifdef TARGET_OSX
-		if (source == SYPHON)
+		if (source == SYPHON) {
 			syphon.unbind();
-    #endif
-
+			return;
+		}
+	#endif        
+	tex->unbind();
 }
 
 /******************************************
@@ -548,23 +484,10 @@ void Input::update(){
 			#ifdef TARGET_WIN32
 				if (vRenderer == WMF)
 					wmf.update();
-				else if (vRenderer == DS) {
+				else if (vRenderer == DS || vRenderer == GST || vRenderer == QT) {
 					video.update();	
-				}
-				else if (vRenderer == GST) {
-                    video.update();
-                    if (video.isFrameNew())
-                        swapTexture = true;
-                    if (video.getIsMovieDone())
-                        getNextFile();
-					}
-				}
-				else if (vRenderer == QT) {
-                    video.update();
-                    if (video.isFrameNew())
-                        swapTexture = true;
-                    if (video.getIsMovieDone())
-                        getNextFile();
+					if (video.isFrameNew())
+						swapTexture = true;
 				}
 			#endif
 		}

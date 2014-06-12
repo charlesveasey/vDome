@@ -1,7 +1,7 @@
 #include "ofMain.h"
 #include "vdome.h"
 #include "ofxMultiGLFWWindow.h"
-#include "../../../openFrameworks/gl/ofGLProgrammableRenderer.cpp"
+#include "ofGLProgrammableRenderer.cpp"
 
 #ifdef TARGET_WIN32
 	#include "ofxWinWindow.h"

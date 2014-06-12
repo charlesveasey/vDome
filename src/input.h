@@ -97,8 +97,7 @@ private:
     void startTimer();
     void stopTimer();
     void evalTimer();
-    
-    
+  
     ofImage image;
     ofVideoPlayer video;
     ofVideoGrabber capture;
