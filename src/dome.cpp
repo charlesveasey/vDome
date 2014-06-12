@@ -174,6 +174,15 @@ void Dome::loadXML(ofXml &xml) {
         radius = ofToDouble( xml.getAttribute("dome[@radius]") );
     if (xml.exists("input[@scale"))
         textureScale = ofToFloat( xml.getAttribute("input[@scale]") );
+    if (xml.exists("input[@rotate"))
+        textureRotate = ofToFloat( xml.getAttribute("input[@rotate]") );	    
+	string v;
+	if (xml.exists("input[@flip]")) {
+        v = xml.getAttribute("input[@flip]");
+		if (v == "on") textureFlip = true;
+        else            textureFlip = false;
+    }
+
     setup();
 }
 
@@ -183,6 +192,9 @@ void Dome::saveXML(ofXml &xml) {
     xml.setToParent();
     xml.setTo("input");
     xml.setAttribute("scale", ofToString(textureScale));
+	xml.setAttribute("rotate", ofToString(textureRotate));
+	if (textureFlip) xml.setAttribute("flip", "on");
+    else			 xml.setAttribute("flip", "off");
     xml.setToParent();
 }
 
