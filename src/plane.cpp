@@ -30,6 +30,8 @@ Plane::Plane(){
 	value = 1;
     width = projWidth;
     height = projHeight;
+	cornerpinActive = false;
+	gridActive = false;
     
     wXml = new ofXml;
 }
@@ -251,14 +253,15 @@ void Plane::load(ofXml &xml) {
     cornerpin.setTopRightCornerPosition(tr);
     cornerpin.setBottomLeftCornerPosition(bl);
     cornerpin.setBottomRightCornerPosition(br);
+
+    if (vec.size() > 0) {
+        grid.setControlPnts(vec);
+    }
     
     gridActive = true;
     draw();
     gridActive = false;
 
-    if (vec.size() > 0) {
-        grid.setControlPnts(vec);
-    }
 }
 
 void Plane::save(ofXml &xml) {

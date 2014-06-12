@@ -37,8 +37,8 @@ vDome_debug.exp
 # Folders
 obj/
 bin/data/media/video
-bin/data/masks
-bin/data/models
+bin/data/settings/masks
+bin/data/settings/warp
 vdome.xcodeproj/xcuserdata
 
 
