@@ -2,8 +2,6 @@
 namespace vd {
 
 extern float projCount;
-extern float projWidth;
-extern float projHeight;
 
 /******************************************
 
@@ -28,8 +26,8 @@ Plane::Plane(){
     yRes = 10;
     pointIndex = -1;
 	value = 1;
-    width = projWidth;
-    height = projHeight;
+    width = 1024;
+    height = 768;
 	cornerpinActive = false;
 	gridActive = false;
     
@@ -265,8 +263,8 @@ void Plane::load(ofXml &xml) {
 }
 
 void Plane::save(ofXml &xml) {
-    int w = projWidth;
-    int h = projHeight;
+    int w = width;
+    int h = height;
     int x = index*w;
     int y = 0;
         

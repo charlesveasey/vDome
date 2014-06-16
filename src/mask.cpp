@@ -1,8 +1,6 @@
 #include "mask.h"
 namespace vd {
 
-extern float projWidth;
-extern float projHeight;
 extern int maxHistory;
 extern vector<ofPixels> maskHistory;
 
@@ -59,10 +57,8 @@ void Mask::init(int i){
  ********************************************/
 
 void Mask::setup(){
-    width = projWidth;
-    height = projHeight;
 
-    if (maskFbo.getWidth() != projWidth || maskFbo.getHeight() != projHeight)
+    if (maskFbo.getWidth() != width || maskFbo.getHeight() != height)
         maskFbo.allocate(width, height, GL_RGBA32F_ARB);
 
     maskFbo.begin();

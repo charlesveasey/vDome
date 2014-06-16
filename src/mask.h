@@ -38,15 +38,15 @@ public:
     
     ofImage *maskFboImage;
 
+    int width;
+    int height;
+    
 private:
     void write(string filename);
     void read(string filename);
     
     ofPixels hPixels;
     ofPixels maskFboPixels;
-    
-    int width;
-    int height;
 
     int brushWidth;
     int brushHeight;

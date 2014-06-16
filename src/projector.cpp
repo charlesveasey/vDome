@@ -2,10 +2,7 @@
 namespace vd {
 
 extern float projCount;
-extern float projWidth;
-extern float projHeight;
 extern int maxHistory;
-
 /******************************************
 
  INIT
@@ -41,10 +38,9 @@ void Projector::init(int i){
     
     fboSample = 4;
 
-    // plane
-    //planePosition.set(0,0);
-    planeDimensions.set(projWidth,projHeight);
-
+    width = 1024;
+    height = 768;
+    
     // camera
     cameraPosition.set(0,0,10);    // azi, ele, dis
     cameraOrientation.set(0,-20,0);    // roll, tilt, pan
@@ -68,8 +64,8 @@ void Projector::init(int i){
     mask.tx = planePosition.x;
     mask.ty = planePosition.y;
     mask.init(i);
+    
 
-    setup();
 }
 
 /******************************************
@@ -94,19 +90,19 @@ void Projector::setup() {
     setCameraTransform();
 
     // create camera view
-    view.setWidth(planeDimensions.x);
-    view.setHeight(planeDimensions.y);
+    view.setWidth(width);
+    view.setHeight(height);
 
     // create camera fbo
-    if (fbo.getWidth() != planeDimensions.x || fbo.getHeight() != planeDimensions.y) {
-        fbo.allocate(planeDimensions.x, planeDimensions.y, GL_RGBA);
+    if (fbo.getWidth() != width || fbo.getHeight() != height) {
+        fbo.allocate(width, height, GL_RGBA);
         renderFbo.setUseTexture(true);
-        renderFbo.allocate(planeDimensions.x, planeDimensions.y, GL_RGBA, fboSample);
+        renderFbo.allocate(width, height, GL_RGBA, fboSample);
         
         int x = planePosition.x;
         int y = planePosition.y;
-        int w = planeDimensions.x;
-        int h = planeDimensions.y;
+        int w = width;
+        int h = height;
 
         
         renderPlane = ofMesh::plane(w, h, 2, 2, OF_PRIMITIVE_TRIANGLES);
@@ -132,7 +128,11 @@ void Projector::setup() {
         ofClear(255);
     renderFbo.end();
     
+    
+    mask.tx = planePosition.x;
+    mask.ty = planePosition.y;
     mask.setup();
+    
 }
 
 // camera transform
@@ -624,13 +624,17 @@ void Projector::keyReleased(int key) {
 
 void Projector::loadXML(ofXml &xml) {
     string str;
-    float val;
-
+    
     if (xml.exists("[@dimensions]")) {
         str = xml.getAttribute("[@dimensions]");
-        projWidth = ofToFloat(ofSplitString(str, ",")[0]);
-        projHeight = ofToFloat(ofSplitString(str, ",")[1]);
+        width = ofToFloat(ofSplitString(str, ",")[0]);
+        height = ofToFloat(ofSplitString(str, ",")[1]);
     }
+}
+        
+void Projector::loadXML2(ofXml &xml) {
+    string str;
+    float val;
 
     // intensity
     if (xml.exists("[@brightness]")) {
@@ -664,6 +668,8 @@ void Projector::loadXML(ofXml &xml) {
 
 
     // plane warp
+    plane.width = width;
+    plane.height = height;
     plane.load(xml);
 
 
@@ -718,6 +724,8 @@ void Projector::loadXML(ofXml &xml) {
         cameraShear[5] = ofToFloat(ofSplitString(str, ",")[5]);
     }
 
+    mask.width = width;
+    mask.height = height;
     mask.load();
 }
 
@@ -740,12 +748,8 @@ void Projector::saveXML(ofXml &xml) {
     xml.setAttribute("shear", ofToString(roundTo(cameraShear[0], .001)) +  "," + ofToString(roundTo(cameraShear[1], .001)) +  "," + ofToString(roundTo(cameraShear[2], .001)) +
                         "," + ofToString(roundTo(cameraShear[3], .001)) +  "," + ofToString(roundTo(cameraShear[4], .001)) +  "," + ofToString(roundTo(cameraShear[5], .001)) );
     // plane
-    //xml.setAttribute("dimensions", ofToString(planeDimensions.x) +  "," + ofToString(planeDimensions.y) );
-
     plane.save(xml);
-    mask.save();
-    
-    //xml.setToParent();
+    mask.save();    
 }
 
 
@@ -765,10 +769,11 @@ void Projector::setPlanePosition(float x, float y){
 }
 
 ofVec2f Projector::getPlaneDimensions(){
-    return planeDimensions;
+    return ofVec2f(width, height);
 }
 void Projector::setPlaneDimensions(float x, float y){
-    planeDimensions.set(x,y);
+    width = x;
+    height = y;
     setup();
 }
 

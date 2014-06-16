@@ -7,8 +7,6 @@ namespace vd {
 
 // global variables
 float projCount = 1;
-float projWidth = 1024;
-float projHeight = 768;
 int maxHistory = 25;
 vector<ofPixels> maskHistory;
 
@@ -57,18 +55,10 @@ void vdome::setup(){
     xmlFile = "settings.xml";
     saveThread.xml.push_back(&xml);
     saveThread.files.push_back(xmlFile);
-
-    if (xml.load(xmlFile)) {
-        loadXML(xml);
-    }
-    else {
-        for(int i=0; i<projCount; i++) {
-            Projector p;
-            p.init(i);
-            projectors.push_back(p);
-        }
-    }
     
+    if (xml.load(xmlFile))
+        loadXML(xml);
+
     #ifdef TARGET_WIN32
         ofxWinWindow * nwindow = (ofxWinWindow*)ofGetWindowPtr();
         nwindow->hideBorder();
@@ -87,11 +77,11 @@ void vdome::setup(){
         saveThread.image.push_back(projectors[i].mask.maskFboImage);
         saveThread.imageFiles.push_back("settings/masks/mask-" + ofToString(i+1) + ".png");
     }
-    
+
     maskHistory.clear();
     for (int i=0; i<=(maxHistory+2); i++) {
         ofPixels buffer;
-        buffer.allocate(projWidth, projHeight, OF_IMAGE_COLOR_ALPHA);
+        buffer.allocate(1920, 1080, OF_IMAGE_COLOR_ALPHA);
         maskHistory.push_back(buffer);
     }
     
@@ -221,13 +211,11 @@ void vdome::loadXML(ofXml &xml) {
             w.firstProjector = projCount;
             projCount += xml.getNumChildren();
             w.lastProjector = projCount-1;
-            if (i > 0)
-                glfw->createWindow();
+            if (i > 0) glfw->createWindow();
             w.glfwWindow = glfwWindows->at(i);
             
             for (int j=0; j<projCount-w.firstProjector; j++) {
                 Projector p;
-                p.setPlanePosition(j*projWidth, 0);
                 projectors.push_back(p);
             }
             
@@ -236,14 +224,26 @@ void vdome::loadXML(ofXml &xml) {
         }
     }
     int c=0;
+    ofPoint pos(0,0);
     for (int i=0; i<winCount; i++) {
         xml.setTo("window["+ ofToString(i) + "]");
         windows[i].loadXML(xml);
-        
+        pos.set(0, 0);
+
         for (int j=0; j<=windows[i].lastProjector-windows[i].firstProjector; j++) {
             xml.setTo("projector["+ ofToString(j) + "]");
+          
             projectors[c].init(c);
             projectors[c].loadXML(xml);
+            
+            if (j != 0) {
+                pos.x += projectors[c-1].width;
+                pos.y += 0;
+            }
+            projectors[c].setPlanePosition(pos.x, pos.y);
+            projectors[c].setup();
+            projectors[c].loadXML2(xml);
+            
             xml.setToParent();
             c++;
         }

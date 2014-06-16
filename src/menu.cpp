@@ -2,8 +2,6 @@
 namespace vd {
 
 extern float projCount;
-extern float projWidth;
-extern float projHeight;
 
 /******************************************
 
@@ -441,8 +439,8 @@ void Menu::drawMain(int i){
 
 void Menu::draw(int i){
     // set position
-    px = projectors->at(i).getPlanePosition().x + projWidth/2 - pw/2;
-    py = projectors->at(i).getPlanePosition().y + projHeight/2  - ph/2;
+    px = projectors->at(i).getPlanePosition().x + projectors->at(i).width/2 - pw/2;
+    py = projectors->at(i).getPlanePosition().y + projectors->at(i).height/2  - ph/2;
 
     drawBackground();
     ofSetHexColor(0xFFFFFF);

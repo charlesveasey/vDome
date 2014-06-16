@@ -29,6 +29,7 @@ public:
     void keyReleased(int key);
     
     void loadXML(ofXml &xml);
+    void loadXML2(ofXml &xml);
     void saveXML(ofXml &xml);
     
     // plane
@@ -118,6 +119,8 @@ public:
     ofTexture& getTextureReference();
     vector<ofPoint> lastKey;
     vector<ofVec3f> lastGrid;
+    
+    int width, height;
 
 private:
     Camera camera;
@@ -131,7 +134,6 @@ private:
 
     // plane
     ofVec2f planePosition;
-    ofVec2f planeDimensions;
 
     // camera
     ofVec3f cameraPosition;
