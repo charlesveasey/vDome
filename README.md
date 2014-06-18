@@ -10,9 +10,8 @@ Developed by Charles Veasey for the Institute of Indian American Arts (IAIA).
 vDome is designed to run as background process and accepts any domemaster formatted input as follows:  
   1.  capture  
   2.  syphon  
-  3.  image  
-  4.  video  
-
+  3.  media (image, video)
+  4.  
 Capture is the recommended input type:
   - It allows you to put anything on the dome by hooking up another computer to vDome through a capture card.  
   - vDome becomes the 2nd monitor on your production machine. Drag your After Effects or Unity preview window onto the dome and edit in real-time.  
@@ -20,19 +19,27 @@ Capture is the recommended input type:
 
 Syphon is useful for a single Mac computer system where your production application supports the Syphon technology.
 
-The image and video file input types are currently only used for testing and calibrating. The only way to change the file name is in code.
+The media input can be used as a direct media renderer. Most file formats are supported. 
 
 ##Compiling
 ####All
-  -  Clone openFrameworks fork: https://github.com/charlesveasey/openFrameworks  
-  -  Clone https://github.com/memo/ofxMSAInteractiveObject and place in openFrameworks/addons folder  
-  -  Clone this (vDome) repository and place in the openFrameworks/apps/myApps folder
+  -  Download the latest version of openFrameworks (currently v0.8.1): http://www.openframeworks.cc/download/
+  -  Clone this (vDome) repository to the openFrameworks/apps/myApps folder
+  -  Clone to: openFrameworks/addons: 
+     - https://github.com/arturoc/ofxPBO
+     - https://github.com/charlesveasey/ofxMultiGLFWWindow
+     - https://github.com/charlesveasey/ofxM3U
+     - https://github.com/charlesveasey/ofxBezierSurface
+     - https://github.com/bakercp/ofxMediaType
   
 ####Mac
-  -  Clone to: openFrameworks/addons:  
-     - https://github.com/astellato/ofxSyphon  
+  -  Clone to: openFrameworks/addons:
+     - https://github.com/charlesveasey/ofxCocoaWindowUtils
+     - https://github.com/kronick/ofxAVFVideoPlayer
      - https://github.com/bangnoise/ofxHapPlayer
-  - Suggested IDE: Xcode v4.6.3
+     - https://github.com/astellato/ofxSyphon
+
+  - Suggested IDE: Xcode v5.1.1
   - Syphon needs to be copied to Frameworks:
     -  Under target, add a Copy Files Build Phase. Drag the Syphon.framework into this phase.
 
