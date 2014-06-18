@@ -69,8 +69,6 @@ The media input can be used as a direct media renderer. Most file formats are su
   - Calibration is done directly on the dome. This eliminates the need for a control monitor and saves the headache caused by looking back and forth from control monitor to dome.
 
 ##Future Development
-  - Advanced color correction  
-  - Edge-blending  
   - Auto-calibration via camera  
   - Support for Nvidia Warp and Intensity API
   
