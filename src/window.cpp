@@ -30,17 +30,17 @@ void Window::setup(){
     glfw->initializeWindow();
     ofHideCursor();
     
-   /* #ifdef TARGET_OSX
+    #ifdef TARGET_OSX
         int fMode;
         if (floatToTop) fMode = ofxCocoaWindowUtils::SCREENSAVER;
         else            fMode = ofxCocoaWindowUtils::NORMAL;
         cocoaWindowUtils.setup(fMode, getPosition().x, getPosition().y, getDimensions().x, getDimensions().y, border);
     
-    #else*/
+    #else
         ofSetWindowPosition(position.x,  position.y);
         ofSetWindowShape(dimensions.x, dimensions.y);
         ofSetFullscreen(fullscreen);
-    //#endif
+    #endif
     
 }
   
