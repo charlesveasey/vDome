@@ -43,7 +43,6 @@ http://syphon.v002.info/
   - Syphon needs to be copied to Frameworks:
     -  Under target, add a Copy Files Build Phase. Drag the Syphon.framework into this phase.
 
-
 ####Win
   -  Clone to: openFrameworks/addons:
      - https://github.com/charlesveasey/ofxWinWindow
