@@ -18,8 +18,7 @@ At high resolutions there can be major performance differences between codecs.
 
 Capture and camera inputs are a hardware video stream solution. A capture card is a flexible solution that allows one to run any applicaiton on the dome by sending the video output of one computer into another machine running vDome. With this, vDome essentialy becomes the 2nd monitor on your production machine. Drag the After Effects or Unity preview window onto the dome and edit in real-time, play videos through your favorite media player: Quicktime, VLC, etc. 
 
-Syphon is useful a on single Mac computer where your production application supports the Syphon technology. There are a number of applications which support the Syphon texture sharing technology including After Effects, Resolume, MaxMSP, etc. 
-
+Syphon is useful a on single Mac computer where your production application supports the Syphon technology. There are a number of applications which support the Syphon texture sharing including After Effects, Resolume, MaxMSP, etc. 
 http://syphon.v002.info/  
 
 ##Compiling
