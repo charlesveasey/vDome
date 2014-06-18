@@ -25,7 +25,7 @@ The media input can be used as a direct media renderer. Most file formats are su
 ####All
   -  Download the latest version of openFrameworks (currently v0.8.1): http://www.openframeworks.cc/download/
   -  Clone this (vDome) repository to the openFrameworks/apps/myApps folder
-  -  Clone to: openFrameworks/addons: 
+  -  Clone to: openFrameworks/addons:
      - https://github.com/arturoc/ofxPBO
      - https://github.com/charlesveasey/ofxMultiGLFWWindow
      - https://github.com/charlesveasey/ofxM3U
@@ -33,7 +33,7 @@ The media input can be used as a direct media renderer. Most file formats are su
      - https://github.com/bakercp/ofxMediaType
   
 ####Mac
-  -  Clone to: openFrameworks/addons:  
+  -  Clone to: openFrameworks/addons:
      - https://github.com/charlesveasey/ofxCocoaWindowUtils
      - https://github.com/kronick/ofxAVFVideoPlayer
      - https://github.com/bangnoise/ofxHapPlayer
