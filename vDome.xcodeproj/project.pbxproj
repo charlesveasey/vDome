@@ -39,10 +39,6 @@
 		567AA54F190759BA0064C745 /* window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567AA541190759BA0064C745 /* window.cpp */; };
 		567AA67E190759ED0064C745 /* ofxAVFVideoPlayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 567AA57D190759ED0064C745 /* ofxAVFVideoPlayer.mm */; };
 		567AA67F190759ED0064C745 /* ofxAVFVideoRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 567AA57F190759ED0064C745 /* ofxAVFVideoRenderer.m */; };
-		567AA682190759ED0064C745 /* HapMovieRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 567AA597190759ED0064C745 /* HapMovieRenderer.m */; };
-		567AA683190759ED0064C745 /* HapOFPixelBufferTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 567AA599190759ED0064C745 /* HapOFPixelBufferTexture.m */; };
-		567AA684190759ED0064C745 /* HapSupport.c in Sources */ = {isa = PBXBuildFile; fileRef = 567AA59A190759ED0064C745 /* HapSupport.c */; };
-		567AA685190759ED0064C745 /* ofxHapPlayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 567AA59D190759ED0064C745 /* ofxHapPlayer.mm */; };
 		567AA689190759ED0064C745 /* MediaTypeMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567AA5BE190759ED0064C745 /* MediaTypeMap.cpp */; };
 		567AA68E190759ED0064C745 /* opencv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 567AA639190759ED0064C745 /* opencv.a */; };
 		567AA68F190759ED0064C745 /* ofxCvColorImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567AA63C190759ED0064C745 /* ofxCvColorImage.cpp */; };
@@ -64,6 +60,8 @@
 		56A1C6AE190763CE00154E4F /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56A1C6AD190763CE00154E4F /* Syphon.framework */; };
 		56A1C6AF190763FB00154E4F /* Syphon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 56A1C6AD190763CE00154E4F /* Syphon.framework */; };
 		56AD7F331923712A00A5FEE6 /* ofxM3U.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56AD7F311923712A00A5FEE6 /* ofxM3U.cpp */; };
+		56F9E4E61951EE59005C6309 /* HapSupport.c in Sources */ = {isa = PBXBuildFile; fileRef = 56F9E4E41951EE59005C6309 /* HapSupport.c */; };
+		56F9E4ED1951EE96005C6309 /* ofxHapPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56F9E4EB1951EE96005C6309 /* ofxHapPlayer.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
@@ -191,17 +189,6 @@
 		567AA57D190759ED0064C745 /* ofxAVFVideoPlayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ofxAVFVideoPlayer.mm; sourceTree = "<group>"; };
 		567AA57E190759ED0064C745 /* ofxAVFVideoRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxAVFVideoRenderer.h; sourceTree = "<group>"; };
 		567AA57F190759ED0064C745 /* ofxAVFVideoRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ofxAVFVideoRenderer.m; sourceTree = "<group>"; };
-		567AA592190759ED0064C745 /* install.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = install.xml; sourceTree = "<group>"; };
-		567AA593190759ED0064C745 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		567AA594190759ED0064C745 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
-		567AA596190759ED0064C745 /* HapMovieRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HapMovieRenderer.h; sourceTree = "<group>"; };
-		567AA597190759ED0064C745 /* HapMovieRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HapMovieRenderer.m; sourceTree = "<group>"; };
-		567AA598190759ED0064C745 /* HapOFPixelBufferTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HapOFPixelBufferTexture.h; sourceTree = "<group>"; };
-		567AA599190759ED0064C745 /* HapOFPixelBufferTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HapOFPixelBufferTexture.m; sourceTree = "<group>"; };
-		567AA59A190759ED0064C745 /* HapSupport.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = HapSupport.c; sourceTree = "<group>"; };
-		567AA59B190759ED0064C745 /* HapSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HapSupport.h; sourceTree = "<group>"; };
-		567AA59C190759ED0064C745 /* ofxHapPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxHapPlayer.h; sourceTree = "<group>"; };
-		567AA59D190759ED0064C745 /* ofxHapPlayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ofxHapPlayer.mm; sourceTree = "<group>"; };
 		567AA5BB190759ED0064C745 /* AbstractMediaTypeProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractMediaTypeProvider.h; sourceTree = "<group>"; };
 		567AA5BC190759ED0064C745 /* MediaTypeMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaTypeMap.h; sourceTree = "<group>"; };
 		567AA5BE190759ED0064C745 /* MediaTypeMap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MediaTypeMap.cpp; sourceTree = "<group>"; };
@@ -329,6 +316,10 @@
 		56AD7F311923712A00A5FEE6 /* ofxM3U.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxM3U.cpp; sourceTree = "<group>"; };
 		56AD7F321923712A00A5FEE6 /* ofxM3U.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxM3U.h; sourceTree = "<group>"; };
 		56CC67721923226600888538 /* saveThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = saveThread.h; sourceTree = "<group>"; };
+		56F9E4E41951EE59005C6309 /* HapSupport.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = HapSupport.c; sourceTree = "<group>"; };
+		56F9E4E51951EE59005C6309 /* HapSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HapSupport.h; sourceTree = "<group>"; };
+		56F9E4EB1951EE96005C6309 /* ofxHapPlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxHapPlayer.cpp; sourceTree = "<group>"; };
+		56F9E4EC1951EE96005C6309 /* ofxHapPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxHapPlayer.h; sourceTree = "<group>"; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
@@ -573,9 +564,7 @@
 		567AA580190759ED0064C745 /* ofxHapPlayer */ = {
 			isa = PBXGroup;
 			children = (
-				567AA592190759ED0064C745 /* install.xml */,
-				567AA593190759ED0064C745 /* LICENSE */,
-				567AA594190759ED0064C745 /* README.md */,
+				56F9E4E11951EE59005C6309 /* libs */,
 				567AA595190759ED0064C745 /* src */,
 			);
 			name = ofxHapPlayer;
@@ -585,14 +574,8 @@
 		567AA595190759ED0064C745 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				567AA596190759ED0064C745 /* HapMovieRenderer.h */,
-				567AA597190759ED0064C745 /* HapMovieRenderer.m */,
-				567AA598190759ED0064C745 /* HapOFPixelBufferTexture.h */,
-				567AA599190759ED0064C745 /* HapOFPixelBufferTexture.m */,
-				567AA59A190759ED0064C745 /* HapSupport.c */,
-				567AA59B190759ED0064C745 /* HapSupport.h */,
-				567AA59C190759ED0064C745 /* ofxHapPlayer.h */,
-				567AA59D190759ED0064C745 /* ofxHapPlayer.mm */,
+				56F9E4EB1951EE96005C6309 /* ofxHapPlayer.cpp */,
+				56F9E4EC1951EE96005C6309 /* ofxHapPlayer.h */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -1048,6 +1031,31 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		56F9E4E11951EE59005C6309 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				56F9E4E21951EE59005C6309 /* HapSupport */,
+			);
+			path = libs;
+			sourceTree = "<group>";
+		};
+		56F9E4E21951EE59005C6309 /* HapSupport */ = {
+			isa = PBXGroup;
+			children = (
+				56F9E4E31951EE59005C6309 /* src */,
+			);
+			path = HapSupport;
+			sourceTree = "<group>";
+		};
+		56F9E4E31951EE59005C6309 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				56F9E4E41951EE59005C6309 /* HapSupport.c */,
+				56F9E4E51951EE59005C6309 /* HapSupport.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
@@ -1265,13 +1273,13 @@
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				567AA693190759ED0064C745 /* ofxCvHaarFinder.cpp in Sources */,
 				5621F311192429BB007B29DB /* OscPrintReceivedElements.cpp in Sources */,
-				567AA683190759ED0064C745 /* HapOFPixelBufferTexture.m in Sources */,
 				56747478191BF9250014815D /* ofxBezierSurface.cpp in Sources */,
 				5621F310192429BB007B29DB /* OscOutboundPacketStream.cpp in Sources */,
 				567AA549190759BA0064C745 /* plane.cpp in Sources */,
 				567AA69D190759EE0064C745 /* ofxSyphonServer.mm in Sources */,
 				567AA547190759BA0064C745 /* mask.cpp in Sources */,
 				567AA54E190759BA0064C745 /* vdome.cpp in Sources */,
+				56F9E4E61951EE59005C6309 /* HapSupport.c in Sources */,
 				567AA544190759BA0064C745 /* command.cpp in Sources */,
 				5621F315192429BB007B29DB /* ofxOscMessage.cpp in Sources */,
 				565334EE1947F92B00E8CC6B /* ofPBO.cpp in Sources */,
@@ -1282,13 +1290,11 @@
 				567AA67E190759ED0064C745 /* ofxAVFVideoPlayer.mm in Sources */,
 				5621F313192429BB007B29DB /* OscTypes.cpp in Sources */,
 				567AA69E190759EE0064C745 /* ofxSyphonServerDirectory.mm in Sources */,
-				567AA685190759ED0064C745 /* ofxHapPlayer.mm in Sources */,
 				567AA54F190759BA0064C745 /* window.cpp in Sources */,
 				5621F30E192429BB007B29DB /* NetworkingUtilsWin.cpp in Sources */,
-				567AA684190759ED0064C745 /* HapSupport.c in Sources */,
 				567AA68F190759ED0064C745 /* ofxCvColorImage.cpp in Sources */,
-				567AA682190759ED0064C745 /* HapMovieRenderer.m in Sources */,
 				567AA54C190759BA0064C745 /* render.cpp in Sources */,
+				56F9E4ED1951EE96005C6309 /* ofxHapPlayer.cpp in Sources */,
 				5621F317192429BB007B29DB /* ofxOscReceiver.cpp in Sources */,
 				567AA694190759ED0064C745 /* ofxCvImage.cpp in Sources */,
 				5621F30C192429BB007B29DB /* NetworkingUtils.cpp in Sources */,
