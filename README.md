@@ -50,7 +50,7 @@ http://syphon.v002.info/
      - https://github.com/secondstory/ofxWMFVideoPlayer
      - https://github.com/ofTheo/ofDirectShowVideoPlayer
          
-  - Suggested IDE: Microsoft Visual Studio Express 2012
+  - Suggested IDE: Microsoft Visual Studio Express 2012 
   - ofxWMFPLayer requries updated GLEW library, follow instructions on its repository
 
 ####Linux
