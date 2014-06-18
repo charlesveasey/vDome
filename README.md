@@ -46,11 +46,10 @@ The media input can be used as a direct media renderer. Most file formats are su
 
 ####Win
   -  Clone to: openFrameworks/addons:
-     - https://github.com/ofTheo/ofDirectShowVideoPlayer
      - https://github.com/charlesveasey/ofxWinWindow
      - https://github.com/secondstory/ofxWMFVideoPlayer
-     - https://github.com/astellato/ofxSyphon
-    
+     - https://github.com/ofTheo/ofDirectShowVideoPlayer
+         
   - Suggested IDE: Microsoft Visual Studio Express 2012
   - ofxWMFPLayer requries updated GLEW library, follow instructions on its repository
 
