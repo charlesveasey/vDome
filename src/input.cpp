@@ -97,7 +97,7 @@ void Input::setup(){
 						qt.play();
 					}
 					else if (vRenderer == HAP){
-						hap.loadMovie(file, OF_QTKIT_DECODE_TEXTURE_ONLY);
+						hap.loadMovie(file);
                         tex = hap.getTexture();
 						hap.play();
 					}
@@ -251,7 +251,7 @@ void Input::close() {
     if (capture.isInitialized())
         capture.close();
     #ifdef TARGET_OSX
-        hap.closeMovie();
+        hap.close();
         qt.close();
         avf.closeMovie();
     #endif
