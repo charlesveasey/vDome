@@ -33,7 +33,7 @@ The media input can be used as a direct media renderer. Most file formats are su
      - https://github.com/bakercp/ofxMediaType
   
 ####Mac
-  -  Clone to: openFrameworks/addons: 
+  -  Clone to: openFrameworks/addons:  
      - https://github.com/charlesveasey/ofxCocoaWindowUtils
      - https://github.com/kronick/ofxAVFVideoPlayer
      - https://github.com/bangnoise/ofxHapPlayer
