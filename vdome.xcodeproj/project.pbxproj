@@ -1608,9 +1608,9 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_52)",
 					"\"$(SRCROOT)/../../../addons/ofxOpenCv/libs/opencv/lib/osx\"",
 					"\"$(SRCROOT)/ofxOpenCv/libs/opencv/lib/osx\"",
-					/Users/Charles/Code/of_v0.8.1_osx_release/addons/ofxLibav/libs/libav/lib/osx,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				OTHER_LDFLAGS = "$(OF_CORE_LIBS)";
 				PRODUCT_NAME = vDomeDebug;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1745,9 +1745,9 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_52)",
 					"\"$(SRCROOT)/../../../addons/ofxOpenCv/libs/opencv/lib/osx\"",
 					"\"$(SRCROOT)/ofxOpenCv/libs/opencv/lib/osx\"",
-					/Users/Charles/Code/of_v0.8.1_osx_release/addons/ofxLibav/libs/libav/lib/osx,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				OTHER_LDFLAGS = "$(OF_CORE_LIBS)";
 				PRODUCT_NAME = vDome;
 				WRAPPER_EXTENSION = app;
 			};
