@@ -1,2 +1,7 @@
-
-
+ofxOsc
+ofxOpenCv
+ofxMediaType
+ofxBezierSurface
+ofxM3U
+ofxMultiGLFWWindow
+ofxPBO
