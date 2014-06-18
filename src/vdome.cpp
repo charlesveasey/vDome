@@ -1,722 +1,359 @@
 #include "vdome.h"
+#ifdef TARGET_WIN32
+    #include "ofxWinWindow.h"
+#endif
 
-/********************************************
+namespace vd {
+
+// global variables
+float projCount = 1;
+int maxHistory = 25;
+vector<ofPixels> maskHistory;
+
+int winCount = 1;
     
-    MENU
-    ----------------------
-    (m) show menu
-    
- 
-    (i) Input
-    --------------
-    (1) Scale
-
-
-    (d) Dome
-    ---------------
-    (1) Radius
-
-
-    (p) Projector
-    ---------------
-    (1) Intensity
-    (2) Color
-    (3) Keystone
-    (4) Grid
-    (5) Position
-    (6) Orientation
-    (7) Field of View
-    (8) Offset
-    (9) Scale
-    (10) Shear 1
-    (11) Shear 2
-
- ********************************************/
-
-
 /******************************************
- 
+
  CONSTRUCTOR
- 
+
  ********************************************/
 
 vdome::vdome() {
-    // add values
-    value = 1;
-    orgValue = 1;
-    shiftValue = .1;
-    altValue = .01;
-    
-    // config draw
-    frameCnt= 0;
-    saved = false;    
-	shift = false;
-	alt = false;
-	ctrl = false;
-	mod = false;
+    menu.input = &input;
+    menu.dome = &dome;
+    menu.windows = &windows;
+    menu.projectors = &projectors;
+    socket.input = &input;
+    autosave = false;
+	wIndex = 0;
 }
 
 /******************************************
- 
+
  SETUP
- 
+
  ********************************************/
 
 void vdome::setup(){
-    
-    ofSetEscapeQuitsApp(true);
-    ofHideCursor();
+    ofSetEscapeQuitsApp(false);
 
-    window.setup();
+    glfw = (ofxMultiGLFWWindow*)ofGetWindowPtr();
+    glfwWindows = &glfw->windows;
+    
     render.setup();
     dome.setup();
-    
-    // input
-    // 0 = image
-	// 1 = capture
-    // 2 = video
-    // 3 = hap
-    // 4 = syphon
-    
-    input.mode = 0;
+
+    // input setup
+    input.source = 0;
     input.frameRate = render.getFrameRate();
     input.setup();
-    
-    // projectors
-    pCount = 6; // FIXME: not dynamic with xml
-    pActive = 1;
-    
-    for(int i=0; i<pCount; i++) {
-        Projector p;
-        p.init(i);
-        projectors.push_back(p);
-    }
-    
+
     // projection shader
-	shader.load("shaders/vdome.vert", "shaders/vdome.frag");
-    
-    
-    // config
-    config = false;
-    showConfig = false;
-    showFrameRate = true;
-    editMode = 1;
-    editGroup = 2;
-    
+	shader.load("settings/shaders/vdome.vert", "settings/shaders/vdome.frag");
+
     // xml settings
     xmlFile = "settings.xml";
-    loadXML(xmlFile);
+    saveThread.xml.push_back(&xml);
+    saveThread.files.push_back(xmlFile);
+    
+    if (xml.load(xmlFile))
+        loadXML(xml);
+
+    #ifdef TARGET_WIN32
+        ofxWinWindow * nwindow = (ofxWinWindow*)ofGetWindowPtr();
+        nwindow->hideBorder();
+        nwindow->keepWindowOnTop(true);
+
+        HWND handleWindow;
+        AllocConsole();
+        handleWindow = FindWindowA("ConsoleWindowClass", NULL);
+        ShowWindow(handleWindow, 0);
+	#endif
+
+    for(int i=0; i<projCount; i++) {
+        Projector p = projectors[i];
+        saveThread.xml.push_back(p.plane.wXml);
+        saveThread.files.push_back("settings/warp/warp-"+ofToString(i+1)+".xml");
+        saveThread.image.push_back(projectors[i].mask.maskFboImage);
+        saveThread.imageFiles.push_back("settings/masks/mask-" + ofToString(i+1) + ".png");
+    }
+
+    maskHistory.clear();
+    for (int i=0; i<=(maxHistory+2); i++) {
+        ofPixels buffer;
+        buffer.allocate(1920, 1080, OF_IMAGE_COLOR_ALPHA);
+        maskHistory.push_back(buffer);
+    }
+    
+    menu.autosave = autosave;    
 }
 
-
-
-
 /******************************************
- 
+
  UPDATE
- 
+
  ********************************************/
 
 void vdome::update() {
-    input.update();
+    if (wIndex == 0) {
+        input.update();
+        
+        if (socket.enabled)
+            socket.update();
+    }
+    
+    if (menu.active) {
+        if (saveThread.saved) {
+            menu.saved = true;
+            saveThread.saved = false;
+        }
+    }
 }
 
-
-
-
 /******************************************
- 
+
  DRAW
- 
- ********************************************/
 
+ ********************************************/
+    
 void vdome::draw(){
-    if (showConfig) {
-        drawConfig();
-    }
-        
     ofSetHexColor(0xFFFFFF);
+	int wi = 0;
+
+    #ifdef TARGET_WIN32
+		for (int i=0; i< projCount; i++) {
+	#else
+		 wi = glfw->getWindowIndex();
+		 for (int i=windows[wi].firstProjector; i<=windows[wi].lastProjector; i++) {
+	#endif
     
-	for(int i=0; i<pCount; i++){
-        projectors[i].begin();
-        input.bind();
-        dome.draw();
-        input.unbind();
-        projectors[i].end();
-	}
+        if (projectors[i].enable) {
 
-	for(int i=0; i<pCount; i++) {
-		projectors[i].bind();
-		shader.begin();
-		shader.setUniform1f("brightness", projectors[i].brightness );
-		shader.setUniform1f("contrast", projectors[i].contrast );
-		shader.setUniform1f("saturation", projectors[i].saturation );
-		shader.setUniformTexture("texsampler", projectors[i].getTextureReference(), 0);
-        projectors[i].draw();
-        shader.end();
-        projectors[i].unbind();
-	}
-}
+            projectors[i].begin();
+                input.bind();
+                    dome.draw();
+                input.unbind();
+            projectors[i].end();
 
+            ofDisableNormalizedTexCoords();
+            projectors[i].renderFbo.begin();
+            ofClear(0);
+            projectors[i].bind();
+           
+                projectors[i].draw();
 
+            projectors[i].unbind();
+            projectors[i].renderFbo.end();
+            ofEnableNormalizedTexCoords();
 
+            projectors[i].renderFbo.getTextureReference().bind();
+            
+                if (projectors[i].active)
+                    projectors[i].mask.draw();
+            
+                shader.begin();
 
-/******************************************
- 
- DRAW CONFIG
- 
- ********************************************/
+                    shader.setUniform1f("brightness", projectors[i].brightness);
+                    shader.setUniform1f("contrast", projectors[i].contrast);
+                    shader.setUniform1f("blackLevel", projectors[i].blackLevel);
+                    shader.setUniform1f("whiteLevel", projectors[i].whiteLevel);
 
-void vdome::drawConfig() {
-    
-    for(int i=0; i<pCount; i++) {
-        if (editGroup == 2 && projectors[i].mouse) {
-            if (editMode == 3) {
-                projectors[i].drawKeystone();
-            }
-            else if (editMode == 4) {
-                projectors[i].drawPlaneConfig();
-            }
+                    shader.setUniform1f("hue", projectors[i].hue);
+                    shader.setUniform1f("saturation", projectors[i].saturation);
+                    shader.setUniform1f("lightness", projectors[i].lightness);
+
+                    shader.setUniform1f("gamma", projectors[i].gamma);
+                    shader.setUniform1f("gammaR", projectors[i].gammaR);
+                    shader.setUniform1f("gammaG", projectors[i].gammaG);
+                    shader.setUniform1f("gammaB", projectors[i].gammaB);
+
+                    shader.setUniformTexture("texsampler", projectors[i].renderFbo.getTextureReference(), 0);
+                    shader.setUniformTexture("maskTex", projectors[i].mask.maskFbo.getTextureReference(), 1);
+            
+                    projectors[i].renderPlane.draw();
+
+                shader.end();
+
+            projectors[i].renderFbo.getTextureReference().unbind();
+
         }
         
-        // debug positions
-        int pw = 200;
-        int ph = 135;
-        
-        int px = projectors[i].getPlanePosition().x + 1024/2 - pw/2;
-        int py = projectors[i].getPlanePosition().y + 768/2  - ph/2;
-        
-        int padx = 15;
-        int pady = 15;
-
-        // debug text
-        if (saved) {
-            ofSetHexColor(0xFFFFFF);
-            ofDrawBitmapString("SAVED", px+padx+125, py+pady*1.75);
-            frameCnt++;
-            if (frameCnt == 60) {
-                saved = false;
-                frameCnt = 0;
-            }
-             ofSetHexColor(0xAA0000);
-        }
-        else {
-            ofSetHexColor(0x000000);
+        if (menu.active) {
+            menu.draw( projectors[i].index );
         }
         
-        // debug background square
-        ofFill();
-        ofRect(px, py, 1, pw, ph);
-        
-        ofSetHexColor(0xFFFFFF);
-        ofDrawBitmapString("Projector #" + ofToString(i+1), px+padx, py+pady*1.75);
-        //ofDrawBitmapString("fps: "+ofToString(ofGetFrameRate(), 2), px+padx, py+pady*2.75);
-		
-        //tcp.x = px+padx;
-        //tcp.y = py+pady*4.5;
-        //tcp.draw();
-       
-        ofSetHexColor(0xFFFFFF);
-        
-        string title;
-        string sub;
-        string str;
-        
-        switch (editGroup) {
-      
-            case 1: // dome mesh
-                title = "Edit: Dome";
-                        sub = "";             
-                        str = "Radius: " + ofToString( roundTo(dome.radius, .01) );
-                break;
-                
-            case 2: // projector
-                title = "Edit: Projector";                    
-                switch (editMode) {
-                    case 1:
-                        sub = "Intensity";
-                        str =   "Brightness: " + ofToString( roundTo(projectors[i].brightness, .001) ) + "\n" +
-                        "Contrast: " + ofToString( roundTo(projectors[i].contrast, .001) );
-                        break;
-                        
-                    case 2:
-                        sub = "Color";
-                        str =   "Saturation: " + ofToString( roundTo(projectors[i].saturation, .001) );
-                        break;
-                        
-                    case 3:
-                        sub = "Keystone";
-                        str = "";
-                        break;
-                        
-                    case 4:
-                        sub = "Grid";
-                        str = "";
-                        break;
-                        
-                    case 5:
-                        sub = "Position";
-                        str =   "Azimuth: "+ ofToString( roundTo(projectors[i].getCameraPosition().x, .01) ) + "\n" +
-                                "Elevation: "+ ofToString( roundTo(projectors[i].getCameraPosition().y, .01) ) + "\n" +
-                                "Distance: "+ ofToString( roundTo(projectors[i].getCameraPosition().z, .01) );
-                        break;
-                        
-                    case 6:
-                        sub =   "Orientation";
-                        str =   "Roll: "+ ofToString( roundTo(projectors[i].getCameraOrientation().x, .01) ) + "\n" +
-                                "Tilt: "+ ofToString( roundTo(projectors[i].getCameraOrientation().y, .01) ) + "\n" +
-                                "Pan: "+ ofToString( roundTo(projectors[i].getCameraOrientation().z, .01) );
-                        break;
-                        
-                    case 7:
-                        sub = "Lens";
-                        str =   "Field of View: "+ ofToString( roundTo(projectors[i].getCameraFov(), .01) );
-                        break;
-                        
-                    case 8:
-                        sub = "Offset";
-                        str =   "X: "+ ofToString( roundTo(projectors[i].getCameraOffset().x, .001) ) + "\n" +
-                                "Y: "+ ofToString( roundTo(projectors[i].getCameraOffset().y, .001 ) );
-                        break;
-                     
-                    case 9:
-                        sub = "Scale";
-                        str = "X: "+ ofToString( roundTo(projectors[i].getCameraScale().x, .01) ) + "\n" +
-                              "Y: "+ ofToString( roundTo(projectors[i].getCameraScale().y, .01) );
-                        break;
-                        
-                    case 10:
-                        sub = "Shear 1";
-                        str =   "YZ: "+ ofToString( roundTo(projectors[i].getCameraShear()[3], .001) ) + "\n" +
-                                "ZX: "+ ofToString( roundTo(projectors[i].getCameraShear()[4], .001) ) + "\n" +
-                                "XZ: "+ ofToString( roundTo(projectors[i].getCameraShear()[1], .001) );
-                        break;
-                        
-                    case 11:
-                        sub = "Shear 2";
-                        str =   "ZY: "+ ofToString( roundTo(projectors[i].getCameraShear()[5], .001) ) + "\n" +
-                                "YX: "+ ofToString( roundTo(projectors[i].getCameraShear()[2], .001) ) + "\n" +
-                                "XY: "+ ofToString( roundTo(projectors[i].getCameraShear()[0], .001) );
-                        break;
-                        
-                    default:
-                        sub = "";
-                        str = "";
-                        break;
-                }
-                break;
-                
-            case 3: // input
-                title = "Edit: Input";
-                switch (editMode) {
-					 case 1:
-						if (input.mode == 1)		sub = "Capture";
-						else if (input.mode == 2)   sub = "Video";
-						else if (input.mode == 3)   sub = "Hap";
-						else if (input.mode == 4)   sub = "Syphon";
-						else						sub = "Image"; //  mode = 0
-						str = "";
-                        break;
-                    case 2:
-                        sub = "";
-                        str = "Scale: " + ofToString( roundTo(dome.textureScale, .01) );
-                        break;
-                    case 3:
-                        sub = "Offset";
-                        str =   "X: \nY:";
-                        break;
-                }
-				break;
-        }
-    
-        if (editGroup == 2 && config && !saved) {
-            if (projectors[i].keyboard || projectors[i].mouse) {
-                ofSetHexColor(0xFFF000);
-                ofDrawBitmapString("Active", px+padx+120, py+pady*1.75);
-                ofSetHexColor(0xFFFFFF);
-            }
-            else if (showFrameRate) {
-                ofDrawBitmapString(ofToString(ofGetFrameRate(), 2), px+padx+125, py+pady*1.75);
-            }
-        }
-        else if (showFrameRate && !saved)  {
-            ofDrawBitmapString(ofToString(ofGetFrameRate(), 2), px+padx+125, py+pady*1.75);
-        }
-        
-        ofDrawBitmapString(title, px+padx, py+pady*3.5);
-        ofDrawBitmapString("Mode: " + sub, px+padx, py+pady*4.5);
-        ofDrawBitmapString(str, px+padx, py+pady*6);
     }
+
 }
 
 /******************************************
- 
+
  SETTINGS
 
  *******************************************/
 
-void vdome::loadXML(string file) {
-    if (xml.load(file)) {
-        if (xml.exists("projectors[@count]"))
-            pCount = ofToInt( xml.getAttribute("projectors[@count]") );
-        
-        input.loadXML(xml);
-        render.loadXML(xml);
-        window.loadXML(xml);
-        dome.loadXML(xml);
-        
-        for(int i=0; i<pCount; i++) {
-            projectors[i].loadXML(xml);
+void vdome::loadXML(ofXml &xml) {
+    
+    input.loadXML(xml);
+    render.loadXML(xml);
+    dome.loadXML(xml);
+    socket.loadXML(xml);
+
+    winCount = 0;
+    projCount = 0;
+
+    if (xml.exists("window")) {
+        winCount = xml.getNumChildren("window");
+        for (int i=0; i<winCount; i++) {
+            Window w;
+            xml.setTo("window["+ ofToString(i) + "]");
+            
+            w.firstProjector = projCount;
+            projCount += xml.getNumChildren();
+            w.lastProjector = projCount-1;
+            if (i > 0) glfw->createWindow();
+            w.glfwWindow = glfwWindows->at(i);
+            
+            for (int j=0; j<projCount-w.firstProjector; j++) {
+                Projector p;
+                projectors.push_back(p);
+            }
+            
+            windows.push_back(w);
+            xml.setToParent();
         }
+    }
+    int c=0;
+    ofPoint pos(0,0);
+    for (int i=0; i<winCount; i++) {
+        xml.setTo("window["+ ofToString(i) + "]");
+        windows[i].loadXML(xml);
+        pos.set(0, 0);
+
+        for (int j=0; j<=windows[i].lastProjector-windows[i].firstProjector; j++) {
+            xml.setTo("projector["+ ofToString(j) + "]");
+          
+            projectors[c].init(c);
+            projectors[c].loadXML(xml);
+            
+            if (j != 0) {
+                pos.x += projectors[c-1].width;
+                pos.y += 0;
+            }
+            projectors[c].setPlanePosition(pos.x, pos.y);
+            projectors[c].setup();
+            projectors[c].loadXML2(xml);
+            
+            xml.setToParent();
+            c++;
+        }
+        
+        xml.setToParent();
+    }
+    
+    if (xml.exists("[@autosave]")) {
+        string str = ofToString( xml.getAttribute("[@autosave]") );
+        if (str == "on")    autosave = true;
+        else                autosave = false;
     }
 }
 
-void vdome::saveXML(string file) {
-    xml.setAttribute("projectors[@count]", ofToString(pCount));
+void vdome::saveXML(ofXml &xml) {
     
-    tcp.saveXML(xml);
+    socket.saveXML(xml);
     input.saveXML(xml);
     render.saveXML(xml);
-    window.saveXML(xml);
     dome.saveXML(xml);
     
-    for(int i=0; i<pCount; i++) {
-		projectors[i].saveXML(xml);
-	}
-    
-    if (xml.save(file)) {
-        saved = true;
+    int c = 0;
+    for (int i=0; i<winCount; i++) {
+        
+        xml.setTo("window["+ ofToString(i) + "]");
+        windows[i].saveXML(xml);
+
+        for (int j=0; j<=windows[i].lastProjector-windows[i].firstProjector; j++) {
+            xml.setTo("projector["+ ofToString(j) + "]");
+            projectors[c].saveXML(xml);
+            xml.setToParent();
+            c++;
+        }
+        
+        xml.setToParent();
+
     }
+    saveThread.save();
 }
 
 /******************************************
- 
+
  MOUSE
- 
+
  ********************************************/
 
 void vdome::mousePressed(ofMouseEventArgs& mouseArgs) {
-    if (config) {
-        for (int i=0; i<pCount; i++) {
-            projectors[i].mousePressed(mouseArgs);
-        }
-    }
+    menu.mousePressed(mouseArgs);
 }
 
 void vdome::mouseDragged(ofMouseEventArgs& mouseArgs) {
-    if (config) {
-        for (int i=0; i<pCount; i++) {
-            projectors[i].mouseDragged(mouseArgs);
-        }
-    }
+    menu.mouseDragged(mouseArgs);
+
 }
 
 void vdome::mouseReleased(ofMouseEventArgs& mouseArgs) {
-    if (config) {
-        for (int i=0; i<pCount; i++) {
-            projectors[i].mouseReleased(mouseArgs);
-        }
-    }
+    menu.mouseReleased(mouseArgs);
+    if (autosave && menu.active)
+        saveXML(xml);
 }
 
 /******************************************
- 
+
  KEYBOARD
- 
+
  ********************************************/
 
-bool all;
 void vdome::keyPressed(int key){
-    
-    switch(key){
-        case 102: // f
-            showFrameRate = !showFrameRate;
-            break;
-            
-        case 109: // m
-            showConfig = !showConfig;
-            config = showConfig;
-            if (showConfig)
-                ofShowCursor();
-            else
-                ofHideCursor();            
-            break;
-            
-        case 105: // i
-            editGroup = 3;
-            break;
-            
-        case 100: // d = edit group
-            editGroup = 1;
-            break;
-            
-        case 112: // p = edit group
-            editGroup = 2;
-            break;
-            
-        case OF_KEY_LEFT_ALT: // alt
-            value = altValue;
-            alt = true;
-            break;
-            
-        case OF_KEY_RIGHT_ALT:
-            value = altValue;
-            alt = true;
-            break;
-            
-        case OF_KEY_LEFT_CONTROL: // control
-            ctrl = true;
-            mod = true;
-            break;
-            
-        case OF_KEY_RIGHT_CONTROL:
-            ctrl = true;
-            mod = true;
-            break;
-            
-        case OF_KEY_LEFT_SHIFT: // shift
-            value = shiftValue;
-            shift = true;
-            break;
-            
-        case OF_KEY_RIGHT_SHIFT:
-            value = shiftValue;
-            shift = true;
-            break;
-            
-        case OF_KEY_LEFT_SUPER: // super
-            mod = true;
-            ctrl = true;
-            break;
-            
-        case OF_KEY_RIGHT_SUPER:
-            mod = true;
-            ctrl = true;
-            break;    
+    if (key == 115 && !autosave) { // ctrl + s = save
+        if (menu.active && menu.ctrl)
+            saveXML(xml);
     }
-    
-    for (int i=0; i<pCount; i++) {
-        projectors[i].setValue(value);
-    }
-    
-    
-    ///////////////////////////
 
-    if (!config) { return; }
+	#ifdef TARGET_WIN32 || TARGET_LINUX
+		if (key == 113) { // ctrl + q  = quit
+			if (ofGetKeyPressed(OF_KEY_CONTROL))
+				ofExit();
+		}
+	#endif
 
-    ///////////////////////////
-
-    bool last;
-    if (key == 96) { // ~ = de/select all projectors
-        all = projectors[0].keyboard;
-        for (int i=1; i<pCount; i++) {
-            if (all != projectors[i].keyboard) {
-                all = true;
-                break;
-            }
-            else {
-                all = !all;
-            }
-        }
-        for (int i=0; i<pCount; i++) {
-            projectors[i].keyboard = all;
-            projectors[i].mouse = all;
-        }        
-    }
-    else if (key >= 48 && key <= 57 && !alt)  {
-        
-        if (key == 48)
-            pActive = 10;
-        else
-            pActive = key-49;
-
-        // shift groups, otherwise reset
-        if (!shift) {
-            for (int i=0; i<pCount; i++) {
-                if (i != pActive) {
-                    projectors[i].keyboard = false;
-                    projectors[i].mouse = false;
-                }
-            }
-        }
-        projectors[pActive].keyboard = !(projectors[pActive].keyboard);
-        projectors[pActive].mouse = !(projectors[pActive].mouse);
-        
-        
-        
-        if (editGroup == 2) {
-            for (int i=0; i<pCount; i++) {
-                if (editMode == 3) {
-                    projectors[i].setKeystoneActive(true);
-                    projectors[i].setGridActive(false);
-                }
-                else if (editMode == 4) {
-                    projectors[i].setKeystoneActive(false);
-                    projectors[i].setGridActive(true);
-                }
-                else {
-                    projectors[i].setKeystoneActive(false);
-                    projectors[i].setGridActive(false);
-                }
-            }
-            
-            // move mouse to new selection
-            if (editMode == 3 || editMode == 4) {
-
-				int xmouse = projectors[pActive].getPlanePosition().x+projectors[pActive].getPlaneDimensions().x/2;
-                int ymouse = projectors[pActive].getPlanePosition().y+projectors[pActive].getPlaneDimensions().y/2;
-
-                if (projectors[pActive].mouse) {
-					#ifdef TARGET_OSX
-						glutWarpPointer(xmouse, -ymouse);
-					#endif
-					#ifdef TARGET_WIN32
-						SetCursorPos(xmouse, ymouse);
-					#endif
-				}
-            }
-        }
-        return;
-        
-    }
-    
-    
-    
-    if (key >= 48 && key <= 57) {
-        // assign edit mode
-        if (alt) {
-            if (key == 48)
-                editMode = 10;
-            else
-                editMode = key-48;
-            
-            if (editGroup == 2) {
-                for (int i=0; i<pCount; i++) {
-                    if (editMode == 3) {
-                        projectors[i].setKeystoneActive(true);
-                        projectors[i].setGridActive(false);
-                    }
-                    else if (editMode == 4) {
-                        projectors[i].setKeystoneActive(false);
-                        projectors[i].setGridActive(true);
-                    }
-                    else {
-                        projectors[i].setKeystoneActive(false);
-                        projectors[i].setGridActive(false);
-                    }
-                }                
-            }
-            return;
-        }
-
-        
-
-        
-            
-        
-
-    }
-    else if (key == 45) {
-        editMode = 11;
-    }
-    
-    
-    switch (editGroup) {
-        case 1: // d = dome mesh
-            dome.editMode = editMode;
-            dome.value = value;
-            dome.keyPressed(key);
-            break;
-        case 2: // p = projector
-            for (int i=0; i<pCount; i++) {
-                projectors[i].editMode = editMode;
-                projectors[i].mod = mod;
-                projectors[i].keyPressed(key);
-            }
-            break;
-        case 3: // i = input
-			if (editMode == 1)
-				input.keyPressed(key);
-			else {
-				dome.editMode = editMode;
-				dome.value = value;
-				dome.keyPressedInput(key);
-			}
-            break;
-    }
-    
+    menu.keyPressed(key);
 }
 
-void vdome::keyReleased(int key) {
-    
-    for (int i=0; i<pCount; i++) {
-        projectors[i].keyReleased(key);
-    }
-        
-    switch(key){
-            
-        case 115: // s
-            if (config)  { // mod + s = save file
-                saveXML(xmlFile);
-                cout << "saveXML " << endl;
-            }
-            break;
-         
-        case OF_KEY_LEFT_ALT: // alt
-            value = orgValue;
-            alt = false;
-            break;
-            
-        case OF_KEY_RIGHT_ALT:
-            value = orgValue;
-            alt = false;
-            break;
-            
-        case OF_KEY_LEFT_CONTROL: // control
-            ctrl = false;
-            mod = false;
-            break;
-        case OF_KEY_RIGHT_CONTROL:
-            ctrl = false;
-            mod = false;
-            break;
-            
-        case OF_KEY_LEFT_SHIFT: // shift
-            value = orgValue;
-            shift = false;
-            break;
-            
-        case OF_KEY_RIGHT_SHIFT:
-            value = orgValue;
-            shift = false;
-            break;
-            
-        case OF_KEY_LEFT_SUPER:  // super
-            mod = false;
-            ctrl = false;
-            break;
-            
-        case OF_KEY_RIGHT_SUPER:
-            mod = false;
-            ctrl = false;
-            break;
-    }
-    
-    for (int i=0; i<pCount; i++) {
-        projectors[i].setValue(value);
+void vdome::keyReleased(int key){
+    menu.keyReleased(key);
+    if (key != OF_KEY_UP || key == OF_KEY_DOWN) {
+        if (autosave && menu.active)
+            saveXML(xml);
     }
 }
 
 /******************************************
  
- MATH
+ FILE
  
  ********************************************/
 
-float round(float d) {
-  return floorf(d + 0.5);
+void vdome::dragEvent(ofDragInfo dragInfo){
+    input.dragEvent(dragInfo);
 }
 
-float vdome::roundTo(float val, float n){
-	return round(val * 1/n) * n;
+/******************************************
+
+ EXIT
+
+ ********************************************/
+
+void vdome::exit(){
+    input.stop();
+    input.close();
+}
+
 }

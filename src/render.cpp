@@ -1,9 +1,10 @@
 #include "render.h"
+namespace vd {
 
 /******************************************
- 
+
  CONSTRUCTOR
- 
+
  ********************************************/
 
 Render::Render(){
@@ -12,33 +13,36 @@ Render::Render(){
 }
 
 /******************************************
- 
+
  SETUP
- 
+
  ********************************************/
 
 void Render::setup() {
     ofSetVerticalSync(vSync);
 	ofSetFrameRate(frameRate);
-    
+
     ofBackground(0,0,0);
-	ofEnableDepthTest();
+	//ofEnableDepthTest();
     ofEnableNormalizedTexCoords();
-    
+
+    //ofEnableAntiAliasing();
     //ofEnableSmoothing();
-    //ofEnableAlphaBlending();
+    ofEnableAlphaBlending();
 	//ofDisableArbTex();
+    ofEnableBlendMode(OF_BLENDMODE_ALPHA);
+
 }
 
 /******************************************
- 
+
  ACCESSORS
- 
+
  ********************************************/
 
 bool Render::getVSync() {
     return vSync;
-  	
+
 }
 void Render::setVSync(bool val) {
     vSync = val;
@@ -46,7 +50,7 @@ void Render::setVSync(bool val) {
 }
 
 int Render::getFrameRate() {
-    return frameRate;  	
+    return frameRate;
 }
 void Render::setFrameRate(int val) {
     frameRate = val;
@@ -54,20 +58,27 @@ void Render::setFrameRate(int val) {
 }
 
 /******************************************
- 
+
  SETTINGS
- 
+
  ********************************************/
 
 void Render::loadXML(ofXml &xml) {
-    if (xml.exists("[@vSync]"))
-        vSync = ofToBool( xml.getAttribute("[@vSync]") );
+    if (xml.exists("[@vSync]")) {
+        string str = ofToString( xml.getAttribute("[@vSync]") );
+        if (str == "on")    vSync = true;
+        else                vSync = false;
+    }
     if (xml.exists("[@frameRate]"))
         frameRate = ofToInt( xml.getAttribute("[@frameRate]") );
     setup();
 }
 
 void Render::saveXML(ofXml &xml) {
-    xml.setAttribute("[@vSync]", ofToString(vSync) );
-    xml.setAttribute("[@frameRate]", ofToString(frameRate) );    
+    if (vSync)  xml.setAttribute("vSync", "on" );
+    else        xml.setAttribute("vSync", "off" );
+
+    xml.setAttribute("frameRate", ofToString(frameRate) );
+}
+
 }

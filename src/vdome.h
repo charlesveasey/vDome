@@ -1,58 +1,22 @@
 #pragma once
-
 #include "ofMain.h"
-#include "input.h"
 #include "window.h"
-#include "dome.h"
-#include "projector.h"
-#include "tcp.h"
+#include "socket.h"
+#include "menu.h"
+#include "saveThread.h"
+#include "ofxMultiGLFWWindow.h"
 
-#ifdef TARGET_OSX
-    #include "../../../libs/glut/lib/osx/GLUT.framework/Versions/A/Headers/glut.h"
-#endif
-#ifdef TARGET_WIN32
-    #include <windows.h>
-#endif
-
+namespace vd {
+  
 class vdome : public ofBaseApp {
-	
+
 public:
     vdome();
-    
+
 private:
-    Tcp tcp;
-    Input input;
-    Render render;
-    Window window;
-    Dome dome;
-    ofShader shader;
-    
-    int pCount;
-    int pActive;
-    vector<Projector> projectors;
-    
-    bool config;
-    bool showConfig;
-    bool showFrameRate;
-    
     void setup();
     void update();
     void draw();
-    void drawConfig();
-    int editMode;
-    int editGroup;
-    int frameCnt;
-    bool saved;
-    
-    bool shift;
-    bool alt;
-    bool ctrl;
-    bool mod;
-    
-    float value;
-    float orgValue;
-    float shiftValue;
-    float altValue;
     
     void keyPressed(int key);
     void keyReleased(int key);
@@ -60,13 +24,33 @@ private:
     void mousePressed(ofMouseEventArgs& mouseArgs);
     void mouseDragged(ofMouseEventArgs& mouseArgs);
     void mouseReleased(ofMouseEventArgs& mouseArgs);
+   
+    void dragEvent(ofDragInfo dragInfo);
+
+    void loadXML(ofXml &xml);
+    void saveXML(ofXml &xml);
     
+    void exit();
+    
+    Menu menu;
+    Socket socket;
+    Input input;
+    Render render;
+    Dome dome;
+    ofShader shader;
+    vector<Window> windows;
+    vector<Projector> projectors;
     ofVec3f sphToCar(ofVec3f t);
-    float roundTo(float val, float n);
-    
+
     ofXml xml;
     string xmlFile;
-    void loadXML(string file);
-    void saveXML(string file);
+    SaveThread saveThread;
+    bool autosave;
+    
+    ofxMultiGLFWWindow *glfw;
+    int wIndex;
+    vector<GLFWwindow*> *glfwWindows;
 };
-	
+
+}
+

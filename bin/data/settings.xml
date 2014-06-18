@@ -1,32 +1,14 @@
-<vdome frameRate="30" vSync="0">
+<vDome autosave="off" frameRate="60" vSync="on">
     
-    <tcp enabled="1" port="1"/>
-        
-	<input mode="image" resolution="2048" scale="1"/>
+    <socket enabled="on" port="12345"/>
     
-	<window fullscreen="false" height="1080" width="6144" x="0" y="0"/>
+	<input file="\Users\Charles\Code\of_v0.8.1_osx_release\apps\vDome\vDome\bin\data\media\images\fisheye-tower-1536px.jpg" imageDuration="5" loop="on" resolution="2048" scale="1" source="grid"/>
     
-    <dome radius="8.83"/>
+    <dome radius="10"/>
     
-	<projectors count="6">
-        
-		<!-- #1 -->
-		<projector brightness="1" contrast="1" dimensions="1024,768" fov="36" keystone="0,0,0.997072,0,0,1,0.997072,1" offset="0,0" orientation="0,-18,0" position="0,0,8" saturation="1" scale="1,1"/>
-		
-		<!-- #2 -->
-		<projector brightness="1" contrast="1" dimensions="1024,768" fov="36" keystone="-0.00292683,0,0.994147,0,-0.00292683,1,0.994147,1" offset="0,0" orientation="0,-18,0" position="0,0,8" saturation="1" scale="1,1"/>
+	<window border="off" float="off" fullscreen="off" height="768" width="1680" x="0" y="0">
+        <projector brightness="1" contrast="1" dimensions="1024,768" fov="72" gamma="1,1,1,1" hsl="1,1,1" levels="0,255" offset="0,0" orientation="0,-18,0" position="0,0,10" scale="1,1" shear="0,0,0,0,0,0"/>
+        <projector brightness="1" contrast="1" dimensions="1024,768" fov="72" gamma="1,1,1,1" hsl="1,1,1" levels="0,255" offset="0,0" orientation="0,-18,0" position="0,0,10" scale="1,1" shear="0,0,0,0,0,0"/>
+    </window>
 
-		<!-- #3 -->
-		<projector brightness="1" contrast="1" fov="36" keystone="0.00770731,0.00807292,0.97698,0.00299479,0.0109268,1.00703,0.993467,0.999609" offset="0,0" orientation="0,-16,0" position="0,0,9" saturation="1" scale="1,1"/>
-
-    	<!-- #4 -->
-		<projector brightness="1" contrast="1" fov="36" keystone="0.00770731,0.00807292,0.97698,0.00299479,0.0109268,1.00703,0.993467,0.999609" offset="0,0" orientation="0,-16,0" position="0,0,9" saturation="1" scale="1,1"/>
-        
-		<!-- #5 -->
-		<projector brightness="1" contrast="1" fov="36" keystone="0.00770731,0.00807292,0.97698,0.00299479,0.0109268,1.00703,0.993467,0.999609" offset="0,0" orientation="0,-16,0" position="0,0,9" saturation="1" scale="1,1"/>
-        
-		<!-- #6 -->
-		<projector brightness="1" contrast="1" fov="36" keystone="0.00770731,0.00807292,0.97698,0.00299479,0.0109268,1.00703,0.993467,0.999609" offset="0,0" orientation="0,-16,0" position="0,0,9" saturation="1" scale="1,1"/>
-        
-    </projectors>      
-</vdome>
+</vDome>

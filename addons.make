@@ -1,3 +1,2 @@
-ofxNetwork
-ofxOpenCv
-ofxQuadWarp
+
+

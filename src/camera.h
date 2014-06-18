@@ -8,18 +8,18 @@
  */
 
 #pragma once
-
 #include "ofRectangle.h"
 #include "ofAppRunner.h"
 #include "ofNode.h"
+namespace vd {
 
 // Use the public API of ofNode for all transformations
 //class camera : public ofNodeWithTarget {
-class camera : public ofNode {
+class Camera : public ofNode {
 public:
-	camera();
-	virtual ~camera(){};
-	
+	Camera();
+	virtual ~Camera(){};
+
 	// projection properties:
 	void setFov(float f);
 	void setNearClip(float f);
@@ -36,37 +36,37 @@ public:
     float getAspectRatio() const {return aspectRatio; };
 	void setupPerspective(bool vFlip = true, float fov = 60, float nearDist = 0, float farDist = 0, const ofVec2f & lensOffset = ofVec2f(0.0f, 0.0f));
 	void setupOffAxisViewPortal(const ofVec3f & topLeft, const ofVec3f & bottomLeft, const ofVec3f & bottomRight);
-	
+
 	void setVFlip(bool vflip);
 	bool isVFlipped();
 
 	void enableOrtho();
 	void disableOrtho();
 	bool getOrtho() const;
-	
+
 	float getImagePlaneDistance(ofRectangle viewport = ofGetCurrentViewport()) const;
-	
+
 	// set the matrices
 	virtual void begin(ofRectangle viewport = ofGetCurrentViewport());
 	virtual void end();
-	
+
 	// for hardcore peeps, access to the projection matrix
 	ofMatrix4x4 getProjectionMatrix(ofRectangle viewport = ofGetCurrentViewport()) const;
     void setProjectionMatrix(ofMatrix4x4 matrix);
-    
+
 	ofMatrix4x4 getModelViewMatrix() const;
 	ofMatrix4x4 getModelViewProjectionMatrix(ofRectangle viewport = ofGetCurrentViewport()) const;
-	
+
 	// convert between spaces
 	ofVec3f worldToScreen(ofVec3f WorldXYZ, ofRectangle viewport = ofGetCurrentViewport()) const;
 	ofVec3f screenToWorld(ofVec3f ScreenXYZ, ofRectangle viewport = ofGetCurrentViewport()) const;
 	ofVec3f worldToCamera(ofVec3f WorldXYZ, ofRectangle viewport = ofGetCurrentViewport()) const;
 	ofVec3f cameraToWorld(ofVec3f CameraXYZ, ofRectangle viewport = ofGetCurrentViewport()) const;
-	
-	
+
+
 protected:
 	void calcClipPlanes(ofRectangle viewport);
-	
+
 	bool isOrtho;
 	float fov;
 	float nearClip;
@@ -78,3 +78,4 @@ protected:
 	bool vFlip;
 };
 
+}

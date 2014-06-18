@@ -22,21 +22,25 @@
 *.exe
 *.opensdf
 *.exp
+*.xccheckout
+*.xcsettings
+*.xcbkptlist
+*.ply
 
 # Bin
-vdome.app
-vdomeDebug.app
-vdome.exe
-vdome_debug.exe
-vdome_debug.exp
+vDome.app
+vDomeDebug.app
+vDome.exe
+vDome_debug.exe
+vDome_debug.exp
 
 # Folders
 obj/
-bin/data/media
+bin/data/media/video
+bin/data/settings/masks
+bin/data/settings/warp
 vdome.xcodeproj/xcuserdata
 
 
 
 
-
-*.xcbkptlist
