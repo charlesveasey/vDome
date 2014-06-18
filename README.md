@@ -45,9 +45,14 @@ The media input can be used as a direct media renderer. Most file formats are su
 
 
 ####Win
+  -  Clone to: openFrameworks/addons:
+     - https://github.com/ofTheo/ofDirectShowVideoPlayer
+     - https://github.com/charlesveasey/ofxWinWindow
+     - https://github.com/secondstory/ofxWMFVideoPlayer
+     - https://github.com/astellato/ofxSyphon
+    
   - Suggested IDE: Microsoft Visual Studio Express 2012
-  - Video playback utilizes: https://github.com/ofTheo/ofDirectShowVideoPlayer  
-    - No need to download seperately, a copy is included in src
+  - ofxWMFPLayer requries updated GLEW library, follow instructions on its repository
 
 ####Linux
   - Not yet tested
