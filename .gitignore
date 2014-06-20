@@ -12,7 +12,6 @@
 *.xcuserstate
 *.plist
 *.xcbkptlist
-*.pbxproj
 *.DS_Store
 *.gitkeep
 *.dll
@@ -24,7 +23,6 @@
 *.exp
 *.xccheckout
 *.xcsettings
-*.xcbkptlist
 *.ply
 
 # Bin
