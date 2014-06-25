@@ -7,7 +7,7 @@ Developed by Charles Veasey for the Institute of Indian American Arts (IAIA).
 
 ##Overview
 
-vDome is designed to calibrate mulitple projectors on a hemispherical dome surface and display a domemaster formatted video, image, or interactive application. vDome is generally used in two ways: 1) as a media player and 2) as a background process that listens to software/hardware input streams.
+vDome is an application designed to calibrate multiple projectors on a hemispherical dome surface and display a domemaster formatted video, image, or interactive application. vDome is generally used in two ways: 1) as a media player and 2) as a background process that listens to software/hardware input streams.
 
 As a media player vDome utilizes native os media libraries and accepts most common file formats and codecs of the operating system. In general:  
   - Mac OS X: QuickTime / AV Foundation / HAP
@@ -16,7 +16,7 @@ As a media player vDome utilizes native os media libraries and accepts most comm
 
 There can be major performance differences between codecs at high resolutions.
 
-Capture and camera inputs are hardware video stream solutions. A capture card is a flexible solution that allows one to run any applicaiton on the dome by sending the video output of one computer into another machine running vDome. With this, vDome essentialy becomes the 2nd monitor on your production machine. Drag the After Effects or Unity preview window onto the dome and edit in real-time, play videos through your favorite media player: Quicktime, VLC, etc. 
+Capture and camera inputs are hardware video stream solutions. A capture card is a flexible solution that allows one to run any application on the dome by sending the video output of one computer into another machine running vDome. With this, vDome essentialy becomes the 2nd monitor on your production machine. Drag the After Effects or Unity preview window onto the dome and edit in real-time, play videos through your favorite media player: Quicktime, VLC, etc. 
 
 Syphon is useful a on single Mac computer where your production application supports the Syphon technology. There are a number of applications which support the Syphon texture sharing including After Effects, Resolume, MaxMSP, etc. 
 http://syphon.v002.info/  
@@ -31,7 +31,7 @@ http://syphon.v002.info/
      - https://github.com/charlesveasey/ofxBezierSurface
      - https://github.com/arturoc/ofxPBO
      - https://github.com/bakercp/ofxMediaType
-  
+
 ####Mac
   -  Clone to: openFrameworks/addons:
      - https://github.com/charlesveasey/ofxCocoaWindowUtils
