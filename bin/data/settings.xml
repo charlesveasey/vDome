@@ -6,9 +6,10 @@
     
     <dome radius="10"/>
     
-	<window border="off" float="off" fullscreen="off" height="768" width="1680" x="0" y="0">
-        <projector brightness="1" contrast="1" dimensions="1024,768" fov="72" gamma="1,1,1,1" hsl="1,1,1" levels="0,255" offset="0,0" orientation="0,-18,0" position="0,0,10" scale="1,1" shear="0,0,0,0,0,0"/>
-        <projector brightness="1" contrast="1" dimensions="1024,768" fov="72" gamma="1,1,1,1" hsl="1,1,1" levels="0,255" offset="0,0" orientation="0,-18,0" position="0,0,10" scale="1,1" shear="0,0,0,0,0,0"/>
+	<window border="off" float="off" fullscreen="off" height="768" width="1800" x="0" y="0">
+        <projector brightness="1" contrast="1" dimensions="1024,768" fov="72" gamma="1,1,1,1" hsl="1,1,1" levels="0,255" offset="0,0" orientation="0,18,0" position="0,0,10" scale="1,1" shear="0,0,0,0,0,0"/>
+        <projector brightness="1" contrast="1" dimensions="1024,768" fov="72" gamma="1,1,1,1" hsl="1,1,1" levels="0,255" offset="0,0" orientation="0,18,0" position="0,0,10" scale="1,1" shear="0,0,0,0,0,0"/>
     </window>
 
-</vDome>
+</vDome>
+

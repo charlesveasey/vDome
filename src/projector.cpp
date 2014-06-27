@@ -140,7 +140,7 @@ void Projector::setCameraTransform(){
     camera.resetTransform();
 
     camera.roll(cameraOrientation.x);
-    camera.tilt(cameraOrientation.y);
+    camera.tilt(cameraOrientation.y*-1);
     camera.pan(cameraOrientation.z+cameraPosition.x*-1);
 
     // spherical coordinates: azi, ele, dis
