@@ -1,7 +1,7 @@
 #pragma once
 #include "ofMain.h"
 #include "projector.h"
-#include "dome.h"
+#include "model.h"
 #include "input.h"
 #include "window.h"
 
@@ -88,16 +88,16 @@ public:
     MenuItem *menuHSL;
     MenuItem *menuGamma;
     MenuItem *menuSetup;
-    MenuItem *menuRadius;
     MenuItem *menuPosition;
     MenuItem *menuOrientation;
+    MenuItem *menuFov;
     MenuItem *menuLens;
     MenuItem *menuScale;
     MenuItem *menuShear;
     MenuItem **currentMenu;
 
     enum menus {MAIN, INPUT, INPUT_VIDEO, INPUT_TRANSFORM, WARP, BLEND, COLOR, HSL, GAMMA, SETUP,
-         RADIUS, POSITION, ORIENTATION, LENS, SCALE, SHEAR, BRUSH, LEVELS};
+                POSITION, ORIENTATION, FIELD_OF_VIEW, LENS, SHEAR, SCALE, BRUSH, LEVELS};
 
     // menu items
     enum inputItems {SOURCE, FORMAT, LOOP, ENABLE, TRANSFORM};
@@ -110,11 +110,11 @@ public:
     enum colorItems {COLOR_HSL, COLOR_GAMMA};
     enum hslItems   {HUE, SATURATION, LIGHTNESS};
     enum gammaItems {GAMMA_RGB, GAMMA_R, GAMMA_G, GAMMA_B};
-    enum radiusItems{DOME_RADIUS};
     enum posItems   {AZIMUTH, ELEVATION, DISTANCE};
     enum orienItems {TILT, ROLL, PAN};
-    enum lensItems  {FOV, OFFSET_X, OFFSET_Y};
-    enum scaleItems {SCALE_XY, SCALE_X, SCALE_Y};
+    enum fovItems   {FOV};
+    enum lensItems  {OFFSET_X, OFFSET_Y};
+    enum scaleItems {SCALE_X, SCALE_Y};
     enum shearItems {SHEAR_YZ, SHEAR_ZX, SHEAR_XZ,
                      SHEAR_ZY, SHEAR_YX, SHEAR_XY};
 
@@ -141,7 +141,7 @@ public:
     float altValue;
 
     // pointers
-    Dome *dome;
+    Model *model;
     Input *input;
     vector<Window> *windows;
     vector<Projector> *projectors;

@@ -97,18 +97,12 @@ Menu::Menu(){
     menuSetup->menuId = SETUP;
     menuSetup->parent = &menuMain;
     menuSetup->currentItem = 0;
-    menuSetup->items.push_back(new Item("Radius             ->", true));
     menuSetup->items.push_back(new Item("Position           ->", true));
     menuSetup->items.push_back(new Item("Orientation        ->", true));
-    menuSetup->items.push_back(new Item("Lens               ->", true));
-    menuSetup->items.push_back(new Item("Scale              ->", true));
+    menuSetup->items.push_back(new Item("Field of View      ->", true));
+    menuSetup->items.push_back(new Item("Lens Offset        ->", true));
     menuSetup->items.push_back(new Item("Shear              ->", true));
-
-    menuRadius = new MenuItem;
-    menuRadius->menuId = RADIUS;
-    menuRadius->parent = &menuSetup;
-    menuRadius->currentItem = 0;
-    menuRadius->items.push_back(new Item("Dome Radius"));
+    menuSetup->items.push_back(new Item("Scale              ->", true));
 
     menuPosition = new MenuItem;
     menuPosition->menuId = POSITION;
@@ -126,21 +120,18 @@ Menu::Menu(){
     menuOrientation->items.push_back(new Item("Roll"));
     menuOrientation->items.push_back(new Item("Pan"));
 
+    menuFov = new MenuItem;
+    menuFov->menuId = FIELD_OF_VIEW;
+    menuFov->parent = &menuSetup;
+    menuFov->currentItem = 0;
+    menuFov->items.push_back(new Item("Field of View"));
+    
     menuLens = new MenuItem;
     menuLens->menuId = LENS;
     menuLens->parent = &menuSetup;
     menuLens->currentItem = 0;
-    menuLens->items.push_back(new Item("Field of View"));
     menuLens->items.push_back(new Item("Offset X"));
     menuLens->items.push_back(new Item("Offset Y"));
-
-    menuScale = new MenuItem;
-    menuScale->menuId = SCALE;
-    menuScale->parent = &menuSetup;
-    menuScale->currentItem = 0;
-    menuScale->items.push_back(new Item("Scale"));
-    menuScale->items.push_back(new Item("Scale X"));
-    menuScale->items.push_back(new Item("Scale Y"));
 
     menuShear = new MenuItem;
     menuShear->menuId = SHEAR;
@@ -152,6 +143,13 @@ Menu::Menu(){
     menuShear->items.push_back(new Item("Shear ZY"));
     menuShear->items.push_back(new Item("Shear YX"));
     menuShear->items.push_back(new Item("Scale XY"));
+    
+    menuScale = new MenuItem;
+    menuScale->menuId = SCALE;
+    menuScale->parent = &menuSetup;
+    menuScale->currentItem = 0;
+    menuScale->items.push_back(new Item("Scale X"));
+    menuScale->items.push_back(new Item("Scale Y"));
 
     currentMenu = &menuMain;
 
@@ -250,14 +248,14 @@ void Menu::drawMain(int i){
                 case INPUT_TRANSFORM:
                     switch (j) {
                         case INPUT_FLIP:
-                            if (dome->textureFlip) val = "On";
+                            if (model->textureFlip) val = "On";
                             else val = "Off";
                             break;
                         case INPUT_ROTATE:
-                            val = ofToString(roundTo(dome->textureRotate, .001));
+                            val = ofToString(roundTo(model->textureRotate, .001));
                             break;
                         case INPUT_SCALE:
-                            val = ofToString(roundTo(dome->textureScale, .001));
+                            val = ofToString(roundTo(model->textureScale, .001));
                             break;
                     }
                     break;
@@ -326,14 +324,6 @@ void Menu::drawMain(int i){
                     }
                     break;
 
-                case RADIUS:
-                    switch (j) {
-                        case 0:
-                            val = ofToString(roundTo(dome->radius, .01));
-                            break;
-                    }
-
-                    break;
 
                 case POSITION:
                     switch (j) {
@@ -347,7 +337,6 @@ void Menu::drawMain(int i){
                             val = ofToString(roundTo(projectors->at(i).getCameraPosition().z, .01));
                             break;
                     }
-
                     break;
 
                 case ORIENTATION:
@@ -362,14 +351,18 @@ void Menu::drawMain(int i){
                             val = ofToString(roundTo(projectors->at(i).getCameraOrientation().z, .01));
                             break;
                     }
-
                     break;
 
-                case LENS:
+                case FIELD_OF_VIEW:
                     switch (j) {
                         case FOV:
                             val = ofToString(roundTo(projectors->at(i).getCameraFov(), .01));
                             break;
+                    }
+                    break;
+                    
+                case LENS:
+                    switch (j) {
                         case OFFSET_X:
                             val = ofToString(roundTo(projectors->at(i).getCameraOffset().x, .001));
                             break;
@@ -382,9 +375,6 @@ void Menu::drawMain(int i){
 
                 case SCALE:
                     switch (j) {
-                        case SCALE_XY:
-                            val = "";
-                            break;
                         case SCALE_X:
                             val = ofToString(roundTo(projectors->at(i).getCameraScale().x, .01));
                             break;
@@ -540,12 +530,12 @@ void Menu::select() {
             break;
         case SETUP:
             switch (item) {
-                case 0: currentMenu = &menuRadius; break;
-                case 1: currentMenu = &menuPosition; break;
-                case 2: currentMenu = &menuOrientation; break;
+                case 0: currentMenu = &menuPosition; break;
+                case 1: currentMenu = &menuOrientation; break;
+                case 2: currentMenu = &menuFov; break;
                 case 3: currentMenu = &menuLens; break;
-                case 4: currentMenu = &menuScale; break;
-                case 5: currentMenu = &menuShear; break;
+                case 4: currentMenu = &menuShear; break;
+                case 5: currentMenu = &menuScale; break;
                 default: break;
             }
             break;
@@ -693,7 +683,7 @@ void Menu::keyPressed(int key) {
     for (int i=0; i<projCount; i++) {
         projectors->at(i).setValue(value);
     }
-    dome->value = value;
+    model->value = value;
 
     if (key == OF_KEY_LEFT || key == OF_KEY_RIGHT) {
 
@@ -708,12 +698,9 @@ void Menu::keyPressed(int key) {
             case INPUT_TRANSFORM:
                 switch ((*currentMenu)->currentItem) {
                     default:
-                        dome->keyPressed(key);
+                        model->keyPressed(key);
                         break;
                 }
-                break;
-            case RADIUS: // d = dome mesh
-                dome->keyPressed(key);
                 break;
         }
     }
@@ -794,7 +781,7 @@ void Menu::setEditMode() {
         projectors->at(k).setKeystoneActive(false);
         projectors->at(k).setGridActive(false);
     }
-    dome->editMode = dome->NONE;
+    model->editMode = model->NONE;
     input->editMode = input->NONE;
 
 
@@ -817,7 +804,7 @@ void Menu::setEditMode() {
                         if (projectors->at(k).active)
                             projectors->at(k).editMode = projectors->at(k).ENABLE;
                     }
-                    dome->editMode = dome->NONE;
+                    model->editMode = model->NONE;
                     break;
             }
             break;
@@ -825,13 +812,13 @@ void Menu::setEditMode() {
         case INPUT_TRANSFORM:
             switch (j) {
                 case INPUT_FLIP:
-                    dome->editMode = dome->T_FLIP;
+                    model->editMode = model->T_FLIP;
                     break;
                 case INPUT_ROTATE:
-                    dome->editMode = dome->T_ROTATE;
+                    model->editMode = model->T_ROTATE;
                     break;
                 case INPUT_SCALE:
-                    dome->editMode = dome->T_SCALE;
+                    model->editMode = model->T_SCALE;
                     break;
             }
             break;
@@ -967,14 +954,6 @@ void Menu::setEditMode() {
             }
             break;
 
-        case RADIUS:
-            switch (j) {
-                case DOME_RADIUS:
-                    dome->editMode = dome->RADIUS;
-                    break;
-            }
-            break;
-
         case POSITION:
             switch (j) {
                 case AZIMUTH:
@@ -1021,7 +1000,7 @@ void Menu::setEditMode() {
             }
             break;
 
-        case LENS:
+        case FIELD_OF_VIEW:
             switch (j) {
                 case FOV:
                     for (int k=0; k<projCount; k++) {
@@ -1029,6 +1008,11 @@ void Menu::setEditMode() {
                             projectors->at(k).editMode = projectors->at(k).FOV;
                     }
                     break;
+            }
+            break;
+            
+        case LENS:
+            switch (j) {
                 case OFFSET_X:
                     for (int k=0; k<projCount; k++) {
                         if (projectors->at(k).active)
@@ -1042,17 +1026,10 @@ void Menu::setEditMode() {
                     }
                     break;
             }
-
             break;
 
         case SCALE:
             switch (j) {
-                case SCALE_XY:
-                    for (int k=0; k<projCount; k++) {
-                        if (projectors->at(k).active)
-                            projectors->at(k).editMode = projectors->at(k).SCALE;
-                    }
-                    break;
                 case SCALE_X:
                     for (int k=0; k<projCount; k++) {
                         if (projectors->at(k).active)

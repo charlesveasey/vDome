@@ -1,4 +1,4 @@
-#include "dome.h"
+#include "model.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -10,7 +10,7 @@ namespace vd {
 
  ********************************************/
 
-Dome::Dome(){
+Model::Model(){
 	radius = 10;
 	N = 256;  // Mesh resolution, must be multiple of 4
     textureScale = 1;
@@ -24,7 +24,7 @@ Dome::Dome(){
 
  ********************************************/
 
-void Dome::setup(){
+void Model::setup(){
     
  	int i,j,index = 0;
 	int i1,i2,i3,i4;
@@ -100,7 +100,7 @@ void Dome::setup(){
 
  ********************************************/
 
-void Dome::draw(){
+void Model::draw(){
     ofPushMatrix();
 	ofRotateX(90);
     ofRotateZ(textureRotate*-1);
@@ -118,14 +118,10 @@ void Dome::draw(){
 
  ********************************************/
 
-void Dome::keyPressed(int key) {
+void Model::keyPressed(int key) {
     switch (key) {
         case OF_KEY_RIGHT:
             switch (editMode) {
-                case RADIUS:
-                    radius += value;
-                    setup();
-                    break;
                 case T_ROTATE:
                     textureRotate += value;
                     setup();
@@ -142,10 +138,6 @@ void Dome::keyPressed(int key) {
             break;
         case OF_KEY_LEFT:
             switch (editMode) {
-                case RADIUS:
-                    radius -= value;
-                    setup();
-                    break;
                 case T_ROTATE:
                     textureRotate -= value;
                     setup();
@@ -169,9 +161,9 @@ void Dome::keyPressed(int key) {
 
  ********************************************/
 
-void Dome::loadXML(ofXml &xml) {
-    if (xml.exists("dome[@radius]"))
-        radius = ofToDouble( xml.getAttribute("dome[@radius]") );
+void Model::loadXML(ofXml &xml) {
+    if (xml.exists("model[@radius]"))
+        radius = ofToDouble( xml.getAttribute("model[@radius]") );
     if (xml.exists("input[@scale"))
         textureScale = ofToFloat( xml.getAttribute("input[@scale]") );
     if (xml.exists("input[@rotate"))
@@ -186,8 +178,8 @@ void Dome::loadXML(ofXml &xml) {
     setup();
 }
 
-void Dome::saveXML(ofXml &xml) {
-    xml.setTo("dome");
+void Model::saveXML(ofXml &xml) {
+    xml.setTo("model");
     xml.setAttribute("radius", ofToString(radius));
     xml.setToParent();
     xml.setTo("input");
@@ -205,7 +197,7 @@ void Dome::saveXML(ofXml &xml) {
 
  ********************************************/
 
-void Dome::saveMesh(string file) {
+void Model::saveMesh(string file) {
     vbo.save(file);
 }
 

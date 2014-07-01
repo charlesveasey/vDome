@@ -36,7 +36,7 @@ private:
     Socket socket;
     Input input;
     Render render;
-    Dome dome;
+    Model model;
     ofShader shader;
     vector<Window> windows;
     vector<Projector> projectors;

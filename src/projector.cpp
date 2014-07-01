@@ -625,8 +625,8 @@ void Projector::keyReleased(int key) {
 void Projector::loadXML(ofXml &xml) {
     string str;
     
-    if (xml.exists("[@dimensions]")) {
-        str = xml.getAttribute("[@dimensions]");
+    if (xml.exists("[@resolution]")) {
+        str = xml.getAttribute("[@resolution]");
         width = ofToFloat(ofSplitString(str, ",")[0]);
         height = ofToFloat(ofSplitString(str, ",")[1]);
     }

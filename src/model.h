@@ -2,10 +2,10 @@
 #include "ofMain.h"
 namespace vd {
 
-class Dome {
+class Model {
 
 public:
-    Dome();
+    Model();
     void setup();
     void update();
     void draw();
@@ -22,7 +22,7 @@ public:
     float textureScale;
     bool textureFlip;
     float textureRotate;
-    enum editModes{NONE, RADIUS, T_SCALE, T_ROTATE, T_FLIP};
+    enum editModes{NONE, T_SCALE, T_ROTATE, T_FLIP};
     
 };
 
