@@ -70,8 +70,9 @@ http://syphon.v002.info/
   - Install gstreamer codecs, see INSTALL.md in openFrameworks linux package
 
 ##Setup and Calibration
-  - Initial setup is done in XML (setting resolution, number of projectors, and input type).
-  - Calibration is done directly on the dome. This eliminates the need for a control monitor.
+Initial setup is done in XML (setting resolution, number of projectors, and input type). Calibration is done directly on the dome. For more information see the manual: 
+https://docs.google.com/document/d/1EHPpExjznFF6X0YTY5acLS0MNkEbtVFsLBCoJ2HHQlQ/edit#
+
 
 ##Tested
 ####Mac
