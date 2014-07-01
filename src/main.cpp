@@ -8,7 +8,8 @@
 #endif
 
 int main( ){
-    ofSetLogLevel(OF_LOG_SILENT);
+    //ofSetLogLevel(OF_LOG_SILENT);
+    ofSetLogLevel(OF_LOG_VERBOSE);
 	ofSetCurrentRenderer(ofGLProgrammableRenderer::TYPE);
     
     #ifdef TARGET_WIN32

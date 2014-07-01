@@ -4,6 +4,7 @@
 #include "ofPBO.h"
 #include "ofxM3U.h"
 #include "render.h"
+#include "socket.h"
 
 #ifdef TARGET_OSX
 #include "ofxSyphon.h"
@@ -19,7 +20,8 @@
 using namespace ofx::Media;
 
 namespace vd {
-
+    class Socket;
+    
 class Input {
 
 public:
@@ -46,6 +48,7 @@ public:
     void setFile(string s);
 
     float getPosition();
+    float getDuration();
     
     void update();
     
@@ -78,14 +81,16 @@ public:
 
     bool isVideo;
     bool usePbo;
-    int frameRate;
+    int framerate;
     int resolution;
-    float imageDuration;
+    float slide;
     
     int vRenderer;
     enum vRendererTypes {AVF, QT2, HAP, QT, WMF, DS, GST};
     
-    
+    Socket *socket;
+    ofPBO pbo;
+
 private:
     void fillTexture(ofColor color);
     void newFrame(ofPixels & pixels);
@@ -101,7 +106,6 @@ private:
     ofImage image;
     ofVideoPlayer video;
     ofVideoGrabber capture;
-    ofPBO pbo;
     
 #ifdef TARGET_OSX
     ofxHapPlayer hap;

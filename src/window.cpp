@@ -8,11 +8,12 @@ namespace vd {
  ********************************************/
 
 Window::Window(){
-    position.set(0,0);
-    dimensions.set(1920,1080);
+    x = y = 0;
+    width = 1024;
+    height = 768;
     fullscreen = false;
     border = false;
-    floatToTop = false;
+    top = false;
     firstProjector = 0;
     lastProjector = 0;
 }
@@ -32,13 +33,13 @@ void Window::setup(){
     
     #ifdef TARGET_OSX
         int fMode;
-        if (floatToTop) fMode = ofxCocoaWindowUtils::SCREENSAVER;
+        if (top) fMode = ofxCocoaWindowUtils::SCREENSAVER;
         else            fMode = ofxCocoaWindowUtils::NORMAL;
-        cocoaWindowUtils.setup(fMode, getPosition().x, getPosition().y, getDimensions().x, getDimensions().y, border);
+        cocoaWindowUtils.setup(fMode, x, y, width, height, border);
     
     #else
-        ofSetWindowPosition(position.x,  position.y);
-        ofSetWindowShape(dimensions.x, dimensions.y);
+        ofSetWindowPosition(x,  y);
+        ofSetWindowShape(x, y);
         ofSetFullscreen(fullscreen);
     #endif
     
@@ -50,22 +51,22 @@ void Window::setup(){
 
  ********************************************/
 
-ofVec2f Window::getPosition() {
-    return ofVec2f(position.x, position.y);
+ofPoint Window::getPosition() {
+    return ofPoint(x, y);
 }
 void Window::setPosition(int x, int y) {
-    position.x = x;
-    position.y = y;
-    ofSetWindowPosition(position.x, position.y);
+    this->x = x;
+    this->y = y;
+    ofSetWindowPosition(x, y);
 }
 
-ofVec2f Window::getDimensions() {
-    return ofVec2f(dimensions.x, dimensions.y);
+ofPoint Window::getResolution() {
+    return ofPoint(width, height);
 }
-void Window::setDimensions(int w, int h) {
-    dimensions.x = w;
-    dimensions.y = h;
-    ofSetWindowShape(dimensions.x, dimensions.y);
+void Window::setResolution(int w, int h) {
+    width = w;
+    height = h;
+    ofSetWindowShape(w, h);
 }
 
 /******************************************
@@ -76,15 +77,17 @@ void Window::setDimensions(int w, int h) {
 
 void Window::loadXML(ofXml &xml) {
     string str = "";
-    if (xml.exists("[@x]"))
-        position.x = ofToInt( xml.getAttribute("[@x]") );
-    if (xml.exists("[@y]"))
-        position.y = ofToInt( xml.getAttribute("[@y]") );
-    if (xml.exists("[@width]"))
-        dimensions.x = ofToInt( xml.getAttribute("[@width]") );
-    if (xml.exists("[@height]"))
-        dimensions.y = ofToInt( xml.getAttribute("[@height]") );
-	if (xml.exists("[@fullscreen]")) {
+    if (xml.exists("[@position]")) {
+        str = xml.getAttribute("[@position]");
+        x = ofToInt(ofSplitString(str, ",")[0]);
+        y = ofToInt(ofSplitString(str, ",")[1]);
+    }
+    if (xml.exists("[@resolution]")) {
+        str = xml.getAttribute("[@resolution]");
+        width = ofToInt(ofSplitString(str, ",")[0]);
+        height = ofToInt(ofSplitString(str, ",")[1]);
+    }
+    if (xml.exists("[@fullscreen]")) {
         str = ofToString( xml.getAttribute("[@fullscreen]") );
         if (str == "on") fullscreen = true;
         else             fullscreen = false;
@@ -94,19 +97,17 @@ void Window::loadXML(ofXml &xml) {
         if (str == "on") border = true;
         else             border = false;
     }
-    if (xml.exists("[@float]")) {
-        str = ofToString( xml.getAttribute("z[@float]") );
-        if (str == "on") floatToTop = true;
-        else             floatToTop = false;
+    if (xml.exists("[@top]")) {
+        str = ofToString( xml.getAttribute("[@top]") );
+        if (str == "on") top = true;
+        else             top = false;
     }
     setup();
 }
 
 void Window::saveXML(ofXml &xml) {
-    xml.setAttribute("x", ofToString(position.x));
-    xml.setAttribute("y", ofToString(position.y));
-    xml.setAttribute("width", ofToString(dimensions.x));
-    xml.setAttribute("height",  ofToString(dimensions.y));
+    xml.setAttribute("position", ( ofToString(x) + "," + ofToString(y) ) );
+    xml.setAttribute("resolution", ( ofToString(width) + "," + ofToString(height) ) );
 
     if (fullscreen) xml.setAttribute("fullscreen", "on" );
     else            xml.setAttribute("fullscreen", "off" );
@@ -114,7 +115,7 @@ void Window::saveXML(ofXml &xml) {
     if (border) xml.setAttribute("border", "on" );
     else            xml.setAttribute("border", "off" );
     
-    if (floatToTop) xml.setAttribute("float", "on" );
-    else            xml.setAttribute("float", "off" );    
+    if (top) xml.setAttribute("top", "on" );
+    else            xml.setAttribute("top", "off" );
 }
 }

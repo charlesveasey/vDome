@@ -15,24 +15,27 @@ public:
     void loadXML(ofXml &xml);
     void saveXML(ofXml &xml);
 
-    ofVec2f getPosition();
+    ofPoint getPosition();
     void setPosition(int x, int y);
 
-    ofVec2f getDimensions();
-    void setDimensions(int w, int h);
+    ofPoint getResolution();
+    void setResolution(int w, int h);
     
     int firstProjector;
     int lastProjector;
     GLFWwindow* glfwWindow;
-
     
 private:
-    ofVec2f position;
-    ofVec2f dimensions;
+    int     x;
+    int     y;
+    int     width;
+    int     height;
 	bool    fullscreen;
     bool    border;
-    bool    floatToTop;
+    bool    top;
+   
     ofxMultiGLFWWindow *glfw;
+    
     #ifdef TARGET_OSX
         ofxCocoaWindowUtils	cocoaWindowUtils;
     #endif    
