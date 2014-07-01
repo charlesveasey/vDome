@@ -9,7 +9,9 @@ namespace vd {
 
 Socket::Socket(){
     enabled = true;
-    port = 12345;
+    host = "localhost";
+    send = 3333;
+    receive = 3334;
 }
 
 /******************************************
@@ -19,7 +21,8 @@ Socket::Socket(){
  ********************************************/
 
 void Socket::setup(){
-	oscReceiver.setup(port);
+    oscSender.setup(host,send);
+    oscReceiver.setup(receive);
 }
     
 /******************************************
@@ -29,35 +32,60 @@ void Socket::setup(){
  ********************************************/
 
 void Socket::update(){
+    
+    // receive
     while(oscReceiver.hasWaitingMessages()){
-		ofxOscMessage m;
-		oscReceiver.getNextMessage(&m);
+        rMsg.clear();
+		oscReceiver.getNextMessage(&rMsg);
         
-		if (m.getAddress() == "/input/"){
-            if      (m.getArgAsString(0) == "play")         input->play();
-            else if (m.getArgAsString(0) == "stop")         input->stop();
-            else if (m.getArgAsString(0) == "toggle")       input->toggle();
-            else if (m.getArgAsString(0) == "prev")         input->prev();
-            else if (m.getArgAsString(0) == "next")         input->next();
-            else if (m.getArgAsString(0) == "prevFrame")    input->prevFrame();
-            else if (m.getArgAsString(0) == "nextFrame")    input->nextFrame();
+		if (rMsg.getAddress() == "/input/"){
+            if      (rMsg.getArgAsString(0) == "play")         input->play();
+            else if (rMsg.getArgAsString(0) == "pause")        input->stop();
+            else if (rMsg.getArgAsString(0) == "stop")         input->stop();
+            else if (rMsg.getArgAsString(0) == "toggle")       input->toggle();
+            else if (rMsg.getArgAsString(0) == "previous")         input->prev();
+            else if (rMsg.getArgAsString(0) == "next")         input->next();
+            else if (rMsg.getArgAsString(0) == "pFrame")    input->prevFrame();
+            else if (rMsg.getArgAsString(0) == "nFrame")    input->nextFrame();
 		}
-		else if (m.getAddress() == "/input/loop/") {
-            if (m.getArgAsString(0) == "on") input->setLoop(true);
+		else if (rMsg.getAddress() == "/input/loop/") {
+            if (rMsg.getArgAsString(0) == "on") input->setLoop(true);
             else                             input->setLoop(false);
 		}
-        else if (m.getAddress() == "/input/seek/") {
-            input->seek(m.getArgAsFloat(0));
+        else if (rMsg.getAddress() == "/input/seek/") {
+            input->seek(rMsg.getArgAsFloat(0));
 		}
-        else if (m.getAddress() == "/input/source/") {
-            input->setSource(m.getArgAsString(0));
+        else if (rMsg.getAddress() == "/input/source/") {
+            input->setSource(rMsg.getArgAsString(0));
 		}
-        else if (m.getAddress() == "input/media/") {
-            input->setFile(m.getArgAsString(0));
+        else if (rMsg.getAddress() == "/input/file/") {
+            input->setFile(rMsg.getArgAsString(0));
 		}
 	}
+    
+    // send
+    sMsg.clear();
+    if (input->isPlaying()) {
+        sMsg.setAddress("/input/position");
+        sMsg.addStringArg(ofToString( input->getPosition() ));
+        oscSender.sendMessage(sMsg);
+    }
 }
+    
+    
+/******************************************
+ 
+ SEND
+ 
+ ********************************************/
 
+void Socket::sendDuration(){
+    sMsg.clear();
+    sMsg.setAddress("/input/duration");
+    sMsg.addStringArg(ofToString( input->getDuration() ));
+    oscSender.sendMessage(sMsg);
+}
+    
 /******************************************
 
  SETTINGS
@@ -67,13 +95,16 @@ void Socket::update(){
 void Socket::loadXML(ofXml &xml) {
     if (xml.exists("socket[@enabled]")) {
         string str = ofToString(xml.getAttribute("socket[@enabled]"));
-        if (str == "on")
-            enabled = true;
-        else
-            enabled = false;
+        if (str == "on") enabled = true;
+        else             enabled = false;
     }
-    if (xml.exists("socket[@port]"))
-        port = ofToInt( xml.getAttribute("socket[@port]") );
+    
+    if (xml.exists("socket[@host]"))
+        host = ofToString( xml.getAttribute("socket[@host]") );
+    if (xml.exists("socket[@send]"))
+        send = ofToInt( xml.getAttribute("socket[@send]") );
+    if (xml.exists("socket[@receive]"))
+        receive = ofToInt( xml.getAttribute("socket[@receive]") );
     
     if (enabled)
         setup();
@@ -85,7 +116,10 @@ void Socket::saveXML(ofXml &xml) {
     if (enabled) xml.setAttribute("enabled", "on");
     else         xml.setAttribute("enabled", "off");
     
-    xml.setAttribute("port", ofToString(port));
+    xml.setAttribute("host", ofToString(host));
+    xml.setAttribute("send", ofToString(send));
+    xml.setAttribute("receive", ofToString(receive));
+
     xml.setToParent();
 }
 

@@ -27,7 +27,7 @@
 		56747478191BF9250014815D /* ofxBezierSurface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56747473191BF9250014815D /* ofxBezierSurface.cpp */; };
 		567AA543190759BA0064C745 /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567AA529190759BA0064C745 /* camera.cpp */; };
 		567AA544190759BA0064C745 /* command.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567AA52B190759BA0064C745 /* command.cpp */; };
-		567AA545190759BA0064C745 /* dome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567AA52D190759BA0064C745 /* dome.cpp */; };
+		567AA545190759BA0064C745 /* model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567AA52D190759BA0064C745 /* model.cpp */; };
 		567AA547190759BA0064C745 /* mask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567AA531190759BA0064C745 /* mask.cpp */; };
 		567AA548190759BA0064C745 /* menu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567AA533190759BA0064C745 /* menu.cpp */; };
 		567AA549190759BA0064C745 /* plane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567AA535190759BA0064C745 /* plane.cpp */; };
@@ -157,14 +157,14 @@
 		5663515A1927118500FD6D0F /* ofxMultiGLFWWindow.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = ofxMultiGLFWWindow.h; sourceTree = "<group>"; };
 		56747473191BF9250014815D /* ofxBezierSurface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBezierSurface.cpp; sourceTree = "<group>"; };
 		56747474191BF9250014815D /* ofxBezierSurface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBezierSurface.h; sourceTree = "<group>"; };
-		567AA529190759BA0064C745 /* camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = camera.cpp; sourceTree = "<group>"; };
+		567AA529190759BA0064C745 /* camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = camera.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		567AA52A190759BA0064C745 /* camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = camera.h; sourceTree = "<group>"; };
 		567AA52B190759BA0064C745 /* command.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = command.cpp; sourceTree = "<group>"; };
 		567AA52C190759BA0064C745 /* command.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = command.h; sourceTree = "<group>"; };
-		567AA52D190759BA0064C745 /* dome.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dome.cpp; sourceTree = "<group>"; };
-		567AA52E190759BA0064C745 /* dome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dome.h; sourceTree = "<group>"; };
-		567AA52F190759BA0064C745 /* input.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = input.cpp; sourceTree = "<group>"; };
-		567AA530190759BA0064C745 /* input.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = input.h; sourceTree = "<group>"; };
+		567AA52D190759BA0064C745 /* model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = model.cpp; sourceTree = "<group>"; };
+		567AA52E190759BA0064C745 /* model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = model.h; sourceTree = "<group>"; };
+		567AA52F190759BA0064C745 /* input.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = input.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		567AA530190759BA0064C745 /* input.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = input.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		567AA531190759BA0064C745 /* mask.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mask.cpp; sourceTree = "<group>"; };
 		567AA532190759BA0064C745 /* mask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mask.h; sourceTree = "<group>"; };
 		567AA533190759BA0064C745 /* menu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = menu.cpp; sourceTree = "<group>"; };
@@ -1144,8 +1144,8 @@
 				567AA52A190759BA0064C745 /* camera.h */,
 				567AA52B190759BA0064C745 /* command.cpp */,
 				567AA52C190759BA0064C745 /* command.h */,
-				567AA52D190759BA0064C745 /* dome.cpp */,
-				567AA52E190759BA0064C745 /* dome.h */,
+				567AA52D190759BA0064C745 /* model.cpp */,
+				567AA52E190759BA0064C745 /* model.h */,
 				567AA52F190759BA0064C745 /* input.cpp */,
 				567AA530190759BA0064C745 /* input.h */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
@@ -1268,7 +1268,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				567AA545190759BA0064C745 /* dome.cpp in Sources */,
+				567AA545190759BA0064C745 /* model.cpp in Sources */,
 				5663515E1927118500FD6D0F /* ofxMultiGLFWWindow.cpp in Sources */,
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				567AA693190759ED0064C745 /* ofxCvHaarFinder.cpp in Sources */,

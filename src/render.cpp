@@ -8,8 +8,8 @@ namespace vd {
  ********************************************/
 
 Render::Render(){
-    frameRate = 60;
-    vSync = true;
+    framerate = 60;
+    vsync = true;
 }
 
 /******************************************
@@ -19,8 +19,8 @@ Render::Render(){
  ********************************************/
 
 void Render::setup() {
-    ofSetVerticalSync(vSync);
-	ofSetFrameRate(frameRate);
+    ofSetVerticalSync(vsync);
+	ofSetFrameRate(framerate);
 
     ofBackground(0,0,0);
 	//ofEnableDepthTest();
@@ -41,20 +41,20 @@ void Render::setup() {
  ********************************************/
 
 bool Render::getVSync() {
-    return vSync;
+    return vsync;
 
 }
 void Render::setVSync(bool val) {
-    vSync = val;
-    ofSetVerticalSync(vSync);
+    vsync = val;
+    ofSetVerticalSync(vsync);
 }
 
 int Render::getFrameRate() {
-    return frameRate;
+    return framerate;
 }
 void Render::setFrameRate(int val) {
-    frameRate = val;
-    ofSetFrameRate(frameRate);
+    framerate = val;
+    ofSetFrameRate(framerate);
 }
 
 /******************************************
@@ -65,20 +65,20 @@ void Render::setFrameRate(int val) {
 
 void Render::loadXML(ofXml &xml) {
     if (xml.exists("[@vSync]")) {
-        string str = ofToString( xml.getAttribute("[@vSync]") );
-        if (str == "on")    vSync = true;
-        else                vSync = false;
+        string str = ofToString( xml.getAttribute("[@vsync]") );
+        if (str == "on")    vsync = true;
+        else                vsync = false;
     }
-    if (xml.exists("[@frameRate]"))
-        frameRate = ofToInt( xml.getAttribute("[@frameRate]") );
+    if (xml.exists("[@framerate]"))
+        framerate = ofToInt( xml.getAttribute("[@framerate]") );
     setup();
 }
 
 void Render::saveXML(ofXml &xml) {
-    if (vSync)  xml.setAttribute("vSync", "on" );
-    else        xml.setAttribute("vSync", "off" );
+    if (vsync)  xml.setAttribute("vsync", "on" );
+    else        xml.setAttribute("vsync", "off" );
 
-    xml.setAttribute("frameRate", ofToString(frameRate) );
+    xml.setAttribute("framerate", ofToString(framerate) );
 }
 
 }

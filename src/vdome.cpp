@@ -20,10 +20,11 @@ int winCount = 1;
 
 vdome::vdome() {
     menu.input = &input;
-    menu.dome = &dome;
+    menu.model = &model;
     menu.windows = &windows;
     menu.projectors = &projectors;
     socket.input = &input;
+    input.socket = &socket;
     autosave = false;
 	wIndex = 0;
 }
@@ -41,12 +42,12 @@ void vdome::setup(){
     glfwWindows = &glfw->windows;
     
     render.setup();
-    dome.setup();
+    model.setup();
 
     // input setup
     input.source = 0;
-    input.frameRate = render.getFrameRate();
-    input.setup();
+    input.framerate = render.getFrameRate();
+    //input.setup();
 
     // projection shader
 	shader.load("settings/shaders/vdome.vert", "settings/shaders/vdome.frag");
@@ -131,7 +132,7 @@ void vdome::draw(){
 
             projectors[i].begin();
                 input.bind();
-                    dome.draw();
+                    model.draw();
                 input.unbind();
             projectors[i].end();
 
@@ -194,9 +195,8 @@ void vdome::draw(){
 
 void vdome::loadXML(ofXml &xml) {
     
-    input.loadXML(xml);
     render.loadXML(xml);
-    dome.loadXML(xml);
+    model.loadXML(xml);
     socket.loadXML(xml);
 
     winCount = 0;
@@ -256,6 +256,10 @@ void vdome::loadXML(ofXml &xml) {
         if (str == "on")    autosave = true;
         else                autosave = false;
     }
+    
+    
+    input.loadXML(xml);
+
 }
 
 void vdome::saveXML(ofXml &xml) {
@@ -263,7 +267,7 @@ void vdome::saveXML(ofXml &xml) {
     socket.saveXML(xml);
     input.saveXML(xml);
     render.saveXML(xml);
-    dome.saveXML(xml);
+    model.saveXML(xml);
     
     int c = 0;
     for (int i=0; i<winCount; i++) {
@@ -317,13 +321,7 @@ void vdome::keyPressed(int key){
             saveXML(xml);
     }
 
-	#ifdef TARGET_WIN32 || TARGET_LINUX
-		if (key == 113) { // ctrl + q  = quit
-			if (ofGetKeyPressed(OF_KEY_CONTROL))
-				ofExit();
-		}
-	#endif
-
+	
     menu.keyPressed(key);
 }
 
@@ -352,8 +350,10 @@ void vdome::dragEvent(ofDragInfo dragInfo){
  ********************************************/
 
 void vdome::exit(){
+    saveThread.waitForThread(true);
     input.stop();
     input.close();
+    cout<< "exit" << endl;
 }
 
 }

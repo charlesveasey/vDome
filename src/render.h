@@ -17,8 +17,8 @@ public:
     void setFrameRate(int val);
 
 private:
-    bool vSync;
-    int frameRate;
+    bool vsync;
+    int framerate;
 };
 
 }

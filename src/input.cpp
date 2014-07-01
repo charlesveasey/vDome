@@ -10,15 +10,15 @@ namespace vd {
 Input::Input(){
     maxSource = 5;
     resolution = 2048;
-    frameRate = 30;
+    framerate = 30;
     loop = false;
 	usePbo = false;
     isVideo = false;
 	nFrame = false;
-    mediaTypeMap = new MediaTypeMap("media/mime.types");
+    mediaTypeMap = new MediaTypeMap("settings/media/mime.types");
     file = "";
     fileIndex = 0;
-    imageDuration = 10;
+    slide = 10;
     currentTexture = 0;
     firstTexture = true;
     swapTexture = false;
@@ -81,7 +81,7 @@ void Input::setup(){
             
         case GRID: 
 			isVideo = false;
-			image.loadImage("media/warp/grid-2k.png");
+			image.loadImage("settings/media/warp/grid-2k.png");
             tex = &image.getTextureReference();
             break;
 
@@ -103,6 +103,8 @@ void Input::setup(){
 					}
 					else if (vRenderer == QT){
 						video.loadMovie(file);
+                        //if (socket->enabled)
+                        //    socket->sendDuration();
                         tex = &video.getTextureReference();
                         pbo.allocate(*tex, 2);
                         video.play();
@@ -148,13 +150,13 @@ void Input::setup(){
             else {
                 image.loadImage(file);
                 tex = &image.getTextureReference();
-                if (imageDuration > 0 && fileList.size() > 1)  startTimer();
+                if (slide > 0 && fileList.size() > 1)  startTimer();
             }
             break;
             
         case CAPTURE:
             capture.setDeviceID(0);
-            capture.setDesiredFrameRate(frameRate);
+            capture.setDesiredFrameRate(framerate);
             capture.initGrabber(resolution, resolution, true);
 			tex = &capture.getTextureReference();
 			pbo.allocate(*tex, 2);
@@ -167,7 +169,7 @@ void Input::setup(){
             break;
             
         default:
-			image.loadImage("media/warp/grid-2k.png");
+			image.loadImage("settings/media/warp/grid-2k.png");
             tex = &image.getTextureReference();
             break;
     }
@@ -362,6 +364,7 @@ void Input::setSource(string s) {
     else if (s == "black")      source = BLACK;
     else if (s == "white")      source = WHITE;
     else if (s == "grey")       source = GREY;
+    setup();
 }
 
 string Input::getFile() {
@@ -369,7 +372,9 @@ string Input::getFile() {
 }
 
 void Input::setFile(string s) {
-    file = s;
+    vector<string> files;
+    files.push_back(s);
+    openMediaFile(files);
 }
 
 float Input::getPosition() {
@@ -381,12 +386,31 @@ float Input::getPosition() {
 		else if (vRenderer == QT)   pos = video.getPosition();
 	#endif
 	#ifdef TARGET_WIN32
-		if		(vRenderer == WMF)	wmf.getPosition();
-		else						video.getPosition();
+		if		(vRenderer == WMF)	pos = wmf.getPosition();
+		else						pos = video.getPosition();
 	#endif
 	#ifdef TARGET_LINUX
+        pos = video.getPosition();
 	#endif
     return pos;
+}
+    
+float Input::getDuration() {
+    float dur = 0.0;
+    #ifdef TARGET_OSX
+        if      (vRenderer == AVF)  dur = avf.getDuration();
+        else if (vRenderer == QT2)  dur = qt.getDuration();
+        else if (vRenderer == HAP)  dur = hap.getDuration();
+        else if (vRenderer == QT)   dur = video.getDuration();
+    #endif
+    #ifdef TARGET_WIN32
+        if		(vRenderer == WMF)	dur = wmf.getDuration();
+        else						dur = video.getDuration();
+    #endif
+    #ifdef TARGET_LINUX
+        dur = video.getDuration();
+    #endif
+    return dur;
 }
     
 /******************************************
@@ -396,7 +420,8 @@ float Input::getPosition() {
  ********************************************/
 
 void Input::bind(){
-    tex->setTextureWrap(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
+    if (source != SYPHON)
+        tex->setTextureWrap(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
 	#ifdef TARGET_WIN32
 		if (source == MEDIA && isVideo) {
 			if (vRenderer == WMF) {
@@ -406,7 +431,7 @@ void Input::bind(){
 		}
 	#endif
 	#ifdef TARGET_OSX
-		if (source == SYPHON) {
+        if (source == SYPHON) {
 			syphon.bind();
 			return;
 		}
@@ -470,10 +495,10 @@ void Input::update(){
                 }
                 else if (vRenderer == QT) {
                     video.update();
-                    if (video.isFrameNew())
-                        swapTexture = true;
-                    if (video.getIsMovieDone())
-                        getNextFile();
+                    //if (video.isFrameNew())
+                    //    swapTexture = true;
+                    //if (video.getIsMovieDone())
+                    //    getNextFile();
                 }
 			#endif
 
@@ -534,6 +559,8 @@ void Input::keyPressed(int key) {
             
             switch (editMode) {
                 case SOURCE:
+                    int lastSource;
+                    lastSource = source;
                     if (source+1 > maxSource)
                         source = maxSource;
                     else {
@@ -547,9 +574,12 @@ void Input::keyPressed(int key) {
                             source++;
                         #endif
                     }
-                    if (source == MEDIA)
-                        parseFileType(file);
-                    setup();
+                    
+                    if (lastSource != source) {
+                        if (source == MEDIA)
+                            parseFileType(file);
+                        setup();
+                    }
                     break;
                     
                 case LOOP:
@@ -562,6 +592,8 @@ void Input::keyPressed(int key) {
             switch (editMode) {
 
                 case SOURCE:
+                    int lastSource;
+                    lastSource = source;
                     if (source-1 < 0)
                         source = 0;
                     else {
@@ -575,9 +607,12 @@ void Input::keyPressed(int key) {
                             source--;
                         #endif
                     }
-                    if (source == MEDIA)
-                        parseFileType(file);
-                    setup();
+                    if (lastSource != source) {
+                        if (source == MEDIA)
+                            parseFileType(file);
+                        else
+                            setup();
+                    }
                     break;
                 
                 case LOOP:
@@ -635,8 +670,8 @@ void Input::fillTexture(ofColor color){
 void Input::loadXML(ofXml &xml) {
     string v;
     
-    if (xml.exists("input[@resolution]"))
-        resolution = ofToInt( xml.getAttribute("input[@resolution]") );
+    if (xml.exists("[@resolution]"))
+        resolution = ofToInt( xml.getAttribute("[@resolution]") );
 
     if (xml.exists("input[@source]")) {
         v = xml.getAttribute("input[@source]");
@@ -647,7 +682,6 @@ void Input::loadXML(ofXml &xml) {
         else if (v == "black")     source = BLACK;
         else if (v == "white")     source = WHITE;
         else if (v == "grey")      source = GREY;
-
     }
 
     if (xml.exists("input[@file]")) {
@@ -660,8 +694,8 @@ void Input::loadXML(ofXml &xml) {
         else             loop = false;
     }
     
-    if (xml.exists("input[@imageDuration]"))
-        imageDuration = ofToFloat( xml.getAttribute("input[@imageDuration]") );
+    if (xml.exists("input[@slide]"))
+        slide = ofToFloat( xml.getAttribute("input[@slide]") );
     
     if (xml.exists("input[@videoRenderer]")) {
         v = ofToString( xml.getAttribute("input[@videoRenderer]") );
@@ -674,13 +708,14 @@ void Input::loadXML(ofXml &xml) {
         else if (v == "gst")    vRenderer = GST;
     }
     
-    setup();
+    if (source != MEDIA)
+        setup();
 }
 
 void Input::saveXML(ofXml &xml) {
-    xml.setTo("input");
     xml.setAttribute("resolution", ofToString(resolution));
 
+    xml.setTo("input");
     string str;
 
 	if (source == GRID)			  str = "grid";
@@ -696,7 +731,7 @@ void Input::saveXML(ofXml &xml) {
     if (loop) xml.setAttribute("loop", "on");
     else      xml.setAttribute("loop", "off");
     
-    xml.setAttribute("imageDuration", ofToString(imageDuration));
+    xml.setAttribute("slide", ofToString(slide));
     xml.setToParent();
 }
 
@@ -708,7 +743,7 @@ void Input::saveXML(ofXml &xml) {
 
 void Input::startTimer(){
     startTime = ofGetElapsedTimeMillis();  // get the start time
-    endTime = 1000 * imageDuration;
+    endTime = 1000 * slide;
     timerRunning = true;
 }
    
@@ -743,6 +778,7 @@ void Input::openMediaFile(vector<string> files){
     }
     if (fileList.size())
         parseFileType(fileList[0]);
+    
 }
 
 void Input::getPrevFile(){
@@ -780,7 +816,7 @@ void Input::parseFileType(string filepath){
 	file = oFile.getAbsolutePath();
     filename = oFile.getFileName();
 
-    if (oFile.isDirectory()) {
+    if (filepath.size() && oFile.isDirectory()) {
         ofDirectory dir;
         dir.listDir(file);
         dir.sort(); // in linux the file system doesn't return file lists ordered in alphabetical order
@@ -792,7 +828,7 @@ void Input::parseFileType(string filepath){
             openMediaFile(files);
         }
     }
-    else if (oFile.isFile()) {
+    else if (filepath.size()) {
         mediaType = mediaTypeMap->getMediaTypeForPath(pFile.path()).toString();
         string sub = ofSplitString(mediaType, "/")[0];
         
@@ -804,7 +840,7 @@ void Input::parseFileType(string filepath){
             if (sub == "video")         isVideo = true;
             else if  (sub == "image")   isVideo = false;
 
-            if (sub == "video" || sub == "image")
+            if ( (sub == "video" || sub == "image") && source == MEDIA )
                 setup();
             else
                 getNextFile();
