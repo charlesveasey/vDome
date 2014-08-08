@@ -39,7 +39,7 @@ void Window::setup(){
     
     #else
         ofSetWindowPosition(x,  y);
-        ofSetWindowShape(x, y);
+        ofSetWindowShape(width, height);
         ofSetFullscreen(fullscreen);
     #endif
     

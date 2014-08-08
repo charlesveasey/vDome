@@ -31,6 +31,7 @@ vDomeDebug.app
 vDome.exe
 vDome_debug.exe
 vDome_debug.exp
+bin/vDome
 
 # Folders
 obj/
@@ -38,7 +39,3 @@ bin/data/media/video
 bin/data/settings/masks
 bin/data/settings/warp
 vdome.xcodeproj/xcuserdata
-
-
-
-
