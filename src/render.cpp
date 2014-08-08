@@ -64,7 +64,7 @@ void Render::setFrameRate(int val) {
  ********************************************/
 
 void Render::loadXML(ofXml &xml) {
-    if (xml.exists("[@vSync]")) {
+    if (xml.exists("[@vsync]")) {
         string str = ofToString( xml.getAttribute("[@vsync]") );
         if (str == "on")    vsync = true;
         else                vsync = false;
