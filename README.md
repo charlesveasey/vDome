@@ -23,7 +23,7 @@ http://syphon.v002.info/
 
 ##Compiling
 ####All
-  -  Download the latest version of openFrameworks (currently v0.8.1): http://www.openframeworks.cc/download/
+  -  Download the latest version of openFrameworks (currently v0.8.3): http://www.openframeworks.cc/download/
   -  Clone this (vDome) repository to the openFrameworks/apps/myApps folder
   -  Clone to: openFrameworks/addons:
      - https://github.com/charlesveasey/ofxMultiGLFWWindow
@@ -85,6 +85,7 @@ https://docs.google.com/document/d/1EHPpExjznFF6X0YTY5acLS0MNkEbtVFsLBCoJ2HHQlQ/
 
 ####Linux
   - Ubuntu 12.04 
+  - Ubuntu 14.04
 
 ##Future Development
   - Support for Spout sharing technology on Windows
