@@ -7,40 +7,55 @@ Developed by Charles Veasey for the Institute of Indian American Arts (IAIA).
 
 ##Overview
 
-vDome is designed to run as background process and accepts any domemaster formatted input as follows:  
-  1.  capture  
-  2.  syphon  
-  3.  image  
-  4.  video  
+vDome is an application designed to calibrate multiple projectors on a hemispherical dome surface and display a domemaster formatted video, image, or interactive application. vDome is generally used in two ways: 1) as a media player and 2) as a background process that listens to software/hardware input streams.
 
-Capture is the recommended input type:
-  - It allows you to put anything on the dome by hooking up another computer to vDome through a capture card.  
-  - vDome becomes the 2nd monitor on your production machine. Drag your After Effects or Unity preview window onto the dome and edit in real-time.  
-  - Playing videos is done through your favorite media player: Quicktime, VLC, etc.  
+As a media player vDome utilizes native os media libraries and accepts most common file formats and codecs of the operating system. In general:  
+  - Mac OS X: QuickTime / AV Foundation / HAP
+  - Win 7/8: DirectShow / Windows Media Foundation / QuickTime
+  - Linux: GStreamer
 
-Syphon is useful for a single Mac computer system where your production application supports the Syphon technology.
+There can be major performance differences between codecs at high resolutions.
 
-The image and video file input types are currently only used for testing and calibrating. The only way to change the file name is in code.
+Capture and camera inputs are hardware video stream solutions. A capture card is a flexible solution that allows one to run any application on the dome by sending the video output of one computer into another machine running vDome. With this, vDome essentially becomes the 2nd monitor on your production machine. Drag the After Effects or Unity preview window onto the dome and edit in real-time, play videos through your favorite media player: Quicktime, VLC, etc. 
+
+Syphon is useful a on single Mac computer where your production application supports the Syphon technology. There are a number of applications which support the Syphon texture sharing including After Effects, Resolume, MaxMSP, etc. 
+http://syphon.v002.info/  
 
 ##Compiling
 ####All
-  -  Clone openFrameworks fork: https://github.com/charlesveasey/openFrameworks  
-  -  Clone https://github.com/memo/ofxMSAInteractiveObject and place in openFrameworks/addons folder  
-  -  Clone this (vDome) repository and place in the openFrameworks/apps/myApps folder
-  
+  -  Download the latest version of openFrameworks (currently v0.8.1): http://www.openframeworks.cc/download/
+  -  Clone this (vDome) repository to the openFrameworks/apps/myApps folder
+  -  Clone to: openFrameworks/addons:
+     - https://github.com/charlesveasey/ofxMultiGLFWWindow
+     - https://github.com/charlesveasey/ofxM3U
+     - https://github.com/charlesveasey/ofxBezierSurface
+     - https://github.com/arturoc/ofxPBO
+     - https://github.com/bakercp/ofxMediaType
+
 ####Mac
-  -  Clone to: openFrameworks/addons:  
-     - https://github.com/astellato/ofxSyphon  
+  -  Clone to: openFrameworks/addons:
+     - https://github.com/charlesveasey/ofxCocoaWindowUtils
+     - https://github.com/kronick/ofxAVFVideoPlayer
      - https://github.com/bangnoise/ofxHapPlayer
-  - Suggested IDE: Xcode v4.6.3
+     - https://github.com/astellato/ofxSyphon
+
+  - Suggested IDE: Xcode v5.1.1
+  - Syphon needs to be copied to Frameworks:
+    -  Under target, add a Copy Files Build Phase. Drag the Syphon.framework into this phase.
 
 ####Win
+  -  Clone to: openFrameworks/addons:
+     - https://github.com/charlesveasey/ofxWinWindow
+     - https://github.com/secondstory/ofxWMFVideoPlayer
+     - https://github.com/ofTheo/ofDirectShowVideoPlayer
+         
   - Suggested IDE: Microsoft Visual Studio Express 2012
-  - Video playback utilizes: https://github.com/ofTheo/ofDirectShowVideoPlayer  
-    - No need to download seperately, a copy is included in src
+  - ofxWMFPLayer requries updated GLEW library, follow instructions on its repository
 
 ####Linux
-  - Not yet tested
+  - Install openFrameworks dependencies, see INSTALL.md in openFrameworks linux package
+  - Suggested IDE: Code::Blocks 10.04 
+  - Can also run make in root directory
 
 ##Installation
 ####Mac
@@ -52,15 +67,28 @@ The image and video file input types are currently only used for testing and cal
     - http://www.free-codecs.com/download/k_lite_mega_codec_pack.htm
 
 ####Linux
-  - Not yet tested
+  - Install gstreamer codecs, see INSTALL.md in openFrameworks linux package
 
 ##Setup and Calibration
-  - Initial setup is done in XML (setting resolution, number of projectors, and input type).
-  - Calibration is done directly on the dome. This eliminates the need for a control monitor and saves the headache caused by looking back and forth from control monitor to dome.
+Initial setup is done in XML (setting resolution, number of projectors, and input type). Calibration is done directly on the dome. For more information see the manual: 
+https://docs.google.com/document/d/1EHPpExjznFF6X0YTY5acLS0MNkEbtVFsLBCoJ2HHQlQ/edit#
+
+
+##Tested
+####Mac
+  - 10.8.x
+  - 10.9.x
+
+####Win
+  - 7.x
+  - 8.1.x
+
+####Linux
+  - Ubuntu 12.04 
 
 ##Future Development
-  - Advanced color correction  
-  - Edge-blending  
+  - Support for Spout sharing technology on Windows
+  - Support for panorama and 16:9 input formats
   - Auto-calibration via camera  
   - Support for Nvidia Warp and Intensity API
   
