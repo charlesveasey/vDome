@@ -13,7 +13,7 @@
 #include "videoWin.h"
 #endif
 #ifdef TARGET_LINUX
-#include "videoLinux.h"
+#include "videoLinux/videoLinux.h"
 #endif
 
 using namespace ofx::Media;
@@ -21,10 +21,10 @@ using namespace ofx::Media;
 namespace vd{
 
 class Media{
-    
+
 public:
     Media();
-    
+
     void open(string filepath);
     void open(vector<string> filelist);
     void update();
@@ -46,14 +46,14 @@ public:
     void setResolution(int w, int h);
     void setSlideshow(bool enable, int duration);
 	bool isLoaded();
-    
+
     enum MediaTypes {IMAGE,VIDEO};
     MediaTypes mType;
 
     Image image;
     string forceVideoRenderer;
     ofEvent<bool> endEvent;
-   
+
 #ifdef TARGET_OSX
 	VideoOSX video;
 #endif
@@ -63,13 +63,13 @@ public:
 #ifdef TARGET_LINUX
 	VideoLinux video;
 #endif
-    
+
 private:
     string parseFile(string filepath);
     void parsePlaylist(string filepath);
     void slideEnd(bool &end);
     void videoEnd(bool &end);
-    
+
     int width;
     int height;
     vector<string> fList;

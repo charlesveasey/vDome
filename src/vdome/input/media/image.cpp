@@ -1,4 +1,4 @@
-#include "Image.h"
+#include "image.h"
 using namespace vd;
 
 Image::Image() {

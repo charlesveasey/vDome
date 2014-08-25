@@ -1,4 +1,4 @@
-#include "VideoAVF.h"
+#include "videoAVF.h"
 using namespace vd;
 
 VideoAVF::VideoAVF() {
