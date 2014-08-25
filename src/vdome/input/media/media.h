@@ -80,5 +80,6 @@ private:
     MediaTypeMap * mediaTypeMap;
     string fpath;
     bool bEnded;
+    float vol;
 };
 }

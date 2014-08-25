@@ -7,6 +7,7 @@ Media::Media() {
     width = 2048;
     height = 2048;
     bEnded = false;
+    vol = 1;
 }
 
 void Media::open(vector<string> filepaths){
@@ -50,6 +51,7 @@ void Media::open(string filepath){
             video.setLoop(bLoop);
         
         video.open(filepath);
+        video.setVolume(vol);
     }
     else if (mString == "playlist"){
         parsePlaylist(filepath);
@@ -196,6 +198,7 @@ string Media::getFilepath(){
 }
 
 void Media::setVolume(float v){
+    vol = v;
     video.setVolume(v);
 }
 
