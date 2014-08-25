@@ -5,6 +5,7 @@
 #include "menu.h"
 #include "saveThread.h"
 #include "ofxMultiGLFWWindow.h"
+#define VDOME_DEBUG
 
 namespace vd {
   
@@ -53,4 +54,3 @@ private:
 };
 
 }
-

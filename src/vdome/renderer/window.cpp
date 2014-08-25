@@ -25,23 +25,23 @@ Window::Window(){
  ********************************************/
 
 void Window::setup(){
-    
     glfw = (ofxMultiGLFWWindow*)ofGetWindowPtr();
     glfw->setWindow(glfwWindow);
     glfw->initializeWindow();
     ofHideCursor();
     
+    /*
     #ifdef TARGET_OSX
         int fMode;
         if (top) fMode = ofxCocoaWindowUtils::SCREENSAVER;
         else            fMode = ofxCocoaWindowUtils::NORMAL;
         cocoaWindowUtils.setup(fMode, x, y, width, height, border);
     
-    #else
-        ofSetWindowPosition(x,  y);
+    #else*/
         ofSetWindowShape(width, height);
+        ofSetWindowPosition(x, y);
         ofSetFullscreen(fullscreen);
-    #endif
+    //#endif
     
 }
   
@@ -92,11 +92,6 @@ void Window::loadXML(ofXml &xml) {
         if (str == "on") fullscreen = true;
         else             fullscreen = false;
     }
-    if (xml.exists("[@border]")) {
-        str = ofToString( xml.getAttribute("[@border]") );
-        if (str == "on") border = true;
-        else             border = false;
-    }
     if (xml.exists("[@top]")) {
         str = ofToString( xml.getAttribute("[@top]") );
         if (str == "on") top = true;
@@ -112,9 +107,6 @@ void Window::saveXML(ofXml &xml) {
     if (fullscreen) xml.setAttribute("fullscreen", "on" );
     else            xml.setAttribute("fullscreen", "off" );
 
-    if (border) xml.setAttribute("border", "on" );
-    else            xml.setAttribute("border", "off" );
-    
     if (top) xml.setAttribute("top", "on" );
     else            xml.setAttribute("top", "off" );
 }

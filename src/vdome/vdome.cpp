@@ -1,7 +1,4 @@
 #include "vdome.h"
-#ifdef TARGET_WIN32
-    #include "ofxWinWindow.h"
-#endif
 
 namespace vd {
 
@@ -25,6 +22,7 @@ vdome::vdome() {
     menu.projectors = &projectors;
     socket.input = &input;
     input.socket = &socket;
+	input.model = &model;
     autosave = false;
 	wIndex = 0;
 }
@@ -60,15 +58,15 @@ void vdome::setup(){
     if (xml.load(xmlFile))
         loadXML(xml);
 
+	// hide console window
     #ifdef TARGET_WIN32
-        ofxWinWindow * nwindow = (ofxWinWindow*)ofGetWindowPtr();
-        nwindow->hideBorder();
-        nwindow->keepWindowOnTop(true);
-
-        HWND handleWindow;
+		#ifdef VDOME_DEBUG
+		#else
+	    HWND handleWindow;
         AllocConsole();
         handleWindow = FindWindowA("ConsoleWindowClass", NULL);
         ShowWindow(handleWindow, 0);
+		#endif
 	#endif
 
     for(int i=0; i<projCount; i++) {
@@ -82,11 +80,12 @@ void vdome::setup(){
     maskHistory.clear();
     for (int i=0; i<=(maxHistory+2); i++) {
         ofPixels buffer;
-        buffer.allocate(1920, 1080, OF_IMAGE_COLOR_ALPHA);
+        buffer.allocate(1920, 1080, OF_IMAGE_COLOR_ALPHA); //FIXME: HARDCODED RESOLUTION?
         maskHistory.push_back(buffer);
     }
     
-    menu.autosave = autosave;    
+    menu.autosave = autosave; 
+	glfw->showWindow(glfwWindows->at(0));
 }
 
 /******************************************
@@ -120,14 +119,8 @@ void vdome::update() {
 void vdome::draw(){
     ofSetHexColor(0xFFFFFF);
 	int wi = 0;
-
-    #ifdef TARGET_WIN32
-		for (int i=0; i< projCount; i++) {
-	#else
-		 wi = glfw->getWindowIndex();
-		 for (int i=windows[wi].firstProjector; i<=windows[wi].lastProjector; i++) {
-	#endif
-    
+	wi = glfw->getWindowIndex();
+	for (int i=windows[wi].firstProjector; i<=windows[wi].lastProjector; i++) {
         if (projectors[i].enable) {
 
             projectors[i].begin();
@@ -320,8 +313,6 @@ void vdome::keyPressed(int key){
         if (menu.active && menu.ctrl)
             saveXML(xml);
     }
-
-	
     menu.keyPressed(key);
 }
 
@@ -331,6 +322,14 @@ void vdome::keyReleased(int key){
         if (autosave && menu.active)
             saveXML(xml);
     }
+	#ifdef TARGET_WIN32
+	if (menu.ctrl && key == 113) // ctrl+q = quit
+		ofExit(0);
+	#endif
+	#ifdef TARGET_LINUX
+	if (menu.ctrl && key == 113)
+		ofExit(0);
+	#endif
 }
 
 /******************************************
@@ -353,7 +352,6 @@ void vdome::exit(){
     saveThread.waitForThread(true);
     input.stop();
     input.close();
-    cout<< "exit" << endl;
 }
 
 }

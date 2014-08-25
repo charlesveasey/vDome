@@ -469,6 +469,8 @@
 		<Unit filename="src/camera.h" />
 		<Unit filename="src/command.cpp" />
 		<Unit filename="src/command.h" />
+		<Unit filename="src/dome.cpp" />
+		<Unit filename="src/dome.h" />
 		<Unit filename="src/input.cpp" />
 		<Unit filename="src/input.h" />
 		<Unit filename="src/main.cpp">
@@ -478,8 +480,6 @@
 		<Unit filename="src/mask.h" />
 		<Unit filename="src/menu.cpp" />
 		<Unit filename="src/menu.h" />
-		<Unit filename="src/model.cpp" />
-		<Unit filename="src/model.h" />
 		<Unit filename="src/plane.cpp" />
 		<Unit filename="src/plane.h" />
 		<Unit filename="src/projector.cpp" />

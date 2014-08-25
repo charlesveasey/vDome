@@ -610,7 +610,10 @@ void Menu::keyPressed(int key) {
         // space = play/pause video
         case 32:
             if (input->isVideo) {
-                input->toggle();
+				if (input->isPlaying())
+					input->stop();
+				else
+					input->play();
             }
             break;
             

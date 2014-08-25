@@ -13,6 +13,7 @@ public:
     void update();
     
     void sendDuration();
+    void sendEnd();
     
     void loadXML(ofXml &xml);
     void saveXML(ofXml &xml);
