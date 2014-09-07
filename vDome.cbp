@@ -6,7 +6,7 @@
 		<Option makefile_is_custom="1" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="addons/;src/;build config/;addons/ofxBezierSurface/src/;addons/ofxM3U/src/;addons/ofxMediaType/libs/ofxMediaType/include/ofx/Media/;addons/ofxMediaType/libs/ofxMediaType/src/;addons/ofxMediaType/src/;addons/ofxMultiGLFWWindow/src/;addons/ofxOpenCv/libs/opencv/include/opencv/;addons/ofxOpenCv/libs/opencv/include/opencv2/calib3d/;addons/ofxOpenCv/libs/opencv/include/opencv2/contrib/;addons/ofxOpenCv/libs/opencv/include/opencv2/core/;addons/ofxOpenCv/libs/opencv/include/opencv2/features2d/;addons/ofxOpenCv/libs/opencv/include/opencv2/flann/;addons/ofxOpenCv/libs/opencv/include/opencv2/gpu/;addons/ofxOpenCv/libs/opencv/include/opencv2/highgui/;addons/ofxOpenCv/libs/opencv/include/opencv2/imgproc/;addons/ofxOpenCv/libs/opencv/include/opencv2/legacy/;addons/ofxOpenCv/libs/opencv/include/opencv2/ml/;addons/ofxOpenCv/libs/opencv/include/opencv2/objdetect/;addons/ofxOpenCv/libs/opencv/include/opencv2/;addons/ofxOpenCv/libs/opencv/include/opencv2/ts/;addons/ofxOpenCv/libs/opencv/include/opencv2/video/;addons/ofxOpenCv/src/;addons/ofxOsc/libs/oscpack/src/ip/;addons/ofxOsc/libs/oscpack/src/ip/posix/;addons/ofxOsc/libs/oscpack/src/ip/win32/;addons/ofxOsc/libs/oscpack/src/osc/;addons/ofxOsc/src/;src/vdome/;src/vdome/input/;src/vdome/menu/;src/vdome/renderer/;src/vdome/input/media/;src/vdome/renderer/projector/;src/vdome/input/media/videoLinux/;" />
+		<Option virtualFolders="addons/;src/;build config/;addons/ofxBezierSurface/src/;addons/ofxM3U/src/;addons/ofxMediaType/libs/ofxMediaType/include/ofx/Media/;addons/ofxMediaType/libs/ofxMediaType/src/;addons/ofxMediaType/src/;addons/ofxMultiGLFWWindow/src/;addons/ofxOpenCv/libs/opencv/include/opencv/;addons/ofxOpenCv/libs/opencv/include/opencv2/calib3d/;addons/ofxOpenCv/libs/opencv/include/opencv2/contrib/;addons/ofxOpenCv/libs/opencv/include/opencv2/core/;addons/ofxOpenCv/libs/opencv/include/opencv2/features2d/;addons/ofxOpenCv/libs/opencv/include/opencv2/flann/;addons/ofxOpenCv/libs/opencv/include/opencv2/gpu/;addons/ofxOpenCv/libs/opencv/include/opencv2/highgui/;addons/ofxOpenCv/libs/opencv/include/opencv2/imgproc/;addons/ofxOpenCv/libs/opencv/include/opencv2/legacy/;addons/ofxOpenCv/libs/opencv/include/opencv2/ml/;addons/ofxOpenCv/libs/opencv/include/opencv2/objdetect/;addons/ofxOpenCv/libs/opencv/include/opencv2/;addons/ofxOpenCv/libs/opencv/include/opencv2/ts/;addons/ofxOpenCv/libs/opencv/include/opencv2/video/;addons/ofxOpenCv/src/;addons/ofxOsc/libs/oscpack/src/ip/;addons/ofxOsc/libs/oscpack/src/ip/posix/;addons/ofxOsc/libs/oscpack/src/ip/win32/;addons/ofxOsc/libs/oscpack/src/osc/;addons/ofxOsc/src/;src/vdome/;src/vdome/input/;src/vdome/menu/;src/vdome/renderer/;src/vdome/input/media/;src/vdome/renderer/projector/;" />
 		<Build>
 			<Target title="Debug">
 				<Option output="bin/$(PROJECT_NAME)_debug" prefix_auto="1" extension_auto="1" />
@@ -492,17 +492,17 @@
 		<Unit filename="src/vdome/input/media/media.h">
 			<Option virtualFolder="src/vdome/input/media/" />
 		</Unit>
-		<Unit filename="src/vdome/input/media/videoLinux/videoGST.cpp">
-			<Option virtualFolder="src/vdome/input/media/videoLinux/" />
+		<Unit filename="src/vdome/input/media/videoGST.cpp">
+			<Option virtualFolder="src/vdome/input/media/" />
 		</Unit>
-		<Unit filename="src/vdome/input/media/videoLinux/videoGST.h">
-			<Option virtualFolder="src/vdome/input/media/videoLinux/" />
+		<Unit filename="src/vdome/input/media/videoGST.h">
+			<Option virtualFolder="src/vdome/input/media/" />
 		</Unit>
-		<Unit filename="src/vdome/input/media/videoLinux/videoLinux.cpp">
-			<Option virtualFolder="src/vdome/input/media/videoLinux/" />
+		<Unit filename="src/vdome/input/media/videoLinux.cpp">
+			<Option virtualFolder="src/vdome/input/media/" />
 		</Unit>
-		<Unit filename="src/vdome/input/media/videoLinux/videoLinux.h">
-			<Option virtualFolder="src/vdome/input/media/videoLinux/" />
+		<Unit filename="src/vdome/input/media/videoLinux.h">
+			<Option virtualFolder="src/vdome/input/media/" />
 		</Unit>
 		<Unit filename="src/vdome/input/ofPBO.cpp">
 			<Option virtualFolder="src/vdome/input/" />
