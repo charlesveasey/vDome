@@ -3,22 +3,20 @@
 #include "ofxMultiGLFWWindow.h"
 #include "ofGLProgrammableRenderer.cpp"
 
-#ifdef TARGET_WIN32
-	#include "ofxWinWindow.h"
-#endif
-
 int main( ){
-    //ofSetLogLevel(OF_LOG_SILENT);
-    ofSetLogLevel(OF_LOG_VERBOSE);
+
+	#ifdef VDOME_DEBUG
+	    ofSetLogLevel(OF_LOG_VERBOSE);
+	#else
+		ofSetLogLevel(OF_LOG_SILENT);
+	#endif
+
 	ofSetCurrentRenderer(ofGLProgrammableRenderer::TYPE);
     
-    #ifdef TARGET_WIN32
-		ofxWinWindow win;
-	#else
-		ofxMultiGLFWWindow win;
-        win.setOpenGLVersion(3,2); // must be set
-        win.windowCount = 1;
-	#endif
+	ofxMultiGLFWWindow win;
+    win.setOpenGLVersion(3,2);
+    win.windowCount = 1;
+	win.hideBorder();
 
     ofSetupOpenGL(&win, 1680,1080, OF_WINDOW);
 	ofRunApp(new vd::vdome());

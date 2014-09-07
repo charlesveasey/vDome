@@ -40,26 +40,28 @@ void Socket::update(){
         
 		if (rMsg.getAddress() == "/input/"){
             if      (rMsg.getArgAsString(0) == "play")         input->play();
-            else if (rMsg.getArgAsString(0) == "pause")        input->stop();
             else if (rMsg.getArgAsString(0) == "stop")         input->stop();
-            else if (rMsg.getArgAsString(0) == "toggle")       input->toggle();
-            else if (rMsg.getArgAsString(0) == "previous")         input->prev();
+            else if (rMsg.getArgAsString(0) == "previous")     input->previous();
             else if (rMsg.getArgAsString(0) == "next")         input->next();
-            else if (rMsg.getArgAsString(0) == "pFrame")    input->prevFrame();
-            else if (rMsg.getArgAsString(0) == "nFrame")    input->nextFrame();
 		}
 		else if (rMsg.getAddress() == "/input/loop/") {
             if (rMsg.getArgAsString(0) == "on") input->setLoop(true);
             else                             input->setLoop(false);
 		}
         else if (rMsg.getAddress() == "/input/seek/") {
-            input->seek(rMsg.getArgAsFloat(0));
+            input->seek(ofToFloat(rMsg.getArgAsString(0)));
 		}
         else if (rMsg.getAddress() == "/input/source/") {
             input->setSource(rMsg.getArgAsString(0));
 		}
         else if (rMsg.getAddress() == "/input/file/") {
-            input->setFile(rMsg.getArgAsString(0));
+            ofFile oFile;
+            oFile.open(rMsg.getArgAsString(0));
+            string file = oFile.getAbsolutePath();
+            input->openFile(file);
+		}
+        else if (rMsg.getAddress() == "/input/volume/") {
+            input->setVolume(ofToFloat(rMsg.getArgAsString(0)));
 		}
 	}
     
@@ -82,7 +84,14 @@ void Socket::update(){
 void Socket::sendDuration(){
     sMsg.clear();
     sMsg.setAddress("/input/duration");
-    sMsg.addStringArg(ofToString( input->getDuration() ));
+    sMsg.addStringArg(input->getFilepath() + "," + ofToString( input->getDuration() ));
+    oscSender.sendMessage(sMsg);
+}
+    
+void Socket::sendEnd(){
+    sMsg.clear();
+    sMsg.setAddress("/input/");
+    sMsg.addStringArg("end");
     oscSender.sendMessage(sMsg);
 }
     

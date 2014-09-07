@@ -6,7 +6,7 @@
 // modified by Charles Veasey
 // - mouse position is now delta
 
-#include "quadWarp.h"
+#include "cornerpin.h"
 namespace vd {
 
 QuadWarp::QuadWarp() {

@@ -16,6 +16,7 @@ Model::Model(){
     textureScale = 1;
     textureFlip = false;
     textureRotate = 0;
+	textureFlipInternal = false;
 }
 
 /******************************************
@@ -68,11 +69,18 @@ void Model::setup(){
 			u = 0.5 * (r * cos(theta) + 1);
 			v = 0.5 * (r * sin(theta) + 1);
             
-            if (textureFlip)
-                vbo.addTexCoord(ofVec2f(u,v));
-            else
-                vbo.addTexCoord(ofVec2f(u,1-v)); // reverse
-            
+			if (textureFlipInternal){
+				if (textureFlip)
+	                vbo.addTexCoord(ofVec2f(u,1-v));
+				else 
+					vbo.addTexCoord(ofVec2f(u,v));
+			}
+			else {
+				if (textureFlip)
+					vbo.addTexCoord(ofVec2f(u,v));
+				else
+					vbo.addTexCoord(ofVec2f(u,1-v)); // reverse
+			}
 			index++;
 		}
     }
@@ -164,9 +172,9 @@ void Model::keyPressed(int key) {
 void Model::loadXML(ofXml &xml) {
     if (xml.exists("model[@radius]"))
         radius = ofToDouble( xml.getAttribute("model[@radius]") );
-    if (xml.exists("input[@scale"))
+    if (xml.exists("input[@scale]"))
         textureScale = ofToFloat( xml.getAttribute("input[@scale]") );
-    if (xml.exists("input[@rotate"))
+    if (xml.exists("input[@rotate]"))
         textureRotate = ofToFloat( xml.getAttribute("input[@rotate]") );	    
 	string v;
 	if (xml.exists("input[@flip]")) {

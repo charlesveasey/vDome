@@ -5,36 +5,132 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>37DB3419-996F-4F40-AAD4-A98D70C25452</string>
+	<string>D0078126-2A41-49B5-A907-07F3F325CC59</string>
 	<key>IDESourceControlProjectName</key>
-	<string>vdome</string>
+	<string>vDome</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>3AD79D54-3CC5-42AE-918D-DA034763BA7A</key>
-		<string>https://github.com/charlesveasey/vdome.git</string>
+		<key>244472A7-3416-44E1-9C83-A155C6B73154</key>
+		<string>https://github.com/bangnoise/ofxHapPlayer.git</string>
+		<key>5B49ABC1-DC78-4C24-878A-A60ECDD053B0</key>
+		<string>https://github.com/bakercp/ofxMediaType.git</string>
+		<key>79B08D31-B33B-4460-B089-0A6FD569A5EB</key>
+		<string>https://github.com/charlesveasey/vDome.git</string>
+		<key>8BFEEE94-A5EF-4CBF-AAC7-9798E2E6ABA3</key>
+		<string>https://github.com/charlesveasey/ofxBezierSurface.git</string>
+		<key>B5E9F6D3-07C6-40F8-B7C6-5700A8015A45</key>
+		<string>https://github.com/astellato/ofxSyphon.git</string>
+		<key>BC52A6E5-83E4-437C-9E5C-F1A8CE7B6CB6</key>
+		<string>https://github.com/charlesveasey/ofxAVFVideoPlayer.git</string>
+		<key>E740F5F1-D7FE-4018-A629-234283C29B49</key>
+		<string>https://github.com/charlesveasey/ofxCocoaWindowUtils.git</string>
+		<key>EA30BD4D-1800-4AF1-B3F6-F3F61C459931</key>
+		<string>https://github.com/charlesveasey/ofxM3U.git</string>
+		<key>FFB68482-874B-4280-9B64-04239543B052</key>
+		<string>https://github.com/charlesveasey/ofxMultiGLFWWindow.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>vdome.xcodeproj/project.xcworkspace</string>
+	<string>vDome.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>3AD79D54-3CC5-42AE-918D-DA034763BA7A</key>
+		<key>244472A7-3416-44E1-9C83-A155C6B73154</key>
+		<string>../../../../../addons/ofxHapPlayer</string>
+		<key>5B49ABC1-DC78-4C24-878A-A60ECDD053B0</key>
+		<string>../../../../../addons/ofxMediaType</string>
+		<key>79B08D31-B33B-4460-B089-0A6FD569A5EB</key>
 		<string>../..</string>
+		<key>8BFEEE94-A5EF-4CBF-AAC7-9798E2E6ABA3</key>
+		<string>../../../../../addons/ofxBezierSurface</string>
+		<key>B5E9F6D3-07C6-40F8-B7C6-5700A8015A45</key>
+		<string>../../../../../addons/ofxSyphon</string>
+		<key>BC52A6E5-83E4-437C-9E5C-F1A8CE7B6CB6</key>
+		<string>../../../../../addons/ofxAVFVideoPlayer</string>
+		<key>E740F5F1-D7FE-4018-A629-234283C29B49</key>
+		<string>../../../../../addons/ofxCocoaWindowUtils</string>
+		<key>EA30BD4D-1800-4AF1-B3F6-F3F61C459931</key>
+		<string>../../../../../addons/ofxM3U</string>
+		<key>FFB68482-874B-4280-9B64-04239543B052</key>
+		<string>../../../../../addons/ofxMultiGLFWWindow</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/charlesveasey/vdome.git</string>
+	<string>https://github.com/charlesveasey/vDome.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>3AD79D54-3CC5-42AE-918D-DA034763BA7A</string>
+	<string>79B08D31-B33B-4460-B089-0A6FD569A5EB</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>3AD79D54-3CC5-42AE-918D-DA034763BA7A</string>
+			<string>BC52A6E5-83E4-437C-9E5C-F1A8CE7B6CB6</string>
 			<key>IDESourceControlWCCName</key>
-			<string>vdome</string>
+			<string>ofxAVFVideoPlayer</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>8BFEEE94-A5EF-4CBF-AAC7-9798E2E6ABA3</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxBezierSurface</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E740F5F1-D7FE-4018-A629-234283C29B49</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxCocoaWindowUtils</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>244472A7-3416-44E1-9C83-A155C6B73154</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxHapPlayer</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>EA30BD4D-1800-4AF1-B3F6-F3F61C459931</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxM3U</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>5B49ABC1-DC78-4C24-878A-A60ECDD053B0</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxMediaType</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>FFB68482-874B-4280-9B64-04239543B052</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxMultiGLFWWindow</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>B5E9F6D3-07C6-40F8-B7C6-5700A8015A45</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxSyphon</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>79B08D31-B33B-4460-B089-0A6FD569A5EB</string>
+			<key>IDESourceControlWCCName</key>
+			<string>vDome</string>
 		</dict>
 	</array>
 </dict>

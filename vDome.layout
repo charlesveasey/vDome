@@ -1,59 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="../../../addons/ofxOsc/src/ofxOscReceiver.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="6781" topLine="229" />
-		</Cursor>
+	<File name="../../../addons/ofxMultiGLFWWindow/src/ofxMultiGLFWWindow.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="9373" topLine="324" />
 	</File>
-	<File name="src/command.cpp" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
-		</Cursor>
+	<File name="config.make" open="0" top="0" tabpos="0">
+		<Cursor position="3326" topLine="39" />
 	</File>
-	<File name="src/input.cpp" open="1" top="1" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="20306" topLine="827" />
-		</Cursor>
+	<File name="src/main.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="314" topLine="0" />
 	</File>
-	<File name="src/window.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
-		</Cursor>
+	<File name="src/vdome/input/media/image.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="11" topLine="0" />
 	</File>
-	<File name="src/socket.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="12" />
-		</Cursor>
+	<File name="src/vdome/input/media/media.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="40" topLine="0" />
 	</File>
-	<File name="src/mask.cpp" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="168" />
-		</Cursor>
+	<File name="src/vdome/input/media/media.h" open="1" top="1" tabpos="2">
+		<Cursor position="1012" topLine="40" />
 	</File>
-	<File name="src/camera.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="src/render.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1169" topLine="43" />
-		</Cursor>
-	</File>
-	<File name="src/main.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="354" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="../../../addons/ofxMultiGLFWWindow/src/ofxMultiGLFWWindow.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="7397" topLine="235" />
-		</Cursor>
-	</File>
-	<File name="src/vdome.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="214" />
-		</Cursor>
+	<File name="src/vdome/input/ofPBO.h" open="0" top="0" tabpos="0">
+		<Cursor position="267" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>

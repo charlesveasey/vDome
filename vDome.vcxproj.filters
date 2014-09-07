@@ -25,87 +25,6 @@
     <ClCompile Include="..\..\..\addons\ofxOpenCv\src\ofxCvShortImage.cpp">
       <Filter>addons\ofxOpenCv\src</Filter>
     </ClCompile>
-    <ClCompile Include="src\input.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\projector.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\render.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\vdome.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\window.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\camera.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\dome.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\plane.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\command.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\quadWarp.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\mask.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\menu.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofDirectShowVideoPlayer\ofDirectShowPlayer.cpp">
-      <Filter>addons\ofDirectShowVideoPlayer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxMediaType\libs\ofxMediaType\src\MediaTypeMap.cpp">
-      <Filter>addons\ofxMediaType\libs\ofxMediaType\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxWMFVideoPlayer\src\ofxWMFVideoPlayer.cpp">
-      <Filter>addons\ofxWMFVideoPlayer\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxWMFVideoPlayer\src\ofxWMFVideoPlayerUtils.cpp">
-      <Filter>addons\ofxWMFVideoPlayer\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\Helpers.cpp">
-      <Filter>addons\ofxWMFVideoPlayer\src\presenter</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\PresentEngine.cpp">
-      <Filter>addons\ofxWMFVideoPlayer\src\presenter</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\Presenter.cpp">
-      <Filter>addons\ofxWMFVideoPlayer\src\presenter</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\scheduler.cpp">
-      <Filter>addons\ofxWMFVideoPlayer\src\presenter</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\libs\openFrameworks\video\ofGstUtils.cpp">
-      <Filter>addons\other</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\libs\openFrameworks\video\ofGstVideoGrabber.cpp">
-      <Filter>addons\other</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\libs\openFrameworks\video\ofGstVideoPlayer.cpp">
-      <Filter>addons\other</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxWinWindow\src\ofxWinWindow.cpp">
-      <Filter>addons\ofxWinWindow\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxM3U\src\ofxM3U.cpp">
-      <Filter>addons\ofxM3U\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxMultiGLFWWindow\src\ofxMultiGLFWWindow.cpp">
-      <Filter>addons\ofxMultiGLFWWindow\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxBezierSurface\src\ofxBezierSurface.cpp">
-      <Filter>addons\ofxBezierSurface\src</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscBundle.cpp">
       <Filter>addons\ofxOsc\src</Filter>
     </ClCompile>
@@ -148,11 +67,110 @@
     <ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscTypes.cpp">
       <Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
     </ClCompile>
-    <ClCompile Include="src\socket.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="..\..\..\addons\ofxBezierSurface\src\ofxBezierSurface.cpp">
+      <Filter>addons\ofxBezierSurface\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxPBO\src\ofPBO.cpp">
-      <Filter>addons\ofxPBO\src</Filter>
+    <ClCompile Include="..\..\..\addons\ofxHapPlayer\src\ofxHapPlayer.cpp">
+      <Filter>addons\ofxHapPlayer\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxHapPlayer\libs\HapSupport\src\HapSupport.c">
+      <Filter>addons\ofxHapPlayer\libs\HapSupport\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxM3U\src\ofxM3U.cpp">
+      <Filter>addons\ofxM3U\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMediaType\libs\ofxMediaType\src\MediaTypeMap.cpp">
+      <Filter>addons\ofxMediaType\libs\ofxMediaType\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxMultiGLFWWindow\src\ofxMultiGLFWWindow.cpp">
+      <Filter>addons\ofxMultiGLFWWindow\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxWMFVideoPlayer\src\ofxWMFVideoPlayer.cpp">
+      <Filter>addons\ofxWMFVideoPlayer\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxWMFVideoPlayer\src\ofxWMFVideoPlayerUtils.cpp">
+      <Filter>addons\ofxWMFVideoPlayer\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\Helpers.cpp">
+      <Filter>addons\ofxWMFVideoPlayer\src\presenter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\PresentEngine.cpp">
+      <Filter>addons\ofxWMFVideoPlayer\src\presenter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\Presenter.cpp">
+      <Filter>addons\ofxWMFVideoPlayer\src\presenter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\scheduler.cpp">
+      <Filter>addons\ofxWMFVideoPlayer\src\presenter</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdome\vdome.cpp">
+      <Filter>src\vdome</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdome\input\capture.cpp">
+      <Filter>src\vdome\input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdome\input\color.cpp">
+      <Filter>src\vdome\input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdome\input\input.cpp">
+      <Filter>src\vdome\input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdome\input\ofPBO.cpp">
+      <Filter>src\vdome\input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdome\input\media\image.cpp">
+      <Filter>src\vdome\input\media</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdome\input\media\media.cpp">
+      <Filter>src\vdome\input\media</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdome\input\media\video\videoDS.cpp">
+      <Filter>src\vdome\input\media\video</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdome\input\media\video\videoHap.cpp">
+      <Filter>src\vdome\input\media\video</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdome\input\media\video\videoWin.cpp">
+      <Filter>src\vdome\input\media\video</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdome\input\media\video\videoWMF.cpp">
+      <Filter>src\vdome\input\media\video</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdome\menu\command.cpp">
+      <Filter>src\vdome\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdome\menu\menu.cpp">
+      <Filter>src\vdome\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdome\menu\socket.cpp">
+      <Filter>src\vdome\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdome\renderer\model.cpp">
+      <Filter>src\vdome\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdome\renderer\render.cpp">
+      <Filter>src\vdome\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdome\renderer\window.cpp">
+      <Filter>src\vdome\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdome\renderer\projector\camera.cpp">
+      <Filter>src\vdome\renderer\projector</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdome\renderer\projector\cornerpin.cpp">
+      <Filter>src\vdome\renderer\projector</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdome\renderer\projector\mask.cpp">
+      <Filter>src\vdome\renderer\projector</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdome\renderer\projector\plane.cpp">
+      <Filter>src\vdome\renderer\projector</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdome\renderer\projector\projector.cpp">
+      <Filter>src\vdome\renderer\projector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofDirectShowVideoPlayer\ofDirectShowPlayer.cpp">
+      <Filter>addons\ofDirectShowVideoPlayer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -222,104 +240,125 @@
     <Filter Include="addons\ofxOpenCv\libs\opencv\include\opencv2\video">
       <UniqueIdentifier>{61E04F54-C77F-B674-C2AB-FEC2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="addons\ofDirectShowVideoPlayer">
-      <UniqueIdentifier>{dc28fd45-c617-4e12-be2f-c0e2308a57ee}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxMediaType">
-      <UniqueIdentifier>{f501ff6d-4fd7-4c33-ae90-8704a1af2215}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxMediaType\src">
-      <UniqueIdentifier>{c2410590-f017-4465-b3e3-44bba3f07321}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxMediaType\libs">
-      <UniqueIdentifier>{825dbd2a-2f79-49b9-be79-0f932b774978}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxMediaType\libs\ofxMediaType">
-      <UniqueIdentifier>{4a80e2c6-430a-4785-8c9f-c1df2ffdb8aa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxMediaType\libs\ofxMediaType\include">
-      <UniqueIdentifier>{8ba20d93-fb6d-496a-899d-d0d431ba44fb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxMediaType\libs\ofxMediaType\src">
-      <UniqueIdentifier>{56495460-c4d3-437a-8f2e-262ce16f46ff}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxMediaType\libs\ofxMediaType\include\ofx">
-      <UniqueIdentifier>{23a7c1dd-d27d-49d0-ad11-0c921f0885c1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxMediaType\libs\ofxMediaType\include\ofx\Media">
-      <UniqueIdentifier>{bd183c2c-220e-44e1-9500-ff0d16cce07e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxWMFVideoPlayer">
-      <UniqueIdentifier>{75fb8bb4-4e2c-4efa-80a2-f0a5574ba215}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxWMFVideoPlayer\src">
-      <UniqueIdentifier>{60deab63-e3bd-4f5c-b955-2f733ae0c583}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxWMFVideoPlayer\src\presenter">
-      <UniqueIdentifier>{55613605-18bd-4ad8-9ff2-ea1b8171ecae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxWMFVideoPlayer\src\presenter\common">
-      <UniqueIdentifier>{a8876b39-82e8-4de4-92bb-809ab0db6840}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\other">
-      <UniqueIdentifier>{c30f0cb7-eee6-4e61-8f88-35104140f7ef}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxWinWindow">
-      <UniqueIdentifier>{dd028ea1-f0c1-44ae-8c3f-e1db489be271}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxWinWindow\src">
-      <UniqueIdentifier>{69afa6a2-1b8d-4a07-a59f-f752792d520d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxM3U">
-      <UniqueIdentifier>{15191341-9b0b-420a-b374-93b6b6409205}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxM3U\src">
-      <UniqueIdentifier>{f9e54b3f-d7fa-4af4-9a5a-89ec6b4c8386}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxMultiGLFWWindow">
-      <UniqueIdentifier>{09f0b3ab-d9ce-4b19-afc8-2f21c26c7499}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxMultiGLFWWindow\src">
-      <UniqueIdentifier>{0a36e85f-2c3a-4640-81d9-657cb4ecce8f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxBezierSurface">
-      <UniqueIdentifier>{eae1c1a6-ae90-46c2-8798-e37f7bfbc8dd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxBezierSurface\src">
-      <UniqueIdentifier>{1ba9d4f6-2cd8-40cb-8bd3-c8d5843c3226}</UniqueIdentifier>
-    </Filter>
     <Filter Include="addons\ofxOsc">
-      <UniqueIdentifier>{ff7396f8-6b7c-4c47-a920-f6d5aadaf366}</UniqueIdentifier>
+      <UniqueIdentifier>{D91DCA33-6E5D-4481-2AEC-9FBB}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxOsc\src">
-      <UniqueIdentifier>{815f6df4-1672-4cdf-8c01-e9d2e3cf0fef}</UniqueIdentifier>
+      <UniqueIdentifier>{B9DD339A-D93D-92A1-0A2F-4B41}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxOsc\libs">
-      <UniqueIdentifier>{ea831bc7-fa1c-46ec-bcf1-03579d61c3e9}</UniqueIdentifier>
+      <UniqueIdentifier>{99ECA1D9-873F-4622-8FC0-FC7B}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxOsc\libs\oscpack">
-      <UniqueIdentifier>{46dd1c71-b7dd-4294-8426-aec2f26d357b}</UniqueIdentifier>
+      <UniqueIdentifier>{D3A98534-1602-4FEF-57A6-6593}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxOsc\libs\oscpack\src">
-      <UniqueIdentifier>{6a6ed987-bfa0-4f45-a95c-84a5519788cf}</UniqueIdentifier>
+      <UniqueIdentifier>{BFB5BB47-98C8-BBCB-3066-1046}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxOsc\libs\oscpack\src\ip">
-      <UniqueIdentifier>{4a80655f-d476-49bb-8f6a-f10d47956164}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxOsc\libs\oscpack\src\osc">
-      <UniqueIdentifier>{2cdce899-2a71-4c8b-b40d-01a467cb9395}</UniqueIdentifier>
+      <UniqueIdentifier>{5A029128-EB41-95C5-CBC0-CDED}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxOsc\libs\oscpack\src\ip\posix">
-      <UniqueIdentifier>{64b77da7-1f75-46b4-97c8-724a1d09c9e5}</UniqueIdentifier>
+      <UniqueIdentifier>{354C95CF-A234-0360-C6BC-AF41}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxOsc\libs\oscpack\src\ip\win32">
-      <UniqueIdentifier>{869354d1-73dd-45ca-9433-389a7f6f4545}</UniqueIdentifier>
+      <UniqueIdentifier>{79DFDFE2-400B-8654-3675-01A3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="addons\ofxPBO">
-      <UniqueIdentifier>{e9458584-6611-4f1f-a641-863564ac040f}</UniqueIdentifier>
+    <Filter Include="addons\ofxOsc\libs\oscpack\src\osc">
+      <UniqueIdentifier>{EDACB89C-9768-9551-4D41-B590}</UniqueIdentifier>
     </Filter>
-    <Filter Include="addons\ofxPBO\src">
-      <UniqueIdentifier>{2778b61c-8fe6-4a84-b7bf-6f661eecd8bc}</UniqueIdentifier>
+    <Filter Include="addons\ofxBezierSurface">
+      <UniqueIdentifier>{9359652E-0F6C-FAE6-7414-8192}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxBezierSurface\src">
+      <UniqueIdentifier>{09D0E532-7E2A-FD37-B415-212B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxHapPlayer">
+      <UniqueIdentifier>{3ABF0718-7EF0-C616-645A-BC48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxHapPlayer\src">
+      <UniqueIdentifier>{B922E112-1099-333C-0CFD-9815}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxHapPlayer\libs">
+      <UniqueIdentifier>{0B971793-EF6D-AFDC-9CC8-D438}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxHapPlayer\libs\HapSupport">
+      <UniqueIdentifier>{50A9E79A-35CD-48AB-2B6B-36B2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxHapPlayer\libs\HapSupport\src">
+      <UniqueIdentifier>{FE9C83AA-0ECD-3948-BCAA-42E1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxM3U">
+      <UniqueIdentifier>{7BCB3FFB-7922-BB59-A8E3-816C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxM3U\src">
+      <UniqueIdentifier>{C1692A2A-1CCB-A3DF-C16E-19CF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxMediaType">
+      <UniqueIdentifier>{157B6593-173F-9B7C-5AD9-C6BF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxMediaType\src">
+      <UniqueIdentifier>{A0ACA6D6-DE20-87D1-E366-A937}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxMediaType\libs">
+      <UniqueIdentifier>{102FA820-0F2A-9C75-5DED-5731}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxMediaType\libs\ofxMediaType">
+      <UniqueIdentifier>{55138F53-C83F-9775-5CF9-7B1C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxMediaType\libs\ofxMediaType\include">
+      <UniqueIdentifier>{EEEF8939-2FFE-6857-D824-9D0A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxMediaType\libs\ofxMediaType\include\ofx">
+      <UniqueIdentifier>{BF4BD2F3-4016-AF94-AC1A-31C0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxMediaType\libs\ofxMediaType\include\ofx\Media">
+      <UniqueIdentifier>{DEFE329D-0965-DF99-5B86-3F40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxMediaType\libs\ofxMediaType\src">
+      <UniqueIdentifier>{EFB72F56-9EB2-A5A0-701C-EB5B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxMultiGLFWWindow">
+      <UniqueIdentifier>{0F2FE5FB-6C24-969F-8F85-7B38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxMultiGLFWWindow\src">
+      <UniqueIdentifier>{12E3C296-D6BD-389B-DE15-0D7C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxWMFVideoPlayer">
+      <UniqueIdentifier>{0D998C22-15FA-2D4D-B14F-3097}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxWMFVideoPlayer\src">
+      <UniqueIdentifier>{F82D83B9-0D21-7132-BD40-6A3F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxWMFVideoPlayer\src\presenter">
+      <UniqueIdentifier>{BE3E8290-7E8D-C507-ABFC-7796}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxWMFVideoPlayer\src\presenter\common">
+      <UniqueIdentifier>{7C551AFE-871E-B43E-36A9-EE73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\vdome">
+      <UniqueIdentifier>{e4b9a627-fe34-41cb-9de4-468cf134300f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\vdome\input">
+      <UniqueIdentifier>{56f2af42-89a9-44df-8467-83601863d182}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\vdome\input\media">
+      <UniqueIdentifier>{94177414-a559-46b8-ae13-993ced868f97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\vdome\input\media\video">
+      <UniqueIdentifier>{8b021741-a0a8-41de-8aa4-275e22d7920e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\vdome\menu">
+      <UniqueIdentifier>{c2005123-400d-4f19-b84c-e099c59a521f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\vdome\renderer">
+      <UniqueIdentifier>{4e419b5d-8772-4384-8899-cb48c30127a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\vdome\renderer\projector">
+      <UniqueIdentifier>{003cec02-e082-4da7-b608-88acd5aae53d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofDirectShowVideoPlayer">
+      <UniqueIdentifier>{f690b038-d4a7-437c-b939-3347642c1773}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -345,9 +384,6 @@
       <Filter>addons\ofxOpenCv\src</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\addons\ofxOpenCv\src\ofxCvImage.h">
-      <Filter>addons\ofxOpenCv\src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\src\ofxCvMain.h">
       <Filter>addons\ofxOpenCv\src</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\addons\ofxOpenCv\src\ofxCvShortImage.h">
@@ -602,144 +638,6 @@
     <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\video\video.hpp">
       <Filter>addons\ofxOpenCv\libs\opencv\include\opencv2\video</Filter>
     </ClInclude>
-    <ClInclude Include="src\input.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\projector.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\render.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\vdome.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\window.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\camera.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\dome.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\plane.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\command.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\quadWarp.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\mask.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\menu.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofDirectShowVideoPlayer\ofDirectShowPlayer.h">
-      <Filter>addons\ofDirectShowVideoPlayer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxMediaType\src\ofxMediaType.h">
-      <Filter>addons\ofxMediaType\src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxMediaType\libs\ofxMediaType\include\ofx\Media\AbstractMediaTypeProvider.h">
-      <Filter>addons\ofxMediaType\libs\ofxMediaType\include\ofx\Media</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxMediaType\libs\ofxMediaType\include\ofx\Media\MediaTypeMap.h">
-      <Filter>addons\ofxMediaType\libs\ofxMediaType\include\ofx\Media</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\ofxWMFVideoPlayer.h">
-      <Filter>addons\ofxWMFVideoPlayer\src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\ofxWMFVideoPlayerUtils.h">
-      <Filter>addons\ofxWMFVideoPlayer\src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\EVRPresenter.h">
-      <Filter>addons\ofxWMFVideoPlayer\src\presenter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\EVRPresenterUuid.h">
-      <Filter>addons\ofxWMFVideoPlayer\src\presenter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\Helpers.h">
-      <Filter>addons\ofxWMFVideoPlayer\src\presenter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\PresentEngine.h">
-      <Filter>addons\ofxWMFVideoPlayer\src\presenter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\Presenter.h">
-      <Filter>addons\ofxWMFVideoPlayer\src\presenter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\scheduler.h">
-      <Filter>addons\ofxWMFVideoPlayer\src\presenter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\AsyncCB.h">
-      <Filter>addons\ofxWMFVideoPlayer\src\presenter\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\BufferLock.h">
-      <Filter>addons\ofxWMFVideoPlayer\src\presenter\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\ClassFactory.h">
-      <Filter>addons\ofxWMFVideoPlayer\src\presenter\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\common.h">
-      <Filter>addons\ofxWMFVideoPlayer\src\presenter\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\critsec.h">
-      <Filter>addons\ofxWMFVideoPlayer\src\presenter\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\GrowArray.h">
-      <Filter>addons\ofxWMFVideoPlayer\src\presenter\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\linklist.h">
-      <Filter>addons\ofxWMFVideoPlayer\src\presenter\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\logging.h">
-      <Filter>addons\ofxWMFVideoPlayer\src\presenter\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\logmediatype.h">
-      <Filter>addons\ofxWMFVideoPlayer\src\presenter\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\mediatype.h">
-      <Filter>addons\ofxWMFVideoPlayer\src\presenter\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\mfutils.h">
-      <Filter>addons\ofxWMFVideoPlayer\src\presenter\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\PropVar.h">
-      <Filter>addons\ofxWMFVideoPlayer\src\presenter\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\registry.h">
-      <Filter>addons\ofxWMFVideoPlayer\src\presenter\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\TinyMap.h">
-      <Filter>addons\ofxWMFVideoPlayer\src\presenter\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\trace.h">
-      <Filter>addons\ofxWMFVideoPlayer\src\presenter\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\libs\openFrameworks\video\ofGstUtils.h">
-      <Filter>addons\other</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\libs\openFrameworks\video\ofGstVideoGrabber.h">
-      <Filter>addons\other</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\libs\openFrameworks\video\ofGstVideoPlayer.h">
-      <Filter>addons\other</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWinWindow\src\ofxWinWindow.h">
-      <Filter>addons\ofxWinWindow\src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxM3U\src\ofxM3U.h">
-      <Filter>addons\ofxM3U\src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxMultiGLFWWindow\src\ofxMultiGLFWWindow.h">
-      <Filter>addons\ofxMultiGLFWWindow\src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxBezierSurface\src\ofxBezierSurface.h">
-      <Filter>addons\ofxBezierSurface\src</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOsc.h">
       <Filter>addons\ofxOsc\src</Filter>
     </ClInclude>
@@ -800,14 +698,170 @@
     <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscTypes.h">
       <Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
     </ClInclude>
-    <ClInclude Include="src\saveThread.h">
-      <Filter>src</Filter>
+    <ClInclude Include="..\..\..\addons\ofxBezierSurface\src\ofxBezierSurface.h">
+      <Filter>addons\ofxBezierSurface\src</Filter>
     </ClInclude>
-    <ClInclude Include="src\socket.h">
-      <Filter>src</Filter>
+    <ClInclude Include="..\..\..\addons\ofxHapPlayer\src\ofxHapPlayer.h">
+      <Filter>addons\ofxHapPlayer\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxPBO\src\ofPBO.h">
-      <Filter>addons\ofxPBO\src</Filter>
+    <ClInclude Include="..\..\..\addons\ofxHapPlayer\libs\HapSupport\src\HapSupport.h">
+      <Filter>addons\ofxHapPlayer\libs\HapSupport\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxM3U\src\ofxM3U.h">
+      <Filter>addons\ofxM3U\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxMediaType\src\ofxMediaType.h">
+      <Filter>addons\ofxMediaType\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxMediaType\libs\ofxMediaType\include\ofx\Media\AbstractMediaTypeProvider.h">
+      <Filter>addons\ofxMediaType\libs\ofxMediaType\include\ofx\Media</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxMediaType\libs\ofxMediaType\include\ofx\Media\MediaTypeMap.h">
+      <Filter>addons\ofxMediaType\libs\ofxMediaType\include\ofx\Media</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxMultiGLFWWindow\src\ofxMultiGLFWWindow.h">
+      <Filter>addons\ofxMultiGLFWWindow\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\ofxWMFVideoPlayer.h">
+      <Filter>addons\ofxWMFVideoPlayer\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\ofxWMFVideoPlayerUtils.h">
+      <Filter>addons\ofxWMFVideoPlayer\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\AsyncCB.h">
+      <Filter>addons\ofxWMFVideoPlayer\src\presenter\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\BufferLock.h">
+      <Filter>addons\ofxWMFVideoPlayer\src\presenter\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\ClassFactory.h">
+      <Filter>addons\ofxWMFVideoPlayer\src\presenter\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\common.h">
+      <Filter>addons\ofxWMFVideoPlayer\src\presenter\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\critsec.h">
+      <Filter>addons\ofxWMFVideoPlayer\src\presenter\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\GrowArray.h">
+      <Filter>addons\ofxWMFVideoPlayer\src\presenter\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\linklist.h">
+      <Filter>addons\ofxWMFVideoPlayer\src\presenter\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\logging.h">
+      <Filter>addons\ofxWMFVideoPlayer\src\presenter\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\logmediatype.h">
+      <Filter>addons\ofxWMFVideoPlayer\src\presenter\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\mediatype.h">
+      <Filter>addons\ofxWMFVideoPlayer\src\presenter\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\mfutils.h">
+      <Filter>addons\ofxWMFVideoPlayer\src\presenter\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\PropVar.h">
+      <Filter>addons\ofxWMFVideoPlayer\src\presenter\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\registry.h">
+      <Filter>addons\ofxWMFVideoPlayer\src\presenter\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\TinyMap.h">
+      <Filter>addons\ofxWMFVideoPlayer\src\presenter\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\trace.h">
+      <Filter>addons\ofxWMFVideoPlayer\src\presenter\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\EVRPresenter.h">
+      <Filter>addons\ofxWMFVideoPlayer\src\presenter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\EVRPresenterUuid.h">
+      <Filter>addons\ofxWMFVideoPlayer\src\presenter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\Helpers.h">
+      <Filter>addons\ofxWMFVideoPlayer\src\presenter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\PresentEngine.h">
+      <Filter>addons\ofxWMFVideoPlayer\src\presenter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\Presenter.h">
+      <Filter>addons\ofxWMFVideoPlayer\src\presenter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\scheduler.h">
+      <Filter>addons\ofxWMFVideoPlayer\src\presenter</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\vdome.h">
+      <Filter>src\vdome</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\input\capture.h">
+      <Filter>src\vdome\input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\input\color.h">
+      <Filter>src\vdome\input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\input\input.h">
+      <Filter>src\vdome\input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\input\ofPBO.h">
+      <Filter>src\vdome\input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\input\media\image.h">
+      <Filter>src\vdome\input\media</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\input\media\media.h">
+      <Filter>src\vdome\input\media</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\input\media\video\videoDS.h">
+      <Filter>src\vdome\input\media\video</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\input\media\video\videoHap.h">
+      <Filter>src\vdome\input\media\video</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\input\media\video\videoWin.h">
+      <Filter>src\vdome\input\media\video</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\input\media\video\videoWMF.h">
+      <Filter>src\vdome\input\media\video</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\menu\command.h">
+      <Filter>src\vdome\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\menu\menu.h">
+      <Filter>src\vdome\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\menu\saveThread.h">
+      <Filter>src\vdome\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\menu\socket.h">
+      <Filter>src\vdome\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\renderer\model.h">
+      <Filter>src\vdome\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\renderer\render.h">
+      <Filter>src\vdome\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\renderer\window.h">
+      <Filter>src\vdome\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\renderer\projector\camera.h">
+      <Filter>src\vdome\renderer\projector</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\renderer\projector\cornerpin.h">
+      <Filter>src\vdome\renderer\projector</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\renderer\projector\mask.h">
+      <Filter>src\vdome\renderer\projector</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\renderer\projector\plane.h">
+      <Filter>src\vdome\renderer\projector</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\renderer\projector\projector.h">
+      <Filter>src\vdome\renderer\projector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofDirectShowVideoPlayer\ofDirectShowPlayer.h">
+      <Filter>addons\ofDirectShowVideoPlayer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -39,3 +39,4 @@ bin/data/media/video
 bin/data/settings/masks
 bin/data/settings/warp
 vdome.xcodeproj/xcuserdata
+bin/vDome_debug

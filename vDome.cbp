@@ -6,7 +6,7 @@
 		<Option makefile_is_custom="1" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="addons/;src/;build config/;addons/ofxBezierSurface/src/;addons/ofxM3U/src/;addons/ofxMediaType/libs/ofxMediaType/include/ofx/Media/;addons/ofxMediaType/libs/ofxMediaType/src/;addons/ofxMediaType/src/;addons/ofxMultiGLFWWindow/src/;addons/ofxOpenCv/libs/opencv/include/opencv/;addons/ofxOpenCv/libs/opencv/include/opencv2/calib3d/;addons/ofxOpenCv/libs/opencv/include/opencv2/contrib/;addons/ofxOpenCv/libs/opencv/include/opencv2/core/;addons/ofxOpenCv/libs/opencv/include/opencv2/features2d/;addons/ofxOpenCv/libs/opencv/include/opencv2/flann/;addons/ofxOpenCv/libs/opencv/include/opencv2/gpu/;addons/ofxOpenCv/libs/opencv/include/opencv2/highgui/;addons/ofxOpenCv/libs/opencv/include/opencv2/imgproc/;addons/ofxOpenCv/libs/opencv/include/opencv2/legacy/;addons/ofxOpenCv/libs/opencv/include/opencv2/ml/;addons/ofxOpenCv/libs/opencv/include/opencv2/objdetect/;addons/ofxOpenCv/libs/opencv/include/opencv2/;addons/ofxOpenCv/libs/opencv/include/opencv2/ts/;addons/ofxOpenCv/libs/opencv/include/opencv2/video/;addons/ofxOpenCv/src/;addons/ofxOsc/libs/oscpack/src/ip/;addons/ofxOsc/libs/oscpack/src/ip/posix/;addons/ofxOsc/libs/oscpack/src/ip/win32/;addons/ofxOsc/libs/oscpack/src/osc/;addons/ofxOsc/src/;addons/ofxPBO/src/;" />
+		<Option virtualFolders="addons/;src/;build config/;addons/ofxBezierSurface/src/;addons/ofxM3U/src/;addons/ofxMediaType/libs/ofxMediaType/include/ofx/Media/;addons/ofxMediaType/libs/ofxMediaType/src/;addons/ofxMediaType/src/;addons/ofxMultiGLFWWindow/src/;addons/ofxOpenCv/libs/opencv/include/opencv/;addons/ofxOpenCv/libs/opencv/include/opencv2/calib3d/;addons/ofxOpenCv/libs/opencv/include/opencv2/contrib/;addons/ofxOpenCv/libs/opencv/include/opencv2/core/;addons/ofxOpenCv/libs/opencv/include/opencv2/features2d/;addons/ofxOpenCv/libs/opencv/include/opencv2/flann/;addons/ofxOpenCv/libs/opencv/include/opencv2/gpu/;addons/ofxOpenCv/libs/opencv/include/opencv2/highgui/;addons/ofxOpenCv/libs/opencv/include/opencv2/imgproc/;addons/ofxOpenCv/libs/opencv/include/opencv2/legacy/;addons/ofxOpenCv/libs/opencv/include/opencv2/ml/;addons/ofxOpenCv/libs/opencv/include/opencv2/objdetect/;addons/ofxOpenCv/libs/opencv/include/opencv2/;addons/ofxOpenCv/libs/opencv/include/opencv2/ts/;addons/ofxOpenCv/libs/opencv/include/opencv2/video/;addons/ofxOpenCv/src/;addons/ofxOsc/libs/oscpack/src/ip/;addons/ofxOsc/libs/oscpack/src/ip/posix/;addons/ofxOsc/libs/oscpack/src/ip/win32/;addons/ofxOsc/libs/oscpack/src/osc/;addons/ofxOsc/src/;src/vdome/;src/vdome/input/;src/vdome/menu/;src/vdome/renderer/;src/vdome/input/media/;src/vdome/renderer/projector/;src/vdome/input/media/videoLinux/;" />
 		<Build>
 			<Target title="Debug">
 				<Option output="bin/$(PROJECT_NAME)_debug" prefix_auto="1" extension_auto="1" />
@@ -456,45 +456,135 @@
 		<Unit filename="../../../addons/ofxOsc/src/ofxOscSender.h">
 			<Option virtualFolder="addons/ofxOsc/src" />
 		</Unit>
-		<Unit filename="../../../addons/ofxPBO/src/ofPBO.cpp">
-			<Option virtualFolder="addons/ofxPBO/src" />
-		</Unit>
-		<Unit filename="../../../addons/ofxPBO/src/ofPBO.h">
-			<Option virtualFolder="addons/ofxPBO/src" />
-		</Unit>
 		<Unit filename="config.make">
 			<Option virtualFolder="build config" />
 		</Unit>
-		<Unit filename="src/camera.cpp" />
-		<Unit filename="src/camera.h" />
-		<Unit filename="src/command.cpp" />
-		<Unit filename="src/command.h" />
-		<Unit filename="src/input.cpp" />
-		<Unit filename="src/input.h" />
 		<Unit filename="src/main.cpp">
 			<Option virtualFolder="src/" />
 		</Unit>
-		<Unit filename="src/mask.cpp" />
-		<Unit filename="src/mask.h" />
-		<Unit filename="src/menu.cpp" />
-		<Unit filename="src/menu.h" />
-		<Unit filename="src/model.cpp" />
-		<Unit filename="src/model.h" />
-		<Unit filename="src/plane.cpp" />
-		<Unit filename="src/plane.h" />
-		<Unit filename="src/projector.cpp" />
-		<Unit filename="src/projector.h" />
-		<Unit filename="src/quadWarp.cpp" />
-		<Unit filename="src/quadWarp.h" />
-		<Unit filename="src/render.cpp" />
-		<Unit filename="src/render.h" />
-		<Unit filename="src/saveThread.h" />
-		<Unit filename="src/socket.cpp" />
-		<Unit filename="src/socket.h" />
-		<Unit filename="src/vdome.cpp" />
-		<Unit filename="src/vdome.h" />
-		<Unit filename="src/window.cpp" />
-		<Unit filename="src/window.h" />
+		<Unit filename="src/vdome/input/capture.cpp">
+			<Option virtualFolder="src/vdome/input/" />
+		</Unit>
+		<Unit filename="src/vdome/input/capture.h">
+			<Option virtualFolder="src/vdome/input/" />
+		</Unit>
+		<Unit filename="src/vdome/input/color.cpp">
+			<Option virtualFolder="src/vdome/input/" />
+		</Unit>
+		<Unit filename="src/vdome/input/color.h">
+			<Option virtualFolder="src/vdome/input/" />
+		</Unit>
+		<Unit filename="src/vdome/input/input.cpp">
+			<Option virtualFolder="src/vdome/input/" />
+		</Unit>
+		<Unit filename="src/vdome/input/input.h">
+			<Option virtualFolder="src/vdome/input/" />
+		</Unit>
+		<Unit filename="src/vdome/input/media/image.cpp">
+			<Option virtualFolder="src/vdome/input/media/" />
+		</Unit>
+		<Unit filename="src/vdome/input/media/image.h">
+			<Option virtualFolder="src/vdome/input/media/" />
+		</Unit>
+		<Unit filename="src/vdome/input/media/media.cpp">
+			<Option virtualFolder="src/vdome/input/media/" />
+		</Unit>
+		<Unit filename="src/vdome/input/media/media.h">
+			<Option virtualFolder="src/vdome/input/media/" />
+		</Unit>
+		<Unit filename="src/vdome/input/media/videoLinux/videoGST.cpp">
+			<Option virtualFolder="src/vdome/input/media/videoLinux/" />
+		</Unit>
+		<Unit filename="src/vdome/input/media/videoLinux/videoGST.h">
+			<Option virtualFolder="src/vdome/input/media/videoLinux/" />
+		</Unit>
+		<Unit filename="src/vdome/input/media/videoLinux/videoLinux.cpp">
+			<Option virtualFolder="src/vdome/input/media/videoLinux/" />
+		</Unit>
+		<Unit filename="src/vdome/input/media/videoLinux/videoLinux.h">
+			<Option virtualFolder="src/vdome/input/media/videoLinux/" />
+		</Unit>
+		<Unit filename="src/vdome/input/ofPBO.cpp">
+			<Option virtualFolder="src/vdome/input/" />
+		</Unit>
+		<Unit filename="src/vdome/input/ofPBO.h">
+			<Option virtualFolder="src/vdome/input/" />
+		</Unit>
+		<Unit filename="src/vdome/menu/command.cpp">
+			<Option virtualFolder="src/vdome/menu/" />
+		</Unit>
+		<Unit filename="src/vdome/menu/command.h">
+			<Option virtualFolder="src/vdome/menu/" />
+		</Unit>
+		<Unit filename="src/vdome/menu/menu.cpp">
+			<Option virtualFolder="src/vdome/menu/" />
+		</Unit>
+		<Unit filename="src/vdome/menu/menu.h">
+			<Option virtualFolder="src/vdome/menu/" />
+		</Unit>
+		<Unit filename="src/vdome/menu/saveThread.h">
+			<Option virtualFolder="src/vdome/menu/" />
+		</Unit>
+		<Unit filename="src/vdome/menu/socket.cpp">
+			<Option virtualFolder="src/vdome/menu/" />
+		</Unit>
+		<Unit filename="src/vdome/menu/socket.h">
+			<Option virtualFolder="src/vdome/menu/" />
+		</Unit>
+		<Unit filename="src/vdome/renderer/model.cpp">
+			<Option virtualFolder="src/vdome/renderer/" />
+		</Unit>
+		<Unit filename="src/vdome/renderer/model.h">
+			<Option virtualFolder="src/vdome/renderer/" />
+		</Unit>
+		<Unit filename="src/vdome/renderer/projector/camera.cpp">
+			<Option virtualFolder="src/vdome/renderer/projector/" />
+		</Unit>
+		<Unit filename="src/vdome/renderer/projector/camera.h">
+			<Option virtualFolder="src/vdome/renderer/projector/" />
+		</Unit>
+		<Unit filename="src/vdome/renderer/projector/cornerpin.cpp">
+			<Option virtualFolder="src/vdome/renderer/projector/" />
+		</Unit>
+		<Unit filename="src/vdome/renderer/projector/cornerpin.h">
+			<Option virtualFolder="src/vdome/renderer/projector/" />
+		</Unit>
+		<Unit filename="src/vdome/renderer/projector/mask.cpp">
+			<Option virtualFolder="src/vdome/renderer/projector/" />
+		</Unit>
+		<Unit filename="src/vdome/renderer/projector/mask.h">
+			<Option virtualFolder="src/vdome/renderer/projector/" />
+		</Unit>
+		<Unit filename="src/vdome/renderer/projector/plane.cpp">
+			<Option virtualFolder="src/vdome/renderer/projector/" />
+		</Unit>
+		<Unit filename="src/vdome/renderer/projector/plane.h">
+			<Option virtualFolder="src/vdome/renderer/projector/" />
+		</Unit>
+		<Unit filename="src/vdome/renderer/projector/projector.cpp">
+			<Option virtualFolder="src/vdome/renderer/projector/" />
+		</Unit>
+		<Unit filename="src/vdome/renderer/projector/projector.h">
+			<Option virtualFolder="src/vdome/renderer/projector/" />
+		</Unit>
+		<Unit filename="src/vdome/renderer/render.cpp">
+			<Option virtualFolder="src/vdome/renderer/" />
+		</Unit>
+		<Unit filename="src/vdome/renderer/render.h">
+			<Option virtualFolder="src/vdome/renderer/" />
+		</Unit>
+		<Unit filename="src/vdome/renderer/window.cpp">
+			<Option virtualFolder="src/vdome/renderer/" />
+		</Unit>
+		<Unit filename="src/vdome/renderer/window.h">
+			<Option virtualFolder="src/vdome/renderer/" />
+		</Unit>
+		<Unit filename="src/vdome/vdome.cpp">
+			<Option virtualFolder="src/vdome/" />
+		</Unit>
+		<Unit filename="src/vdome/vdome.h">
+			<Option virtualFolder="src/vdome/" />
+		</Unit>
 		<Extensions>
 			<code_completion />
 			<envvars />
