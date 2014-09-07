@@ -13,7 +13,7 @@
 #include "videoWin.h"
 #endif
 #ifdef TARGET_LINUX
-#include "videoLinux/videoLinux.h"
+#include "videoLinux.h"
 #endif
 
 using namespace ofx::Media;
