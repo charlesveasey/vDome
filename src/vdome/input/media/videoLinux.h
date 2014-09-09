@@ -1,15 +1,13 @@
-#ifdef TARGET_LINUX
 #pragma once
-#include "ofPBO.h"
-#include "ofVideoPlayer.h"
+#include "videoGST.h"
 namespace vd{
-class VideoGST : public ofThread{
+
+class VideoLinux {
 
 public:
-    VideoGST();
+    VideoLinux();
 
-    bool open(string filepath);
-	void threadedFunction();
+    void open(string filepath);
     void update();
     void bind();
     void unbind();
@@ -18,21 +16,19 @@ public:
     void close();
     void seek(float f);
     bool isPlaying();
-    void setUsePbo(bool uPbo);
     void setLoop(bool lp);
     float getPosition();
     float getDuration();
     bool getIsMovieDone();
     void setVolume(float v);
+    bool isLoaded();
 
-    ofVideoPlayer player;
-    ofTexture texture;
-    ofPixels pixels;
-    ofPBO pbo;
+    ofEvent<bool> endEvent;
+    string forceVideoRenderer;
 
 private:
-    bool bPbo;
-    ofLoopType loopT;
+    VideoGST vGST;
+    bool bEnd;
+    bool bLoaded;
 };
 }
-#endif

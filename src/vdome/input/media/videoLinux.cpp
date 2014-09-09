@@ -1,4 +1,3 @@
-#ifdef TARGET_LINUX
 #include "videoLinux.h"
 using namespace vd;
 
@@ -40,7 +39,7 @@ void VideoLinux::close(){
     vGST.close();
 }
 
-void VideoWin::seek(float f){
+void VideoLinux::seek(float f){
     vGST.seek(f);
 }
 
@@ -71,4 +70,3 @@ void VideoLinux::setVolume(float v){
 bool VideoLinux::isLoaded(){
     return bLoaded;
 }
-#endif
