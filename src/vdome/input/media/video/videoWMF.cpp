@@ -85,5 +85,5 @@ bool VideoWMF::isSupported(){
 }
 
 void VideoWMF::setVolume(float v){
-    //player.setVolume(v);
+    player.setVolume(v);
 }
