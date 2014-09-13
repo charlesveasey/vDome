@@ -17,7 +17,12 @@ QuadWarp::QuadWarp() {
     bEnabled = false;
     bShow = false;
 	value = 1;
-	ctrl = false;
+    
+    #ifdef TARGET_OSX
+        cKey = OF_KEY_COMMAND;
+    #else
+        cKey = OF_KEY_CONTROL;
+    #endif
 }
 
 QuadWarp::~QuadWarp() {
@@ -245,7 +250,7 @@ void QuadWarp::onMouseDragged(ofMouseEventArgs& mouseArgs) {
         }
         ofPoint mousePoint(mouseArgs.x, mouseArgs.y);
         
-        if (ctrl) {
+        if (ofGetKeyPressed(cKey)) {
             dstPoints[selectedCornerIndex].set( dstPoints[selectedCornerIndex]- (lastMouse - mousePoint) * value);
 
             if (selectedCornerIndex == 0) {
@@ -280,9 +285,6 @@ void QuadWarp::onMouseReleased(ofMouseEventArgs& mouseArgs) {
 
 void QuadWarp::keyPressed(ofKeyEventArgs& keyArgs) {
     if(bShow){
-        if (keyArgs.key == OF_KEY_COMMAND || keyArgs.key == OF_KEY_CONTROL)
-            ctrl = true;
-        
         if(selectedCornerIndex < 0 || selectedCornerIndex > 3) {
             return;
         }
@@ -306,8 +308,6 @@ void QuadWarp::keyPressed(ofKeyEventArgs& keyArgs) {
 }
     
 void QuadWarp::keyReleased(ofKeyEventArgs& keyArgs) {
-    if (keyArgs.key == OF_KEY_COMMAND || keyArgs.key == OF_KEY_CONTROL)
-        ctrl = false;
 }
     
 

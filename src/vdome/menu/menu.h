@@ -31,7 +31,7 @@ public:
 class Menu {
 public:
     Menu();
-    
+        
     // draw methods
  	void draw(int i);
     void drawMain(int i);
@@ -129,10 +129,8 @@ public:
     int pady;
 
     // keyboard
-    bool shift;
-    bool alt;
-    bool ctrl;
     bool all;
+    int cKey;
 
     // value
     float value;

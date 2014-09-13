@@ -79,7 +79,7 @@ protected:
     int selectedCornerIndex;
     bool bEnabled;
     ofPoint lastMouse;
-    bool ctrl;
+    int cKey;
 };
 
 }

@@ -42,6 +42,7 @@ private:
     vector<Window> windows;
     vector<Projector> projectors;
     ofVec3f sphToCar(ofVec3f t);
+    int cKey;
 
     ofXml xml;
     string xmlFile;

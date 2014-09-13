@@ -25,6 +25,12 @@ vdome::vdome() {
 	input.model = &model;
     autosave = false;
 	wIndex = 0;
+    
+    #ifdef TARGET_OSX
+        cKey = OF_KEY_COMMAND;
+    #else
+        cKey = OF_KEY_CONTROL;
+    #endif
 }
 
 /******************************************
@@ -103,6 +109,9 @@ void vdome::update() {
     }
     
     if (menu.active) {
+        if (ofGetKeyPressed(cKey) && ofGetKeyPressed(115) && !autosave) { // ctrl + s = save
+            saveXML(xml);
+        }
         if (saveThread.saved) {
             menu.saved = true;
             saveThread.saved = false;
@@ -309,27 +318,20 @@ void vdome::mouseReleased(ofMouseEventArgs& mouseArgs) {
  ********************************************/
 
 void vdome::keyPressed(int key){
-    if (key == 115 && !autosave) { // ctrl + s = save
-        if (menu.active && menu.ctrl)
-            saveXML(xml);
-    }
     menu.keyPressed(key);
 }
 
 void vdome::keyReleased(int key){
     menu.keyReleased(key);
-    if (key != OF_KEY_UP || key == OF_KEY_DOWN) {
+    if (key != OF_KEY_UP && key != OF_KEY_DOWN) {
         if (autosave && menu.active)
             saveXML(xml);
     }
-	#ifdef TARGET_WIN32
-	if (menu.ctrl && key == 113) // ctrl+q = quit
+    #ifdef TARGET_OSX
+    #else
+	if (ofGetKeyPressed(cKey) && key == 113) // ctrl+q = quit
 		ofExit(0);
-	#endif
-	#ifdef TARGET_LINUX
-	if (menu.ctrl && key == 113)
-		ofExit(0);
-	#endif
+    #endif
 }
 
 /******************************************

@@ -163,11 +163,12 @@ Menu::Menu(){
     orgValue = 1;
     shiftValue = .1;
     altValue = .01;
-
-    // config draw
-	shift = false;
-	alt = false;
-	ctrl = false;
+    
+    #ifdef TARGET_OSX
+        cKey = OF_KEY_COMMAND;
+    #else
+        cKey = OF_KEY_CONTROL;
+    #endif
 
     // layout
     pw = 200;
@@ -619,34 +620,33 @@ void Menu::keyPressed(int key) {
             
 		// ctrl + o = open media file dialog
         case 111:
-            if (ctrl)
+            if (ofGetKeyPressed(cKey))
 				input->openFileDialog();
             break;
-
-        // MODIFIERS
-        case OF_KEY_ALT:
-            value = altValue;
-            alt = true;
-            break;
-
-        case OF_KEY_CONTROL:
-            ctrl = true;
-            break;
-
-        case OF_KEY_SHIFT:
-            value = shiftValue;
-            shift = true;
-            break;
-
-        case OF_KEY_SUPER:
-            ctrl = true;
-            break;
-            
     }
+    
+    
+    // SET VALUE
+    if (ofGetKeyPressed(OF_KEY_ALT)){
+        value = altValue;
+    }
+    else if (ofGetKeyPressed(OF_KEY_SHIFT)){
+        value = shiftValue;
+    }
+    else {
+        value = orgValue;
+    }
+    
+    for (int i=0; i<projCount; i++) {
+        projectors->at(i).setValue(value);
+    }
+    model->value = value;
 
+    
     for (int k=0; k<projCount; k++) {
-        if (projectors->at(k).active)
+        if (projectors->at(k).active) {
             projectors->at(k).keyPressed(key);
+        }
     }
 
     // MENU
@@ -681,12 +681,6 @@ void Menu::keyPressed(int key) {
             back();
             break;
     }
-
-    // SET VALUE
-    for (int i=0; i<projCount; i++) {
-        projectors->at(i).setValue(value);
-    }
-    model->value = value;
 
     if (key == OF_KEY_LEFT || key == OF_KEY_RIGHT) {
 
@@ -736,16 +730,48 @@ void Menu::keyPressed(int key) {
     }
 
     // 1 - 10 projectors
-   if (key >= 48 && key <= 57)  {
+    
+    else if (key == 33){
+        key = 49;
+    }
+    else if (key == 64){
+        key = 50;
+    }
+    else if (key == 35){
+        key = 51;
+    }
+    else if (key == 36){
+        key = 52;
+    }
+    else if (key == 37){
+        key = 53;
+    }
+    else if (key == 94){
+        key = 54;
+    }
+    else if (key == 38){
+        key = 55;
+    }
+    else if (key == 42){
+        key = 56;
+    }
+    else if (key == 40){
+        key = 57;
+    }
+    else if (key == 41){
+        key = 48;
+    }
+    
+    if (key >= 48 && key <= 57)  {
 
         // map key to projector
         if (key == 48) pActive = 10;
         else pActive = key-49;
 
         if (pActive < projCount) {
-
+            
            // shift groups, otherwise reset
-           if (!shift) {
+           if (!ofGetKeyPressed(OF_KEY_SHIFT)) {
                for (int i=0; i<projCount; i++) {
                    if (i != pActive) {
                        projectors->at(i).keyboard = false;
@@ -765,11 +791,10 @@ void Menu::keyPressed(int key) {
            int ymouse = projectors->at(pActive).getPlanePosition().y+projectors->at(pActive).getPlaneDimensions().y/2;
 
            if (projectors->at(pActive).active) {
-                #ifdef TARGET_OSX
-                    glutWarpPointer(xmouse+ofGetWindowPositionX(), -ymouse-ofGetWindowPositionY());
-                #endif
                 #ifdef TARGET_WIN32
                     SetCursorPos(xmouse+ofGetWindowPositionX(), ymouse+ofGetWindowPositionY());
+                #else
+                    glutWarpPointer(xmouse+ofGetWindowPositionX(), -ymouse-ofGetWindowPositionY());
                 #endif
            }
            setEditMode();
@@ -1098,37 +1123,13 @@ void Menu::setEditMode() {
 
 
 void Menu::keyReleased(int key) {
-
     for (int i=0; i<projCount; i++) {
         projectors->at(i).keyReleased(key);
         projectors->at(i).mask.keyReleased(key);
     }
-
-    switch(key){
-
-        case OF_KEY_ALT:
-            value = orgValue;
-            alt = false;
-            break;
-
-        case OF_KEY_CONTROL:
-            ctrl = false;
-            break;
-
-        case OF_KEY_SHIFT:
-            value = orgValue;
-            shift = false;
-            break;
-
-        case OF_KEY_SUPER:
-            ctrl = false;
-            break;
-    }
-
     for (int i=0; i<projCount; i++) {
         projectors->at(i).setValue(value);
     }
-
 }
 
 /******************************************
