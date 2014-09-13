@@ -322,6 +322,9 @@ void vdome::keyPressed(int key){
 }
 
 void vdome::keyReleased(int key){
+
+	cout << key << endl;
+
     menu.keyReleased(key);
     if (key != OF_KEY_UP && key != OF_KEY_DOWN) {
         if (autosave && menu.active)
@@ -329,7 +332,7 @@ void vdome::keyReleased(int key){
     }
     #ifdef TARGET_OSX
     #else
-	if (ofGetKeyPressed(cKey) && key == 113) // ctrl+q = quit
+	if (ofGetKeyPressed(cKey) && (key == 113 || key == 17)) // ctrl+q = quit
 		ofExit(0);
     #endif
 }
