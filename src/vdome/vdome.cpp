@@ -322,9 +322,6 @@ void vdome::keyPressed(int key){
 }
 
 void vdome::keyReleased(int key){
-
-	cout << key << endl;
-
     menu.keyReleased(key);
     if (key != OF_KEY_UP && key != OF_KEY_DOWN) {
         if (autosave && menu.active)
