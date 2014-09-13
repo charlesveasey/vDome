@@ -109,9 +109,6 @@ void vdome::update() {
     }
     
     if (menu.active) {
-        if (ofGetKeyPressed(cKey) && ofGetKeyPressed(115) && !autosave) { // ctrl + s = save
-            saveXML(xml);
-        }
         if (saveThread.saved) {
             menu.saved = true;
             saveThread.saved = false;
@@ -319,6 +316,9 @@ void vdome::mouseReleased(ofMouseEventArgs& mouseArgs) {
 
 void vdome::keyPressed(int key){
     menu.keyPressed(key);
+	if (ofGetKeyPressed(cKey) && (ofGetKeyPressed(115) || ofGetKeyPressed(19)) && !autosave) { // ctrl + s = save
+        saveXML(xml);
+    }
 }
 
 void vdome::keyReleased(int key){
