@@ -135,7 +135,7 @@ public:
     // value
     float value;
     float orgValue;
-    float shiftValue;
+    float ctrlValue;
     float altValue;
 
     // pointers

@@ -161,7 +161,7 @@ Menu::Menu(){
     // add values
     value = 1;
     orgValue = 1;
-    shiftValue = .1;
+    ctrlValue = .1;
     altValue = .01;
     
     #ifdef TARGET_OSX
@@ -630,8 +630,8 @@ void Menu::keyPressed(int key) {
     if (ofGetKeyPressed(OF_KEY_ALT)){
         value = altValue;
     }
-    else if (ofGetKeyPressed(OF_KEY_SHIFT)){
-        value = shiftValue;
+    else if (ofGetKeyPressed(cKey)){
+        value = ctrlValue;
     }
     else {
         value = orgValue;
