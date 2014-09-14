@@ -6,6 +6,7 @@
 #include "capture.h"
 #include "color.h"
 #include "model.h"
+#include "spoutR.h"
 
 #ifdef TARGET_OSX
 #include "ofxSyphon.h"
@@ -55,7 +56,7 @@ public:
     enum editModes{NONE, SOURCE, LOOP};
 
     int source;
-    enum sources {MEDIA, CAPTURE, SYPHON, GRID, BLACK, WHITE, GREY};
+    enum sources {MEDIA, CAPTURE, SYPHON, SPOUT, GRID, BLACK, WHITE, GREY};
 	int maxSource;
 
     bool isVideo;
@@ -69,14 +70,17 @@ public:
     Socket *socket;
 	Model *model;
 
-
 private:
     void mediaEnd(bool &end);
     
     Media media;
     Capture capture;
     Color color;
-    
+
+#ifdef TARGET_WIN32
+	SpoutR spout;
+#endif
+
 #ifdef TARGET_OSX
     ofxSyphonClient syphon;
 #endif
@@ -86,9 +90,7 @@ private:
     int lastSource;
     bool durationSent;
     bool endSent;
-    
-
+   
 };
     
-
 }

@@ -54,6 +54,12 @@ void Input::setup(){
             syphon.setup();
             #endif
             break;
+
+        case SPOUT:
+            #ifdef TARGET_WIN32
+            spout.setup();
+            #endif
+            break;
             
         default:        color.fillBlack();                              break;
     }
@@ -75,6 +81,10 @@ void Input::bind(){
     #ifdef TARGET_OSX
     if (source == SYPHON)    syphon.bind();
     #endif
+
+	#ifdef TARGET_WIN32
+	if (source == SPOUT)    spout.bind();
+	#endif
 }
 
 void Input::unbind(){
@@ -86,6 +96,10 @@ void Input::unbind(){
     #ifdef TARGET_OSX
     if (source == SYPHON)    syphon.unbind();
     #endif
+
+	#ifdef TARGET_WIN32
+	if (source == SPOUT)    spout.unbind();
+	#endif
 }
 
 /******************************************
@@ -118,6 +132,7 @@ void Input::setSource(string s) {
     if      (s == "media")      source = MEDIA;
     else if (s == "capture")    source = CAPTURE;
     else if (s == "syphon")     source = SYPHON;
+	else if (s == "spout")      source = SPOUT;
     else if (s == "grid")       source = GRID;
     else if (s == "black")      source = BLACK;
     else if (s == "white")      source = WHITE;
@@ -224,7 +239,7 @@ void Input::keyPressed(int key) {
         lastSource = source;
         source += inc;
         if (source+inc > maxSource)     source = maxSource;
-        else if (source+inc < 0)          source = 0;
+        else if (source+inc < 0)        source = 0;
         #ifdef TARGET_WIN32
         if (source == SYPHON)           source += inc;
         #endif
@@ -285,6 +300,7 @@ void Input::loadXML(ofXml &xml) {
         else if (v == "media")     source = MEDIA;
         else if (v == "capture")   source = CAPTURE;
         else if (v == "syphon")    source = SYPHON;
+		else if (v == "spout")	   source = SPOUT;
         else if (v == "black")     source = BLACK;
         else if (v == "white")     source = WHITE;
         else if (v == "grey")      source = GREY;
@@ -315,6 +331,7 @@ void Input::saveXML(ofXml &xml) {
     else if (source == MEDIA)     str = "media";
     else if (source == CAPTURE)   str = "capture";
     else if (source == SYPHON)    str = "syphon";
+	else if (source == SPOUT)     str = "spout";
     else if (source == BLACK)     str = "black";
     else if (source == WHITE)     str = "white";
     else if (source == GREY)      str = "grey";
