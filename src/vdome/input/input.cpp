@@ -83,7 +83,10 @@ void Input::update(){
         }
     }
     else if (source == CAPTURE)		capture.update();
+    
+    #ifdef TARGET_WIN32
 	else if (source == SPOUT)		spout.update();
+    #endif
 }
 
 /******************************************

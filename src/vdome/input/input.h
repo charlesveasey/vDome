@@ -6,7 +6,10 @@
 #include "capture.h"
 #include "color.h"
 #include "model.h"
+
+#ifdef TARGET_WIN32
 #include "spoutR.h"
+#endif
 
 #ifdef TARGET_OSX
 #include "ofxSyphon.h"
