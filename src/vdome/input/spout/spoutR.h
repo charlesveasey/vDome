@@ -8,11 +8,9 @@ class SpoutR {
 
 	public:
 		void setup();
-		void draw();
+		void update();
 		void bind();
-		void unbind();
-		
-		void mousePressed(int x, int y, int button);
+		void unbind();		
 		void exit(); 
 
 		bool bInitialized;				// Initialization result
@@ -22,5 +20,4 @@ class SpoutR {
 		ofTexture texture;				// Texture used for texture share transfers
 		unsigned int g_Width, g_Height;	// Global width and height
 		char SenderName[256];			// Shared memory name
-
 };

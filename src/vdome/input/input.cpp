@@ -9,7 +9,7 @@ namespace vd {
 
 Input::Input(){
     durationSent = false;
-    maxSource = 6;
+    maxSource = 7;
     resolution = 2048;
     framerate = 30;
     slide = 10;
@@ -68,6 +68,26 @@ void Input::setup(){
 
 /******************************************
  
+ UPDATE
+ 
+ ********************************************/
+
+void Input::update(){
+    if (source == MEDIA) {
+        media.update();
+        if (!durationSent) {
+            if (media.getDuration() > 0 && media.isLoaded()) {
+                socket->sendDuration();
+                durationSent = true;
+            }
+        }
+    }
+    else if (source == CAPTURE)		capture.update();
+	else if (source == SPOUT)		spout.update();
+}
+
+/******************************************
+ 
  BIND
  
  ********************************************/
@@ -100,27 +120,7 @@ void Input::unbind(){
 	#ifdef TARGET_WIN32
 	if (source == SPOUT)    spout.unbind();
 	#endif
-}
-
-/******************************************
- 
- UPDATE
- 
- ********************************************/
-
-void Input::update(){
-    if (source == MEDIA) {
-        media.update();
-        if (!durationSent) {
-            if (media.getDuration() > 0 && media.isLoaded()) {
-                socket->sendDuration();
-                durationSent = true;
-            }
-        }
-    }
-    else if (source == CAPTURE)  capture.update();
-}
-    
+}    
     
 /******************************************
  
@@ -240,6 +240,9 @@ void Input::keyPressed(int key) {
         source += inc;
         if (source+inc > maxSource)     source = maxSource;
         else if (source+inc < 0)        source = 0;
+        #ifdef TARGET_OSX
+        if (source == SPOUT)           source += inc;
+        #endif
         #ifdef TARGET_WIN32
         if (source == SYPHON)           source += inc;
         #endif
