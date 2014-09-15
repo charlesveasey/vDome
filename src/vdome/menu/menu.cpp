@@ -224,13 +224,14 @@ void Menu::drawMain(int i){
                 case INPUT:
                     switch (j) {
                         case SOURCE:
-                            if (input->source == 0)		 val = "Media";
+                            if (input->source == 0)		   val = "Media";
 							else if (input->source == 1)   val = "Capture";
                             else if (input->source == 2)   val = "Syphon";
-                            else if (input->source == 3)   val = "Grid";
-                            else if (input->source == 4)   val = "Black";
-                            else if (input->source == 5)   val = "White";
-                            else if (input->source == 6)   val = "Grey";
+							else if (input->source == 3)   val = "Spout";
+                            else if (input->source == 4)   val = "Grid";
+                            else if (input->source == 5)   val = "Black";
+                            else if (input->source == 6)   val = "White";
+                            else if (input->source == 7)   val = "Grey";
                             break;
                         case FORMAT:
                             val = "Domemaster";
