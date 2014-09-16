@@ -2,9 +2,9 @@
 namespace vd {
 
 /******************************************
- 
+
  CONSTRUCTOR
- 
+
  ********************************************/
 
 Input::Input(){
@@ -20,18 +20,18 @@ Input::Input(){
 }
 
 /******************************************
- 
+
  SETUP
- 
+
  ********************************************/
 
 void Input::setup(){
     stop();
     close();
-    
+
     durationSent = false;
     endSent = false;
-    
+
 	if (source == CAPTURE || source == SYPHON){
 		model->textureFlipInternal = true;
 		model->setup();
@@ -48,7 +48,7 @@ void Input::setup(){
         case BLACK:     color.fillBlack();                              break;
         case WHITE:     color.fillWhite();                              break;
         case GREY:      color.fillGrey();                               break;
-        
+
         case SYPHON:
             #ifdef TARGET_OSX
             syphon.setup();
@@ -60,16 +60,16 @@ void Input::setup(){
             spout.setup();
             #endif
             break;
-            
+
         default:        color.fillBlack();                              break;
     }
-    
+
 }
 
 /******************************************
- 
+
  UPDATE
- 
+
  ********************************************/
 
 void Input::update(){
@@ -83,16 +83,16 @@ void Input::update(){
         }
     }
     else if (source == CAPTURE)		capture.update();
-    
+
     #ifdef TARGET_WIN32
 	else if (source == SPOUT)		spout.update();
     #endif
 }
 
 /******************************************
- 
+
  BIND
- 
+
  ********************************************/
 
 void Input::bind(){
@@ -100,7 +100,7 @@ void Input::bind(){
     else if (source == CAPTURE)  capture.bind();
     else if (source == GRID)     media.bind();
     else if (source == BLACK || source == WHITE || source == GREY)     color.bind();
-    
+
     #ifdef TARGET_OSX
     if (source == SYPHON)    syphon.bind();
     #endif
@@ -123,12 +123,12 @@ void Input::unbind(){
 	#ifdef TARGET_WIN32
 	if (source == SPOUT)    spout.unbind();
 	#endif
-}    
-    
+}
+
 /******************************************
- 
+
  CONTROLS
- 
+
  ********************************************/
 
 void Input::setSource(string s) {
@@ -198,20 +198,20 @@ void Input::setResolution(int r){
     color.setResolution(r);
     capture.setResolution(r);
 }
-    
+
 void Input::setSlide(int s){
     slide = s;
     media.setSlideshow(true, s);
 }
- 
+
 string Input::getFilepath(){
     return media.getFilepath();
 }
-    
+
 void Input::setVolume(float v){
     media.setVolume(v);
 }
-    
+
 void Input::mediaEnd(bool &end){
     if (!endSent) {
         socket->sendEnd();
@@ -220,9 +220,9 @@ void Input::mediaEnd(bool &end){
 }
 
 /******************************************
- 
+
  KEYBOARD
- 
+
  ********************************************/
 
 void Input::keyPressed(int key) {
@@ -232,7 +232,7 @@ void Input::keyPressed(int key) {
             inc++;
             if (editMode == LOOP)       setLoop(true);      break;
             break;
-            
+
         case OF_KEY_LEFT:
             inc--;
             if (editMode == LOOP)       setLoop(false);      break;
@@ -244,35 +244,37 @@ void Input::keyPressed(int key) {
         if (source+inc > maxSource)     source = maxSource;
         else if (source+inc < 0)        source = 0;
         #ifdef TARGET_OSX
-        if (source == SPOUT)           source += inc;
+        if (source == SPOUT)            source += inc;
         #endif
         #ifdef TARGET_WIN32
         if (source == SYPHON)           source += inc;
         #endif
         #ifdef TARGET_LINUX
-        if (source == SYPHON)           source += inc;
+        while (source == SYPHON || source == SPOUT) {
+            source += inc;
+        }
         #endif
         if (lastSource != source)       setup();
     }
 }
 
 /******************************************
- 
+
  FILE OPEN
- 
+
  ********************************************/
-  
+
 void Input::setFile(string filepath){
     files.clear();
     files.push_back(filepath);
     source = MEDIA;
 }
-    
+
 void Input::openFile(string filepath){
     setFile(filepath);
     setup();
 }
-    
+
 void Input::dragEvent(ofDragInfo dragInfo){
     source = MEDIA;
     files = dragInfo.files;
@@ -286,17 +288,17 @@ void Input::openFileDialog(){
 }
 
 /******************************************
- 
+
  SETTINGS
- 
+
  ********************************************/
 
 void Input::loadXML(ofXml &xml) {
     string v;
-    
+
     if (xml.exists("[@resolution]"))
         setResolution(ofToInt( xml.getAttribute("[@resolution]")));
- 
+
 	if (xml.exists("input[@file]"))
         setFile(ofToString(xml.getAttribute("input[@file]")));
 
@@ -311,28 +313,28 @@ void Input::loadXML(ofXml &xml) {
         else if (v == "white")     source = WHITE;
         else if (v == "grey")      source = GREY;
     }
-    
+
     if (xml.exists("input[@loop]")) {
         v = xml.getAttribute("input[@loop]");
         if (v == "on") setLoop(true);
         else           setLoop(false);
     }
-    
+
     if (xml.exists("input[@slide]"))
         setSlide(ofToFloat( xml.getAttribute("input[@slide]")));
-    
+
     if (xml.exists("input[@renderer]"))
         media.forceVideoRenderer = ofToString( xml.getAttribute("input[@renderer]") );
-    
+
     setup();
 }
 
 void Input::saveXML(ofXml &xml) {
     xml.setAttribute("resolution", ofToString(resolution));
-    
+
     xml.setTo("input");
     string str;
-    
+
     if (source == GRID)			  str = "grid";
     else if (source == MEDIA)     str = "media";
     else if (source == CAPTURE)   str = "capture";
@@ -341,14 +343,14 @@ void Input::saveXML(ofXml &xml) {
     else if (source == BLACK)     str = "black";
     else if (source == WHITE)     str = "white";
     else if (source == GREY)      str = "grey";
-    
+
     xml.setAttribute("source", str );
     if (files.size() > 0)
         xml.setAttribute("file", files[0] );
-    
+
     if (getLoop()) xml.setAttribute("loop", "on");
     else      xml.setAttribute("loop", "off");
-    
+
     xml.setAttribute("slide", ofToString(slide));
     xml.setToParent();
 }

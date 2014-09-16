@@ -30,7 +30,7 @@ Menu::Menu(){
     menuInput->items.push_back(new Item("Enable"));
     menuInput->items.push_back(new Item("Transform          ->", true));
 
-    
+
     menuInputTransform = new MenuItem;
     menuInputTransform->menuId = INPUT_TRANSFORM;
     menuInputTransform->parent = &menuInput;
@@ -61,7 +61,7 @@ Menu::Menu(){
     menuLevels->currentItem = 0;
     menuLevels->items.push_back(new Item("Black"));
     menuLevels->items.push_back(new Item("White"));
-    
+
     menuBrush = new MenuItem;
     menuBrush->menuId = BRUSH;
     menuBrush->parent = &menuBlend;
@@ -125,7 +125,7 @@ Menu::Menu(){
     menuFov->parent = &menuSetup;
     menuFov->currentItem = 0;
     menuFov->items.push_back(new Item("Field of View"));
-    
+
     menuLens = new MenuItem;
     menuLens->menuId = LENS;
     menuLens->parent = &menuSetup;
@@ -143,7 +143,7 @@ Menu::Menu(){
     menuShear->items.push_back(new Item("Shear ZY"));
     menuShear->items.push_back(new Item("Shear YX"));
     menuShear->items.push_back(new Item("Scale XY"));
-    
+
     menuScale = new MenuItem;
     menuScale->menuId = SCALE;
     menuScale->parent = &menuSetup;
@@ -163,7 +163,7 @@ Menu::Menu(){
     orgValue = 1;
     ctrlValue = .1;
     altValue = .01;
-    
+
     #ifdef TARGET_OSX
         cKey = OF_KEY_COMMAND;
     #else
@@ -246,7 +246,7 @@ void Menu::drawMain(int i){
                             break;
                     }
                     break;
-                    
+
                 case INPUT_TRANSFORM:
                     switch (j) {
                         case INPUT_FLIP:
@@ -283,7 +283,7 @@ void Menu::drawMain(int i){
                             break;
                     }
                     break;
-                
+
                 case BRUSH:
                     switch (j) {
                         case BRUSH_SCALE:
@@ -362,7 +362,7 @@ void Menu::drawMain(int i){
                             break;
                     }
                     break;
-                    
+
                 case LENS:
                     switch (j) {
                         case OFFSET_X:
@@ -618,15 +618,15 @@ void Menu::keyPressed(int key) {
 					input->play();
             }
             break;
-            
+
 		// ctrl + o = open media file dialog
         case 111:
             if (ofGetKeyPressed(cKey))
 				input->openFileDialog();
             break;
     }
-    
-    
+
+
     // SET VALUE
     if (ofGetKeyPressed(OF_KEY_ALT)){
         value = altValue;
@@ -637,13 +637,13 @@ void Menu::keyPressed(int key) {
     else {
         value = orgValue;
     }
-    
+
     for (int i=0; i<projCount; i++) {
         projectors->at(i).setValue(value);
     }
     model->value = value;
 
-    
+
     for (int k=0; k<projCount; k++) {
         if (projectors->at(k).active) {
             projectors->at(k).keyPressed(key);
@@ -654,7 +654,7 @@ void Menu::keyPressed(int key) {
     ///////////////////////////
     if (!active) { return; }
     ///////////////////////////
-    
+
 	// NAVIGATION
     switch (key){
         case OF_KEY_UP:
@@ -666,14 +666,14 @@ void Menu::keyPressed(int key) {
             if ((*currentMenu)->currentItem < (*currentMenu)->items.size()-1)
                 (*currentMenu)->currentItem++;
             break;
-        
+
         case OF_KEY_RIGHT:
             if ( (*currentMenu)->items.at( (*currentMenu)->currentItem )->isParent ) {
                 select();
                 return;
             }
             break;
-            
+
         case OF_KEY_RETURN:
             select();
             break;
@@ -731,7 +731,7 @@ void Menu::keyPressed(int key) {
     }
 
     // 1 - 10 projectors
-    
+
     else if (key == 33){
         key = 49;
     }
@@ -762,7 +762,7 @@ void Menu::keyPressed(int key) {
     else if (key == 41){
         key = 48;
     }
-    
+
     if (key >= 48 && key <= 57)  {
 
         // map key to projector
@@ -770,7 +770,7 @@ void Menu::keyPressed(int key) {
         else pActive = key-49;
 
         if (pActive < projCount) {
-            
+
            // shift groups, otherwise reset
            if (!ofGetKeyPressed(OF_KEY_SHIFT)) {
                for (int i=0; i<projCount; i++) {
@@ -794,7 +794,7 @@ void Menu::keyPressed(int key) {
            if (projectors->at(pActive).active) {
                 #ifdef TARGET_WIN32
                     SetCursorPos(xmouse+ofGetWindowPositionX(), ymouse+ofGetWindowPositionY());
-                #else
+                #elseif TARGET_OSX
                     glutWarpPointer(xmouse+ofGetWindowPositionX(), -ymouse-ofGetWindowPositionY());
                 #endif
            }
@@ -817,7 +817,7 @@ void Menu::setEditMode() {
     int j = (*currentMenu)->currentItem;
 
     switch ((*currentMenu)->menuId) {
-        
+
         case INPUT:
             switch (j) {
                 case SOURCE:
@@ -837,7 +837,7 @@ void Menu::setEditMode() {
                     break;
             }
             break;
-            
+
         case INPUT_TRANSFORM:
             switch (j) {
                 case INPUT_FLIP:
@@ -851,7 +851,7 @@ void Menu::setEditMode() {
                     break;
             }
             break;
-            
+
         case BLEND:
             switch (j) {
                 case BRIGHTNESS:
@@ -868,7 +868,7 @@ void Menu::setEditMode() {
                     break;
             }
             break;
-        
+
         case LEVELS:
             switch (j) {
                 case BLACK:
@@ -885,7 +885,7 @@ void Menu::setEditMode() {
                     break;
             }
             break;
-            
+
         case BRUSH:
             switch (j) {
                 case BRUSH_SCALE:
@@ -1039,7 +1039,7 @@ void Menu::setEditMode() {
                     break;
             }
             break;
-            
+
         case LENS:
             switch (j) {
                 case OFFSET_X:

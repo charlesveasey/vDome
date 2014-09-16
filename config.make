@@ -62,6 +62,7 @@
 #   Note: Leave a leading space when adding list items with the += operator
 ################################################################################
 PROJECT_EXCLUSIONS += $(PROJECT_ROOT)/src/vdome/input/media/video%
+PROJECT_EXCLUSIONS += $(PROJECT_ROOT)/src/vdome/input/spout%
 
 ################################################################################
 # PROJECT LINKER FLAGS

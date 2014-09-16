@@ -457,7 +457,7 @@
 			<Option virtualFolder="addons/ofxOsc/src" />
 		</Unit>
 		<Unit filename="config.make">
-			<Option virtualFolder="build config" />
+			<Option virtualFolder="src/vdome/input/" />
 		</Unit>
 		<Unit filename="src/main.cpp">
 			<Option virtualFolder="src/" />
