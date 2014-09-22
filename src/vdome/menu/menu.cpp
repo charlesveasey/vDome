@@ -794,7 +794,7 @@ void Menu::keyPressed(int key) {
            if (projectors->at(pActive).active) {
                 #ifdef TARGET_WIN32
                     SetCursorPos(xmouse+ofGetWindowPositionX(), ymouse+ofGetWindowPositionY());
-                #elseif TARGET_OSX
+                #else if TARGET_OSX
                     glutWarpPointer(xmouse+ofGetWindowPositionX(), -ymouse-ofGetWindowPositionY());
                 #endif
            }
