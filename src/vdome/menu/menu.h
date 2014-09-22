@@ -5,13 +5,6 @@
 #include "input.h"
 #include "window.h"
 
-#ifdef TARGET_OSX
-#include "../../../libs/glut/lib/osx/GLUT.framework/Versions/A/Headers/glut.h"
-#endif
-
-#ifdef TARGET_WIN32
-#include <windows.h>
-#endif
 namespace vd {
 
 class Item {

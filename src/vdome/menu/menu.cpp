@@ -792,12 +792,7 @@ void Menu::keyPressed(int key) {
            int ymouse = projectors->at(pActive).getPlanePosition().y+projectors->at(pActive).getPlaneDimensions().y/2;
 
            if (projectors->at(pActive).active) {
-                //#ifdef TARGET_WIN32
-                //    SetCursorPos(xmouse+ofGetWindowPositionX(), ymouse+ofGetWindowPositionY());
-                //#else if TARGET_OSX
-                //    glutWarpPointer(xmouse+ofGetWindowPositionX(), -ymouse-ofGetWindowPositionY());
-                //#endif
-                glfwSetCursorPos(glfw->getWindow(), xmouse+ofGetWindowPositionX(), ymouse-ofGetWindowPositionY());
+                glfwSetCursorPos(glfw->getWindow(), xmouse, ymouse);
            }
            setEditMode();
        }
