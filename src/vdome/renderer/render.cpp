@@ -21,17 +21,9 @@ Render::Render(){
 void Render::setup() {
     ofSetVerticalSync(vsync);
 	ofSetFrameRate(framerate);
-
     ofBackground(0,0,0);
-	//ofEnableDepthTest();
     ofEnableNormalizedTexCoords();
-
-    //ofEnableAntiAliasing();
-    //ofEnableSmoothing();
-    ofEnableAlphaBlending();
-	//ofDisableArbTex();
-    ofEnableBlendMode(OF_BLENDMODE_ALPHA);
-
+    ofDisableAntiAliasing();
 }
 
 /******************************************
