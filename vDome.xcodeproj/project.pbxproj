@@ -205,6 +205,8 @@
 		566C5B011968BEBF00139873 /* vdome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vdome.h; sourceTree = "<group>"; };
 		566C5B1D1968F2CF00139873 /* color.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = color.cpp; sourceTree = "<group>"; };
 		566C5B1E1968F2CF00139873 /* color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = color.h; sourceTree = "<group>"; };
+		56745BE719D362D2004B4981 /* AbstractMediaTypeProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractMediaTypeProvider.h; sourceTree = "<group>"; };
+		56745BE819D362D2004B4981 /* MediaTypeMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaTypeMap.h; sourceTree = "<group>"; };
 		56747473191BF9250014815D /* ofxBezierSurface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBezierSurface.cpp; sourceTree = "<group>"; };
 		56747474191BF9250014815D /* ofxBezierSurface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBezierSurface.h; sourceTree = "<group>"; };
 		567AA579190759ED0064C745 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
@@ -213,8 +215,6 @@
 		567AA57D190759ED0064C745 /* ofxAVFVideoPlayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ofxAVFVideoPlayer.mm; sourceTree = "<group>"; };
 		567AA57E190759ED0064C745 /* ofxAVFVideoRenderer.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = ofxAVFVideoRenderer.h; sourceTree = "<group>"; };
 		567AA57F190759ED0064C745 /* ofxAVFVideoRenderer.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = ofxAVFVideoRenderer.m; sourceTree = "<group>"; };
-		567AA5BB190759ED0064C745 /* AbstractMediaTypeProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractMediaTypeProvider.h; sourceTree = "<group>"; };
-		567AA5BC190759ED0064C745 /* MediaTypeMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaTypeMap.h; sourceTree = "<group>"; };
 		567AA5BE190759ED0064C745 /* MediaTypeMap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MediaTypeMap.cpp; sourceTree = "<group>"; };
 		567AA5C2190759ED0064C745 /* ofxMediaType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxMediaType.h; sourceTree = "<group>"; };
 		567AA5D2190759ED0064C745 /* addon_config.mk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = addon_config.mk; sourceTree = "<group>"; };
@@ -720,18 +720,10 @@
 		567AA5B9190759ED0064C745 /* ofx */ = {
 			isa = PBXGroup;
 			children = (
-				567AA5BA190759ED0064C745 /* Media */,
+				56745BE719D362D2004B4981 /* AbstractMediaTypeProvider.h */,
+				56745BE819D362D2004B4981 /* MediaTypeMap.h */,
 			);
 			path = ofx;
-			sourceTree = "<group>";
-		};
-		567AA5BA190759ED0064C745 /* Media */ = {
-			isa = PBXGroup;
-			children = (
-				567AA5BB190759ED0064C745 /* AbstractMediaTypeProvider.h */,
-				567AA5BC190759ED0064C745 /* MediaTypeMap.h */,
-			);
-			path = Media;
 			sourceTree = "<group>";
 		};
 		567AA5BD190759ED0064C745 /* src */ = {
@@ -1688,7 +1680,7 @@
 					"\"$(SRCROOT)/../../../addons/ofxOpenCv/libs/opencv/lib/osx\"",
 					"\"$(SRCROOT)/ofxOpenCv/libs/opencv/lib/osx\"",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = "$(OF_CORE_LIBS)";
 				PRODUCT_NAME = vDomeDebug;
 				WRAPPER_EXTENSION = app;
@@ -1815,7 +1807,7 @@
 					"\"$(SRCROOT)/../../../addons/ofxOpenCv/libs/opencv/lib/osx\"",
 					"\"$(SRCROOT)/ofxOpenCv/libs/opencv/lib/osx\"",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = "$(OF_CORE_LIBS)";
 				PRODUCT_NAME = vDome;
 				WRAPPER_EXTENSION = app;

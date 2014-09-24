@@ -16,7 +16,7 @@
 #include "videoLinux.h"
 #endif
 
-using namespace ofx::Media;
+using namespace ofx;
 
 namespace vd{
 
