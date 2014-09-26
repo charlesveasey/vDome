@@ -77,7 +77,7 @@ private:
     bool bLoop;
     bool bSlideshow;
     ofxM3U m3u;
-    MediaTypeMap * mediaTypeMap;
+    ofx::MediaTypeMap * mediaTypeMap;
     string fpath;
     bool bEnded;
     float vol;
