@@ -153,13 +153,16 @@ bool Input::isPlaying() {
 }
 
 void Input::stop() {
-    media.stop();
+    if (source == MEDIA) media.stop();
 }
 
 void Input::close() {
-    media.close();
-    capture.close();
-    color.close();
+    stop();
+    if      (source == MEDIA)       media.close();
+    else if (source == CAPTURE)     capture.close();
+    else if (source == GRID)        media.close();
+    else if (source == BLACK || source == WHITE || source == GREY)     color.close();
+
 }
 
 void Input::previous() {

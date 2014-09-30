@@ -327,10 +327,7 @@ void vdome::keyReleased(int key){
         if (autosave && menu.active)
             saveXML(xml);
     }
-    
     #ifdef TARGET_OSX
-    if (key == 4352)
-        ofExit(0);
     #else
 	if (ofGetKeyPressed(cKey) && (key == 113 || key == 17)) // ctrl+q = quit
 		ofExit(0);
@@ -354,13 +351,9 @@ void vdome::dragEvent(ofDragInfo dragInfo){
  ********************************************/
 
 void vdome::exit(){
-    #ifdef TARGET_OSX
-    input.close();
-    #else
     saveThread.waitForThread(true);
     input.stop();
     input.close();
-    #endif
 }
 
 }
