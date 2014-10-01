@@ -24,11 +24,12 @@ public:
     void setVolume(float v);
 
     ofxHapPlayer player;
-    //ofShader shader;
+    ofShader shader;
 
 private:
     ofLoopType loopT;
     bool bEnd;
+	bool bHapQ;
 
 };
 }

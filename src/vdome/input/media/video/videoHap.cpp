@@ -1,30 +1,35 @@
 #include "videoHap.h"
+
 using namespace vd;
 
 VideoHap::VideoHap() {
     loopT = OF_LOOP_NONE;
-    //shader.load("settings/shaders/hap");
+    shader.load("settings/shaders/hap");
 }
 
 bool VideoHap::open(string filepath){
     bEnd = false;
+	bHapQ = false;
     if (!player.loadMovie(filepath)) {
         return false;
     }
+	bHapQ = player.isHapQ();
     player.play();
     player.setLoopState(loopT);
     return true;
 }
 
 void VideoHap::bind(){
+	if (bHapQ)
+		shader.begin();
     player.getTexture()->setTextureWrap(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
-    //shader.begin();
     player.getTexture()->bind();
 }
 
 void VideoHap::unbind(){
     player.getTexture()->unbind();
-    //shader.end();
+	if (bHapQ)
+		shader.end(); 
 }
 
 void VideoHap::update(){
