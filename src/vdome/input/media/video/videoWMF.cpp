@@ -44,7 +44,6 @@ void VideoWMF::update(){
 	}else {
 		markEnd = false;
 	}
-	
 
 	if (positionRequest >= 0){
 		positionRequestFrameCnt++;
@@ -56,7 +55,6 @@ void VideoWMF::update(){
 		positionRequest = -1;
 		storePositionFrameCnt = 0;
 	}
-	
 }
 
 void VideoWMF::play(){
