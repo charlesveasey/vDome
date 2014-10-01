@@ -27,12 +27,16 @@ public:
 	ofxWMFVideoPlayer player;
 
 private:
+	void videoLoaded(bool &success);
     bool bLoop;
 	bool bLoaded;
 	bool bSupported;
 	bool bEnded;
 	bool markEnd;
-	void videoLoaded(bool &success);
+	float positionRequest;
+	int positionRequestFrameCnt;
+	float storePositionFix;
+	int storePositionFrameCnt;
 
 };
 }

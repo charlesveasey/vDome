@@ -4,6 +4,9 @@ using namespace vd;
 VideoWMF::VideoWMF() {
 	bLoop = false;
 	markEnd = false;
+	positionRequestFrameCnt = 0;
+	positionRequest = -1;
+	storePositionFix =-1;
 	ofAddListener(player.videoLoadEvent, this, &VideoWMF::videoLoaded);
 }
 
@@ -12,6 +15,9 @@ bool VideoWMF::open(string filepath){
 	bSupported = false;
 	bEnded = false;
 	markEnd = false;
+	positionRequestFrameCnt = 0;
+	positionRequest = -1;
+	storePositionFix = -1;
 	player.loadMovie(filepath);
     player.play();
 	player.setLoop(bLoop);
@@ -25,17 +31,32 @@ void VideoWMF::bind(){
 void VideoWMF::unbind(){
 	player.unbind();
 }
+
 void VideoWMF::update(){
 	player.update();
 	if (markEnd && !player.getPosition()){
 		bEnded = true;
 		markEnd = false;
 	}	
+	
 	if (player.getPosition() > 0.99){
 		markEnd = true;
 	}else {
 		markEnd = false;
 	}
+	
+
+	if (positionRequest >= 0){
+		positionRequestFrameCnt++;
+	}
+	if (positionRequestFrameCnt > 20){
+		positionRequestFrameCnt = -1;
+		player.setPosition(positionRequest);
+		storePositionFix = positionRequest;
+		positionRequest = -1;
+		storePositionFrameCnt = 0;
+	}
+	
 }
 
 void VideoWMF::play(){
@@ -43,7 +64,7 @@ void VideoWMF::play(){
 }
 
 void VideoWMF::stop(){
-    player.stop();
+    player.pause();
 }
 
 void VideoWMF::close(){
@@ -53,7 +74,7 @@ void VideoWMF::close(){
 }
 
 void VideoWMF::seek(float f){
-    player.setPosition(f);
+	positionRequest = f;
 }
 
 bool VideoWMF::isPlaying(){
@@ -68,7 +89,16 @@ void VideoWMF::setLoop(bool lp){
 }
 
 float VideoWMF::getPosition(){
-    return player.getPosition();
+	if (storePositionFix != -1){
+		if (player.getPosition() != storePositionFix || !player.getPosition()){
+			return storePositionFix;
+		}
+		if (floorf(player.getPosition()) == floorf(storePositionFix)) {
+			storePositionFix = -1;
+			return player.getPosition();
+		}
+	}
+	return player.getPosition();
 }
 
 float VideoWMF::getDuration(){
