@@ -37,6 +37,6 @@ private:
 	int positionRequestFrameCnt;
 	float storePositionFix;
 	int storePositionFrameCnt;
-
+	bool bPaused;
 };
 }
