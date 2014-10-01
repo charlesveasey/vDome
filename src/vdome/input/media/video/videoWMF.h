@@ -31,6 +31,7 @@ private:
 	bool bLoaded;
 	bool bSupported;
 	bool bEnded;
+	bool markEnd;
 	void videoLoaded(bool &success);
 
 };

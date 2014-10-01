@@ -3,6 +3,7 @@ using namespace vd;
 
 VideoWMF::VideoWMF() {
 	bLoop = false;
+	markEnd = false;
 	ofAddListener(player.videoLoadEvent, this, &VideoWMF::videoLoaded);
 }
 
@@ -10,6 +11,7 @@ bool VideoWMF::open(string filepath){
 	bLoaded = false;
 	bSupported = false;
 	bEnded = false;
+	markEnd = false;
 	player.loadMovie(filepath);
     player.play();
 	player.setLoop(bLoop);
@@ -23,11 +25,17 @@ void VideoWMF::bind(){
 void VideoWMF::unbind(){
 	player.unbind();
 }
-
 void VideoWMF::update(){
 	player.update();
-	if (player.getPosition() >= floor(player.getDuration()))
+	if (markEnd && !player.getPosition()){
 		bEnded = true;
+		markEnd = false;
+	}	
+	if (player.getPosition() > 0.99){
+		markEnd = true;
+	}else {
+		markEnd = false;
+	}
 }
 
 void VideoWMF::play(){
