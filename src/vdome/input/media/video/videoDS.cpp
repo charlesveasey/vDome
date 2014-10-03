@@ -5,7 +5,7 @@ VideoDS::VideoDS() {
     loopT = OF_LOOP_NONE;
 	ofPtr <ofBaseVideoPlayer> ptr(new ofDirectShowPlayer());
 	player.setPlayer(ptr);
-	bPbo = true;
+	bPbo = false;
 }
 
 bool VideoDS::open(string filepath){
