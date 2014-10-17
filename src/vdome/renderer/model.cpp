@@ -16,6 +16,7 @@ Model::Model(){
     textureScale = 1;
     textureFlip = false;
     textureRotate = 0;
+    textureTilt = 0;
 	textureFlipInternal = false;
 }
 
@@ -26,7 +27,6 @@ Model::Model(){
  ********************************************/
 
 void Model::setup(){
-    
  	int i,j,index = 0;
 	int i1,i2,i3,i4;
 	double theta,phi,r;
@@ -46,7 +46,6 @@ void Model::setup(){
 	vbo.addVertex(ofVec3f(0,0,0));
 	vbo.addNormal(ofVec3f(0,0,0));
 	vbo.addTexCoord(ofVec2f(0,0));
-    
 
 	for (j=0;j<=N/4;j++) {
 		for (i=0;i<=N;i++) {
@@ -99,7 +98,6 @@ void Model::setup(){
 			vbo.addTriangle(i1, i3, i4);
 		}
 	}
-    
 }
 
 /******************************************
@@ -110,7 +108,7 @@ void Model::setup(){
 
 void Model::draw(){
     ofPushMatrix();
-	ofRotateX(90);
+	ofRotateX(90+textureTilt);
     ofRotateZ(textureRotate*-1);
     glEnable(GL_CULL_FACE);
     glCullFace( GL_BACK );
@@ -132,7 +130,9 @@ void Model::keyPressed(int key) {
             switch (editMode) {
                 case T_ROTATE:
                     textureRotate += value;
-                    setup();
+                    break;
+                case T_TILT:
+                    textureTilt += value;
                     break;
                 case T_SCALE:
                     textureScale += value * .01;
@@ -148,7 +148,9 @@ void Model::keyPressed(int key) {
             switch (editMode) {
                 case T_ROTATE:
                     textureRotate -= value;
-                    setup();
+                    break;
+                case T_TILT:
+                    textureTilt -= value;
                     break;
                 case T_SCALE:
                     textureScale -= value * .01;
@@ -159,6 +161,7 @@ void Model::keyPressed(int key) {
                     setup();
                     break;
             }
+            break;
     }
 
 }
@@ -175,7 +178,9 @@ void Model::loadXML(ofXml &xml) {
     if (xml.exists("input[@scale]"))
         textureScale = ofToFloat( xml.getAttribute("input[@scale]") );
     if (xml.exists("input[@rotate]"))
-        textureRotate = ofToFloat( xml.getAttribute("input[@rotate]") );	    
+        textureRotate = ofToFloat( xml.getAttribute("input[@rotate]") );
+    if (xml.exists("input[@tilt]"))
+        textureTilt = ofToFloat( xml.getAttribute("input[@tilt]") );
 	string v;
 	if (xml.exists("input[@flip]")) {
         v = xml.getAttribute("input[@flip]");
@@ -193,6 +198,7 @@ void Model::saveXML(ofXml &xml) {
     xml.setTo("input");
     xml.setAttribute("scale", ofToString(textureScale));
 	xml.setAttribute("rotate", ofToString(textureRotate));
+    xml.setAttribute("tilt", ofToString(textureTilt));
 	if (textureFlip) xml.setAttribute("flip", "on");
     else			 xml.setAttribute("flip", "off");
     xml.setToParent();

@@ -37,6 +37,7 @@ Menu::Menu(){
     menuInputTransform->currentItem = 0;
     menuInputTransform->items.push_back(new Item("Flip"));
     menuInputTransform->items.push_back(new Item("Rotate"));
+    menuInputTransform->items.push_back(new Item("Tilt"));
     menuInputTransform->items.push_back(new Item("Scale"));
 
     menuWarp = new MenuItem;
@@ -255,6 +256,9 @@ void Menu::drawMain(int i){
                             break;
                         case INPUT_ROTATE:
                             val = ofToString(roundTo(model->textureRotate, .001));
+                            break;
+                        case INPUT_TILT:
+                            val = ofToString(roundTo(model->textureTilt, .001));
                             break;
                         case INPUT_SCALE:
                             val = ofToString(roundTo(model->textureScale, .001));
@@ -809,7 +813,6 @@ void Menu::setEditMode() {
     model->editMode = model->NONE;
     input->editMode = input->NONE;
 
-
     int j = (*currentMenu)->currentItem;
 
     switch ((*currentMenu)->menuId) {
@@ -841,6 +844,9 @@ void Menu::setEditMode() {
                     break;
                 case INPUT_ROTATE:
                     model->editMode = model->T_ROTATE;
+                    break;
+                case INPUT_TILT:
+                    model->editMode = model->T_TILT;
                     break;
                 case INPUT_SCALE:
                     model->editMode = model->T_SCALE;

@@ -23,8 +23,8 @@ public:
     bool textureFlip;
 	bool textureFlipInternal;
     float textureRotate;
-    enum editModes{NONE, T_SCALE, T_ROTATE, T_FLIP};
-    
+    float textureTilt;
+    enum editModes{NONE, T_FLIP, T_ROTATE, T_TILT, T_SCALE};
 };
 
 }

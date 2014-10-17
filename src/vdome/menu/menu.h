@@ -94,7 +94,7 @@ public:
 
     // menu items
     enum inputItems {SOURCE, FORMAT, LOOP, ENABLE, TRANSFORM};
-    enum intputTransformItems {INPUT_FLIP, INPUT_ROTATE, INPUT_SCALE};
+    enum intputTransformItems {INPUT_FLIP, INPUT_ROTATE, INPUT_TILT, INPUT_SCALE};
 
     enum warpItems  {CORNERPIN, GRID};
     enum blendItems {BRIGHTNESS, CONTRAST, B_LEVELS, B_BRUSH};
