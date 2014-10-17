@@ -9,7 +9,7 @@
 	<key>CFBundleIconFile</key>
 	<string>logo</string>
 	<key>CFBundleIdentifier</key>
-	<string>net.charlesveasey</string>
+	<string>com.yourcompany.openFrameworks</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>
