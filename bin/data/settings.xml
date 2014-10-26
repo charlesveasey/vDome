@@ -6,7 +6,7 @@
 
     <model radius="10"/>
     
-	<window border="on" fullscreen="off" position="0,0" resolution="1920,768" top="off">
+	<window fullscreen="off" position="0,0" resolution="1920,768">
         <projector brightness="1" contrast="1" fov="72" gamma="1,1,1,1" hsl="1,1,1" levels="0,255" offset="0,0" orientation="0,18,0" position="0,0,10" resolution="1024,768" scale="1,1" shear="0,0,0,0,0,0"/>
         <projector brightness="1" contrast="1" fov="72" gamma="1,1,1,1" hsl="1,1,1" levels="0,255" offset="0,0" orientation="0,18,0" position="0,0,10" resolution="1024,768" scale="1,1" shear="0,0,0,0,0,0"/>
     </window>
