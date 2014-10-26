@@ -24,6 +24,8 @@ public:
     float getDuration();
     bool getIsMovieDone();
     void setVolume(float v);
+    float getWidth();
+    float getHeight();
 
     ofVideoPlayer player;
     ofPixels pixels;

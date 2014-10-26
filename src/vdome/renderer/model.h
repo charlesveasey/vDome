@@ -21,9 +21,13 @@ public:
     float value;
     float textureScale;
     bool textureFlip;
-	bool textureFlipInternal;
     float textureRotate;
     float textureTilt;
+    bool textureFlipInternal;
+    float textureTiltInternal;
+    float textureScaleInternal;
+    float textureScaleInternalW;
+    float textureScaleInternalH;
     enum editModes{NONE, T_FLIP, T_ROTATE, T_TILT, T_SCALE};
 };
 

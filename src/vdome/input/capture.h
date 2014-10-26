@@ -17,7 +17,9 @@ public:
     void close();
     bool isOpen();
     void setResolution(int r);
-
+    float getRealWidth();
+    float getRealHeight();
+    
     ofVideoGrabber grabber;
     ofPixels pixels;
     ofPBO pbo;

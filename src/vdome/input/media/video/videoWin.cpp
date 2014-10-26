@@ -173,3 +173,23 @@ VideoWin::VideoTypes VideoWin::parseForceRenderer(string renderer){
         type = DS;
     return type;
 }
+
+float VideoWin::getWidth(){
+    float val;
+    switch (vType) {
+        case WMF: val = vWMF.getWidth(); break;
+        case HAP: val = vHap.getWidth(); break;
+        case DS:  val = vDS.getWidth();  break;
+    }
+    return val;
+}
+
+float VideoWin::getHeight(){
+    float val;
+    switch (vType) {
+        case WMF: val = vWMF.getHeight(); break;
+        case HAP: val = vHap.getHeight(); break;
+        case DS:  val = vDS.getHeight();  break;
+    }
+    return val;
+}

@@ -21,7 +21,7 @@ Render::Render(){
 void Render::setup() {
     ofSetVerticalSync(vsync);
 	ofSetFrameRate(framerate);
-    ofBackground(0,0,0);
+    ofBackground(100,100,100);
     ofEnableNormalizedTexCoords();
     ofDisableAntiAliasing();
 }

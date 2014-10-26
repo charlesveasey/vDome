@@ -58,3 +58,11 @@ bool Capture::isOpen(){
 void Capture::setResolution(int r){
     resolution = r;
 }
+
+float Capture::getRealWidth(){
+	return grabber.getWidth();
+}
+
+float Capture::getRealHeight(){
+	return grabber.height;
+}

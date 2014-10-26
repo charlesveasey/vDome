@@ -46,6 +46,8 @@ public:
     void setResolution(int w, int h);
     void setSlideshow(bool enable, int duration);
 	bool isLoaded();
+    float getRealWidth();
+    float getRealHeight();
 
     enum MediaTypes {IMAGE,VIDEO};
     MediaTypes mType;

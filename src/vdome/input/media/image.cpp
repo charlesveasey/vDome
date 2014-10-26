@@ -8,9 +8,8 @@ Image::Image() {
     timerDuration = 10;
 }
 
-void Image::open(string filepath, int w, int h){
+void Image::open(string filepath){
     img.clear();
-    img.allocate(w, h, OF_IMAGE_COLOR);
     bLoaded = img.loadImage(filepath);
     if (bUseTimer && timerDuration > 0)
         startTimer();
@@ -73,4 +72,12 @@ void Image::stopTimer(){
 
 bool Image::isLoaded(){
 	return bLoaded;
+}
+
+float Image::getWidth(){
+	return img.getWidth();
+}
+
+float Image::getHeight(){
+	return img.height;
 }

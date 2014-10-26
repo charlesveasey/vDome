@@ -101,3 +101,11 @@ bool VideoGST::getIsMovieDone(){
 void VideoGST::setVolume(float v){
     player.setVolume(v);
 }
+
+float VideoGST::getWidth(){
+    return player.getWidth();
+}
+
+float VideoGST::getHeight(){
+    return player.getHeight();
+}

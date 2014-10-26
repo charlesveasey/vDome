@@ -101,3 +101,11 @@ bool VideoQT::getIsMovieDone(){
 void VideoQT::setVolume(float v){
     player.setVolume(v);
 }
+
+float VideoQT::getWidth(){
+    return player.getWidth();
+}
+
+float VideoQT::getHeight(){
+    return player.getHeight();
+}

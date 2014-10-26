@@ -22,6 +22,8 @@ public:
     float getDuration();
     bool getIsMovieDone();
     void setVolume(float v);
+    float getWidth();
+    float getHeight();
 
     ofxHapPlayer player;
     ofShader shader;

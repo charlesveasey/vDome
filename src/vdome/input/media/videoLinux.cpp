@@ -70,3 +70,11 @@ void VideoLinux::setVolume(float v){
 bool VideoLinux::isLoaded(){
     return bLoaded;
 }
+
+float VideoLinux::getWidth(){
+    return vGST.getWidth();
+}
+
+float VideoLinux::getHeight(){
+    return vGST.getHeight();
+}

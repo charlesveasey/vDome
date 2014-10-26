@@ -24,6 +24,8 @@ public:
     bool getIsMovieDone();
     void setVolume(float v);
 	bool isLoaded();
+    float getWidth();
+    float getHeight();
   
     enum VideoTypes{WMF,HAP,DS};
     string forceVideoRenderer;

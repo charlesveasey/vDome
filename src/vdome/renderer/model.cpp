@@ -18,6 +18,10 @@ Model::Model(){
     textureRotate = 0;
     textureTilt = 0;
 	textureFlipInternal = false;
+    textureScaleInternal = 1;
+    textureTiltInternal = 0;
+    textureScaleInternalW = 1;
+    textureScaleInternalH = 1;
 }
 
 /******************************************
@@ -64,9 +68,9 @@ void Model::setup(){
 
 			phi = atan2(sqrt(x*x+y*y),z); // 0 ... pi/2
 			theta = atan2(y,x); // -pi ... pi
-			r = phi / PI/2 * 4 / textureScale; // 0 ... 1 --->
-			u = 0.5 * (r * cos(theta) + 1);
-			v = 0.5 * (r * sin(theta) + 1);
+			r = phi / PI/2 * 4 / (textureScale*textureScaleInternal*textureScaleInternalW*textureScaleInternalH); // 0 ... 1 --->
+			u = 0.5 * (r*textureScaleInternalH * cos(theta) + 1);
+			v = 0.5 * (r*textureScaleInternalW * sin(theta) + 1);
             
 			if (textureFlipInternal){
 				if (textureFlip)
@@ -108,7 +112,8 @@ void Model::setup(){
 
 void Model::draw(){
     ofPushMatrix();
-	ofRotateX(90+textureTilt);
+    //ofScale(textureScaleInternalW, textureScaleInternalH);
+	ofRotateX(90+textureTilt+textureTiltInternal);
     ofRotateZ(textureRotate*-1);
     glEnable(GL_CULL_FACE);
     glCullFace( GL_BACK );
@@ -184,7 +189,7 @@ void Model::loadXML(ofXml &xml) {
 	string v;
 	if (xml.exists("input[@flip]")) {
         v = xml.getAttribute("input[@flip]");
-		if (v == "on") textureFlip = true;
+		if (v == "on")  textureFlip = true;
         else            textureFlip = false;
     }
 

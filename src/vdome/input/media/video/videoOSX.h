@@ -25,6 +25,8 @@ public:
     bool getIsMovieDone();
     void setVolume(float v);
     bool isLoaded();
+    float getWidth();
+    float getHeight();
   
     enum VideoTypes{QT,AVF,HAP};
     string forceVideoRenderer;

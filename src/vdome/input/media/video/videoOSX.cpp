@@ -184,3 +184,23 @@ VideoOSX::VideoTypes VideoOSX::parseForceRenderer(string renderer){
     else                        type = QT;
     return type;
 }
+
+float VideoOSX::getWidth(){
+    float val;
+    switch (vType) {
+        case AVF: val = vAVF.getWidth(); break;
+        case HAP: val = vHap.getWidth(); break;
+        case QT:  val = vQT.getWidth();  break;
+    }
+    return val;
+}
+
+float VideoOSX::getHeight(){
+    float val;
+    switch (vType) {
+        case AVF: val = vAVF.getHeight(); break;
+        case HAP: val = vHap.getHeight(); break;
+        case QT:  val = vQT.getHeight();  break;
+    }
+    return val;
+}

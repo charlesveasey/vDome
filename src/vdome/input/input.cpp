@@ -17,6 +17,10 @@ Input::Input(){
     setLoop(true);
     setResolution(resolution);
     ofAddListener(media.endEvent, this, &Input::mediaEnd);
+    format = 0;
+    maxFormat = 1;
+    lastSource = -1;
+    lastFormat = -1;
 }
 
 /******************************************
@@ -31,15 +35,6 @@ void Input::setup(){
 
     durationSent = false;
     endSent = false;
-
-	if (source == CAPTURE || source == SYPHON){
-		model->textureFlipInternal = true;
-		model->setup();
-	}
-	else {
-		model->textureFlipInternal = false;
-		model->setup();
-	}
 
     switch(source){
         case GRID:      media.open("settings/media/warp/grid-2k.png");  break;
@@ -63,7 +58,53 @@ void Input::setup(){
 
         default:        color.fillBlack();                              break;
     }
-
+    
+    // reset aspect ratio
+    model->textureScaleInternalW = 1;
+    model->textureScaleInternalH = 1;
+    
+    
+    // letterbox non-square aspect ratios
+    ratio = -99999;
+    if (source == MEDIA){
+        ratio = media.getRealHeight()/media.getRealWidth();
+    }
+    else if (source == CAPTURE){
+        ratio = capture.getRealHeight()/capture.getRealWidth();
+    }
+    else if (source == SYPHON){
+        #ifdef TARGET_OSX
+        if (syphon.isSetup())
+            ratio = syphon.getHeight()/syphon.getWidth();
+        #endif
+    }
+    
+    if (ratio != -99999){
+        if (ratio < 1){
+            model->textureScaleInternalW = 1;
+            model->textureScaleInternalH = ratio;
+        }
+        else if (ratio > 1){
+            model->textureScaleInternalW = 1/ratio;
+            model->textureScaleInternalH = 1;
+        }
+    }
+    
+    
+    if (source == CAPTURE || source == SYPHON){
+		model->textureFlipInternal = true;
+		model->setup();
+	}
+	else {
+        if (source == GRID || source == BLACK || source == WHITE || source == GREY){
+            model->textureFlipInternal = false;
+            setFormat();
+        }
+        else {
+            model->textureFlipInternal = false;
+            model->setup();
+        }
+	}
 }
 
 /******************************************
@@ -84,6 +125,29 @@ void Input::update(){
     }
     else if (source == CAPTURE)		capture.update();
 
+    #ifdef TARGET_OSX
+    else if (source == SYPHON && syphon.isSetup()){
+        float nRatio = syphon.getHeight()/syphon.getWidth();
+        if (nRatio != ratio){
+            ratio = nRatio;
+            if (ratio < 1){
+                model->textureScaleInternalW = 1;
+                model->textureScaleInternalH = ratio;
+            }
+            else if (ratio > 1){
+                model->textureScaleInternalW = 1/ratio;
+                model->textureScaleInternalH = 1;
+            }
+            else {
+                model->textureScaleInternalW = 1;
+                model->textureScaleInternalH = 1;
+            }
+            model->setup();
+        }
+        
+    }
+    #endif
+    
     #ifdef TARGET_WIN32
 	else if (source == SPOUT)		spout.update();
     #endif
@@ -141,6 +205,28 @@ void Input::setSource(string s) {
     else if (s == "white")      source = WHITE;
     else if (s == "grey")       source = GREY;
     setup();
+}
+    
+void Input::setFormat(string s) {
+    if      (s == "domemaster")     format = DOMEMASTER;
+    else if (s == "hd")             format = HD;
+    setFormat();
+}
+    
+void Input::setFormat() {
+    if (source == GRID || source == BLACK || source == WHITE || source == GREY){
+        format = DOMEMASTER;
+    }
+    if (format == DOMEMASTER){
+        model->textureScaleInternal = 1;
+        model->textureTiltInternal = 0;
+        model->setup();
+    }
+    else if (format == HD){
+        model->textureScaleInternal = .5625;
+        model->textureTiltInternal = 50;
+        model->setup();
+    }
 }
 
 void Input::play() {
@@ -254,7 +340,15 @@ void Input::keyPressed(int key) {
             source += inc;
         }
         #endif
-        if (lastSource != source)       setup();
+        if (source != lastSource)       setup();
+    }
+    else if (editMode == FORMAT && inc != 0){
+        lastFormat = format;
+        format += inc;
+        if (format+inc > maxFormat)     format = maxFormat;
+        else if (format+inc < 0)        format = 0;
+        
+        if (format != lastFormat)       setFormat();
     }
 }
 

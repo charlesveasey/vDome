@@ -30,7 +30,6 @@ Menu::Menu(){
     menuInput->items.push_back(new Item("Enable"));
     menuInput->items.push_back(new Item("Transform          ->", true));
 
-
     menuInputTransform = new MenuItem;
     menuInputTransform->menuId = INPUT_TRANSFORM;
     menuInputTransform->parent = &menuInput;
@@ -235,7 +234,8 @@ void Menu::drawMain(int i){
                             else if (input->source == 7)   val = "Grey";
                             break;
                         case FORMAT:
-                            val = "Domemaster";
+                            if (input->format == 0)         val = "Domemaster";
+                            else if (input->format == 1)    val = "HD";
                             break;
                         case LOOP:
                             if (input->getLoop()) val = "On";
@@ -823,6 +823,7 @@ void Menu::setEditMode() {
                     input->editMode = input->SOURCE;
                     break;
                 case FORMAT:
+                    input->editMode = input->FORMAT;
                     break;
                 case LOOP:
                     input->editMode = input->LOOP;

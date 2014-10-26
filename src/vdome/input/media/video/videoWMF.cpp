@@ -131,3 +131,11 @@ bool VideoWMF::isSupported(){
 void VideoWMF::setVolume(float v){
     player.setVolume(v);
 }
+
+float VideoWMF::getWidth(){
+    return player.getWidth();
+}
+
+float VideoWMF::getHeight(){
+    return player.getHeight();
+}

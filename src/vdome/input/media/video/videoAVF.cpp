@@ -116,3 +116,11 @@ bool VideoAVF::videoLoaded(bool &success){
 void VideoAVF::setVolume(float v){
     player.setVolume(v);
 }
+
+float VideoAVF::getWidth(){
+    return player.getWidth();
+}
+
+float VideoAVF::getHeight(){
+    return player.getHeight();
+}

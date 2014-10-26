@@ -37,8 +37,7 @@ void Media::open(string filepath){
         else {
             image.setUseTimer(false);
         }
-        image.open(filepath, width, height);
-
+        image.open(filepath);
     }
     else if (mString == "video"){
         mType = VIDEO;
@@ -234,5 +233,19 @@ bool Media::isLoaded(){
 	switch (mType) {
 		case IMAGE: return image.isLoaded(); break;
 		case VIDEO: return video.isLoaded(); break;
+    }
+}
+
+float Media::getRealWidth(){
+	switch (mType) {
+		case IMAGE: return image.getWidth(); break;
+        case VIDEO: return video.getWidth(); break;
+    }
+}
+
+float Media::getRealHeight(){
+	switch (mType) {
+		case IMAGE: return image.getHeight(); break;
+		case VIDEO: return video.getHeight(); break;
     }
 }

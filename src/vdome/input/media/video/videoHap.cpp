@@ -81,3 +81,11 @@ bool VideoHap::getIsMovieDone(){
 void VideoHap::setVolume(float v){
     player.setVolume(v);
 }
+
+float VideoHap::getWidth(){
+    return player.getWidth();
+}
+
+float VideoHap::getHeight(){
+    return player.getHeight();
+}

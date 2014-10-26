@@ -103,3 +103,11 @@ bool VideoDS::getIsMovieDone(){
 void VideoDS::setVolume(float v){
     player.setVolume(v);
 }
+
+float VideoDS::getWidth(){
+    return player.getWidth();
+}
+
+float VideoDS::getHeight(){
+    return player.getHeight();
+}

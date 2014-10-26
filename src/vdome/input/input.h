@@ -44,6 +44,8 @@ public:
     void setSlide(int s);
     string getFilepath();
     void setVolume(float v);
+    void setFormat(string s);
+    void setFormat();
     
     void openFile(string filepath);
     void setFile(string filepath);
@@ -56,11 +58,16 @@ public:
     void saveXML(ofXml &xml);
     
     int editMode;
-    enum editModes{NONE, SOURCE, LOOP};
+    enum editModes{NONE, SOURCE, LOOP, FORMAT};
 
     int source;
     enum sources {MEDIA, CAPTURE, SYPHON, SPOUT, GRID, BLACK, WHITE, GREY};
 	int maxSource;
+    
+    int format;
+    enum format {DOMEMASTER, HD};
+    int maxFormat;
+    int lastFormat;
 
     bool isVideo;
     int framerate;
@@ -87,6 +94,9 @@ private:
 #ifdef TARGET_OSX
     ofxSyphonClient syphon;
 #endif
+    
+    // used for syphon
+    float ratio;
     
     vector<string> files;
     bool loop;

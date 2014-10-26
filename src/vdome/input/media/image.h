@@ -6,7 +6,7 @@ class Image {
     
 public:
     Image();
-    void open(string filepath, int w, int h);
+    void open(string filepath);
     void update();
     void bind();
     void unbind();
@@ -16,6 +16,9 @@ public:
     void setUseTimer(bool uTimer);
     void setTimerDuration(float dur);
 	bool isLoaded();
+    float getWidth();
+    float getHeight();
+
     ofEvent<bool> timerEvent;
     ofImage img;
 

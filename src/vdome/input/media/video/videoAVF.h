@@ -23,6 +23,8 @@ public:
     bool isSupported();
     bool isLoaded();
     void setVolume(float v);
+    float getWidth();
+    float getHeight();
     
     ofxAVFVideoPlayer player;
 
