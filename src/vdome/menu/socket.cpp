@@ -46,7 +46,7 @@ void Socket::update(){
 		}
 		else if (rMsg.getAddress() == "/input/loop/") {
             if (rMsg.getArgAsString(0) == "on") input->setLoop(true);
-            else                             input->setLoop(false);
+            else                                input->setLoop(false);
 		}
         else if (rMsg.getAddress() == "/input/seek/") {
             input->seek(ofToFloat(rMsg.getArgAsString(0)));
@@ -63,6 +63,9 @@ void Socket::update(){
         else if (rMsg.getAddress() == "/input/volume/") {
             input->setVolume(ofToFloat(rMsg.getArgAsString(0)));
 		}
+        else if (rMsg.getAddress() == "/input/format/") {
+            input->setFormat(rMsg.getArgAsString(0));
+        }
 	}
     
     // send
