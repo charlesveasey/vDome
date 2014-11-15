@@ -7,34 +7,44 @@ Developed by Charles Veasey for the Institute of Indian American Arts (IAIA).
 
 ##Overview
 
-vDome is an application designed to calibrate multiple projectors on a hemispherical dome surface and display a domemaster formatted video, image, or interactive application. vDome is generally used in two ways: 1) as a media player and 2) as a background process that listens to software/hardware input streams.
+vDome is an application designed to calibrate multiple projectors on a hemispherical dome surface and display a domemaster formatted video, image, or interactive application. vDome also supports the play back of HD video files. vDome is generally used in two ways: 1) as a media player and 2) as a background process that listens to hardware/software input streams such as cameras, capture cards, and inter-application protocols such as Syphon, Spout, and Video4Linux.
 
 As a media player vDome utilizes native os media libraries and accepts most common file formats and codecs of the operating system. In general:  
   - Mac OS X: QuickTime / AV Foundation / HAP
-  - Win 7/8: DirectShow / Windows Media Foundation / QuickTime
+  - Win 7/8: Windows Media Foundation / DirectShow / QuickTime / HAP
   - Linux: GStreamer
 
-There can be major performance differences between codecs at high resolutions.
+For optimized video playback, use the following codecs:
+  - OS X: ProRes 422 and H.264
+  - Windows 8.1: H.264, WMF
+  - Linux Ubuntu: H.264 
+
+To assist in media playback and creating playlists use the vDome Player interface:
+https://github.com/charlesveasey/vDome-player  
 
 Capture and camera inputs are hardware video stream solutions. A capture card is a flexible solution that allows one to run any application on the dome by sending the video output of one computer into another machine running vDome. With this, vDome essentially becomes the 2nd monitor on your production machine. Drag the After Effects or Unity preview window onto the dome and edit in real-time, play videos through your favorite media player: Quicktime, VLC, etc. 
 
-Syphon is useful a on single Mac computer where your production application supports the Syphon technology. There are a number of applications which support the Syphon texture sharing including After Effects, Resolume, MaxMSP, etc. 
+Syphon is a graphical interapplication protocol for OS X.
 http://syphon.v002.info/  
+
+Spout is a graphical interapplication protocol for Windows.
+http://spout.zeal.co/ 
+
+Video4Linux is a graphical interapplication protocol for Linux.
+http://en.wikipedia.org/wiki/Video4Linux
 
 ##Compiling
 ####All
-  -  Download the latest version of openFrameworks (currently v0.8.3): http://www.openframeworks.cc/download/
+  -  Download the latest version of openFrameworks (currently v0.8.4): http://www.openframeworks.cc/download/
   -  Clone this (vDome) repository to the openFrameworks/apps/myApps folder
   -  Clone to: openFrameworks/addons:
      - https://github.com/charlesveasey/ofxMultiGLFWWindow
      - https://github.com/charlesveasey/ofxM3U
      - https://github.com/charlesveasey/ofxBezierSurface
-     - https://github.com/arturoc/ofxPBO
      - https://github.com/bakercp/ofxMediaType
 
 ####Mac
   -  Clone to: openFrameworks/addons:
-     - https://github.com/charlesveasey/ofxCocoaWindowUtils
      - https://github.com/kronick/ofxAVFVideoPlayer
      - https://github.com/bangnoise/ofxHapPlayer
      - https://github.com/astellato/ofxSyphon
@@ -45,7 +55,6 @@ http://syphon.v002.info/
 
 ####Win
   -  Clone to: openFrameworks/addons:
-     - https://github.com/charlesveasey/ofxWinWindow
      - https://github.com/secondstory/ofxWMFVideoPlayer
      - https://github.com/ofTheo/ofDirectShowVideoPlayer
          
@@ -59,20 +68,28 @@ http://syphon.v002.info/
 
 ##Installation
 ####Mac
-  - Install HAP codec:
+  - To use the HAP codec:
      - https://github.com/vidvox/hap-qt-codec/
 
 ####Win
+  - To use Spout, copy the Spout32.dll to your build directory
+  	- http://spout.zeal.co/
   - To allow QuickTime video playback install the K-Lite Mega Codec Pack 10.2 
     - http://www.free-codecs.com/download/k_lite_mega_codec_pack.htm
 
 ####Linux
   - Install gstreamer codecs, see INSTALL.md in openFrameworks linux package
+  - To use Video4Linux: 
+  	- https://github.com/umlaeute/v4l2loopback
 
 ##Setup and Calibration
 Initial setup is done in XML (setting resolution, number of projectors, and input type). Calibration is done directly on the dome. For more information see the manual: 
 https://docs.google.com/document/d/1EHPpExjznFF6X0YTY5acLS0MNkEbtVFsLBCoJ2HHQlQ/edit#
 
+##Supported
+  - OS X 10.9
+  - Windows 8.1
+  - Linux Ubuntu 14
 
 ##Tested
 ####Mac
@@ -88,8 +105,7 @@ https://docs.google.com/document/d/1EHPpExjznFF6X0YTY5acLS0MNkEbtVFsLBCoJ2HHQlQ/
   - Ubuntu 14.04
 
 ##Future Development
-  - Support for Spout sharing technology on Windows
-  - Support for panorama and 16:9 input formats
+  - Support for panorama
   - Auto-calibration via camera  
   - Support for Nvidia Warp and Intensity API
   
