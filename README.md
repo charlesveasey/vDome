@@ -19,6 +19,9 @@ For optimized video playback, use the following codecs:
   - Windows 8.1: H.264, WMF
   - Linux Ubuntu: H.264 
 
+To assist in media playback and creating playlists use the vDome Player interface:
+https://github.com/charlesveasey/vDome-player  
+
 Capture and camera inputs are hardware video stream solutions. A capture card is a flexible solution that allows one to run any application on the dome by sending the video output of one computer into another machine running vDome. With this, vDome essentially becomes the 2nd monitor on your production machine. Drag the After Effects or Unity preview window onto the dome and edit in real-time, play videos through your favorite media player: Quicktime, VLC, etc. 
 
 Syphon is a graphical interapplication protocol for OS X.
