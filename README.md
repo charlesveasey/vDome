@@ -24,39 +24,39 @@ https://github.com/charlesveasey/vDome-player
 
 Capture and camera inputs are hardware video stream solutions. A capture card is a flexible solution that allows one to run any application on the dome by sending the video output of one computer into another machine running vDome. With this, vDome essentially becomes the 2nd monitor on your production machine. Drag the After Effects or Unity preview window onto the dome and edit in real-time, play videos through your favorite media player: Quicktime, VLC, etc. 
 
-Syphon is a graphical interapplication protocol for OS X.
+Syphon is a graphical interapplication protocol for OS X. 
 http://syphon.v002.info/  
 
-Spout is a graphical interapplication protocol for Windows.
+Spout is a graphical interapplication protocol for Windows. 
 http://spout.zeal.co/ 
 
-Video4Linux is a graphical interapplication protocol for Linux.
+Video4Linux is a graphical interapplication protocol for Linux. 
 http://en.wikipedia.org/wiki/Video4Linux
 
 ##Compiling
 ####All
-  -  Download the latest version of openFrameworks (currently v0.8.4): http://www.openframeworks.cc/download/
-  -  Clone this (vDome) repository to the openFrameworks/apps/myApps folder
-  -  Clone to: openFrameworks/addons:
-     - https://github.com/charlesveasey/ofxMultiGLFWWindow
-     - https://github.com/charlesveasey/ofxM3U
-     - https://github.com/charlesveasey/ofxBezierSurface
-     - https://github.com/bakercp/ofxMediaType
+  - Download the latest version of openFrameworks (currently v0.8.4): http://www.openframeworks.cc/download/
+  - Clone this (vDome) repository to the openFrameworks/apps/myApps folder
+  - Clone to: openFrameworks/addons:
+    - https://github.com/charlesveasey/ofxMultiGLFWWindow
+    - https://github.com/charlesveasey/ofxM3U
+    - https://github.com/charlesveasey/ofxBezierSurface
+    - https://github.com/bakercp/ofxMediaType
 
 ####Mac
-  -  Clone to: openFrameworks/addons:
-     - https://github.com/kronick/ofxAVFVideoPlayer
-     - https://github.com/bangnoise/ofxHapPlayer
-     - https://github.com/astellato/ofxSyphon
+  - Clone to: openFrameworks/addons:
+    - https://github.com/kronick/ofxAVFVideoPlayer
+    - https://github.com/bangnoise/ofxHapPlayer
+    - https://github.com/astellato/ofxSyphon
 
   - Suggested IDE: Xcode v5.1.1
   - Syphon needs to be copied to Frameworks:
-    -  Under target, add a Copy Files Build Phase. Drag the Syphon.framework into this phase.
+    - Under target, add a Copy Files Build Phase. Drag the Syphon.framework into this phase.
 
 ####Win
-  -  Clone to: openFrameworks/addons:
-     - https://github.com/secondstory/ofxWMFVideoPlayer
-     - https://github.com/ofTheo/ofDirectShowVideoPlayer
+  - Clone to: openFrameworks/addons:
+    - https://github.com/secondstory/ofxWMFVideoPlayer
+    - https://github.com/ofTheo/ofDirectShowVideoPlayer
          
   - Suggested IDE: Microsoft Visual Studio Express 2012
   - ofxWMFPLayer requries updated GLEW library, follow instructions on its repository
@@ -69,7 +69,7 @@ http://en.wikipedia.org/wiki/Video4Linux
 ##Installation
 ####Mac
   - To use the HAP codec:
-     - https://github.com/vidvox/hap-qt-codec/
+    - https://github.com/vidvox/hap-qt-codec/
 
 ####Win
   - To use Spout, copy the Spout32.dll to your build directory
@@ -83,7 +83,7 @@ http://en.wikipedia.org/wiki/Video4Linux
   	- https://github.com/umlaeute/v4l2loopback
 
 ##Setup and Calibration
-Initial setup is done in XML (setting resolution, number of projectors, and input type). Calibration is done directly on the dome. For more information see the manual: 
+Initial setup is done in XML (setting resolution, number of projectors, and input type). Calibration is done directly on the dome. For more information see the manual:   
 https://docs.google.com/document/d/1EHPpExjznFF6X0YTY5acLS0MNkEbtVFsLBCoJ2HHQlQ/edit#
 
 ##Supported
