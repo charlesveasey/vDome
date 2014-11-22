@@ -43,15 +43,14 @@ http://en.wikipedia.org/wiki/Video4Linux
     - https://github.com/charlesveasey/ofxBezierSurface
     - https://github.com/bakercp/ofxMediaType
 
-####Mac
+####All
+  - Download the latest version of openFrameworks (currently v0.8.4): http://www.openframeworks.cc/download/
+  - Clone this (vDome) repository to openFrameworks/apps/myApps
   - Clone to: openFrameworks/addons
-    - https://github.com/charlesveasey/ofxAVFVideoPlayer
-    - https://github.com/charlesveasey/ofxHapPlayer
-    - https://github.com/astellato/ofxSyphon
-
-  - Suggested IDE: Xcode v5.1.1
-  - Syphon needs to be copied to Frameworks:
-    - Under target, add a Copy Files Build Phase. Drag the Syphon.framework into this phase.
+    - https://github.com/charlesveasey/ofxMultiGLFWWindow
+    - https://github.com/charlesveasey/ofxM3U
+    - https://github.com/charlesveasey/ofxBezierSurface
+    - https://github.com/bakercp/ofxMediaType
 
 ####Win
   - Clone to: openFrameworks/addons
