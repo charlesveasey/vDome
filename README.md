@@ -9,15 +9,15 @@ Developed by Charles Veasey for the Institute of Indian American Arts (IAIA).
 
 vDome is an application designed to calibrate multiple projectors on a hemispherical dome surface and display a domemaster formatted video, image, or interactive application. vDome also supports the play back of HD video files. vDome is generally used in two ways: 1) as a media player and 2) as a background process that listens to hardware/software input streams such as cameras, capture cards, and inter-application protocols such as Syphon, Spout, and Video4Linux.
 
-As a media player vDome utilizes native os media libraries and accepts most common file formats and codecs of the operating system. In general:  
-  - Mac OS X: QuickTime / AV Foundation / HAP
-  - Win 7/8: Windows Media Foundation / DirectShow / QuickTime / HAP
+As a media player vDome utilizes native os media libraries and accepts most common file formats and codecs of the operating system. In general:
+  - Mac OS X: QuickTime, AV Foundation, HAP
+  - Win 7/8: Windows Media Foundation, DirectShow, QuickTime, HAP
   - Linux: GStreamer
 
-For optimized video playback, use the following codecs:
+For optimized video playback, use the following codecs: 
   - OS X: ProRes 422 and H.264
-  - Windows 8.1: H.264, WMF
-  - Linux Ubuntu: H.264 
+  - Windows 8.1: H.264 and WMF
+  - Linux Ubuntu: H.264
 
 To assist in media playback and creating playlists use the vDome Player interface:
 https://github.com/charlesveasey/vDome-player  
