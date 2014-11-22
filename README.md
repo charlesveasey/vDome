@@ -14,7 +14,7 @@ As a media player vDome utilizes native os media libraries and accepts most comm
   - Win 7/8: Windows Media Foundation, DirectShow, QuickTime, HAP
   - Linux: GStreamer
 
-For optimized video playback, use the following codecs: 
+For optimized video playback, use the following codecs:
   - OS X: ProRes 422 and H.264
   - Windows 8.1: H.264 and WMF
   - Linux Ubuntu: H.264
@@ -37,7 +37,7 @@ http://en.wikipedia.org/wiki/Video4Linux
 ####All
   - Download the latest version of openFrameworks (currently v0.8.4): http://www.openframeworks.cc/download/
   - Clone this (vDome) repository to openFrameworks/apps/myApps
-  - Clone to: openFrameworks/addons
+  - Clone to: openFrameworks/addons:
     - https://github.com/charlesveasey/ofxMultiGLFWWindow
     - https://github.com/charlesveasey/ofxM3U
     - https://github.com/charlesveasey/ofxBezierSurface
@@ -47,7 +47,7 @@ http://en.wikipedia.org/wiki/Video4Linux
   - Suggested IDE: Xcode v5.1.1
   - Syphon needs to be copied to Frameworks
     - Under target, add a Copy Files Build Phase. Drag the Syphon.framework into this phase.
-  - Clone to: openFrameworks/addons
+  - Clone to: openFrameworks/addons:
     - https://github.com/charlesveasey/ofxAVFVideoPlayer
     - https://github.com/charlesveasey/ofxHapPlayer
     - https://github.com/astellato/ofxSyphon
@@ -55,7 +55,7 @@ http://en.wikipedia.org/wiki/Video4Linux
 ####Win
   - Suggested IDE: Microsoft Visual Studio Express 2012
   - ofxWMFPLayer requries updated GLEW library, follow instructions on its repository
-  - Clone to: openFrameworks/addons
+  - Clone to: openFrameworks/addons:
     - https://github.com/charlesveasey/ofxWMFVideoPlayer
     - https://github.com/charlesveasey/ofDirectShowVideoPlayer
     - https://github.com/charlesveasey/ofxHapPlayer
@@ -71,9 +71,9 @@ http://en.wikipedia.org/wiki/Video4Linux
     - https://github.com/vidvox/hap-qt-codec
 
 ####Win
-  - To use Spout, copy the Spout32.dll to your build directory
+  - To use Spout, copy the Spout32.dll to your build directory:
   	- http://spout.zeal.co/
-  - To allow QuickTime video playback install the K-Lite Mega Codec Pack 10.2 
+  - To allow QuickTime video playback install the K-Lite Mega Codec Pack 10.2: 
     - http://www.free-codecs.com/download/k_lite_mega_codec_pack.htm
 
 ####Linux
