@@ -52,7 +52,7 @@ http://en.wikipedia.org/wiki/Video4Linux
     - https://github.com/charlesveasey/ofxHapPlayer
     - https://github.com/astellato/ofxSyphon
 
-####Mac
+####Win
   - Suggested IDE: Microsoft Visual Studio Express 2012
   - ofxWMFPLayer requries updated GLEW library, follow instructions on its repository
   - Clone to: openFrameworks/addons
