@@ -43,9 +43,7 @@ http://en.wikipedia.org/wiki/Video4Linux
     - https://github.com/charlesveasey/ofxBezierSurface
     - https://github.com/bakercp/ofxMediaType
 
-####All
-  - Download the latest version of openFrameworks (currently v0.8.4): http://www.openframeworks.cc/download/
-  - Clone this (vDome) repository to openFrameworks/apps/myApps
+####Mac
   - Clone to: openFrameworks/addons
     - https://github.com/charlesveasey/ofxMultiGLFWWindow
     - https://github.com/charlesveasey/ofxM3U
