@@ -45,10 +45,9 @@ http://en.wikipedia.org/wiki/Video4Linux
 
 ####Mac
   - Clone to: openFrameworks/addons
-    - https://github.com/charlesveasey/ofxMultiGLFWWindow
-    - https://github.com/charlesveasey/ofxM3U
-    - https://github.com/charlesveasey/ofxBezierSurface
-    - https://github.com/bakercp/ofxMediaType
+    - https://github.com/charlesveasey/ofxAVFVideoPlayer
+    - https://github.com/charlesveasey/ofxHapPlayer
+    - https://github.com/astellato/ofxSyphon
 
 ####Win
   - Clone to: openFrameworks/addons
