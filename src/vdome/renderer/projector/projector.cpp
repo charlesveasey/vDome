@@ -230,8 +230,6 @@ void Projector::drawKeystone(){
 
  ********************************************/
 
-bool first = true;
-
 void Projector::mousePressed(ofMouseEventArgs& mouseArgs) {
     if (editMode == CORNERPIN || editMode == GRID) {
         if (editMode == CORNERPIN) {
