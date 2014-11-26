@@ -610,6 +610,7 @@ void Menu::draw(int i){
 			input->setup();
 		}
 
+
 }
 
 
@@ -877,7 +878,20 @@ void Menu::mousePressed(ofMouseEventArgs& mouseArgs) {
         for (int i=0; i<projCount; i++) {
             projectors->at(i).mousePressed(mouseArgs);
         }
-     }
+
+		if (ofGetKeyPressed(OF_KEY_ALT)){
+			value = altValue;
+		}
+		else if (ofGetKeyPressed(cKey)){
+			value = ctrlValue;
+		}
+		else {
+			value = orgValue;
+		}
+		for (int i=0; i<projCount; i++) {
+			projectors->at(i).setValue(value);
+		}
+	}
 }
 
 void Menu::mouseDragged(ofMouseEventArgs& mouseArgs) {
