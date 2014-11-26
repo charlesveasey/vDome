@@ -19,12 +19,10 @@ public:
     void unbind();
     void draw();
 	void update();
-
-    
+   
     void drawPlaneConfig();
     void drawKeystone();
 	void drawCurves(int x, int y);
-
     
     void mousePressed(ofMouseEventArgs& mouseArgs);
     void mouseDragged(ofMouseEventArgs& mouseArgs);
