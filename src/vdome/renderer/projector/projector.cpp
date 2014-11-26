@@ -3,6 +3,7 @@ namespace vd {
 
 extern float projCount;
 extern int maxHistory;
+
 /******************************************
 
  INIT
@@ -61,12 +62,19 @@ void Projector::init(int i){
     cameraShear.push_back(0); //1 4=zx
     cameraShear.push_back(0); // 5=zy
 
+	curves.init(i);
+
     mask.tx = planePosition.x;
     mask.ty = planePosition.y;
-    mask.init(i);
-    
-
+    mask.init(i);    
 }
+
+
+
+
+
+
+
 
 /******************************************
 
@@ -103,7 +111,6 @@ void Projector::setup() {
         int y = planePosition.y;
         int w = width;
         int h = height;
-
         
         renderPlane = ofMesh::plane(w, h, 2, 2, OF_PRIMITIVE_TRIANGLES);
         vector<ofVec3f> v = renderPlane.getVertices();
@@ -128,11 +135,11 @@ void Projector::setup() {
         ofClear(255);
     renderFbo.end();
     
-    
+	curves.setup();
+
     mask.tx = planePosition.x;
     mask.ty = planePosition.y;
-    mask.setup();
-    
+    mask.setup();    
 }
 
 // camera transform
@@ -147,6 +154,23 @@ void Projector::setCameraTransform(){
     ofVec3f car = sphToCar(ofVec3f(cameraPosition.x*-1, cameraPosition.y, cameraPosition.z));
     camera.setPosition(car);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /******************************************
 
@@ -186,6 +210,17 @@ void Projector::end() {
     fbo.end();
 }
 
+
+
+
+
+
+
+
+
+
+
+
 /******************************************
 
  BIND
@@ -199,6 +234,38 @@ void Projector::bind() {
 void Projector::unbind() {
     fbo.getTextureReference().unbind();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+/******************************************
+
+ UPDATE
+
+ ********************************************/
+void Projector::update() {
+	if (curves.enabled){
+		curves.update();
+	}
+}
+
+
+
+
+
+
+
+
+
+
 
 /******************************************
 
@@ -217,6 +284,10 @@ void Projector::drawPlaneConfig(){
    plane.drawConfig();
 }
 
+void Projector::drawCurves(int x, int y){
+	curves.draw(x,y);
+}
+
 void Projector::drawKeystone(){
     ofPushMatrix();
     ofTranslate(plane.position[0], plane.position[1]);
@@ -224,12 +295,25 @@ void Projector::drawKeystone(){
     ofPopMatrix();
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /******************************************
 
  MOUSE
 
  ********************************************/
-
 void Projector::mousePressed(ofMouseEventArgs& mouseArgs) {
     if (editMode == CORNERPIN || editMode == GRID) {
         if (editMode == CORNERPIN) {
@@ -272,6 +356,20 @@ void Projector::mouseReleased(ofMouseEventArgs& mouseArgs) {
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /******************************************
 
  KEYBOARD
@@ -279,7 +377,12 @@ void Projector::mouseReleased(ofMouseEventArgs& mouseArgs) {
  ********************************************/
 
 void Projector::keyPressed(int key) {
-    
+
+    if (!active) return;
+
+	if (editMode == CURVES)
+        curves.keyPressed(key);
+
     if (editMode == CORNERPIN || editMode == GRID)
         plane.keyPressed(key);
 
@@ -614,6 +717,19 @@ void Projector::keyReleased(int key) {
         plane.keyReleased(key);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 /******************************************
 
  SETTINGS
@@ -722,6 +838,9 @@ void Projector::loadXML2(ofXml &xml) {
         cameraShear[5] = ofToFloat(ofSplitString(str, ",")[5]);
     }
 
+
+	curves.load();
+
     mask.width = width;
     mask.height = height;
     mask.load();
@@ -747,8 +866,20 @@ void Projector::saveXML(ofXml &xml) {
                         "," + ofToString(roundTo(cameraShear[3], .001)) +  "," + ofToString(roundTo(cameraShear[4], .001)) +  "," + ofToString(roundTo(cameraShear[5], .001)) );
     // plane
     plane.save(xml);
+	curves.save();
     mask.save();    
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 /******************************************
@@ -865,6 +996,24 @@ void Projector::setGridPoints(vector<ofVec3f> v){
 ofTexture& Projector::getTextureReference(){
 	return fbo.getTextureReference();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /******************************************
  

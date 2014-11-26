@@ -4,6 +4,7 @@
 #include "camera.h"
 #include "command.h"
 #include "mask.h"
+#include "curves.h"
 namespace vd {
 
 class Projector {
@@ -17,9 +18,13 @@ public:
     void bind();
     void unbind();
     void draw();
+	void update();
+
     
     void drawPlaneConfig();
     void drawKeystone();
+	void drawCurves(int x, int y);
+
     
     void mousePressed(ofMouseEventArgs& mouseArgs);
     void mouseDragged(ofMouseEventArgs& mouseArgs);
@@ -91,6 +96,7 @@ public:
     enum editModes{ BRIGHTNESS,CONTRAST,
                     HUE, SATURATION, LIGHTNESS,
                     GAMMA, GAMMA_R, GAMMA_G, GAMMA_B,
+					CURVES,
                     CORNERPIN, GRID,
                     AZIMUTH, ELEVATION, DISTANCE,
                     ROLL, TILT, PAN,
@@ -121,6 +127,9 @@ public:
     vector<ofVec3f> lastGrid;
     
     int width, height;
+
+	// color curves
+	Curves curves;
 
 private:
     Camera camera;

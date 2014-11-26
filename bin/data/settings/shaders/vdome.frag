@@ -1,11 +1,9 @@
 #version 150
 
-
 // TEXTURE INPUT
 uniform sampler2DRect texsampler;
 in vec2 vtexcoord;
 vec4 t;
-
 
 // INTENSITY: BC
 uniform float brightness;
@@ -27,13 +25,23 @@ uniform float lightness;
 vec3 cHSL;
 vec3 cRGB;
 
-
 // COLOR: GAMMA
 uniform float gamma;
 uniform float gammaR;
 uniform float gammaG;
 uniform float gammaB;
 
+/// COLOR: CURVES
+uniform sampler2DRect colorlut;
+uniform int interp;
+uniform float mapdim;
+uniform float amt;
+vec4 set;
+float rout;
+float gout;
+float bout;
+vec4 mapped;
+vec4 t2;
 
 // MASK
 uniform sampler2DRect maskTex;
@@ -155,23 +163,41 @@ vec3 LevelsControlOutputRange(vec3 color, vec3 minOutput, vec3 maxOutput) {
 }
 
 void main() {
+	//input
     t = texture(texsampler, vtexcoord);
+
+	//hsl, contrast, brightness
     cBC = ContrastSaturationBrightness(t.rgb, brightness, contrast, 1);
     
     cHSL = RGBToHSL(cBC.rgb);
     cHSL.r *= hue;
     cHSL.g *= saturation;
     cHSL.b *= lightness;
-    
     cRGB = HSLToRGB(cHSL.rgb);
+	
+	// gamma
     cRGB.r = GammaCorrection(cRGB.r, gammaR * gamma);
     cRGB.g = GammaCorrection(cRGB.g, gammaG * gamma);
     cRGB.b = GammaCorrection(cRGB.b, gammaB * gamma);
-    
+
+	// levels    
     cRGB = LevelsControlOutputRange(cRGB, vec3(blackLevel/255, blackLevel/255, blackLevel/255),
                                     vec3(whiteLevel/255, whiteLevel/255, whiteLevel/255));
     
+	t2 = vec4(cRGB.rgb, t.a);
+
+	// curves
+    set = mix(floor(t2*mapdim),t2*mapdim,float(interp));				//multiply color value for LUT range
+	rout = float (texture(colorlut, vec2(set.r,0.)).r);						//look up red
+	gout = float (texture(colorlut, vec2(set.g,0.)).g);						//look up green
+	bout = float (texture(colorlut, vec2(set.b,0.)).b);						//look up blue
+	mapped = vec4 (rout, gout, bout,t2.a);
+	t2 = mix(t2, mapped, amt);
+
+	// mask
     float mask = texture(maskTex, vtexcoord).a;
-    outputColor = vec4(cRGB.rgb, 1-mask);
+
+	// output
+    outputColor = vec4(t2.rgb, 1-mask);
 }
 

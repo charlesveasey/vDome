@@ -37,12 +37,13 @@ void Input::setup(){
     endSent = false;
 
     switch(source){
-        case GRID:      media.open("settings/media/warp/grid-2k.png");  break;
-        case MEDIA:     media.open(files);                              break;
-        case CAPTURE:   capture.open();                                 break;
-        case BLACK:     color.fillBlack();                              break;
-        case WHITE:     color.fillWhite();                              break;
-        case GREY:      color.fillGrey();                               break;
+        case GRID:      media.open("settings/media/warp/grid-2k.png");					break;
+        case MEDIA:     media.open(files);												break;
+        case CAPTURE:   capture.open();													break;
+		case BLACK:     color.setup(); color.fillBlack();								break;
+        case WHITE:     color.setup(); color.fillWhite();								break;
+        case GREY:      color.setup(); color.fillGrey();								break;
+		case COLOR:     color.setup(); color.fill(cColor.r, cColor.g, cColor.b);		break;
 
         case SYPHON:
             #ifdef TARGET_OSX
@@ -56,7 +57,7 @@ void Input::setup(){
             #endif
             break;
 
-        default:        color.fillBlack();                              break;
+        default:        color.setup(); color.fillBlack();                              break;
     }
     
     // reset aspect ratio
@@ -96,7 +97,7 @@ void Input::setup(){
 		model->setup();
 	}
 	else {
-        if (source == GRID || source == BLACK || source == WHITE || source == GREY){
+        if (source == GRID || source == BLACK || source == WHITE || source == GREY || source == COLOR){
             model->textureFlipInternal = false;
             setFormat();
         }
@@ -163,7 +164,7 @@ void Input::bind(){
     if      (source == MEDIA)    media.bind();
     else if (source == CAPTURE)  capture.bind();
     else if (source == GRID)     media.bind();
-    else if (source == BLACK || source == WHITE || source == GREY)     color.bind();
+    else if (source == BLACK || source == WHITE || source == GREY || source == COLOR)     color.bind();
 
     #ifdef TARGET_OSX
     if (source == SYPHON)    syphon.bind();
@@ -178,7 +179,7 @@ void Input::unbind(){
     if      (source == MEDIA)    media.unbind();
     else if (source == CAPTURE)  capture.unbind();
     else if (source == GRID)     media.unbind();
-    else if (source == BLACK || source == WHITE || source == GREY)     color.unbind();
+    else if (source == BLACK || source == WHITE || source == GREY || source == COLOR)     color.unbind();
 
     #ifdef TARGET_OSX
     if (source == SYPHON)    syphon.unbind();
@@ -204,6 +205,7 @@ void Input::setSource(string s) {
     else if (s == "black")      source = BLACK;
     else if (s == "white")      source = WHITE;
     else if (s == "grey")       source = GREY;
+	else if (s == "color")      source = COLOR;
     setup();
 }
     
@@ -247,7 +249,7 @@ void Input::close() {
     if      (source == MEDIA)       media.close();
     else if (source == CAPTURE)     capture.close();
     else if (source == GRID)        media.close();
-    else if (source == BLACK || source == WHITE || source == GREY)     color.close();
+    else if (source == BLACK || source == WHITE || source == GREY || source == COLOR)     color.close();
 
 }
 
@@ -281,7 +283,6 @@ float Input::getDuration() {
 
 void Input::setResolution(int r){
     resolution = r;
-    color.setResolution(r);
     capture.setResolution(r);
 }
 
@@ -303,6 +304,11 @@ void Input::mediaEnd(bool &end){
         socket->sendEnd();
         endSent = true;
     }
+}
+
+void Input::setColor(int r, int g, int b){
+	cColor = ofColor(r,g,b);
+	color.fill(cColor.r, cColor.g, cColor.b);
 }
 
 /******************************************
@@ -437,6 +443,7 @@ void Input::saveXML(ofXml &xml) {
     else if (source == BLACK)     str = "black";
     else if (source == WHITE)     str = "white";
     else if (source == GREY)      str = "grey";
+
 
     xml.setAttribute("source", str );
     if (files.size() > 0)

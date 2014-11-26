@@ -46,6 +46,7 @@ public:
     void setVolume(float v);
     void setFormat(string s);
     void setFormat();
+	void setColor(int r, int g, int b);
     
     void openFile(string filepath);
     void setFile(string filepath);
@@ -61,7 +62,7 @@ public:
     enum editModes{NONE, SOURCE, LOOP, FORMAT};
 
     int source;
-    enum sources {MEDIA, CAPTURE, SYPHON, SPOUT, GRID, BLACK, WHITE, GREY};
+    enum sources {MEDIA, CAPTURE, SYPHON, SPOUT, GRID, BLACK, WHITE, GREY, COLOR};
 	int maxSource;
     
     int format;
@@ -103,7 +104,8 @@ private:
     int lastSource;
     bool durationSent;
     bool endSent;
-   
+	
+	ofColor cColor;
 };
     
 }
