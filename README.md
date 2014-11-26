@@ -41,6 +41,7 @@ http://en.wikipedia.org/wiki/Video4Linux
     - https://github.com/charlesveasey/ofxMultiGLFWWindow
     - https://github.com/charlesveasey/ofxM3U
     - https://github.com/charlesveasey/ofxBezierSurface
+    - https://github.com/charlesveasey/ofxCurvesTool
     - https://github.com/bakercp/ofxMediaType
 
 ####Mac
