@@ -202,8 +202,6 @@ void Curves::onCurHoverChange(ofVec3f & xyi){
 }
 
 void Curves::onCurHoverUpdate(ofVec3f & xyi){
-	cout << "Curves::onCurHoverUpdate" << endl;
-
 	ofVec4f xyip = ofVec4f(xyi[0],xyi[1],xyi[2],index);
 	ofNotifyEvent(curHoverUpdate, xyip);
 }
