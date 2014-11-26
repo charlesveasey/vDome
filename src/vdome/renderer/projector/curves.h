@@ -42,9 +42,10 @@ public:
 	ofEvent<ofVec4f> curHoverUpdate;
 	void onCurHoverUpdate(ofVec3f & xyi);
 
-	ofTexture colorlutTextureRef();	
+	ofTexture & colorlutTextureRef();
 	
 	enum colors {GREY,RED,GREEN,BLUE}; 
+	ofImage colorlut;
 
 private:
 	bool active;
@@ -54,7 +55,6 @@ private:
 	int colorMode;
 
 	vector<ofxCurvesTool*> curvesTools;
-	ofImage colorlut;
 	ofXml *xml;
 };
 

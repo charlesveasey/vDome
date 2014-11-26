@@ -26,6 +26,8 @@
 		<string>https://github.com/charlesveasey/ofxCocoaWindowUtils.git</string>
 		<key>EA30BD4D-1800-4AF1-B3F6-F3F61C459931</key>
 		<string>https://github.com/charlesveasey/ofxM3U.git</string>
+		<key>F35FA4DE-2D65-4D2E-86F2-97755EFDEB00</key>
+		<string>https://github.com/charlesveasey/ofxCurvesTool.git</string>
 		<key>FFB68482-874B-4280-9B64-04239543B052</key>
 		<string>https://github.com/charlesveasey/ofxMultiGLFWWindow.git</string>
 	</dict>
@@ -49,6 +51,8 @@
 		<string>../../../../../addons/ofxCocoaWindowUtils</string>
 		<key>EA30BD4D-1800-4AF1-B3F6-F3F61C459931</key>
 		<string>../../../../../addons/ofxM3U</string>
+		<key>F35FA4DE-2D65-4D2E-86F2-97755EFDEB00</key>
+		<string>../../../../../addons/ofxCurvesTool</string>
 		<key>FFB68482-874B-4280-9B64-04239543B052</key>
 		<string>../../../../../addons/ofxMultiGLFWWindow</string>
 	</dict>
@@ -83,6 +87,14 @@
 			<string>E740F5F1-D7FE-4018-A629-234283C29B49</string>
 			<key>IDESourceControlWCCName</key>
 			<string>ofxCocoaWindowUtils</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>F35FA4DE-2D65-4D2E-86F2-97755EFDEB00</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxCurvesTool</string>
 		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>

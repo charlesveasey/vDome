@@ -175,7 +175,7 @@ void Curves::setColorMode(int i) {
 	colorMode = i;
 }
 
-ofTexture Curves::colorlutTextureRef() {
+ofTexture & Curves::colorlutTextureRef() {
 	return colorlut.getTextureReference();
 }
 
