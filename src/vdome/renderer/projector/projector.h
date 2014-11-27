@@ -89,7 +89,6 @@ public:
     Mask mask;
     ofFbo renderFbo;
     ofVboMesh renderPlane;
-    CommandHistory history;
 
     enum editModes{ BRIGHTNESS,CONTRAST,
                     HUE, SATURATION, LIGHTNESS,
@@ -162,7 +161,7 @@ private:
  ********************************************/
 
 
-// intensity
+// enable
 class SetEnable : public Command {
 protected:
     Projector& obj;

@@ -2,6 +2,9 @@
 namespace vd {
 
 extern float projCount;
+extern int maxHistory;
+extern CommandHistory history;
+extern vector<ofPixels> maskHistory;
 
 /******************************************
 
@@ -189,9 +192,6 @@ Menu::Menu(){
 
     currentMenu = &menuMain;
 
-
-
-
     frameCnt= 0;
     saved = false;
     autosave = false;
@@ -219,78 +219,28 @@ Menu::Menu(){
 }
 
 
-void Menu::onCurHoverChange(ofVec3f & xyi){
-	for (int j=0; j<projCount; j++) {
-		if ( projectors->at(j).curves.getCurrentHover() != xyi.z ){
-			projectors->at(j).curves.setCurrentHover(xyi.z);
-		}
-    }
-
-	int cpnt = xyi.x;
-	int clmp = ofClamp(xyi.x, 0, 255);
-
-	if (projectors->size()){
-		if (projectors->at(0).curves.getColorMode() == projectors->at(0).curves.GREY){
-				input->setColor(clmp, clmp, clmp);
-		}
-		else if (projectors->at(0).curves.getColorMode() == projectors->at(0).curves.RED){
-				input->setColor(clmp, 0, 0);
-		}
-		else if (projectors->at(0).curves.getColorMode() == projectors->at(0).curves.GREEN){
-				input->setColor(0, clmp, 0);
-		}
-		else if (projectors->at(0).curves.getColorMode() == projectors->at(0).curves.BLUE){
-				input->setColor(0, 0, clmp);
-		}
-	}
-
-}
 
 
-void Menu::onCurHoverUpdate(ofVec4f & xyip){
 
-	int cx = ofClamp(xyip[0], 0, 255);
-	int cy = ofClamp(xyip[1], 0, 255);	
-	int ci = xyip[2];
-	int pi = xyip[3];
+/******************************************
 
-	for (int j=0; j<projCount; j++) {
-		if (j != ci){
-			if ( projectors->at(j).curves.getCurrentHover() != ci ){
-				projectors->at(j).curves.setCurrentHover(ci);
-			}
-			
-			if ( projectors->at(j).active ){
-				projectors->at(j).curves.setPoint(ci,ofPoint(cx,cy));
-			}
-		}
-    }
+ Setup
 
-
-	if (projectors->size()){
-		if (projectors->at(0).curves.getColorMode() == projectors->at(0).curves.GREY){
-				input->setColor(cx, cx, cx);
-		}
-		else if (projectors->at(0).curves.getColorMode() == projectors->at(0).curves.RED){
-				input->setColor(cx, 0, 0);
-		}
-		else if (projectors->at(0).curves.getColorMode() == projectors->at(0).curves.GREEN){
-				input->setColor(0, cx, 0);
-		}
-		else if (projectors->at(0).curves.getColorMode() == projectors->at(0).curves.BLUE){
-				input->setColor(0, 0, cx);
-		}
-	}
-
-}
-
-
+ ********************************************/
 
 void Menu::setup(){
+
+	maskHistory.clear();
+	for (int i=0; i<=(maxHistory+2); i++) {
+		ofPixels buffer;
+		maskHistory.push_back(buffer);
+	}
+
 	for (int i=0; i<projCount; i++) {
 		ofAddListener(projectors->at(i).curves.curHoverChange,this, &Menu::onCurHoverChange);
 		ofAddListener(projectors->at(i).curves.curHoverUpdate,this, &Menu::onCurHoverUpdate);
     }
+ 
 }
 
 
@@ -860,6 +810,84 @@ void Menu::back() {
 
 
 
+/******************************************
+
+ Curve Events
+
+ ********************************************/
+
+void Menu::onCurHoverUpdate(ofVec4f & xyip){
+
+	int cx = ofClamp(xyip[0], 0, 255);
+	int cy = ofClamp(xyip[1], 0, 255);	
+	int ci = xyip[2];
+	int pi = xyip[3];
+
+	for (int j=0; j<projCount; j++) {
+		if (j != ci){
+			if ( projectors->at(j).curves.getCurrentHover() != ci ){
+				projectors->at(j).curves.setCurrentHover(ci);
+			}
+			
+			if ( projectors->at(j).active ){
+				projectors->at(j).curves.setPoint(ci,ofPoint(cx,cy));
+			}
+		}
+    }
+
+
+	if (projectors->size()){
+		if (projectors->at(0).curves.getColorMode() == projectors->at(0).curves.GREY){
+				input->setColor(cx, cx, cx);
+		}
+		else if (projectors->at(0).curves.getColorMode() == projectors->at(0).curves.RED){
+				input->setColor(cx, 0, 0);
+		}
+		else if (projectors->at(0).curves.getColorMode() == projectors->at(0).curves.GREEN){
+				input->setColor(0, cx, 0);
+		}
+		else if (projectors->at(0).curves.getColorMode() == projectors->at(0).curves.BLUE){
+				input->setColor(0, 0, cx);
+		}
+	}
+
+}
+
+
+
+
+void Menu::onCurHoverChange(ofVec3f & xyi){
+	for (int j=0; j<projCount; j++) {
+		if ( projectors->at(j).curves.getCurrentHover() != xyi.z ){
+			projectors->at(j).curves.setCurrentHover(xyi.z);
+		}
+    }
+
+	int cpnt = xyi.x;
+	int clmp = ofClamp(xyi.x, 0, 255);
+
+	if (projectors->size()){
+		if (projectors->at(0).curves.getColorMode() == projectors->at(0).curves.GREY){
+				input->setColor(clmp, clmp, clmp);
+		}
+		else if (projectors->at(0).curves.getColorMode() == projectors->at(0).curves.RED){
+				input->setColor(clmp, 0, 0);
+		}
+		else if (projectors->at(0).curves.getColorMode() == projectors->at(0).curves.GREEN){
+				input->setColor(0, clmp, 0);
+		}
+		else if (projectors->at(0).curves.getColorMode() == projectors->at(0).curves.BLUE){
+				input->setColor(0, 0, clmp);
+		}
+	}
+
+}
+
+
+
+
+
+
 
 
 
@@ -988,8 +1016,17 @@ void Menu::keyPressed(int key) {
     ///////////////////////////
 
 
-	// NAVIGATION
     switch (key){
+
+		
+        case 122: // (z)
+            history.undo();
+            break;
+        case 121: // (y)
+            history.redo();
+            break;
+
+
         case OF_KEY_UP:
 			if ((*currentMenu)->menuId == CURVES_GREY  
 				|| (*currentMenu)->menuId == CURVES_RED 

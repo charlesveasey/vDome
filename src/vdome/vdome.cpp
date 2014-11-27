@@ -3,11 +3,14 @@
 namespace vd {
 
 // global variables
+
 float projCount = 1;
+int winCount = 1;
+
 int maxHistory = 25;
+CommandHistory history;
 vector<ofPixels> maskHistory;
 
-int winCount = 1;
     
 /******************************************
 
@@ -83,12 +86,6 @@ void vdome::setup(){
         saveThread.imageFiles.push_back("settings/masks/mask-" + ofToString(i+1) + ".png");
     }
 
-    maskHistory.clear();
-    for (int i=0; i<=(maxHistory+2); i++) {
-        ofPixels buffer;
-        maskHistory.push_back(buffer);
-    }
-    
     menu.autosave = autosave; 
 	glfw->showWindow(glfwWindows->at(0));
 	menu.setup();

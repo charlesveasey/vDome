@@ -3,6 +3,8 @@ namespace vd {
 
 extern float projCount;
 extern int maxHistory;
+extern CommandHistory history;
+extern vector<ofPixels> maskHistory;
 
 /******************************************
 
@@ -390,13 +392,6 @@ void Projector::keyPressed(int key) {
         mask.keyPressed(key);
 
     switch (key) {
-            
-        case 122: // (z)
-            history.undo();
-            break;
-        case 121: // (y)
-            history.redo();
-            break;
 
         case 114: // (r) reset
             switch (editMode) {
