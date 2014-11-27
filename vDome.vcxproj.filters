@@ -896,6 +896,9 @@
     <ClInclude Include="..\..\..\addons\ofxCurvesTool\src\ofxCurvesTool.h">
       <Filter>addons\ofxCurvesTool\src</Filter>
     </ClInclude>
+    <ClInclude Include="src\vdome\menu\commands.h">
+      <Filter>src\vdome\menu</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />

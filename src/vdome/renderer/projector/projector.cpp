@@ -1,4 +1,6 @@
 #include "projector.h"
+#include "commands.h"
+
 namespace vd {
 
 extern float projCount;
@@ -1035,5 +1037,7 @@ ofVec3f Projector::sphToCar(ofVec3f t) {
     z = cos(azi) * sin(ele) * dis;
     return ofVec3f(x,y,z);
 };
+
+
 
 }

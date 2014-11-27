@@ -311,6 +311,7 @@
     <ClInclude Include="src\vdome\input\ofPBO.h" />
     <ClInclude Include="src\vdome\input\spout\spoutR.h" />
     <ClInclude Include="src\vdome\menu\command.h" />
+    <ClInclude Include="src\vdome\menu\commands.h" />
     <ClInclude Include="src\vdome\menu\menu.h" />
     <ClInclude Include="src\vdome\menu\saveThread.h" />
     <ClInclude Include="src\vdome\menu\socket.h" />

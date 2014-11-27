@@ -1,4 +1,6 @@
 #include "menu.h"
+#include "command.h"
+
 namespace vd {
 
 extern float projCount;

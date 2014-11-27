@@ -1,4 +1,5 @@
 #include "vdome.h"
+#include "command.h"
 
 namespace vd {
 
