@@ -571,8 +571,9 @@ void Menu::draw(int i){
 			px = projectors->at(i).getPlanePosition().x + projectors->at(i).width/2 - pw/2;
 			py = projectors->at(i).getPlanePosition().y + projectors->at(i).height/2  - ph/2;
 
-			drawBackground();
+			//drawBackground();
 			drawCurves(i);
+
 			ofSetColor(255);
 			drawProjector(i);
 			drawFPS(i);
