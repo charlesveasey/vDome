@@ -2,7 +2,7 @@
     
     <socket enabled="on" host="localhost" receive="3334" send="3333"/>
     
-    <input file="/Users/Charles/Desktop/test-h264.mov" flip="off" loop="off" rotate="0" scale="1" slide="5" source="grid"/>
+    <input file="/Users/Charles/Desktop/test-h264.mov" flip="off" rotate="0" scale="1" slide="5" source="grid"/>
 
     <model radius="10"/>
     

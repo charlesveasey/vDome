@@ -1076,7 +1076,7 @@ void Menu::keyPressed(int key) {
             break;
     }
 
-    if (key == OF_KEY_LEFT || key == OF_KEY_RIGHT) {
+    if (key == OF_KEY_LEFT || key == OF_KEY_RIGHT || key == 114) { // r = 114
 		
 		if ((*currentMenu)->menuId == CURVES_GREY  
 			|| (*currentMenu)->menuId == CURVES_RED 

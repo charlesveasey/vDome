@@ -22,7 +22,7 @@ Input::Input(){
     framerate = 30;
     slide = 10;
     setSlide(slide);
-    setLoop(true);
+    setLoop(false);
     setResolution(resolution);
     ofAddListener(media.endEvent, this, &Input::mediaEnd);
     format = 0;
@@ -357,12 +357,20 @@ void Input::keyPressed(int key) {
     switch (key) {
         case OF_KEY_RIGHT:
             inc++;
-            if (editMode == LOOP)       history.execute( new SetLoop(*this, true));      break;
+            if (editMode == LOOP)       history.execute( new SetLoop(*this, true));			break;
             break;
 
         case OF_KEY_LEFT:
             inc--;
-            if (editMode == LOOP)       history.execute( new SetLoop(*this, false));      break;
+            if (editMode == LOOP)       history.execute( new SetLoop(*this, false));		break;
+            break;
+
+        case 114: // (r) reset
+            switch (editMode) {
+                case SOURCE:			history.execute( new SetSource(*this, 4));			break;
+				case LOOP:				history.execute( new SetLoop(*this, false));		break;
+                case FORMAT:			history.execute( new SetFormat(*this, 0));			break;
+            }
             break;
     }
     if (editMode == SOURCE && inc != 0){
