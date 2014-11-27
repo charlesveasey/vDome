@@ -183,7 +183,9 @@ void Mask::read(string filename){
 int Mask::store(int fIndex) {
     hIndex = fIndex;
     hPixels.clear();
-    maskFbo.readToPixels(hPixels);
+	maskFbo.readToPixels(hPixels);
+	maskHistory[fIndex].clear();
+	maskHistory[fIndex].allocate(width, height, OF_IMAGE_COLOR_ALPHA);
     hPixels.pasteInto(maskHistory[fIndex], 0, 0);
     return fIndex;
 }

@@ -6,7 +6,6 @@ namespace vd {
 float projCount = 1;
 int maxHistory = 25;
 vector<ofPixels> maskHistory;
-int cCurveIndex = 0;
 
 int winCount = 1;
     
@@ -87,7 +86,6 @@ void vdome::setup(){
     maskHistory.clear();
     for (int i=0; i<=(maxHistory+2); i++) {
         ofPixels buffer;
-        buffer.allocate(1920, 1080, OF_IMAGE_COLOR_ALPHA); //FIXME: HARDCODED RESOLUTION?
         maskHistory.push_back(buffer);
     }
     
