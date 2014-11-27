@@ -1,3 +1,4 @@
+#pragma once
 #include "projector.h"
 #include "commands.h"
 

@@ -1,9 +1,114 @@
 #pragma once
-
 #include "command.h"
 #include "projector.h"
+#include "input.h"
 
 namespace vd {
+
+
+/******************************************
+
+ INPUT
+
+ ********************************************/
+
+class SetLoop : public Command {
+protected:
+    Input& obj;
+    bool v;
+    bool l;
+public:
+    SetLoop(Input& obj, bool v) : obj(obj), v(v) {}
+    void execute() {
+		l = obj.getLoop();
+		obj.setLoop(v); }
+	void undo() { obj.setLoop(l); }
+	void redo() { obj.setLoop(v); }
+};
+
+class SetSource : public Command {
+protected:
+    Input& obj;
+    int v;
+    int l;
+public:
+    SetSource(Input& obj, int v) : obj(obj), v(v) {}
+    void execute() {
+		l = obj.getSourceInt();
+		obj.setSourceInt(v); }
+	void undo() { obj.setSourceInt(l); }
+	void redo() { obj.setSourceInt(v); }
+};
+
+class SetFormat : public Command {
+protected:
+    Input& obj;
+    int v;
+    int l;
+public:
+	SetFormat(Input& obj, int v) : obj(obj), v(v) {}
+    void execute() {
+		l = obj.getFormatInt();
+		obj.setFormatInt(v); }
+	void undo() { obj.setFormatInt(l); }
+	void redo() { obj.setFormatInt(v); }
+};
+
+class SetTextureFlip : public Command {
+protected:
+    Model& obj;
+    bool v;
+    bool l;
+public:
+    SetTextureFlip(Model& obj, bool v) : obj(obj), v(v) {}
+    void execute() {
+		l = obj.getTextureFlip();
+		obj.setTextureFlip(v); }
+    void undo() { obj.setTextureFlip(l); }
+    void redo() { obj.setTextureFlip(v); }
+};
+
+class SetTextureRotate : public Command {
+protected:
+    Model& obj;
+    float v;
+    float l;
+public:
+    SetTextureRotate(Model& obj, float v) : obj(obj), v(v) {}
+    void execute() {
+		l = obj.getTextureRotate();
+		obj.setTextureRotate(v); }
+    void undo() { obj.setTextureRotate(l); }
+    void redo() { obj.setTextureRotate(v); }
+};
+
+class SetTextureTilt : public Command {
+protected:
+    Model& obj;
+    float v;
+    float l;
+public:
+    SetTextureTilt(Model& obj, float v) : obj(obj), v(v) {}
+    void execute() {
+		l = obj.getTextureTilt();
+		obj.setTextureTilt(v); }
+    void undo() { obj.setTextureTilt(l); }
+    void redo() { obj.setTextureTilt(v); }
+};
+
+class SetTextureScale : public Command {
+protected:
+    Model& obj;
+    float v;
+    float l;
+public:
+    SetTextureScale(Model& obj, float v) : obj(obj), v(v) {}
+    void execute() {
+		l = obj.getTextureScale();
+		obj.setTextureScale(v); }
+    void undo() { obj.setTextureScale(l); }
+    void redo() { obj.setTextureScale(v); }
+};
 
 /******************************************
 

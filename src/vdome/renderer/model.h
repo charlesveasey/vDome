@@ -10,25 +10,41 @@ public:
     void update();
     void draw();
     void keyPressed(int key);
-    void loadXML(ofXml &xml);
+    
+	void loadXML(ofXml &xml);
     void saveXML(ofXml &xml);
     void saveMesh(string file);
 
-    ofVboMesh vbo;
-    int N;
-    double radius;
-    int editMode;
-    float value;
-    float textureScale;
-    bool textureFlip;
-    float textureRotate;
-    float textureTilt;
+	bool getTextureFlip();
+	void setTextureFlip(bool b);
+
+	float getTextureRotate();
+	void setTextureRotate(float f);
+	
+	float getTextureTilt();
+	void setTextureTilt(float f);
+	
+	float getTextureScale();
+	void setTextureScale(float f);
+
+	int editMode;
+	enum editModes{NONE, T_FLIP, T_ROTATE, T_TILT, T_SCALE};
+
+	float value;
     bool textureFlipInternal;
     float textureTiltInternal;
     float textureScaleInternal;
     float textureScaleInternalW;
     float textureScaleInternalH;
-    enum editModes{NONE, T_FLIP, T_ROTATE, T_TILT, T_SCALE};
+
+private :
+    ofVboMesh vbo;
+    int N;
+    double radius;
+    float textureScale;
+    bool textureFlip;
+    float textureRotate;
+    float textureTilt;
 };
 
 }

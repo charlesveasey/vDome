@@ -34,18 +34,30 @@ public:
     void next();
     void seek(float f);
 	bool isPlaying();
-    void setLoop(bool b);
+    
+	void setLoop(bool b);
     bool getLoop();
-    string getSource();
+    
+	string getSource();
     void setSource(string s);
+
+	int getSourceInt();
+    void setSourceInt(int i);
+
+    void setFormat(string s);
+    void setFormat();
+
+	int getFormatInt();
+    void setFormatInt(int i);
+
     float getPosition();
     float getDuration();
-    void setResolution(int r);
+   
+	void setResolution(int r);
     void setSlide(int s);
     string getFilepath();
     void setVolume(float v);
-    void setFormat(string s);
-    void setFormat();
+
 	void setColor(int r, int g, int b);
     
     void openFile(string filepath);
@@ -69,6 +81,7 @@ public:
     enum format {DOMEMASTER, HD};
     int maxFormat;
     int lastFormat;
+
 
     bool isVideo;
     int framerate;

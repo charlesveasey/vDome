@@ -327,17 +327,17 @@ void Menu::drawMain(int i){
                 case INPUT_TRANSFORM:
                     switch (j) {
                         case INPUT_FLIP:
-                            if (model->textureFlip) val = "On";
+							if (model->getTextureFlip()) val = "On";
                             else val = "Off";
                             break;
                         case INPUT_ROTATE:
-                            val = ofToString(roundTo(model->textureRotate, .001));
+							val = ofToString(roundTo(model->getTextureRotate(), .001));
                             break;
                         case INPUT_TILT:
-                            val = ofToString(roundTo(model->textureTilt, .001));
+							val = ofToString(roundTo(model->getTextureTilt(), .001));
                             break;
                         case INPUT_SCALE:
-                            val = ofToString(roundTo(model->textureScale, .001));
+							val = ofToString(roundTo(model->getTextureScale(), .001));
                             break;
                     }
                     break;
