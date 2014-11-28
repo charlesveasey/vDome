@@ -450,9 +450,10 @@ void Projector::keyReleased(int key) {
 
 
 void Projector::execute(float v) {
+	bool b = ((v == 1) ? true : false);
 	switch (editMode) {
         case NONE:				break;
-        case ENABLE:			history.execute( new SetEnable(*this, true) );															break;
+        case ENABLE:			history.execute( new SetEnable(*this, b) );															break;
         case BRIGHTNESS:		history.execute( new SetBrightness(*this, brightness + v * .1) );									break;
         case CONTRAST:			history.execute( new SetContrast(*this, contrast + v * .1) );										break;
         case BRUSH_SCALE:		history.execute( new SetBrushScale(*this, mask.brushScale + v * .1) );								break;
