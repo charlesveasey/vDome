@@ -34,6 +34,9 @@ public:
     void loadXML(ofXml &xml);
     void loadXML2(ofXml &xml);
     void saveXML(ofXml &xml);
+
+	 void execute(float v);
+
     
     // plane
     ofVec2f getPlanePosition();
