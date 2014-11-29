@@ -936,9 +936,9 @@ void Menu::mouseDragged(ofMouseEventArgs& mouseArgs) {
 void Menu::mouseReleased(ofMouseEventArgs& mouseArgs) {
     if (active) {
 
+
 		vector<Command*> cmds;
 		for (int k=0; k<projCount; k++) {
-
 			if (projectors->at(k).editMode == projectors->at(k).CORNERPIN || projectors->at(k).editMode == projectors->at(k).GRID) {	
 				if (projectors->at(k).active) {
 					Command* cmd = projectors->at(k).execute(0);
@@ -949,13 +949,27 @@ void Menu::mouseReleased(ofMouseEventArgs& mouseArgs) {
 		}
 		
 
+		for (int i=0; i<projCount; i++) {
+            projectors->at(i).mouseReleased(mouseArgs);
+        }
+
+
+		for (int k=0; k<projCount; k++) {
+			if (projectors->at(k).editMode == projectors->at(k).BRUSH_SCALE || projectors->at(k).editMode == projectors->at(k).BRUSH_OPACITY) {	
+				if (projectors->at(k).active) {
+					Command* cmd = projectors->at(k).executeBrush();
+					if (cmd)
+						cmds.push_back(cmd);
+				}
+			}
+		}
+		
+
+
 		if (cmds.size()){
 			history.execute(new SetProjectors(cmds));
 		}
 
-		for (int i=0; i<projCount; i++) {
-            projectors->at(i).mouseReleased(mouseArgs);
-        }
 	}
 }
 

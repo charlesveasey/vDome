@@ -36,6 +36,8 @@ public:
     void saveXML(ofXml &xml);
 
 	Command* execute(float v);
+	Command* executeBrush();
+
 	Command* reset();
     
     // plane

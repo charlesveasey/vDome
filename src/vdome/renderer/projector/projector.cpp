@@ -349,13 +349,16 @@ void Projector::mouseReleased(ofMouseEventArgs& mouseArgs) {
     }
     else if (editMode == BRUSH_SCALE || editMode == BRUSH_OPACITY) {
         mask.mouseReleased(mouseArgs);
-        history.execute( new SetBrushPoints(*this) );
     }
 }
 
 
 
-
+Command* Projector::executeBrush() {
+	Command* cmd = NULL;
+    cmd = new SetBrushPoints(*this);
+	return cmd;
+}
 
 
 
