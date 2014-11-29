@@ -349,7 +349,7 @@ void Projector::mouseReleased(ofMouseEventArgs& mouseArgs) {
     }
     else if (editMode == BRUSH_SCALE || editMode == BRUSH_OPACITY) {
         mask.mouseReleased(mouseArgs);
-        history.execute( new SetBrushPoints(*this, &history) );
+        history.execute( new SetBrushPoints(*this) );
     }
 }
 
@@ -411,10 +411,10 @@ Command* Projector::reset() {
         case GAMMA_R:			cmd = new SetGammaR(*this, 1);																break;
         case GAMMA_G:			cmd = new SetGammaG(*this, 1);																break;
         case GAMMA_B:			cmd = new SetGammaB(*this, 1);																break;
-        case BRUSH_OPACITY:		mask.reset();		mask.brushOpacity = 50;													break;
-        case BRUSH_SCALE:		mask.reset();		mask.brushScale = 1;													break;
-        case CORNERPIN:			plane.resetCornerpin();																		break;
-        case GRID:				plane.resetGrid();																			break;
+		case BRUSH_OPACITY:		cmd = new ResetBrushOpacity(*this, 50);	 													break;
+        case BRUSH_SCALE:		cmd = new ResetBrushScale(*this, 1);	 													break;
+        case CORNERPIN:			cmd = new ResetCornerpin(*this);															break;
+        case GRID:				cmd = new ResetGrid(*this);																	break;
         case AZIMUTH:			cmd = new SetCameraPosition(*this, 0, cameraPosition.y, cameraPosition.z );					break;
         case ELEVATION:			cmd = new SetCameraPosition(*this, cameraPosition.x, 0, cameraPosition.z );					break;
         case DISTANCE:			cmd = new SetCameraPosition(*this, cameraPosition.x, cameraPosition.y, 5 );					break;

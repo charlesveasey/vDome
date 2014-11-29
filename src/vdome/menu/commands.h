@@ -245,9 +245,8 @@ protected:
     Projector& obj;
     int v;
     int l;
-    CommandHistory *history;
 public:
-    SetBrushPoints(Projector& obj, CommandHistory *history) : obj(obj), v(v), l(l), history(history) {}
+    SetBrushPoints(Projector& obj) : obj(obj), v(v), l(l) {}
     void execute() {
         l = obj.mask.hIndex;
         v = l+1;
@@ -256,6 +255,46 @@ public:
     void undo() { obj.mask.recall(l); }
     void redo() { obj.mask.recall(v); }
 };
+
+class ResetBrushOpacity : public Command {
+protected:
+    Projector& obj;
+    float v;
+    float l;
+	Command* cmd;
+public:
+    ResetBrushOpacity(Projector& obj, float v) : obj(obj), v(v) {}
+    void execute() {
+        l = obj.mask.brushOpacity;
+        obj.mask.brushOpacity = v;
+		cmd = new SetBrushPoints(obj);
+		cmd->execute();
+		obj.mask.reset();
+	}
+    void undo() { obj.mask.brushOpacity = l; cmd->undo();		}
+    void redo() { obj.mask.brushOpacity = v; obj.mask.reset();	}
+};
+
+class ResetBrushScale : public Command {
+protected:
+    Projector& obj;
+    float v;
+    float l;
+	Command* cmd;
+public:
+    ResetBrushScale(Projector& obj, float v) : obj(obj), v(v) {}
+    void execute() {
+        l = obj.mask.brushScale;
+        obj.mask.brushScale = v;
+		cmd = new SetBrushPoints(obj);
+		cmd->execute();
+		obj.mask.reset();
+	}
+    void undo() { obj.mask.brushScale = l; cmd->undo();			}
+    void redo() { obj.mask.brushScale = v; obj.mask.reset();	}
+};
+
+
 
 // color
 class SetHue : public Command {
@@ -399,6 +438,47 @@ public:
 	}
     void redo() { 
 		obj.setGridPoints(v); 
+	}
+};
+
+
+class ResetCornerpin : public Command {
+protected:
+    Projector& obj;
+	Command* cmd;
+	vector<ofPoint> l;
+public:
+    ResetCornerpin(Projector& obj) : obj(obj) {}
+    void execute() {
+		l = obj.getKeystonePoints();
+		cmd = new SetCornerpinPoints(obj, l, l); 
+        obj.plane.resetCornerpin();
+    }
+	void undo() { 
+		cmd->undo();
+	}
+    void redo() { 
+		obj.plane.resetCornerpin();
+	}
+};
+
+
+class ResetGrid : public Command {
+protected:
+    Projector& obj;
+	Command* cmd;
+	vector<ofPoint> l;
+public:
+    ResetGrid(Projector& obj) : obj(obj) {}
+    void execute() {
+		l = obj.getGridPoints();
+        obj.plane.resetGrid();
+    }
+	void undo() { 
+		obj.setGridPoints(l); 
+	}
+    void redo() { 
+		obj.plane.resetGrid();
 	}
 };
 
