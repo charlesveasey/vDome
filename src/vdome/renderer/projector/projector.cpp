@@ -345,14 +345,6 @@ void Projector::mouseDragged(ofMouseEventArgs& mouseArgs) {
 
 void Projector::mouseReleased(ofMouseEventArgs& mouseArgs) {
     if (editMode == CORNERPIN || editMode == GRID) {
-        if (editMode == CORNERPIN) {
-            vector<ofPoint> value = plane.getCornerpinPoints();
-            history.execute( new SetKeystonePoints(*this, value, lastKey) );
-        }
-        else if (editMode == GRID) {
-            vector<ofPoint> value = plane.getGridPoints();
-            history.execute( new SetGridPoints(*this, value, lastGrid) );
-        }
         plane.onMouseReleased(mouseArgs);
     }
     else if (editMode == BRUSH_SCALE || editMode == BRUSH_OPACITY) {
@@ -393,52 +385,6 @@ void Projector::keyPressed(int key) {
     else if (editMode == BRUSH_SCALE || BRUSH_OPACITY)
         mask.keyPressed(key);
 
-    switch (key) {
-
-        case 114: // (r) reset
-            switch (editMode) {
-                case ENABLE:			history.execute( new SetEnable(*this, true) );															break;
-                case BRIGHTNESS:		history.execute( new SetBrightness(*this, 1) );															break;
-                case CONTRAST:			history.execute( new SetContrast(*this, 1) );															break;
-                case BLACK:				history.execute( new SetBlackLevel(*this, 0) );															break;
-                case WHITE:				history.execute( new SetWhiteLevel(*this, 255) );														break;
-                case HUE:				history.execute( new SetHue(*this, 1) );																break;
-                case SATURATION:		history.execute( new SetSaturation(*this, 1) );															break;
-                case LIGHTNESS:			history.execute( new SetLightness(*this, 1) );															break;
-                case GAMMA:				history.execute( new SetGamma(*this, 1) );																break;
-                case GAMMA_R:			history.execute( new SetGammaR(*this, 1) );																break;
-                case GAMMA_G:			history.execute( new SetGammaG(*this, 1) );																break;
-                case GAMMA_B:			history.execute( new SetGammaB(*this, 1) );																break;
-                case BRUSH_OPACITY:		mask.reset();		mask.brushOpacity = 50;																break;
-                case BRUSH_SCALE:		mask.reset();		mask.brushScale = 1;																break;
-                case CORNERPIN:			plane.resetCornerpin();																					break;
-                case GRID:				plane.resetGrid();																						break;
-                case AZIMUTH:			history.execute( new SetCameraPosition(*this, 0, cameraPosition.y, cameraPosition.z ));					break;
-                case ELEVATION:			history.execute( new SetCameraPosition(*this, cameraPosition.x, 0, cameraPosition.z ));					break;
-                case DISTANCE:			history.execute( new SetCameraPosition(*this, cameraPosition.x, cameraPosition.y, 5 ));					break;
-                case TILT:				history.execute( new SetCameraOrientation(*this, cameraPosition.x, 0, cameraPosition.z ));				break;
-                case ROLL:				history.execute( new SetCameraOrientation(*this, 0, cameraOrientation.y, cameraOrientation.z ));		break;
-                case PAN:				history.execute( new SetCameraOrientation(*this, cameraOrientation.x, cameraOrientation.y, 0) );		break;
-                case FOV:				history.execute( new SetCameraFov(*this, 72) );															break;
-                case OFFSET_X:			history.execute( new SetCameraOffset(*this, 0, cameraOffset.y) );										break;
-                case OFFSET_Y:			history.execute( new SetCameraOffset(*this, cameraOffset.x, 0) );										break;
-                case SCALE:				history.execute( new SetCameraScale(*this, 1, 1) );														break;
-                case SCALE_X:			history.execute( new SetCameraScaleX(*this, 1) );														break;
-                case SCALE_Y:			history.execute( new SetCameraScaleY(*this, 1) );														break;
-                case SHEAR_XY:			cameraShear[0] = 0;		history.execute( new SetCameraShear(*this, cameraShear ));						break;
-                case SHEAR_XZ:			cameraShear[1] = 0;		history.execute( new SetCameraShear(*this, cameraShear ));						break;
-                case SHEAR_YX:			cameraShear[2] = 0;		history.execute( new SetCameraShear(*this, cameraShear ));						break;
-                case SHEAR_YZ:			cameraShear[3] = 0;		history.execute( new SetCameraShear(*this, cameraShear ));						break;
-                case SHEAR_ZX:			cameraShear[4] = 0;		history.execute( new SetCameraShear(*this, cameraShear ));						break;
-                case SHEAR_ZY:			cameraShear[5] = 0;		history.execute( new SetCameraShear(*this, cameraShear ));						break;
-            }
-            break;
-
-        case OF_KEY_LEFT:				execute(-1);						break;
-        case OF_KEY_RIGHT:				execute(1);							break;
-
-        default:	break;
-    }
 
 }
 
@@ -449,45 +395,95 @@ void Projector::keyReleased(int key) {
 
 
 
-void Projector::execute(float v) {
-	bool b = ((v == 1) ? true : false);
+Command* Projector::reset() {
+	Command* cmd = NULL;
+
+    switch (editMode) {
+        case ENABLE:			cmd = new SetEnable(*this, true);															break;
+        case BRIGHTNESS:		cmd = new SetBrightness(*this, 1);															break;
+        case CONTRAST:			cmd = new SetContrast(*this, 1);															break;
+        case BLACK:				cmd = new SetBlackLevel(*this, 0);															break;
+        case WHITE:				cmd = new SetWhiteLevel(*this, 255);														break;
+        case HUE:				cmd = new SetHue(*this, 1);																	break;
+        case SATURATION:		cmd = new SetSaturation(*this, 1);															break;
+        case LIGHTNESS:			cmd = new SetLightness(*this, 1);															break;
+        case GAMMA:				cmd = new SetGamma(*this, 1);																break;
+        case GAMMA_R:			cmd = new SetGammaR(*this, 1);																break;
+        case GAMMA_G:			cmd = new SetGammaG(*this, 1);																break;
+        case GAMMA_B:			cmd = new SetGammaB(*this, 1);																break;
+        case BRUSH_OPACITY:		mask.reset();		mask.brushOpacity = 50;													break;
+        case BRUSH_SCALE:		mask.reset();		mask.brushScale = 1;													break;
+        case CORNERPIN:			plane.resetCornerpin();																		break;
+        case GRID:				plane.resetGrid();																			break;
+        case AZIMUTH:			cmd = new SetCameraPosition(*this, 0, cameraPosition.y, cameraPosition.z );					break;
+        case ELEVATION:			cmd = new SetCameraPosition(*this, cameraPosition.x, 0, cameraPosition.z );					break;
+        case DISTANCE:			cmd = new SetCameraPosition(*this, cameraPosition.x, cameraPosition.y, 5 );					break;
+        case TILT:				cmd = new SetCameraOrientation(*this, cameraPosition.x, 0, cameraPosition.z );				break;
+        case ROLL:				cmd = new SetCameraOrientation(*this, 0, cameraOrientation.y, cameraOrientation.z );		break;
+        case PAN:				cmd = new SetCameraOrientation(*this, cameraOrientation.x, cameraOrientation.y, 0);			break;
+        case FOV:				cmd = new SetCameraFov(*this, 72);															break;
+        case OFFSET_X:			cmd = new SetCameraOffset(*this, 0, cameraOffset.y);										break;
+        case OFFSET_Y:			cmd = new SetCameraOffset(*this, cameraOffset.x, 0);										break;
+        case SCALE:				cmd = new SetCameraScale(*this, 1, 1);														break;
+        case SCALE_X:			cmd = new SetCameraScaleX(*this, 1);														break;
+        case SCALE_Y:			cmd = new SetCameraScaleY(*this, 1);														break;
+        case SHEAR_XY:			cameraShear[0] = 0;		cmd = new SetCameraShear(*this, cameraShear );						break;
+        case SHEAR_XZ:			cameraShear[1] = 0;		cmd = new SetCameraShear(*this, cameraShear );						break;
+        case SHEAR_YX:			cameraShear[2] = 0;		cmd = new SetCameraShear(*this, cameraShear );						break;
+        case SHEAR_YZ:			cameraShear[3] = 0;		cmd = new SetCameraShear(*this, cameraShear );						break;
+        case SHEAR_ZX:			cameraShear[4] = 0;		cmd = new SetCameraShear(*this, cameraShear );						break;
+        case SHEAR_ZY:			cameraShear[5] = 0;		cmd = new SetCameraShear(*this, cameraShear );						break;
+    }
+
+	return cmd;
+}
+
+
+Command* Projector::execute(float v) {
+	bool b = ((v == 1) ? true : false);	
+	
+
+	Command* cmd = NULL;
+
 	switch (editMode) {
         case NONE:				break;
-        case ENABLE:			history.execute( new SetEnable(*this, b) );															break;
-        case BRIGHTNESS:		history.execute( new SetBrightness(*this, brightness + v * .1) );									break;
-        case CONTRAST:			history.execute( new SetContrast(*this, contrast + v * .1) );										break;
-        case BRUSH_SCALE:		history.execute( new SetBrushScale(*this, mask.brushScale + v * .1) );								break;
-        case BRUSH_OPACITY:		history.execute( new SetBrushOpacity(*this, mask.brushOpacity + v) );								break;
-        case BLACK:				history.execute( new SetBlackLevel(*this, blackLevel + v) );										break;
-        case WHITE:				history.execute( new SetWhiteLevel(*this, whiteLevel + v) );										break;
-        case HUE:				history.execute( new SetHue(*this, hue + v * .1) );													break;
-        case SATURATION:		history.execute( new SetSaturation(*this, saturation + v * .1) );									break;
-        case LIGHTNESS:			history.execute( new SetLightness(*this, lightness + v * .1) );										break;
-        case GAMMA:				history.execute( new SetGamma(*this, gamma + v * .1) );												break;
-        case GAMMA_R:			history.execute( new SetGammaR(*this, gammaR + v * .1) );											break;
-        case GAMMA_G:			history.execute( new SetGammaG(*this, gammaG + v * .1) );											break;
-        case GAMMA_B:			history.execute( new SetGammaB(*this, gammaB + v * .1) );											break;
-        case CORNERPIN:			break;
-        case GRID:				break;
-        case AZIMUTH:			history.execute( new SetCameraPosition(*this, cameraPosition.x + v, cameraPosition.y, cameraPosition.z) );					break;
-        case ELEVATION:			history.execute( new SetCameraPosition(*this, cameraPosition.x, cameraPosition.y + v, cameraPosition.z) );					break;
-        case DISTANCE:			history.execute( new SetCameraPosition(*this, cameraPosition.x, cameraPosition.y, cameraPosition.z + v) );					break;
-        case ROLL:				history.execute( new SetCameraOrientation(*this, cameraOrientation.x + v, cameraOrientation.y, cameraOrientation.z) );		break;
-        case TILT:				history.execute( new SetCameraOrientation(*this, cameraOrientation.x, cameraOrientation.y + v, cameraOrientation.z) );		break;
-        case PAN:				history.execute( new SetCameraOrientation(*this, cameraOrientation.x, cameraOrientation.y, cameraOrientation.z + v) );		break;
-        case FOV:				history.execute( new SetCameraFov(*this, cameraFov + v) );																	break;
-        case OFFSET_X:			history.execute( new SetCameraOffset(*this, cameraOffset.x + v  * .1, cameraOffset.y) );									break;
-        case OFFSET_Y:			history.execute( new SetCameraOffset(*this, cameraOffset.x, cameraOffset.y + v * .1) );										break;
-        case SCALE:				history.execute( new SetCameraScale(*this, cameraScale.x + v * .1, cameraScale.y + v * .1) );							break;
-        case SCALE_X:			history.execute( new SetCameraScale(*this, cameraScale.x + v * .1, cameraScale.y) );										break;
-        case SCALE_Y:			history.execute( new SetCameraScale(*this, cameraScale.x, cameraScale.y + v * .1) );										break;
-        case SHEAR_XY:			cameraShear[0] += v *.1;	history.execute( new SetCameraShear(*this, cameraShear ) );										break;
-        case SHEAR_XZ:			cameraShear[1] += v *.1;	history.execute( new SetCameraShear(*this, cameraShear ) );										break;
-        case SHEAR_YX:			cameraShear[2] += v *.1;	history.execute( new SetCameraShear(*this, cameraShear ) );										break;
-        case SHEAR_YZ:			cameraShear[3] += v *.1;	history.execute( new SetCameraShear(*this, cameraShear ) );										break;
-        case SHEAR_ZX:			cameraShear[4] += v *.1;	history.execute( new SetCameraShear(*this, cameraShear ) );										break;
-        case SHEAR_ZY:			cameraShear[5] += v *.1;	history.execute( new SetCameraShear(*this, cameraShear ) );										break;
+        case ENABLE:			cmd = new SetEnable(*this, b);																					break;
+        case BRIGHTNESS:		cmd = new SetBrightness(*this, brightness + v * .1);															break;
+        case CONTRAST:			cmd = new SetContrast(*this, contrast + v * .1);																break;
+        case BRUSH_SCALE:		cmd = new SetBrushScale(*this, mask.brushScale + v * .1);														break;
+        case BRUSH_OPACITY:		cmd = new SetBrushOpacity(*this, mask.brushOpacity + v);														break;
+        case BLACK:				cmd = new SetBlackLevel(*this, blackLevel + v);																	break;
+        case WHITE:				cmd = new SetWhiteLevel(*this, whiteLevel + v);																	break;
+        case HUE:				cmd = new SetHue(*this, hue + v * .1);																			break;
+        case SATURATION:		cmd = new SetSaturation(*this, saturation + v * .1);															break;
+        case LIGHTNESS:			cmd = new SetLightness(*this, lightness + v * .1);																break;
+        case GAMMA:				cmd = new SetGamma(*this, gamma + v * .1);																		break;
+        case GAMMA_R:			cmd = new SetGammaR(*this, gammaR + v * .1);																	break;
+        case GAMMA_G:			cmd = new SetGammaG(*this, gammaG + v * .1);																	break;
+        case GAMMA_B:			cmd = new SetGammaB(*this, gammaB + v * .1);																	break;
+        case CORNERPIN:			cmd = new SetCornerpinPoints(*this, plane.getCornerpinPoints(), lastKey);										break;
+        case GRID:				cmd = new SetGridPoints(*this, plane.getGridPoints(), lastGrid);												break;
+        case AZIMUTH:			cmd = new SetCameraPosition(*this, cameraPosition.x + v, cameraPosition.y, cameraPosition.z);					break;
+        case ELEVATION:			cmd = new SetCameraPosition(*this, cameraPosition.x, cameraPosition.y + v, cameraPosition.z);					break;
+        case DISTANCE:			cmd = new SetCameraPosition(*this, cameraPosition.x, cameraPosition.y, cameraPosition.z + v);					break;
+        case ROLL:				cmd = new SetCameraOrientation(*this, cameraOrientation.x + v, cameraOrientation.y, cameraOrientation.z);		break;
+        case TILT:				cmd = new SetCameraOrientation(*this, cameraOrientation.x, cameraOrientation.y + v, cameraOrientation.z);		break;
+        case PAN:				cmd = new SetCameraOrientation(*this, cameraOrientation.x, cameraOrientation.y, cameraOrientation.z + v);		break;
+        case FOV:				cmd = new SetCameraFov(*this, cameraFov + v);																	break;
+        case OFFSET_X:			cmd = new SetCameraOffset(*this, cameraOffset.x + v  * .1, cameraOffset.y);										break;
+        case OFFSET_Y:			cmd = new SetCameraOffset(*this, cameraOffset.x, cameraOffset.y + v * .1);										break;
+        case SCALE:				cmd = new SetCameraScale(*this, cameraScale.x + v * .1, cameraScale.y + v * .1);								break;
+        case SCALE_X:			cmd = new SetCameraScale(*this, cameraScale.x + v * .1, cameraScale.y);											break;
+        case SCALE_Y:			cmd = new SetCameraScale(*this, cameraScale.x, cameraScale.y + v * .1);											break;
+        case SHEAR_XY:			cameraShear[0] += v *.1;	cmd = new SetCameraShear(*this, cameraShear );										break;
+        case SHEAR_XZ:			cameraShear[1] += v *.1;	cmd = new SetCameraShear(*this, cameraShear );										break;
+        case SHEAR_YX:			cameraShear[2] += v *.1;	cmd = new SetCameraShear(*this, cameraShear );										break;
+        case SHEAR_YZ:			cameraShear[3] += v *.1;	cmd = new SetCameraShear(*this, cameraShear );										break;
+        case SHEAR_ZX:			cameraShear[4] += v *.1;	cmd = new SetCameraShear(*this, cameraShear );										break;
+        case SHEAR_ZY:			cameraShear[5] += v *.1;	cmd = new SetCameraShear(*this, cameraShear );										break;
     }
+	
+	return cmd;
 }
 
 
@@ -522,7 +518,7 @@ void Projector::loadXML2(ofXml &xml) {
 
     // intensity
     if (xml.exists("[@brightness]")) {
-        val = ofToFloat( xml.getAttribute("[@brightness]") );
+        val = ofToFloat( xml.getAttribute("[@brightness]"));
         brightness = val;
     }
     if (xml.exists("[@contrast]")) {

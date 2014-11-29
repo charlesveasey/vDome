@@ -6,7 +6,7 @@
 #include "curves.h"
 
 namespace vd {
-
+class Command;
 class Projector {
 
 public:
@@ -35,8 +35,8 @@ public:
     void loadXML2(ofXml &xml);
     void saveXML(ofXml &xml);
 
-	 void execute(float v);
-
+	Command* execute(float v);
+	Command* reset();
     
     // plane
     ofVec2f getPlanePosition();

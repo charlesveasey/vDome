@@ -116,6 +116,31 @@ public:
  ********************************************/
 
 // enable
+
+class SetProjectors : public Command {
+protected:
+     vector<Command*> cmds;
+public:
+    SetProjectors(vector<Command*> cmds) : cmds(cmds) {}
+    void execute() {
+		for (int i = 0; i < cmds.size(); i++){
+			cmds.at(i)->execute();
+		}
+	}
+    void undo() {
+		for (int i = 0; i < cmds.size(); i++){
+			cmds.at(i)->undo();
+		}
+	}
+    void redo() { 		
+		for (int i = 0; i < cmds.size(); i++){
+			cmds.at(i)->redo();
+		} 
+	}
+};
+
+
+// enable
 class SetEnable : public Command {
 protected:
     Projector& obj;
@@ -333,18 +358,30 @@ public:
 
 // plane
 
-class SetKeystonePoints : public Command {
+class SetCornerpinPoints : public Command {
 protected:
     Projector& obj;
     vector<ofPoint> v;
     vector<ofPoint> l;
 public:
-    SetKeystonePoints(Projector& obj, vector<ofPoint> v, vector<ofPoint> l) : obj(obj), v(v), l(l) {}
+    SetCornerpinPoints(Projector& obj, vector<ofPoint> v, vector<ofPoint> l) : obj(obj), v(v), l(l) {}
     void execute() {;
         obj.setKeystonePoints(v);
     }
-    void undo() { obj.setKeystonePoints(l); }
-    void redo() { obj.setKeystonePoints(v); }
+	void undo() { 
+		bool tmp = obj.plane.cornerpinActive;
+		obj.plane.cornerpinActive = true;
+		obj.plane.setCornerpinPoints(l);
+		obj.plane.draw();
+		obj.plane.cornerpinActive = tmp;
+	}
+    void redo() { 
+		bool tmp = obj.plane.cornerpinActive;
+		obj.plane.cornerpinActive = true;
+		obj.plane.setCornerpinPoints(v);
+		obj.plane.draw();
+		obj.plane.cornerpinActive = tmp;
+	}
 };
 
 class SetGridPoints : public Command {
@@ -357,8 +394,12 @@ public:
     void execute() {;
         obj.setGridPoints(v);
     }
-    void undo() { obj.setGridPoints(l); }
-    void redo() { obj.setGridPoints(v); }
+    void undo() { 
+		obj.setGridPoints(l); 
+	}
+    void redo() { 
+		obj.setGridPoints(v); 
+	}
 };
 
 

@@ -1,5 +1,5 @@
 #include "menu.h"
-#include "command.h"
+#include "commands.h"
 
 namespace vd {
 
@@ -583,7 +583,7 @@ void Menu::drawSaved(){
 
 void Menu::drawActive(int i){
     if (!saved || autosave) {
-        if (projectors->at(i).keyboard || projectors->at(i).mouse) {
+        if (projectors->at(i).active) {
             ofSetHexColor(0xFFF000);
             ofDrawBitmapString("Active", px+padx+120, py+pady*1.75);
             ofSetHexColor(0xFFFFFF);
@@ -814,7 +814,7 @@ void Menu::back() {
 
 /******************************************
 
- Curve Events
+ CURVE EVENTS
 
  ********************************************/
 
@@ -935,10 +935,28 @@ void Menu::mouseDragged(ofMouseEventArgs& mouseArgs) {
 
 void Menu::mouseReleased(ofMouseEventArgs& mouseArgs) {
     if (active) {
-        for (int i=0; i<projCount; i++) {
+
+		vector<Command*> cmds;
+		for (int k=0; k<projCount; k++) {
+
+			if (projectors->at(k).editMode == projectors->at(k).CORNERPIN || projectors->at(k).editMode == projectors->at(k).GRID) {	
+				if (projectors->at(k).active) {
+					Command* cmd = projectors->at(k).execute(0);
+					if (cmd)
+						cmds.push_back(cmd);
+				}
+			}
+		}
+		
+
+		if (cmds.size()){
+			history.execute(new SetProjectors(cmds));
+		}
+
+		for (int i=0; i<projCount; i++) {
             projectors->at(i).mouseReleased(mouseArgs);
         }
-    }
+	}
 }
 
 
@@ -1007,15 +1025,52 @@ void Menu::keyPressed(int key) {
     }
     model->value = value;
 
-
-    for (int k=0; k<projCount; k++) {
+	for (int k=0; k<projCount; k++) {
 		projectors->at(k).keyPressed(key);
-    }
+	}
 
     // MENU
     ///////////////////////////
     if (!active) { return; }
     ///////////////////////////
+
+	if (key == OF_KEY_LEFT || key == OF_KEY_RIGHT || key == 114){
+
+			vector<Command*> cmds;
+
+			if (key == 114){
+
+				for (int k=0; k<projCount; k++) {
+					if (projectors->at(k).active) {
+						Command* cmd = projectors->at(k).reset();
+						if (cmd)
+							cmds.push_back(cmd);
+					}
+				}			
+			
+			}
+			else {
+
+				int val;
+				if (key == OF_KEY_LEFT)
+					val = -1;
+				else if (key == OF_KEY_RIGHT)
+					val = 1;
+			
+				for (int k=0; k<projCount; k++) {
+					if (projectors->at(k).active) {
+						Command* cmd = projectors->at(k).execute(val);
+						if (cmd)
+							cmds.push_back(cmd);
+					}
+				}
+
+
+			}
+
+			if (cmds.size())
+				history.execute(new SetProjectors(cmds));
+		}
 
 
     switch (key){
