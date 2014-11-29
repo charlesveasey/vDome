@@ -42,7 +42,7 @@ void Projector::init(int i){
 	active = false;
     enable = true;
     
-    fboSample = 16;
+    fboSample = 4;
 
     width = 1024;
     height = 768;
@@ -108,7 +108,7 @@ void Projector::setup() {
 
     // create camera fbo
     if (fbo.getWidth() != width || fbo.getHeight() != height) {
-        fbo.allocate(width, height, GL_RGBA, fboSample);
+        fbo.allocate(width, height, GL_RGBA);
         renderFbo.setUseTexture(true);
         renderFbo.allocate(width, height, GL_RGBA, fboSample);
         

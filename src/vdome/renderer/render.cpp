@@ -23,6 +23,7 @@ void Render::setup() {
 	ofSetFrameRate(framerate);
     ofBackground(100,100,100);
     ofEnableNormalizedTexCoords();
+    ofDisableAntiAliasing();
 	ofBackground(0,0,0);
 }
 
