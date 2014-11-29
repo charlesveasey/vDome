@@ -1195,37 +1195,16 @@ void Menu::keyPressed(int key) {
     }
 
     // 1 - 10 projectors
-
-    else if (key == 33){
-        key = 49;
-    }
-    else if (key == 64){
-        key = 50;
-    }
-    else if (key == 35){
-        key = 51;
-    }
-    else if (key == 36){
-        key = 52;
-    }
-    else if (key == 37){
-        key = 53;
-    }
-    else if (key == 94){
-        key = 54;
-    }
-    else if (key == 38){
-        key = 55;
-    }
-    else if (key == 42){
-        key = 56;
-    }
-    else if (key == 40){
-        key = 57;
-    }
-    else if (key == 41){
-        key = 48;
-    }
+    else if (key == 33) key = 49;
+    else if (key == 64)	key = 50;
+    else if (key == 35)	key = 51;
+    else if (key == 36) key = 52;
+    else if (key == 37) key = 53;
+    else if (key == 94) key = 54;
+    else if (key == 38) key = 55;
+    else if (key == 42) key = 56;
+    else if (key == 40) key = 57;
+    else if (key == 41) key = 48;
 
     if (key >= 48 && key <= 57)  {
 
