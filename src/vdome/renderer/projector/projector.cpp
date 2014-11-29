@@ -442,6 +442,7 @@ Command* Projector::reset() {
 Command* Projector::execute(float v) {
 	bool b = ((v == 1) ? true : false);	
 	
+	v *= value;
 
 	Command* cmd = NULL;
 
