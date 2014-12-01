@@ -159,7 +159,9 @@ public:
 
     bool autosave;
 
-
+private:
+    void updateColorFromCurve(int pointIndex);
+    
 
 };
 

@@ -160,8 +160,8 @@
 		5621F308192429BB007B29DB /* ofxOscReceiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxOscReceiver.h; sourceTree = "<group>"; };
 		5621F309192429BB007B29DB /* ofxOscSender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxOscSender.cpp; sourceTree = "<group>"; };
 		5621F30A192429BB007B29DB /* ofxOscSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxOscSender.h; sourceTree = "<group>"; };
-		5628D0BB1A2566C9000B5807 /* curves.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = curves.cpp; path = projector/curves.cpp; sourceTree = "<group>"; };
-		5628D0BC1A2566C9000B5807 /* curves.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = curves.h; path = projector/curves.h; sourceTree = "<group>"; };
+		5628D0BB1A2566C9000B5807 /* curves.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = curves.cpp; sourceTree = "<group>"; };
+		5628D0BC1A2566C9000B5807 /* curves.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = curves.h; sourceTree = "<group>"; };
 		566351591927118500FD6D0F /* ofxMultiGLFWWindow.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = ofxMultiGLFWWindow.cpp; sourceTree = "<group>"; };
 		5663515A1927118500FD6D0F /* ofxMultiGLFWWindow.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = ofxMultiGLFWWindow.h; sourceTree = "<group>"; };
 		566C5AC51968BEBF00139873 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
@@ -604,8 +604,6 @@
 		566C5AEE1968BEBF00139873 /* renderer */ = {
 			isa = PBXGroup;
 			children = (
-				5628D0BB1A2566C9000B5807 /* curves.cpp */,
-				5628D0BC1A2566C9000B5807 /* curves.h */,
 				566C5AEF1968BEBF00139873 /* model.cpp */,
 				566C5AF01968BEBF00139873 /* model.h */,
 				566C5AF11968BEBF00139873 /* projector */,
@@ -620,6 +618,8 @@
 		566C5AF11968BEBF00139873 /* projector */ = {
 			isa = PBXGroup;
 			children = (
+				5628D0BB1A2566C9000B5807 /* curves.cpp */,
+				5628D0BC1A2566C9000B5807 /* curves.h */,
 				566C5AF21968BEBF00139873 /* camera.cpp */,
 				566C5AF31968BEBF00139873 /* camera.h */,
 				566C5AF41968BEBF00139873 /* cornerpin.cpp */,

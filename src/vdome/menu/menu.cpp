@@ -824,7 +824,7 @@ void Menu::onCurHoverUpdate(ofVec4f & xyip){
 	int cy = ofClamp(xyip[1], 0, 255);	
 	int ci = xyip[2];
 	int pi = xyip[3];
-
+    
 	for (int j=0; j<projCount; j++) {
 		if (j != ci){
 			if ( projectors->at(j).curves.getCurrentHover() != ci ){
@@ -836,27 +836,7 @@ void Menu::onCurHoverUpdate(ofVec4f & xyip){
 			}
 		}
     }
-
-
-	if (projectors->size()){
-		if (projectors->at(0).curves.getColorMode() == projectors->at(0).curves.GREY){
-				input->setColor(cx, cx, cx);
-		}
-		else if (projectors->at(0).curves.getColorMode() == projectors->at(0).curves.RED){
-				input->setColor(cx, 0, 0);
-		}
-		else if (projectors->at(0).curves.getColorMode() == projectors->at(0).curves.GREEN){
-				input->setColor(0, cx, 0);
-		}
-		else if (projectors->at(0).curves.getColorMode() == projectors->at(0).curves.BLUE){
-				input->setColor(0, 0, cx);
-		}
-	}
-
 }
-
-
-
 
 void Menu::onCurHoverChange(ofVec3f & xyi){
 	for (int j=0; j<projCount; j++) {
@@ -865,27 +845,28 @@ void Menu::onCurHoverChange(ofVec3f & xyi){
 		}
     }
 
-	int cpnt = xyi.x;
-	int clmp = ofClamp(xyi.x, 0, 255);
+    updateColorFromCurve(xyi.z);
+}
+
+void Menu::updateColorFromCurve(int pointIndex){
+    int displayColor = ofClamp(256/8 * pointIndex, 0, 255);
 
 	if (projectors->size()){
 		if (projectors->at(0).curves.getColorMode() == projectors->at(0).curves.GREY){
-				input->setColor(clmp, clmp, clmp);
+            input->setColor(displayColor, displayColor, displayColor);
 		}
 		else if (projectors->at(0).curves.getColorMode() == projectors->at(0).curves.RED){
-				input->setColor(clmp, 0, 0);
+            input->setColor(displayColor, 0, 0);
 		}
 		else if (projectors->at(0).curves.getColorMode() == projectors->at(0).curves.GREEN){
-				input->setColor(0, clmp, 0);
+            input->setColor(0, displayColor, 0);
 		}
 		else if (projectors->at(0).curves.getColorMode() == projectors->at(0).curves.BLUE){
-				input->setColor(0, 0, clmp);
+            input->setColor(0, 0, displayColor);
 		}
 	}
 
 }
-
-
 
 
 
