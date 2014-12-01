@@ -218,15 +218,15 @@ void Input::setSource(string s) {
 }
 string Input::getSource() {
 	string s = "";
-    if      (source = MEDIA)       s = "media";
-    else if (source = CAPTURE)     s = "capture";
-    else if (source = SYPHON)      s = "syphon";
-	else if (source = SPOUT)       s = "spout";
-    else if (source = GRID)        s = "grid";
-    else if (source = BLACK)       s = "black";
-    else if (source = WHITE)       s = "white";
-    else if (source = GREY)        s = "grey";
-	else if (source = COLOR)       s = "color";
+    if      (source == MEDIA)       s = "media";
+    else if (source == CAPTURE)     s = "capture";
+    else if (source == SYPHON)      s = "syphon";
+	else if (source == SPOUT)       s = "spout";
+    else if (source == GRID)        s = "grid";
+    else if (source == BLACK)       s = "black";
+    else if (source == WHITE)       s = "white";
+    else if (source == GREY)        s = "grey";
+	else if (source == COLOR)       s = "color";
 	return s;
 }
    
