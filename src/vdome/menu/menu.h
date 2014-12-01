@@ -162,9 +162,10 @@ public:
     bool autosave;
 
 private:
-    int curvePointIndex;
     void updateColorFromCurve(int pointIndex, bool forceGrey);
+    void changeColorCurveMode(int i);
     
+    int curvePointIndex;
 
 };
 

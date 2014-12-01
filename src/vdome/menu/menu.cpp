@@ -744,9 +744,13 @@ void Menu::select() {
     }
     
 	setEditMode();
+    changeColorCurveMode((*currentMenu)->menuId);
+}
 
-
-    switch ((*currentMenu)->menuId) {
+    
+    
+void Menu::changeColorCurveMode(int i){
+    switch (i) {
 		case CURVES_GREY:
 			storedSource = input->source;
 			input->source = input->COLOR;
@@ -759,7 +763,7 @@ void Menu::select() {
 				projectors->at(k).curves.setColorMode( projectors->at(k).curves.GREY );
 				projectors->at(k).curves.setCurrentHover(0);
             }
-
+            
             break;
 		case CURVES_RED:
 			storedSource = input->source;
@@ -767,13 +771,13 @@ void Menu::select() {
 			input->setColor(0, 0, 0);
 			input->setup();
             updateColorFromCurve(0, false);
-
+            
             for (int k=0; k<projCount; k++) {
                 projectors->at(k).curves.enabled = true;
 				projectors->at(k).curves.setColorMode( projectors->at(k).curves.RED );
 				projectors->at(k).curves.setCurrentHover(0);
             }
-
+            
             break;
 		case CURVES_GREEN:
 			storedSource = input->source;
@@ -781,13 +785,13 @@ void Menu::select() {
  			input->setColor(0, 0, 0);
  			input->setup();
             updateColorFromCurve(0, false);
-         
+            
 			for (int k=0; k<projCount; k++) {
                 projectors->at(k).curves.enabled = true;
 				projectors->at(k).curves.setColorMode( projectors->at(k).curves.GREEN );
 				projectors->at(k).curves.setCurrentHover(0);
             }
-
+            
             break;
 		case CURVES_BLUE:
 			storedSource = input->source;
@@ -795,22 +799,20 @@ void Menu::select() {
  			input->setColor(0, 0, 0);
 			input->setup();
             updateColorFromCurve(0, false);
-           
+            
 			for (int k=0; k<projCount; k++) {
                 projectors->at(k).curves.enabled = true;
 				projectors->at(k).curves.setColorMode( projectors->at(k).curves.BLUE );
 				projectors->at(k).curves.setCurrentHover(0);
             }
-
+            
             break;
         default: 
 			break;
     }
 
-	
-
 }
-
+    
 void Menu::back() {
     currentMenu = (*currentMenu)->parent;
     setEditMode();
