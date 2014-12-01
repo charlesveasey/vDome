@@ -10,7 +10,7 @@ public:
 
     void save(){
         saved = false;
-        startThread(true, false);
+        startThread(true);
     }
 
     void threadedFunction(){
