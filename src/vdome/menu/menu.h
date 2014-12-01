@@ -41,6 +41,8 @@ public:
     void drawWarp(int i);
     void drawCurves(int i);
 
+    void update();
+    
     // navigation
     void select();
     void back();
@@ -160,7 +162,8 @@ public:
     bool autosave;
 
 private:
-    void updateColorFromCurve(int pointIndex);
+    int curvePointIndex;
+    void updateColorFromCurve(int pointIndex, bool forceGrey);
     
 
 };

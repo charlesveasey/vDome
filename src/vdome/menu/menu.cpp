@@ -217,7 +217,7 @@ Menu::Menu(){
     padx = 15;
     pady = 15;
 
-
+    curvePointIndex = 0;
 }
 
 
@@ -510,7 +510,16 @@ void Menu::drawMain(int i){
     }
 }
 
-
+void Menu::update(){
+    if (input->source == input->COLOR){
+        if (ofGetKeyPressed('g') || ofGetKeyPressed('G')){
+            updateColorFromCurve(curvePointIndex, true);
+        }
+        else{
+            updateColorFromCurve(curvePointIndex, false);
+        }
+    }
+}
 
 
 void Menu::draw(int i){
@@ -522,7 +531,7 @@ void Menu::draw(int i){
 
 			px = projectors->at(i).getPlanePosition().x + projectors->at(i).width/2 - pw/2;
 			py = projectors->at(i).getPlanePosition().y + projectors->at(i).height/2  - ph/2;
-
+            
 			//drawBackground();
 			drawCurves(i);
 
@@ -741,8 +750,9 @@ void Menu::select() {
 		case CURVES_GREY:
 			storedSource = input->source;
 			input->source = input->COLOR;
-			input->setup();
 			input->setColor(0, 0, 0);
+			input->setup();
+            updateColorFromCurve(0, false);
 			
             for (int k=0; k<projCount; k++) {
                 projectors->at(k).curves.enabled = true;
@@ -754,8 +764,9 @@ void Menu::select() {
 		case CURVES_RED:
 			storedSource = input->source;
 			input->source = input->COLOR;
-			input->setup();
 			input->setColor(0, 0, 0);
+			input->setup();
+            updateColorFromCurve(0, false);
 
             for (int k=0; k<projCount; k++) {
                 projectors->at(k).curves.enabled = true;
@@ -767,9 +778,10 @@ void Menu::select() {
 		case CURVES_GREEN:
 			storedSource = input->source;
 			input->source = input->COLOR;
-			input->setup();
  			input->setColor(0, 0, 0);
-          
+ 			input->setup();
+            updateColorFromCurve(0, false);
+         
 			for (int k=0; k<projCount; k++) {
                 projectors->at(k).curves.enabled = true;
 				projectors->at(k).curves.setColorMode( projectors->at(k).curves.GREEN );
@@ -780,8 +792,9 @@ void Menu::select() {
 		case CURVES_BLUE:
 			storedSource = input->source;
 			input->source = input->COLOR;
-			input->setup();
  			input->setColor(0, 0, 0);
+			input->setup();
+            updateColorFromCurve(0, false);
            
 			for (int k=0; k<projCount; k++) {
                 projectors->at(k).curves.enabled = true;
@@ -845,14 +858,16 @@ void Menu::onCurHoverChange(ofVec3f & xyi){
 		}
     }
 
-    updateColorFromCurve(xyi.z);
+    bool g = ofGetKeyPressed('g') || ofGetKeyPressed('G');
+    updateColorFromCurve(xyi.z, g);
 }
 
-void Menu::updateColorFromCurve(int pointIndex){
+void Menu::updateColorFromCurve(int pointIndex, bool forceGrey){
+    curvePointIndex = pointIndex;
     int displayColor = ofClamp(256/8 * pointIndex, 0, 255);
-
+    
 	if (projectors->size()){
-		if (projectors->at(0).curves.getColorMode() == projectors->at(0).curves.GREY){
+		if (projectors->at(0).curves.getColorMode() == projectors->at(0).curves.GREY || forceGrey){
             input->setColor(displayColor, displayColor, displayColor);
 		}
 		else if (projectors->at(0).curves.getColorMode() == projectors->at(0).curves.RED){
@@ -1023,12 +1038,13 @@ void Menu::keyPressed(int key) {
 	for (int k=0; k<projCount; k++) {
 		projectors->at(k).keyPressed(key);
 	}
-
+    
     // MENU
     ///////////////////////////
     if (!active) { return; }
     ///////////////////////////
 
+    
 	if (key == OF_KEY_LEFT || key == OF_KEY_RIGHT || key == 114){
 
 			vector<Command*> cmds;

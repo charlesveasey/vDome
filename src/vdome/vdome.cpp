@@ -111,6 +111,7 @@ void vdome::update() {
     }
 
     if (menu.active) {
+        menu.update();
         if (saveThread.saved) {
             menu.saved = true;
             saveThread.saved = false;
