@@ -186,11 +186,19 @@ void main() {
     
 	t2 = vec4(cRGB.rgb, t.a);
 
-	// curves
-    set = mix(floor(t2*mapdim),t2*mapdim,float(interp));				//multiply color value for LUT range
+	// color curves
+    set = mix(floor(t2*mapdim),t2*mapdim,float(interp));					//multiply color value for LUT range
 	rout = float (texture(colorlut, vec2(set.r,0.)).r);						//look up red
 	gout = float (texture(colorlut, vec2(set.g,0.)).g);						//look up green
 	bout = float (texture(colorlut, vec2(set.b,0.)).b);						//look up blue
+	mapped = vec4 (rout, gout, bout,t2.a);
+	t2 = mix(t2, mapped, amt);
+
+	// grey curve
+    set = mix(floor(t2*mapdim),t2*mapdim,float(interp));					//multiply color value for LUT range
+	rout = float (texture(colorlut, vec2(set.r,0.)).a);						//look up red
+	gout = float (texture(colorlut, vec2(set.g,0.)).a);						//look up green
+	bout = float (texture(colorlut, vec2(set.b,0.)).a);						//look up blue
 	mapped = vec4 (rout, gout, bout,t2.a);
 	t2 = mix(t2, mapped, amt);
 

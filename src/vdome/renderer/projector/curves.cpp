@@ -35,11 +35,11 @@ void Curves::setup() {
 		}
 	}	
 
-	colorlut.allocate(lutRes, lutRes, OF_IMAGE_COLOR);
+	colorlut.allocate(lutRes, lutRes, OF_IMAGE_COLOR_ALPHA);
 
 	for(int x = 0; x < 256; x++) {
 		for(int y = 0; y < 256; y++) {
-			colorlut.setColor(x, y, ofColor(x,x,x));
+			colorlut.setColor(x, y, ofColor(x,x,x,x));
 		}
 	}
 
@@ -58,9 +58,10 @@ void Curves::update() {
 		for(int y = 0; y < lutRes; y++) {
 			if (n){
 				colorlut.setColor(x, y, ofColor(
-					ofClamp(curvesTools.at(0)->getLut(x) - x + curvesTools.at(1)->getLut(x), 0, lutRes-1),
-					ofClamp(curvesTools.at(0)->getLut(x) - x + curvesTools.at(2)->getLut(x), 0, lutRes-1),
-					ofClamp(curvesTools.at(0)->getLut(x) - x + curvesTools.at(3)->getLut(x), 0, lutRes-1)));
+					ofClamp(curvesTools.at(1)->getLut(x), 0, lutRes-1),
+					ofClamp(curvesTools.at(2)->getLut(x), 0, lutRes-1),
+					ofClamp(curvesTools.at(3)->getLut(x), 0, lutRes-1), 
+					ofClamp(curvesTools.at(0)->getLut(x), 0, lutRes-1)));
 			}
 		}
 	}
