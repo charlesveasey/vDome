@@ -253,6 +253,8 @@ void Plane::load(ofXml &xml) {
     cornerpin.setBottomLeftCornerPosition(bl);
     cornerpin.setBottomRightCornerPosition(br);
 
+    grid.setup(width, height, 6, 20);
+
     if (vec.size() > 0) {
         grid.setControlPnts(vec);
     }
