@@ -109,6 +109,6 @@ https://docs.google.com/document/d/1EHPpExjznFF6X0YTY5acLS0MNkEbtVFsLBCoJ2HHQlQ/
   - Support for Nvidia Warp and Intensity API
   
 ---
-Funding provided by the United States Department of Defence. Based on prior research from the University of New Mexico (UNM) and IAIA with funding provided by the National Science Foundation.
+Funding provided by the United States Department of Defense. Based on prior research from the University of New Mexico (UNM) and IAIA with funding provided by the National Science Foundation.
 
 Thanks to research by the ARTS Labs at UNM and Paul Bourke at the University of Western Australia.
