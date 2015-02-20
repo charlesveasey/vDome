@@ -16,8 +16,8 @@ Mask::Mask(){
     mouseX = 0;
     mouseY = 0;
 
-    width = 1024;
-    height = 768;
+    width = 1920;
+    height = 1200;
     
     tx = 0;
     ty = 0;
@@ -70,7 +70,7 @@ void Mask::setup(){
         ofDisableNormalizedTexCoords();
         maskFbo.begin();
         ofSetColor(255, 255, 255, 255);
-            maskFboImage->draw(0,0, 1024, 768);
+            maskFboImage->draw(0,0, 1920, 1200);
         maskFbo.end();
         ofEnableNormalizedTexCoords();
         ofEnableAlphaBlending();

@@ -1,0 +1,18 @@
+<vDome autosave="off" framerate="60" resolution="4096" vsync="on">
+    
+    <socket enabled="on" host="localhost" receive="3334" send="3333"/>
+    
+    <input file="/Users/gdome/Desktop/Fractals_Change_4k_Pro.mov" flip="off" loop="off" rotate="0" scale="1" slide="5" source="white" tilt="0"/>
+
+    <model radius="10"/>
+    
+	<window fullscreen="off" position="2560,0" resolution="11520,1200" top="off">
+        <projector brightness="1" contrast="1" fov="72" gamma="1,1,1,1" hsl="1,1,1" levels="0,255" offset="0,0" orientation="0,17.5,0" position="-72,1,12" resolution="1920,1200" scale="1,1" shear="0,0,0,0,0,0"/>
+        <projector brightness="1" contrast="1" fov="72" gamma="1,1,1,1" hsl="1,1,1" levels="0,255" offset="0,0" orientation="0,18,0" position="1,0,12" resolution="1920,1200" scale="1,1" shear="0,0,0,0,0,0"/>
+        <projector brightness="1" contrast="1" fov="72" gamma="1,1,1,1" hsl="1,1,1" levels="0,255" offset="0,0" orientation="0,17.39,0" position="72.7,1,12" resolution="1920,1200" scale="1,1" shear="0,0,0,0,0,0"/>
+        <projector brightness="1" contrast="1" fov="72" gamma="1,1,1,1" hsl="1,1,1" levels="0,255" offset="0,0" orientation="0,17.5,0" position="144.32,1.02,12" resolution="1920,1200" scale="1,1" shear="0,0,0,0,0,0"/>
+        <projector brightness="1" contrast="1" fov="72" gamma="1,1,1,1" hsl="1,1,1" levels="0,255" offset="0,0" orientation="0,18,0" position="217,0,12" resolution="1920,1200" scale="1,1" shear="0,0,0,0,0,0"/>
+        <projector brightness="1" contrast="1" fov="72" gamma="1.1,1,1,1" hsl="1,1,1" levels="0,255" offset="0,0" orientation="2,48,0" position="-24.93,-13,12" resolution="1920,1200" scale="1,1" shear="0,0,0,0.3,0,0"/>
+    </window>
+
+</vDome>

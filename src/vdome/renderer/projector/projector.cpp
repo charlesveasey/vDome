@@ -44,8 +44,8 @@ void Projector::init(int i){
     
     fboSample = 4;
 
-    width = 1024;
-    height = 768;
+    width = 1920;
+    height = 1200;
     
     // camera
     cameraPosition.set(0,0,10);    // azi, ele, dis

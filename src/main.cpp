@@ -14,7 +14,7 @@ int main( ){
 	ofSetCurrentRenderer(ofGLProgrammableRenderer::TYPE);
     
 	ofxMultiGLFWWindow win;
-    win.setOpenGLVersion(3,2);
+    win.setOpenGLVersion(4,1);
     win.windowCount = 1;
 	win.hideBorder();
 

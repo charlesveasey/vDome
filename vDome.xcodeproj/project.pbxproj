@@ -1715,7 +1715,7 @@
 					"\"$(SRCROOT)/../../../addons/ofxOpenCv/libs/opencv/lib/osx\"",
 					"\"$(SRCROOT)/ofxOpenCv/libs/opencv/lib/osx\"",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_LDFLAGS = "$(OF_CORE_LIBS)";
 				PRODUCT_NAME = vDomeDebug;
 				WRAPPER_EXTENSION = app;
@@ -1842,7 +1842,7 @@
 					"\"$(SRCROOT)/../../../addons/ofxOpenCv/libs/opencv/lib/osx\"",
 					"\"$(SRCROOT)/ofxOpenCv/libs/opencv/lib/osx\"",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_LDFLAGS = "$(OF_CORE_LIBS)";
 				PRODUCT_NAME = vDome;
 				WRAPPER_EXTENSION = app;

@@ -6,7 +6,7 @@ VideoOSX::VideoOSX() {
     bLoop = false;
     bLoaded = false;
     fPath = "";
-    bAVF = false;
+    bAVF = true;
 }
 
 void VideoOSX::open(string filepath){

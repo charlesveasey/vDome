@@ -26,8 +26,8 @@ Plane::Plane(){
     yRes = 10;
     pointIndex = -1;
 	value = 1;
-    width = 1024;
-    height = 768;
+    width = 1920;
+    height = 1200;
 	cornerpinActive = false;
 	gridActive = false;
     
@@ -64,7 +64,7 @@ void Plane::setup(int i){
     cornerpin.setBottomRightCornerPosition(br);
     cornerpin.setup();
 
-    grid.setup(width, height, 6, 20);
+    grid.setup(width, height, 8, 20);
     
     vector<ofVec3f> v = grid.getVertices();
     for (int i=0; i<v.size(); i++) {
@@ -253,7 +253,7 @@ void Plane::load(ofXml &xml) {
     cornerpin.setBottomLeftCornerPosition(bl);
     cornerpin.setBottomRightCornerPosition(br);
 
-    grid.setup(width, height, 6, 20);
+    grid.setup(width, height, 8, 20);
 
     if (vec.size() > 0) {
         grid.setControlPnts(vec);

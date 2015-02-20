@@ -9,8 +9,8 @@ namespace vd {
 
 Window::Window(){
     x = y = 0;
-    width = 1024;
-    height = 768;
+    width = 1920;
+    height = 1200;
     fullscreen = false;
     border = false;
     top = false;
