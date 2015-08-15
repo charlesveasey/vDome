@@ -22,6 +22,8 @@ public:
     bool getIsMovieDone();
     void setVolume(float v);
     bool isLoaded();
+    float getWidth();
+    float getHeight();
 
     ofEvent<bool> endEvent;
     string forceVideoRenderer;
