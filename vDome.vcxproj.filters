@@ -175,6 +175,15 @@
     <ClCompile Include="src\vdome\input\spout\spoutR.cpp">
       <Filter>src\vdome\input\spout</Filter>
     </ClCompile>
+    <ClCompile Include="src\vdome\renderer\projector\curves.cpp">
+      <Filter>src\vdome\renderer\projector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxCurvesTool\src\CurveLut.cpp">
+      <Filter>addons\ofxCurvesTool\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxCurvesTool\src\ofxCurvesTool.cpp">
+      <Filter>addons\ofxCurvesTool\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -365,6 +374,12 @@
     </Filter>
     <Filter Include="src\vdome\input\spout">
       <UniqueIdentifier>{2f5e560a-bd3f-4865-bb50-9b1d21100d8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxCurvesTool">
+      <UniqueIdentifier>{fb681655-66ea-4ff4-86dd-eaa876b54b30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxCurvesTool\src">
+      <UniqueIdentifier>{41c0d4da-a2d4-45c1-86ce-7fb54f9d9f05}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -871,6 +886,18 @@
     </ClInclude>
     <ClInclude Include="src\vdome\input\spout\spoutR.h">
       <Filter>src\vdome\input\spout</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\renderer\projector\curves.h">
+      <Filter>src\vdome\renderer\projector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxCurvesTool\src\CurveLut.h">
+      <Filter>addons\ofxCurvesTool\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxCurvesTool\src\ofxCurvesTool.h">
+      <Filter>addons\ofxCurvesTool\src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\menu\commands.h">
+      <Filter>src\vdome\menu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

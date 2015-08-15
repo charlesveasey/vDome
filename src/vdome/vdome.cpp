@@ -1,13 +1,17 @@
 #include "vdome.h"
+#include "command.h"
 
 namespace vd {
 
 // global variables
+
 float projCount = 1;
+int winCount = 1;
+
 int maxHistory = 25;
+CommandHistory history;
 vector<ofPixels> maskHistory;
 
-int winCount = 1;
     
 /******************************************
 
@@ -83,15 +87,9 @@ void vdome::setup(){
         saveThread.imageFiles.push_back("settings/masks/mask-" + ofToString(i+1) + ".png");
     }
 
-    maskHistory.clear();
-    for (int i=0; i<=(maxHistory+2); i++) {
-        ofPixels buffer;
-        buffer.allocate(1920, 1080, OF_IMAGE_COLOR_ALPHA); //FIXME: HARDCODED RESOLUTION?
-        maskHistory.push_back(buffer);
-    }
-    
     menu.autosave = autosave; 
 	glfw->showWindow(glfwWindows->at(0));
+	menu.setup();
 }
 
 /******************************************
@@ -107,8 +105,13 @@ void vdome::update() {
         if (socket.enabled)
             socket.update();
     }
-    
+   
+	for(int i=0; i<projectors.size(); i++) {
+		projectors[i].update();
+    }
+
     if (menu.active) {
+        menu.update();
         if (saveThread.saved) {
             menu.saved = true;
             saveThread.saved = false;
@@ -151,7 +154,7 @@ void vdome::draw(){
                 if (projectors[i].active)
                     projectors[i].mask.draw();
             
-                shader.begin();
+					shader.begin();
 
                     shader.setUniform1f("brightness", projectors[i].brightness);
                     shader.setUniform1f("contrast", projectors[i].contrast);
@@ -167,8 +170,13 @@ void vdome::draw(){
                     shader.setUniform1f("gammaG", projectors[i].gammaG);
                     shader.setUniform1f("gammaB", projectors[i].gammaB);
 
-                    shader.setUniformTexture("texsampler", projectors[i].renderFbo.getTextureReference(), 0);
-                    shader.setUniformTexture("maskTex", projectors[i].mask.maskFbo.getTextureReference(), 1);
+					shader.setUniform1i("interp", 1 );
+					shader.setUniform1f("amt", 1.0 );
+					shader.setUniform1f("mapdim", 256.0 );
+
+					shader.setUniformTexture("texsampler", projectors[i].renderFbo.getTextureReference(), 0);
+					shader.setUniformTexture("colorlut", projectors[i].curves.colorlutTextureRef(), 1);
+                    shader.setUniformTexture("maskTex", projectors[i].mask.maskFbo.getTextureReference(), 2);
             
                     projectors[i].renderPlane.draw();
 

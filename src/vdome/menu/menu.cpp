@@ -1,7 +1,12 @@
 #include "menu.h"
+#include "commands.h"
+
 namespace vd {
 
 extern float projCount;
+extern int maxHistory;
+extern CommandHistory history;
+extern vector<ofPixels> maskHistory;
 
 /******************************************
 
@@ -10,10 +15,13 @@ extern float projCount;
  ********************************************/
 
 Menu::Menu(){
-    menuMain = new MenuItem;
+
+	menuMain = new MenuItem;
     menuMain->menuId = MAIN;
     menuMain->parent = &menuMain;
     menuMain->currentItem = 0;
+	
+	menuMain->items.push_back(new Item("Enable"));
     menuMain->items.push_back(new Item("Input              ->", true));
     menuMain->items.push_back(new Item("Warp               ->", true));
     menuMain->items.push_back(new Item("Blend              ->", true));
@@ -27,7 +35,6 @@ Menu::Menu(){
     menuInput->items.push_back(new Item("Source"));
     menuInput->items.push_back(new Item("Format"));
     menuInput->items.push_back(new Item("Loop"));
-    menuInput->items.push_back(new Item("Enable"));
     menuInput->items.push_back(new Item("Transform          ->", true));
 
     menuInputTransform = new MenuItem;
@@ -75,6 +82,7 @@ Menu::Menu(){
     menuColor->currentItem = 0;
     menuColor->items.push_back(new Item("HSL                ->", true));
     menuColor->items.push_back(new Item("Gamma              ->", true));
+	menuColor->items.push_back(new Item("Curves             ->", true));
 
     menuHSL = new MenuItem;
     menuHSL->menuId = HSL;
@@ -89,9 +97,42 @@ Menu::Menu(){
     menuGamma->parent = &menuColor;
     menuGamma->currentItem = 0;
     menuGamma->items.push_back(new Item("Gamma"));
-    menuGamma->items.push_back(new Item("Gamma Red"));
-    menuGamma->items.push_back(new Item("Gamma Green"));
-    menuGamma->items.push_back(new Item("Gamma Blue"));
+    menuGamma->items.push_back(new Item("Red"));
+    menuGamma->items.push_back(new Item("Green"));
+    menuGamma->items.push_back(new Item("Blue"));
+
+	menuCurves = new MenuItem;
+    menuCurves->menuId = CURVES;
+    menuCurves->parent = &menuColor;
+    menuCurves->currentItem = 0;
+	menuCurves->items.push_back(new Item("Grey               ->", true));
+    menuCurves->items.push_back(new Item("Red                ->", true));
+    menuCurves->items.push_back(new Item("Green              ->", true));
+    menuCurves->items.push_back(new Item("Blue               ->", true));
+
+	menuCurvesGrey = new MenuItem;
+    menuCurvesGrey->menuId = CURVES_GREY;
+	menuCurvesGrey->parent = &menuCurves;
+	menuCurvesGrey->currentItem = 0;
+    menuCurvesGrey->items.push_back(new Item(""));
+
+	menuCurvesRed = new MenuItem;
+    menuCurvesRed->menuId = CURVES_RED;
+	menuCurvesRed->parent = &menuCurves;
+	menuCurvesRed->currentItem = 0;
+    menuCurvesRed->items.push_back(new Item(""));
+
+	menuCurvesGreen = new MenuItem;
+    menuCurvesGreen->menuId = CURVES_GREEN;
+	menuCurvesGreen->parent = &menuCurves;
+	menuCurvesGreen->currentItem = 0;
+    menuCurvesGreen->items.push_back(new Item(""));
+
+	menuCurvesBlue = new MenuItem;
+    menuCurvesBlue->menuId = CURVES_BLUE;
+	menuCurvesBlue->parent = &menuCurves;
+	menuCurvesBlue->currentItem = 0;
+    menuCurvesBlue->items.push_back(new Item(""));
 
     menuSetup = new MenuItem;
     menuSetup->menuId = SETUP;
@@ -172,10 +213,39 @@ Menu::Menu(){
 
     // layout
     pw = 200;
-    ph = 135;
+    ph = 145;
     padx = 15;
     pady = 15;
+
+    curvePointIndex = 0;
 }
+
+
+
+
+
+/******************************************
+
+ Setup
+
+ ********************************************/
+
+void Menu::setup(){
+
+	maskHistory.clear();
+	for (int i=0; i<=(maxHistory+2); i++) {
+		ofPixels buffer;
+		maskHistory.push_back(buffer);
+	}
+
+	for (int i=0; i<projCount; i++) {
+		ofAddListener(projectors->at(i).curves.curHoverChange,this, &Menu::onCurHoverChange);
+		ofAddListener(projectors->at(i).curves.curHoverUpdate,this, &Menu::onCurHoverUpdate);
+    }
+ 
+}
+
+
 
 /******************************************
 
@@ -186,6 +256,9 @@ Menu::Menu(){
 void Menu::drawHighlight(){
     ofSetHexColor(0xF9ED6B);
 }
+
+
+
 
 void Menu::drawBackground(){
     // background color
@@ -205,6 +278,9 @@ void Menu::drawBackground(){
     ofRect(px, py, 1, pw, ph);
 }
 
+
+
+
 void Menu::drawMain(int i){
     string str;
     string val;
@@ -215,7 +291,11 @@ void Menu::drawMain(int i){
         if (j == (*currentMenu)->currentItem)
             drawHighlight();
 
-        if ((*currentMenu)->menuId != MAIN &&
+		if ((*currentMenu)->menuId == MAIN){ 
+            if (projectors->at(i).enable) val = "On";
+            else val = "Off";
+		}
+        else if ((*currentMenu)->menuId != MAIN &&
             (*currentMenu)->menuId != WARP &&
             (*currentMenu)->menuId != SETUP) {
 
@@ -241,27 +321,23 @@ void Menu::drawMain(int i){
                             if (input->getLoop()) val = "On";
                             else val = "Off";
                             break;
-                        case ENABLE:
-                            if (projectors->at(i).enable) val = "On";
-                            else val = "Off";
-                            break;
                     }
                     break;
 
                 case INPUT_TRANSFORM:
                     switch (j) {
                         case INPUT_FLIP:
-                            if (model->textureFlip) val = "On";
+							if (model->getTextureFlip()) val = "On";
                             else val = "Off";
                             break;
                         case INPUT_ROTATE:
-                            val = ofToString(roundTo(model->textureRotate, .001));
+							val = ofToString(roundTo(model->getTextureRotate(), .001));
                             break;
                         case INPUT_TILT:
-                            val = ofToString(roundTo(model->textureTilt, .001));
+							val = ofToString(roundTo(model->getTextureTilt(), .001));
                             break;
                         case INPUT_SCALE:
-                            val = ofToString(roundTo(model->textureScale, .001));
+							val = ofToString(roundTo(model->getTextureScale(), .001));
                             break;
                     }
                     break;
@@ -417,14 +493,15 @@ void Menu::drawMain(int i){
                     break;
             }
 
-            // value string
-            if (str.find("->") != 19) { // nested menu exception
-                while (str.size() + val.size() < 21) {
-                    str += " ";
-                }
-                str += val;
-            }
         }
+
+		// value string
+		if (str.find("->") != 19) { // nested menu exception
+			while (str.size() + val.size() < 21) {
+				str += " ";
+			}
+			str += val;
+		}
 
         ofDrawBitmapString(str, px+padx, py+pady * (3.25+j) );
 
@@ -433,38 +510,98 @@ void Menu::drawMain(int i){
     }
 }
 
-void Menu::draw(int i){
-    // set position
-    px = projectors->at(i).getPlanePosition().x + projectors->at(i).width/2 - pw/2;
-    py = projectors->at(i).getPlanePosition().y + projectors->at(i).height/2  - ph/2;
-
-    drawBackground();
-    ofSetHexColor(0xFFFFFF);
-    drawProjector(i);
-    drawFPS(i);
-    drawMain(i);
-    drawWarp(i);
-    drawActive(i);
-    drawSaved();
+void Menu::update(){
+    if (input->source == input->COLOR){
+        if (ofGetKeyPressed('g') || ofGetKeyPressed('G')){
+            updateColorFromCurve(curvePointIndex, true);
+        }
+        else{
+            updateColorFromCurve(curvePointIndex, false);
+        }
+    }
 }
+
+
+void Menu::draw(int i){
+   
+		if (projectors->at(i).curves.enabled){
+			projectors->at(i).curves.setLabelPosition(16, 45);
+			pw = 256;
+			ph = 256;
+
+			px = projectors->at(i).getPlanePosition().x + projectors->at(i).width/2 - pw/2;
+			py = projectors->at(i).getPlanePosition().y + projectors->at(i).height/2  - ph/2;
+            
+			//drawBackground();
+			drawCurves(i);
+
+			ofSetColor(255);
+			drawProjector(i);
+			drawFPS(i);
+			drawActive(i);
+			drawSaved();
+		}
+
+		else {
+
+			projectors->at(i).curves.setLabelPosition();
+
+			pw = 200;
+			ph = 145;
+
+			px = projectors->at(i).getPlanePosition().x + projectors->at(i).width/2 - pw/2;
+			py = projectors->at(i).getPlanePosition().y + projectors->at(i).height/2  - ph/2;
+
+			drawBackground();
+			ofSetColor(255);
+			drawProjector(i);
+			drawFPS(i);
+			drawMain(i);
+			drawWarp(i);
+			drawActive(i);
+			drawSaved();
+		}
+
+		if ((*currentMenu)->menuId == CURVES_GREY  
+			|| (*currentMenu)->menuId == CURVES_RED 
+			|| (*currentMenu)->menuId == CURVES_GREEN 
+			|| (*currentMenu)->menuId == CURVES_BLUE) {
+		}
+		else if (input->source == input->COLOR){
+			input->source = storedSource;
+			input->setup();
+		}
+
+
+}
+
+
+
+
+
 
 void Menu::drawSaved(){
     if (saved && !autosave) {
         ofSetHexColor(0xFFFFFF);
         ofDrawBitmapString("SAVED", px+padx+125, py+pady*1.75);
-
     }
 }
 
+
+
+
 void Menu::drawActive(int i){
     if (!saved || autosave) {
-        if (projectors->at(i).keyboard || projectors->at(i).mouse) {
+        if (projectors->at(i).active) {
             ofSetHexColor(0xFFF000);
             ofDrawBitmapString("Active", px+padx+120, py+pady*1.75);
             ofSetHexColor(0xFFFFFF);
         }
     }
 }
+
+
+
 
 void Menu::drawWarp(int i){
     // draw cornerpin or plane
@@ -480,9 +617,22 @@ void Menu::drawWarp(int i){
     }
 }
 
+
+
+
+void Menu::drawCurves(int i){
+	projectors->at(i).drawCurves(px, py);
+}
+
+
+
+
 void Menu::drawProjector(int i){
     ofDrawBitmapString("Projector #" + ofToString(i+1), px+padx, py+pady * 1.75);
 }
+
+
+
 
 void Menu::drawFPS(int i){
     if (!saved || autosave) {
@@ -491,6 +641,9 @@ void Menu::drawFPS(int i){
 		}
     }
 }
+
+
+
 
 void Menu::toggle() {
     active = !active;
@@ -508,6 +661,24 @@ void Menu::toggle() {
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /******************************************
 
  NAVIGATION
@@ -520,17 +691,17 @@ void Menu::select() {
     switch ((*currentMenu)->menuId) {
         case MAIN:
             switch (item) {
-                case 0: currentMenu = &menuInput; break;
-                case 1: currentMenu = &menuWarp; break;
-                case 2: currentMenu = &menuBlend; break;
-                case 3: currentMenu = &menuColor; break;
-                case 4: currentMenu = &menuSetup; break;
+                case 1: currentMenu = &menuInput; break;
+                case 2: currentMenu = &menuWarp; break;
+                case 3: currentMenu = &menuBlend; break;
+                case 4: currentMenu = &menuColor; break;
+                case 5: currentMenu = &menuSetup; break;
                 default: break;
             }
             break;
         case INPUT:
             switch (item) {
-                case 4: currentMenu = &menuInputTransform; break;
+                case 3: currentMenu = &menuInputTransform; break;
                 default: break;
             }
             break;
@@ -556,18 +727,174 @@ void Menu::select() {
             switch (item) {
                 case 0: currentMenu = &menuHSL; break;
                 case 1: currentMenu = &menuGamma; break;
+				case 2: currentMenu = &menuCurves; break;
+                default: break;
+            }
+            break;
+		case CURVES:
+            switch (item) {
+				case 0: currentMenu = &menuCurvesGrey; break;
+				case 1: currentMenu = &menuCurvesRed; break;
+				case 2: currentMenu = &menuCurvesGreen; break;
+				case 3: currentMenu = &menuCurvesBlue; break;
                 default: break;
             }
             break;
         default: break;
     }
-    setEditMode();
+    
+	setEditMode();
+    changeColorCurveMode((*currentMenu)->menuId);
 }
 
+    
+    
+void Menu::changeColorCurveMode(int i){
+    switch (i) {
+		case CURVES_GREY:
+			storedSource = input->source;
+			input->source = input->COLOR;
+			input->setColor(0, 0, 0);
+			input->setup();
+            updateColorFromCurve(0, false);
+			
+            for (int k=0; k<projCount; k++) {
+                projectors->at(k).curves.enabled = true;
+				projectors->at(k).curves.setColorMode( projectors->at(k).curves.GREY );
+				projectors->at(k).curves.setCurrentHover(0);
+            }
+            
+            break;
+		case CURVES_RED:
+			storedSource = input->source;
+			input->source = input->COLOR;
+			input->setColor(0, 0, 0);
+			input->setup();
+            updateColorFromCurve(0, false);
+            
+            for (int k=0; k<projCount; k++) {
+                projectors->at(k).curves.enabled = true;
+				projectors->at(k).curves.setColorMode( projectors->at(k).curves.RED );
+				projectors->at(k).curves.setCurrentHover(0);
+            }
+            
+            break;
+		case CURVES_GREEN:
+			storedSource = input->source;
+			input->source = input->COLOR;
+ 			input->setColor(0, 0, 0);
+ 			input->setup();
+            updateColorFromCurve(0, false);
+            
+			for (int k=0; k<projCount; k++) {
+                projectors->at(k).curves.enabled = true;
+				projectors->at(k).curves.setColorMode( projectors->at(k).curves.GREEN );
+				projectors->at(k).curves.setCurrentHover(0);
+            }
+            
+            break;
+		case CURVES_BLUE:
+			storedSource = input->source;
+			input->source = input->COLOR;
+ 			input->setColor(0, 0, 0);
+			input->setup();
+            updateColorFromCurve(0, false);
+            
+			for (int k=0; k<projCount; k++) {
+                projectors->at(k).curves.enabled = true;
+				projectors->at(k).curves.setColorMode( projectors->at(k).curves.BLUE );
+				projectors->at(k).curves.setCurrentHover(0);
+            }
+            
+            break;
+        default: 
+			break;
+    }
+
+}
+    
 void Menu::back() {
     currentMenu = (*currentMenu)->parent;
     setEditMode();
 }
+
+
+
+
+
+
+
+
+
+
+/******************************************
+
+ CURVE EVENTS
+
+ ********************************************/
+
+void Menu::onCurHoverUpdate(ofVec4f & xyip){
+
+	int cx = ofClamp(xyip[0], 0, 255);
+	int cy = ofClamp(xyip[1], 0, 255);	
+	int ci = xyip[2];
+	int pi = xyip[3];
+    
+	for (int j=0; j<projCount; j++) {
+		if (j != ci){
+			if ( projectors->at(j).curves.getCurrentHover() != ci ){
+				projectors->at(j).curves.setCurrentHover(ci);
+			}
+			
+			if ( projectors->at(j).active ){
+				projectors->at(j).curves.setPoint(ci,ofPoint(cx,cy));
+			}
+		}
+    }
+}
+
+void Menu::onCurHoverChange(ofVec3f & xyi){
+	for (int j=0; j<projCount; j++) {
+		if ( projectors->at(j).curves.getCurrentHover() != xyi.z ){
+			projectors->at(j).curves.setCurrentHover(xyi.z);
+		}
+    }
+
+    bool g = ofGetKeyPressed('g') || ofGetKeyPressed('G');
+    updateColorFromCurve(xyi.z, g);
+}
+
+void Menu::updateColorFromCurve(int pointIndex, bool forceGrey){
+    curvePointIndex = pointIndex;
+    int displayColor = ofClamp(256/8 * pointIndex, 0, 255);
+    
+	if (projectors->size()){
+		if (projectors->at(0).curves.getColorMode() == projectors->at(0).curves.GREY || forceGrey){
+            input->setColor(displayColor, displayColor, displayColor);
+		}
+		else if (projectors->at(0).curves.getColorMode() == projectors->at(0).curves.RED){
+            input->setColor(displayColor, 0, 0);
+		}
+		else if (projectors->at(0).curves.getColorMode() == projectors->at(0).curves.GREEN){
+            input->setColor(0, displayColor, 0);
+		}
+		else if (projectors->at(0).curves.getColorMode() == projectors->at(0).curves.BLUE){
+            input->setColor(0, 0, displayColor);
+		}
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
 
 /******************************************
 
@@ -580,7 +907,20 @@ void Menu::mousePressed(ofMouseEventArgs& mouseArgs) {
         for (int i=0; i<projCount; i++) {
             projectors->at(i).mousePressed(mouseArgs);
         }
-     }
+
+		if (ofGetKeyPressed(OF_KEY_ALT)){
+			value = altValue;
+		}
+		else if (ofGetKeyPressed(cKey)){
+			value = ctrlValue;
+		}
+		else {
+			value = orgValue;
+		}
+		for (int i=0; i<projCount; i++) {
+			projectors->at(i).setValue(value);
+		}
+	}
 }
 
 void Menu::mouseDragged(ofMouseEventArgs& mouseArgs) {
@@ -593,11 +933,61 @@ void Menu::mouseDragged(ofMouseEventArgs& mouseArgs) {
 
 void Menu::mouseReleased(ofMouseEventArgs& mouseArgs) {
     if (active) {
-        for (int i=0; i<projCount; i++) {
+
+
+		vector<Command*> cmds;
+		for (int k=0; k<projCount; k++) {
+			if (projectors->at(k).editMode == projectors->at(k).CORNERPIN || projectors->at(k).editMode == projectors->at(k).GRID) {	
+				if (projectors->at(k).active) {
+					Command* cmd = projectors->at(k).execute(0);
+					if (cmd)
+						cmds.push_back(cmd);
+				}
+			}
+		}
+		
+
+		for (int i=0; i<projCount; i++) {
             projectors->at(i).mouseReleased(mouseArgs);
         }
-    }
+
+
+		for (int k=0; k<projCount; k++) {
+			if (projectors->at(k).editMode == projectors->at(k).BRUSH_SCALE || projectors->at(k).editMode == projectors->at(k).BRUSH_OPACITY) {	
+				if (projectors->at(k).active) {
+					Command* cmd = projectors->at(k).executeBrush();
+					if (cmd)
+						cmds.push_back(cmd);
+				}
+			}
+		}
+		
+
+
+		if (cmds.size()){
+			history.execute(new SetProjectors(cmds));
+		}
+
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /******************************************
 
@@ -647,32 +1037,99 @@ void Menu::keyPressed(int key) {
     }
     model->value = value;
 
-
-    for (int k=0; k<projCount; k++) {
-        if (projectors->at(k).active) {
-            projectors->at(k).keyPressed(key);
-        }
-    }
-
+	for (int k=0; k<projCount; k++) {
+		projectors->at(k).keyPressed(key);
+	}
+    
     // MENU
     ///////////////////////////
     if (!active) { return; }
     ///////////////////////////
 
-	// NAVIGATION
+    
+	if (key == OF_KEY_LEFT || key == OF_KEY_RIGHT || key == 114){
+
+			vector<Command*> cmds;
+
+			if (key == 114){
+
+				for (int k=0; k<projCount; k++) {
+					if (projectors->at(k).active) {
+						Command* cmd = projectors->at(k).reset();
+						if (cmd)
+							cmds.push_back(cmd);
+					}
+				}			
+			
+			}
+			else {
+
+				int val;
+				if (key == OF_KEY_LEFT)
+					val = -1;
+				else if (key == OF_KEY_RIGHT)
+					val = 1;
+			
+				for (int k=0; k<projCount; k++) {
+					if (projectors->at(k).active) {
+						Command* cmd = projectors->at(k).execute(val);
+						if (cmd)
+							cmds.push_back(cmd);
+					}
+				}
+
+
+			}
+
+			if (cmds.size())
+				history.execute(new SetProjectors(cmds));
+		}
+
+
     switch (key){
+
+		
+        case 122: // (z)
+            history.undo();
+            break;
+        case 121: // (y)
+            history.redo();
+            break;
+
+
         case OF_KEY_UP:
-            if ((*currentMenu)->currentItem > 0)
-                (*currentMenu)->currentItem--;
+			if ((*currentMenu)->menuId == CURVES_GREY  
+				|| (*currentMenu)->menuId == CURVES_RED 
+				|| (*currentMenu)->menuId == CURVES_GREEN 
+				|| (*currentMenu)->menuId == CURVES_BLUE) {
+					// do nothing
+		    }
+			else{
+				if ((*currentMenu)->currentItem > 0){
+					(*currentMenu)->currentItem--;
+				}
+				setEditMode();
+			}
             break;
 
         case OF_KEY_DOWN:
-            if ((*currentMenu)->currentItem < (*currentMenu)->items.size()-1)
-                (*currentMenu)->currentItem++;
+			if ((*currentMenu)->menuId == CURVES_GREY  
+				|| (*currentMenu)->menuId == CURVES_RED 
+				|| (*currentMenu)->menuId == CURVES_GREEN 
+				|| (*currentMenu)->menuId == CURVES_BLUE) {
+					// do nothing
+		    }
+			else{
+				if ((*currentMenu)->currentItem < (*currentMenu)->items.size()-1){
+					(*currentMenu)->currentItem++;
+				}
+				setEditMode();
+			}
+
             break;
 
         case OF_KEY_RIGHT:
-            if ( (*currentMenu)->items.at( (*currentMenu)->currentItem )->isParent ) {
+			if ((*currentMenu)->items.at( (*currentMenu)->currentItem )->isParent ) {
                 select();
                 return;
             }
@@ -687,30 +1144,46 @@ void Menu::keyPressed(int key) {
             break;
     }
 
-    if (key == OF_KEY_LEFT || key == OF_KEY_RIGHT) {
+    if (key == OF_KEY_LEFT || key == OF_KEY_RIGHT || key == 114) { // r = 114
+		
+		if ((*currentMenu)->menuId == CURVES_GREY  
+			|| (*currentMenu)->menuId == CURVES_RED 
+			|| (*currentMenu)->menuId == CURVES_GREEN 
+			|| (*currentMenu)->menuId == CURVES_BLUE) {
 
-        switch((*currentMenu)->menuId) {
-            case INPUT:
-                switch ((*currentMenu)->currentItem) {
-                    default:
-                        input->keyPressed(key);
-                        break;
-                }
-                break;
-            case INPUT_TRANSFORM:
-                switch ((*currentMenu)->currentItem) {
-                    default:
-                        model->keyPressed(key);
-                        break;
-                }
-                break;
-        }
+			if (key == OF_KEY_LEFT){
+				if (projectors->size()){
+					projectors->at(0).curves.prevPoint(); // other points update on event
+				}
+			}
+			else if (key == OF_KEY_RIGHT){
+				if (projectors->size()){
+					projectors->at(0).curves.nextPoint(); // other points update on event
+				}
+			}
+
+		}
+
+		else{
+			switch((*currentMenu)->menuId) {
+				case INPUT:
+					switch ((*currentMenu)->currentItem) {
+						default:
+							input->keyPressed(key);
+							break;
+					}
+					break;
+				case INPUT_TRANSFORM:
+					switch ((*currentMenu)->currentItem) {
+						default:
+							model->keyPressed(key);
+							break;
+					}
+					break;
+			}
+		}
     }
 
-    // SET EDIT MODE
-    else if (key == OF_KEY_UP || key == OF_KEY_DOWN){
-        setEditMode();
-    }
 
     // SELECT PROJECTORS
 
@@ -735,37 +1208,16 @@ void Menu::keyPressed(int key) {
     }
 
     // 1 - 10 projectors
-
-    else if (key == 33){
-        key = 49;
-    }
-    else if (key == 64){
-        key = 50;
-    }
-    else if (key == 35){
-        key = 51;
-    }
-    else if (key == 36){
-        key = 52;
-    }
-    else if (key == 37){
-        key = 53;
-    }
-    else if (key == 94){
-        key = 54;
-    }
-    else if (key == 38){
-        key = 55;
-    }
-    else if (key == 42){
-        key = 56;
-    }
-    else if (key == 40){
-        key = 57;
-    }
-    else if (key == 41){
-        key = 48;
-    }
+    else if (key == 33) key = 49;
+    else if (key == 64)	key = 50;
+    else if (key == 35)	key = 51;
+    else if (key == 36) key = 52;
+    else if (key == 37) key = 53;
+    else if (key == 94) key = 54;
+    else if (key == 38) key = 55;
+    else if (key == 42) key = 56;
+    else if (key == 40) key = 57;
+    else if (key == 41) key = 48;
 
     if (key >= 48 && key <= 57)  {
 
@@ -801,21 +1253,48 @@ void Menu::keyPressed(int key) {
            setEditMode();
        }
     }
+
+	for (int i=0; i<projCount; i++) {
+		projectors->at(i).curves.setActive( projectors->at(i).active );
+    }
 }
 
 void Menu::setEditMode() {
+
+	if ((*currentMenu)->menuId == CURVES_GREY  
+		|| (*currentMenu)->menuId == CURVES_RED 
+		|| (*currentMenu)->menuId == CURVES_GREEN 
+		|| (*currentMenu)->menuId == CURVES_BLUE) {
+			// do nothing
+			return;
+	}
 
     for (int k=0; k<projCount; k++) {
         projectors->at(k).editMode = projectors->at(k).NONE;
         projectors->at(k).setKeystoneActive(false);
         projectors->at(k).setGridActive(false);
+		projectors->at(k).curves.enabled = false;
     }
+
     model->editMode = model->NONE;
     input->editMode = input->NONE;
 
     int j = (*currentMenu)->currentItem;
 
     switch ((*currentMenu)->menuId) {
+
+        case MAIN:
+            switch (j) {
+                case ENABLE:
+                    for (int k=0; k<projCount; k++) {
+                        if (projectors->at(k).active)
+                            projectors->at(k).editMode = projectors->at(k).ENABLE;
+                    }
+                    model->editMode = model->NONE;
+                    break;
+            }
+            break;
+
 
         case INPUT:
             switch (j) {
@@ -827,13 +1306,6 @@ void Menu::setEditMode() {
                     break;
                 case LOOP:
                     input->editMode = input->LOOP;
-                    break;
-                case ENABLE:
-                    for (int k=0; k<projCount; k++) {
-                        if (projectors->at(k).active)
-                            projectors->at(k).editMode = projectors->at(k).ENABLE;
-                    }
-                    model->editMode = model->NONE;
                     break;
             }
             break;
@@ -986,6 +1458,12 @@ void Menu::setEditMode() {
             }
             break;
 
+		case CURVES:
+				 for (int k=0; k<projCount; k++) {
+                      projectors->at(k).editMode = projectors->at(k).CURVES;
+				}
+            break;
+
         case POSITION:
             switch (j) {
                 case AZIMUTH:
@@ -1123,6 +1601,7 @@ void Menu::setEditMode() {
                 projectors->at(k).editMode = projectors->at(k).NONE;
             break;
     }
+
 }
 
 
@@ -1135,6 +1614,26 @@ void Menu::keyReleased(int key) {
         projectors->at(i).setValue(value);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /******************************************
 

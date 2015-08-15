@@ -18,11 +18,7 @@ QuadWarp::QuadWarp() {
     bShow = false;
 	value = 1;
     
-    #ifdef TARGET_OSX
-        cKey = OF_KEY_COMMAND;
-    #else
-        cKey = OF_KEY_CONTROL;
-    #endif
+	cKey = OF_KEY_SHIFT;
 }
 
 QuadWarp::~QuadWarp() {

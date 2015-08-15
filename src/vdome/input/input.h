@@ -34,18 +34,31 @@ public:
     void next();
     void seek(float f);
 	bool isPlaying();
-    void setLoop(bool b);
+    
+	void setLoop(bool b);
     bool getLoop();
-    string getSource();
+    
+	string getSource();
     void setSource(string s);
+
+	int getSourceInt();
+    void setSourceInt(int i);
+
+    void setFormat(string s);
+    void setFormat();
+
+	int getFormatInt();
+    void setFormatInt(int i);
+
     float getPosition();
     float getDuration();
-    void setResolution(int r);
+   
+	void setResolution(int r);
     void setSlide(int s);
     string getFilepath();
     void setVolume(float v);
-    void setFormat(string s);
-    void setFormat();
+
+	void setColor(int r, int g, int b);
     
     void openFile(string filepath);
     void setFile(string filepath);
@@ -61,13 +74,14 @@ public:
     enum editModes{NONE, SOURCE, LOOP, FORMAT};
 
     int source;
-    enum sources {MEDIA, CAPTURE, SYPHON, SPOUT, GRID, BLACK, WHITE, GREY};
+    enum sources {MEDIA, CAPTURE, SYPHON, SPOUT, GRID, BLACK, WHITE, GREY, COLOR};
 	int maxSource;
     
     int format;
     enum format {DOMEMASTER, HD};
     int maxFormat;
     int lastFormat;
+
 
     bool isVideo;
     int framerate;
@@ -103,7 +117,8 @@ private:
     int lastSource;
     bool durationSent;
     bool endSent;
-   
+	
+	ofColor cColor;
 };
     
 }

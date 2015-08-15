@@ -1,8 +1,16 @@
+#pragma once
 #include "model.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include "commands.h"
+
 namespace vd {
+
+extern float projCount;
+extern int maxHistory;
+extern CommandHistory history;
+extern vector<ofPixels> maskHistory;
 
 /******************************************
 
@@ -112,7 +120,6 @@ void Model::setup(){
 
 void Model::draw(){
     ofPushMatrix();
-    //ofScale(textureScaleInternalW, textureScaleInternalH);
 	ofRotateX(90+textureTilt+textureTiltInternal);
     ofRotateZ(textureRotate*-1);
     glEnable(GL_CULL_FACE);
@@ -130,45 +137,35 @@ void Model::draw(){
  ********************************************/
 
 void Model::keyPressed(int key) {
+
+	cout << key << endl;
+
     switch (key) {
         case OF_KEY_RIGHT:
             switch (editMode) {
-                case T_ROTATE:
-                    textureRotate += value;
-                    break;
-                case T_TILT:
-                    textureTilt += value;
-                    break;
-                case T_SCALE:
-                    textureScale += value * .01;
-                    setup();
-                    break;
-                case T_FLIP:
-                    textureFlip = true;
-                    setup();
-                    break;
+                case T_ROTATE:		history.execute( new SetTextureRotate(*this, textureRotate + value));		break;
+                case T_TILT:		history.execute( new SetTextureTilt(*this, textureTilt + value));			break;
+                case T_SCALE:		history.execute( new SetTextureScale(*this, textureScale + value * .01));	break;
+                case T_FLIP:		history.execute( new SetTextureFlip(*this, true));							break;
             }
             break;
         case OF_KEY_LEFT:
             switch (editMode) {
-                case T_ROTATE:
-                    textureRotate -= value;
-                    break;
-                case T_TILT:
-                    textureTilt -= value;
-                    break;
-                case T_SCALE:
-                    textureScale -= value * .01;
-                    setup();
-                    break;
-                case T_FLIP:
-                    textureFlip = false;
-                    setup();
-                    break;
+                case T_ROTATE:		history.execute( new SetTextureRotate(*this, textureRotate - value));		break;
+                case T_TILT:		history.execute( new SetTextureTilt(*this, textureTilt - value));			break;
+                case T_SCALE:		history.execute( new SetTextureScale(*this, textureScale - value * .01));	break;
+                case T_FLIP:		history.execute( new SetTextureFlip(*this, false));							break;
+            }
+            break;
+        case 114: // (r) reset
+            switch (editMode) {
+				case T_FLIP:		history.execute( new SetTextureFlip(*this, false));			break;
+				case T_ROTATE:		history.execute( new SetTextureRotate(*this, 0));			break;
+                case T_TILT:		history.execute( new SetTextureTilt(*this, 0));				break;
+				case T_SCALE:		history.execute( new SetTextureScale(*this, 1));			break;
             }
             break;
     }
-
 }
 
 /******************************************
@@ -219,5 +216,43 @@ void Model::saveXML(ofXml &xml) {
 void Model::saveMesh(string file) {
     vbo.save(file);
 }
+
+
+/******************************************
+
+ ACCESSORS
+
+ ********************************************/
+
+bool Model::getTextureFlip(){
+	return textureFlip;
+}
+void Model::setTextureFlip(bool b){
+	textureFlip = b;
+	setup();
+}
+
+float Model::getTextureRotate(){
+	return textureRotate;
+}
+void Model::setTextureRotate(float f){
+	textureRotate = f;
+}
+	
+float Model::getTextureTilt(){
+	return textureTilt;
+}
+void Model::setTextureTilt(float f){
+	textureTilt = f;
+}
+	
+float Model::getTextureScale(){
+	return textureScale;
+}
+void Model::setTextureScale(float f){
+	textureScale = f;
+	setup();
+}
+
 
 }

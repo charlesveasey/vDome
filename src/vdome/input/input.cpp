@@ -1,5 +1,13 @@
+#pragma once
 #include "input.h"
+#include "commands.h"
+
 namespace vd {
+
+extern float projCount;
+extern int maxHistory;
+extern CommandHistory history;
+extern vector<ofPixels> maskHistory;
 
 /******************************************
 
@@ -14,7 +22,7 @@ Input::Input(){
     framerate = 30;
     slide = 10;
     setSlide(slide);
-    setLoop(true);
+    setLoop(false);
     setResolution(resolution);
     ofAddListener(media.endEvent, this, &Input::mediaEnd);
     format = 0;
@@ -37,12 +45,13 @@ void Input::setup(){
     endSent = false;
 
     switch(source){
-        case GRID:      media.open("settings/media/warp/grid-2k.png");  break;
-        case MEDIA:     media.open(files);                              break;
-        case CAPTURE:   capture.open();                                 break;
-        case BLACK:     color.fillBlack();                              break;
-        case WHITE:     color.fillWhite();                              break;
-        case GREY:      color.fillGrey();                               break;
+        case GRID:      media.open("settings/media/warp/grid-2k.png");					break;
+        case MEDIA:     media.open(files);												break;
+        case CAPTURE:   capture.open();													break;
+		case BLACK:     color.setup(); color.fillBlack();								break;
+        case WHITE:     color.setup(); color.fillWhite();								break;
+        case GREY:      color.setup(); color.fillGrey();								break;
+		case COLOR:     color.setup(); color.fill(cColor.r, cColor.g, cColor.b);		break;
 
         case SYPHON:
             #ifdef TARGET_OSX
@@ -56,7 +65,7 @@ void Input::setup(){
             #endif
             break;
 
-        default:        color.fillBlack();                              break;
+        default:        color.setup(); color.fillBlack();                              break;
     }
     
     // reset aspect ratio
@@ -96,7 +105,7 @@ void Input::setup(){
 		model->setup();
 	}
 	else {
-        if (source == GRID || source == BLACK || source == WHITE || source == GREY){
+        if (source == GRID || source == BLACK || source == WHITE || source == GREY || source == COLOR){
             model->textureFlipInternal = false;
             setFormat();
         }
@@ -163,7 +172,7 @@ void Input::bind(){
     if      (source == MEDIA)    media.bind();
     else if (source == CAPTURE)  capture.bind();
     else if (source == GRID)     media.bind();
-    else if (source == BLACK || source == WHITE || source == GREY)     color.bind();
+    else if (source == BLACK || source == WHITE || source == GREY || source == COLOR)     color.bind();
 
     #ifdef TARGET_OSX
     if (source == SYPHON)    syphon.bind();
@@ -178,7 +187,7 @@ void Input::unbind(){
     if      (source == MEDIA)    media.unbind();
     else if (source == CAPTURE)  capture.unbind();
     else if (source == GRID)     media.unbind();
-    else if (source == BLACK || source == WHITE || source == GREY)     color.unbind();
+    else if (source == BLACK || source == WHITE || source == GREY || source == COLOR)     color.unbind();
 
     #ifdef TARGET_OSX
     if (source == SYPHON)    syphon.unbind();
@@ -204,15 +213,36 @@ void Input::setSource(string s) {
     else if (s == "black")      source = BLACK;
     else if (s == "white")      source = WHITE;
     else if (s == "grey")       source = GREY;
+	else if (s == "color")      source = COLOR;
     setup();
 }
-    
+string Input::getSource() {
+	string s = "";
+    if      (source == MEDIA)       s = "media";
+    else if (source == CAPTURE)     s = "capture";
+    else if (source == SYPHON)      s = "syphon";
+	else if (source == SPOUT)       s = "spout";
+    else if (source == GRID)        s = "grid";
+    else if (source == BLACK)       s = "black";
+    else if (source == WHITE)       s = "white";
+    else if (source == GREY)        s = "grey";
+	else if (source == COLOR)       s = "color";
+	return s;
+}
+   
+void Input::setSourceInt(int i) {
+	source = i;
+    setup();
+}
+int Input::getSourceInt() {
+	return source;
+}
+
 void Input::setFormat(string s) {
     if      (s == "domemaster")     format = DOMEMASTER;
     else if (s == "hd")             format = HD;
     setFormat();
-}
-    
+}   
 void Input::setFormat() {
     if (source == GRID || source == BLACK || source == WHITE || source == GREY){
         format = DOMEMASTER;
@@ -227,6 +257,14 @@ void Input::setFormat() {
         model->textureTiltInternal = 50;
         model->setup();
     }
+}
+
+void Input::setFormatInt(int i) {
+    format = i;
+    setFormat();
+}   
+int Input::getFormatInt() {
+    return format;
 }
 
 void Input::play() {
@@ -247,7 +285,7 @@ void Input::close() {
     if      (source == MEDIA)       media.close();
     else if (source == CAPTURE)     capture.close();
     else if (source == GRID)        media.close();
-    else if (source == BLACK || source == WHITE || source == GREY)     color.close();
+    else if (source == BLACK || source == WHITE || source == GREY || source == COLOR)     color.close();
 
 }
 
@@ -266,7 +304,6 @@ void Input::seek(float f) {
 bool Input::getLoop() {
     return media.getLoop();
 }
-
 void Input::setLoop(bool b) {
     media.setLoop(b);
 }
@@ -281,7 +318,6 @@ float Input::getDuration() {
 
 void Input::setResolution(int r){
     resolution = r;
-    color.setResolution(r);
     capture.setResolution(r);
 }
 
@@ -305,6 +341,11 @@ void Input::mediaEnd(bool &end){
     }
 }
 
+void Input::setColor(int r, int g, int b){
+	cColor = ofColor(r,g,b);
+	color.fill(cColor.r, cColor.g, cColor.b);
+}
+
 /******************************************
 
  KEYBOARD
@@ -316,39 +357,55 @@ void Input::keyPressed(int key) {
     switch (key) {
         case OF_KEY_RIGHT:
             inc++;
-            if (editMode == LOOP)       setLoop(true);      break;
+            if (editMode == LOOP)       history.execute( new SetLoop(*this, true));			break;
             break;
 
         case OF_KEY_LEFT:
             inc--;
-            if (editMode == LOOP)       setLoop(false);      break;
+            if (editMode == LOOP)       history.execute( new SetLoop(*this, false));		break;
+            break;
+
+        case 114: // (r) reset
+            switch (editMode) {
+                case SOURCE:			history.execute( new SetSource(*this, 4));			break;
+				case LOOP:				history.execute( new SetLoop(*this, false));		break;
+                case FORMAT:			history.execute( new SetFormat(*this, 0));			break;
+            }
             break;
     }
     if (editMode == SOURCE && inc != 0){
         lastSource = source;
-        source += inc;
-        if (source+inc > maxSource)     source = maxSource;
-        else if (source+inc < 0)        source = 0;
-        #ifdef TARGET_OSX
-        if (source == SPOUT)            source += inc;
+		int newSource = source + inc; 
+
+        if (newSource > maxSource)     newSource = maxSource;
+        else if (newSource < 0)        newSource = 0;
+        
+		#ifdef TARGET_OSX
+        if (newSource == SPOUT)            newSource += inc;
         #endif
         #ifdef TARGET_WIN32
-        if (source == SYPHON)           source += inc;
+        if (newSource == SYPHON)           newSource += inc;
         #endif
         #ifdef TARGET_LINUX
-        while (source == SYPHON || source == SPOUT) {
-            source += inc;
+        
+		while (newSource == SYPHON || newSource == SPOUT) {
+            newSource += inc;
         }
         #endif
-        if (source != lastSource)       setup();
+
+		if (newSource != lastSource) 
+			history.execute( new SetSource(*this, newSource) );
     }
     else if (editMode == FORMAT && inc != 0){
         lastFormat = format;
-        format += inc;
-        if (format+inc > maxFormat)     format = maxFormat;
-        else if (format+inc < 0)        format = 0;
+		int newFormat = format + inc;
+
+        if (newFormat > maxFormat)			newFormat = maxFormat;
+        else if (newFormat < 0)				newFormat = 0;
         
-        if (format != lastFormat)       setFormat();
+        if (newFormat != lastFormat)
+		history.execute( new SetFormat(*this, newFormat) );
+
     }
 }
 
@@ -437,6 +494,7 @@ void Input::saveXML(ofXml &xml) {
     else if (source == BLACK)     str = "black";
     else if (source == WHITE)     str = "white";
     else if (source == GREY)      str = "grey";
+
 
     xml.setAttribute("source", str );
     if (files.size() > 0)

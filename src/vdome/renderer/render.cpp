@@ -24,6 +24,7 @@ void Render::setup() {
     ofBackground(100,100,100);
     ofEnableNormalizedTexCoords();
     ofDisableAntiAliasing();
+	ofBackground(0,0,0);
 }
 
 /******************************************

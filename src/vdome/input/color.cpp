@@ -2,7 +2,10 @@
 using namespace vd;
 
 Color::Color() {
-    resolution = 2048;
+}
+
+void Color::setup(){
+	image.allocate(4, 4, OF_IMAGE_COLOR);
 }
 
 void Color::bind(){
@@ -14,14 +17,8 @@ void Color::unbind(){
 }
 
 void Color::fill(int r, int g, int b){
-    c.set(r, g, b);
-    close();
-    image.allocate(resolution, resolution, OF_IMAGE_COLOR);
-    for (int x=0; x < resolution; x++) {
-        for (int y=0; y < resolution; y++)
-            image.setColor(x, y, c);
-    }
-    image.update();
+	image.setColor(ofColor(r,g,b));
+	image.update();
 }
 
 void Color::fillBlack(){
@@ -34,10 +31,6 @@ void Color::fillWhite(){
 
 void Color::fillGrey(){
     fill(127,127,127);
-}
-
-void Color::setResolution(int r){
-    resolution = r;
 }
 
 void Color::close(){

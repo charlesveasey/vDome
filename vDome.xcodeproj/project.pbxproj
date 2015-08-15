@@ -21,6 +21,7 @@
 		5621F316192429BB007B29DB /* ofxOscParameterSync.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5621F305192429BB007B29DB /* ofxOscParameterSync.cpp */; };
 		5621F317192429BB007B29DB /* ofxOscReceiver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5621F307192429BB007B29DB /* ofxOscReceiver.cpp */; };
 		5621F318192429BB007B29DB /* ofxOscSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5621F309192429BB007B29DB /* ofxOscSender.cpp */; };
+		5628D0BD1A2566C9000B5807 /* curves.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5628D0BB1A2566C9000B5807 /* curves.cpp */; };
 		5663515E1927118500FD6D0F /* ofxMultiGLFWWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 566351591927118500FD6D0F /* ofxMultiGLFWWindow.cpp */; };
 		566C5B021968BEBF00139873 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 566C5AC51968BEBF00139873 /* main.cpp */; };
 		566C5B031968BEBF00139873 /* capture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 566C5AC81968BEBF00139873 /* capture.cpp */; };
@@ -65,6 +66,8 @@
 		567AA6B519075B460064C745 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 567AA6B419075B460064C745 /* QuartzCore.framework */; };
 		568793E319230C9500C19D62 /* ofxCocoaWindowU.mm in Sources */ = {isa = PBXBuildFile; fileRef = 568793E019230C9500C19D62 /* ofxCocoaWindowU.mm */; };
 		568793E419230C9500C19D62 /* ofxCocoaWindowUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568793E119230C9500C19D62 /* ofxCocoaWindowUtils.cpp */; };
+		56886E4B1A2565F3003C8FD1 /* CurveLut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56886E451A2565F3003C8FD1 /* CurveLut.cpp */; };
+		56886E4C1A2565F3003C8FD1 /* ofxCurvesTool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56886E471A2565F3003C8FD1 /* ofxCurvesTool.cpp */; };
 		56A1C6AC1907633A00154E4F /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56A1C6AB1907633A00154E4F /* CoreMedia.framework */; };
 		56A1C6AE190763CE00154E4F /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56A1C6AD190763CE00154E4F /* Syphon.framework */; };
 		56A1C6AF190763FB00154E4F /* Syphon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 56A1C6AD190763CE00154E4F /* Syphon.framework */; };
@@ -157,6 +160,8 @@
 		5621F308192429BB007B29DB /* ofxOscReceiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxOscReceiver.h; sourceTree = "<group>"; };
 		5621F309192429BB007B29DB /* ofxOscSender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxOscSender.cpp; sourceTree = "<group>"; };
 		5621F30A192429BB007B29DB /* ofxOscSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxOscSender.h; sourceTree = "<group>"; };
+		5628D0BB1A2566C9000B5807 /* curves.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = curves.cpp; sourceTree = "<group>"; };
+		5628D0BC1A2566C9000B5807 /* curves.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = curves.h; sourceTree = "<group>"; };
 		566351591927118500FD6D0F /* ofxMultiGLFWWindow.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = ofxMultiGLFWWindow.cpp; sourceTree = "<group>"; };
 		5663515A1927118500FD6D0F /* ofxMultiGLFWWindow.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = ofxMultiGLFWWindow.h; sourceTree = "<group>"; };
 		566C5AC51968BEBF00139873 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
@@ -335,6 +340,10 @@
 		568793E019230C9500C19D62 /* ofxCocoaWindowU.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ofxCocoaWindowU.mm; sourceTree = "<group>"; };
 		568793E119230C9500C19D62 /* ofxCocoaWindowUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxCocoaWindowUtils.cpp; sourceTree = "<group>"; };
 		568793E219230C9500C19D62 /* ofxCocoaWindowUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxCocoaWindowUtils.h; sourceTree = "<group>"; };
+		56886E451A2565F3003C8FD1 /* CurveLut.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CurveLut.cpp; sourceTree = "<group>"; };
+		56886E461A2565F3003C8FD1 /* CurveLut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurveLut.h; sourceTree = "<group>"; };
+		56886E471A2565F3003C8FD1 /* ofxCurvesTool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxCurvesTool.cpp; sourceTree = "<group>"; };
+		56886E481A2565F3003C8FD1 /* ofxCurvesTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxCurvesTool.h; sourceTree = "<group>"; };
 		56A1C6AB1907633A00154E4F /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = ../../../../../../../System/Library/Frameworks/CoreMedia.framework; sourceTree = "<group>"; };
 		56A1C6AD190763CE00154E4F /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Syphon.framework; sourceTree = "<group>"; };
 		56AD7F311923712A00A5FEE6 /* ofxM3U.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxM3U.cpp; sourceTree = "<group>"; };
@@ -609,6 +618,8 @@
 		566C5AF11968BEBF00139873 /* projector */ = {
 			isa = PBXGroup;
 			children = (
+				5628D0BB1A2566C9000B5807 /* curves.cpp */,
+				5628D0BC1A2566C9000B5807 /* curves.h */,
 				566C5AF21968BEBF00139873 /* camera.cpp */,
 				566C5AF31968BEBF00139873 /* camera.h */,
 				566C5AF41968BEBF00139873 /* cornerpin.cpp */,
@@ -1107,6 +1118,26 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		56886E331A2565F3003C8FD1 /* ofxCurvesTool */ = {
+			isa = PBXGroup;
+			children = (
+				56886E441A2565F3003C8FD1 /* src */,
+			);
+			name = ofxCurvesTool;
+			path = ../../../addons/ofxCurvesTool;
+			sourceTree = "<group>";
+		};
+		56886E441A2565F3003C8FD1 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				56886E451A2565F3003C8FD1 /* CurveLut.cpp */,
+				56886E461A2565F3003C8FD1 /* CurveLut.h */,
+				56886E471A2565F3003C8FD1 /* ofxCurvesTool.cpp */,
+				56886E481A2565F3003C8FD1 /* ofxCurvesTool.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		56AD7F2F1923712A00A5FEE6 /* ofxM3U */ = {
 			isa = PBXGroup;
 			children = (
@@ -1153,6 +1184,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				56886E331A2565F3003C8FD1 /* ofxCurvesTool */,
 				566351461927118500FD6D0F /* ofxMultiGLFWWindow */,
 				5621F2E0192429BB007B29DB /* ofxOsc */,
 				56AD7F2F1923712A00A5FEE6 /* ofxM3U */,
@@ -1347,6 +1379,7 @@
 				5621F315192429BB007B29DB /* ofxOscMessage.cpp in Sources */,
 				567AA690190759ED0064C745 /* ofxCvContourFinder.cpp in Sources */,
 				567AA69B190759EE0064C745 /* SyphonNameboundClient.m in Sources */,
+				56886E4B1A2565F3003C8FD1 /* CurveLut.cpp in Sources */,
 				567AA67E190759ED0064C745 /* ofxAVFVideoPlayer.mm in Sources */,
 				566C5B161968BEBF00139873 /* cornerpin.cpp in Sources */,
 				5621F313192429BB007B29DB /* OscTypes.cpp in Sources */,
@@ -1356,6 +1389,7 @@
 				5621F30E192429BB007B29DB /* NetworkingUtilsWin.cpp in Sources */,
 				567AA68F190759ED0064C745 /* ofxCvColorImage.cpp in Sources */,
 				56F9E4ED1951EE96005C6309 /* ofxHapPlayer.cpp in Sources */,
+				56886E4C1A2565F3003C8FD1 /* ofxCurvesTool.cpp in Sources */,
 				566C5B0C1968BEBF00139873 /* videoOSX.cpp in Sources */,
 				566C5B181968BEBF00139873 /* plane.cpp in Sources */,
 				566C5B071968BEBF00139873 /* videoAVF.cpp in Sources */,
@@ -1370,6 +1404,7 @@
 				566C5B101968BEBF00139873 /* ofPBO.cpp in Sources */,
 				5621F312192429BB007B29DB /* OscReceivedElements.cpp in Sources */,
 				566C5B041968BEBF00139873 /* input.cpp in Sources */,
+				5628D0BD1A2566C9000B5807 /* curves.cpp in Sources */,
 				566C5B171968BEBF00139873 /* mask.cpp in Sources */,
 				566C5B1C1968BEBF00139873 /* vdome.cpp in Sources */,
 				567AA67F190759ED0064C745 /* ofxAVFVideoRenderer.m in Sources */,

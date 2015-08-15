@@ -24,7 +24,9 @@ public:
 class Menu {
 public:
     Menu();
-        
+    
+	void setup();
+
     // draw methods
  	void draw(int i);
     void drawMain(int i);
@@ -37,6 +39,9 @@ public:
     void drawSaved();
     void drawActive(int i);
     void drawWarp(int i);
+    void drawCurves(int i);
+
+    void update();
     
     // navigation
     void select();
@@ -55,7 +60,13 @@ public:
     // utils
     void toggle();
     float roundTo(float val, float n);
-    // state
+
+	// state
+	void onCurHoverChange(ofVec3f & xyi);
+	void onCurHoverUpdate(ofVec4f & xyip);
+
+	int storedSource;
+
     int frameCnt;
     bool saved;
     bool active;
@@ -80,6 +91,13 @@ public:
     MenuItem *menuColor;
     MenuItem *menuHSL;
     MenuItem *menuGamma;
+
+	MenuItem *menuCurves;
+	MenuItem *menuCurvesGrey;
+	MenuItem *menuCurvesRed;
+	MenuItem *menuCurvesGreen;
+	MenuItem *menuCurvesBlue;
+
     MenuItem *menuSetup;
     MenuItem *menuPosition;
     MenuItem *menuOrientation;
@@ -89,18 +107,21 @@ public:
     MenuItem *menuShear;
     MenuItem **currentMenu;
 
-    enum menus {MAIN, INPUT, INPUT_VIDEO, INPUT_TRANSFORM, WARP, BLEND, COLOR, HSL, GAMMA, SETUP,
+    enum menus {MAIN, INPUT, INPUT_VIDEO, INPUT_TRANSFORM, WARP, BLEND, COLOR, HSL, GAMMA, 
+				CURVES, CURVES_GREY, CURVES_RED, CURVES_GREEN, CURVES_BLUE, SETUP,
                 POSITION, ORIENTATION, FIELD_OF_VIEW, LENS, SHEAR, SCALE, BRUSH, LEVELS};
 
     // menu items
-    enum inputItems {SOURCE, FORMAT, LOOP, ENABLE, TRANSFORM};
+	enum mainItems {ENABLE};
+
+    enum inputItems {SOURCE, FORMAT, LOOP, TRANSFORM};
     enum intputTransformItems {INPUT_FLIP, INPUT_ROTATE, INPUT_TILT, INPUT_SCALE};
 
     enum warpItems  {CORNERPIN, GRID};
     enum blendItems {BRIGHTNESS, CONTRAST, B_LEVELS, B_BRUSH};
     enum levelsItems{BLACK, WHITE};
     enum brushItems {BRUSH_SCALE, BRUSH_OPACITY};
-    enum colorItems {COLOR_HSL, COLOR_GAMMA};
+    enum colorItems {COLOR_HSL, COLOR_GAMMA, COLOR_CURVES};
     enum hslItems   {HUE, SATURATION, LIGHTNESS};
     enum gammaItems {GAMMA_RGB, GAMMA_R, GAMMA_G, GAMMA_B};
     enum posItems   {AZIMUTH, ELEVATION, DISTANCE};
@@ -139,6 +160,13 @@ public:
     ofxMultiGLFWWindow *glfw;
 
     bool autosave;
+
+private:
+    void updateColorFromCurve(int pointIndex, bool forceGrey);
+    void changeColorCurveMode(int i);
+    
+    int curvePointIndex;
+
 };
 
 }

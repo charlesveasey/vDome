@@ -149,13 +149,13 @@ void Plane::keyPressed(int key){
         cornerpin.keyPressed(keyArgs);
     else if (gridActive) {
         grid.keyPressed(keyArgs);
-        if (key == 45){ // - = decrease points
+        /*if (key == 45){ // - = decrease points
             if (grid.getControlPntDim() > 2)
                 grid.setControlPntDim(grid.getControlPntDim()-1);
         }
         else if (key == 61){ // - = increase points
             grid.setControlPntDim(grid.getControlPntDim()+1);
-        }
+        }*/
     }
 }
 
@@ -177,6 +177,7 @@ void Plane::keyReleased(int key){
 void Plane::onMouseDragged(ofMouseEventArgs& mouseArgs){
     mouseArgs.x -= position[0];
     mouseArgs.y -= position[1];
+
     if (cornerpinActive)
         cornerpin.onMouseDragged(mouseArgs);
     else if (gridActive)
@@ -251,6 +252,8 @@ void Plane::load(ofXml &xml) {
     cornerpin.setTopRightCornerPosition(tr);
     cornerpin.setBottomLeftCornerPosition(bl);
     cornerpin.setBottomRightCornerPosition(br);
+
+    grid.setup(width, height, 6, 20);
 
     if (vec.size() > 0) {
         grid.setControlPnts(vec);

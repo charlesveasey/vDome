@@ -39,5 +39,6 @@ obj/
 bin/data/media/video
 bin/data/settings/masks
 bin/data/settings/warp
+bin/data/settings/color
 vdome.xcodeproj/xcuserdata
 bin/vDome_debug

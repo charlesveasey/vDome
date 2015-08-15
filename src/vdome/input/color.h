@@ -6,6 +6,7 @@ class Color {
     
 public:
     Color();
+	void setup();
     void bind();
     void unbind();
     void fill(int r, int g, int b);
@@ -13,11 +14,9 @@ public:
     void fillWhite();
     void fillGrey();
     void close();
-    void setResolution(int r);
     
 private:
     ofImage image;
-    int resolution;
     ofColor c;
 };
 }
