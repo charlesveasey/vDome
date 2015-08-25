@@ -1,4 +1,4 @@
-#include "Curves.h"
+#include "curves.h"
 namespace vd {
 
 extern int cCurveIndex;
@@ -33,7 +33,7 @@ void Curves::setup() {
 		for(int j = 1; j < 8; j++) {
 			curvesTools.at(i)->add(ofVec2f(ofClamp(j*lutRes/8, 0, lutRes-1),ofClamp(j*lutRes/8, 0, lutRes-1)));
 		}
-	}	
+	}
 
 	colorlut.allocate(lutRes, lutRes, OF_IMAGE_COLOR_ALPHA);
 
@@ -47,7 +47,7 @@ void Curves::setup() {
 	update();
 
 	setActive(false);
-}  
+}
 
 void Curves::update() {
 	if (!curvesTools.size()) return;
@@ -60,7 +60,7 @@ void Curves::update() {
 				colorlut.setColor(x, y, ofColor(
 					ofClamp(curvesTools.at(1)->getLut(x), 0, lutRes-1),
 					ofClamp(curvesTools.at(2)->getLut(x), 0, lutRes-1),
-					ofClamp(curvesTools.at(3)->getLut(x), 0, lutRes-1), 
+					ofClamp(curvesTools.at(3)->getLut(x), 0, lutRes-1),
 					ofClamp(curvesTools.at(0)->getLut(x), 0, lutRes-1)));
 			}
 		}
@@ -89,9 +89,9 @@ void Curves::keyPressed(int key) {
 
 void Curves::incrementPoint(float inc) {
 	int cpnt = curvesTools.at(colorMode)->getCurrentHover();
-	curvesTools.at(colorMode)->set(cpnt, 
-		ofVec2f( curvesTools.at(colorMode)->getPoint(cpnt).x, 
-				 curvesTools.at(colorMode)->getPoint(cpnt).y + inc));	
+	curvesTools.at(colorMode)->set(cpnt,
+		ofVec2f( curvesTools.at(colorMode)->getPoint(cpnt).x,
+				 curvesTools.at(colorMode)->getPoint(cpnt).y + inc));
 }
 
 void Curves::prevPoint() {
@@ -104,8 +104,8 @@ void Curves::nextPoint() {
 
 void Curves::load() {
 	xml->clear();
-	xml->load("settings/color/color-"+ofToString(index+1)+".xml");	
-	
+	xml->load("settings/color/color-"+ofToString(index+1)+".xml");
+
 	xml->setTo("projector");
 
 	int n = xml->getNumChildren();
@@ -113,17 +113,17 @@ void Curves::load() {
 	for(int i = 0; i < n; i++) {
 		xml->setToChild(i);
 		curvesTools.at(i)->clear();
-			
+
 		int nn = xml->getNumChildren();
 
-		for(int j = 0; j < nn; j++) {	
+		for(int j = 0; j < nn; j++) {
 			if (xml->exists("point["+ofToString(j)+"][@xy]")) {
 				string str = xml->getAttribute("point["+ofToString(j)+"][@xy]");
 				int x = ofToInt(ofSplitString(str, ",")[0]);
 				int y = ofToInt(ofSplitString(str, ",")[1]);
 				curvesTools.at(i)->add(ofVec2f(x,y));
-			}	
-		}	
+			}
+		}
 		xml->setToParent();
 	}
 }

@@ -33,6 +33,18 @@
 		<Unit filename="../../../addons/ofxBezierSurface/src/ofxBezierSurface.h">
 			<Option virtualFolder="addons/ofxBezierSurface/src" />
 		</Unit>
+        <Unit filename="../../../addons/ofxCurvesTool/src/ofxCurvesTool.cpp">
+			<Option virtualFolder="addons/ofxCurvesTool/src" />
+		</Unit>
+        <Unit filename="../../../addons/ofxCurvesTool/src/ofxCurvesTool.h">
+			<Option virtualFolder="addons/ofxCurvesTool/src" />
+		</Unit>
+<Unit filename="../../../addons/ofxCurvesTool/src/CurveLut.cpp">
+			<Option virtualFolder="addons/ofxCurvesTool/src" />
+		</Unit>
+        <Unit filename="../../../addons/ofxCurvesTool/src/CurveLut.h">
+			<Option virtualFolder="addons/ofxCurvesTool/src" />
+		</Unit>
 		<Unit filename="../../../addons/ofxM3U/src/ofxM3U.cpp">
 			<Option virtualFolder="addons/ofxM3U/src" />
 		</Unit>
@@ -565,6 +577,12 @@
 			<Option virtualFolder="src/vdome/renderer/projector/" />
 		</Unit>
 		<Unit filename="src/vdome/renderer/projector/projector.h">
+			<Option virtualFolder="src/vdome/renderer/projector/" />
+		</Unit>
+        <Unit filename="src/vdome/renderer/projector/curves.cpp">
+			<Option virtualFolder="src/vdome/renderer/projector/" />
+		</Unit>
+		<Unit filename="src/vdome/renderer/projector/curves.h">
 			<Option virtualFolder="src/vdome/renderer/projector/" />
 		</Unit>
 		<Unit filename="src/vdome/renderer/render.cpp">
