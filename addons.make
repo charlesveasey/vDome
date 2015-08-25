@@ -4,3 +4,4 @@ ofxMediaType
 ofxBezierSurface
 ofxM3U
 ofxMultiGLFWWindow
+ofxCurvesTool
