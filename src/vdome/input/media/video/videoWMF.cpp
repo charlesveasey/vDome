@@ -25,14 +25,6 @@ bool VideoWMF::open(string filepath){
     return true;
 }
 
-void VideoWMF::bind(){
-	player.bind();
-}
-
-void VideoWMF::unbind(){
-	player.unbind();
-}
-
 void VideoWMF::update(){
 
 	player.update();
@@ -71,7 +63,7 @@ void VideoWMF::stop(){
 }
 
 void VideoWMF::close(){
-    player.stop();
+    //player.stop();
     //player.close();
 	//player.forceExit();
 }
@@ -138,4 +130,12 @@ float VideoWMF::getWidth(){
 
 float VideoWMF::getHeight(){
     return player.getHeight();
+}
+
+void VideoWMF::bind() {
+	return player.bind();
+}
+
+void VideoWMF::unbind() {
+	return player.unbind();
 }

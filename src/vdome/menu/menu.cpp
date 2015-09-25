@@ -1,13 +1,14 @@
 #include "menu.h"
 #include "commands.h"
-
 namespace vd {
 
-extern float projCount;
+ofEvent<ofVec3f> Menu::colorEvent = ofEvent<ofVec3f>();
+ofEvent<int>     Menu::sourceColorEvent = ofEvent<int>();
+    
 extern int maxHistory;
 extern CommandHistory history;
 extern vector<ofPixels> maskHistory;
-
+    
 /******************************************
 
  CONSTRUCTOR
@@ -22,29 +23,10 @@ Menu::Menu(){
     menuMain->currentItem = 0;
 	
 	menuMain->items.push_back(new Item("Enable"));
-    menuMain->items.push_back(new Item("Input              ->", true));
     menuMain->items.push_back(new Item("Warp               ->", true));
     menuMain->items.push_back(new Item("Blend              ->", true));
     menuMain->items.push_back(new Item("Color              ->", true));
     menuMain->items.push_back(new Item("Setup              ->", true));
-
-    menuInput = new MenuItem;
-    menuInput->menuId = INPUT;
-    menuInput->parent = &menuMain;
-    menuInput->currentItem = 0;
-    menuInput->items.push_back(new Item("Source"));
-    menuInput->items.push_back(new Item("Format"));
-    menuInput->items.push_back(new Item("Loop"));
-    menuInput->items.push_back(new Item("Transform          ->", true));
-
-    menuInputTransform = new MenuItem;
-    menuInputTransform->menuId = INPUT_TRANSFORM;
-    menuInputTransform->parent = &menuInput;
-    menuInputTransform->currentItem = 0;
-    menuInputTransform->items.push_back(new Item("Flip"));
-    menuInputTransform->items.push_back(new Item("Rotate"));
-    menuInputTransform->items.push_back(new Item("Tilt"));
-    menuInputTransform->items.push_back(new Item("Scale"));
 
     menuWarp = new MenuItem;
     menuWarp->menuId = WARP;
@@ -57,17 +39,7 @@ Menu::Menu(){
     menuBlend->menuId = BLEND;
     menuBlend->parent = &menuMain;
     menuBlend->currentItem = 0;
-    menuBlend->items.push_back(new Item("Brightness"));
-    menuBlend->items.push_back(new Item("Contrast"));
-    menuBlend->items.push_back(new Item("Levels             ->", true));
     menuBlend->items.push_back(new Item("Brush              ->", true));
-
-    menuLevels = new MenuItem;
-    menuLevels->menuId = LEVELS;
-    menuLevels->parent = &menuBlend;
-    menuLevels->currentItem = 0;
-    menuLevels->items.push_back(new Item("Black"));
-    menuLevels->items.push_back(new Item("White"));
 
     menuBrush = new MenuItem;
     menuBrush->menuId = BRUSH;
@@ -80,26 +52,10 @@ Menu::Menu(){
     menuColor->menuId = COLOR;
     menuColor->parent = &menuMain;
     menuColor->currentItem = 0;
-    menuColor->items.push_back(new Item("HSL                ->", true));
-    menuColor->items.push_back(new Item("Gamma              ->", true));
-	menuColor->items.push_back(new Item("Curves             ->", true));
-
-    menuHSL = new MenuItem;
-    menuHSL->menuId = HSL;
-    menuHSL->parent = &menuColor;
-    menuHSL->currentItem = 0;
-    menuHSL->items.push_back(new Item("Hue"));
-    menuHSL->items.push_back(new Item("Saturation"));
-    menuHSL->items.push_back(new Item("Lightness"));
-
-    menuGamma = new MenuItem;
-    menuGamma->menuId = GAMMA;
-    menuGamma->parent = &menuColor;
-    menuGamma->currentItem = 0;
-    menuGamma->items.push_back(new Item("Gamma"));
-    menuGamma->items.push_back(new Item("Red"));
-    menuGamma->items.push_back(new Item("Green"));
-    menuGamma->items.push_back(new Item("Blue"));
+    menuColor->items.push_back(new Item("Brightness"));
+    menuColor->items.push_back(new Item("Contrast"));
+    menuColor->items.push_back(new Item("Saturation"));
+    menuColor->items.push_back(new Item("Curves             ->", true));
 
 	menuCurves = new MenuItem;
     menuCurves->menuId = CURVES;
@@ -142,8 +98,6 @@ Menu::Menu(){
     menuSetup->items.push_back(new Item("Orientation        ->", true));
     menuSetup->items.push_back(new Item("Field of View      ->", true));
     menuSetup->items.push_back(new Item("Lens Offset        ->", true));
-    menuSetup->items.push_back(new Item("Shear              ->", true));
-    menuSetup->items.push_back(new Item("Scale              ->", true));
 
     menuPosition = new MenuItem;
     menuPosition->menuId = POSITION;
@@ -174,29 +128,10 @@ Menu::Menu(){
     menuLens->items.push_back(new Item("Offset X"));
     menuLens->items.push_back(new Item("Offset Y"));
 
-    menuShear = new MenuItem;
-    menuShear->menuId = SHEAR;
-    menuShear->parent = &menuSetup;
-    menuShear->currentItem = 0;
-    menuShear->items.push_back(new Item("Shear YZ"));
-    menuShear->items.push_back(new Item("Shear ZX"));
-    menuShear->items.push_back(new Item("Scale XZ"));
-    menuShear->items.push_back(new Item("Shear ZY"));
-    menuShear->items.push_back(new Item("Shear YX"));
-    menuShear->items.push_back(new Item("Scale XY"));
-
-    menuScale = new MenuItem;
-    menuScale->menuId = SCALE;
-    menuScale->parent = &menuSetup;
-    menuScale->currentItem = 0;
-    menuScale->items.push_back(new Item("Scale X"));
-    menuScale->items.push_back(new Item("Scale Y"));
-
     currentMenu = &menuMain;
 
     frameCnt= 0;
     saved = false;
-    autosave = false;
     active = false;
 
     // add values
@@ -220,10 +155,6 @@ Menu::Menu(){
     curvePointIndex = 0;
 }
 
-
-
-
-
 /******************************************
 
  Setup
@@ -231,18 +162,11 @@ Menu::Menu(){
  ********************************************/
 
 void Menu::setup(){
-
-	maskHistory.clear();
+    maskHistory.clear();
 	for (int i=0; i<=(maxHistory+2); i++) {
-		ofPixels buffer;
-		maskHistory.push_back(buffer);
+        ofPixels buffer;
+        maskHistory.push_back(buffer);
 	}
-
-	for (int i=0; i<projCount; i++) {
-		ofAddListener(projectors->at(i).curves.curHoverChange,this, &Menu::onCurHoverChange);
-		ofAddListener(projectors->at(i).curves.curHoverUpdate,this, &Menu::onCurHoverUpdate);
-    }
- 
 }
 
 
@@ -257,12 +181,9 @@ void Menu::drawHighlight(){
     ofSetHexColor(0xF9ED6B);
 }
 
-
-
-
 void Menu::drawBackground(){
     // background color
-    if (saved && !autosave) {
+    if (saved) {
         frameCnt++;
         if (frameCnt == 60) {
             saved = false;
@@ -275,11 +196,8 @@ void Menu::drawBackground(){
     }
     // background shape
     ofFill();
-    ofRect(px, py, 1, pw, ph);
+    ofDrawRectangle(px, py, 1, pw, ph);
 }
-
-
-
 
 void Menu::drawMain(int i){
     string str;
@@ -301,48 +219,7 @@ void Menu::drawMain(int i){
 
             switch ((*currentMenu)->menuId) {
 
-                case INPUT:
-                    switch (j) {
-                        case SOURCE:
-                            if (input->source == 0)		   val = "Media";
-							else if (input->source == 1)   val = "Capture";
-                            else if (input->source == 2)   val = "Syphon";
-							else if (input->source == 3)   val = "Spout";
-                            else if (input->source == 4)   val = "Grid";
-                            else if (input->source == 5)   val = "Black";
-                            else if (input->source == 6)   val = "White";
-                            else if (input->source == 7)   val = "Grey";
-                            break;
-                        case FORMAT:
-                            if (input->format == 0)         val = "Domemaster";
-                            else if (input->format == 1)    val = "HD";
-                            break;
-                        case LOOP:
-                            if (input->getLoop()) val = "On";
-                            else val = "Off";
-                            break;
-                    }
-                    break;
-
-                case INPUT_TRANSFORM:
-                    switch (j) {
-                        case INPUT_FLIP:
-							if (model->getTextureFlip()) val = "On";
-                            else val = "Off";
-                            break;
-                        case INPUT_ROTATE:
-							val = ofToString(roundTo(model->getTextureRotate(), .001));
-                            break;
-                        case INPUT_TILT:
-							val = ofToString(roundTo(model->getTextureTilt(), .001));
-                            break;
-                        case INPUT_SCALE:
-							val = ofToString(roundTo(model->getTextureScale(), .001));
-                            break;
-                    }
-                    break;
-
-                case BLEND:
+                case COLOR:
                     switch (j) {
                         case BRIGHTNESS:
                             val = ofToString(roundTo(projectors->at(i).brightness, .001));
@@ -350,16 +227,8 @@ void Menu::drawMain(int i){
                         case CONTRAST:
                             val = ofToString(roundTo(projectors->at(i).contrast, .001));
                             break;
-                    }
-                    break;
-
-                case LEVELS:
-                    switch (j) {
-                        case BLACK:
-                            val = ofToString(projectors->at(i).blackLevel);
-                            break;
-                        case WHITE:
-                            val = ofToString(projectors->at(i).whiteLevel);
+                        case SATURATION:
+                            val = ofToString(roundTo(projectors->at(i).saturation, .001));
                             break;
                     }
                     break;
@@ -374,38 +243,6 @@ void Menu::drawMain(int i){
                             break;
                     }
                     break;
-
-                case HSL:
-                    switch (j) {
-                        case HUE:
-                            val = ofToString(roundTo(projectors->at(i).hue, .001));
-                            break;
-                        case SATURATION:
-                            val = ofToString(roundTo(projectors->at(i).saturation, .001));
-                            break;
-                        case LIGHTNESS:
-                            val = ofToString(roundTo(projectors->at(i).lightness, .001));
-                            break;
-                    }
-                    break;
-
-                case GAMMA:
-                    switch (j) {
-                        case GAMMA_RGB:
-                            val = ofToString(roundTo(projectors->at(i).gamma, .001));
-                            break;
-                        case GAMMA_R:
-                            val = ofToString(roundTo(projectors->at(i).gammaR, .001));
-                            break;
-                        case GAMMA_G:
-                            val = ofToString(roundTo(projectors->at(i).gammaG, .001));
-                            break;
-                        case GAMMA_B:
-                            val = ofToString(roundTo(projectors->at(i).gammaB, .001));
-                            break;
-                    }
-                    break;
-
 
                 case POSITION:
                     switch (j) {
@@ -455,42 +292,6 @@ void Menu::drawMain(int i){
 
                     break;
 
-                case SCALE:
-                    switch (j) {
-                        case SCALE_X:
-                            val = ofToString(roundTo(projectors->at(i).getCameraScale().x, .01));
-                            break;
-                        case SCALE_Y:
-                            val = ofToString(roundTo(projectors->at(i).getCameraScale().y, .01));
-                            break;
-                    }
-
-                    break;
-
-
-                case SHEAR:
-                    switch (j) {
-                        case SHEAR_YZ:
-                            val = ofToString(roundTo(projectors->at(i).getCameraShear()[3], .001));
-                            break;
-                        case SHEAR_ZX:
-                            val = ofToString(roundTo(projectors->at(i).getCameraShear()[4], .001));
-                            break;
-                        case SHEAR_XZ:
-                            val = ofToString(roundTo(projectors->at(i).getCameraShear()[1], .001));
-                            break;
-                        case SHEAR_ZY:
-                            val = ofToString(roundTo(projectors->at(i).getCameraShear()[5], .001));
-                            break;
-                        case SHEAR_YX:
-                            val = ofToString(roundTo(projectors->at(i).getCameraShear()[2], .001));
-                            break;
-                        case SHEAR_XY:
-                            val = ofToString(roundTo(projectors->at(i).getCameraShear()[0], .001));
-                            break;
-                    }
-
-                    break;
             }
 
         }
@@ -511,87 +312,97 @@ void Menu::drawMain(int i){
 }
 
 void Menu::update(){
-    if (input->source == input->COLOR){
+    if (inputSource == SOURCE_COLOR){
+
+        newCurvePointIndex = false;
+        
+        for (auto p : *projectors){
+            if (p.curves.getCurrentHover() != curvePointIndex){
+                curvePointIndex = p.curves.getCurrentHover();
+                newCurvePointIndex = true;
+                break;
+            }
+        }
+        
+        if (!newCurvePointIndex)
+            return;
+        
+        for (auto p : *projectors){
+            p.curves.setCurrentHover(curvePointIndex);
+        }
+        
         if (ofGetKeyPressed('g') || ofGetKeyPressed('G')){
-            updateColorFromCurve(curvePointIndex, true);
+            currentColor = updateColorFromCurve(curvePointIndex, true);
         }
         else{
-            updateColorFromCurve(curvePointIndex, false);
+            currentColor = updateColorFromCurve(curvePointIndex, false);
         }
+        
+       ofNotifyEvent(colorEvent,currentColor,this);
     }
 }
 
+    
+    
+    
+void Menu::draw(int i, int labelIndex){
+    if (projectors->at(i).curves.enabled){
+        projectors->at(i).curves.setLabelPosition(16, 45);
+        pw = 256;
+        ph = 256;
 
-void Menu::draw(int i){
-   
-		if (projectors->at(i).curves.enabled){
-			projectors->at(i).curves.setLabelPosition(16, 45);
-			pw = 256;
-			ph = 256;
+        px = projectors->at(i).getPlanePosition().x + projectors->at(i).width/2 - pw/2;
+        py = projectors->at(i).getPlanePosition().y + projectors->at(i).height/2  - ph/2;
+        
+        //drawBackground();
+        drawCurves(i);
 
-			px = projectors->at(i).getPlanePosition().x + projectors->at(i).width/2 - pw/2;
-			py = projectors->at(i).getPlanePosition().y + projectors->at(i).height/2  - ph/2;
-            
-			//drawBackground();
-			drawCurves(i);
+        ofSetColor(255);
+        drawProjector(labelIndex);
+        drawFPS(i);
+        drawActive(i);
+        drawSaved();
+    }
 
-			ofSetColor(255);
-			drawProjector(i);
-			drawFPS(i);
-			drawActive(i);
-			drawSaved();
-		}
+    else{
+        projectors->at(i).curves.setLabelPosition();
 
-		else {
+        pw = 200;
+        ph = 145;
 
-			projectors->at(i).curves.setLabelPosition();
+        px = projectors->at(i).getPlanePosition().x + projectors->at(i).width/2 - pw/2;
+        py = projectors->at(i).getPlanePosition().y + projectors->at(i).height/2  - ph/2;
 
-			pw = 200;
-			ph = 145;
+        drawBackground();
+        ofSetColor(255);
+        drawProjector(labelIndex);
+        drawFPS(i);
+        drawMain(i);
+        drawWarp(i);
+        drawActive(i);
+        drawSaved();
+    }
 
-			px = projectors->at(i).getPlanePosition().x + projectors->at(i).width/2 - pw/2;
-			py = projectors->at(i).getPlanePosition().y + projectors->at(i).height/2  - ph/2;
-
-			drawBackground();
-			ofSetColor(255);
-			drawProjector(i);
-			drawFPS(i);
-			drawMain(i);
-			drawWarp(i);
-			drawActive(i);
-			drawSaved();
-		}
-
-		if ((*currentMenu)->menuId == CURVES_GREY  
-			|| (*currentMenu)->menuId == CURVES_RED 
-			|| (*currentMenu)->menuId == CURVES_GREEN 
-			|| (*currentMenu)->menuId == CURVES_BLUE) {
-		}
-		else if (input->source == input->COLOR){
-			input->source = storedSource;
-			input->setup();
-		}
-
-
+    if ((*currentMenu)->menuId == CURVES_GREY
+        || (*currentMenu)->menuId == CURVES_RED 
+        || (*currentMenu)->menuId == CURVES_GREEN 
+        || (*currentMenu)->menuId == CURVES_BLUE) {
+    }
+    else if (inputSource == SOURCE_COLOR){
+        inputSource = storedSource;
+        ofNotifyEvent(sourceColorEvent,inputSource,this);
+    }
 }
 
-
-
-
-
-
 void Menu::drawSaved(){
-    if (saved && !autosave) {
+    if (saved) {
         ofSetHexColor(0xFFFFFF);
         ofDrawBitmapString("SAVED", px+padx+125, py+pady*1.75);
     }
 }
 
-
-
-
 void Menu::drawActive(int i){
-    if (!saved || autosave) {
+    if (!saved) {
         if (projectors->at(i).active) {
             ofSetHexColor(0xFFF000);
             ofDrawBitmapString("Active", px+padx+120, py+pady*1.75);
@@ -599,9 +410,6 @@ void Menu::drawActive(int i){
         }
     }
 }
-
-
-
 
 void Menu::drawWarp(int i){
     // draw cornerpin or plane
@@ -617,67 +425,25 @@ void Menu::drawWarp(int i){
     }
 }
 
-
-
-
 void Menu::drawCurves(int i){
 	projectors->at(i).drawCurves(px, py);
 }
-
-
-
 
 void Menu::drawProjector(int i){
     ofDrawBitmapString("Projector #" + ofToString(i+1), px+padx, py+pady * 1.75);
 }
 
-
-
-
 void Menu::drawFPS(int i){
-    if (!saved || autosave) {
+    if (!saved) {
         if (!projectors->at(i).active) {
             ofDrawBitmapString(ofToString(ofGetFrameRate(), 2), px+padx + 125, py+pady * 1.75);
 		}
     }
 }
 
-
-
-
 void Menu::toggle() {
     active = !active;
-    if (active) {
-        for (int i=0; i<windows->size(); i++) {
-            glfw->setWindow(windows->at(i).glfwWindow);
-            ofShowCursor();
-        }
-    }
-    else {
-        for (int i=0; i<windows->size(); i++) {
-            glfw->setWindow(windows->at(i).glfwWindow);
-            ofHideCursor();
-        }
-    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /******************************************
 
@@ -691,17 +457,10 @@ void Menu::select() {
     switch ((*currentMenu)->menuId) {
         case MAIN:
             switch (item) {
-                case 1: currentMenu = &menuInput; break;
-                case 2: currentMenu = &menuWarp; break;
-                case 3: currentMenu = &menuBlend; break;
-                case 4: currentMenu = &menuColor; break;
-                case 5: currentMenu = &menuSetup; break;
-                default: break;
-            }
-            break;
-        case INPUT:
-            switch (item) {
-                case 3: currentMenu = &menuInputTransform; break;
+                case 1: currentMenu = &menuWarp; break;
+                case 2: currentMenu = &menuBlend; break;
+                case 3: currentMenu = &menuColor; break;
+                case 4: currentMenu = &menuSetup; break;
                 default: break;
             }
             break;
@@ -718,16 +477,13 @@ void Menu::select() {
             break;
         case BLEND:
             switch (item) {
-                case 2: currentMenu = &menuLevels; break;
-                case 3: currentMenu = &menuBrush; break;
+                case 0: currentMenu = &menuBrush; break;
                 default: break;
             }
             break;
         case COLOR:
             switch (item) {
-                case 0: currentMenu = &menuHSL; break;
-                case 1: currentMenu = &menuGamma; break;
-				case 2: currentMenu = &menuCurves; break;
+				case 3: currentMenu = &menuCurves; break;
                 default: break;
             }
             break;
@@ -747,30 +503,25 @@ void Menu::select() {
     changeColorCurveMode((*currentMenu)->menuId);
 }
 
-    
-    
 void Menu::changeColorCurveMode(int i){
     switch (i) {
 		case CURVES_GREY:
-			storedSource = input->source;
-			input->source = input->COLOR;
-			input->setColor(0, 0, 0);
-			input->setup();
-            updateColorFromCurve(0, false);
+			storedSource = inputSource;
+			inputSource = SOURCE_COLOR;
+            currentColor = updateColorFromCurve(0, false);
 			
             for (int k=0; k<projCount; k++) {
                 projectors->at(k).curves.enabled = true;
 				projectors->at(k).curves.setColorMode( projectors->at(k).curves.GREY );
 				projectors->at(k).curves.setCurrentHover(0);
             }
-            
+
             break;
-		case CURVES_RED:
-			storedSource = input->source;
-			input->source = input->COLOR;
-			input->setColor(0, 0, 0);
-			input->setup();
-            updateColorFromCurve(0, false);
+		
+        case CURVES_RED:
+            storedSource = inputSource;
+            inputSource = SOURCE_COLOR;
+            currentColor = updateColorFromCurve(0, false);
             
             for (int k=0; k<projCount; k++) {
                 projectors->at(k).curves.enabled = true;
@@ -779,26 +530,24 @@ void Menu::changeColorCurveMode(int i){
             }
             
             break;
-		case CURVES_GREEN:
-			storedSource = input->source;
-			input->source = input->COLOR;
- 			input->setColor(0, 0, 0);
- 			input->setup();
-            updateColorFromCurve(0, false);
+		
+        case CURVES_GREEN:
+            storedSource = inputSource;
+            inputSource = SOURCE_COLOR;
+            currentColor = updateColorFromCurve(0, false);
             
 			for (int k=0; k<projCount; k++) {
                 projectors->at(k).curves.enabled = true;
 				projectors->at(k).curves.setColorMode( projectors->at(k).curves.GREEN );
 				projectors->at(k).curves.setCurrentHover(0);
             }
-            
+
             break;
-		case CURVES_BLUE:
-			storedSource = input->source;
-			input->source = input->COLOR;
- 			input->setColor(0, 0, 0);
-			input->setup();
-            updateColorFromCurve(0, false);
+		
+        case CURVES_BLUE:
+            storedSource = inputSource;
+            inputSource = SOURCE_COLOR;
+            currentColor = updateColorFromCurve(0, false);
             
 			for (int k=0; k<projCount; k++) {
                 projectors->at(k).curves.enabled = true;
@@ -810,7 +559,7 @@ void Menu::changeColorCurveMode(int i){
         default: 
 			break;
     }
-
+    
 }
     
 void Menu::back() {
@@ -819,82 +568,26 @@ void Menu::back() {
 }
 
 
-
-
-
-
-
-
-
-
-/******************************************
-
- CURVE EVENTS
-
- ********************************************/
-
-void Menu::onCurHoverUpdate(ofVec4f & xyip){
-
-	int cx = ofClamp(xyip[0], 0, 255);
-	int cy = ofClamp(xyip[1], 0, 255);	
-	int ci = xyip[2];
-	int pi = xyip[3];
-    
-	for (int j=0; j<projCount; j++) {
-		if (j != ci){
-			if ( projectors->at(j).curves.getCurrentHover() != ci ){
-				projectors->at(j).curves.setCurrentHover(ci);
-			}
-			
-			if ( projectors->at(j).active ){
-				projectors->at(j).curves.setPoint(ci,ofPoint(cx,cy));
-			}
-		}
-    }
-}
-
-void Menu::onCurHoverChange(ofVec3f & xyi){
-	for (int j=0; j<projCount; j++) {
-		if ( projectors->at(j).curves.getCurrentHover() != xyi.z ){
-			projectors->at(j).curves.setCurrentHover(xyi.z);
-		}
-    }
-
-    bool g = ofGetKeyPressed('g') || ofGetKeyPressed('G');
-    updateColorFromCurve(xyi.z, g);
-}
-
-void Menu::updateColorFromCurve(int pointIndex, bool forceGrey){
+ofVec3f Menu::updateColorFromCurve(int pointIndex, bool forceGrey){
     curvePointIndex = pointIndex;
     int displayColor = ofClamp(256/8 * pointIndex, 0, 255);
-    
+    ofVec3f displayVector;
 	if (projectors->size()){
 		if (projectors->at(0).curves.getColorMode() == projectors->at(0).curves.GREY || forceGrey){
-            input->setColor(displayColor, displayColor, displayColor);
+            displayVector.set(displayColor, displayColor, displayColor);
 		}
 		else if (projectors->at(0).curves.getColorMode() == projectors->at(0).curves.RED){
-            input->setColor(displayColor, 0, 0);
+            displayVector.set(displayColor, 0, 0);
 		}
 		else if (projectors->at(0).curves.getColorMode() == projectors->at(0).curves.GREEN){
-            input->setColor(0, displayColor, 0);
+            displayVector.set(0, displayColor, 0);
 		}
 		else if (projectors->at(0).curves.getColorMode() == projectors->at(0).curves.BLUE){
-            input->setColor(0, 0, displayColor);
+            displayVector.set(0, 0, displayColor);
 		}
 	}
-
+    return displayVector;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 /******************************************
 
@@ -971,24 +664,6 @@ void Menu::mouseReleased(ofMouseEventArgs& mouseArgs) {
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /******************************************
 
  KEYBOARD
@@ -996,30 +671,6 @@ void Menu::mouseReleased(ofMouseEventArgs& mouseArgs) {
  ********************************************/
 
 void Menu::keyPressed(int key) {
-
-    switch(key){
-        // SHORTCUTS
-        // m = show menu
-        case 109:
-            toggle();
-            break;
-        // space = play/pause video
-        case 32:
-            if (input->isVideo) {
-				if (input->isPlaying())
-					input->stop();
-				else
-					input->play();
-            }
-            break;
-
-		// ctrl + o = open media file dialog
-        case 111:
-            if (ofGetKeyPressed(cKey))
-				input->openFileDialog();
-            break;
-    }
-
 
     // SET VALUE
     if (ofGetKeyPressed(OF_KEY_ALT)){
@@ -1035,7 +686,6 @@ void Menu::keyPressed(int key) {
     for (int i=0; i<projCount; i++) {
         projectors->at(i).setValue(value);
     }
-    model->value = value;
 
 	for (int k=0; k<projCount; k++) {
 		projectors->at(k).keyPressed(key);
@@ -1080,22 +730,20 @@ void Menu::keyPressed(int key) {
 
 
 			}
-
-			if (cmds.size())
+        if (cmds.size()){
 				history.execute(new SetProjectors(cmds));
-		}
+        }
+    }
 
 
     switch (key){
 
-		
         case 122: // (z)
             history.undo();
             break;
         case 121: // (y)
             history.redo();
             break;
-
 
         case OF_KEY_UP:
 			if ((*currentMenu)->menuId == CURVES_GREY  
@@ -1164,24 +812,6 @@ void Menu::keyPressed(int key) {
 
 		}
 
-		else{
-			switch((*currentMenu)->menuId) {
-				case INPUT:
-					switch ((*currentMenu)->currentItem) {
-						default:
-							input->keyPressed(key);
-							break;
-					}
-					break;
-				case INPUT_TRANSFORM:
-					switch ((*currentMenu)->currentItem) {
-						default:
-							model->keyPressed(key);
-							break;
-					}
-					break;
-			}
-		}
     }
 
 
@@ -1219,13 +849,17 @@ void Menu::keyPressed(int key) {
     else if (key == 40) key = 57;
     else if (key == 41) key = 48;
 
-    if (key >= 48 && key <= 57)  {
+    if (key >= 48 && key <= 57) {
 
         // map key to projector
-        if (key == 48) pActive = 10;
-        else pActive = key-49;
-
-        if (pActive < projCount) {
+        if (key == 48)
+            pActive = 10;
+        else
+            pActive = key-49;
+        
+        pActive -= projectorStartingIndex;
+        
+        if (pActive < projCount && pActive >= 0) {
 
            // shift groups, otherwise reset
            if (!ofGetKeyPressed(OF_KEY_SHIFT)) {
@@ -1247,9 +881,16 @@ void Menu::keyPressed(int key) {
            int xmouse = projectors->at(pActive).getPlanePosition().x+projectors->at(pActive).getPlaneDimensions().x/2;
            int ymouse = projectors->at(pActive).getPlanePosition().y+projectors->at(pActive).getPlaneDimensions().y/2;
 
+            //fix: need to set mouse active using native window
            if (projectors->at(pActive).active) {
-                glfwSetCursorPos(glfw->getWindow(), xmouse, ymouse);
+               
+               shared_ptr<ofAppGLFWWindow> glfw =
+                    static_pointer_cast<ofAppGLFWWindow>(ofGetMainLoop()->getCurrentWindow());
+               
+               glfwSetCursorPos(glfw->getGLFWWindow(), xmouse, ymouse);
+               
            }
+            
            setEditMode();
        }
     }
@@ -1276,9 +917,6 @@ void Menu::setEditMode() {
 		projectors->at(k).curves.enabled = false;
     }
 
-    model->editMode = model->NONE;
-    input->editMode = input->NONE;
-
     int j = (*currentMenu)->currentItem;
 
     switch ((*currentMenu)->menuId) {
@@ -1289,73 +927,6 @@ void Menu::setEditMode() {
                     for (int k=0; k<projCount; k++) {
                         if (projectors->at(k).active)
                             projectors->at(k).editMode = projectors->at(k).ENABLE;
-                    }
-                    model->editMode = model->NONE;
-                    break;
-            }
-            break;
-
-
-        case INPUT:
-            switch (j) {
-                case SOURCE:
-                    input->editMode = input->SOURCE;
-                    break;
-                case FORMAT:
-                    input->editMode = input->FORMAT;
-                    break;
-                case LOOP:
-                    input->editMode = input->LOOP;
-                    break;
-            }
-            break;
-
-        case INPUT_TRANSFORM:
-            switch (j) {
-                case INPUT_FLIP:
-                    model->editMode = model->T_FLIP;
-                    break;
-                case INPUT_ROTATE:
-                    model->editMode = model->T_ROTATE;
-                    break;
-                case INPUT_TILT:
-                    model->editMode = model->T_TILT;
-                    break;
-                case INPUT_SCALE:
-                    model->editMode = model->T_SCALE;
-                    break;
-            }
-            break;
-
-        case BLEND:
-            switch (j) {
-                case BRIGHTNESS:
-                    for (int k=0; k<projCount; k++) {
-                        if (projectors->at(k).active)
-                            projectors->at(k).editMode = projectors->at(k).BRIGHTNESS;
-                    }
-                    break;
-                case CONTRAST:
-                    for (int k=0; k<projCount; k++) {
-                        if (projectors->at(k).active)
-                            projectors->at(k).editMode = projectors->at(k).CONTRAST;
-                    }
-                    break;
-            }
-            break;
-
-        case LEVELS:
-            switch (j) {
-                case BLACK:
-                    for (int k=0; k<projCount; k++) {
-                        if (projectors->at(k).active)
-                            projectors->at(k).editMode = projectors->at(k).BLACK;
-                    }
-                    break;
-                case WHITE:
-                    for (int k=0; k<projCount; k++) {
-                        if (projectors->at(k).active)
-                            projectors->at(k).editMode = projectors->at(k).WHITE;
                     }
                     break;
             }
@@ -1399,15 +970,8 @@ void Menu::setEditMode() {
             }
             break;
 
-        case HSL:
+        case COLOR:
             switch (j) {
-                case HUE:
-                    for (int k=0; k<projCount; k++) {
-                        if (projectors->at(k).active){
-                            projectors->at(k).editMode = projectors->at(k).HUE;
-                        }
-                    }
-                    break;
                 case SATURATION:
                     for (int k=0; k<projCount; k++) {
                         if (projectors->at(k).active){
@@ -1415,44 +979,16 @@ void Menu::setEditMode() {
                         }
                     }
                     break;
-                case LIGHTNESS:
+                case BRIGHTNESS:
                     for (int k=0; k<projCount; k++) {
-                        if (projectors->at(k).active){
-                            projectors->at(k).editMode = projectors->at(k).LIGHTNESS;
-                        }
+                        if (projectors->at(k).active)
+                            projectors->at(k).editMode = projectors->at(k).BRIGHTNESS;
                     }
                     break;
-            }
-            break;
-
-        case GAMMA:
-            switch (j) {
-                case GAMMA_RGB:
+                case CONTRAST:
                     for (int k=0; k<projCount; k++) {
-                        if (projectors->at(k).active){
-                            projectors->at(k).editMode = projectors->at(k).GAMMA;
-                        }
-                    }
-                    break;
-                case GAMMA_R:
-                    for (int k=0; k<projCount; k++) {
-                        if (projectors->at(k).active){
-                            projectors->at(k).editMode = projectors->at(k).GAMMA_R;
-                        }
-                    }
-                    break;
-                case GAMMA_G:
-                    for (int k=0; k<projCount; k++) {
-                        if (projectors->at(k).active){
-                            projectors->at(k).editMode = projectors->at(k).GAMMA_G;
-                        }
-                    }
-                    break;
-                case GAMMA_B:
-                    for (int k=0; k<projCount; k++) {
-                        if (projectors->at(k).active){
-                            projectors->at(k).editMode = projectors->at(k).GAMMA_B;
-                        }
+                        if (projectors->at(k).active)
+                            projectors->at(k).editMode = projectors->at(k).CONTRAST;
                     }
                     break;
             }
@@ -1538,64 +1074,6 @@ void Menu::setEditMode() {
             }
             break;
 
-        case SCALE:
-            switch (j) {
-                case SCALE_X:
-                    for (int k=0; k<projCount; k++) {
-                        if (projectors->at(k).active)
-                            projectors->at(k).editMode = projectors->at(k).SCALE_X;
-                    }
-                    break;
-                case SCALE_Y:
-                    for (int k=0; k<projCount; k++) {
-                        if (projectors->at(k).active)
-                            projectors->at(k).editMode = projectors->at(k).SCALE_Y;
-                    }
-                    break;
-            }
-
-            break;
-
-        case SHEAR:
-            switch (j) {
-                case SHEAR_YZ:
-                    for (int k=0; k<projCount; k++) {
-                        if (projectors->at(k).active)
-                            projectors->at(k).editMode = projectors->at(k).SHEAR_YZ;
-                    }
-                    break;
-                case SHEAR_ZX:
-                    for (int k=0; k<projCount; k++) {
-                        if (projectors->at(k).active)
-                            projectors->at(k).editMode = projectors->at(k).SHEAR_ZX;
-                    }
-                    break;
-                case SHEAR_XZ:
-                    for (int k=0; k<projCount; k++) {
-                        if (projectors->at(k).active)
-                            projectors->at(k).editMode = projectors->at(k).SHEAR_XZ;
-                    }
-                    break;
-                case SHEAR_ZY:
-                    for (int k=0; k<projCount; k++) {
-                        if (projectors->at(k).active)
-                            projectors->at(k).editMode = projectors->at(k).SHEAR_ZY;
-                    }
-                    break;
-                case SHEAR_YX:
-                    for (int k=0; k<projCount; k++) {
-                        if (projectors->at(k).active)
-                            projectors->at(k).editMode = projectors->at(k).SHEAR_YX;
-                    }
-                    break;
-                case SHEAR_XY:
-                    for (int k=0; k<projCount; k++){
-                        if (projectors->at(k).active)
-                            projectors->at(k).editMode = projectors->at(k).SHEAR_XY;
-                    }
-                    break;
-            }
-            break;
         default:
             for (int k=0; k<projCount; k++)
                 projectors->at(k).editMode = projectors->at(k).NONE;
@@ -1619,29 +1097,13 @@ void Menu::keyReleased(int key) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /******************************************
 
  MATH
 
  ********************************************/
 
-float round(float d) {
+float Menu::round(float d) {
     return floorf(d + 0.5);
 }
 

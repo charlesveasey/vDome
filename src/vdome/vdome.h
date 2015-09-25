@@ -1,57 +1,50 @@
 #pragma once
-#include "ofMain.h"
 #include "window.h"
 #include "socket.h"
-#include "menu.h"
 #include "saveThread.h"
-#include "ofxMultiGLFWWindow.h"
-#define VDOME_DEBUG
 
 namespace vd {
-  
-class vdome : public ofBaseApp {
+    
+class vdome {
 
 public:
     vdome();
+    void    setup();
+    void    update(ofEventArgs & args);
 
 private:
-    void setup();
-    void update();
-    void draw();
-    
-    void keyPressed(int key);
-    void keyReleased(int key);
-    
-    void mousePressed(ofMouseEventArgs& mouseArgs);
-    void mouseDragged(ofMouseEventArgs& mouseArgs);
-    void mouseReleased(ofMouseEventArgs& mouseArgs);
-   
-    void dragEvent(ofDragInfo dragInfo);
+    void    loadXML();
+    void    saveXML();
+    void    createWindow(ofXml &xml);
+    void    setupInput();
+    void    updateInputFormat();
+    void    updateInputTransform();
+    void    exit();
+    void    onColorEvent(ofVec3f &color);
+    void    onSourceEvent(int &s);
+    void    onFormatEvent(int &s);
+    void    onSourceColorEvent(int &s);
+    void    keyPressed(int &key);
+    void    keyReleased(int &key);
 
-    void loadXML(ofXml &xml);
-    void saveXML(ofXml &xml);
-    
-    void exit();
-    
-    Menu menu;
-    Socket socket;
-    Input input;
-    Render render;
-    Model model;
-    ofShader shader;
-    vector<Window> windows;
-    vector<Projector> projectors;
-    ofVec3f sphToCar(ofVec3f t);
-    int cKey;
+#ifdef TARGET_OSX
+	void    updateSyphonInputTransform();
+#endif
 
-    ofXml xml;
-    string xmlFile;
-    SaveThread saveThread;
-    bool autosave;
+    Socket      socket;
+    Input       input;
+
+    ofXml       xml;
+    string      xmlPath;
+    SaveThread  saveThread;
     
-    ofxMultiGLFWWindow *glfw;
-    int wIndex;
-    vector<GLFWwindow*> *glfwWindows;
+    bool        vsync;
+    int         framerate;
+    int         cKey;
+        
+    vector<shared_ptr<Window>>              windows;
+    vector<shared_ptr<ofAppBaseWindow>>     baseWindows;
+
 };
 
 }

@@ -1,31 +1,28 @@
 #pragma once
-#include "ofPBO.h"
 #include "ofVideoGrabber.h"
 namespace vd{
-
 class Capture {
     
 public:
     Capture();
+    void    open();
+    void    update();
+    void    play();
+    void    stop();
+    void    close();
+    bool    isOpen();
+    void    setResolution(int r);
+    void    setFramerate(int frate);
+    float   getRealWidth();
+    float   getRealHeight();
     
-    void open();
-    void update();
-    void bind();
-    void unbind();
-    void play();
-    void stop();
-    void close();
-    bool isOpen();
-    void setResolution(int r);
-    float getRealWidth();
-    float getRealHeight();
+    ofPixels & getPixels();
     
-    ofVideoGrabber grabber;
-    ofPixels pixels;
-    ofPBO pbo;
-
+    void    bind();
+    void    unbind();
+    
 private:
-    bool bPbo;
-    int resolution;
+    ofVideoGrabber  grabber;
+    int             resolution;
 };
 }

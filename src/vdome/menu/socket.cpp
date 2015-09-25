@@ -1,5 +1,7 @@
 #include "socket.h"
 namespace vd {
+ofEvent<int> Socket::sourceEvent = ofEvent<int>();
+ofEvent<int> Socket::formatEvent = ofEvent<int>();
 
 /******************************************
 
@@ -41,8 +43,6 @@ void Socket::update(){
 		if (rMsg.getAddress() == "/input/"){
             if      (rMsg.getArgAsString(0) == "play")         input->play();
             else if (rMsg.getArgAsString(0) == "stop")         input->stop();
-            else if (rMsg.getArgAsString(0) == "previous")     input->previous();
-            else if (rMsg.getArgAsString(0) == "next")         input->next();
 		}
 		else if (rMsg.getAddress() == "/input/loop/") {
             if (rMsg.getArgAsString(0) == "on") input->setLoop(true);
@@ -52,7 +52,8 @@ void Socket::update(){
             input->seek(ofToFloat(rMsg.getArgAsString(0)));
 		}
         else if (rMsg.getAddress() == "/input/source/") {
-            input->setSource(rMsg.getArgAsString(0));
+            int s = input->convertSourceString(rMsg.getArgAsString(0));
+            ofNotifyEvent(sourceEvent,s,this);
 		}
         else if (rMsg.getAddress() == "/input/file/") {
             ofFile oFile;
@@ -64,7 +65,8 @@ void Socket::update(){
             input->setVolume(ofToFloat(rMsg.getArgAsString(0)));
 		}
         else if (rMsg.getAddress() == "/input/format/") {
-            input->setFormat(rMsg.getArgAsString(0));
+            int s = input->convertFormatString(rMsg.getArgAsString(0));
+            ofNotifyEvent(formatEvent,s,this);
         }
 	}
     
@@ -88,7 +90,7 @@ void Socket::sendDuration(){
     sMsg.clear();
     sMsg.setAddress("/input/duration");
     sMsg.addStringArg(input->getFilepath() + "," + ofToString( input->getDuration() ));
-    oscSender.sendMessage(sMsg);
+    oscSender.sendMessage(sMsg);    
 }
     
 void Socket::sendEnd(){

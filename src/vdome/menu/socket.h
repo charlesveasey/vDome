@@ -9,27 +9,27 @@ class Socket {
 
 public:
     Socket();
-    void setup();
-    void update();
-    
-    void sendDuration();
-    void sendEnd();
-    
-    void loadXML(ofXml &xml);
-    void saveXML(ofXml &xml);
+    void    setup();
+    void    update();
+    void    sendDuration();
+    void    sendEnd();
+    void    loadXML(ofXml &xml);
+    void    saveXML(ofXml &xml);
     
     string  host;
-    int send;
-    int receive;
-    bool enabled;
-    
-    Input *input;
+    int     send;
+    int     receive;
+    bool    enabled;
+    Input   *input;
+
+    static ofEvent<int> sourceEvent;
+    static ofEvent<int> formatEvent;
 
 private:
-    ofxOscSender oscSender;
-    ofxOscReceiver oscReceiver;
-    ofxOscMessage sMsg;
-    ofxOscMessage rMsg;
+    ofxOscSender    oscSender;
+    ofxOscReceiver  oscReceiver;
+    ofxOscMessage   sMsg;
+    ofxOscMessage   rMsg;
 };
 
 }

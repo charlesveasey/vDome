@@ -7,115 +7,9 @@ namespace vd {
 
 /******************************************
 
- INPUT
-
- ********************************************/
-
-class SetLoop : public Command {
-protected:
-    Input& obj;
-    bool v;
-    bool l;
-public:
-    SetLoop(Input& obj, bool v) : obj(obj), v(v) {}
-    void execute() {
-		l = obj.getLoop();
-		obj.setLoop(v); }
-	void undo() { obj.setLoop(l); }
-	void redo() { obj.setLoop(v); }
-};
-
-class SetSource : public Command {
-protected:
-    Input& obj;
-    int v;
-    int l;
-public:
-    SetSource(Input& obj, int v) : obj(obj), v(v) {}
-    void execute() {
-		l = obj.getSourceInt();
-		obj.setSourceInt(v); }
-	void undo() { obj.setSourceInt(l); }
-	void redo() { obj.setSourceInt(v); }
-};
-
-class SetFormat : public Command {
-protected:
-    Input& obj;
-    int v;
-    int l;
-public:
-	SetFormat(Input& obj, int v) : obj(obj), v(v) {}
-    void execute() {
-		l = obj.getFormatInt();
-		obj.setFormatInt(v); }
-	void undo() { obj.setFormatInt(l); }
-	void redo() { obj.setFormatInt(v); }
-};
-
-class SetTextureFlip : public Command {
-protected:
-    Model& obj;
-    bool v;
-    bool l;
-public:
-    SetTextureFlip(Model& obj, bool v) : obj(obj), v(v) {}
-    void execute() {
-		l = obj.getTextureFlip();
-		obj.setTextureFlip(v); }
-    void undo() { obj.setTextureFlip(l); }
-    void redo() { obj.setTextureFlip(v); }
-};
-
-class SetTextureRotate : public Command {
-protected:
-    Model& obj;
-    float v;
-    float l;
-public:
-    SetTextureRotate(Model& obj, float v) : obj(obj), v(v) {}
-    void execute() {
-		l = obj.getTextureRotate();
-		obj.setTextureRotate(v); }
-    void undo() { obj.setTextureRotate(l); }
-    void redo() { obj.setTextureRotate(v); }
-};
-
-class SetTextureTilt : public Command {
-protected:
-    Model& obj;
-    float v;
-    float l;
-public:
-    SetTextureTilt(Model& obj, float v) : obj(obj), v(v) {}
-    void execute() {
-		l = obj.getTextureTilt();
-		obj.setTextureTilt(v); }
-    void undo() { obj.setTextureTilt(l); }
-    void redo() { obj.setTextureTilt(v); }
-};
-
-class SetTextureScale : public Command {
-protected:
-    Model& obj;
-    float v;
-    float l;
-public:
-    SetTextureScale(Model& obj, float v) : obj(obj), v(v) {}
-    void execute() {
-		l = obj.getTextureScale();
-		obj.setTextureScale(v); }
-    void undo() { obj.setTextureScale(l); }
-    void redo() { obj.setTextureScale(v); }
-};
-
-/******************************************
-
  PROJECTOR
 
  ********************************************/
-
-// enable
 
 class SetProjectors : public Command {
 protected:
@@ -184,34 +78,6 @@ public:
     void redo() { obj.contrast = v; }
 };
     
-class SetBlackLevel : public Command {
-protected:
-    Projector& obj;
-    int v;
-    int l;
-public:
-    SetBlackLevel(Projector& obj, int v) : obj(obj), v(v) {}
-    void execute() {
-        l = obj.blackLevel;
-        obj.blackLevel = v; }
-    void undo() { obj.blackLevel = l; }
-    void redo() { obj.blackLevel = v; }
-};
-    
-class SetWhiteLevel : public Command {
-protected:
-    Projector& obj;
-    int v;
-    int l;
-public:
-    SetWhiteLevel(Projector& obj, int v) : obj(obj), v(v) {}
-    void execute() {
-        l = obj.whiteLevel;
-        obj.whiteLevel = v; }
-    void undo() { obj.whiteLevel = l; }
-    void redo() { obj.whiteLevel = v; }
-};
-
 class SetBrushScale : public Command {
 protected:
     Projector& obj;
@@ -339,61 +205,7 @@ public:
     void redo() { obj.lightness = v; }
 };
 
-class SetGamma : public Command {
-protected:
-    Projector& obj;
-    float v;
-    float l;
-public:
-    SetGamma(Projector& obj, float v) : obj(obj), v(v) {}
-    void execute() {
-        l = obj.gamma;
-        obj.gamma = v; }
-    void undo() { obj.gamma = l; }
-    void redo() { obj.gamma = v; }
-};
 
-class SetGammaR : public Command {
-protected:
-    Projector& obj;
-    float v;
-    float l;
-public:
-    SetGammaR(Projector& obj, float v) : obj(obj), v(v) {}
-    void execute() {
-        l = obj.gammaR;
-        obj.gammaR = v; }
-    void undo() { obj.gammaR = l; }
-    void redo() { obj.gammaR = v; }
-};
-
-class SetGammaG : public Command {
-protected:
-    Projector& obj;
-    float v;
-    float l;
-public:
-    SetGammaG(Projector& obj, float v) : obj(obj), v(v) {}
-    void execute() {
-        l = obj.gammaG;
-        obj.gammaG = v; }
-    void undo() { obj.gammaG = l; }
-    void redo() { obj.gammaG = v; }
-};
-
-class SetGammaB : public Command {
-protected:
-    Projector& obj;
-    float v;
-    float l;
-public:
-    SetGammaB(Projector& obj, float v) : obj(obj), v(v) {}
-    void execute() {
-        l = obj.gammaB;
-        obj.gammaB = v; }
-    void undo() { obj.gammaB = l; }
-    void redo() { obj.gammaB = v; }
-};
 
 // plane
 
@@ -543,70 +355,5 @@ public:
     void undo() { obj.setCameraOffset(l.x, l.y); }
     void redo() { obj.setCameraOffset(x, y);  }
 };
-
-class SetCameraScale : public Command {
-protected:
-    Projector& obj;
-    float x, y;
-    ofVec2f l;
-public:
-    SetCameraScale(Projector& obj, float x, float y) : obj(obj), x(x), y(y) {}
-    void execute() {
-        l = obj.getCameraScale();
-        obj.setCameraScale(x, y);
-    }
-    void undo() { obj.setCameraScale(l.x, l.y); }
-    void redo() { obj.setCameraScale(x, y);  }
-};
-
-class SetCameraScaleX : public Command {
-protected:
-    Projector& obj;
-    float x;
-    float y;
-    ofVec2f l;
-public:
-    SetCameraScaleX(Projector& obj, float x) : obj(obj), x(x), y(y) {}
-    void execute() {
-        l = obj.getCameraScale();
-        y = obj.getCameraScale().y;
-        obj.setCameraScale(x, y);
-    }
-    void undo() { obj.setCameraScale(l.x, l.y); }
-    void redo() { obj.setCameraScale(x, y); }
-};
-
-class SetCameraScaleY : public Command {
-protected:
-    Projector& obj;
-    float x;
-    float y;
-    ofVec2f l;
-public:
-    SetCameraScaleY(Projector& obj, float y) : obj(obj), x(x), y(y) {}
-    void execute() {
-        l = obj.getCameraScale();
-        x = obj.getCameraScale().x;
-        obj.setCameraScale(obj.getCameraScale().x, y);
-    }
-    void undo() { obj.setCameraScale(l.x, l.y); }
-    void redo() { obj.setCameraScale(x, y); }
-};
-
-class SetCameraShear : public Command {
-protected:
-    Projector& obj;
-    vector<float> v;
-    vector<float> l;
-public:
-    SetCameraShear(Projector& obj, vector<float>  v) : obj(obj), v(v) {}
-    void execute() {
-        l = obj.getCameraShear();
-        obj.setCameraShear(v); }
-    void undo() { obj.setCameraShear(l); }
-    void redo() { obj.setCameraShear(v); }
-};
-
-
 
 }

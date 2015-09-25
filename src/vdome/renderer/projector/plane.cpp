@@ -1,8 +1,6 @@
 #include "plane.h"
 namespace vd {
 
-extern float projCount;
-
 /******************************************
 
  CONSTRUCTOR
@@ -26,8 +24,6 @@ Plane::Plane(){
     yRes = 10;
     pointIndex = -1;
 	value = 1;
-    width = 1024;
-    height = 768;
 	cornerpinActive = false;
 	gridActive = false;
     
@@ -206,9 +202,9 @@ void Plane::onMouseReleased(ofMouseEventArgs& mouseArgs){
 
  ********************************************/
 
-void Plane::load(ofXml &xml) {
+void Plane::load(ofXml &xml, int projectorStartingIndex) {
     wXml->clear();
-    wXml->load("settings/warp/warp-"+ofToString(index+1)+".xml");
+    wXml->load("settings/warp/warp-"+ofToString(index+1+projectorStartingIndex)+".xml");
 
     if (wXml->exists("cornerpin[@points]")) {
         string str = wXml->getAttribute("cornerpin[@points]");

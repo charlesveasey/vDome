@@ -1,9 +1,6 @@
 #pragma once
 #include "ofMain.h"
 #include "projector.h"
-#include "model.h"
-#include "input.h"
-#include "window.h"
 
 namespace vd {
 
@@ -20,6 +17,7 @@ public:
         isParent = p;
     }
 };
+ 
     
 class Menu {
 public:
@@ -28,9 +26,8 @@ public:
 	void setup();
 
     // draw methods
- 	void draw(int i);
+ 	void draw(int i, int labelIndex);
     void drawMain(int i);
-    void drawInput();
     
     void drawProjector(int i);
     void drawFPS(int i);
@@ -60,6 +57,7 @@ public:
     // utils
     void toggle();
     float roundTo(float val, float n);
+    float round(float d);
 
 	// state
 	void onCurHoverChange(ofVec3f & xyi);
@@ -86,11 +84,8 @@ public:
     MenuItem *menuInputTransform;
     MenuItem *menuWarp;
     MenuItem *menuBlend;
-    MenuItem *menuLevels;
     MenuItem *menuBrush;
     MenuItem *menuColor;
-    MenuItem *menuHSL;
-    MenuItem *menuGamma;
 
 	MenuItem *menuCurves;
 	MenuItem *menuCurvesGrey;
@@ -107,30 +102,21 @@ public:
     MenuItem *menuShear;
     MenuItem **currentMenu;
 
-    enum menus {MAIN, INPUT, INPUT_VIDEO, INPUT_TRANSFORM, WARP, BLEND, COLOR, HSL, GAMMA, 
+    enum menus {MAIN, WARP, BLEND, COLOR,
 				CURVES, CURVES_GREY, CURVES_RED, CURVES_GREEN, CURVES_BLUE, SETUP,
-                POSITION, ORIENTATION, FIELD_OF_VIEW, LENS, SHEAR, SCALE, BRUSH, LEVELS};
+                POSITION, ORIENTATION, FIELD_OF_VIEW, LENS, BRUSH};
 
     // menu items
 	enum mainItems {ENABLE};
 
-    enum inputItems {SOURCE, FORMAT, LOOP, TRANSFORM};
-    enum intputTransformItems {INPUT_FLIP, INPUT_ROTATE, INPUT_TILT, INPUT_SCALE};
-
     enum warpItems  {CORNERPIN, GRID};
-    enum blendItems {BRIGHTNESS, CONTRAST, B_LEVELS, B_BRUSH};
-    enum levelsItems{BLACK, WHITE};
+    enum blendItems {B_BRUSH};
     enum brushItems {BRUSH_SCALE, BRUSH_OPACITY};
-    enum colorItems {COLOR_HSL, COLOR_GAMMA, COLOR_CURVES};
-    enum hslItems   {HUE, SATURATION, LIGHTNESS};
-    enum gammaItems {GAMMA_RGB, GAMMA_R, GAMMA_G, GAMMA_B};
+    enum colorItems {BRIGHTNESS, CONTRAST, SATURATION, COLOR_CURVES};
     enum posItems   {AZIMUTH, ELEVATION, DISTANCE};
     enum orienItems {TILT, ROLL, PAN};
     enum fovItems   {FOV};
     enum lensItems  {OFFSET_X, OFFSET_Y};
-    enum scaleItems {SCALE_X, SCALE_Y};
-    enum shearItems {SHEAR_YZ, SHEAR_ZX, SHEAR_XZ,
-                     SHEAR_ZY, SHEAR_YX, SHEAR_XY};
 
     void findEdit(int mode);
 
@@ -153,20 +139,24 @@ public:
     float altValue;
 
     // pointers
-    Model *model;
-    Input *input;
-    vector<Window> *windows;
     vector<Projector> *projectors;
-    ofxMultiGLFWWindow *glfw;
+    int projCount;
+    int projectorStartingIndex;
 
-    bool autosave;
-
-private:
-    void updateColorFromCurve(int pointIndex, bool forceGrey);
-    void changeColorCurveMode(int i);
     
+    int inputSource;
+    enum inputSources {SOURCE_MEDIA, SOURCE_CAPTURE, SOURCE_SYPHON, SOURCE_SPOUT, SOURCE_GRID, SOURCE_BLACK, SOURCE_WHITE, SOURCE_GREY, SOURCE_COLOR};
+    
+    
+    static ofEvent<int> sourceColorEvent;
+    static ofEvent<ofVec3f> colorEvent;
+    ofVec3f currentColor;
+    
+private:
+    ofVec3f updateColorFromCurve(int pointIndex, bool forceGrey);
+    void changeColorCurveMode(int i);
     int curvePointIndex;
-
+    bool newCurvePointIndex;
 };
 
 }
