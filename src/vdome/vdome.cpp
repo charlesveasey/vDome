@@ -328,6 +328,15 @@ void vdome::setupInput(){
         }
     }
 #endif
+
+	// setup spout
+#ifdef TARGET_WIN32
+	if (input.source == input.SPOUT) {
+		for (auto w : windows) {
+			w->spout.setup();
+		}
+	}
+#endif
     
     // configure input transform
     if (input.ratio == -99999){

@@ -44,11 +44,6 @@ void Input::setup(){
         case WHITE:     color.setup(); color.fillWhite();								break;
         case GREY:      color.setup(); color.fillGrey();								break;
 		case COLOR:     color.setup(); color.fill(cColor.r, cColor.g, cColor.b);		break;
-
-#ifdef TARGET_WIN32
-        // fix
-        //case SPOUT:     spout.setup();                                                  break;
-#endif
         default:        color.setup(); color.fillBlack();                               break;
     }
 

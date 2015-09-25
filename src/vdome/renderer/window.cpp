@@ -56,15 +56,14 @@ void Window::setup(){}
  ********************************************/
 
 void Window::update(){
-    if (input->source != input->SYPHON){
+   // if (input->source != input->SYPHON){
         //texture.loadData(input->getPixels()); //fix
         //texture = input->getTexture();
 
-    }
+    //}
 #ifdef TARGET_WIN32
-    else if (input->source == SPOUT){
-        spout.update();
-    }
+	if (input->source == SPOUT)
+		spout.update();
 #endif
     
     if (menu.active)
@@ -81,26 +80,30 @@ void Window::draw(){
     ofSetColor(255);
     
     for (int i=0; i<projectors.size(); i++) {
-
-        ofEnableNormalizedTexCoords();
-
-        if (projectors[i].enable) {
-            
+        if (projectors[i].enable) {            
             projectors[i].begin();
             
-                if (input->source == input->SYPHON){
+                if (input->source == input->SYPHON || input->source == input->SPOUT){
 					#ifdef TARGET_OSX
 						syphon.bind();
+					#endif
+
+					#ifdef TARGET_WIN32
+						spout.bind();
 					#endif
                 }
                 else{
 					input->bind();
                 }
             
-                    model.draw();
-                if (input->source == input->SYPHON){
+					model.draw();
+				
+				if (input->source == input->SYPHON || input->source == input->SPOUT) {
 					#ifdef TARGET_OSX
 						syphon.unbind();
+					#endif
+					#ifdef TARGET_WIN32
+						spout.unbind();
 					#endif
                 }
                 else{
@@ -110,7 +113,6 @@ void Window::draw(){
             
             projectors[i].end();
 
-            
             ofDisableNormalizedTexCoords();
             
             projectors[i].renderFbo.begin();
