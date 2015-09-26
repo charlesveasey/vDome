@@ -275,11 +275,16 @@ void vdome::createWindow(ofXml &xml){
             app->input = &input; //fix
             app->projectorStartingIndex = projectorIndex;
             app->menu.projectorStartingIndex = projectorIndex;
-            
+ 
+			if (i == 0) {
+				socket.model = &app->model;
+			}
+
             // create a list of rendering windows
             windows.push_back(app);
             baseWindows.push_back(win);
-            
+
+
             // register new window to ofMainLoop
             ofRunApp(win, app);
             

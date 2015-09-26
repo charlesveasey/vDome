@@ -2,9 +2,11 @@
 #include "ofMain.h"
 #include "ofxOsc.h"
 #include "input.h"
+#include "model.h"
 namespace vd {
 class Input;
-    
+class Model;
+
 class Socket {
 
 public:
@@ -21,6 +23,7 @@ public:
     int     receive;
     bool    enabled;
     Input   *input;
+	Model	*model;
 
     static ofEvent<int> sourceEvent;
     static ofEvent<int> formatEvent;

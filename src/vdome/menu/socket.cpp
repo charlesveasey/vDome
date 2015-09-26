@@ -41,12 +41,16 @@ void Socket::update(){
 		oscReceiver.getNextMessage(&rMsg);
         
 		if (rMsg.getAddress() == "/input/"){
-            if      (rMsg.getArgAsString(0) == "play")         input->play();
-            else if (rMsg.getArgAsString(0) == "stop")         input->stop();
+            if (rMsg.getArgAsString(0) == "play")         
+				input->play();
+            else if (rMsg.getArgAsString(0) == "stop")         
+				input->stop();
 		}
 		else if (rMsg.getAddress() == "/input/loop/") {
-            if (rMsg.getArgAsString(0) == "on") input->setLoop(true);
-            else                                input->setLoop(false);
+            if (rMsg.getArgAsString(0) == "on") 				
+				input->setLoop(true);
+            else                                				
+				input->setLoop(false);
 		}
         else if (rMsg.getAddress() == "/input/seek/") {
             input->seek(ofToFloat(rMsg.getArgAsString(0)));
@@ -68,6 +72,27 @@ void Socket::update(){
             int s = input->convertFormatString(rMsg.getArgAsString(0));
             ofNotifyEvent(formatEvent,s,this);
         }
+		// transform
+		else if (rMsg.getAddress() == "/input/flip/") {
+            string s = rMsg.getArgAsString(0);
+
+			if (rMsg.getArgAsString(0) == "on")
+				model->setTextureFlip(true);
+			else
+				model->setTextureFlip(false);
+		}
+		else if (rMsg.getAddress() == "/input/scale/") {
+			float f = ofToFloat(rMsg.getArgAsString(0));
+			model->setTextureScale(f);
+		}		
+		else if (rMsg.getAddress() == "/input/rotate/") {
+			float f = ofToFloat(rMsg.getArgAsString(0));
+			model->setTextureRotate(f);
+		}			
+		else if (rMsg.getAddress() == "/input/tilt/") {
+			float f = ofToFloat(rMsg.getArgAsString(0));
+			model->setTextureTilt(f);
+		}			
 	}
     
     // send
