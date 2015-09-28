@@ -84,9 +84,9 @@ ofPixels& Video::getPixels(){
 
 void Video::bind(){
 	player.getTexture().setTextureWrap(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
-    return player.getTexture().bind();
+    player.getTexture().bind();
 }
 
 void Video::unbind() {
-	return player.getTexture().unbind();
+	player.getTexture().unbind();
 }

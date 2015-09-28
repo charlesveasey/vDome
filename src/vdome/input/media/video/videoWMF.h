@@ -25,6 +25,8 @@ public:
     float	getHeight();	
 	void	bind();
 	void	unbind();
+	
+	ofPixels&		getPixels();
 	    
 private:
 	void	videoLoaded(bool &success);
@@ -38,6 +40,8 @@ private:
 	int		positionRequestFrameCnt;
 	float	storePositionFix;
 	int		storePositionFrameCnt;
+	float	seekPositionStore;
+	int		seekPositionFrameCnt;
 	bool	bPaused;
 
 	ofxWMFVideoPlayer player;

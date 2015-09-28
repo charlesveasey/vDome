@@ -2,7 +2,11 @@
 #include "image.h"
 
 #ifdef TARGET_WIN32
-#include "videoWin.h"
+#define USE_WMF // windows only, undefine to use direct show
+#endif
+
+#ifdef USE_WMF
+#include "videoWMF.h"
 #else
 #include "video.h"
 #endif
@@ -58,8 +62,8 @@ private:
 
 	Image   image;
 
-#ifdef TARGET_WIN32
-	VideoWin	video;
+#ifdef USE_WMF
+	VideoWMF	video;
 #else
 	Video	video;
 #endif

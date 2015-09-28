@@ -16,7 +16,6 @@ extern vector<ofPixels> maskHistory;
  ********************************************/
 
 Menu::Menu(){
-
 	menuMain = new MenuItem;
     menuMain->menuId = MAIN;
     menuMain->parent = &menuMain;
@@ -691,7 +690,7 @@ void Menu::keyPressed(int key) {
 		projectors->at(k).keyPressed(key);
 	}
     
-    // MENU
+    // MENU NOT ACTIVE
     ///////////////////////////
     if (!active) { return; }
     ///////////////////////////

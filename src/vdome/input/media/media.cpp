@@ -21,7 +21,6 @@ void Media::open(string filepath){
     }
     else if (mString == "video"){
         mType = VIDEO;
-        ofAddListener(video.endEvent, this, &Media::videoEnd);
         video.setLoop(bLoop);
         video.open(filepath);
         video.setVolume(vol);
@@ -29,9 +28,15 @@ void Media::open(string filepath){
 }
 
 void Media::update(){
-    switch (mType) {
-        case IMAGE: break;
-        case VIDEO: video.update(); break;
+	switch (mType) {
+		case IMAGE: break;
+		case VIDEO:
+			video.update();
+			if (video.getIsMovieDone()) {
+				bool end = true;
+				videoEnd(end);
+			}
+		break;
     }
 }
 
@@ -77,19 +82,15 @@ bool Media::isPlaying(){
 }
 
 float Media::getPosition(){
-    float val = 0;
-    if (mType == VIDEO){
-        val = video.getPosition();
-    }
-    return val;
+	if (mType == VIDEO) 
+		return video.getPosition();
+    return 0;
 }
 
 float Media::getDuration(){
-    float val = 0;
-    if (mType == VIDEO){
-        val = video.getDuration();
-    }
-    return val;
+    if (mType == VIDEO)
+        return video.getDuration();
+	return 0;
 }
 
 void Media::setResolution(int w, int h){

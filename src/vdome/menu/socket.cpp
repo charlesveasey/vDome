@@ -72,6 +72,7 @@ void Socket::update(){
             int s = input->convertFormatString(rMsg.getArgAsString(0));
             ofNotifyEvent(formatEvent,s,this);
         }
+
 		// transform
 		else if (rMsg.getAddress() == "/input/flip/") {
             string s = rMsg.getArgAsString(0);
@@ -97,11 +98,15 @@ void Socket::update(){
     
     // send
     sMsg.clear();
-    if (input->isPlaying()) {
-        sMsg.setAddress("/input/position");
-        sMsg.addStringArg(ofToString( input->getPosition() ));
-        oscSender.sendMessage(sMsg);
-    }
+    if (input->getSourceInt() == input->MEDIA) {
+		if (lastInputPosition != input->getPosition()){
+			sMsg.setAddress("/input/position");
+			sMsg.addStringArg(ofToString( input->getPosition() ));
+			oscSender.sendMessage(sMsg);
+		}
+		lastInputPosition = input->getPosition();
+	}
+
 }
     
     

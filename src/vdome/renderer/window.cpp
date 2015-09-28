@@ -66,8 +66,9 @@ void Window::update(){
 		spout.update();
 #endif
     
-    if (menu.active)
+    if (menu.active) {
         menu.update();
+	}
 }
 
 /******************************************

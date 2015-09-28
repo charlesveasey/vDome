@@ -96,6 +96,7 @@ void vdome::setup(){
  ********************************************/
 
 void vdome::keyPressed(int &key){
+
     for (int i=0; i<windows.size(); i++){
         windows[i]->menu.keyPressed(key);
         
@@ -241,6 +242,8 @@ void vdome::createWindow(ofXml &xml){
     ofGLFWWindowSettings settings;
     int projectorIndex = 0;
     int numProjectors = 0;
+	bool border = false;
+	string str;
     
     if (xml.exists("window")) {
         //get window count form xml
@@ -250,11 +253,17 @@ void vdome::createWindow(ofXml &xml){
         for (int i=0; i<windowCount; i++) {
             xml.setTo("window["+ ofToString(i) + "]");
             
+			// get border setting from xml
+			if (xml.exists("[@border]")) {
+				str = ofToString(xml.getAttribute("[@border]"));
+				if (str == "on")	border = true;
+			}
+
             // GLFW window settings
-            settings.glVersionMajor = 3;
-            settings.glVersionMinor = 2;
+            settings.glVersionMajor = 4;
+            settings.glVersionMinor = 3;
             settings.resizable = false;
-            settings.decorated = true;
+            settings.decorated = border;
             
             if (i > 0){
                 settings.shareContextWith = baseWindows[0];
@@ -303,6 +312,7 @@ void vdome::createWindow(ofXml &xml){
  ********************************************/
 
 void vdome::onSourceEvent(int &s){
+	input.stop();
     input.setSourceInt(s);
     setupInput();
 }

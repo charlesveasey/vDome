@@ -158,7 +158,7 @@ float VideoWin::getHeight(){
 
 ofPixels& VideoWin::getPixels() {
 	switch (vType) {
-		//case WMF: return vWMF.getTexture(); //fix
+		//case WMF: return vWMF.getPixels(); //fix
 		case DS:  return vDS.getPixels();
 	}
 }

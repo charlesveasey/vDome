@@ -30,7 +30,6 @@ Input::Input(){
  ********************************************/
 
 void Input::setup(){
-    stop();
     close();
 
     durationSent = false;
@@ -149,7 +148,7 @@ bool Input::isPlaying() {
 }
 
 void Input::stop() {
-    if (source == MEDIA)    media.stop();
+	if (source == MEDIA)			media.stop();
 }
 
 void Input::close() {
