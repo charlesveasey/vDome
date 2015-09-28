@@ -260,8 +260,8 @@ void vdome::createWindow(ofXml &xml){
 			}
 
             // GLFW window settings
-            settings.glVersionMajor = 4;
-            settings.glVersionMinor = 3;
+            settings.glVersionMajor = 3;
+            settings.glVersionMinor = 2;
             settings.resizable = false;
             settings.decorated = border;
             
