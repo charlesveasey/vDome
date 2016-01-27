@@ -1,4 +1,3 @@
-#pragma once
 #include "model.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -7,7 +6,6 @@
 
 namespace vd {
 
-extern float projCount;
 extern int maxHistory;
 extern CommandHistory history;
 extern vector<ofPixels> maskHistory;
@@ -20,7 +18,7 @@ extern vector<ofPixels> maskHistory;
 
 Model::Model(){
 	radius = 10;
-	N = 256;  // Mesh resolution, must be multiple of 4
+	N = 128;  // Mesh resolution, must be multiple of 4
     textureScale = 1;
     textureFlip = false;
     textureRotate = 0;
@@ -129,44 +127,13 @@ void Model::draw(){
     ofPopMatrix();
 }
 
-
 /******************************************
 
  KEYBOARD
 
  ********************************************/
 
-void Model::keyPressed(int key) {
-
-	cout << key << endl;
-
-    switch (key) {
-        case OF_KEY_RIGHT:
-            switch (editMode) {
-                case T_ROTATE:		history.execute( new SetTextureRotate(*this, textureRotate + value));		break;
-                case T_TILT:		history.execute( new SetTextureTilt(*this, textureTilt + value));			break;
-                case T_SCALE:		history.execute( new SetTextureScale(*this, textureScale + value * .01));	break;
-                case T_FLIP:		history.execute( new SetTextureFlip(*this, true));							break;
-            }
-            break;
-        case OF_KEY_LEFT:
-            switch (editMode) {
-                case T_ROTATE:		history.execute( new SetTextureRotate(*this, textureRotate - value));		break;
-                case T_TILT:		history.execute( new SetTextureTilt(*this, textureTilt - value));			break;
-                case T_SCALE:		history.execute( new SetTextureScale(*this, textureScale - value * .01));	break;
-                case T_FLIP:		history.execute( new SetTextureFlip(*this, false));							break;
-            }
-            break;
-        case 114: // (r) reset
-            switch (editMode) {
-				case T_FLIP:		history.execute( new SetTextureFlip(*this, false));			break;
-				case T_ROTATE:		history.execute( new SetTextureRotate(*this, 0));			break;
-                case T_TILT:		history.execute( new SetTextureTilt(*this, 0));				break;
-				case T_SCALE:		history.execute( new SetTextureScale(*this, 1));			break;
-            }
-            break;
-    }
-}
+void Model::keyPressed(int key) {}
 
 /******************************************
 
@@ -206,7 +173,6 @@ void Model::saveXML(ofXml &xml) {
     xml.setToParent();
 }
 
-
 /******************************************
 
  SAVE MESH
@@ -216,7 +182,6 @@ void Model::saveXML(ofXml &xml) {
 void Model::saveMesh(string file) {
     vbo.save(file);
 }
-
 
 /******************************************
 

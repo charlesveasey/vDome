@@ -1,8 +1,6 @@
 #pragma once
 #include "ofMain.h"
-#include "Spout.h"
-
-using namespace Spout;
+#include ".\SpoutSDK\Spout.h" // Spout SDK
 
 class SpoutR {
 
@@ -13,11 +11,9 @@ class SpoutR {
 		void unbind();		
 		void exit(); 
 
-		bool bInitialized;				// Initialization result
-		bool bDoneOnce;					// Do-once intialization flag
-		bool bTextureShare;				// Texture share compatibility
-
-		ofTexture texture;				// Texture used for texture share transfers
-		unsigned int g_Width, g_Height;	// Global width and height
-		char SenderName[256];			// Shared memory name
+		SpoutReceiver *spoutreceiver; // A Spout receiver object
+		bool bInitialized;		      // Initialization result
+		ofTexture texture;			  // Texture used for texture share transfers
+		char SenderName[256];	      // Sender name used by a receiver
+		int g_Width, g_Height;        // Used for checking sender size change
 };

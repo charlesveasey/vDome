@@ -201,9 +201,7 @@ ofMatrix4x4 QuadWarp::getMatrix(ofPoint * srcPoints, ofPoint * dstPoints) {
     return matrixTemp;
 }
 
-void QuadWarp::update() {
-    //
-}
+void QuadWarp::update() {}
 
 void QuadWarp::reset() {
     dstPoints[0].set(srcPoints[0]);
@@ -375,16 +373,16 @@ void QuadWarp::drawCorners() {
         return;
     }
 
-    ofRect(dstPoints[0].x + position.x,
+    ofDrawRectangle(dstPoints[0].x + position.x,
            dstPoints[0].y + position.y,
            anchorSize.x, anchorSize.y);
-    ofRect(dstPoints[1].x + position.x - anchorSize.x,
+    ofDrawRectangle(dstPoints[1].x + position.x - anchorSize.x,
            dstPoints[1].y + position.y,
            anchorSize.x, anchorSize.y);
-    ofRect(dstPoints[2].x + position.x - anchorSize.x,
+    ofDrawRectangle(dstPoints[2].x + position.x - anchorSize.x,
            dstPoints[2].y + position.y - anchorSize.y,
            anchorSize.x, anchorSize.y);
-    ofRect(dstPoints[3].x + position.x,
+    ofDrawRectangle(dstPoints[3].x + position.x,
            dstPoints[3].y + position.y - anchorSize.y,
            anchorSize.x, anchorSize.y);
 
@@ -397,7 +395,7 @@ void QuadWarp::drawQuadOutline() {
 
     for(int i=0; i<4; i++) {
         int j = (i+1) % 4;
-        ofLine(dstPoints[i].x + position.x,
+        ofDrawLine(dstPoints[i].x + position.x,
                dstPoints[i].y + position.y,
                dstPoints[j].x + position.x,
                dstPoints[j].y + position.y);

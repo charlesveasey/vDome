@@ -2,18 +2,12 @@
 using namespace vd;
 
 Color::Color() {
+    resolution = 2048;
 }
 
 void Color::setup(){
-	image.allocate(4, 4, OF_IMAGE_COLOR);
-}
-
-void Color::bind(){
-    image.getTextureReference().bind();
-}
-
-void Color::unbind(){
-    image.getTextureReference().unbind();
+    image.setUseTexture(true);
+	image.allocate(resolution, resolution, OF_IMAGE_COLOR);
 }
 
 void Color::fill(int r, int g, int b){
@@ -37,6 +31,22 @@ void Color::close(){
     image.clear();
 }
 
+void Color::setResolution(int r){
+    resolution = r;
+}
+
+void Color::bind() {
+	image.getTexture().setTextureWrap(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
+	image.getTexture().bind();
+}
+
+void Color::unbind() {
+	image.getTexture().unbind();
+}
+
+ofPixels & Color::getPixels(){
+    return image.getPixels();
+}
 
 
 
