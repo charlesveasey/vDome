@@ -1,23 +1,26 @@
 #include "ofMain.h"
 #include "vdome.h"
-#include "ofxMultiGLFWWindow.h"
-#include "ofGLProgrammableRenderer.cpp"
+
+//#define VDOME_DEBUG // define for debug console
 
 int main( ){
-
-	#ifdef VDOME_DEBUG
-	    ofSetLogLevel(OF_LOG_VERBOSE);
-	#else
-		ofSetLogLevel(OF_LOG_SILENT);
-	#endif
-
-	ofSetCurrentRenderer(ofGLProgrammableRenderer::TYPE);
     
-	ofxMultiGLFWWindow win;
-    win.setOpenGLVersion(3,2);
-    win.windowCount = 1;
-	win.hideBorder();
-
-    ofSetupOpenGL(&win, 1680,1080, OF_WINDOW);
-	ofRunApp(new vd::vdome());
+#ifdef VDOME_DEBUG
+    ofSetLogLevel(OF_LOG_VERBOSE);
+#else
+    ofSetLogLevel(OF_LOG_SILENT);
+#endif
+   
+// hide console window
+#ifdef TARGET_WIN32
+#ifndef VDOME_DEBUG 
+    HWND handleWindow;
+    AllocConsole();
+    handleWindow = FindWindowA("ConsoleWindowClass", NULL);
+    ShowWindow(handleWindow, 0);
+#endif
+#endif
+    
+    vd::vdome vdome;
+    vdome.setup();    
 }

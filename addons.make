@@ -1,6 +1,5 @@
-ofxOsc
-ofxOpenCv
-ofxMediaType
 ofxBezierSurface
-ofxM3U
-ofxMultiGLFWWindow
+ofxCurvesTool
+ofxOpenCv
+ofxOsc
+ofxWMFVideoPlayer

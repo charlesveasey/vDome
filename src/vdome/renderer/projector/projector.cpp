@@ -1,24 +1,23 @@
-#pragma once
 #include "projector.h"
 #include "commands.h"
 
 namespace vd {
 
-extern float projCount;
 extern int maxHistory;
 extern CommandHistory history;
 extern vector<ofPixels> maskHistory;
-
+    
 /******************************************
 
  INIT
 
  ********************************************/
 
-void Projector::init(int i){
+void Projector::init(int i, int pStartingIndex){
 
     // defaults
     index = i;
+    projectorStartingIndex = pStartingIndex;
 
     keyboard = false;
     mouse = false;
@@ -26,60 +25,31 @@ void Projector::init(int i){
     // intensity
     brightness = 1;
     contrast = 1;
-    blackLevel = 0;
-    whiteLevel = 255;
 
     // color
     hue = 1;
     saturation = 1;
     lightness = 1;
 
-    gamma = 1;
-    gammaR = 1;
-    gammaG = 1;
-    gammaB = 1;
-
 	active = false;
     enable = true;
     
     fboSample = 4;
-
-    width = 1024;
-    height = 768;
     
     // camera
     cameraPosition.set(0,0,10);    // azi, ele, dis
     cameraOrientation.set(0,-20,0);    // roll, tilt, pan
     cameraFov = 72;
     cameraOffset.set(0,0);
-    cameraScale.set(1,1);
-
-    /* shear
-     1,   xy,   xz,  0,
-     yx,   1,   yz,  0,
-     zx,  zy,   1,   0,
-     0,    0,   0,   1
-     */
-    cameraShear.push_back(0); // 0=xy
-    cameraShear.push_back(0); // 1=xz
-    cameraShear.push_back(0); // 2=yx
-    cameraShear.push_back(0); // 3=yz
-    cameraShear.push_back(0); //1 4=zx
-    cameraShear.push_back(0); // 5=zy
 
 	curves.init(i);
-
+    
+    mask.width = width;
+    mask.height = height;
     mask.tx = planePosition.x;
     mask.ty = planePosition.y;
     mask.init(i);    
 }
-
-
-
-
-
-
-
 
 /******************************************
 
@@ -110,8 +80,9 @@ void Projector::setup() {
     if (fbo.getWidth() != width || fbo.getHeight() != height) {
         fbo.allocate(width, height, GL_RGBA);
         renderFbo.setUseTexture(true);
-        renderFbo.allocate(width, height, GL_RGBA, fboSample);
-        
+        //renderFbo.allocate(width, height, GL_RGBA, fboSample);
+        renderFbo.allocate(width, height, GL_RGBA); // setting sample causes render error
+
         int x = planePosition.x;
         int y = planePosition.y;
         int w = width;
@@ -144,7 +115,7 @@ void Projector::setup() {
 
     mask.tx = planePosition.x;
     mask.ty = planePosition.y;
-    mask.setup();    
+    mask.setup();
 }
 
 // camera transform
@@ -160,23 +131,6 @@ void Projector::setCameraTransform(){
     camera.setPosition(car);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /******************************************
 
  BEGIN
@@ -184,27 +138,6 @@ void Projector::setCameraTransform(){
  ********************************************/
 
 void Projector::begin() {
-    ofMatrix4x4 mat = camera.getProjectionMatrix(view);
-    ofMatrix4x4 transform;
-
-    /*
-    shear
-        1,   xy,   xz,  0,
-        yx,   1,   yz,  0,
-        zx,  zy,   1,   0,
-        0,    0,   0,   1
-    */
-    transform.set(
-      cameraScale.x,   cameraShear[0],   cameraShear[1],   0,
-      cameraShear[2],   cameraScale.y,   cameraShear[3],   0,
-      cameraShear[4],   cameraShear[5],             1,   0,
-             0,          0,          0,             1
-    );
-
-    ofMatrix4x4 m;
-    m.makeFromMultiplicationOf(transform, mat);
-    camera.setProjectionMatrix(m);
-
     fbo.begin();
         ofClear(0, 0, 0, 0);
         camera.begin(view);
@@ -215,17 +148,6 @@ void Projector::end() {
     fbo.end();
 }
 
-
-
-
-
-
-
-
-
-
-
-
 /******************************************
 
  BIND
@@ -233,43 +155,12 @@ void Projector::end() {
  ********************************************/
 
 void Projector::bind() {
-    fbo.getTextureReference().bind();
+    fbo.getTexture().bind();
 }
 
 void Projector::unbind() {
-    fbo.getTextureReference().unbind();
+    fbo.getTexture().unbind();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-/******************************************
-
- UPDATE
-
- ********************************************/
-void Projector::update() {
-	if (curves.enabled){
-		curves.update();
-	}
-}
-
-
-
-
-
-
-
-
-
 
 
 /******************************************
@@ -299,20 +190,6 @@ void Projector::drawKeystone(){
         plane.cornerpin.draw();
     ofPopMatrix();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /******************************************
 
@@ -352,23 +229,11 @@ void Projector::mouseReleased(ofMouseEventArgs& mouseArgs) {
     }
 }
 
-
-
 Command* Projector::executeBrush() {
 	Command* cmd = NULL;
     cmd = new SetBrushPoints(*this);
 	return cmd;
 }
-
-
-
-
-
-
-
-
-
-
 
 /******************************************
 
@@ -397,7 +262,6 @@ void Projector::keyReleased(int key) {
 }
 
 
-
 Command* Projector::reset() {
 	Command* cmd = NULL;
 
@@ -405,15 +269,7 @@ Command* Projector::reset() {
         case ENABLE:			cmd = new SetEnable(*this, true);															break;
         case BRIGHTNESS:		cmd = new SetBrightness(*this, 1);															break;
         case CONTRAST:			cmd = new SetContrast(*this, 1);															break;
-        case BLACK:				cmd = new SetBlackLevel(*this, 0);															break;
-        case WHITE:				cmd = new SetWhiteLevel(*this, 255);														break;
-        case HUE:				cmd = new SetHue(*this, 1);																	break;
         case SATURATION:		cmd = new SetSaturation(*this, 1);															break;
-        case LIGHTNESS:			cmd = new SetLightness(*this, 1);															break;
-        case GAMMA:				cmd = new SetGamma(*this, 1);																break;
-        case GAMMA_R:			cmd = new SetGammaR(*this, 1);																break;
-        case GAMMA_G:			cmd = new SetGammaG(*this, 1);																break;
-        case GAMMA_B:			cmd = new SetGammaB(*this, 1);																break;
 		case BRUSH_OPACITY:		cmd = new ResetBrushOpacity(*this, 50);	 													break;
         case BRUSH_SCALE:		cmd = new ResetBrushScale(*this, 1);	 													break;
         case CORNERPIN:			cmd = new ResetCornerpin(*this);															break;
@@ -427,15 +283,6 @@ Command* Projector::reset() {
         case FOV:				cmd = new SetCameraFov(*this, 72);															break;
         case OFFSET_X:			cmd = new SetCameraOffset(*this, 0, cameraOffset.y);										break;
         case OFFSET_Y:			cmd = new SetCameraOffset(*this, cameraOffset.x, 0);										break;
-        case SCALE:				cmd = new SetCameraScale(*this, 1, 1);														break;
-        case SCALE_X:			cmd = new SetCameraScaleX(*this, 1);														break;
-        case SCALE_Y:			cmd = new SetCameraScaleY(*this, 1);														break;
-        case SHEAR_XY:			cameraShear[0] = 0;		cmd = new SetCameraShear(*this, cameraShear );						break;
-        case SHEAR_XZ:			cameraShear[1] = 0;		cmd = new SetCameraShear(*this, cameraShear );						break;
-        case SHEAR_YX:			cameraShear[2] = 0;		cmd = new SetCameraShear(*this, cameraShear );						break;
-        case SHEAR_YZ:			cameraShear[3] = 0;		cmd = new SetCameraShear(*this, cameraShear );						break;
-        case SHEAR_ZX:			cameraShear[4] = 0;		cmd = new SetCameraShear(*this, cameraShear );						break;
-        case SHEAR_ZY:			cameraShear[5] = 0;		cmd = new SetCameraShear(*this, cameraShear );						break;
     }
 
 	return cmd;
@@ -456,15 +303,7 @@ Command* Projector::execute(float v) {
         case CONTRAST:			cmd = new SetContrast(*this, contrast + v * .1);																break;
         case BRUSH_SCALE:		cmd = new SetBrushScale(*this, mask.brushScale + v * .1);														break;
         case BRUSH_OPACITY:		cmd = new SetBrushOpacity(*this, mask.brushOpacity + v);														break;
-        case BLACK:				cmd = new SetBlackLevel(*this, blackLevel + v);																	break;
-        case WHITE:				cmd = new SetWhiteLevel(*this, whiteLevel + v);																	break;
-        case HUE:				cmd = new SetHue(*this, hue + v * .1);																			break;
         case SATURATION:		cmd = new SetSaturation(*this, saturation + v * .1);															break;
-        case LIGHTNESS:			cmd = new SetLightness(*this, lightness + v * .1);																break;
-        case GAMMA:				cmd = new SetGamma(*this, gamma + v * .1);																		break;
-        case GAMMA_R:			cmd = new SetGammaR(*this, gammaR + v * .1);																	break;
-        case GAMMA_G:			cmd = new SetGammaG(*this, gammaG + v * .1);																	break;
-        case GAMMA_B:			cmd = new SetGammaB(*this, gammaB + v * .1);																	break;
         case CORNERPIN:			cmd = new SetCornerpinPoints(*this, plane.getCornerpinPoints(), lastKey);										break;
         case GRID:				cmd = new SetGridPoints(*this, plane.getGridPoints(), lastGrid);												break;
         case AZIMUTH:			cmd = new SetCameraPosition(*this, cameraPosition.x + v, cameraPosition.y, cameraPosition.z);					break;
@@ -476,29 +315,10 @@ Command* Projector::execute(float v) {
         case FOV:				cmd = new SetCameraFov(*this, cameraFov + v);																	break;
         case OFFSET_X:			cmd = new SetCameraOffset(*this, cameraOffset.x + v  * .1, cameraOffset.y);										break;
         case OFFSET_Y:			cmd = new SetCameraOffset(*this, cameraOffset.x, cameraOffset.y + v * .1);										break;
-        case SCALE:				cmd = new SetCameraScale(*this, cameraScale.x + v * .1, cameraScale.y + v * .1);								break;
-        case SCALE_X:			cmd = new SetCameraScale(*this, cameraScale.x + v * .1, cameraScale.y);											break;
-        case SCALE_Y:			cmd = new SetCameraScale(*this, cameraScale.x, cameraScale.y + v * .1);											break;
-        case SHEAR_XY:			cameraShear[0] += v *.1;	cmd = new SetCameraShear(*this, cameraShear );										break;
-        case SHEAR_XZ:			cameraShear[1] += v *.1;	cmd = new SetCameraShear(*this, cameraShear );										break;
-        case SHEAR_YX:			cameraShear[2] += v *.1;	cmd = new SetCameraShear(*this, cameraShear );										break;
-        case SHEAR_YZ:			cameraShear[3] += v *.1;	cmd = new SetCameraShear(*this, cameraShear );										break;
-        case SHEAR_ZX:			cameraShear[4] += v *.1;	cmd = new SetCameraShear(*this, cameraShear );										break;
-        case SHEAR_ZY:			cameraShear[5] += v *.1;	cmd = new SetCameraShear(*this, cameraShear );										break;
     }
 	
 	return cmd;
 }
-
-
-
-
-
-
-
-
-
-
 
 /******************************************
 
@@ -520,41 +340,21 @@ void Projector::loadXML2(ofXml &xml) {
     string str;
     float val;
 
-    // intensity
+    // color
     if (xml.exists("[@brightness]")) {
-        val = ofToFloat( xml.getAttribute("[@brightness]"));
-        brightness = val;
+        brightness = ofToFloat( xml.getAttribute("[@brightness]"));
     }
     if (xml.exists("[@contrast]")) {
-        val = ofToFloat( xml.getAttribute("[@contrast]") );
-        contrast = val;
+        contrast = ofToFloat( xml.getAttribute("[@contrast]") );
     }
-    if (xml.exists("[@levels]")) {
-        str = xml.getAttribute("[@levels]");
-        blackLevel = ofToFloat(ofSplitString(str, ",")[0]);
-        whiteLevel = ofToFloat(ofSplitString(str, ",")[1]);
+    if (xml.exists("[@saturation]")) {
+        saturation = ofToFloat( xml.getAttribute("[@saturation]") );
     }
-
-    // color
-    if (xml.exists("[@hsl]")) {
-        str = xml.getAttribute("[@hsl]");
-        hue = ofToFloat(ofSplitString(str, ",")[0]);
-        saturation = ofToFloat(ofSplitString(str, ",")[1]);
-        lightness = ofToFloat(ofSplitString(str, ",")[2]);
-    }
-    if (xml.exists("[@gamma]")) {
-        str = xml.getAttribute("[@gamma]");
-        gamma = ofToFloat(ofSplitString(str, ",")[0]);
-        gammaR = ofToFloat(ofSplitString(str, ",")[1]);
-        gammaG = ofToFloat(ofSplitString(str, ",")[2]);
-        gammaB = ofToFloat(ofSplitString(str, ",")[3]);
-    }
-
 
     // plane warp
     plane.width = width;
     plane.height = height;
-    plane.load(xml);
+    plane.load(xml, projectorStartingIndex);
 
 
     // camera position
@@ -589,75 +389,36 @@ void Projector::loadXML2(ofXml &xml) {
         setCameraOffset(offX, offY);
     }
 
-    // camera scale
-    if (xml.exists("[@scale]")) {
-        str = xml.getAttribute("[@scale]");
-        float sx  = ofToFloat(ofSplitString(str, ",")[0]);
-        float sy  = ofToFloat(ofSplitString(str, ",")[1]);
-        setCameraScale(sx, sy);
-    }
-
-    // camera shear
-    if (xml.exists("[@shear]")) {
-        str = xml.getAttribute("[@shear]");
-        cameraShear[0] = ofToFloat(ofSplitString(str, ",")[0]);
-        cameraShear[1] = ofToFloat(ofSplitString(str, ",")[1]);
-        cameraShear[2] = ofToFloat(ofSplitString(str, ",")[2]);
-        cameraShear[3] = ofToFloat(ofSplitString(str, ",")[3]);
-        cameraShear[4] = ofToFloat(ofSplitString(str, ",")[4]);
-        cameraShear[5] = ofToFloat(ofSplitString(str, ",")[5]);
-    }
-
-
-	curves.load();
+	curves.load(projectorStartingIndex);
 
     mask.width = width;
     mask.height = height;
-    mask.load();
+    mask.load(projectorStartingIndex);
 }
 
 void Projector::saveXML(ofXml &xml) {
-    // blend
+    // color
     xml.setAttribute("brightness", ofToString(roundTo(brightness, .001)));
     xml.setAttribute("contrast", ofToString(roundTo(contrast, .001)));
-    xml.setAttribute("levels", ofToString(blackLevel) +  "," + ofToString(whiteLevel));
-    
-    // color
-    xml.setAttribute("hsl", ofToString(roundTo(hue, .001)) +  "," + ofToString(roundTo(saturation, .001)) +  "," + ofToString(roundTo(lightness, .001))  );
-    xml.setAttribute("gamma", ofToString(roundTo(gamma, .001)) +  "," + ofToString(roundTo(gammaR, .001)) +  "," + ofToString(roundTo(gammaG, .001)) +  "," + ofToString(roundTo(gammaB, .001)) );
+    xml.setAttribute("saturation", ofToString(roundTo(hue, .001)) +  "," + ofToString(roundTo(saturation, .001)) +  "," + ofToString(roundTo(lightness, .001))  );
 
     //camera
     xml.setAttribute("position", ofToString(roundTo(cameraPosition.x, .01)) +  "," + ofToString(roundTo(cameraPosition.y, .01)) +  "," + ofToString(roundTo(cameraPosition.z, .01)) );
     xml.setAttribute("orientation", ofToString(roundTo(cameraOrientation.x, .01)) +  "," + ofToString(roundTo(cameraOrientation.y, .01)) +  "," + ofToString(roundTo(cameraOrientation.z, .01)) );
     xml.setAttribute("fov", ofToString(roundTo(cameraFov, .01)));
     xml.setAttribute("offset", ofToString(roundTo(cameraOffset.x, .001)) +  "," + ofToString(roundTo(cameraOffset.y, .001)) );
-    xml.setAttribute("scale", ofToString(roundTo(cameraScale.x, .001)) +  "," + ofToString(roundTo(cameraScale.y, .001)) );
-    xml.setAttribute("shear", ofToString(roundTo(cameraShear[0], .001)) +  "," + ofToString(roundTo(cameraShear[1], .001)) +  "," + ofToString(roundTo(cameraShear[2], .001)) +
-                        "," + ofToString(roundTo(cameraShear[3], .001)) +  "," + ofToString(roundTo(cameraShear[4], .001)) +  "," + ofToString(roundTo(cameraShear[5], .001)) );
+    
     // plane
     plane.save(xml);
-	curves.save();
-    mask.save();    
+	curves.save(projectorStartingIndex);
+    mask.save(projectorStartingIndex);    
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 /******************************************
 
  ACCESSORS
 
  ********************************************/
-
 
 // plane
 ofVec2f Projector::getPlanePosition(){
@@ -711,20 +472,6 @@ void Projector::setCameraOffset(float x, float y){
     camera.setLensOffset(cameraOffset);
 }
 
-ofVec2f Projector::getCameraScale(){
-    return cameraScale;
-}
-void Projector::setCameraScale(float x, float y){
-    cameraScale.set(x,y);
-}
-
-vector<float> Projector::getCameraShear(){
-    return cameraShear;
-}
-void Projector::setCameraShear(vector<float> v){
-    cameraShear = v;
-}
-
 // scalar value
 void Projector::setValue(float v) {
     value = v;
@@ -764,26 +511,8 @@ void Projector::setGridPoints(vector<ofVec3f> v){
 
 // texture
 ofTexture& Projector::getTextureReference(){
-	return fbo.getTextureReference();
+	return fbo.getTexture();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /******************************************
  
@@ -810,7 +539,6 @@ ofVec3f Projector::sphToCar(ofVec3f t) {
     z = cos(azi) * sin(ele) * dis;
     return ofVec3f(x,y,z);
 };
-
 
 
 }

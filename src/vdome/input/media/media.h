@@ -1,22 +1,15 @@
 #pragma once
 #include "image.h"
-#include "capture.h"
-#include "ofxMediaType.h"
-#include "MediaTypeMap.h"
-#include "ofMain.h"
-#include "ofxM3U.h"
 
-#ifdef TARGET_OSX
-#include "videoOSX.h"
-#endif
 #ifdef TARGET_WIN32
-#include "videoWin.h"
-#endif
-#ifdef TARGET_LINUX
-#include "videoLinux.h"
+#define USE_WMF // windows only, undefine to use direct show
 #endif
 
-using namespace ofx;
+#ifdef USE_WMF
+#include "videoWMF.h"
+#else
+#include "video.h"
+#endif
 
 namespace vd{
 
@@ -25,63 +18,59 @@ class Media{
 public:
     Media();
 
-    void open(string filepath);
-    void open(vector<string> filelist);
-    void update();
-    void bind();
-    void unbind();
-    void play();
-    void stop();
-    void close();
-    void seek(float f);
-    void previous();
-    void next();
-    void setLoop(bool lp);
-    bool isPlaying();
-    float getPosition();
-    float getDuration();
-    bool getLoop();
-    string getFilepath();
-    void setVolume(float v);
-    void setResolution(int w, int h);
-    void setSlideshow(bool enable, int duration);
-	bool isLoaded();
-    float getRealWidth();
-    float getRealHeight();
+    void    open(string filepath);
+    void    update();
+    void    play();
+    void    stop();
+    void    close();
+    void    seek(float f);
+    
+    void    setLoop(bool lp);
+    bool    isPlaying();
+    float   getPosition();
+    float   getDuration();
+    bool    getLoop();
+    string  getFilepath();
+    void    setVolume(float v);
+    void    setResolution(int w, int h);
+	bool    isLoaded();
+    float   getRealWidth();
+    float   getRealHeight();
+
+	void	bind();
+	void	unbind();
+    
+    ofPixels&   getPixels();
 
     enum MediaTypes {IMAGE,VIDEO};
-    MediaTypes mType;
+    MediaTypes      mType;
 
-    Image image;
-    string forceVideoRenderer;
-    ofEvent<bool> endEvent;
+    ofEvent<bool>   endEvent;
 
-#ifdef TARGET_OSX
-	VideoOSX video;
-#endif
-#ifdef TARGET_WIN32
-	VideoWin video;
-#endif
-#ifdef TARGET_LINUX
-	VideoLinux video;
-#endif
 
 private:
-    string parseFile(string filepath);
-    void parsePlaylist(string filepath);
-    void slideEnd(bool &end);
-    void videoEnd(bool &end);
+    string  parseFile(string filepath);
+    void    videoEnd(bool &end);
+    bool    isImageFile(string ext);
 
-    int width;
-    int height;
-    vector<string> fList;
-    int fIndex;
-    bool bLoop;
-    bool bSlideshow;
-    ofxM3U m3u;
-    ofx::MediaTypeMap * mediaTypeMap;
-    string fpath;
-    bool bEnded;
-    float vol;
+    int     width;
+    int     height;
+    bool    bLoop;
+    string  fpath;
+    bool    bEnded;
+    float   vol;
+
+	Image   image;
+
+#ifdef USE_WMF
+	VideoWMF	video;
+#else
+	Video	video;
+#endif
+    
+    string ImageTypes[29] =
+        {"BMP","DDS","EXR","GIF","HDR","ICO","IFF","JBIG","JNG", "JPG",
+        "JPEG","JIF","KOALA","MNG","PCX","PBM","PFM","PNG","PICT",
+        "PSD","RAW","RAS","SGI","TARGA","TIFF","WBMP","WEBP","XBM","XPM"};
 };
 }

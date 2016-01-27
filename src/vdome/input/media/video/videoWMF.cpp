@@ -7,6 +7,7 @@ VideoWMF::VideoWMF() {
 	positionRequestFrameCnt = 0;
 	positionRequest = -1;
 	storePositionFix =-1;
+	seekPositionFrameCnt = 0;
 	ofAddListener(player.videoLoadEvent, this, &VideoWMF::videoLoaded);
 }
 
@@ -25,19 +26,11 @@ bool VideoWMF::open(string filepath){
     return true;
 }
 
-void VideoWMF::bind(){
-	player.bind();
-}
-
-void VideoWMF::unbind(){
-	player.unbind();
-}
-
 void VideoWMF::update(){
 
 	player.update();
 
-	if (markEnd && !player.getPosition()){
+	if (markEnd){
 		bEnded = true;
 		markEnd = false;
 	}	
@@ -56,8 +49,14 @@ void VideoWMF::update(){
 		player.setPosition(positionRequest);
 		if (bPaused) stop();
 		positionRequest = -1;
-		storePositionFrameCnt = 0;
+		storePositionFix = -1;
 	}
+
+	if (seekPositionFrameCnt > 40)
+		seekPositionFrameCnt = 0;
+
+	if (seekPositionFrameCnt > 0)
+		seekPositionFrameCnt++;
 }
 
 void VideoWMF::play(){
@@ -77,14 +76,15 @@ void VideoWMF::close(){
 }
 
 void VideoWMF::seek(float f){
+	seekPositionStore = f;
+	seekPositionFrameCnt = 1;
+	storePositionFrameCnt = 0;
 	positionRequest = f;
 	storePositionFix = positionRequest;
 }
 
 bool VideoWMF::isPlaying(){
-    bool bPlaying;
-    bPlaying = player.isPlaying();
-    return bPlaying;
+    return player.isPlaying();
 }
 
 void VideoWMF::setLoop(bool lp){
@@ -93,16 +93,8 @@ void VideoWMF::setLoop(bool lp){
 }
 
 float VideoWMF::getPosition(){
-	if (storePositionFix != -1){
-		if (player.getPosition() != storePositionFix || !player.getPosition()){
-			storePositionFrameCnt++;
-			return storePositionFix;
-		}
-		if (floorf(player.getPosition()) == floorf(storePositionFix) || storePositionFrameCnt > 20) {
-			storePositionFix = -1;
-			storePositionFrameCnt = 0;
-			return player.getPosition();
-		}
+	if ( seekPositionFrameCnt > 0 ) {
+		return seekPositionStore;
 	}
 	return player.getPosition();
 }
@@ -138,4 +130,18 @@ float VideoWMF::getWidth(){
 
 float VideoWMF::getHeight(){
     return player.getHeight();
+}
+
+void VideoWMF::bind() {
+	return player.bind();
+}
+
+void VideoWMF::unbind() {
+	return player.unbind();
+}
+
+ofPixels& VideoWMF::getPixels() {
+	//fix: WMF doesn't return pixels
+	ofPixels pixels;
+	return pixels;
 }

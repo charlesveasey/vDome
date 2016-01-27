@@ -1,6 +1,6 @@
 #include "mask.h"
 namespace vd {
-
+    
 extern int maxHistory;
 extern vector<ofPixels> maskHistory;
 
@@ -16,9 +16,6 @@ Mask::Mask(){
     mouseX = 0;
     mouseY = 0;
 
-    width = 1024;
-    height = 768;
-    
     tx = 0;
     ty = 0;
 
@@ -26,8 +23,7 @@ Mask::Mask(){
     maskFboImage = new ofImage();
     brushImage.setUseTexture(true);
     brushImage.setImageType(OF_IMAGE_COLOR_ALPHA);
-    maskFboImage->bpp = 16;
-    brushImage.loadImage("settings/brushes/brush.png");
+    brushImage.load("settings/brushes/brush.png");
     brushWidth = brushImage.getWidth();
     brushHeight = brushImage.getHeight();
     brushScale = 1;
@@ -37,7 +33,6 @@ Mask::Mask(){
 
     hIndex = 0;
 	bufferAllocated = false;
-    
 }
 
 /******************************************
@@ -70,7 +65,7 @@ void Mask::setup(){
         ofDisableNormalizedTexCoords();
         maskFbo.begin();
         ofSetColor(255, 255, 255, 255);
-            maskFboImage->draw(0,0, 1024, 768);
+            maskFboImage->draw(0,0, width, height);
         maskFbo.end();
         ofEnableNormalizedTexCoords();
         ofEnableAlphaBlending();
@@ -104,7 +99,6 @@ void Mask::draw(){
 
         ofDisableBlendMode();
         ofEnableBlendMode(OF_BLENDMODE_ALPHA);
-        
     }
 }
 
@@ -156,15 +150,15 @@ void Mask::keyReleased(int key){
 
  ********************************************/
 
-void Mask::load(){
+void Mask::load(int projectorStartingIndex){
     string filename;
-    filename = "settings/masks/mask-" + ofToString(pIndex+1) + ".png";
+    filename = "settings/masks/mask-" + ofToString(pIndex+1+projectorStartingIndex) + ".png";
     read(filename);
 }
 
-void Mask::save(){
+void Mask::save(int projectorStartingIndex){
     string filename;
-    filename = "settings/masks/mask-" + ofToString(pIndex+1) + ".png";
+    filename = "settings/masks/mask-" + ofToString(pIndex+1+projectorStartingIndex) + ".png";
     write(filename);
 }
 
@@ -176,16 +170,14 @@ void Mask::write(string filename){
 
 void Mask::read(string filename){
     maskFboImage->clear();
-    if (maskFboImage->loadImage(filename))
+    if (maskFboImage->load(filename))
         setup();
 }
 
 int Mask::store(int fIndex) {
     hIndex = fIndex;
     hPixels.clear();
-	maskFbo.readToPixels(hPixels);
-	maskHistory[fIndex].clear();
-	maskHistory[fIndex].allocate(width, height, OF_IMAGE_COLOR_ALPHA);
+    maskFbo.readToPixels(hPixels);
     hPixels.pasteInto(maskHistory[fIndex], 0, 0);
     return fIndex;
 }

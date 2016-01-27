@@ -27,9 +27,6 @@ void Curves::setup() {
 		curvesTools.at(i)->keepFocus = true;
 		curvesTools.at(i)->mouseMovesPoint = false;
 
-		ofAddListener(curvesTools.at(i)->curHoverChange,this, &Curves::onCurHoverChange);
-		ofAddListener(curvesTools.at(i)->curHoverUpdate,this, &Curves::onCurHoverUpdate);
-
 		for(int j = 1; j < 8; j++) {
 			curvesTools.at(i)->add(ofVec2f(ofClamp(j*lutRes/8, 0, lutRes-1),ofClamp(j*lutRes/8, 0, lutRes-1)));
 		}
@@ -72,7 +69,6 @@ void Curves::update() {
 void Curves::draw(int x, int y) {
 	if(show || enabled) {
 		curvesTools.at(colorMode)->draw(x,y);
-		//colorlut.draw(lutRes, 0);
 	}
 }
 
@@ -84,7 +80,8 @@ void Curves::keyPressed(int key) {
 	else if(key == OF_KEY_DOWN) {
 		incrementPoint(-1);
 	}
-
+    
+    update();
 }
 
 void Curves::incrementPoint(float inc) {
@@ -102,9 +99,9 @@ void Curves::nextPoint() {
 	curvesTools.at(colorMode)->nextPoint();
 }
 
-void Curves::load() {
+void Curves::load(int projectorStartingIndex) {
 	xml->clear();
-	xml->load("settings/color/color-"+ofToString(index+1)+".xml");	
+	xml->load("settings/color/color-"+ofToString(index+1+projectorStartingIndex)+".xml");
 	
 	xml->setTo("projector");
 
@@ -126,9 +123,11 @@ void Curves::load() {
 		}	
 		xml->setToParent();
 	}
+    
+    update();
 }
 
-void Curves::save() {
+void Curves::save(int projectorStartingIndex) {
 	xml->clear();
 	xml->addChild("projector");
     xml->setTo("projector");
@@ -158,7 +157,7 @@ void Curves::save() {
 	}
 	xml->setToParent();
 
-	xml->save("settings/color/color-"+ofToString(index+1)+".xml");
+	xml->save("settings/color/color-"+ofToString(index+1+projectorStartingIndex)+".xml");
 }
 
 int Curves::getCurrentHover() {
@@ -177,7 +176,7 @@ void Curves::setColorMode(int i) {
 }
 
 ofTexture & Curves::colorlutTextureRef() {
-	return colorlut.getTextureReference();
+	return colorlut.getTexture();
 }
 
 void Curves::setLabelPosition() {
@@ -189,22 +188,10 @@ void Curves::setLabelPosition(int x, int y) {
 
 void Curves::setActive(bool b) {
 	active = b;
-	for(int i = 0; i < curvesTools.size(); i++) {
-		curvesTools.at(i)->mouseMovesPoint = active;
-	}
 }
 
 void Curves::setPoint(int i, ofPoint p){
 	curvesTools.at(colorMode)->set(i,p);
-}
-
-void Curves::onCurHoverChange(ofVec3f & xyi){
-	ofNotifyEvent(curHoverChange, xyi);
-}
-
-void Curves::onCurHoverUpdate(ofVec3f & xyi){
-	ofVec4f xyip = ofVec4f(xyi[0],xyi[1],xyi[2],index);
-	ofNotifyEvent(curHoverUpdate, xyip);
 }
 
 }

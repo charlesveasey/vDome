@@ -10,7 +10,7 @@ public:
 
     void save(){
         saved = false;
-        startThread(true);
+        startThread();
     }
 
     void threadedFunction(){
@@ -20,21 +20,18 @@ public:
                     xml[i]->save(files[i]);
                 }
                 for (int i=0; i <image.size(); i++) {
-                    image[i]->saveImage(imageFiles[i]);
+                    image[i]->save(imageFiles[i]);
                 }
                 saved = true;
                 unlock();
-                //ofSleepMillis(30);
                 stopThread();
             }
         }
     }
     
     bool saved;
-
-    vector<ofXml*> xml;
-    vector<string> files;
-    
-    vector<ofImage*> image;
-    vector<string> imageFiles;
+    vector<ofXml*>      xml;
+    vector<string>      files;
+    vector<ofImage*>    image;
+    vector<string>      imageFiles;
 };

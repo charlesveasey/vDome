@@ -1,9 +1,6 @@
 #pragma once
 #include "ofMain.h"
 #include "projector.h"
-#include "model.h"
-#include "input.h"
-#include "window.h"
 
 namespace vd {
 
@@ -20,17 +17,18 @@ public:
         isParent = p;
     }
 };
+ 
     
 class Menu {
 public:
     Menu();
     
 	void setup();
+    void update();
 
     // draw methods
- 	void draw(int i);
+ 	void draw(int i, int labelIndex);
     void drawMain(int i);
-    void drawInput();
     
     void drawProjector(int i);
     void drawFPS(int i);
@@ -41,8 +39,6 @@ public:
     void drawWarp(int i);
     void drawCurves(int i);
 
-    void update();
-    
     // navigation
     void select();
     void back();
@@ -58,46 +54,32 @@ public:
     void keyReleased(int key);
     
     // utils
-    void toggle();
-    float roundTo(float val, float n);
+    void  toggle();
+	float roundTo(float val, float n);
+	float round(float d);
 
-	// state
-	void onCurHoverChange(ofVec3f & xyi);
-	void onCurHoverUpdate(ofVec4f & xyip);
-
-	int storedSource;
-
-    int frameCnt;
-    bool saved;
-    bool active;
-    int pActive;
-
-    struct MenuItem {
+	// menu item
+	struct MenuItem {
         int currentItem;
         vector<Item*> items;
         int menuId;
         MenuItem **parent;
     };
     
-    // menus
+    // menu objects
     MenuItem *menuMain;
     MenuItem *menuInput;
     MenuItem *menuInputVideo;
     MenuItem *menuInputTransform;
     MenuItem *menuWarp;
     MenuItem *menuBlend;
-    MenuItem *menuLevels;
     MenuItem *menuBrush;
     MenuItem *menuColor;
-    MenuItem *menuHSL;
-    MenuItem *menuGamma;
-
 	MenuItem *menuCurves;
 	MenuItem *menuCurvesGrey;
 	MenuItem *menuCurvesRed;
 	MenuItem *menuCurvesGreen;
 	MenuItem *menuCurvesBlue;
-
     MenuItem *menuSetup;
     MenuItem *menuPosition;
     MenuItem *menuOrientation;
@@ -107,32 +89,21 @@ public:
     MenuItem *menuShear;
     MenuItem **currentMenu;
 
-    enum menus {MAIN, INPUT, INPUT_VIDEO, INPUT_TRANSFORM, WARP, BLEND, COLOR, HSL, GAMMA, 
-				CURVES, CURVES_GREY, CURVES_RED, CURVES_GREEN, CURVES_BLUE, SETUP,
-                POSITION, ORIENTATION, FIELD_OF_VIEW, LENS, SHEAR, SCALE, BRUSH, LEVELS};
-
-    // menu items
-	enum mainItems {ENABLE};
-
-    enum inputItems {SOURCE, FORMAT, LOOP, TRANSFORM};
-    enum intputTransformItems {INPUT_FLIP, INPUT_ROTATE, INPUT_TILT, INPUT_SCALE};
-
+	// menu types
+    enum menus		{MAIN, WARP, BLEND, COLOR,
+					 CURVES, CURVES_GREY, CURVES_RED, CURVES_GREEN, CURVES_BLUE, 
+					 SETUP, POSITION, ORIENTATION, FIELD_OF_VIEW, LENS, BRUSH};
+    
+	// menu item types
+	enum mainItems	{ENABLE};
     enum warpItems  {CORNERPIN, GRID};
-    enum blendItems {BRIGHTNESS, CONTRAST, B_LEVELS, B_BRUSH};
-    enum levelsItems{BLACK, WHITE};
+    enum blendItems {B_BRUSH};
     enum brushItems {BRUSH_SCALE, BRUSH_OPACITY};
-    enum colorItems {COLOR_HSL, COLOR_GAMMA, COLOR_CURVES};
-    enum hslItems   {HUE, SATURATION, LIGHTNESS};
-    enum gammaItems {GAMMA_RGB, GAMMA_R, GAMMA_G, GAMMA_B};
+    enum colorItems {BRIGHTNESS, CONTRAST, SATURATION, COLOR_CURVES};
     enum posItems   {AZIMUTH, ELEVATION, DISTANCE};
     enum orienItems {TILT, ROLL, PAN};
     enum fovItems   {FOV};
     enum lensItems  {OFFSET_X, OFFSET_Y};
-    enum scaleItems {SCALE_X, SCALE_Y};
-    enum shearItems {SHEAR_YZ, SHEAR_ZX, SHEAR_XZ,
-                     SHEAR_ZY, SHEAR_YX, SHEAR_XY};
-
-    void findEdit(int mode);
 
     // layout
     int px;
@@ -144,7 +115,7 @@ public:
 
     // keyboard
     bool all;
-    int cKey;
+    int  cKey;
 
     // value
     float value;
@@ -152,21 +123,31 @@ public:
     float ctrlValue;
     float altValue;
 
-    // pointers
-    Model *model;
-    Input *input;
-    vector<Window> *windows;
-    vector<Projector> *projectors;
-    ofxMultiGLFWWindow *glfw;
+    // projector
+    vector<Projector>  *projectors;				// list of projectors
+    int					projCount;				// projector count
+    int					projectorStartingIndex;	// first projector index within the window
+    
+	// input sources
+    int		inputSource;
+    enum	inputSources {SOURCE_MEDIA, SOURCE_CAPTURE, SOURCE_SYPHON, SOURCE_SPOUT, SOURCE_GRID, SOURCE_BLACK, SOURCE_WHITE, SOURCE_GREY, SOURCE_COLOR};
+    
+	// menu states
+	int		frameCnt;		// frame cout for saved items
+	bool	saved;			// saved state
+	bool	active;			// active state
+	int		pActive;		// projector active state
+	int		storedSource;	// stored source, used for input overrides
+	ofVec3f currentColor;	// current color, used for color overrides
 
-    bool autosave;
+	static ofEvent<int>		sourceColorEvent;	// event for 
+	static ofEvent<ofVec3f> colorEvent;
 
 private:
-    void updateColorFromCurve(int pointIndex, bool forceGrey);
-    void changeColorCurveMode(int i);
-    
-    int curvePointIndex;
-
+    ofVec3f updateColorFromCurve(int pointIndex, bool forceGrey);
+    void	changeColorCurveMode(int i);
+    int		curvePointIndex;
+    bool	newCurvePointIndex;
 };
 
 }
