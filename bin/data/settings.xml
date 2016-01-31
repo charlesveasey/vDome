@@ -2,10 +2,10 @@
     
     <socket enabled="on" host="localhost" receive="3334" send="3333"/>
     
-	<input file="/Users/Charles/Code/openFrameworks/apps/myApps/vDome/bin/data/settings/media/color-2k-422HQ.mov" 
-		   flip="off" framerate="30" loop="off" rotate="0" scale="1" source="capture" tilt="0"/>
+	<input file="" flip="off" framerate="60" loop="off" rotate="0" scale="1" source="grid" tilt="0"/>
         
-    <window border="on" fullscreen="off" position="10,50" resolution="1024,768">
+    <window border="off" fullscreen="off" position="10,50" resolution="2048,768">
+		<projector brightness="1" contrast="1" fov="72" offset="0,0" orientation="0,18,0" position="0,0,10" resolution="1024,768" saturation="1,1,1"/>
 		<projector brightness="1" contrast="1" fov="72" offset="0,0" orientation="0,18,0" position="0,0,10" resolution="1024,768" saturation="1,1,1"/>
     </window>
 	
