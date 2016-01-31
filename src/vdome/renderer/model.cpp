@@ -115,8 +115,6 @@ void Model::draw(){
  LOAD MODEL XML
  ********************************************/
 void Model::loadXML(ofXml &xml) {
-    if (xml.exists("model[@radius]"))
-        radius = ofToDouble( xml.getAttribute("model[@radius]") );
     if (xml.exists("input[@scale]"))
         textureScale = ofToFloat( xml.getAttribute("input[@scale]") );
     if (xml.exists("input[@rotate]"))
@@ -135,9 +133,6 @@ void Model::loadXML(ofXml &xml) {
     
 //--------------------------------------------------------------
 void Model::saveXML(ofXml &xml) {
-    xml.setTo("model");
-    xml.setAttribute("radius", ofToString(radius));
-    xml.setToParent();
     xml.setTo("input");
     xml.setAttribute("scale", ofToString(textureScale));
 	xml.setAttribute("rotate", ofToString(textureRotate));
