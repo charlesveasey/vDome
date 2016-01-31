@@ -1,17 +1,13 @@
 #include "input.h"
 #include "commands.h"
-
 namespace vd {
-
+    
+/******************************************
+ INPUT
+ ********************************************/
+    
 extern int maxHistory;
 extern CommandHistory history;
-extern vector<ofPixels> maskHistory;
-
-/******************************************
-
- CONSTRUCTOR
-
- ********************************************/
 
 Input::Input(){
     durationSent = false;
@@ -24,9 +20,7 @@ Input::Input(){
 }
 
 /******************************************
-
  SETUP
-
  ********************************************/
 
 void Input::setup(){
@@ -57,9 +51,7 @@ void Input::setup(){
 }
 
 /******************************************
-
  UPDATE
-
  ********************************************/
 
 void Input::update(){
@@ -71,9 +63,7 @@ void Input::update(){
 
 
 /******************************************
-
- CONTROLS
-
+ GET INPUT SOURCE AS STRING
  ********************************************/
 
 string Input::getSource() {
@@ -90,6 +80,11 @@ string Input::getSource() {
 	return s;
 }
    
+
+/******************************************
+ CONVERT INPUT SOURCE FROM STRING TO INT
+ ********************************************/
+    
 int Input::convertSourceString(string s) {
     int sint;
     if      (s == "media")      sint = MEDIA;
@@ -103,15 +98,27 @@ int Input::convertSourceString(string s) {
     else if (s == "color")      sint = COLOR;
     return sint;
 }
+
+/******************************************
+ SET SOURCE AS INT: MUST CALL SETUP AFTER
+ ********************************************/
     
 void Input::setSourceInt(int i) {
 	source = i;
-    // must call: setup();
 }
+    
+/******************************************
+ GET INPUT SOURCE AS INT
+ ********************************************/
+    
 int Input::getSourceInt() {
 	return source;
 }
 
+/******************************************
+ CONVERT FORMAT STRING TO INT
+ ********************************************/
+    
 int Input::convertFormatString(string s){
     int sint;
     if      (s == "domemaster")     sint = DOMEMASTER;
@@ -119,25 +126,45 @@ int Input::convertFormatString(string s){
     return sint;
 }
 
+/******************************************
+ SET INPUT FORMAT FROM INTERNAL SOURCE
+ ********************************************/
+
 void Input::setFormat() {
     if (source == GRID || source == BLACK || source == WHITE || source == GREY){
         format = DOMEMASTER;
     }
 }
 
+/******************************************
+ SET INPUT FORMAT AS INT
+ ********************************************/
+    
 void Input::setFormatInt(int i) {
     format = i;
     // must call: setFormat();
 }
 
+/******************************************
+ GET INPUT FORMAT AS INT
+ ********************************************/
+    
 int Input::getFormatInt() {
     return format;
 }
+
+/******************************************
+ PLAY (IF SOURCE IS MEDIA)
+ ********************************************/
 
 void Input::play() {
     if (source == MEDIA) media.play();
 }
 
+/******************************************
+ RETURN TRUE IF MEDIA IS PLAYING
+ ********************************************/
+    
 bool Input::isPlaying() {
     if (source == MEDIA && media.isPlaying()) {
         return true;
@@ -147,48 +174,82 @@ bool Input::isPlaying() {
     }
 }
 
+/******************************************
+ STOP MEDIA
+ ********************************************/
+    
 void Input::stop() {
 	if (source == MEDIA)			media.stop();
 }
 
+/******************************************
+ CLOSE MEDIA
+ ********************************************/
+    
 void Input::close() {
     stop();
     if      (source == MEDIA)       media.close();
     else if (source == CAPTURE)     capture.close();
     else if (source == GRID)        media.close();
     else if (source == BLACK || source == WHITE || source == GREY || source == COLOR)     color.close();
-
 }
 
+/******************************************
+ SEEK MEDIA
+ ********************************************/
+    
 void Input::seek(float f) {
     if (source == MEDIA) media.seek(f);
 }
 
+/******************************************
+ GET MEDIA LOOP STATE: TRUE IF LOOPING
+ ********************************************/
+    
 bool Input::getLoop() {
     return media.getLoop();
 }
+
+/******************************************
+ SET MEDIA LOOP STATE: TRUE TO LOOP
+ ********************************************/
+    
 void Input::setLoop(bool b) {
     media.setLoop(b);
 }
 
+/******************************************
+ GET MEDIA PLAYBACK POSITION
+ ********************************************/
+    
 float Input::getPosition() {
     return media.getPosition();
 }
 
+/******************************************
+ GET MEDIA DURATION
+ ********************************************/
+    
 float Input::getDuration() {
     return media.getDuration();
 }
 
+   
 void Input::setResolution(int r){
     resolution = r;
     capture.setResolution(r);
     color.setResolution(r);
 }
-    
+
+int Input::getResolution(){
+    return resolution;
+}
+
+   
 string Input::getFilepath(){
     return media.getFilepath();
 }
-
+  
 void Input::setVolume(float v){
     media.setVolume(v);
 }
@@ -206,17 +267,7 @@ void Input::setColor(int r, int g, int b){
 }
 
 /******************************************
-
- KEYBOARD
-
- ********************************************/
-
-void Input::keyPressed(int key) {}
-
-/******************************************
-
- FILE OPEN
-
+ SET MEDIA FILEPATH, DOES NOT OPEN
  ********************************************/
 
 void Input::setFile(string file){
@@ -224,20 +275,26 @@ void Input::setFile(string file){
     source = MEDIA;
 }
 
+/******************************************
+ SET MEDIA FILEPATH AND OPEN
+ ********************************************/
+    
 void Input::openFile(string file){
     setFile(file);
     setup();
 }
 
+/******************************************
+ SET INPUT FRAMERATE
+ ********************************************/
+    
 void Input::setFramerate(int frate){
     framerate = frate;
     capture.setFramerate(frate);
 }
 
 /******************************************
-
- SETTINGS
-
+ LOAD XML SETTINGS
  ********************************************/
 
 void Input::loadXML(ofXml &xml) {
@@ -274,6 +331,10 @@ void Input::loadXML(ofXml &xml) {
     }
 }
 
+/******************************************
+ SAVE XML SETTINGS
+ ********************************************/
+    
 void Input::saveXML(ofXml &xml) {
     xml.setAttribute("resolution", ofToString(resolution));
 
@@ -298,6 +359,10 @@ void Input::saveXML(ofXml &xml) {
 
     xml.setToParent();
 }
+ 
+/******************************************
+ GET PIXELS FROM INPUT SOURCE
+ ********************************************/
     
 ofPixels& Input::getPixels(){
     if      (source == MEDIA)       return media.getPixels();
@@ -309,6 +374,10 @@ ofPixels& Input::getPixels(){
     else if (source == COLOR)       return color.getPixels();
 }
     
+/******************************************
+ BIND INPUT TEXTURE
+ ********************************************/
+    
 void Input::bind(){
     if      (source == MEDIA)       return media.bind();
     else if (source == CAPTURE)     return capture.bind();
@@ -319,6 +388,10 @@ void Input::bind(){
     else if (source == COLOR)       return color.bind();
 }
 
+/******************************************
+ UNBIND INPUT TEXTURE
+ ********************************************/
+    
 void Input::unbind() {
 	if (source == MEDIA)			return media.unbind();
 	else if (source == CAPTURE)     return capture.unbind();
@@ -329,4 +402,5 @@ void Input::unbind() {
 	else if (source == COLOR)       return color.unbind();
 }
 
-}
+    
+}//////////////

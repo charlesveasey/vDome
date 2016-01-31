@@ -1,5 +1,4 @@
-ofxBezierSurface
 ofxCurvesTool
-ofxOpenCv
 ofxOsc
+ofxWarping
 ofxWMFVideoPlayer

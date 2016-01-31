@@ -12,7 +12,6 @@
 #endif
 
 #include "input.h"
-
 namespace vd {
 class vdome;
     
@@ -21,7 +20,6 @@ class Window : public ofBaseApp {
 public:
     Window();
 
-    void    init();
     void    setup();
     void    update();
     void    draw();
@@ -35,14 +33,9 @@ public:
     void    mousePressed(ofMouseEventArgs& mouseArgs);
     void    mouseDragged(ofMouseEventArgs& mouseArgs);
     void    mouseReleased(ofMouseEventArgs& mouseArgs);
-    
-    ofPoint getPosition();
-    void    setPosition(int x, int y);
-    
-    ofPoint getResolution();
-    void    setResolution(int w, int h);
-    
-    void    setVSync(bool val);    
+	void    mouseMoved(ofMouseEventArgs& mouseArgs);
+
+    void    setVSync(bool val);
     void    setFrameRate(int val);
     
     int     index;
@@ -58,6 +51,7 @@ public:
 
     vector<Projector>   projectors;
 
+
 #ifdef TARGET_OSX
     ofxSyphonClient syphon;
 #endif
@@ -65,18 +59,13 @@ public:
 #ifdef TARGET_WIN32
     SpoutR          spout;
 #endif
+
     
 private:
-    int     x;
-    int     y;
-    int     width;
-    int     height;
-	bool    fullscreen;
+    int         x, y, width, height;
+	bool        fullscreen;
     
-    float   ratio;
-    int     maxHistory;
-    
-    ofShader    shader;
+    int         maxHistory;
 };
 
-}
+}///////

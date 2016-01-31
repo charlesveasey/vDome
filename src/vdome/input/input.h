@@ -51,6 +51,8 @@ public:
     float   getDuration();
    
 	void    setResolution(int r);
+    int    getResolution();
+    
     string  getFilepath();
 
     void    setVolume(float v);
@@ -58,7 +60,6 @@ public:
     
     void    openFile(string file);
     void    setFile(string file);
-    void    keyPressed(int key);
     void    setFramerate(int frate);
 	
 	void	bind();

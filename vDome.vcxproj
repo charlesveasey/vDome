@@ -95,15 +95,15 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);..\..\..\addons\ofxBezierSurface\src;..\..\..\addons\ofxCurvesTool\src;..\..\..\addons\ofxOpenCv\libs;..\..\..\addons\ofxOpenCv\libs\opencv;..\..\..\addons\ofxOpenCv\libs\opencv\include;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\calib3d;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\contrib;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\features2d;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\device;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\device\detail;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\highgui;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\imgproc;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\legacy;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\ml;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\nonfree;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\objdetect;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\photo;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\stitching;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\stitching\detail;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\superres;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\ts;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\video;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\videostab;..\..\..\addons\ofxOpenCv\libs\opencv\lib;..\..\..\addons\ofxOpenCv\libs\opencv\lib\emscripten;..\..\..\addons\ofxOpenCv\libs\opencv\lib\vs;..\..\..\addons\ofxOpenCv\libs\opencv\lib\vs\Win32;..\..\..\addons\ofxOpenCv\libs\opencv\lib\vs\Win32\Debug;..\..\..\addons\ofxOpenCv\libs\opencv\lib\vs\Win32\Release;..\..\..\addons\ofxOpenCv\libs\opencv\lib\vs\x64;..\..\..\addons\ofxOpenCv\libs\opencv\lib\vs\x64\Debug;..\..\..\addons\ofxOpenCv\libs\opencv\lib\vs\x64\Release;..\..\..\addons\ofxOpenCv\libs\opencv\license;..\..\..\addons\ofxOpenCv\src;..\..\..\addons\ofxOsc\libs;..\..\..\addons\ofxOsc\libs\oscpack;..\..\..\addons\ofxOsc\libs\oscpack\src;..\..\..\addons\ofxOsc\libs\oscpack\src\ip;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\posix;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\win32;..\..\..\addons\ofxOsc\libs\oscpack\src\osc;..\..\..\addons\ofxOsc\src;..\..\..\addons\ofxWMFVideoPlayer\src;..\..\..\addons\ofxWMFVideoPlayer\src\presenter;..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common;.\src;.\src\vdome;.\src\vdome\input;.\src\vdome\menu;.\src\vdome\renderer;.\src\vdome\input\media;.\src\vdome\input\media\video;.\src\vdome\input\spout;.\src\vdome\renderer\projector</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);..\..\..\addons\ofxCurvesTool\src;..\..\..\addons\ofxOsc\libs;..\..\..\addons\ofxOsc\libs\oscpack;..\..\..\addons\ofxOsc\libs\oscpack\src;..\..\..\addons\ofxOsc\libs\oscpack\src\ip;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\posix;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\win32;..\..\..\addons\ofxOsc\libs\oscpack\src\osc;..\..\..\addons\ofxOsc\src;..\..\..\addons\ofxWarping\libs;..\..\..\addons\ofxWarping\libs\glm;..\..\..\addons\ofxWarping\libs\glm\detail;..\..\..\addons\ofxWarping\libs\glm\gtc;..\..\..\addons\ofxWarping\libs\glm\gtx;..\..\..\addons\ofxWarping\src;..\..\..\addons\ofxWarping\src\glm;..\..\..\addons\ofxWarping\src\glm\detail;..\..\..\addons\ofxWarping\src\glm\gtc;..\..\..\addons\ofxWarping\src\glm\gtx;..\..\..\addons\ofxWMFVideoPlayer\src;..\..\..\addons\ofxWMFVideoPlayer\src\presenter;..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common;src\vdome;src\vdome\input;src\vdome\input\media;src\vdome\input\media\video;src\vdome\menu;src\vdome\renderer;src\vdome\renderer\projector;src\vdome\input\spout;src\vdome\input\spout\SpoutSDK</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <AdditionalDependencies>%(AdditionalDependencies);opencv_calib3d249d.lib;opencv_contrib249d.lib;opencv_core249d.lib;opencv_features2d249d.lib;opencv_flann249d.lib;opencv_gpu249d.lib;opencv_highgui249d.lib;opencv_imgproc249d.lib;opencv_legacy249d.lib;opencv_ml249d.lib;opencv_nonfree249d.lib;opencv_objdetect249d.lib;opencv_photo249d.lib;opencv_stitching249d.lib;opencv_superres249d.lib;opencv_ts249d.lib;opencv_video249d.lib;opencv_videostab249d.lib;zlibd.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);..\..\..\addons\ofxOpenCv\libs\opencv\lib\vs\Win32\Debug</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent />
   </ItemDefinitionGroup>
@@ -114,7 +114,7 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);..\..\..\addons\ofxBezierSurface\src;..\..\..\addons\ofxCurvesTool\src;..\..\..\addons\ofxOpenCv\libs;..\..\..\addons\ofxOpenCv\libs\opencv;..\..\..\addons\ofxOpenCv\libs\opencv\include;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\calib3d;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\contrib;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\features2d;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\device;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\device\detail;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\highgui;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\imgproc;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\legacy;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\ml;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\nonfree;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\objdetect;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\photo;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\stitching;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\stitching\detail;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\superres;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\ts;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\video;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\videostab;..\..\..\addons\ofxOpenCv\libs\opencv\lib;..\..\..\addons\ofxOpenCv\libs\opencv\lib\emscripten;..\..\..\addons\ofxOpenCv\libs\opencv\lib\vs;..\..\..\addons\ofxOpenCv\libs\opencv\lib\vs\Win32;..\..\..\addons\ofxOpenCv\libs\opencv\lib\vs\Win32\Debug;..\..\..\addons\ofxOpenCv\libs\opencv\lib\vs\Win32\Release;..\..\..\addons\ofxOpenCv\libs\opencv\lib\vs\x64;..\..\..\addons\ofxOpenCv\libs\opencv\lib\vs\x64\Debug;..\..\..\addons\ofxOpenCv\libs\opencv\lib\vs\x64\Release;..\..\..\addons\ofxOpenCv\libs\opencv\license;..\..\..\addons\ofxOpenCv\src;..\..\..\addons\ofxOsc\libs;..\..\..\addons\ofxOsc\libs\oscpack;..\..\..\addons\ofxOsc\libs\oscpack\src;..\..\..\addons\ofxOsc\libs\oscpack\src\ip;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\posix;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\win32;..\..\..\addons\ofxOsc\libs\oscpack\src\osc;..\..\..\addons\ofxOsc\src;..\..\..\addons\ofxWMFVideoPlayer\src;..\..\..\addons\ofxWMFVideoPlayer\src\presenter;..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common;.\src;.\src\vdome;.\src\vdome\input;.\src\vdome\menu;.\src\vdome\renderer;.\src\vdome\input\media;.\src\vdome\input\media\video;.\src\vdome\input\spout;.\src\vdome\renderer\projector</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);..\..\..\addons\ofxCurvesTool\src;..\..\..\addons\ofxOsc\libs;..\..\..\addons\ofxOsc\libs\oscpack;..\..\..\addons\ofxOsc\libs\oscpack\src;..\..\..\addons\ofxOsc\libs\oscpack\src\ip;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\posix;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\win32;..\..\..\addons\ofxOsc\libs\oscpack\src\osc;..\..\..\addons\ofxOsc\src;..\..\..\addons\ofxWarping\libs;..\..\..\addons\ofxWarping\libs\glm;..\..\..\addons\ofxWarping\libs\glm\detail;..\..\..\addons\ofxWarping\libs\glm\gtc;..\..\..\addons\ofxWarping\libs\glm\gtx;..\..\..\addons\ofxWarping\src;..\..\..\addons\ofxWarping\src\glm;..\..\..\addons\ofxWarping\src\glm\detail;..\..\..\addons\ofxWarping\src\glm\gtc;..\..\..\addons\ofxWarping\src\glm\gtx;..\..\..\addons\ofxWMFVideoPlayer\src;..\..\..\addons\ofxWMFVideoPlayer\src\presenter;..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common;src\vdome;src\vdome\input;src\vdome\input\media;src\vdome\input\media\video;src\vdome\menu;src\vdome\renderer;src\vdome\renderer\projector;src\vdome\input\spout;src\vdome\input\spout\SpoutSDK</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -122,8 +122,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <AdditionalDependencies>%(AdditionalDependencies);opencv_calib3d249d.lib;opencv_contrib249d.lib;opencv_core249d.lib;opencv_features2d249d.lib;opencv_flann249d.lib;opencv_gpu249d.lib;opencv_highgui249d.lib;opencv_imgproc249d.lib;opencv_legacy249d.lib;opencv_ml249d.lib;opencv_nonfree249d.lib;opencv_objdetect249d.lib;opencv_photo249d.lib;opencv_stitching249d.lib;opencv_superres249d.lib;opencv_ts249d.lib;opencv_video249d.lib;opencv_videostab249d.lib;zlibd.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);..\..\..\addons\ofxOpenCv\libs\opencv\lib\vs\x64\Debug</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent />
   </ItemDefinitionGroup>
@@ -133,7 +133,7 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);..\..\..\addons\ofxBezierSurface\src;..\..\..\addons\ofxCurvesTool\src;..\..\..\addons\ofxOpenCv\libs;..\..\..\addons\ofxOpenCv\libs\opencv;..\..\..\addons\ofxOpenCv\libs\opencv\include;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\calib3d;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\contrib;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\features2d;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\device;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\device\detail;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\highgui;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\imgproc;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\legacy;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\ml;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\nonfree;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\objdetect;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\photo;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\stitching;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\stitching\detail;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\superres;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\ts;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\video;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\videostab;..\..\..\addons\ofxOpenCv\libs\opencv\lib;..\..\..\addons\ofxOpenCv\libs\opencv\lib\emscripten;..\..\..\addons\ofxOpenCv\libs\opencv\lib\vs;..\..\..\addons\ofxOpenCv\libs\opencv\lib\vs\Win32;..\..\..\addons\ofxOpenCv\libs\opencv\lib\vs\Win32\Debug;..\..\..\addons\ofxOpenCv\libs\opencv\lib\vs\Win32\Release;..\..\..\addons\ofxOpenCv\libs\opencv\lib\vs\x64;..\..\..\addons\ofxOpenCv\libs\opencv\lib\vs\x64\Debug;..\..\..\addons\ofxOpenCv\libs\opencv\lib\vs\x64\Release;..\..\..\addons\ofxOpenCv\libs\opencv\license;..\..\..\addons\ofxOpenCv\src;..\..\..\addons\ofxOsc\libs;..\..\..\addons\ofxOsc\libs\oscpack;..\..\..\addons\ofxOsc\libs\oscpack\src;..\..\..\addons\ofxOsc\libs\oscpack\src\ip;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\posix;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\win32;..\..\..\addons\ofxOsc\libs\oscpack\src\osc;..\..\..\addons\ofxOsc\src;..\..\..\addons\ofxWMFVideoPlayer\src;..\..\..\addons\ofxWMFVideoPlayer\src\presenter;..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common;.\src;.\src\vdome;.\src\vdome\input;.\src\vdome\menu;.\src\vdome\renderer;.\src\vdome\input\media;.\src\vdome\input\media\video;.\src\vdome\input\spout;.\src\vdome\renderer\projector</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);..\..\..\addons\ofxCurvesTool\src;..\..\..\addons\ofxOsc\libs;..\..\..\addons\ofxOsc\libs\oscpack;..\..\..\addons\ofxOsc\libs\oscpack\src;..\..\..\addons\ofxOsc\libs\oscpack\src\ip;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\posix;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\win32;..\..\..\addons\ofxOsc\libs\oscpack\src\osc;..\..\..\addons\ofxOsc\src;..\..\..\addons\ofxWarping\libs;..\..\..\addons\ofxWarping\libs\glm;..\..\..\addons\ofxWarping\libs\glm\detail;..\..\..\addons\ofxWarping\libs\glm\gtc;..\..\..\addons\ofxWarping\libs\glm\gtx;..\..\..\addons\ofxWarping\src;..\..\..\addons\ofxWarping\src\glm;..\..\..\addons\ofxWarping\src\glm\detail;..\..\..\addons\ofxWarping\src\glm\gtc;..\..\..\addons\ofxWarping\src\glm\gtx;..\..\..\addons\ofxWMFVideoPlayer\src;..\..\..\addons\ofxWMFVideoPlayer\src\presenter;..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common;src\vdome;src\vdome\input;src\vdome\input\media;src\vdome\input\media\video;src\vdome\menu;src\vdome\renderer;src\vdome\renderer\projector;src\vdome\input\spout;src\vdome\input\spout\SpoutSDK</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -144,8 +144,8 @@
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <AdditionalDependencies>%(AdditionalDependencies);opencv_calib3d249.lib;opencv_contrib249.lib;opencv_core249.lib;opencv_features2d249.lib;opencv_flann249.lib;opencv_gpu249.lib;opencv_highgui249.lib;opencv_imgproc249.lib;opencv_legacy249.lib;opencv_ml249.lib;opencv_nonfree249.lib;opencv_objdetect249.lib;opencv_photo249.lib;opencv_stitching249.lib;opencv_superres249.lib;opencv_ts249.lib;opencv_video249.lib;opencv_videostab249.lib;zlib.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);..\..\..\addons\ofxOpenCv\libs\opencv\lib\vs\Win32\Release</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent />
   </ItemDefinitionGroup>
@@ -155,7 +155,7 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);..\..\..\addons\ofxBezierSurface\src;..\..\..\addons\ofxCurvesTool\src;..\..\..\addons\ofxOpenCv\libs;..\..\..\addons\ofxOpenCv\libs\opencv;..\..\..\addons\ofxOpenCv\libs\opencv\include;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\calib3d;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\contrib;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\features2d;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\device;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\device\detail;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\highgui;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\imgproc;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\legacy;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\ml;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\nonfree;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\objdetect;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\photo;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\stitching;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\stitching\detail;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\superres;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\ts;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\video;..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\videostab;..\..\..\addons\ofxOpenCv\libs\opencv\lib;..\..\..\addons\ofxOpenCv\libs\opencv\lib\emscripten;..\..\..\addons\ofxOpenCv\libs\opencv\lib\vs;..\..\..\addons\ofxOpenCv\libs\opencv\lib\vs\Win32;..\..\..\addons\ofxOpenCv\libs\opencv\lib\vs\Win32\Debug;..\..\..\addons\ofxOpenCv\libs\opencv\lib\vs\Win32\Release;..\..\..\addons\ofxOpenCv\libs\opencv\lib\vs\x64;..\..\..\addons\ofxOpenCv\libs\opencv\lib\vs\x64\Debug;..\..\..\addons\ofxOpenCv\libs\opencv\lib\vs\x64\Release;..\..\..\addons\ofxOpenCv\libs\opencv\license;..\..\..\addons\ofxOpenCv\src;..\..\..\addons\ofxOsc\libs;..\..\..\addons\ofxOsc\libs\oscpack;..\..\..\addons\ofxOsc\libs\oscpack\src;..\..\..\addons\ofxOsc\libs\oscpack\src\ip;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\posix;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\win32;..\..\..\addons\ofxOsc\libs\oscpack\src\osc;..\..\..\addons\ofxOsc\src;..\..\..\addons\ofxWMFVideoPlayer\src;..\..\..\addons\ofxWMFVideoPlayer\src\presenter;..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common;.\src;.\src\vdome;.\src\vdome\input;.\src\vdome\menu;.\src\vdome\renderer;.\src\vdome\input\media;.\src\vdome\input\media\video;.\src\vdome\input\spout;.\src\vdome\renderer\projector</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);..\..\..\addons\ofxCurvesTool\src;..\..\..\addons\ofxOsc\libs;..\..\..\addons\ofxOsc\libs\oscpack;..\..\..\addons\ofxOsc\libs\oscpack\src;..\..\..\addons\ofxOsc\libs\oscpack\src\ip;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\posix;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\win32;..\..\..\addons\ofxOsc\libs\oscpack\src\osc;..\..\..\addons\ofxOsc\src;..\..\..\addons\ofxWarping\libs;..\..\..\addons\ofxWarping\libs\glm;..\..\..\addons\ofxWarping\libs\glm\detail;..\..\..\addons\ofxWarping\libs\glm\gtc;..\..\..\addons\ofxWarping\libs\glm\gtx;..\..\..\addons\ofxWarping\src;..\..\..\addons\ofxWarping\src\glm;..\..\..\addons\ofxWarping\src\glm\detail;..\..\..\addons\ofxWarping\src\glm\gtc;..\..\..\addons\ofxWarping\src\glm\gtx;..\..\..\addons\ofxWMFVideoPlayer\src;..\..\..\addons\ofxWMFVideoPlayer\src\presenter;..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common;src\vdome;src\vdome\input;src\vdome\input\media;src\vdome\input\media\video;src\vdome\menu;src\vdome\renderer;src\vdome\renderer\projector;src\vdome\input\spout;src\vdome\input\spout\SpoutSDK</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
@@ -165,23 +165,14 @@
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <AdditionalDependencies>%(AdditionalDependencies);opencv_calib3d249.lib;opencv_contrib249.lib;opencv_core249.lib;opencv_features2d249.lib;opencv_flann249.lib;opencv_gpu249.lib;opencv_highgui249.lib;opencv_imgproc249.lib;opencv_legacy249.lib;opencv_ml249.lib;opencv_nonfree249.lib;opencv_objdetect249.lib;opencv_photo249.lib;opencv_stitching249.lib;opencv_superres249.lib;opencv_ts249.lib;opencv_video249.lib;opencv_videostab249.lib;zlib.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);..\..\..\addons\ofxOpenCv\libs\opencv\lib\vs\x64\Release</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxBezierSurface\src\ofxBezierSurface.cpp" />
     <ClCompile Include="..\..\..\addons\ofxCurvesTool\src\CurveLut.cpp" />
     <ClCompile Include="..\..\..\addons\ofxCurvesTool\src\ofxCurvesTool.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxOpenCv\src\ofxCvColorImage.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxOpenCv\src\ofxCvContourFinder.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxOpenCv\src\ofxCvFloatImage.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxOpenCv\src\ofxCvGrayscaleImage.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxOpenCv\src\ofxCvHaarFinder.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxOpenCv\src\ofxCvImage.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxOpenCv\src\ofxCvShortImage.cpp" />
     <ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscBundle.cpp" />
     <ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscMessage.cpp" />
     <ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscParameterSync.cpp" />
@@ -194,19 +185,25 @@
     <ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscPrintReceivedElements.cpp" />
     <ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscReceivedElements.cpp" />
     <ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscTypes.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxWarping\src\Warp.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxWarping\src\WarpBilinear.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxWarping\src\WarpPerspective.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxWarping\src\WarpPerspectiveBilinear.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxWarping\libs\BSpline.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxWarping\libs\glm\detail\glm.cpp" />
     <ClCompile Include="..\..\..\addons\ofxWMFVideoPlayer\src\ofxWMFVideoPlayer.cpp" />
     <ClCompile Include="..\..\..\addons\ofxWMFVideoPlayer\src\ofxWMFVideoPlayerUtils.cpp" />
     <ClCompile Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\Helpers.cpp" />
     <ClCompile Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\PresentEngine.cpp" />
     <ClCompile Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\Presenter.cpp" />
     <ClCompile Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\scheduler.cpp" />
+    <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\vdome\input\capture.cpp" />
     <ClCompile Include="src\vdome\input\color.cpp" />
     <ClCompile Include="src\vdome\input\input.cpp" />
     <ClCompile Include="src\vdome\input\media\image.cpp" />
     <ClCompile Include="src\vdome\input\media\media.cpp" />
     <ClCompile Include="src\vdome\input\media\video.cpp" />
-    <ClCompile Include="src\vdome\input\media\video\videoWin.cpp" />
     <ClCompile Include="src\vdome\input\media\video\videoWMF.cpp" />
     <ClCompile Include="src\vdome\input\spout\spoutR.cpp" />
     <ClCompile Include="src\vdome\input\spout\SpoutSDK\SpoutDirectX.cpp" />
@@ -222,187 +219,14 @@
     <ClCompile Include="src\vdome\menu\menu.cpp" />
     <ClCompile Include="src\vdome\menu\socket.cpp" />
     <ClCompile Include="src\vdome\renderer\model.cpp" />
-    <ClCompile Include="src\vdome\renderer\projector\cornerpin.cpp" />
     <ClCompile Include="src\vdome\renderer\projector\curves.cpp" />
-    <ClCompile Include="src\vdome\renderer\projector\mask.cpp" />
-    <ClCompile Include="src\vdome\renderer\projector\plane.cpp" />
     <ClCompile Include="src\vdome\renderer\projector\projector.cpp" />
     <ClCompile Include="src\vdome\renderer\window.cpp" />
     <ClCompile Include="src\vdome\vdome.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\addons\ofxBezierSurface\src\ofxBezierSurface.h" />
     <ClInclude Include="..\..\..\addons\ofxCurvesTool\src\CurveLut.h" />
     <ClInclude Include="..\..\..\addons\ofxCurvesTool\src\ofxCurvesTool.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\src\ofxCvBlob.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\src\ofxCvColorImage.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\src\ofxCvConstants.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\src\ofxCvContourFinder.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\src\ofxCvFloatImage.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\src\ofxCvGrayscaleImage.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\src\ofxCvHaarFinder.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\src\ofxCvImage.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\src\ofxCvShortImage.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\src\ofxOpenCv.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv\cv.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv\cv.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv\cvaux.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv\cvaux.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv\cvwimage.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv\cxcore.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv\cxcore.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv\cxeigen.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv\cxmisc.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv\highgui.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv\ml.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\calib3d\calib3d.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\contrib\contrib.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\contrib\detection_based_tracker.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\contrib\hybridtracker.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\contrib\openfabmap.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\contrib\retina.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core\affine.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core\core.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core\core_c.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core\cuda_devptrs.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core\devmem2d.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core\eigen.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core\gpumat.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core\internal.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core\mat.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core\opengl_interop.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core\opengl_interop_deprecated.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core\operations.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core\types_c.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core\version.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\core\wimage.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\features2d\features2d.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann\allocator.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann\all_indices.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann\any.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann\autotuned_index.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann\composite_index.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann\config.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann\defines.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann\dist.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann\dummy.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann\dynamic_bitset.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann\flann.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann\flann_base.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann\general.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann\ground_truth.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann\hdf5.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann\heap.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann\hierarchical_clustering_index.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann\index_testing.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann\kdtree_index.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann\kdtree_single_index.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann\kmeans_index.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann\linear_index.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann\logger.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann\lsh_index.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann\lsh_table.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann\matrix.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann\miniflann.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann\nn_index.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann\object_factory.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann\params.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann\random.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann\result_set.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann\sampling.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann\saving.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann\simplex_downhill.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\flann\timer.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\device\block.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\device\border_interpolate.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\device\color.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\device\common.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\device\datamov_utils.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\device\detail\color_detail.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\device\detail\reduce.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\device\detail\reduce_key_val.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\device\detail\transform_detail.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\device\detail\type_traits_detail.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\device\detail\vec_distance_detail.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\device\dynamic_smem.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\device\emulation.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\device\filters.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\device\funcattrib.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\device\functional.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\device\limits.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\device\reduce.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\device\saturate_cast.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\device\scan.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\device\simd_functions.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\device\static_check.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\device\transform.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\device\type_traits.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\device\utility.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\device\vec_distance.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\device\vec_math.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\device\vec_traits.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\device\warp.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\device\warp_reduce.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\device\warp_shuffle.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\devmem2d.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\gpu.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\gpumat.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\gpu\stream_accessor.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\highgui\cap_ios.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\highgui\highgui.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\highgui\highgui_c.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\highgui\ios.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\imgproc\imgproc.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\imgproc\imgproc_c.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\imgproc\types_c.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\legacy\blobtrack.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\legacy\compat.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\legacy\legacy.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\legacy\streams.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\ml\ml.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\nonfree\features2d.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\nonfree\gpu.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\nonfree\nonfree.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\nonfree\ocl.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\objdetect\objdetect.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\opencv.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\opencv_modules.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\photo\photo.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\photo\photo_c.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\stitching\detail\autocalib.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\stitching\detail\blenders.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\stitching\detail\camera.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\stitching\detail\exposure_compensate.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\stitching\detail\matchers.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\stitching\detail\motion_estimators.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\stitching\detail\seam_finders.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\stitching\detail\util.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\stitching\detail\util_inl.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\stitching\detail\warpers.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\stitching\detail\warpers_inl.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\stitching\stitcher.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\stitching\warpers.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\superres\optical_flow.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\superres\superres.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\ts\gpu_perf.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\ts\gpu_test.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\ts\ts.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\ts\ts_gtest.h" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\ts\ts_perf.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\video\background_segm.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\video\tracking.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\video\video.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\videostab\deblurring.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\videostab\fast_marching.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\videostab\fast_marching_inl.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\videostab\frame_source.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\videostab\global_motion.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\videostab\inpainting.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\videostab\log.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\videostab\motion_stabilizing.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\videostab\optical_flow.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\videostab\stabilizer.hpp" />
-    <ClInclude Include="..\..\..\addons\ofxOpenCv\libs\opencv\include\opencv2\videostab\videostab.hpp" />
     <ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOsc.h" />
     <ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscArg.h" />
     <ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscBundle.h" />
@@ -423,6 +247,150 @@
     <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscPrintReceivedElements.h" />
     <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscReceivedElements.h" />
     <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscTypes.h" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\src\Warp.h" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\BSpline.h" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\common.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\func_common.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\func_exponential.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\func_geometric.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\func_integer.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\func_matrix.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\func_noise.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\func_packing.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\func_trigonometric.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\func_vector_relational.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\intrinsic_common.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\intrinsic_exponential.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\intrinsic_geometric.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\intrinsic_integer.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\intrinsic_matrix.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\intrinsic_trigonometric.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\intrinsic_vector_relational.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\precision.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\setup.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\type_float.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\type_gentype.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\type_half.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\type_int.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\type_mat.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\type_mat2x2.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\type_mat2x3.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\type_mat2x4.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\type_mat3x2.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\type_mat3x3.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\type_mat3x4.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\type_mat4x2.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\type_mat4x3.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\type_mat4x4.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\type_vec.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\type_vec1.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\type_vec2.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\type_vec3.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\type_vec4.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\_features.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\_fixes.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\_noise.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\_swizzle.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\_swizzle_func.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\_vectorize.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\exponential.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\ext.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\fwd.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\geometric.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\glm.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtc\bitfield.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtc\constants.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtc\epsilon.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtc\integer.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtc\matrix_access.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtc\matrix_integer.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtc\matrix_inverse.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtc\matrix_transform.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtc\noise.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtc\packing.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtc\quaternion.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtc\random.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtc\reciprocal.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtc\round.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtc\type_precision.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtc\type_ptr.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtc\ulp.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtc\vec1.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\associated_min_max.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\bit.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\closest_point.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\color_space.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\color_space_YCoCg.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\common.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\compatibility.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\component_wise.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\dual_quaternion.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\euler_angles.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\extend.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\extented_min_max.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\fast_exponential.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\fast_square_root.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\fast_trigonometry.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\gradient_paint.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\handed_coordinate_space.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\integer.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\intersect.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\io.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\log_base.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\matrix_cross_product.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\matrix_decompose.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\matrix_interpolation.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\matrix_major_storage.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\matrix_operation.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\matrix_query.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\matrix_transform_2d.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\mixed_product.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\multiple.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\norm.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\normal.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\normalize_dot.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\number_precision.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\optimum_pow.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\orthonormalize.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\perpendicular.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\polar_coordinates.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\projection.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\quaternion.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\range.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\raw_data.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\rotate_normalized_axis.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\rotate_vector.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\scalar_multiplication.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\scalar_relational.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\simd_mat4.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\simd_quat.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\simd_vec4.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\spline.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\std_based_type.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\string_cast.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\transform.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\transform2.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\type_aligned.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\vector_angle.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\vector_query.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\wrap.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\integer.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\mat2x2.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\mat2x3.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\mat2x4.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\mat3x2.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\mat3x3.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\mat3x4.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\mat4x2.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\mat4x3.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\mat4x4.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\matrix.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\packing.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\trigonometric.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\vec2.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\vec3.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\vec4.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\vector_relational.hpp" />
     <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\ofxWMFVideoPlayer.h" />
     <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\ofxWMFVideoPlayerUtils.h" />
     <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\AsyncCB.h" />
@@ -452,7 +420,6 @@
     <ClInclude Include="src\vdome\input\media\image.h" />
     <ClInclude Include="src\vdome\input\media\media.h" />
     <ClInclude Include="src\vdome\input\media\video.h" />
-    <ClInclude Include="src\vdome\input\media\video\videoWin.h" />
     <ClInclude Include="src\vdome\input\media\video\videoWMF.h" />
     <ClInclude Include="src\vdome\input\spout\spoutR.h" />
     <ClInclude Include="src\vdome\input\spout\SpoutSDK\Spout.h" />
@@ -472,10 +439,7 @@
     <ClInclude Include="src\vdome\menu\saveThread.h" />
     <ClInclude Include="src\vdome\menu\socket.h" />
     <ClInclude Include="src\vdome\renderer\model.h" />
-    <ClInclude Include="src\vdome\renderer\projector\cornerpin.h" />
     <ClInclude Include="src\vdome\renderer\projector\curves.h" />
-    <ClInclude Include="src\vdome\renderer\projector\mask.h" />
-    <ClInclude Include="src\vdome\renderer\projector\plane.h" />
     <ClInclude Include="src\vdome\renderer\projector\projector.h" />
     <ClInclude Include="src\vdome\renderer\window.h" />
     <ClInclude Include="src\vdome\vdome.h" />

@@ -2,9 +2,7 @@
 #include "window.h"
 #include "socket.h"
 #include "saveThread.h"
-
 namespace vd {
-    
 class vdome {
 
 public:
@@ -47,4 +45,4 @@ private:
 
 };
 
-}
+}/////////

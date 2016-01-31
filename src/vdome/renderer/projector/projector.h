@@ -1,85 +1,116 @@
 #pragma once
 #include "ofMain.h"
-#include "plane.h"
-#include "mask.h"
 #include "curves.h"
+#include "Warp.h"
 
 namespace vd {
 class Command;
 class Projector {
 
 public:
+    // initializes class
+    // params: rojector index, window projector starting indes
     void    init(int i, int pStartingIndex);
+    
+    // setup class
     void    setup();
+    
+    // begin fbo capture
     void    begin();
+    
+    // end fbo capture
     void    end();
-    void    bind();
-    void    unbind();
-    void    draw();
-   
-    void    drawPlaneConfig();
-    void    drawKeystone();
-	void    drawCurves(int x, int y);
     
+    // mouse pressed event callback
     void    mousePressed(ofMouseEventArgs& mouseArgs);
-    void    mouseDragged(ofMouseEventArgs& mouseArgs);
-    void    mouseReleased(ofMouseEventArgs& mouseArgs);
     
+    // mouse dragged event callback
+    void    mouseDragged(ofMouseEventArgs& mouseArgs);
+    
+    // mouse released event callback
+    void    mouseReleased(ofMouseEventArgs& mouseArgs);
+
+	// mouse moved event callback
+	void    mouseMoved(ofMouseEventArgs& mouseArgs);
+        
+    // keyboard pressed callback
     void    keyPressed(int key);
+    
+    // keyboard released event callback
     void    keyReleased(int key);
     
+    // load xml settings stage 1
     void    loadXML(ofXml &xml);
+    
+    // load xml settings stage 2
     void    loadXML2(ofXml &xml);
+    
+    // save xml settings
     void    saveXML(ofXml &xml);
 
+    // execute undo / redo commands
 	Command*    execute(float v);
-	Command*    executeBrush();
+    
+    // reset undo / redo commnads
 	Command*    reset();
     
-    // plane
-    ofVec2f getPlanePosition();
-    void    setPlanePosition(float x, float y);
+    // get render plane x,y position
+    ofPoint getPlanePosition();
     
-    ofVec2f getPlaneDimensions();
-    void    setPlaneDimensions(float w, float h);
+    // set plane x,y position
+    void    setPlanePosition(int x, int y);
+
+    // get width
+    int     getWidth();
     
-    // keystone
-    bool getKeystoneActive();
-    void setKeystoneActive(bool v);
+    // get height
+    int     getHeight();
+
+    // set warp active
+    void    setWarpActive(bool b);
     
-    vector<ofPoint> getKeystonePoints();
-    void            setKeystonePoints(vector<ofPoint> pts);
-    
-    // grid
-    bool getGridActive();
-    void setGridActive(bool v);
-    
-    vector<ofVec3f> getGridPoints();
-    void            setGridPoints(vector<ofVec3f> v);
-    
-    // camera
-    void    setCameraTransform();
-    
+    // get camera position
     ofVec3f getCameraPosition();
+
+    // set camera position
     void    setCameraPosition(float azi, float ele, float dis);
     
+    // get camera orientation
     ofVec3f getCameraOrientation();
+    
+    // set camera orientation
     void    setCameraOrientation(float roll, float tilt, float pan);
     
+    // get camera field of view
     float   getCameraFov();
+    
+    //set camera field of view
     void    setCameraFov(float v);
     
+    // get camera lens offset
     ofVec2f getCameraOffset();
+    
+    // set camera lens offset
     void    setCameraOffset(float x, float y);
     
-    ofVec2f getCameraScale();
-    void    setCameraScale(float x, float y);
-    
-    vector<float>   getCameraShear();
-    void            setCameraShear(vector<float>);
+    // get texture reference
     ofTexture&      getTextureReference();
 
+    // set brightness
+    void    setBrightness(float b);
+    
+    // set contrast
+    void    setContrast(float b);
+    
+    // set saturation
+    void    setSaturation(float b);
+
+    
+    void onColorSourceEvent(int &source);
+    
+    // projector index
     int     index;
+    
     bool    keyboard;
     bool    mouse;
     bool    active;
@@ -88,27 +119,10 @@ public:
     bool    mod;
     bool    all;
     void    setValue(float v);
-    Mask    mask;
     ofFbo   renderFbo;
     
-    ofVboMesh renderPlane;
-
-    // intensity
-    float   brightness;
-    float   contrast;
-
-    // color
-    float   hue;
-    float   saturation;
-    float   lightness;
-
-    Plane   plane;
+    float   brightness, contrast, saturation;
     
-    vector<ofPoint> lastKey;
-    vector<ofVec3f> lastGrid;
-    
-    int     width, height;
-
 	// color curves
 	Curves  curves;
     
@@ -116,40 +130,37 @@ public:
     
     enum    editModes{
                 BRIGHTNESS,CONTRAST,SATURATION,
-                CURVES,
-                CORNERPIN, GRID,
-                AZIMUTH, ELEVATION, DISTANCE,
-                ROLL, TILT, PAN,
-                FOV, OFFSET_X, OFFSET_Y,
-                NONE, BRUSH_SCALE, BRUSH_OPACITY, WHITE, BLACK, ENABLE};
+                CURVES, GRID, FOV, NONE, WHITE, BLACK, ENABLE};
+    
+	ofEasyCam        camera;
 
 private:
-    ofVec3f     sphToCar(ofVec3f t);
-    float       round(float d);
-    float       roundTo(float val, float n);
-    
-    ofCamera    camera;
-    ofFbo       fbo;
-    ofRectangle view;
+    ofFbo           fbo;
+    ofRectangle     view;
 
-    float       value;
-    int         fboSample;
-    string      xmlPrefix;
+    float           value;
+    int             fboSample;
+    string          xmlPrefix;
 
-    // plane
-    ofVec2f     planePosition;
-
-    // camera
     ofVec3f         cameraPosition;
     ofVec3f         cameraOrientation;
     float           cameraFov;
     ofVec2f         cameraOffset;
     ofVec2f         cameraScale;
-    vector<float>   cameraShear;
 
     ofMatrix4x4     transform;
+    
+    WarpList        mWarps;
+    string          warpSettings;
+
+    int             x, y, width, height;
+    
+    ofVec3f         sphToCar(ofVec3f t);
+    float           round(float d);
+    float           roundTo(float val, float n);
+    
 };
 
 
 
-}
+}////////////

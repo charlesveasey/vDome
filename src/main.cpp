@@ -1,7 +1,7 @@
 #include "ofMain.h"
 #include "vdome.h"
 
-//#define VDOME_DEBUG // define for debug console
+#define VDOME_DEBUG // define for debug console
 
 int main( ){
     
@@ -21,6 +21,7 @@ int main( ){
 #endif
 #endif
     
+	// start vdome
     vd::vdome vdome;
     vdome.setup();    
 }

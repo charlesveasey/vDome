@@ -3,21 +3,14 @@
 #include <stdlib.h>
 #include <math.h>
 #include "commands.h"
-
 namespace vd {
 
+//--------------------------------------------------------------
 extern int maxHistory;
 extern CommandHistory history;
-extern vector<ofPixels> maskHistory;
-
-/******************************************
-
- CONSTRUCTOR
-
- ********************************************/
 
 Model::Model(){
-	radius = 10;
+	radius = 1;
 	N = 128;  // Mesh resolution, must be multiple of 4
     textureScale = 1;
     textureFlip = false;
@@ -30,12 +23,7 @@ Model::Model(){
     textureScaleInternalH = 1;
 }
 
-/******************************************
-
- SETUP
-
- ********************************************/
-
+//--------------------------------------------------------------
 void Model::setup(){
  	int i,j,index = 0;
 	int i1,i2,i3,i4;
@@ -64,7 +52,7 @@ void Model::setup(){
 			x = radius * cos(phi) * cos(theta);
 			y = radius * cos(phi) * sin(theta);
 			z = radius * sin(phi);
-			vbo.addVertex(ofVec3f(x,y,z));
+			vbo.addVertex(ofVec3f(x,y,-1*z));
 
 			len = sqrt(x*x + y*y + z*z);
 			nx = x/len;
@@ -110,16 +98,12 @@ void Model::setup(){
 	}
 }
 
-/******************************************
-
- DRAW
-
- ********************************************/
-
+//--------------------------------------------------------------
 void Model::draw(){
     ofPushMatrix();
-	ofRotateX(90+textureTilt+textureTiltInternal);
-    ofRotateZ(textureRotate*-1);
+	//ofRotateX(textureTilt+textureTiltInternal);
+    //ofRotateZ(textureRotate*-1);
+
     glEnable(GL_CULL_FACE);
     glCullFace( GL_BACK );
 	vbo.draw();
@@ -128,19 +112,8 @@ void Model::draw(){
 }
 
 /******************************************
-
- KEYBOARD
-
+ LOAD MODEL XML
  ********************************************/
-
-void Model::keyPressed(int key) {}
-
-/******************************************
-
- SETTINGS
-
- ********************************************/
-
 void Model::loadXML(ofXml &xml) {
     if (xml.exists("model[@radius]"))
         radius = ofToDouble( xml.getAttribute("model[@radius]") );
@@ -159,7 +132,8 @@ void Model::loadXML(ofXml &xml) {
 
     setup();
 }
-
+    
+//--------------------------------------------------------------
 void Model::saveXML(ofXml &xml) {
     xml.setTo("model");
     xml.setAttribute("radius", ofToString(radius));
@@ -173,51 +147,52 @@ void Model::saveXML(ofXml &xml) {
     xml.setToParent();
 }
 
-/******************************************
-
- SAVE MESH
-
- ********************************************/
-
+//--------------------------------------------------------------
 void Model::saveMesh(string file) {
     vbo.save(file);
 }
 
-/******************************************
-
- ACCESSORS
-
- ********************************************/
-
+//--------------------------------------------------------------
 bool Model::getTextureFlip(){
 	return textureFlip;
 }
+    
+//--------------------------------------------------------------
 void Model::setTextureFlip(bool b){
 	textureFlip = b;
 	setup();
 }
 
+//--------------------------------------------------------------
 float Model::getTextureRotate(){
 	return textureRotate;
 }
+    
+//--------------------------------------------------------------
 void Model::setTextureRotate(float f){
 	textureRotate = f;
 }
-	
+
+//--------------------------------------------------------------
 float Model::getTextureTilt(){
 	return textureTilt;
 }
+    
+//--------------------------------------------------------------
 void Model::setTextureTilt(float f){
 	textureTilt = f;
 }
-	
+    
+//--------------------------------------------------------------
 float Model::getTextureScale(){
 	return textureScale;
 }
+    
+//--------------------------------------------------------------
 void Model::setTextureScale(float f){
 	textureScale = f;
 	setup();
 }
 
 
-}
+}//////

@@ -1,0 +1,51 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "8AA1CB3A7DCDFEBB1D3A6DADE85E39DDA73636D8",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "48E832825FE308F3856657C645D60E1069B61B2D" : 0,
+    "2DE9C8846D9375EAACFABA8963120E8E7719BAF5" : 0,
+    "E3C3F224F22A1E7AD9BED6F3268F3C9E1AA9B991" : 0,
+    "8AA1CB3A7DCDFEBB1D3A6DADE85E39DDA73636D8" : 0,
+    "F4CCB893AFADB97238A965FD2F28717F1CAAE613" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "6F0D407E-15A0-4013-8DF1-E0D70F381939",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "48E832825FE308F3856657C645D60E1069B61B2D" : "..\/..\/addons\/ofxWarping",
+    "2DE9C8846D9375EAACFABA8963120E8E7719BAF5" : "..\/..",
+    "E3C3F224F22A1E7AD9BED6F3268F3C9E1AA9B991" : "..\/..\/addons\/ofxCurvesTool",
+    "8AA1CB3A7DCDFEBB1D3A6DADE85E39DDA73636D8" : "vDome\/",
+    "F4CCB893AFADB97238A965FD2F28717F1CAAE613" : "..\/..\/addons\/ofxSyphon"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "vDome",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "vDome.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/openframeworks\/openFrameworks.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "2DE9C8846D9375EAACFABA8963120E8E7719BAF5"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/charlesveasey\/ofxWarping.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "48E832825FE308F3856657C645D60E1069B61B2D"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/charlesveasey\/vDome.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8AA1CB3A7DCDFEBB1D3A6DADE85E39DDA73636D8"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/charlesveasey\/ofxCurvesTool.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E3C3F224F22A1E7AD9BED6F3268F3C9E1AA9B991"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/astellato\/ofxSyphon.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F4CCB893AFADB97238A965FD2F28717F1CAAE613"
+    }
+  ]
+}

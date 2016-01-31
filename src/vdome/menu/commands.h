@@ -2,14 +2,7 @@
 #include "command.h"
 #include "projector.h"
 #include "input.h"
-
 namespace vd {
-
-/******************************************
-
- PROJECTOR
-
- ********************************************/
 
 class SetProjectors : public Command {
 protected:
@@ -33,8 +26,6 @@ public:
 	}
 };
 
-
-// enable
 class SetEnable : public Command {
 protected:
     Projector& obj;
@@ -49,7 +40,6 @@ public:
     void redo() { obj.enable = v; }
 };
 
-// intensity
 class SetBrightness : public Command {
 protected:
     Projector& obj;
@@ -59,9 +49,9 @@ public:
     SetBrightness(Projector& obj, float v) : obj(obj), v(v) {}
     void execute() {
         l = obj.brightness;
-        obj.brightness = v; }
-    void undo() { obj.brightness = l; }
-    void redo() { obj.brightness = v; }
+        obj.setBrightness(v); }
+    void undo() { obj.setBrightness(l); }
+    void redo() { obj.setBrightness(l); }
 };
 
 class SetContrast : public Command {
@@ -73,108 +63,9 @@ public:
     SetContrast(Projector& obj, float v) : obj(obj), v(v) {}
     void execute() {
         l = obj.contrast;
-        obj.contrast = v; }
-    void undo() { obj.contrast = l; }
-    void redo() { obj.contrast = v; }
-};
-    
-class SetBrushScale : public Command {
-protected:
-    Projector& obj;
-    float v;
-    float l;
-public:
-    SetBrushScale(Projector& obj, float v) : obj(obj), v(v) {}
-    void execute() {
-        l = obj.mask.brushScale;
-        obj.mask.brushScale = v; }
-    void undo() { obj.mask.brushScale = l; }
-    void redo() { obj.mask.brushScale = v; }
-};
-
-class SetBrushOpacity : public Command {
-protected:
-    Projector& obj;
-    float v;
-    float l;
-public:
-    SetBrushOpacity(Projector& obj, float v) : obj(obj), v(v) {}
-    void execute() {
-        l = obj.mask.brushOpacity;
-        obj.mask.brushOpacity = v; }
-    void undo() { obj.mask.brushOpacity = l; }
-    void redo() { obj.mask.brushOpacity = v; }
-};
-
-class SetBrushPoints : public Command {
-protected:
-    Projector& obj;
-    int v;
-    int l;
-public:
-    SetBrushPoints(Projector& obj) : obj(obj), v(v), l(l) {}
-    void execute() {
-        l = obj.mask.hIndex;
-        v = l+1;
-        obj.mask.store(v);
-    }
-    void undo() { obj.mask.recall(l); }
-    void redo() { obj.mask.recall(v); }
-};
-
-class ResetBrushOpacity : public Command {
-protected:
-    Projector& obj;
-    float v;
-    float l;
-	Command* cmd;
-public:
-    ResetBrushOpacity(Projector& obj, float v) : obj(obj), v(v) {}
-    void execute() {
-        l = obj.mask.brushOpacity;
-        obj.mask.brushOpacity = v;
-		cmd = new SetBrushPoints(obj);
-		cmd->execute();
-		obj.mask.reset();
-	}
-    void undo() { obj.mask.brushOpacity = l; cmd->undo();		}
-    void redo() { obj.mask.brushOpacity = v; obj.mask.reset();	}
-};
-
-class ResetBrushScale : public Command {
-protected:
-    Projector& obj;
-    float v;
-    float l;
-	Command* cmd;
-public:
-    ResetBrushScale(Projector& obj, float v) : obj(obj), v(v) {}
-    void execute() {
-        l = obj.mask.brushScale;
-        obj.mask.brushScale = v;
-		cmd = new SetBrushPoints(obj);
-		cmd->execute();
-		obj.mask.reset();
-	}
-    void undo() { obj.mask.brushScale = l; cmd->undo();			}
-    void redo() { obj.mask.brushScale = v; obj.mask.reset();	}
-};
-
-
-
-// color
-class SetHue : public Command {
-protected:
-    Projector& obj;
-    float v;
-    float l;
-public:
-    SetHue(Projector& obj, float v) : obj(obj), v(v) {}
-    void execute() {
-        l = obj.hue;
-        obj.hue = v; }
-    void undo() { obj.hue = l; }
-    void redo() { obj.hue = v; }
+        obj.setContrast(v); }
+    void undo() { obj.setContrast(l); }
+    void redo() { obj.setContrast(v); }
 };
 
 class SetSaturation : public Command {
@@ -186,94 +77,10 @@ public:
     SetSaturation(Projector& obj, float v) : obj(obj), v(v) {}
     void execute() {
         l = obj.saturation;
-        obj.saturation = v; }
-    void undo() { obj.saturation = l; }
-    void redo() { obj.saturation = v; }
+        obj.setSaturation(v); }
+    void undo() { obj.setSaturation(l); }
+    void redo() { obj.setSaturation(v); }
 };
-
-class SetLightness : public Command {
-protected:
-    Projector& obj;
-    float v;
-    float l;
-public:
-    SetLightness(Projector& obj, float v) : obj(obj), v(v) {}
-    void execute() {
-        l = obj.lightness;
-        obj.lightness = v; }
-    void undo() { obj.lightness = l; }
-    void redo() { obj.lightness = v; }
-};
-
-
-
-// plane
-
-class SetCornerpinPoints : public Command {
-protected:
-    Projector& obj;
-    vector<ofPoint> v;
-    vector<ofPoint> l;
-public:
-    SetCornerpinPoints(Projector& obj, vector<ofPoint> v, vector<ofPoint> l) : obj(obj), v(v), l(l) {}
-    void execute() {;
-        obj.setKeystonePoints(v);
-    }
-	void undo() { 
-		bool tmp = obj.plane.cornerpinActive;
-		obj.plane.cornerpinActive = true;
-		obj.plane.setCornerpinPoints(l);
-		obj.plane.draw();
-		obj.plane.cornerpinActive = tmp;
-	}
-    void redo() { 
-		bool tmp = obj.plane.cornerpinActive;
-		obj.plane.cornerpinActive = true;
-		obj.plane.setCornerpinPoints(v);
-		obj.plane.draw();
-		obj.plane.cornerpinActive = tmp;
-	}
-};
-
-class SetGridPoints : public Command {
-protected:
-    Projector& obj;
-    vector<ofPoint> v;
-    vector<ofPoint> l;
-public:
-    SetGridPoints(Projector& obj, vector<ofPoint> v, vector<ofPoint> l) : obj(obj), v(v), l(l) {}
-    void execute() {;
-        obj.setGridPoints(v);
-    }
-    void undo() { 
-		obj.setGridPoints(l); 
-	}
-    void redo() { 
-		obj.setGridPoints(v); 
-	}
-};
-
-
-class ResetCornerpin : public Command {
-protected:
-    Projector& obj;
-	Command* cmd;
-	vector<ofPoint> l;
-public:
-    ResetCornerpin(Projector& obj) : obj(obj) {}
-    void execute() {
-		l = obj.getKeystonePoints();
-		cmd = new SetCornerpinPoints(obj, l, l); 
-        obj.plane.resetCornerpin();
-    }
-	void undo() { 
-		cmd->undo();
-	}
-    void redo() { 
-		obj.plane.resetCornerpin();
-	}
-};
-
 
 class ResetGrid : public Command {
 protected:
@@ -283,19 +90,18 @@ protected:
 public:
     ResetGrid(Projector& obj) : obj(obj) {}
     void execute() {
-		l = obj.getGridPoints();
-        obj.plane.resetGrid();
+		//l = obj.getGridPoints();
+        //obj.plane.resetGrid();
+        //fix
     }
 	void undo() { 
-		obj.setGridPoints(l); 
 	}
     void redo() { 
-		obj.plane.resetGrid();
+		//obj.plane.resetGrid();
+        //fix
 	}
 };
 
-
-// camera
 class SetCameraPosition : public Command {
 protected:
     Projector& obj;
@@ -325,7 +131,7 @@ public:
     void undo() { obj.setCameraOrientation(l.x, l.y, l.z); }
     void redo() { obj.setCameraOrientation(roll, tilt, pan);  }
 };
-
+    
 class SetCameraFov : public Command {
 protected:
     Projector& obj;
@@ -340,7 +146,7 @@ public:
     void undo() { obj.setCameraFov(l); }
     void redo() { obj.setCameraFov(v); }
 };
-
+    
 class SetCameraOffset : public Command {
 protected:
     Projector& obj;
@@ -356,4 +162,4 @@ public:
     void redo() { obj.setCameraOffset(x, y);  }
 };
 
-}
+}////////////

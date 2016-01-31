@@ -1,5 +1,9 @@
 #include "media.h"
 using namespace vd;
+/******************************************
+ MEDIA
+ A wrapper for image and video media types
+ *******************************************/
 
 Media::Media() {
     width = 2048;
@@ -8,6 +12,9 @@ Media::Media() {
     vol = 1;
 }
 
+/******************************************
+ OPEN
+ *******************************************/
 void Media::open(string filepath){
     fpath = filepath;
     stop();
@@ -27,6 +34,9 @@ void Media::open(string filepath){
     }
 }
 
+/******************************************
+ OPEN
+ *******************************************/
 void Media::update(){
 	switch (mType) {
 		case IMAGE: break;

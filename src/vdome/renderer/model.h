@@ -9,7 +9,6 @@ public:
     void    setup();
     void    update();
     void    draw();
-    void    keyPressed(int key);
     
 	void    loadXML(ofXml &xml);
     void    saveXML(ofXml &xml);
@@ -31,14 +30,15 @@ public:
 	enum    editModes{NONE, T_FLIP, T_ROTATE, T_TILT, T_SCALE};
 
 	float   value;
+    
     bool    textureFlipInternal;
     float   textureTiltInternal;
     float   textureScaleInternal;
     float   textureScaleInternalW;
     float   textureScaleInternalH;
+	ofVboMesh   vbo;
 
 private:
-    ofVboMesh   vbo;
     int         N;
     double      radius;
     float       textureScale;

@@ -1,8 +1,10 @@
 #include "Curves.h"
 namespace vd {
 
+//--------------------------------------------------------------
 extern int cCurveIndex;
 
+//--------------------------------------------------------------
 Curves::Curves() {
 	curveCnt = 4;
 	lutRes = 256;
@@ -13,12 +15,13 @@ Curves::Curves() {
 	xml = new ofXml;
 }
 
+//--------------------------------------------------------------
 void Curves::init(int i) {
 	index =  i;
 }
-
+    
+//--------------------------------------------------------------
 void Curves::setup() {
-
 	for(int i = 0; i < curveCnt; i++) {
 		curvesTools.push_back(new ofxCurvesTool);
 		curvesTools.at(i)->setup();
@@ -46,6 +49,7 @@ void Curves::setup() {
 	setActive(false);
 }  
 
+//--------------------------------------------------------------
 void Curves::update() {
 	if (!curvesTools.size()) return;
 
@@ -66,12 +70,14 @@ void Curves::update() {
 	colorlut.update();
 }
 
+//--------------------------------------------------------------
 void Curves::draw(int x, int y) {
 	if(show || enabled) {
 		curvesTools.at(colorMode)->draw(x,y);
 	}
 }
 
+//--------------------------------------------------------------
 void Curves::keyPressed(int key) {
 
 	if(key == OF_KEY_UP) {
@@ -84,6 +90,7 @@ void Curves::keyPressed(int key) {
     update();
 }
 
+//--------------------------------------------------------------
 void Curves::incrementPoint(float inc) {
 	int cpnt = curvesTools.at(colorMode)->getCurrentHover();
 	curvesTools.at(colorMode)->set(cpnt, 
@@ -91,14 +98,17 @@ void Curves::incrementPoint(float inc) {
 				 curvesTools.at(colorMode)->getPoint(cpnt).y + inc));	
 }
 
+//--------------------------------------------------------------
 void Curves::prevPoint() {
 	curvesTools.at(colorMode)->prevPoint();
 }
 
+//--------------------------------------------------------------
 void Curves::nextPoint() {
 	curvesTools.at(colorMode)->nextPoint();
 }
 
+//--------------------------------------------------------------
 void Curves::load(int projectorStartingIndex) {
 	xml->clear();
 	xml->load("settings/color/color-"+ofToString(index+1+projectorStartingIndex)+".xml");
@@ -127,6 +137,7 @@ void Curves::load(int projectorStartingIndex) {
     update();
 }
 
+//--------------------------------------------------------------
 void Curves::save(int projectorStartingIndex) {
 	xml->clear();
 	xml->addChild("projector");
@@ -160,25 +171,32 @@ void Curves::save(int projectorStartingIndex) {
 	xml->save("settings/color/color-"+ofToString(index+1+projectorStartingIndex)+".xml");
 }
 
+//--------------------------------------------------------------
 int Curves::getCurrentHover() {
 	return curvesTools.at(colorMode)->getCurrentHover();
 }
 
+//--------------------------------------------------------------
 void Curves::setCurrentHover(int i) {
 	curvesTools.at(colorMode)->setCurrentHover(i);
 }
 
+//--------------------------------------------------------------
 int Curves::getColorMode() {
 	return colorMode;
 }
+    
+//--------------------------------------------------------------
 void Curves::setColorMode(int i) {
 	colorMode = i;
 }
 
+//--------------------------------------------------------------
 ofTexture & Curves::colorlutTextureRef() {
 	return colorlut.getTexture();
 }
 
+//--------------------------------------------------------------
 void Curves::setLabelPosition() {
 	curvesTools.at(colorMode)->setLabelPosition();
 }
@@ -186,12 +204,14 @@ void Curves::setLabelPosition(int x, int y) {
 		curvesTools.at(colorMode)->setLabelPosition(x,y);
 }
 
+//--------------------------------------------------------------
 void Curves::setActive(bool b) {
 	active = b;
 }
 
+//--------------------------------------------------------------
 void Curves::setPoint(int i, ofPoint p){
 	curvesTools.at(colorMode)->set(i,p);
 }
 
-}
+}////////////

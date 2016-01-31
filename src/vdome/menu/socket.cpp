@@ -1,13 +1,9 @@
 #include "socket.h"
 namespace vd {
+    
+//--------------------------------------------------------------
 ofEvent<int> Socket::sourceEvent = ofEvent<int>();
 ofEvent<int> Socket::formatEvent = ofEvent<int>();
-
-/******************************************
-
- CONSTRUCTOR
-
- ********************************************/
 
 Socket::Socket(){
     enabled = true;
@@ -16,25 +12,14 @@ Socket::Socket(){
     receive = 3334;
 }
 
-/******************************************
-
- SETUP
-
- ********************************************/
-
+//--------------------------------------------------------------
 void Socket::setup(){
     oscSender.setup(host,send);
     oscReceiver.setup(receive);
 }
     
-/******************************************
- 
- UPDATE
- 
- ********************************************/
-
+//--------------------------------------------------------------
 void Socket::update(){
-    
     // receive
     while(oscReceiver.hasWaitingMessages()){
         rMsg.clear();
@@ -96,7 +81,7 @@ void Socket::update(){
 		}			
 	}
     
-    // send
+    // send position
     sMsg.clear();
     if (input->getSourceInt() == input->MEDIA) {
 		if (lastInputPosition != input->getPosition()){
@@ -106,16 +91,9 @@ void Socket::update(){
 		}
 		lastInputPosition = input->getPosition();
 	}
-
 }
     
-    
-/******************************************
- 
- SEND
- 
- ********************************************/
-
+//--------------------------------------------------------------
 void Socket::sendDuration(){
     sMsg.clear();
     sMsg.setAddress("/input/duration");
@@ -123,6 +101,7 @@ void Socket::sendDuration(){
     oscSender.sendMessage(sMsg);    
 }
     
+//--------------------------------------------------------------
 void Socket::sendEnd(){
     sMsg.clear();
     sMsg.setAddress("/input/");
@@ -130,12 +109,7 @@ void Socket::sendEnd(){
     oscSender.sendMessage(sMsg);
 }
     
-/******************************************
-
- SETTINGS
-
- ********************************************/
-
+//--------------------------------------------------------------
 void Socket::loadXML(ofXml &xml) {
     if (xml.exists("socket[@enabled]")) {
         string str = ofToString(xml.getAttribute("socket[@enabled]"));
@@ -154,6 +128,7 @@ void Socket::loadXML(ofXml &xml) {
         setup();
 }
 
+//--------------------------------------------------------------
 void Socket::saveXML(ofXml &xml) {
     xml.setTo("socket");
 
@@ -167,4 +142,5 @@ void Socket::saveXML(ofXml &xml) {
     xml.setToParent();
 }
 
-}
+
+}//////////////

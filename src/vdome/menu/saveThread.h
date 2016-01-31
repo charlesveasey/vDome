@@ -19,9 +19,6 @@ public:
                 for (int i=0; i <xml.size(); i++) {
                     xml[i]->save(files[i]);
                 }
-                for (int i=0; i <image.size(); i++) {
-                    image[i]->save(imageFiles[i]);
-                }
                 saved = true;
                 unlock();
                 stopThread();
@@ -32,6 +29,4 @@ public:
     bool saved;
     vector<ofXml*>      xml;
     vector<string>      files;
-    vector<ofImage*>    image;
-    vector<string>      imageFiles;
 };

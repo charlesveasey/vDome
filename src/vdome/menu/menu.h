@@ -1,7 +1,6 @@
 #pragma once
 #include "ofMain.h"
 #include "projector.h"
-
 namespace vd {
 
 class Item {
@@ -18,47 +17,44 @@ public:
     }
 };
  
-    
 class Menu {
 public:
     Menu();
     
-	void setup();
     void update();
 
-    // draw methods
+    // Draw
  	void draw(int i, int labelIndex);
     void drawMain(int i);
-    
     void drawProjector(int i);
     void drawFPS(int i);
     void drawHighlight();
     void drawBackground();
     void drawSaved();
     void drawActive(int i);
-    void drawWarp(int i);
     void drawCurves(int i);
 
-    // navigation
+    // Navigation
     void select();
     void back();
     void setEditMode();
-    
-    // mouse methods
+	void toggle();
+
+    // Mouse
     void mousePressed(ofMouseEventArgs& mouseArgs);
     void mouseDragged(ofMouseEventArgs& mouseArgs);
     void mouseReleased(ofMouseEventArgs& mouseArgs);
-    
-    // keyboard methods
+	void mouseMoved(ofMouseEventArgs& mouseArgs);
+
+    // Keyboard
     void keyPressed(int key);
     void keyReleased(int key);
     
-    // utils
-    void  toggle();
+    // Utils
 	float roundTo(float val, float n);
 	float round(float d);
 
-	// menu item
+	// Menu item
 	struct MenuItem {
         int currentItem;
         vector<Item*> items;
@@ -66,81 +62,83 @@ public:
         MenuItem **parent;
     };
     
-    // menu objects
+    // Menu data structures
     MenuItem *menuMain;
-    MenuItem *menuInput;
-    MenuItem *menuInputVideo;
-    MenuItem *menuInputTransform;
+	MenuItem *menuView;
     MenuItem *menuWarp;
     MenuItem *menuBlend;
-    MenuItem *menuBrush;
     MenuItem *menuColor;
 	MenuItem *menuCurves;
 	MenuItem *menuCurvesGrey;
 	MenuItem *menuCurvesRed;
 	MenuItem *menuCurvesGreen;
 	MenuItem *menuCurvesBlue;
-    MenuItem *menuSetup;
-    MenuItem *menuPosition;
-    MenuItem *menuOrientation;
-    MenuItem *menuFov;
-    MenuItem *menuLens;
-    MenuItem *menuScale;
-    MenuItem *menuShear;
     MenuItem **currentMenu;
 
-	// menu types
-    enum menus		{MAIN, WARP, BLEND, COLOR,
-					 CURVES, CURVES_GREY, CURVES_RED, CURVES_GREEN, CURVES_BLUE, 
-					 SETUP, POSITION, ORIENTATION, FIELD_OF_VIEW, LENS, BRUSH};
+	// Menu types
+    enum menus		{ MAIN, WARP, BLEND, COLOR, VIEW,
+					  CURVES, CURVES_GREY, CURVES_RED, CURVES_GREEN, CURVES_BLUE};
     
-	// menu item types
-	enum mainItems	{ENABLE};
-    enum warpItems  {CORNERPIN, GRID};
-    enum blendItems {B_BRUSH};
-    enum brushItems {BRUSH_SCALE, BRUSH_OPACITY};
-    enum colorItems {BRIGHTNESS, CONTRAST, SATURATION, COLOR_CURVES};
-    enum posItems   {AZIMUTH, ELEVATION, DISTANCE};
-    enum orienItems {TILT, ROLL, PAN};
-    enum fovItems   {FOV};
-    enum lensItems  {OFFSET_X, OFFSET_Y};
+	// Menu item types
+	enum mainItems	{ ENABLE };
+    enum warpItems  { GRID };
+    enum colorItems { SATURATION, COLOR_CURVES };
+	enum blendItems { BRIGHTNESS, CONTRAST };
+	enum viewItems  { FOV };
 
-    // layout
+	// Layout
+    // X-position
     int px;
+    // Y-position
     int py;
+    // Width
     int pw;
+    // Height
     int ph;
+    // X-padding
     int padx;
+    // Y-padding
     int pady;
-
-    // keyboard
+    
+    // Stores whether all all keys are selected
     bool all;
+    // Control key selected
     int  cKey;
 
-    // value
+    // Value  
     float value;
     float orgValue;
     float ctrlValue;
     float altValue;
 
-    // projector
-    vector<Projector>  *projectors;				// list of projectors
-    int					projCount;				// projector count
-    int					projectorStartingIndex;	// first projector index within the window
+    // Projector list
+    vector<Projector>  *projectors;
     
-	// input sources
+    // Projector count
+    int					projCount;
+    
+    // First projector index within the window
+    int					projectorStartingIndex;
+    
+	// Input sources
     int		inputSource;
     enum	inputSources {SOURCE_MEDIA, SOURCE_CAPTURE, SOURCE_SYPHON, SOURCE_SPOUT, SOURCE_GRID, SOURCE_BLACK, SOURCE_WHITE, SOURCE_GREY, SOURCE_COLOR};
     
-	// menu states
-	int		frameCnt;		// frame cout for saved items
-	bool	saved;			// saved state
-	bool	active;			// active state
-	int		pActive;		// projector active state
-	int		storedSource;	// stored source, used for input overrides
-	ofVec3f currentColor;	// current color, used for color overrides
-
-	static ofEvent<int>		sourceColorEvent;	// event for 
+    // Menu States:    
+    // Frame count for saved state
+    int		frameCnt;
+    // Saved state
+	bool	saved;
+    // Active state
+	bool	active;
+    // Projector active state
+    int		pActive;
+    // Stored source, used for input overrides
+	int		storedSource;
+    // Current color, used for color overrides
+	ofVec3f currentColor;
+	// Color events
+	static ofEvent<int>		sourceColorEvent;
 	static ofEvent<ofVec3f> colorEvent;
 
 private:

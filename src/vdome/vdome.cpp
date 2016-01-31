@@ -1,38 +1,25 @@
 #include "vdome.h"
 #include "command.h"
 namespace vd {
-        
-// global variables
+
+//--------------------------------------------------------------
 int maxHistory = 25;
 CommandHistory history;
-vector<ofPixels> maskHistory;
     
-/******************************************
-
- CONSTRUCTOR
-
- ********************************************/
-
+//--------------------------------------------------------------
 vdome::vdome() {
     socket.input = &input;
     input.socket = &socket;
-    
+    vsync = true;
+    framerate = 60;
 #ifdef TARGET_OSX
     cKey = OF_KEY_COMMAND;
 #else
     cKey = OF_KEY_CONTROL;
 #endif
-    
-    vsync = true;
-    framerate = 60;
 }
-
-/******************************************
-
- SETUP
-
- ********************************************/
-
+    
+//--------------------------------------------------------------
 void vdome::setup(){
     // remove esc quits
     ofSetEscapeQuitsApp(false);
@@ -48,15 +35,18 @@ void vdome::setup(){
     xmlPath = dataPath + xmlPath;
     
     // load xml settings from path
-    if (xml.load(xmlPath)){
+    if (xml.load(xmlPath))
         loadXML();
-    }
 
+    // set up input
     setupInput();
     
+    // add event listeners
     ofAddListener(ofEvents().update, this, &vdome::update, 0);
-    ofAddListener(Menu::colorEvent, this, &vdome::onColorEvent);    
+    ofAddListener(Menu::colorEvent, this, &vdome::onColorEvent);
+    ofAddListener(Menu::sourceColorEvent, this, &vdome::onSourceColorEvent);
     ofAddListener(Window::keyPressEvent, this, &vdome::keyPressed);
+	ofAddListener(Window::keyReleaseEvent, this, &vdome::keyReleased);
     ofAddListener(Socket::sourceEvent, this, &vdome::onSourceEvent);
     ofAddListener(Socket::formatEvent, this, &vdome::onFormatEvent);
 
@@ -64,24 +54,18 @@ void vdome::setup(){
     saveThread.xml.push_back(&xml);
     saveThread.files.push_back(xmlPath);
     
+    // set warp xml file path
     string warpPath = dataPath + "settings";
     warpPath = ofFilePath::addTrailingSlash(warpPath);
     warpPath += "warp";
     warpPath = ofFilePath::addTrailingSlash(warpPath);
     
-    string maskPath = dataPath + "settings";
-    maskPath = ofFilePath::addTrailingSlash(maskPath);
-    maskPath += "masks";
-    maskPath = ofFilePath::addTrailingSlash(maskPath);
-    
+    //fix: save thread
     for (auto w : windows){
         for(int i=0; i<w->projectors.size(); i++) {
-            string wp = warpPath + "warp-"+ofToString(i+w->projectorStartingIndex+1)+".xml";
-            string mp = maskPath + "mask-"+ofToString(i+w->projectorStartingIndex+1)+".png";            
-            saveThread.xml.push_back(w->projectors[i].plane.wXml);
-            saveThread.files.push_back(wp);
-            saveThread.image.push_back(w->projectors[i].mask.maskFboImage);
-            saveThread.imageFiles.push_back(mp);
+            //saveThread.xml.push_back(w->projectors[i].plane.wXml);
+            //fix
+            //saveThread.files.push_back(wp);
         }
     }
     
@@ -89,66 +73,14 @@ void vdome::setup(){
     ofRunMainLoop();
 }
     
-/******************************************
- 
- KEYBOARD
- 
- ********************************************/
-
-void vdome::keyPressed(int &key){
-
-    for (int i=0; i<windows.size(); i++){
-        windows[i]->menu.keyPressed(key);
-        
-        if (key == 109){  // m = show menu
-             windows[i]->menu.toggle();
-            
-            if (windows[i]->menu.active) {
-                  baseWindows[i]->showCursor();
-            }
-
-			else {
-                  baseWindows[i]->hideCursor();
-            }
-        }
-    }
-    
-    if (ofGetKeyPressed(cKey) && (ofGetKeyPressed(115) || ofGetKeyPressed(19))) { // ctrl + s = save
-        saveXML();
-    }
-}
-    
-void vdome::keyReleased(int &key){
-    for (auto w : windows){
-        w->menu.keyReleased(key);
-    }
-}
-    
-
-/******************************************
- 
- EVENTS
- 
- ********************************************/
-
-void vdome::onColorEvent(ofVec3f &color) {
-    input.source = input.COLOR;
-    input.setColor(color[0], color[1], color[2]);
-    input.setup();
-}
-    
-/******************************************
-
- UPDATE
-
- ********************************************/
-
+//--------------------------------------------------------------
 void vdome::update(ofEventArgs & args) {
+    // input update
     input.update();
     
-    if (socket.enabled){
+    // socket update
+    if (socket.enabled)
         socket.update();
-    }
     
     if (input.source == input.MEDIA) {
         if (!input.durationSent) {
@@ -174,14 +106,44 @@ void vdome::update(ofEventArgs & args) {
         }
     }
 }
-
     
-/******************************************
-
- SETTINGS
-
- *******************************************/
-
+//--------------------------------------------------------------
+void vdome::keyPressed(int &key){
+    for (int i=0; i<windows.size(); i++){
+        windows[i]->menu.keyPressed(key);
+        
+        if (key == 109){  // m = show menu
+             windows[i]->menu.toggle();
+            
+            if (windows[i]->menu.active) {
+                  baseWindows[i]->showCursor();
+            }
+			else {
+                  baseWindows[i]->hideCursor();
+            }
+        }
+    }
+    
+    if (ofGetKeyPressed(cKey) && (ofGetKeyPressed(115) || ofGetKeyPressed(19))) { // ctrl + s = save
+        saveXML();
+    }
+}
+    
+//--------------------------------------------------------------
+void vdome::keyReleased(int &key){
+    for (auto w : windows){
+        w->menu.keyReleased(key);
+    }
+}
+    
+//--------------------------------------------------------------
+void vdome::onColorEvent(ofVec3f &color) {
+    input.source = input.COLOR;
+    input.setColor(color[0], color[1], color[2]);
+    input.setup();
+}
+    
+//--------------------------------------------------------------
 void vdome::loadXML(){
     if (xml.exists("[@framerate]")){
         framerate = ofToInt( xml.getAttribute("[@framerate]") );
@@ -205,7 +167,8 @@ void vdome::loadXML(){
     ofGetMainLoop()->setCurrentWindow(baseWindows[0]);
 }
 
-void vdome::saveXML(){        
+//--------------------------------------------------------------
+void vdome::saveXML(){
     socket.saveXML(xml);
     input.saveXML(xml);
     
@@ -220,24 +183,7 @@ void vdome::saveXML(){
     saveThread.save();
 }
 
-/******************************************
-
- EXIT
-
- ********************************************/
-
-void vdome::exit(){
-    saveThread.waitForThread(true);
-    input.stop();
-    input.close();
-}
-
-/******************************************
- 
- CREATE WINDOW
- 
- ********************************************/
-    
+//--------------------------------------------------------------
 void vdome::createWindow(ofXml &xml){
     ofGLFWWindowSettings settings;
     int projectorIndex = 0;
@@ -246,7 +192,7 @@ void vdome::createWindow(ofXml &xml){
 	string str;
     
     if (xml.exists("window")) {
-        //get window count form xml
+        //get window count from xml
         int windowCount = xml.getNumChildren("window");
         
         // create system windows
@@ -269,7 +215,7 @@ void vdome::createWindow(ofXml &xml){
                 settings.shareContextWith = baseWindows[0];
             }
             
-            // needs some bogus resolution or there is a rendering error with default (1024 x 768) and multiple windows
+            // need some bogus resolution or there is a rendering error with default (1024 x 768) and multiple windows
             settings.width = 1;
             settings.height = 1;
             
@@ -305,28 +251,7 @@ void vdome::createWindow(ofXml &xml){
     xml.setToParent();
 }
 
-/******************************************
- 
- SETUP INPUT
- 
- ********************************************/
-
-void vdome::onSourceEvent(int &s){
-	input.stop();
-    input.setSourceInt(s);
-    setupInput();
-}
-
-void vdome::onFormatEvent(int &s){
-    input.setFormatInt(s);
-    updateInputFormat();
-}
-
-void vdome::onSourceColorEvent(int &s) {
-    input.setSourceInt(s);
-    input.setup(); //fix: do i need this?? how many times is this firing
-}
-    
+//--------------------------------------------------------------
 void vdome::setupInput(){
     // setup input
     input.setup();
@@ -358,13 +283,27 @@ void vdome::setupInput(){
         updateInputTransform();
     }
 }
+
+//--------------------------------------------------------------
+void vdome::onSourceEvent(int &s){
+    input.stop();
+    input.setSourceInt(s);
+    setupInput();
+}
     
-/******************************************
- 
- UPDATE INPUT FORMAT
- 
- ********************************************/
+//--------------------------------------------------------------
+void vdome::onSourceColorEvent(int &s){
+    input.setSourceInt(s);
+    setupInput();
+}
     
+//--------------------------------------------------------------
+void vdome::onFormatEvent(int &s){
+    input.setFormatInt(s);
+    updateInputFormat();
+}
+
+//--------------------------------------------------------------
 void vdome::updateInputFormat(){
     input.setFormat();
     
@@ -383,13 +322,8 @@ void vdome::updateInputFormat(){
         }
     }
 }
-    
-/******************************************
- 
- UPDATE INPUT TRANSFORM
- 
- ********************************************/
-    
+
+//--------------------------------------------------------------
 void vdome::updateInputTransform(){
     for (auto w : windows) {
         // reset model internal transform
@@ -436,40 +370,44 @@ void vdome::updateInputTransform(){
     }
 }
     
-    
-    
-    
-/******************************************
- 
- UPDATE SYPHON INPUT TRANSFORM
- 
- ********************************************/
+//--------------------------------------------------------------
 #ifdef TARGET_OSX
 void vdome::updateSyphonInputTransform(){
     float nRatio;
-        for (auto w : windows){
-            if (w->syphon.isSetup()){
-                nRatio = w->syphon.getHeight()/w->syphon.getWidth();
-                if (nRatio != input.ratio){
-                    input.ratio = nRatio;
-                    
-                    if (input.ratio < 1){
-                        w->model.textureScaleInternalW = 1;
-                        w->model.textureScaleInternalH = input.ratio;
-                    }
-                    else if (input.ratio > 1){
-                        w->model.textureScaleInternalW = 1/input.ratio;
-                        w->model.textureScaleInternalH = 1;
-                    }
-                    else {
-                        w->model.textureScaleInternalW = 1;
-                        w->model.textureScaleInternalH = 1;
-                    }
-                    
-                    w->model.setup();
+    for (auto w : windows){
+        if (w->syphon.isSetup()){
+            nRatio = w->syphon.getHeight()/w->syphon.getWidth();
+            if (nRatio != input.ratio){
+                input.ratio = nRatio;
+                
+                if (input.ratio < 1){
+                    w->model.textureScaleInternalW = 1;
+                    w->model.textureScaleInternalH = input.ratio;
                 }
+                else if (input.ratio > 1){
+                    w->model.textureScaleInternalW = 1/input.ratio;
+                    w->model.textureScaleInternalH = 1;
+                }
+                else {
+                    w->model.textureScaleInternalW = 1;
+                    w->model.textureScaleInternalH = 1;
+                }
+                
+                w->model.setup();
             }
         }
     }
-#endif
 }
+#endif
+    
+//--------------------------------------------------------------
+void vdome::exit(){
+    saveThread.waitForThread(true);
+    input.stop();
+    input.close();
+}
+
+    
+}//////
+
+
