@@ -19,20 +19,18 @@ void Projector::init(int i, int pStartingIndex){
 	active = false;
     enable = true;
     x = y = 0;
-    
+  
     cameraPosition.set(0,0,1);         // azi, ele, dis
     cameraOrientation.set(0,0,0);     // roll, tilt, pan
     cameraFov = 90;
     cameraOffset.set(0,0);
 	camera.setNearClip(.1);
 	camera.setFarClip(1000);
+            
     camera.disableMouseInput();
     camera.setTranslationKey('t');
     camera.setDrag(0);
-
-    camera.getOrientationEuler();
-    camera.getPosition();
-
+    
     fboSample = 4;
 
 	curves.init(i);
