@@ -38,19 +38,14 @@ http://en.wikipedia.org/wiki/Video4Linux
   - Download the latest version of openFrameworks (currently v0.8.4): http://www.openframeworks.cc/download/
   - Clone this (vDome) repository to openFrameworks/apps/myApps
   - Clone to: openFrameworks/addons:
-    - https://github.com/charlesveasey/ofxMultiGLFWWindow
-    - https://github.com/charlesveasey/ofxM3U
     - https://github.com/charlesveasey/ofxBezierSurface
     - https://github.com/charlesveasey/ofxCurvesTool
-    - https://github.com/bakercp/ofxMediaType
 
 ####Mac
   - Suggested IDE: Xcode v5.1.1
   - Syphon needs to be copied to Frameworks
     - Under target, add a Copy Files Build Phase. Drag the Syphon.framework into this phase.
   - Clone to: openFrameworks/addons:
-    - https://github.com/charlesveasey/ofxAVFVideoPlayer
-    - https://github.com/charlesveasey/ofxHapPlayer
     - https://github.com/astellato/ofxSyphon
 
 ####Win
@@ -58,8 +53,6 @@ http://en.wikipedia.org/wiki/Video4Linux
   - ofxWMFPLayer requries updated GLEW library, follow instructions on its repository
   - Clone to: openFrameworks/addons:
     - https://github.com/charlesveasey/ofxWMFVideoPlayer
-    - https://github.com/charlesveasey/ofDirectShowVideoPlayer
-    - https://github.com/charlesveasey/ofxHapPlayer
 
 ####Linux
   - Install openFrameworks dependencies, see INSTALL.md in openFrameworks linux package
