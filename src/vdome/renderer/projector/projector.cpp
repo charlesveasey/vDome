@@ -30,6 +30,7 @@ void Projector::init(int i, int pStartingIndex){
     camera.disableMouseInput();
     camera.setTranslationKey('t');
     camera.setDrag(0);
+	camera.setRotationSensitivity(-.25, -.25, .25);
     
     fboSample = 4;
 
