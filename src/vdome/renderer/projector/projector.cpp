@@ -37,7 +37,7 @@ void Projector::init(int i, int pStartingIndex){
 	curves.init(i);
     
     // create warps
-    mWarps.push_back( WarpPerspectiveBilinear::create() );
+    mWarps.push_back( WarpBilinear::create() );
     mWarps[0]->setBrightness(1.0f);
     mWarps[0]->setContrast(1.0f);
     mWarps[0]->setSaturation(1.0f);
@@ -81,29 +81,37 @@ void Projector::end() {
 //--------------------------------------------------------------
 void Projector::mousePressed(ofMouseEventArgs& mouseArgs) {
     if (!active) return;
-    mouseArgs.x -= x;
-    Warp::handleMouseDown(mWarps, mouseArgs);
+	if (editMode == GRID) {
+		mouseArgs.x -= x;
+		Warp::handleMouseDown(mWarps, mouseArgs);
+	}
 }
 
 //--------------------------------------------------------------
 void Projector::mouseDragged(ofMouseEventArgs& mouseArgs) {
     if (!active) return;
-    mouseArgs.x -= x;
-    Warp::handleMouseDrag(mWarps, mouseArgs);
+	if (editMode == GRID) {
+		mouseArgs.x -= x;
+		Warp::handleMouseDrag(mWarps, mouseArgs);
+	}
 }
 
 //--------------------------------------------------------------
 void Projector::mouseReleased(ofMouseEventArgs& mouseArgs) {
     if (!active) return;
-    mouseArgs.x -= x;
-    Warp::handleMouseUp(mWarps, mouseArgs);
+	if (editMode == GRID) {
+		mouseArgs.x -= x;
+		Warp::handleMouseUp(mWarps, mouseArgs);
+	}
 }
 
 //--------------------------------------------------------------
 void Projector::mouseMoved(ofMouseEventArgs& mouseArgs) {
 	if (!active) return;
-	mouseArgs.x -= x;
-	Warp::handleMouseMove(mWarps, mouseArgs);
+	if (editMode == GRID) {
+		mouseArgs.x -= x;
+		Warp::handleMouseMove(mWarps, mouseArgs);
+	}
 }
 
 //--------------------------------------------------------------
