@@ -305,7 +305,7 @@ void vdome::onFormatEvent(int &s){
 
 //--------------------------------------------------------------
 void vdome::updateInputFormat(){
-    input.setFormat();
+    //input.setFormat();
     
     if (input.format == input.DOMEMASTER){
         for (auto w : windows) {

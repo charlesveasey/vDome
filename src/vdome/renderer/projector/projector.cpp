@@ -29,6 +29,7 @@ void Projector::init(int i, int pStartingIndex){
     
 	camera.setAutoDistance(false);
     camera.disableMouseInput();
+    camera.disableMouseDoubleClick();
     camera.setTranslationKey('t');
     camera.setDrag(0);
 	camera.setRotationSensitivity(-.25, -.25, .25);
@@ -175,7 +176,9 @@ Command* Projector::reset() {
         case CONTRAST:			cmd = new SetContrast(*this, 1);															break;
         case SATURATION:		cmd = new SetSaturation(*this, 1);															break;
         case GRID:				cmd = new ResetGrid(*this);																	break;
-        case FOV:				cmd = new SetCameraFov(*this, 90);															break;
+        case FOV:				cmd = new SetCameraFov(*this, 90);
+            camera.reset(); // FIX
+            break;
     }
 
 	return cmd;

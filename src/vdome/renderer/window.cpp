@@ -184,8 +184,9 @@ void Window::saveXML(ofXml &xml) {
         projectors[i].saveXML(xml);
         xml.setToParent();
     }
+    xml.setToParent();
     
-	// save model settings
+    // save model settings
     model.saveXML(xml);
 }
 
