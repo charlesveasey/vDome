@@ -101,9 +101,8 @@ void Model::setup(){
 //--------------------------------------------------------------
 void Model::draw(){
     ofPushMatrix();
-	//ofRotateX(textureTilt+textureTiltInternal);
-    //ofRotateZ(textureRotate*-1);
-
+	ofRotateX(textureTilt+textureTiltInternal);
+    ofRotateZ(textureRotate*-1);
     glEnable(GL_CULL_FACE);
     glCullFace( GL_BACK );
 	vbo.draw();
