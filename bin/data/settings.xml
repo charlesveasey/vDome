@@ -1,11 +1,10 @@
 <vDome framerate="60" resolution="2048" vsync="on">
 
-  <socket enabled="on" file="" framerate="60" host="localhost" loop="off" receive="3334" resolution="2048" send="3333" source="grid"/>
+  <socket enabled="on" host="localhost" receive="3334" send="3333"/>
 
   <input file="" flip="off" framerate="60" loop="off" rotate="0" scale="1" source="grid" tilt="0"/>
 
-  <window border="on" flip="off" fullscreen="off" position="10,50" resolution="2000,768">
-    <projector fov="90" orientation="0,0,0" position="0,0,1" resolution="1000,768"/>
+  <window border="on" fullscreen="off" position="10,50" resolution="1000,768">
     <projector fov="90" orientation="0,0,0" position="0,0,1" resolution="1000,768"/>
   </window>
 
