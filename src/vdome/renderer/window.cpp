@@ -210,6 +210,11 @@ void Window::mouseMoved(ofMouseEventArgs& mouseArgs) {
 }
 
 //--------------------------------------------------------------
+void Window::mouseScrolled(ofMouseEventArgs& mouseArgs) {
+	menu.mouseScrolled(mouseArgs);
+}
+
+//--------------------------------------------------------------
 void Window::keyPressed(int key){
     ofNotifyEvent(keyPressEvent,key,this);}
 

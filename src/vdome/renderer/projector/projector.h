@@ -32,6 +32,9 @@ public:
 
 	// mouse moved event callback
 	void    mouseMoved(ofMouseEventArgs& mouseArgs);
+
+	// mouse scrolled event callback
+	void    mouseScrolled(ofMouseEventArgs& mouseArgs);
         
     // keyboard pressed callback
     void    keyPressed(int key);

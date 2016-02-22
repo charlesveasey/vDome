@@ -26,7 +26,8 @@ void Projector::init(int i, int pStartingIndex){
     cameraOffset.set(0,0);
 	camera.setNearClip(.1);
 	camera.setFarClip(1000);
-            
+    
+	camera.setAutoDistance(false);
     camera.disableMouseInput();
     camera.setTranslationKey('t');
     camera.setDrag(0);
@@ -85,6 +86,11 @@ void Projector::mousePressed(ofMouseEventArgs& mouseArgs) {
 		mouseArgs.x -= x;
 		Warp::handleMouseDown(mWarps, mouseArgs);
 	}
+	else if (editMode == FOV) {
+		mouseArgs.x -= x;
+		camera.mousePressed(mouseArgs);
+		camera.update(mouseArgs);
+	}
 }
 
 //--------------------------------------------------------------
@@ -94,6 +100,11 @@ void Projector::mouseDragged(ofMouseEventArgs& mouseArgs) {
 		mouseArgs.x -= x;
 		Warp::handleMouseDrag(mWarps, mouseArgs);
 	}
+	else if (editMode == FOV) {
+		mouseArgs.x -= x;
+		camera.mouseDragged(mouseArgs);
+		camera.update(mouseArgs);
+	}
 }
 
 //--------------------------------------------------------------
@@ -102,6 +113,11 @@ void Projector::mouseReleased(ofMouseEventArgs& mouseArgs) {
 	if (editMode == GRID) {
 		mouseArgs.x -= x;
 		Warp::handleMouseUp(mWarps, mouseArgs);
+	}
+	else if (editMode == FOV) {
+		mouseArgs.x -= x;
+		camera.mouseReleased(mouseArgs);
+		camera.update(mouseArgs);
 	}
 }
 
@@ -115,28 +131,38 @@ void Projector::mouseMoved(ofMouseEventArgs& mouseArgs) {
 }
 
 //--------------------------------------------------------------
-void Projector::keyPressed(int key) {
-    if (!active) return;
+void Projector::mouseScrolled(ofMouseEventArgs& mouseArgs) {
+	if (!active) return;
+	if (editMode == FOV) {
+		mouseArgs.x -= x;
+		camera.mouseScrolled(mouseArgs);
+		camera.update(mouseArgs);
+	}
+}
 
-	if (editMode == CURVES)
-        curves.keyPressed(key);
+//--------------------------------------------------------------
+void Projector::keyPressed(int key) {
+    if (!keyboard) return;
+	ofKeyEventArgs event;
+	event.key = key;
+	if (editMode == CURVES) {
+		curves.keyPressed(key);
+	}
 	else if (editMode == GRID) {
 		if (key == 'l' && mWarps.size())
 			mWarps[0]->toggleMappingMode();
+		Warp::handleKeyDown(mWarps, event);
 	}
-
-    ofKeyEventArgs event;
-    event.key = key;
-    Warp::handleKeyDown(mWarps, event);
 }
 
 //--------------------------------------------------------------
 void Projector::keyReleased(int key) {
-    ofKeyEventArgs event;
-    event.key = key;
-   
-    if (keyboard)
-        Warp::handleKeyUp(mWarps, event);
+	if (!active) return;
+	ofKeyEventArgs event;
+	event.key = key;
+	if (editMode == GRID) {
+		Warp::handleKeyUp(mWarps, event);
+	}
 }
 
 //--------------------------------------------------------------

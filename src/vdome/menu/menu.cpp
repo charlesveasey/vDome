@@ -242,7 +242,7 @@ void Menu::update(){
         for (int k = 0; k<projCount; k++) {
             if (projectors->at(k).active) {
                 projectors->at(k).editMode = projectors->at(k).FOV;
-                projectors->at(k).camera.enableMouseInput();
+               // projectors->at(k).camera.enableMouseInput();
             }
         }
     }
@@ -509,6 +509,15 @@ void Menu::mouseMoved(ofMouseEventArgs& mouseArgs) {
 }
 
 //--------------------------------------------------------------
+void Menu::mouseScrolled(ofMouseEventArgs& mouseArgs) {
+	if (active) {
+		for (int i = 0; i<projCount; i++) {
+			projectors->at(i).mouseScrolled(mouseArgs);
+		}
+	}
+}
+
+//--------------------------------------------------------------
 void Menu::keyPressed(int key) {
 
     // SET VALUE
@@ -742,7 +751,7 @@ void Menu::setEditMode() {
         projectors->at(k).editMode = projectors->at(k).NONE;
 		projectors->at(k).curves.enabled = false;
 		projectors->at(k).setWarpActive(false);
-        projectors->at(k).camera.disableMouseInput();
+       // projectors->at(k).camera.disableMouseInput();
     }
 
     int j = (*currentMenu)->currentItem;
@@ -766,7 +775,7 @@ void Menu::setEditMode() {
 				for (int k = 0; k<projCount; k++) {
                     if (projectors->at(k).active){
 						projectors->at(k).editMode = projectors->at(k).FOV;
-                        projectors->at(k).camera.enableMouseInput();
+                       // projectors->at(k).camera.enableMouseInput();
                     }
                 }
 				break;

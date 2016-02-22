@@ -34,6 +34,7 @@ public:
     void    mouseDragged(ofMouseEventArgs& mouseArgs);
     void    mouseReleased(ofMouseEventArgs& mouseArgs);
 	void    mouseMoved(ofMouseEventArgs& mouseArgs);
+	void    mouseScrolled(ofMouseEventArgs& mouseArgs);
 
     void    setVSync(bool val);
     void    setFrameRate(int val);
