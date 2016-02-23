@@ -25,40 +25,34 @@ void vdome::setup(){
     ofSetEscapeQuitsApp(false);
     
     // format xml settings path
-    string dataPath = "data";
-    dataPath = ofFilePath::addLeadingSlash(dataPath);
-    boost::filesystem::path fullPath( boost::filesystem::current_path() );
-    dataPath = fullPath.string() + dataPath;
-    dataPath = ofFilePath::addTrailingSlash(dataPath);
-    
     xmlPath = "settings.xml";
-    xmlPath = dataPath + xmlPath;
     
     // load xml settings from path
-    if (xml.load(xmlPath))
+    if (xml.load(ofToDataPath(xmlPath)))
         loadXML();
-
+    
     // set up input
     setupInput();
     
     // add event listeners
-    ofAddListener(ofEvents().update, this, &vdome::update, 0);
+    //ofAddListener(ofEvents().update, this, &vdome::update, 0);
     ofAddListener(Menu::colorEvent, this, &vdome::onColorEvent);
     ofAddListener(Menu::sourceColorEvent, this, &vdome::onSourceColorEvent);
     ofAddListener(Window::keyPressEvent, this, &vdome::keyPressed);
-	ofAddListener(Window::keyReleaseEvent, this, &vdome::keyReleased);
+    ofAddListener(Window::keyReleaseEvent, this, &vdome::keyReleased);
+    ofAddListener(Window::updateEvent, this, &vdome::update);
     ofAddListener(Socket::sourceEvent, this, &vdome::onSourceEvent);
     ofAddListener(Socket::formatEvent, this, &vdome::onFormatEvent);
-
+    
     // push xml to save thread
     saveThread.xml.push_back(&xml);
     saveThread.files.push_back(xmlPath);
     
     // set warp xml file path
-    string warpPath = dataPath + "settings";
+    string warpPath = ofToDataPath("settings");
     warpPath = ofFilePath::addTrailingSlash(warpPath);
     warpPath += "warp";
-    warpPath = ofFilePath::addTrailingSlash(warpPath);
+    warpPath = ofFilePath::addTrailingSlash(ofToDataPath(warpPath));
     
     //fix: save thread
     for (auto w : windows){
