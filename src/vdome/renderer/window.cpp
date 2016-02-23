@@ -4,6 +4,7 @@ namespace vd {
 //--------------------------------------------------------------
 ofEvent<int>  Window::keyPressEvent = ofEvent<int>();
 ofEvent<int>  Window::keyReleaseEvent = ofEvent<int>();
+ofEvent<int>  Window::updateEvent = ofEvent<int>();
 
 //--------------------------------------------------------------
 Window::Window(){
@@ -24,6 +25,10 @@ void Window::setup(){
     
 //--------------------------------------------------------------
 void Window::update(){
+    if (index == 0){
+        int key = 0;
+        ofNotifyEvent(updateEvent,key,this);
+    }
     
 #ifdef TARGET_WIN32
 	if (input->source == SPOUT)
@@ -217,7 +222,8 @@ void Window::mouseScrolled(ofMouseEventArgs& mouseArgs) {
 
 //--------------------------------------------------------------
 void Window::keyPressed(int key){
-    ofNotifyEvent(keyPressEvent,key,this);}
+    ofNotifyEvent(keyPressEvent,key,this);
+}
 
 //--------------------------------------------------------------
 void Window::keyReleased(int key){

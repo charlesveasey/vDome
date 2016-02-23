@@ -68,7 +68,8 @@ void vdome::setup(){
 }
     
 //--------------------------------------------------------------
-void vdome::update(ofEventArgs & args) {
+void vdome::update(int &n) {
+    
     // input update
     input.update();
     

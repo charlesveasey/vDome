@@ -8,7 +8,7 @@ class vdome {
 public:
     vdome();
     void    setup();
-    void    update(ofEventArgs & args);
+    void    update(int &n);
 
 private:
     void    loadXML();

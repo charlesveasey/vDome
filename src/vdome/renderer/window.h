@@ -49,6 +49,7 @@ public:
     
     static ofEvent<int> keyPressEvent;
     static ofEvent<int> keyReleaseEvent;
+    static ofEvent<int> updateEvent;
 
     vector<Projector>   projectors;
 
