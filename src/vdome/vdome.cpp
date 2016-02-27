@@ -312,7 +312,7 @@ void vdome::updateInputFormat(){
     else if (input.format == input.HD){
         for (auto w : windows) {
             w->model.textureScaleInternal = .5625;
-            w->model.textureTiltInternal = 50;
+            w->model.textureTiltInternal = -50;
             w->model.setup();
         }
     }
