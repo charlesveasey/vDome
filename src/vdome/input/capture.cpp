@@ -49,6 +49,7 @@ ofPixels& Capture::getPixels(){
 }
 
 void Capture::bind(){
+	grabber.getTexture().setTextureWrap(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
     grabber.getTexture().bind();
 }
 
