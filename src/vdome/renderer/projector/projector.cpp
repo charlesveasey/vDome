@@ -5,7 +5,7 @@ namespace vd {
 //--------------------------------------------------------------
 extern int maxHistory;
 extern CommandHistory history;
-    
+
 //--------------------------------------------------------------
 void Projector::init(int i, int pStartingIndex){
     // defaults
@@ -23,7 +23,6 @@ void Projector::init(int i, int pStartingIndex){
     cameraPosition.set(0,0,1);         // azi, ele, dis
     cameraOrientation.set(0,0,0);     // roll, tilt, pan
     cameraFov = 90;
-    cameraOffset.set(0,0);
 	camera.setNearClip(.1);
 	camera.setFarClip(1000);
     
@@ -53,18 +52,10 @@ void Projector::init(int i, int pStartingIndex){
 
 //--------------------------------------------------------------
 void Projector::setup() {
-	camera.setDistance(1);
-
-    // create camera
     camera.setFov(cameraFov);
-
-    // create camera view
     view.setWidth(width);
     view.setHeight(height);
-    
-    // set up color curves
     curves.setup();
-
 	// set up warp
 	Warp::setSize(mWarps, width, height);
     mWarps[0]->setLutTexture(curves.colorlutTextureRef());
@@ -72,9 +63,8 @@ void Projector::setup() {
 
 //--------------------------------------------------------------
 void Projector::begin() {
-	
-	// shear
-	ofMatrix4x4 mat = camera.getProjectionMatrix();
+    // shear
+	ofMatrix4x4 mat = camera.getProjectionMatrix(view);
 	ofMatrix4x4 transform;
 	transform.set(
 		1, shearX, 0, 0,
@@ -88,11 +78,11 @@ void Projector::begin() {
         ofClear(0, 0, 0, 0);
         camera.begin(view);
 
-	// shear
-	ofSetMatrixMode(OF_MATRIX_PROJECTION);
-	ofLoadMatrix(m);
-	ofSetMatrixMode(OF_MATRIX_MODELVIEW);
-	ofLoadMatrix(camera.getModelViewMatrix());
+        // shear
+        ofSetMatrixMode(OF_MATRIX_PROJECTION);
+        ofLoadMatrix(m);
+        ofSetMatrixMode(OF_MATRIX_MODELVIEW);
+        ofLoadMatrix(camera.getModelViewMatrix());
 }
 
 //--------------------------------------------------------------
@@ -433,5 +423,15 @@ void Projector::setShear(float x, float y) {
 	shearX = x;
 	shearY = y;
 }
+    
+void Projector::setPolar(float azi, float ele, float dis){
+    camera.resetTransform();
+    ofVec3f car = sphToCar(ofVec3f(azi, -1*ele, dis));
+    camera.tilt(-90);
+    camera.pan(azi);
+    camera.tilt(ele);
+    camera.setPosition(car.x, car.z, car.y);
+}
+
 
 }/////////

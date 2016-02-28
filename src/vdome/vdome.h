@@ -3,6 +3,7 @@
 #include "socket.h"
 #include "saveThread.h"
 namespace vd {
+
 class vdome {
 
 public:
@@ -29,7 +30,6 @@ private:
 	void    updateSyphonInputTransform();
 #endif
 
-    Socket      socket;
     Input       input;
 
     ofXml       xml;
@@ -42,6 +42,9 @@ private:
         
     vector<shared_ptr<Window>>              windows;
     vector<shared_ptr<ofAppBaseWindow>>     baseWindows;
+    
+    void        socketUpdate();
+    
 
 };
 

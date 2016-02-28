@@ -80,6 +80,8 @@ public:
     void    setSaturation(float b);
 
 	void    setWarpActive(bool b);
+    
+    void    setPolar(float azi, float ele, float dis);
 
 	ofTexture&      getTextureReference();
     
@@ -94,7 +96,6 @@ public:
     bool    mod;
     bool    all;
     void    setValue(float v);
-    ofFbo   renderFbo;
     
     float   brightness, contrast, saturation;
     
@@ -133,8 +134,8 @@ private:
     float           round(float d);
     float           roundTo(float val, float n);
 
-	float	shearX;
-	float	shearY;
+	float           shearX;
+	float           shearY;
 };
 
 

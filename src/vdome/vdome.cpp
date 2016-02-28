@@ -5,11 +5,12 @@ namespace vd {
 //--------------------------------------------------------------
 int maxHistory = 25;
 CommandHistory history;
-    
+Socket         socket;
+
 //--------------------------------------------------------------
 vdome::vdome() {
-    socket.input = &input;
-    input.socket = &socket;
+    //socket.input = &input;
+    //input.socket = &socket;
     vsync = true;
     framerate = 60;
 #ifdef TARGET_OSX
@@ -41,8 +42,9 @@ void vdome::setup(){
     ofAddListener(Window::keyPressEvent, this, &vdome::keyPressed);
     ofAddListener(Window::keyReleaseEvent, this, &vdome::keyReleased);
     ofAddListener(Window::updateEvent, this, &vdome::update);
-    ofAddListener(Socket::sourceEvent, this, &vdome::onSourceEvent);
-    ofAddListener(Socket::formatEvent, this, &vdome::onFormatEvent);
+    ////////////
+    //ofAddListener(Socket::sourceEvent, this, &vdome::onSourceEvent);
+    //ofAddListener(Socket::formatEvent, this, &vdome::onFormatEvent);
     
     // push xml to save thread
     saveThread.xml.push_back(&xml);
@@ -75,16 +77,16 @@ void vdome::update(int &n) {
     
     // socket update
     if (socket.enabled)
-        socket.update();
+        socketUpdate();
     
-    if (input.source == input.MEDIA) {
+    /*if (input.source == input.MEDIA) {
         if (!input.durationSent) {
             if (input.media.getDuration() > 0 && input.media.isLoaded()) {
                 socket.sendDuration();
                 input.durationSent = true;
             }
         }
-    }
+    }*/
     
 #ifdef TARGET_OSX
     else if (input.source == input.SYPHON){
@@ -402,6 +404,104 @@ void vdome::exit(){
     input.close();
 }
 
+void vdome::socketUpdate(){
+    // receive
+    while(socket.oscReceiver.hasWaitingMessages()){
+        socket.rMsg.clear();
+        socket.oscReceiver.getNextMessage(&socket.rMsg);
+        
+        if (socket.rMsg.getAddress() == "/input/"){
+            if (socket.rMsg.getArgAsString(0) == "play")
+                input.play();
+            else if (socket.rMsg.getArgAsString(0) == "stop")
+                input.stop();
+        }
+        else if (socket.rMsg.getAddress() == "/input/loop/") {
+            if (socket.rMsg.getArgAsString(0) == "on")
+                input.setLoop(true);
+            else
+                input.setLoop(false);
+        }
+        else if (socket.rMsg.getAddress() == "/input/seek/") {
+            input.seek(ofToFloat(socket.rMsg.getArgAsString(0)));
+        }
+        else if (socket.rMsg.getAddress() == "/input/source/") {
+            int s = input.convertSourceString(socket.rMsg.getArgAsString(0));
+            //FIX
+            //ofNotifyEvent(sourceEvent,s,this);
+        }
+        else if (socket.rMsg.getAddress() == "/input/file/") {
+            ofFile oFile;
+            oFile.open(socket.rMsg.getArgAsString(0));
+            string file = oFile.getAbsolutePath();
+            input.openFile(file);
+        }
+        else if (socket.rMsg.getAddress() == "/input/volume/") {
+            input.setVolume(ofToFloat(socket.rMsg.getArgAsString(0)));
+        }
+        else if (socket.rMsg.getAddress() == "/input/format/") {
+            int s = input.convertFormatString(socket.rMsg.getArgAsString(0));
+            ///ofNotifyEvent(formatEvent,s,this);
+        }
+        
+        // transform
+        else if (socket.rMsg.getAddress() == "/input/flip/") {
+            string s = socket.rMsg.getArgAsString(0);
+            for (auto w : windows){
+                if (socket.rMsg.getArgAsString(0) == "on")
+                    w->model.setTextureFlip(true);
+                else
+                    w->model.setTextureFlip(false);
+            }
+        }
+        else if (socket.rMsg.getAddress() == "/input/scale/") {
+            float f = ofToFloat(socket.rMsg.getArgAsString(0));
+            for (auto w : windows){
+                w->model.setTextureScale(f);
+            }
+        }
+        else if (socket.rMsg.getAddress() == "/input/rotate/") {
+            float f = ofToFloat(socket.rMsg.getArgAsString(0));
+            for (auto w : windows){
+                w->model.setTextureRotate(f);
+            }
+        }
+        else if (socket.rMsg.getAddress() == "/input/tilt/") {
+            float f = ofToFloat(socket.rMsg.getArgAsString(0));
+            for (auto w : windows){
+                w->model.setTextureTilt(f);
+            }
+        }
+        
+ 
+        // projector
+        else if (socket.rMsg.getAddress() == "/projector/polar/") {
+            string f = socket.rMsg.getArgAsString(0);
+            for (auto w : windows){
+                for (int i=0;i<w->projectors.size(); i++){
+                    float a = ofToFloat(ofSplitString(f, ",")[0]);
+                    float e = ofToFloat(ofSplitString(f, ",")[1]);
+                    cout << a << endl;
+                    cout << e << endl;
+                     w->projectors[i].setPolar(a, e, 1);
+                }
+            }
+        }
+
+        
+    }
+    
+    // send position
+    /*sMsg.clear();
+     if (input->getSourceInt() == input->MEDIA) {
+     if (lastInputPosition != input->getPosition()){
+     sMsg.setAddress("/input/position");
+     sMsg.addStringArg(ofToString( input->getPosition() ));
+     oscSender.sendMessage(sMsg);
+     }
+     lastInputPosition = input->getPosition();
+     }*/
+}
     
 }//////
 

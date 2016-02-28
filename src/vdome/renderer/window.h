@@ -68,6 +68,7 @@ private:
 	bool        fullscreen;
     
     int         maxHistory;
+    
 };
 
 }///////

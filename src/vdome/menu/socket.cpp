@@ -20,77 +20,7 @@ void Socket::setup(){
     
 //--------------------------------------------------------------
 void Socket::update(){
-    // receive
-    while(oscReceiver.hasWaitingMessages()){
-        rMsg.clear();
-		oscReceiver.getNextMessage(&rMsg);
-        
-		if (rMsg.getAddress() == "/input/"){
-            if (rMsg.getArgAsString(0) == "play")         
-				input->play();
-            else if (rMsg.getArgAsString(0) == "stop")         
-				input->stop();
-		}
-		else if (rMsg.getAddress() == "/input/loop/") {
-            if (rMsg.getArgAsString(0) == "on") 				
-				input->setLoop(true);
-            else                                				
-				input->setLoop(false);
-		}
-        else if (rMsg.getAddress() == "/input/seek/") {
-            input->seek(ofToFloat(rMsg.getArgAsString(0)));
-		}
-        else if (rMsg.getAddress() == "/input/source/") {
-            int s = input->convertSourceString(rMsg.getArgAsString(0));
-            ofNotifyEvent(sourceEvent,s,this);
-		}
-        else if (rMsg.getAddress() == "/input/file/") {
-            ofFile oFile;
-            oFile.open(rMsg.getArgAsString(0));
-            string file = oFile.getAbsolutePath();
-            input->openFile(file);
-		}
-        else if (rMsg.getAddress() == "/input/volume/") {
-            input->setVolume(ofToFloat(rMsg.getArgAsString(0)));
-		}
-        else if (rMsg.getAddress() == "/input/format/") {
-            int s = input->convertFormatString(rMsg.getArgAsString(0));
-            ofNotifyEvent(formatEvent,s,this);
-        }
 
-		// transform
-		else if (rMsg.getAddress() == "/input/flip/") {
-            string s = rMsg.getArgAsString(0);
-
-			if (rMsg.getArgAsString(0) == "on")
-				model->setTextureFlip(true);
-			else
-				model->setTextureFlip(false);
-		}
-		else if (rMsg.getAddress() == "/input/scale/") {
-			float f = ofToFloat(rMsg.getArgAsString(0));
-			model->setTextureScale(f);
-		}		
-		else if (rMsg.getAddress() == "/input/rotate/") {
-			float f = ofToFloat(rMsg.getArgAsString(0));
-			model->setTextureRotate(f);
-		}			
-		else if (rMsg.getAddress() == "/input/tilt/") {
-			float f = ofToFloat(rMsg.getArgAsString(0));
-			model->setTextureTilt(f);
-		}			
-	}
-    
-    // send position
-    sMsg.clear();
-    if (input->getSourceInt() == input->MEDIA) {
-		if (lastInputPosition != input->getPosition()){
-			sMsg.setAddress("/input/position");
-			sMsg.addStringArg(ofToString( input->getPosition() ));
-			oscSender.sendMessage(sMsg);
-		}
-		lastInputPosition = input->getPosition();
-	}
 }
     
 //--------------------------------------------------------------

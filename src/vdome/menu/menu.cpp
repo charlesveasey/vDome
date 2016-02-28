@@ -752,7 +752,6 @@ void Menu::setEditMode() {
         projectors->at(k).editMode = projectors->at(k).NONE;
 		projectors->at(k).curves.enabled = false;
 		projectors->at(k).setWarpActive(false);
-       // projectors->at(k).camera.disableMouseInput();
     }
 
     int j = (*currentMenu)->currentItem;
@@ -774,24 +773,20 @@ void Menu::setEditMode() {
 			switch (j) {
 				case FOV:
 					for (int k = 0; k<projCount; k++) {
-						if (projectors->at(k).active){
+						if (projectors->at(k).active)
 							projectors->at(k).editMode = projectors->at(k).FOV;
-						   // projectors->at(k).camera.enableMouseInput();
-						}
 					}
 					break;
 				case SHEARX:
 					for (int k = 0; k<projCount; k++) {
-						if (projectors->at(k).active) {
+						if (projectors->at(k).active)
 							projectors->at(k).editMode = projectors->at(k).SHEARX;
-						}
 					}
 					break;
 				case SHEARY:
 					for (int k = 0; k<projCount; k++) {
-						if (projectors->at(k).active) {
+						if (projectors->at(k).active)
 							projectors->at(k).editMode = projectors->at(k).SHEARY;
-						}
 					}
 					break;
 			}

@@ -1,6 +1,6 @@
 #include "window.h"
 namespace vd {
-
+    
 //--------------------------------------------------------------
 ofEvent<int>  Window::keyPressEvent = ofEvent<int>();
 ofEvent<int>  Window::keyReleaseEvent = ofEvent<int>();

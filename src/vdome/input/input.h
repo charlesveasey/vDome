@@ -14,8 +14,8 @@
 #include "ofxSyphon.h"
 #endif
 
+
 namespace vd {
-class Socket;
     
 class Input {
 
@@ -76,7 +76,6 @@ public:
     Media   media;
     Capture capture;
     Color   color;
-    Socket  *socket;
 
     float   ratio;
     bool    durationSent;

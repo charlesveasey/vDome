@@ -3,10 +3,10 @@
 #include "ofxOsc.h"
 #include "input.h"
 #include "model.h"
+
 namespace vd {
 class Input;
 class Model;
-
 class Socket {
 
 public:
@@ -28,13 +28,15 @@ public:
     static	ofEvent<int> sourceEvent;
     static	ofEvent<int> formatEvent;
 
-private:
     ofxOscSender    oscSender;
     ofxOscReceiver  oscReceiver;
     ofxOscMessage   sMsg;
     ofxOscMessage   rMsg;
 
 	float			lastInputPosition;
+    
+private:
+
 };
 
 }

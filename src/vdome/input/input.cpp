@@ -8,6 +8,7 @@ namespace vd {
     
 extern int maxHistory;
 extern CommandHistory history;
+extern Socket socket;
 
 Input::Input(){
     durationSent = false;
@@ -256,7 +257,7 @@ void Input::setVolume(float v){
 
 void Input::mediaEnd(bool &end){
     if (!endSent) {
-        socket->sendEnd();
+        socket.sendEnd();
         endSent = true;
     }
 }
