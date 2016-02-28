@@ -85,7 +85,7 @@ public:
     enum warpItems  { GRID };
     enum colorItems { SATURATION, COLOR_CURVES };
 	enum blendItems { BRIGHTNESS, CONTRAST };
-	enum viewItems  { FOV };
+	enum viewItems  { FOV, SHEARX, SHEARY };
 
 	// Layout
     // X-position

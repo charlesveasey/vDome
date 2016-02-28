@@ -57,59 +57,31 @@ public:
     // reset undo / redo commnads
 	Command*    reset();
     
-    // get render plane x,y position
     ofPoint getPlanePosition();
-    
-    // set plane x,y position
     void    setPlanePosition(int x, int y);
 
-    // get width
     int     getWidth();
-    
-    // get height
     int     getHeight();
-
-    // set warp active
-    void    setWarpActive(bool b);
     
-    // get camera position
     ofVec3f getCameraPosition();
-
-    // set camera position
     void    setCameraPosition(float azi, float ele, float dis);
     
-    // get camera orientation
     ofVec3f getCameraOrientation();
-    
-    // set camera orientation
     void    setCameraOrientation(float roll, float tilt, float pan);
     
-    // get camera field of view
     float   getCameraFov();
-    
-    //set camera field of view
     void    setCameraFov(float v);
-    
-    // get camera lens offset
-    ofVec2f getCameraOffset();
-    
-    // set camera lens offset
-    void    setCameraOffset(float x, float y);
-    
-    // get texture reference
-    ofTexture&      getTextureReference();
 
-    // set brightness
-    void    setBrightness(float b);
+	ofPoint	getShear();
+	void	setShear(float x, float y);
     
-    // set contrast
+	void    setBrightness(float b);
     void    setContrast(float b);
-    
-    // set saturation
     void    setSaturation(float b);
 
-    
-    void onColorSourceEvent(int &source);
+	void    setWarpActive(bool b);
+
+	ofTexture&      getTextureReference();
     
     // projector index
     int     index;
@@ -132,7 +104,7 @@ public:
     int     projectorStartingIndex;
     
     enum    editModes{
-                BRIGHTNESS,CONTRAST,SATURATION,
+                BRIGHTNESS,CONTRAST,SATURATION, SHEARX, SHEARY,
                 CURVES, GRID, FOV, NONE, WHITE, BLACK, ENABLE};
     
 	ofEasyCam        camera;
@@ -149,7 +121,6 @@ private:
     ofVec3f         cameraOrientation;
     float           cameraFov;
     ofVec2f         cameraOffset;
-    ofVec2f         cameraScale;
 
     ofMatrix4x4     transform;
     
@@ -161,7 +132,9 @@ private:
     ofVec3f         sphToCar(ofVec3f t);
     float           round(float d);
     float           roundTo(float val, float n);
-    
+
+	float	shearX;
+	float	shearY;
 };
 
 

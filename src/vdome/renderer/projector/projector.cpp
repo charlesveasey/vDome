@@ -34,6 +34,9 @@ void Projector::init(int i, int pStartingIndex){
     camera.setDrag(0);
 	camera.setRotationSensitivity(-.25, -.25, .25);
     
+	shearX = 0;
+	shearY = 0;
+
     fboSample = 4;
 
 	curves.init(i);
@@ -69,9 +72,27 @@ void Projector::setup() {
 
 //--------------------------------------------------------------
 void Projector::begin() {
+	
+	// shear
+	ofMatrix4x4 mat = camera.getProjectionMatrix();
+	ofMatrix4x4 transform;
+	transform.set(
+		1, shearX, 0, 0,
+		0, 1, shearY, 0,
+		0, 0, 1, 0,
+		0, 0, 0, 1);
+	ofMatrix4x4 m;
+	m.makeFromMultiplicationOf(transform, mat);
+
     mWarps[0]->begin();
         ofClear(0, 0, 0, 0);
         camera.begin(view);
+
+	// shear
+	ofSetMatrixMode(OF_MATRIX_PROJECTION);
+	ofLoadMatrix(m);
+	ofSetMatrixMode(OF_MATRIX_MODELVIEW);
+	ofLoadMatrix(camera.getModelViewMatrix());
 }
 
 //--------------------------------------------------------------
@@ -179,6 +200,8 @@ Command* Projector::reset() {
         case FOV:				cmd = new SetCameraFov(*this, 90);
             camera.reset(); // FIX
             break;
+		case SHEARX:			cmd = new SetShear(*this, 0, shearY);														break;
+		case SHEARY:			cmd = new SetShear(*this, shearX, 0);														break;
     }
 
 	return cmd;
@@ -200,6 +223,8 @@ Command* Projector::execute(float v) {
         case SATURATION:		cmd = new SetSaturation(*this, saturation + v * .1);															break;
        // case GRID:				cmd = new SetGridPoints(*this, plane.getGridPoints(), lastGrid);												break;
         case FOV:				cmd = new SetCameraFov(*this, cameraFov + v);																	break;
+		case SHEARX:			cmd = new SetShear(*this, shearX + v*.01, shearY);																break;
+		case SHEARY:			cmd = new SetShear(*this, shearX, shearY + v*.01);																break;
     }
     
     return cmd;
@@ -214,7 +239,7 @@ void Projector::loadXML(ofXml &xml) {
         str = xml.getAttribute("[@resolution]");
         width = ofToFloat(ofSplitString(str, ",")[0]);
         height = ofToFloat(ofSplitString(str, ",")[1]);
-    }    
+    }
 }
 
 //--------------------------------------------------------------
@@ -248,6 +273,15 @@ void Projector::loadXML2(ofXml &xml) {
         val = ofToFloat( xml.getAttribute("[@fov]") );
         setCameraFov(val);
     }
+
+	// shear
+	if (xml.exists("[@shear]")) {
+		str = xml.getAttribute("[@shear]");
+		float x = ofToFloat(ofSplitString(str, ",")[0]);
+		float y = ofToFloat(ofSplitString(str, ",")[1]);
+		setShear(x, y);
+	}
+
     // color curves settings
 	curves.load(projectorStartingIndex);
 
@@ -260,10 +294,11 @@ void Projector::loadXML2(ofXml &xml) {
 //--------------------------------------------------------------
 void Projector::saveXML(ofXml &xml) {
     //camera settings
-    xml.setAttribute("position", ofToString(roundTo(camera.getPosition().x, .01)) +  "," + ofToString(roundTo(camera.getPosition().y, .01)) +  "," + ofToString(roundTo(camera.getPosition().z, .01)) );
-    xml.setAttribute("orientation", ofToString(roundTo(camera.getOrientationEuler().x, .01)) +  "," + ofToString(roundTo(camera.getOrientationEuler().y, .01)) +  "," + ofToString(roundTo(camera.getOrientationEuler().z, .01)) );
-    xml.setAttribute("fov", ofToString(roundTo(cameraFov, .01)));
-    
+    xml.setAttribute("position", ofToString(roundTo(camera.getPosition().x, .0001)) +  "," + ofToString(roundTo(camera.getPosition().y, .0001)) +  "," + ofToString(roundTo(camera.getPosition().z, .0001)) );
+    xml.setAttribute("orientation", ofToString(roundTo(camera.getOrientationEuler().x, .0001)) +  "," + ofToString(roundTo(camera.getOrientationEuler().y, .0001)) +  "," + ofToString(roundTo(camera.getOrientationEuler().z, .0001)) );
+    xml.setAttribute("fov", ofToString(roundTo(cameraFov, .0001)));
+	xml.setAttribute("shear", ofToString(roundTo(shearX, .0001)) + "," + ofToString(roundTo(shearY, .0001)) );
+
     // warp settings
     Warp::writeSettings( mWarps, warpSettings );
     
@@ -387,6 +422,16 @@ void Projector::setSaturation(float b){
         mWarps[0]->setSaturation(b);
     }
 }
-    
+
+//--------------------------------------------------------------
+ofPoint Projector::getShear() {
+	return ofPoint(shearX, shearY);
+}
+
+//--------------------------------------------------------------
+void Projector::setShear(float x, float y) {
+	shearX = x;
+	shearY = y;
+}
 
 }/////////

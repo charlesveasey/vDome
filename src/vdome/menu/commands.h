@@ -147,19 +147,19 @@ public:
     void redo() { obj.setCameraFov(v); }
 };
     
-class SetCameraOffset : public Command {
+class SetShear : public Command {
 protected:
-    Projector& obj;
-    float x, y;
-    ofVec2f l;
+	Projector& obj;
+	float x, y;
+	ofPoint l;
 public:
-    SetCameraOffset(Projector& obj, float x, float y) : obj(obj), x(x), y(y) {}
-    void execute() {
-        l = obj.getCameraOffset();
-        obj.setCameraOffset(x,y);
-    }
-    void undo() { obj.setCameraOffset(l.x, l.y); }
-    void redo() { obj.setCameraOffset(x, y);  }
+	SetShear(Projector& obj, float x, float y) : obj(obj), x(x), y(y) {}
+	void execute() {
+		l = obj.getShear();
+		obj.setShear(x, y);
+	}
+	void undo() { obj.setShear(l.x, l.y); }
+	void redo() { obj.setShear(x, y); }
 };
 
 }////////////

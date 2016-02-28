@@ -30,6 +30,8 @@ Menu::Menu(){
 	menuView->parent = &menuMain;
 	menuView->currentItem = 0;
 	menuView->items.push_back(new Item("Field of View"));
+	menuView->items.push_back(new Item("Shear X"));
+	menuView->items.push_back(new Item("Shear Y"));
 
     // warp menu
     menuWarp = new MenuItem;
@@ -185,9 +187,15 @@ void Menu::drawMain(int i){
                     break;
 				case VIEW:
 					switch (j) {
-					case FOV:
-						val = ofToString(roundTo(projectors->at(i).getCameraFov(), .1));
-						break;
+						case FOV:
+							val = ofToString(roundTo(projectors->at(i).getCameraFov(), .1));
+							break;
+						case SHEARX:
+							val = ofToString(roundTo(projectors->at(i).getShear().x, .001));
+							break;
+						case SHEARY:
+							val = ofToString(roundTo(projectors->at(i).getShear().y, .001));
+							break;
 					}
 					break;
             }
@@ -238,14 +246,7 @@ void Menu::update(){
        ofNotifyEvent(colorEvent,currentColor,this);
     }
     
-    if ((*currentMenu)->menuId == VIEW) {
-        for (int k = 0; k<projCount; k++) {
-            if (projectors->at(k).active) {
-                projectors->at(k).editMode = projectors->at(k).FOV;
-               // projectors->at(k).camera.enableMouseInput();
-            }
-        }
-    }
+
 	if ((*currentMenu)->menuId == WARP) {
 		for (int k = 0; k<projCount; k++) {
 			if (projectors->at(k).active) {
@@ -771,15 +772,30 @@ void Menu::setEditMode() {
 		
 		case VIEW:
 			switch (j) {
-			case FOV:
-				for (int k = 0; k<projCount; k++) {
-                    if (projectors->at(k).active){
-						projectors->at(k).editMode = projectors->at(k).FOV;
-                       // projectors->at(k).camera.enableMouseInput();
-                    }
-                }
-				break;
+				case FOV:
+					for (int k = 0; k<projCount; k++) {
+						if (projectors->at(k).active){
+							projectors->at(k).editMode = projectors->at(k).FOV;
+						   // projectors->at(k).camera.enableMouseInput();
+						}
+					}
+					break;
+				case SHEARX:
+					for (int k = 0; k<projCount; k++) {
+						if (projectors->at(k).active) {
+							projectors->at(k).editMode = projectors->at(k).SHEARX;
+						}
+					}
+					break;
+				case SHEARY:
+					for (int k = 0; k<projCount; k++) {
+						if (projectors->at(k).active) {
+							projectors->at(k).editMode = projectors->at(k).SHEARY;
+						}
+					}
+					break;
 			}
+
 			break;
 
         case WARP:
