@@ -157,9 +157,17 @@ void vdome::loadXML(){
     
     for (int i=0; i<windows.size(); i++) {
         ofGetMainLoop()->setCurrentWindow(baseWindows[i]);
-        windows[i]->setFrameRate(framerate);
+        
+		windows[i]->setFrameRate(framerate);
         windows[i]->setVSync(vsync);
         windows[i]->loadXML(xml);
+
+		// create master projector list
+		int len = windows[i]->projectors.size();
+		for (int i = 0; i < len; i++) {
+			projectors.push_back(&windows[i]->projectors.at(i));
+		}
+
     }
     ofGetMainLoop()->setCurrentWindow(baseWindows[0]);
 }
@@ -227,7 +235,7 @@ void vdome::createWindow(ofXml &xml){
             app->input = &input; //fix
             app->projectorStartingIndex = projectorIndex;
             app->menu.projectorStartingIndex = projectorIndex;
- 
+			 
 			if (i == 0) {
 				socket.model = &app->model;
 			}
@@ -403,7 +411,7 @@ void vdome::exit(){
     input.stop();
     input.close();
 }
-
+//--------------------------------------------------------------
 void vdome::socketUpdate(){
     // receive
     while(socket.oscReceiver.hasWaitingMessages()){
@@ -477,15 +485,9 @@ void vdome::socketUpdate(){
         // projector
         else if (socket.rMsg.getAddress() == "/projector/polar/") {
             string f = socket.rMsg.getArgAsString(0);
-            for (auto w : windows){
-                for (int i=0;i<w->projectors.size(); i++){
-                    float a = ofToFloat(ofSplitString(f, ",")[0]);
-                    float e = ofToFloat(ofSplitString(f, ",")[1]);
-                    cout << a << endl;
-                    cout << e << endl;
-                     w->projectors[i].setPolar(a, e, 1);
-                }
-            }
+			float a = ofToFloat(ofSplitString(f, ",")[0]);
+			float e = ofToFloat(ofSplitString(f, ",")[1]);
+			projectors[0]->setPolar(a, e, 1);
         }
 
         

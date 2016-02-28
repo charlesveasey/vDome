@@ -43,6 +43,9 @@ private:
     vector<shared_ptr<Window>>              windows;
     vector<shared_ptr<ofAppBaseWindow>>     baseWindows;
     
+
+	vector<Projector*>              projectors;
+
     void        socketUpdate();
     
 
