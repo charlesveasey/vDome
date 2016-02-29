@@ -426,9 +426,9 @@ void Projector::setShear(float x, float y) {
     
 void Projector::setPolar(float azi, float ele, float dis){
     camera.resetTransform();
-    ofVec3f car = sphToCar(ofVec3f(azi, -1*ele, dis));
+    ofVec3f car = sphToCar(ofVec3f(-1*azi, -1*ele, dis));
     camera.tilt(-90);
-    camera.pan(azi);
+    camera.pan(-1*azi);
     camera.tilt(ele);
     camera.setPosition(car.x, car.z, car.y);
 }

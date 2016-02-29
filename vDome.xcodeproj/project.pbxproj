@@ -15,6 +15,7 @@
 		4ADB88E2FB52E76A471065DE /* ofxOscParameterSync.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AED834CE4DEC5260AF302A2 /* ofxOscParameterSync.cpp */; };
 		4D508D34156E7076531D9084 /* Syphon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D58DCB2C0AEFDE6171E29540 /* Syphon.framework */; };
 		510CAFE035E576A4E1502D52 /* UdpSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E6DEF695B88BA5FAACEAA937 /* UdpSocket.cpp */; };
+		5613C2D01C83E07C000CFFDB /* systemUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5613C2CE1C83E07C000CFFDB /* systemUtil.cpp */; };
 		56F1FF161C2284AA00391F3C /* capture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56F1FECF1C2284AA00391F3C /* capture.cpp */; };
 		56F1FF171C2284AA00391F3C /* color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56F1FED11C2284AA00391F3C /* color.cpp */; };
 		56F1FF181C2284AA00391F3C /* input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56F1FED31C2284AA00391F3C /* input.cpp */; };
@@ -100,6 +101,8 @@
 		46BBCC26D60B589958BF0D03 /* ofxSyphonServer.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxSyphonServer.h; path = ../../../addons/ofxSyphon/src/ofxSyphonServer.h; sourceTree = SOURCE_ROOT; };
 		48974F980F51769171D0B2F5 /* IpEndpointName.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = IpEndpointName.h; path = ../../../addons/ofxOsc/libs/oscpack/src/ip/IpEndpointName.h; sourceTree = SOURCE_ROOT; };
 		4E95FB446A9C9C6F0DE12D75 /* OscPrintReceivedElements.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = OscPrintReceivedElements.h; path = ../../../addons/ofxOsc/libs/oscpack/src/osc/OscPrintReceivedElements.h; sourceTree = SOURCE_ROOT; };
+		5613C2CE1C83E07C000CFFDB /* systemUtil.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = systemUtil.cpp; sourceTree = "<group>"; };
+		5613C2CF1C83E07C000CFFDB /* systemUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = systemUtil.h; sourceTree = "<group>"; };
 		56F1FECF1C2284AA00391F3C /* capture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = capture.cpp; sourceTree = "<group>"; };
 		56F1FED01C2284AA00391F3C /* capture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = capture.h; sourceTree = "<group>"; };
 		56F1FED11C2284AA00391F3C /* color.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = color.cpp; sourceTree = "<group>"; };
@@ -330,6 +333,8 @@
 		56F1FEFB1C2284AA00391F3C /* menu */ = {
 			isa = PBXGroup;
 			children = (
+				5613C2CE1C83E07C000CFFDB /* systemUtil.cpp */,
+				5613C2CF1C83E07C000CFFDB /* systemUtil.h */,
 				56F1FEFC1C2284AA00391F3C /* command.cpp */,
 				56F1FEFD1C2284AA00391F3C /* command.h */,
 				56F1FEFE1C2284AA00391F3C /* commands.h */,
@@ -621,6 +626,7 @@
 				368CCF86BF3EF63BAFDFA84A /* ofxCurvesTool.cpp in Sources */,
 				72A929D3561B8232A182ABFC /* ofxOscBundle.cpp in Sources */,
 				5864AD82E20F15536D054EA3 /* ofxOscMessage.cpp in Sources */,
+				5613C2D01C83E07C000CFFDB /* systemUtil.cpp in Sources */,
 				4ADB88E2FB52E76A471065DE /* ofxOscParameterSync.cpp in Sources */,
 				640279EE111671BD026CB013 /* ofxOscReceiver.cpp in Sources */,
 				8F5205AEF8861EF234F0651A /* ofxOscSender.cpp in Sources */,

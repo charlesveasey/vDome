@@ -2,6 +2,7 @@
 #include "window.h"
 #include "socket.h"
 #include "saveThread.h"
+#include "systemUtil.h"
 namespace vd {
 
 class vdome {
@@ -39,7 +40,8 @@ private:
     bool        vsync;
     int         framerate;
     int         cKey;
-        
+    int         mouseMovePending;
+
     vector<shared_ptr<Window>>              windows;
     vector<shared_ptr<ofAppBaseWindow>>     baseWindows;
     

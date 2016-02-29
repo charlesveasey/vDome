@@ -1,6 +1,8 @@
 #pragma once
 #include "ofMain.h"
 #include "projector.h"
+#include "systemUtil.h"
+
 namespace vd {
 
 class Item {

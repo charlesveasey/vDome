@@ -25,9 +25,6 @@ public:
     Input   *input;
 	Model	*model;
 
-    static	ofEvent<int> sourceEvent;
-    static	ofEvent<int> formatEvent;
-
     ofxOscSender    oscSender;
     ofxOscReceiver  oscReceiver;
     ofxOscMessage   sMsg;

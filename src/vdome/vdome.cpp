@@ -13,6 +13,7 @@ vdome::vdome() {
     //input.socket = &socket;
     vsync = true;
     framerate = 60;
+    mouseMovePending = -1;
 #ifdef TARGET_OSX
     cKey = OF_KEY_COMMAND;
 #else
@@ -42,10 +43,7 @@ void vdome::setup(){
     ofAddListener(Window::keyPressEvent, this, &vdome::keyPressed);
     ofAddListener(Window::keyReleaseEvent, this, &vdome::keyReleased);
     ofAddListener(Window::updateEvent, this, &vdome::update);
-    ////////////
-    //ofAddListener(Socket::sourceEvent, this, &vdome::onSourceEvent);
-    //ofAddListener(Socket::formatEvent, this, &vdome::onFormatEvent);
-    
+
     // push xml to save thread
     saveThread.xml.push_back(&xml);
     saveThread.files.push_back(xmlPath);
@@ -411,8 +409,30 @@ void vdome::exit(){
     input.stop();
     input.close();
 }
+    
 //--------------------------------------------------------------
 void vdome::socketUpdate(){
+    
+    if (mouseMovePending > -1){
+        // move mouse to new selection
+        ofPoint p;
+        p.x = projectors[mouseMovePending]->getPlanePosition().x+projectors[mouseMovePending]->getWidth()/2;
+        p.y = projectors[mouseMovePending]->getPlanePosition().y+projectors[mouseMovePending]->getHeight()/2;
+        systemUtil::moveMouse(p);
+        
+        for (auto w : windows){
+            w->menu.active = true;
+            int len = w->projectors.size();
+            for (int i=0; i<len; i++){
+                if  (w->projectors[i].index == mouseMovePending){
+                    baseWindows[i]->showCursor();
+                }
+            }
+        }
+        mouseMovePending = -1;
+    }
+    
+    
     // receive
     while(socket.oscReceiver.hasWaitingMessages()){
         socket.rMsg.clear();
@@ -435,8 +455,7 @@ void vdome::socketUpdate(){
         }
         else if (socket.rMsg.getAddress() == "/input/source/") {
             int s = input.convertSourceString(socket.rMsg.getArgAsString(0));
-            //FIX
-            //ofNotifyEvent(sourceEvent,s,this);
+            onSourceEvent(s);
         }
         else if (socket.rMsg.getAddress() == "/input/file/") {
             ofFile oFile;
@@ -449,7 +468,7 @@ void vdome::socketUpdate(){
         }
         else if (socket.rMsg.getAddress() == "/input/format/") {
             int s = input.convertFormatString(socket.rMsg.getArgAsString(0));
-            ///ofNotifyEvent(formatEvent,s,this);
+            onFormatEvent(s);
         }
         
         // transform
@@ -483,26 +502,58 @@ void vdome::socketUpdate(){
         
  
         // projector
+        else if (socket.rMsg.getAddress() == "/projector/menu/") {
+            for (auto w : windows){
+                if (socket.rMsg.getArgAsString(0) == "on")
+                    w->menu.active = true;
+                else
+                    w->menu.active = false;
+            }
+        }
+        else if (socket.rMsg.getAddress() == "/projector/enable/") {
+            string f = socket.rMsg.getArgAsString(0);
+            int i = ofToFloat(ofSplitString(f, ",")[0]);
+            string s = ofToString(ofSplitString(f, ",")[1]);
+            if (s == "on")
+                projectors[i]->enable = true;
+            else
+                projectors[i]->enable = false;
+            
+        }
         else if (socket.rMsg.getAddress() == "/projector/polar/") {
             string f = socket.rMsg.getArgAsString(0);
-			float a = ofToFloat(ofSplitString(f, ",")[0]);
-			float e = ofToFloat(ofSplitString(f, ",")[1]);
-			projectors[0]->setPolar(a, e, 1);
+            int i = ofToInt(ofSplitString(f, ",")[0]);
+            float a = ofToFloat(ofSplitString(f, ",")[1]);
+            float e = ofToFloat(ofSplitString(f, ",")[2]);
+            projectors[i]->setPolar(a, e, 1);
         }
-
+        else if (socket.rMsg.getAddress() == "/projector/focus/"){
+            systemUtil::setAppFocus();
+            int i = ofToInt(socket.rMsg.getArgAsString(0));
+            
+            for (auto w : windows){
+                w->menu.active = true;
+            }
+            projectors[i]->active = true;
+            projectors[i]->mouse = true;
+            projectors[i]->keyboard = true;
+            mouseMovePending = i;
+        }
         
     }
     
+
+    
     // send position
-    /*sMsg.clear();
-     if (input->getSourceInt() == input->MEDIA) {
-     if (lastInputPosition != input->getPosition()){
-     sMsg.setAddress("/input/position");
-     sMsg.addStringArg(ofToString( input->getPosition() ));
-     oscSender.sendMessage(sMsg);
+    socket.sMsg.clear();
+     if (input.getSourceInt() == input.MEDIA) {
+         if (socket.lastInputPosition != input.getPosition()){
+             socket.sMsg.setAddress("/input/position");
+             socket.sMsg.addStringArg(ofToString( input.getPosition() ));
+             socket.oscSender.sendMessage(socket.sMsg);
+         }
+         socket.lastInputPosition = input.getPosition();
      }
-     lastInputPosition = input->getPosition();
-     }*/
 }
     
 }//////

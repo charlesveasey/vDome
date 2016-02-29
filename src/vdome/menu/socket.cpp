@@ -2,9 +2,6 @@
 namespace vd {
     
 //--------------------------------------------------------------
-ofEvent<int> Socket::sourceEvent = ofEvent<int>();
-ofEvent<int> Socket::formatEvent = ofEvent<int>();
-
 Socket::Socket(){
     enabled = true;
     host = "localhost";
@@ -19,9 +16,7 @@ void Socket::setup(){
 }
     
 //--------------------------------------------------------------
-void Socket::update(){
-
-}
+void Socket::update(){}
     
 //--------------------------------------------------------------
 void Socket::sendDuration(){

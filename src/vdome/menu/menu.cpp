@@ -721,10 +721,12 @@ void Menu::keyPressed(int key) {
 
             //fix: need to set mouse active using native window
            if (projectors->at(pActive).active) {
-               shared_ptr<ofAppGLFWWindow> glfw =
-                    static_pointer_cast<ofAppGLFWWindow>(ofGetMainLoop()->getCurrentWindow());
                
-              glfwSetCursorPos(glfw->getGLFWWindow(), xmouse, ymouse);               
+               ofPoint p;
+               p.x = xmouse;
+               p.y = ymouse;
+               systemUtil::moveMouse(p);
+            
            }
             
            setEditMode();
