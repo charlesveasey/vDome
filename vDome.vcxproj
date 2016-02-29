@@ -218,6 +218,7 @@
     <ClCompile Include="src\vdome\menu\command.cpp" />
     <ClCompile Include="src\vdome\menu\menu.cpp" />
     <ClCompile Include="src\vdome\menu\socket.cpp" />
+    <ClCompile Include="src\vdome\menu\systemUtil.cpp" />
     <ClCompile Include="src\vdome\renderer\model.cpp" />
     <ClCompile Include="src\vdome\renderer\projector\curves.cpp" />
     <ClCompile Include="src\vdome\renderer\projector\projector.cpp" />
@@ -438,6 +439,7 @@
     <ClInclude Include="src\vdome\menu\menu.h" />
     <ClInclude Include="src\vdome\menu\saveThread.h" />
     <ClInclude Include="src\vdome\menu\socket.h" />
+    <ClInclude Include="src\vdome\menu\systemUtil.h" />
     <ClInclude Include="src\vdome\renderer\model.h" />
     <ClInclude Include="src\vdome\renderer\projector\curves.h" />
     <ClInclude Include="src\vdome\renderer\projector\projector.h" />

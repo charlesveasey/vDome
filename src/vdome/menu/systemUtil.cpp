@@ -19,6 +19,7 @@ void systemUtil::setAppFocus() {
         [appWindow makeKeyAndOrderFront:appWindow];
     }
 #elif defined(TARGET_WIN32)
+	SetFocus(ofGetWin32Window());
 #endif
     
 }

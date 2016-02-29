@@ -157,6 +157,9 @@
     <ClCompile Include="src\vdome\renderer\projector\projector.cpp">
       <Filter>src\vdome\renderer\projector</Filter>
     </ClCompile>
+    <ClCompile Include="src\vdome\menu\systemUtil.cpp">
+      <Filter>src\vdome\menu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -910,6 +913,9 @@
     </ClInclude>
     <ClInclude Include="src\vdome\renderer\projector\projector.h">
       <Filter>src\vdome\renderer\projector</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\menu\systemUtil.h">
+      <Filter>src\vdome\menu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
