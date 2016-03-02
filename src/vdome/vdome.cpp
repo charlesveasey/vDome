@@ -162,8 +162,8 @@ void vdome::loadXML(){
 
 		// create master projector list
 		int len = windows[i]->projectors.size();
-		for (int i = 0; i < len; i++) {
-			projectors.push_back(&windows[i]->projectors.at(i));
+		for (int j = 0; j < len; j++) {
+			projectors.push_back(&windows[i]->projectors.at(j));
 		}
 
     }
