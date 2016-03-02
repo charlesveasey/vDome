@@ -16,7 +16,6 @@ vdome::vdome() {
 #else
     cKey = OF_KEY_CONTROL;
 #endif
-    
 }
     
 //--------------------------------------------------------------
@@ -189,6 +188,8 @@ void vdome::loadXML(){
 
 //--------------------------------------------------------------
 void vdome::saveXML(){
+	xml.load(ofToDataPath(xmlPath));
+
     socket.saveXML(xml);
     input.saveXML(xml);
     
