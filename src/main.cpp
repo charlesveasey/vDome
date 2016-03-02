@@ -23,5 +23,5 @@ int main( ){
     
 	// start vdome
     vd::vdome vdome;
-    vdome.setup();
+    vdome.init();
 }

@@ -5,14 +5,22 @@ namespace vd {
 ofEvent<int>  Window::keyPressEvent = ofEvent<int>();
 ofEvent<int>  Window::keyReleaseEvent = ofEvent<int>();
 ofEvent<int>  Window::updateEvent = ofEvent<int>();
+ofEvent<int>  Window::setupEvent = ofEvent<int>();
 
 //--------------------------------------------------------------
 Window::Window(){
     fullscreen = false;
 }
 
-//--------------------------------------------------------------
 void Window::setup(){
+    if (index == 0){
+        int key = 0;
+        ofNotifyEvent(setupEvent,key,this);
+    }
+}
+    
+//--------------------------------------------------------------
+void Window::init(){
     ofHideCursor();
     ofBackground(0,0,0);
     ofEnableAntiAliasing();
@@ -26,8 +34,7 @@ void Window::setup(){
 //--------------------------------------------------------------
 void Window::update(){
     if (index == 0){
-        int key = 0;
-        ofNotifyEvent(updateEvent,key,this);
+        ofNotifyEvent(updateEvent,x,this);
     }
     
 #ifdef TARGET_WIN32
@@ -131,7 +138,7 @@ void Window::loadXML(ofXml &xml) {
     }
 
     // initialize window settings
-    setup();
+    init();
 
     //get projector count from  xml
     int projectorCount = xml.getNumChildren("projector");

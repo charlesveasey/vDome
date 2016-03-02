@@ -9,7 +9,8 @@ class vdome {
 
 public:
     vdome();
-    void    setup();
+    void    init();
+    void    setup(int &n);
     void    update(int &n);
 
 private:
@@ -20,10 +21,12 @@ private:
     void    updateInputFormat();
     void    updateInputTransform();
     void    exit();
+    
     void    onColorEvent(ofVec3f &color);
     void    onSourceEvent(int &s);
     void    onFormatEvent(int &s);
     void    onSourceColorEvent(int &s);
+    
     void    keyPressed(int &key);
     void    keyReleased(int &key);
 

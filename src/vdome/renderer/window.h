@@ -19,8 +19,8 @@ class Window : public ofBaseApp {
 
 public:
     Window();
-
     void    setup();
+    void    init();
     void    update();
     void    draw();
     
@@ -50,6 +50,7 @@ public:
     static ofEvent<int> keyPressEvent;
     static ofEvent<int> keyReleaseEvent;
     static ofEvent<int> updateEvent;
+    static ofEvent<int> setupEvent;
 
     vector<Projector>   projectors;
 
@@ -68,7 +69,7 @@ private:
 	bool        fullscreen;
     
     int         maxHistory;
-    
+
 };
 
 }///////

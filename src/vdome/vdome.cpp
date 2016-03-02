@@ -7,10 +7,7 @@ int maxHistory = 25;
 CommandHistory history;
 Socket         socket;
 
-//--------------------------------------------------------------
 vdome::vdome() {
-    //socket.input = &input;
-    //input.socket = &socket;
     vsync = true;
     framerate = 60;
     mouseMovePending = -1;
@@ -19,31 +16,18 @@ vdome::vdome() {
 #else
     cKey = OF_KEY_CONTROL;
 #endif
+    
 }
     
 //--------------------------------------------------------------
-void vdome::setup(){
+void vdome::init() {
     // remove esc quits
     ofSetEscapeQuitsApp(false);
     
     // format xml settings path
     xmlPath = "settings.xml";
     
-    // load xml settings from path
-    if (xml.load(ofToDataPath(xmlPath)))
-        loadXML();
     
-    // set up input
-    setupInput();
-    
-    // add event listeners
-    //ofAddListener(ofEvents().update, this, &vdome::update, 0);
-    ofAddListener(Menu::colorEvent, this, &vdome::onColorEvent);
-    ofAddListener(Menu::sourceColorEvent, this, &vdome::onSourceColorEvent);
-    ofAddListener(Window::keyPressEvent, this, &vdome::keyPressed);
-    ofAddListener(Window::keyReleaseEvent, this, &vdome::keyReleased);
-    ofAddListener(Window::updateEvent, this, &vdome::update);
-
     // push xml to save thread
     saveThread.xml.push_back(&xml);
     saveThread.files.push_back(xmlPath);
@@ -62,9 +46,51 @@ void vdome::setup(){
             //saveThread.files.push_back(wp);
         }
     }
+  
+    ofAddListener(Window::setupEvent, this, &vdome::setup);
+
+    
+    if (xml.load(ofToDataPath(xmlPath))){
+        
+        if (xml.exists("[@framerate]")){
+            framerate = ofToInt( xml.getAttribute("[@framerate]") );
+        }
+        if (xml.exists("[@vsync]")) {
+            string str = ofToString( xml.getAttribute("[@vsync]") );
+            if (str == "on")    vsync = true;
+            else                vsync = false;
+        }
+        createWindow(xml);
+
+    }
+
+   else {
+        ofExit();
+    }
+ 
+    
     
     // start main of loop
     ofRunMainLoop();
+}
+    
+//--------------------------------------------------------------
+void vdome::setup(int &n){
+    ofRemoveListener(Window::setupEvent, this, &vdome::setup);
+
+    // load xml settings from path
+    if (xml.load(ofToDataPath(xmlPath)))
+        loadXML();
+    
+    // set up input
+    setupInput();
+    
+    // add event listeners
+    ofAddListener(Menu::colorEvent, this, &vdome::onColorEvent);
+    ofAddListener(Menu::sourceColorEvent, this, &vdome::onSourceColorEvent);
+    ofAddListener(Window::keyPressEvent, this, &vdome::keyPressed);
+    ofAddListener(Window::keyReleaseEvent, this, &vdome::keyReleased);
+    ofAddListener(Window::updateEvent, this, &vdome::update);
 }
     
 //--------------------------------------------------------------
@@ -77,14 +103,14 @@ void vdome::update(int &n) {
     if (socket.enabled)
         socketUpdate();
     
-    /*if (input.source == input.MEDIA) {
+    if (input.source == input.MEDIA) {
         if (!input.durationSent) {
             if (input.media.getDuration() > 0 && input.media.isLoaded()) {
                 socket.sendDuration();
                 input.durationSent = true;
             }
         }
-    }*/
+    }
     
 #ifdef TARGET_OSX
     else if (input.source == input.SYPHON){
@@ -140,16 +166,7 @@ void vdome::onColorEvent(ofVec3f &color) {
     
 //--------------------------------------------------------------
 void vdome::loadXML(){
-    if (xml.exists("[@framerate]")){
-        framerate = ofToInt( xml.getAttribute("[@framerate]") );
-    }
-    if (xml.exists("[@vsync]")) {
-        string str = ofToString( xml.getAttribute("[@vsync]") );
-        if (str == "on")    vsync = true;
-        else                vsync = false;
-    }
-    
-    createWindow(xml);
+
     input.loadXML(xml);
     socket.loadXML(xml);
     
