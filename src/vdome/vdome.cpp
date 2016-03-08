@@ -101,15 +101,7 @@ void vdome::update(int &n) {
     // socket update
     if (socket.enabled)
         socketUpdate();
-    
-    if (input.source == input.MEDIA) {
-        if (!input.durationSent) {
-            if (input.media.getDuration() > 0 && input.media.isLoaded()) {
-                socket.sendDuration();
-                input.durationSent = true;
-            }
-        }
-    }
+
     
 #ifdef TARGET_OSX
     else if (input.source == input.SYPHON){
@@ -562,10 +554,24 @@ void vdome::socketUpdate(){
     
 
     
+    if (input.source == input.MEDIA) {
+        if (!input.durationSent) {
+            if (input.media.getDuration() > 0 && input.media.isLoaded()) {
+
+                socket.sMsg.clear();
+                socket.sMsg.setAddress("/input/duration");
+                socket.sMsg.addStringArg(input.getFilepath() + "," + ofToString( input.getDuration() ));
+                socket.oscSender.sendMessage(socket.sMsg);
+                
+                input.durationSent = true;
+            }
+        }
+    }
+    
     // send position
-    socket.sMsg.clear();
-     if (input.getSourceInt() == input.MEDIA) {
+     if (input.source == input.MEDIA) {
          if (socket.lastInputPosition != input.getPosition()){
+             socket.sMsg.clear();
              socket.sMsg.setAddress("/input/position");
              socket.sMsg.addStringArg(ofToString( input.getPosition() ));
              socket.oscSender.sendMessage(socket.sMsg);
