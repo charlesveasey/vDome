@@ -1,4 +1,4 @@
-ofxCurvesTool
+ofxLibwebsockets
 ofxOsc
 ofxWarping
 ofxWMFVideoPlayer

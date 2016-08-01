@@ -1,11 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="..\..\..\addons\ofxCurvesTool\src\CurveLut.cpp">
-      <Filter>addons\ofxCurvesTool\src</Filter>
+    <ClCompile Include="src\main.cpp">
+      <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxCurvesTool\src\ofxCurvesTool.cpp">
-      <Filter>addons\ofxCurvesTool\src</Filter>
+    <ClCompile Include="..\..\..\addons\ofxLibwebsockets\libs\jsoncpp\jsoncpp.cpp">
+      <Filter>addons\ofxLibwebsockets\libs\jsoncpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src\Client.cpp">
+      <Filter>addons\ofxLibwebsockets\libs\ofxLibwebsockets\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src\Connection.cpp">
+      <Filter>addons\ofxLibwebsockets\libs\ofxLibwebsockets\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src\Events.cpp">
+      <Filter>addons\ofxLibwebsockets\libs\ofxLibwebsockets\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src\Protocol.cpp">
+      <Filter>addons\ofxLibwebsockets\libs\ofxLibwebsockets\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src\Reactor.cpp">
+      <Filter>addons\ofxLibwebsockets\libs\ofxLibwebsockets\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src\Server.cpp">
+      <Filter>addons\ofxLibwebsockets\libs\ofxLibwebsockets\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src\Util.cpp">
+      <Filter>addons\ofxLibwebsockets\libs\ofxLibwebsockets\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscBundle.cpp">
       <Filter>addons\ofxOsc\src</Filter>
@@ -58,9 +79,6 @@
     <ClCompile Include="..\..\..\addons\ofxWarping\libs\BSpline.cpp">
       <Filter>addons\ofxWarping\libs</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxWarping\libs\glm\detail\glm.cpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\addons\ofxWMFVideoPlayer\src\ofxWMFVideoPlayer.cpp">
       <Filter>addons\ofxWMFVideoPlayer\src</Filter>
     </ClCompile>
@@ -78,9 +96,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\scheduler.cpp">
       <Filter>addons\ofxWMFVideoPlayer\src\presenter</Filter>
-    </ClCompile>
-    <ClCompile Include="src\main.cpp">
-      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\vdome\vdome.cpp">
       <Filter>src\vdome</Filter>
@@ -103,8 +118,41 @@
     <ClCompile Include="src\vdome\input\media\video.cpp">
       <Filter>src\vdome\input\media</Filter>
     </ClCompile>
+    <ClCompile Include="src\vdome\input\media\video\videoWin.cpp">
+      <Filter>src\vdome\input\media\video</Filter>
+    </ClCompile>
     <ClCompile Include="src\vdome\input\media\video\videoWMF.cpp">
       <Filter>src\vdome\input\media\video</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdome\menu\command.cpp">
+      <Filter>src\vdome\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdome\menu\menu.cpp">
+      <Filter>src\vdome\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdome\menu\socket.cpp">
+      <Filter>src\vdome\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdome\menu\systemUtil.cpp">
+      <Filter>src\vdome\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdome\renderer\curves.cpp">
+      <Filter>src\vdome\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdome\renderer\model.cpp">
+      <Filter>src\vdome\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdome\renderer\projector.cpp">
+      <Filter>src\vdome\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdome\renderer\window.cpp">
+      <Filter>src\vdome\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxCurvesTool\src\CurveLut.cpp">
+      <Filter>addons\ofxCurvesTool\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxCurvesTool\src\ofxCurvesTool.cpp">
+      <Filter>addons\ofxCurvesTool\src</Filter>
     </ClCompile>
     <ClCompile Include="src\vdome\input\spout\spoutR.cpp">
       <Filter>src\vdome\input\spout</Filter>
@@ -136,30 +184,6 @@
     <ClCompile Include="src\vdome\input\spout\SpoutSDK\SpoutSharedMemory.cpp">
       <Filter>src\vdome\input\spout\SpoutSDK</Filter>
     </ClCompile>
-    <ClCompile Include="src\vdome\menu\command.cpp">
-      <Filter>src\vdome\menu</Filter>
-    </ClCompile>
-    <ClCompile Include="src\vdome\menu\menu.cpp">
-      <Filter>src\vdome\menu</Filter>
-    </ClCompile>
-    <ClCompile Include="src\vdome\menu\socket.cpp">
-      <Filter>src\vdome\menu</Filter>
-    </ClCompile>
-    <ClCompile Include="src\vdome\renderer\model.cpp">
-      <Filter>src\vdome\renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\vdome\renderer\window.cpp">
-      <Filter>src\vdome\renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\vdome\renderer\projector\curves.cpp">
-      <Filter>src\vdome\renderer\projector</Filter>
-    </ClCompile>
-    <ClCompile Include="src\vdome\renderer\projector\projector.cpp">
-      <Filter>src\vdome\renderer\projector</Filter>
-    </ClCompile>
-    <ClCompile Include="src\vdome\menu\systemUtil.cpp">
-      <Filter>src\vdome\menu</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -168,11 +192,38 @@
     <Filter Include="addons">
       <UniqueIdentifier>{71834F65-F3A9-211E-73B8-DC85}</UniqueIdentifier>
     </Filter>
-    <Filter Include="addons\ofxCurvesTool">
-      <UniqueIdentifier>{125BA1A5-1AAC-DAB4-76FE-E7AF}</UniqueIdentifier>
+    <Filter Include="addons\ofxLibwebsockets">
+      <UniqueIdentifier>{04A0ABD3-BEB0-79C1-78DC-1B0C}</UniqueIdentifier>
     </Filter>
-    <Filter Include="addons\ofxCurvesTool\src">
-      <UniqueIdentifier>{7EC6BEEA-0CA5-414A-8F83-7EB2}</UniqueIdentifier>
+    <Filter Include="addons\ofxLibwebsockets\src">
+      <UniqueIdentifier>{BD45AF89-23CA-D761-87B2-E28B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxLibwebsockets\libs">
+      <UniqueIdentifier>{93A2255B-E819-7999-658F-5C8B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxLibwebsockets\libs\jsoncpp">
+      <UniqueIdentifier>{EDF3DFA8-3A48-F2BE-828A-56B4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxLibwebsockets\libs\jsoncpp\json">
+      <UniqueIdentifier>{E61DA5C1-FC26-09C7-51F3-45B4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxLibwebsockets\libs\libwebsockets">
+      <UniqueIdentifier>{F5CB4033-7B46-FD26-E6BF-225D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxLibwebsockets\libs\libwebsockets\include">
+      <UniqueIdentifier>{A9821612-3A92-AF18-4416-E910}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxLibwebsockets\libs\ofxLibwebsockets">
+      <UniqueIdentifier>{246E3DDA-BF78-504E-9BF2-6FA8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxLibwebsockets\libs\ofxLibwebsockets\include">
+      <UniqueIdentifier>{D876D8D2-B863-D307-0F4A-F791}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets">
+      <UniqueIdentifier>{A5834E6F-4120-53E7-CD52-711C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxLibwebsockets\libs\ofxLibwebsockets\src">
+      <UniqueIdentifier>{D616296F-164E-00EF-4F39-D224}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxOsc">
       <UniqueIdentifier>{D91DCA33-6E5D-4481-2AEC-9FBB}</UniqueIdentifier>
@@ -207,18 +258,6 @@
     <Filter Include="addons\ofxWarping\libs">
       <UniqueIdentifier>{A9365503-6879-F0FB-9FC6-2AC4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="addons\ofxWarping\libs\glm">
-      <UniqueIdentifier>{85EAAAA7-950A-EB83-987C-4BE8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxWarping\libs\glm\detail">
-      <UniqueIdentifier>{7241330D-5FAB-37BC-996A-0E91}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxWarping\libs\glm\gtc">
-      <UniqueIdentifier>{D02BCEBC-6779-2A56-7E3B-5524}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxWarping\libs\glm\gtx">
-      <UniqueIdentifier>{B0A35FBD-D7E9-7B6E-9FB9-758E}</UniqueIdentifier>
-    </Filter>
     <Filter Include="addons\ofxWMFVideoPlayer">
       <UniqueIdentifier>{0D998C22-15FA-2D4D-B14F-3097}</UniqueIdentifier>
     </Filter>
@@ -232,39 +271,72 @@
       <UniqueIdentifier>{7C551AFE-871E-B43E-36A9-EE73}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\vdome">
-      <UniqueIdentifier>{4acb8ef2-669c-4c7f-9330-d8de645bb1cb}</UniqueIdentifier>
+      <UniqueIdentifier>{2aaf78f8-4c8b-4cad-85bc-01f84462f220}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\vdome\input">
-      <UniqueIdentifier>{2f99ace3-6303-4355-9de3-cc974319db97}</UniqueIdentifier>
+      <UniqueIdentifier>{f97f6fe6-1e70-4a1a-9e77-9f9bc617782d}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\vdome\menu">
-      <UniqueIdentifier>{1788d9c8-dd79-45d7-82ab-b36473bf6736}</UniqueIdentifier>
+      <UniqueIdentifier>{14a17501-3267-41dd-ba4b-8b865482dda7}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\vdome\renderer">
-      <UniqueIdentifier>{374aae13-d050-4cd4-b486-c8cc94dca7ff}</UniqueIdentifier>
+      <UniqueIdentifier>{0067ae14-b6b6-4454-ba3b-a269f955301c}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\vdome\input\media">
-      <UniqueIdentifier>{9fba7a70-3608-4117-83f5-0da84d309397}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\vdome\input\spout">
-      <UniqueIdentifier>{d82ceb4c-a18c-4f72-8b9f-2d8a1ae58eca}</UniqueIdentifier>
+      <UniqueIdentifier>{cf5aab6d-670e-4172-bcc9-0f0cca7eee2a}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\vdome\input\media\video">
-      <UniqueIdentifier>{5f24a6d7-c864-4c7d-8b15-1c43a1b14bc1}</UniqueIdentifier>
+      <UniqueIdentifier>{c50ae38d-a4d1-4831-b9c3-ba70e7c6df77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxCurvesTool">
+      <UniqueIdentifier>{3d2e01fa-d65a-4bc2-8547-98fa21d4f2fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxCurvesTool\src">
+      <UniqueIdentifier>{6ef09120-16de-4246-a3c7-a54fea32898b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\vdome\input\spout">
+      <UniqueIdentifier>{feb569ef-c85b-4dac-9442-b8224638314a}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\vdome\input\spout\SpoutSDK">
-      <UniqueIdentifier>{ab2d230c-aa93-4ef8-8422-eee6f136d6b7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\vdome\renderer\projector">
-      <UniqueIdentifier>{c07f69b8-b5ec-43d6-9204-42491e151f58}</UniqueIdentifier>
+      <UniqueIdentifier>{8823c138-4114-4229-ac0a-3b2bf2ba4197}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\addons\ofxCurvesTool\src\CurveLut.h">
-      <Filter>addons\ofxCurvesTool\src</Filter>
+    <ClInclude Include="..\..\..\addons\ofxLibwebsockets\src\ofxLibwebsockets.h">
+      <Filter>addons\ofxLibwebsockets\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxCurvesTool\src\ofxCurvesTool.h">
-      <Filter>addons\ofxCurvesTool\src</Filter>
+    <ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\jsoncpp\json\json-forwards.h">
+      <Filter>addons\ofxLibwebsockets\libs\jsoncpp\json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\jsoncpp\json\json.h">
+      <Filter>addons\ofxLibwebsockets\libs\jsoncpp\json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\include\libwebsockets.h">
+      <Filter>addons\ofxLibwebsockets\libs\libwebsockets\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\include\lws_config.h">
+      <Filter>addons\ofxLibwebsockets\libs\libwebsockets\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets\Client.h">
+      <Filter>addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets\Connection.h">
+      <Filter>addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets\Events.h">
+      <Filter>addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets\Protocol.h">
+      <Filter>addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets\Reactor.h">
+      <Filter>addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets\Server.h">
+      <Filter>addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets\Util.h">
+      <Filter>addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOsc.h">
       <Filter>addons\ofxOsc\src</Filter>
@@ -331,432 +403,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\addons\ofxWarping\libs\BSpline.h">
       <Filter>addons\ofxWarping\libs</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\common.hpp">
-      <Filter>addons\ofxWarping\libs\glm</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\func_common.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\func_exponential.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\func_geometric.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\func_integer.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\func_matrix.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\func_noise.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\func_packing.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\func_trigonometric.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\func_vector_relational.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\intrinsic_common.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\intrinsic_exponential.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\intrinsic_geometric.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\intrinsic_integer.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\intrinsic_matrix.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\intrinsic_trigonometric.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\intrinsic_vector_relational.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\precision.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\setup.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\type_float.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\type_gentype.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\type_half.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\type_int.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\type_mat.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\type_mat2x2.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\type_mat2x3.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\type_mat2x4.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\type_mat3x2.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\type_mat3x3.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\type_mat3x4.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\type_mat4x2.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\type_mat4x3.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\type_mat4x4.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\type_vec.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\type_vec1.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\type_vec2.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\type_vec3.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\type_vec4.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\_features.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\_fixes.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\_noise.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\_swizzle.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\_swizzle_func.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\detail\_vectorize.hpp">
-      <Filter>addons\ofxWarping\libs\glm\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\exponential.hpp">
-      <Filter>addons\ofxWarping\libs\glm</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\ext.hpp">
-      <Filter>addons\ofxWarping\libs\glm</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\fwd.hpp">
-      <Filter>addons\ofxWarping\libs\glm</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\geometric.hpp">
-      <Filter>addons\ofxWarping\libs\glm</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\glm.hpp">
-      <Filter>addons\ofxWarping\libs\glm</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtc\bitfield.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtc\constants.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtc\epsilon.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtc\integer.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtc\matrix_access.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtc\matrix_integer.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtc\matrix_inverse.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtc\matrix_transform.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtc\noise.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtc\packing.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtc\quaternion.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtc\random.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtc\reciprocal.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtc\round.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtc\type_precision.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtc\type_ptr.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtc\ulp.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtc\vec1.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\associated_min_max.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\bit.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\closest_point.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\color_space.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\color_space_YCoCg.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\common.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\compatibility.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\component_wise.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\dual_quaternion.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\euler_angles.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\extend.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\extented_min_max.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\fast_exponential.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\fast_square_root.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\fast_trigonometry.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\gradient_paint.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\handed_coordinate_space.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\integer.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\intersect.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\io.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\log_base.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\matrix_cross_product.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\matrix_decompose.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\matrix_interpolation.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\matrix_major_storage.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\matrix_operation.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\matrix_query.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\matrix_transform_2d.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\mixed_product.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\multiple.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\norm.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\normal.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\normalize_dot.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\number_precision.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\optimum_pow.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\orthonormalize.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\perpendicular.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\polar_coordinates.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\projection.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\quaternion.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\range.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\raw_data.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\rotate_normalized_axis.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\rotate_vector.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\scalar_multiplication.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\scalar_relational.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\simd_mat4.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\simd_quat.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\simd_vec4.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\spline.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\std_based_type.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\string_cast.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\transform.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\transform2.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\type_aligned.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\vector_angle.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\vector_query.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\gtx\wrap.hpp">
-      <Filter>addons\ofxWarping\libs\glm\gtx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\integer.hpp">
-      <Filter>addons\ofxWarping\libs\glm</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\mat2x2.hpp">
-      <Filter>addons\ofxWarping\libs\glm</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\mat2x3.hpp">
-      <Filter>addons\ofxWarping\libs\glm</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\mat2x4.hpp">
-      <Filter>addons\ofxWarping\libs\glm</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\mat3x2.hpp">
-      <Filter>addons\ofxWarping\libs\glm</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\mat3x3.hpp">
-      <Filter>addons\ofxWarping\libs\glm</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\mat3x4.hpp">
-      <Filter>addons\ofxWarping\libs\glm</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\mat4x2.hpp">
-      <Filter>addons\ofxWarping\libs\glm</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\mat4x3.hpp">
-      <Filter>addons\ofxWarping\libs\glm</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\mat4x4.hpp">
-      <Filter>addons\ofxWarping\libs\glm</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\matrix.hpp">
-      <Filter>addons\ofxWarping\libs\glm</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\packing.hpp">
-      <Filter>addons\ofxWarping\libs\glm</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\trigonometric.hpp">
-      <Filter>addons\ofxWarping\libs\glm</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\vec2.hpp">
-      <Filter>addons\ofxWarping\libs\glm</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\vec3.hpp">
-      <Filter>addons\ofxWarping\libs\glm</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\vec4.hpp">
-      <Filter>addons\ofxWarping\libs\glm</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\glm\vector_relational.hpp">
-      <Filter>addons\ofxWarping\libs\glm</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\ofxWMFVideoPlayer.h">
       <Filter>addons\ofxWMFVideoPlayer\src</Filter>
@@ -848,8 +494,50 @@
     <ClInclude Include="src\vdome\input\media\video.h">
       <Filter>src\vdome\input\media</Filter>
     </ClInclude>
+    <ClInclude Include="src\vdome\input\media\video\videoDS.h">
+      <Filter>src\vdome\input\media\video</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\input\media\video\videoWin.h">
+      <Filter>src\vdome\input\media\video</Filter>
+    </ClInclude>
     <ClInclude Include="src\vdome\input\media\video\videoWMF.h">
       <Filter>src\vdome\input\media\video</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\menu\command.h">
+      <Filter>src\vdome\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\menu\commands.h">
+      <Filter>src\vdome\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\menu\menu.h">
+      <Filter>src\vdome\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\menu\saveThread.h">
+      <Filter>src\vdome\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\menu\socket.h">
+      <Filter>src\vdome\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\menu\systemUtil.h">
+      <Filter>src\vdome\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\renderer\curves.h">
+      <Filter>src\vdome\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\renderer\model.h">
+      <Filter>src\vdome\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\renderer\projector.h">
+      <Filter>src\vdome\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\renderer\window.h">
+      <Filter>src\vdome\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxCurvesTool\src\CurveLut.h">
+      <Filter>addons\ofxCurvesTool\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxCurvesTool\src\ofxCurvesTool.h">
+      <Filter>addons\ofxCurvesTool\src</Filter>
     </ClInclude>
     <ClInclude Include="src\vdome\input\spout\spoutR.h">
       <Filter>src\vdome\input\spout</Filter>
@@ -886,36 +574,6 @@
     </ClInclude>
     <ClInclude Include="src\vdome\input\spout\SpoutSDK\SpoutSharedMemory.h">
       <Filter>src\vdome\input\spout\SpoutSDK</Filter>
-    </ClInclude>
-    <ClInclude Include="src\vdome\menu\command.h">
-      <Filter>src\vdome\menu</Filter>
-    </ClInclude>
-    <ClInclude Include="src\vdome\menu\commands.h">
-      <Filter>src\vdome\menu</Filter>
-    </ClInclude>
-    <ClInclude Include="src\vdome\menu\menu.h">
-      <Filter>src\vdome\menu</Filter>
-    </ClInclude>
-    <ClInclude Include="src\vdome\menu\saveThread.h">
-      <Filter>src\vdome\menu</Filter>
-    </ClInclude>
-    <ClInclude Include="src\vdome\menu\socket.h">
-      <Filter>src\vdome\menu</Filter>
-    </ClInclude>
-    <ClInclude Include="src\vdome\renderer\model.h">
-      <Filter>src\vdome\renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\vdome\renderer\window.h">
-      <Filter>src\vdome\renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\vdome\renderer\projector\curves.h">
-      <Filter>src\vdome\renderer\projector</Filter>
-    </ClInclude>
-    <ClInclude Include="src\vdome\renderer\projector\projector.h">
-      <Filter>src\vdome\renderer\projector</Filter>
-    </ClInclude>
-    <ClInclude Include="src\vdome\menu\systemUtil.h">
-      <Filter>src\vdome\menu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

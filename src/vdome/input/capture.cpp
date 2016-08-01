@@ -7,7 +7,7 @@ Capture::Capture() {
 
 void Capture::open(){
     grabber.setUseTexture(true);
-    grabber.initGrabber(resolution, resolution);
+    grabber.setup(resolution, resolution);
 }
 
 void Capture::update(){
