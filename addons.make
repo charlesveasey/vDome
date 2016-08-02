@@ -1,4 +1,6 @@
+ofxAssimpModelLoader
+ofxCurvesTool
 ofxLibwebsockets
 ofxOsc
-ofxWarping
+ofxWarpBlend
 ofxWMFVideoPlayer

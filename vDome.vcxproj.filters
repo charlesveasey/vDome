@@ -1,8 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="src\main.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="..\..\..\addons\ofxAssimpModelLoader\src\ofxAssimpAnimation.cpp">
+      <Filter>addons\ofxAssimpModelLoader\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxAssimpModelLoader\src\ofxAssimpMeshHelper.cpp">
+      <Filter>addons\ofxAssimpModelLoader\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxAssimpModelLoader\src\ofxAssimpModelLoader.cpp">
+      <Filter>addons\ofxAssimpModelLoader\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxAssimpModelLoader\src\ofxAssimpTexture.cpp">
+      <Filter>addons\ofxAssimpModelLoader\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxCurvesTool\src\CurveLut.cpp">
+      <Filter>addons\ofxCurvesTool\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxCurvesTool\src\ofxCurvesTool.cpp">
+      <Filter>addons\ofxCurvesTool\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\addons\ofxLibwebsockets\libs\jsoncpp\jsoncpp.cpp">
       <Filter>addons\ofxLibwebsockets\libs\jsoncpp</Filter>
@@ -64,20 +79,20 @@
     <ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscTypes.cpp">
       <Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxWarping\src\Warp.cpp">
-      <Filter>addons\ofxWarping\src</Filter>
+    <ClCompile Include="..\..\..\addons\ofxWarpBlend\src\Warp.cpp">
+      <Filter>addons\ofxWarpBlend\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxWarping\src\WarpBilinear.cpp">
-      <Filter>addons\ofxWarping\src</Filter>
+    <ClCompile Include="..\..\..\addons\ofxWarpBlend\src\WarpBilinear.cpp">
+      <Filter>addons\ofxWarpBlend\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxWarping\src\WarpPerspective.cpp">
-      <Filter>addons\ofxWarping\src</Filter>
+    <ClCompile Include="..\..\..\addons\ofxWarpBlend\src\WarpPerspective.cpp">
+      <Filter>addons\ofxWarpBlend\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxWarping\src\WarpPerspectiveBilinear.cpp">
-      <Filter>addons\ofxWarping\src</Filter>
+    <ClCompile Include="..\..\..\addons\ofxWarpBlend\src\WarpPerspectiveBilinear.cpp">
+      <Filter>addons\ofxWarpBlend\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxWarping\libs\BSpline.cpp">
-      <Filter>addons\ofxWarping\libs</Filter>
+    <ClCompile Include="..\..\..\addons\ofxWarpBlend\libs\BSpline.cpp">
+      <Filter>addons\ofxWarpBlend\libs</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\addons\ofxWMFVideoPlayer\src\ofxWMFVideoPlayer.cpp">
       <Filter>addons\ofxWMFVideoPlayer\src</Filter>
@@ -96,6 +111,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\scheduler.cpp">
       <Filter>addons\ofxWMFVideoPlayer\src\presenter</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\vdome\vdome.cpp">
       <Filter>src\vdome</Filter>
@@ -123,36 +141,6 @@
     </ClCompile>
     <ClCompile Include="src\vdome\input\media\video\videoWMF.cpp">
       <Filter>src\vdome\input\media\video</Filter>
-    </ClCompile>
-    <ClCompile Include="src\vdome\menu\command.cpp">
-      <Filter>src\vdome\menu</Filter>
-    </ClCompile>
-    <ClCompile Include="src\vdome\menu\menu.cpp">
-      <Filter>src\vdome\menu</Filter>
-    </ClCompile>
-    <ClCompile Include="src\vdome\menu\socket.cpp">
-      <Filter>src\vdome\menu</Filter>
-    </ClCompile>
-    <ClCompile Include="src\vdome\menu\systemUtil.cpp">
-      <Filter>src\vdome\menu</Filter>
-    </ClCompile>
-    <ClCompile Include="src\vdome\renderer\curves.cpp">
-      <Filter>src\vdome\renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\vdome\renderer\model.cpp">
-      <Filter>src\vdome\renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\vdome\renderer\projector.cpp">
-      <Filter>src\vdome\renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\vdome\renderer\window.cpp">
-      <Filter>src\vdome\renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxCurvesTool\src\CurveLut.cpp">
-      <Filter>addons\ofxCurvesTool\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxCurvesTool\src\ofxCurvesTool.cpp">
-      <Filter>addons\ofxCurvesTool\src</Filter>
     </ClCompile>
     <ClCompile Include="src\vdome\input\spout\spoutR.cpp">
       <Filter>src\vdome\input\spout</Filter>
@@ -184,6 +172,30 @@
     <ClCompile Include="src\vdome\input\spout\SpoutSDK\SpoutSharedMemory.cpp">
       <Filter>src\vdome\input\spout\SpoutSDK</Filter>
     </ClCompile>
+    <ClCompile Include="src\vdome\menu\command.cpp">
+      <Filter>src\vdome\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdome\menu\menu.cpp">
+      <Filter>src\vdome\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdome\menu\socket.cpp">
+      <Filter>src\vdome\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdome\menu\systemUtil.cpp">
+      <Filter>src\vdome\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdome\renderer\curves.cpp">
+      <Filter>src\vdome\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdome\renderer\model.cpp">
+      <Filter>src\vdome\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdome\renderer\projector.cpp">
+      <Filter>src\vdome\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdome\renderer\window.cpp">
+      <Filter>src\vdome\renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -191,6 +203,33 @@
     </Filter>
     <Filter Include="addons">
       <UniqueIdentifier>{71834F65-F3A9-211E-73B8-DC85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxAssimpModelLoader">
+      <UniqueIdentifier>{DE65D9F7-840A-CD0A-A555-EA3B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxAssimpModelLoader\src">
+      <UniqueIdentifier>{B84008DC-4B5E-271B-05DA-D8C8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxAssimpModelLoader\libs">
+      <UniqueIdentifier>{3D854F79-FA4A-75FA-FC0A-2B25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxAssimpModelLoader\libs\assimp">
+      <UniqueIdentifier>{FE8B5295-D3A7-B9CD-89C9-2613}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxAssimpModelLoader\libs\assimp\include">
+      <UniqueIdentifier>{EDC34C4F-5D44-FB76-337E-EE48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxAssimpModelLoader\libs\assimp\include\assimp">
+      <UniqueIdentifier>{E66BABFA-76A1-EB8D-40FF-B940}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxAssimpModelLoader\libs\assimp\include\assimp\Compiler">
+      <UniqueIdentifier>{A0C31C2E-6C01-8850-3B72-C818}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxCurvesTool">
+      <UniqueIdentifier>{125BA1A5-1AAC-DAB4-76FE-E7AF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxCurvesTool\src">
+      <UniqueIdentifier>{7EC6BEEA-0CA5-414A-8F83-7EB2}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxLibwebsockets">
       <UniqueIdentifier>{04A0ABD3-BEB0-79C1-78DC-1B0C}</UniqueIdentifier>
@@ -249,14 +288,14 @@
     <Filter Include="addons\ofxOsc\libs\oscpack\src\osc">
       <UniqueIdentifier>{EDACB89C-9768-9551-4D41-B590}</UniqueIdentifier>
     </Filter>
-    <Filter Include="addons\ofxWarping">
-      <UniqueIdentifier>{4230E518-D00B-78B6-AA7C-4E0F}</UniqueIdentifier>
+    <Filter Include="addons\ofxWarpBlend">
+      <UniqueIdentifier>{4BDBF98A-BF22-C281-400A-8F24}</UniqueIdentifier>
     </Filter>
-    <Filter Include="addons\ofxWarping\src">
-      <UniqueIdentifier>{779C067D-9451-9CCB-D6AF-9B12}</UniqueIdentifier>
+    <Filter Include="addons\ofxWarpBlend\src">
+      <UniqueIdentifier>{3CF81A67-E49C-4F55-6323-0A95}</UniqueIdentifier>
     </Filter>
-    <Filter Include="addons\ofxWarping\libs">
-      <UniqueIdentifier>{A9365503-6879-F0FB-9FC6-2AC4}</UniqueIdentifier>
+    <Filter Include="addons\ofxWarpBlend\libs">
+      <UniqueIdentifier>{66C1F571-2BA8-B9BF-6928-9AFE}</UniqueIdentifier>
     </Filter>
     <Filter Include="addons\ofxWMFVideoPlayer">
       <UniqueIdentifier>{0D998C22-15FA-2D4D-B14F-3097}</UniqueIdentifier>
@@ -271,37 +310,160 @@
       <UniqueIdentifier>{7C551AFE-871E-B43E-36A9-EE73}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\vdome">
-      <UniqueIdentifier>{2aaf78f8-4c8b-4cad-85bc-01f84462f220}</UniqueIdentifier>
+      <UniqueIdentifier>{c512b168-0f37-4d8b-b735-35ea1dab42c7}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\vdome\input">
-      <UniqueIdentifier>{f97f6fe6-1e70-4a1a-9e77-9f9bc617782d}</UniqueIdentifier>
+      <UniqueIdentifier>{eb2b4b43-8f6e-4777-a7f0-7c9685aee216}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\vdome\menu">
-      <UniqueIdentifier>{14a17501-3267-41dd-ba4b-8b865482dda7}</UniqueIdentifier>
+      <UniqueIdentifier>{8ea5e90a-f7e3-4fa0-823e-bb23bad332bd}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\vdome\renderer">
-      <UniqueIdentifier>{0067ae14-b6b6-4454-ba3b-a269f955301c}</UniqueIdentifier>
+      <UniqueIdentifier>{2042609e-ef63-4729-b5f8-8951915aba3b}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\vdome\input\media">
-      <UniqueIdentifier>{cf5aab6d-670e-4172-bcc9-0f0cca7eee2a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\vdome\input\media\video">
-      <UniqueIdentifier>{c50ae38d-a4d1-4831-b9c3-ba70e7c6df77}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxCurvesTool">
-      <UniqueIdentifier>{3d2e01fa-d65a-4bc2-8547-98fa21d4f2fe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxCurvesTool\src">
-      <UniqueIdentifier>{6ef09120-16de-4246-a3c7-a54fea32898b}</UniqueIdentifier>
+      <UniqueIdentifier>{a1b6843f-ccd3-4825-a58b-3d1a5072febb}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\vdome\input\spout">
-      <UniqueIdentifier>{feb569ef-c85b-4dac-9442-b8224638314a}</UniqueIdentifier>
+      <UniqueIdentifier>{6a46721a-d563-47b8-95c2-a2af2a125561}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\vdome\input\media\video">
+      <UniqueIdentifier>{9bfcf760-a2c7-43d3-92e4-4f6b50ba5db1}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\vdome\input\spout\SpoutSDK">
-      <UniqueIdentifier>{8823c138-4114-4229-ac0a-3b2bf2ba4197}</UniqueIdentifier>
+      <UniqueIdentifier>{2fc0f117-2a73-49b5-827f-e0c719176ffd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\src\ofxAssimpAnimation.h">
+      <Filter>addons\ofxAssimpModelLoader\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\src\ofxAssimpMeshHelper.h">
+      <Filter>addons\ofxAssimpModelLoader\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\src\ofxAssimpModelLoader.h">
+      <Filter>addons\ofxAssimpModelLoader\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\src\ofxAssimpTexture.h">
+      <Filter>addons\ofxAssimpModelLoader\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\src\ofxAssimpUtils.h">
+      <Filter>addons\ofxAssimpModelLoader\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\ai_assert.h">
+      <Filter>addons\ofxAssimpModelLoader\libs\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\anim.h">
+      <Filter>addons\ofxAssimpModelLoader\libs\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\camera.h">
+      <Filter>addons\ofxAssimpModelLoader\libs\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\cexport.h">
+      <Filter>addons\ofxAssimpModelLoader\libs\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\cfileio.h">
+      <Filter>addons\ofxAssimpModelLoader\libs\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\cimport.h">
+      <Filter>addons\ofxAssimpModelLoader\libs\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\color4.h">
+      <Filter>addons\ofxAssimpModelLoader\libs\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\Compiler\poppack1.h">
+      <Filter>addons\ofxAssimpModelLoader\libs\assimp\include\assimp\Compiler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\Compiler\pstdint.h">
+      <Filter>addons\ofxAssimpModelLoader\libs\assimp\include\assimp\Compiler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\Compiler\pushpack1.h">
+      <Filter>addons\ofxAssimpModelLoader\libs\assimp\include\assimp\Compiler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\config.h">
+      <Filter>addons\ofxAssimpModelLoader\libs\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\DefaultLogger.hpp">
+      <Filter>addons\ofxAssimpModelLoader\libs\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\defs.h">
+      <Filter>addons\ofxAssimpModelLoader\libs\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\Exporter.hpp">
+      <Filter>addons\ofxAssimpModelLoader\libs\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\Importer.hpp">
+      <Filter>addons\ofxAssimpModelLoader\libs\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\importerdesc.h">
+      <Filter>addons\ofxAssimpModelLoader\libs\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\IOStream.hpp">
+      <Filter>addons\ofxAssimpModelLoader\libs\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\IOSystem.hpp">
+      <Filter>addons\ofxAssimpModelLoader\libs\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\light.h">
+      <Filter>addons\ofxAssimpModelLoader\libs\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\Logger.hpp">
+      <Filter>addons\ofxAssimpModelLoader\libs\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\LogStream.hpp">
+      <Filter>addons\ofxAssimpModelLoader\libs\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\material.h">
+      <Filter>addons\ofxAssimpModelLoader\libs\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\matrix3x3.h">
+      <Filter>addons\ofxAssimpModelLoader\libs\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\matrix4x4.h">
+      <Filter>addons\ofxAssimpModelLoader\libs\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\mesh.h">
+      <Filter>addons\ofxAssimpModelLoader\libs\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\metadata.h">
+      <Filter>addons\ofxAssimpModelLoader\libs\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\NullLogger.hpp">
+      <Filter>addons\ofxAssimpModelLoader\libs\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\postprocess.h">
+      <Filter>addons\ofxAssimpModelLoader\libs\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\ProgressHandler.hpp">
+      <Filter>addons\ofxAssimpModelLoader\libs\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\quaternion.h">
+      <Filter>addons\ofxAssimpModelLoader\libs\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\scene.h">
+      <Filter>addons\ofxAssimpModelLoader\libs\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\texture.h">
+      <Filter>addons\ofxAssimpModelLoader\libs\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\types.h">
+      <Filter>addons\ofxAssimpModelLoader\libs\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\vector2.h">
+      <Filter>addons\ofxAssimpModelLoader\libs\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\vector3.h">
+      <Filter>addons\ofxAssimpModelLoader\libs\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\version.h">
+      <Filter>addons\ofxAssimpModelLoader\libs\assimp\include\assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxCurvesTool\src\CurveLut.h">
+      <Filter>addons\ofxCurvesTool\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxCurvesTool\src\ofxCurvesTool.h">
+      <Filter>addons\ofxCurvesTool\src</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\addons\ofxLibwebsockets\src\ofxLibwebsockets.h">
       <Filter>addons\ofxLibwebsockets\src</Filter>
     </ClInclude>
@@ -398,11 +560,11 @@
     <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscTypes.h">
       <Filter>addons\ofxOsc\libs\oscpack\src\osc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\src\Warp.h">
-      <Filter>addons\ofxWarping\src</Filter>
+    <ClInclude Include="..\..\..\addons\ofxWarpBlend\src\Warp.h">
+      <Filter>addons\ofxWarpBlend\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxWarping\libs\BSpline.h">
-      <Filter>addons\ofxWarping\libs</Filter>
+    <ClInclude Include="..\..\..\addons\ofxWarpBlend\libs\BSpline.h">
+      <Filter>addons\ofxWarpBlend\libs</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\ofxWMFVideoPlayer.h">
       <Filter>addons\ofxWMFVideoPlayer\src</Filter>
@@ -503,42 +665,6 @@
     <ClInclude Include="src\vdome\input\media\video\videoWMF.h">
       <Filter>src\vdome\input\media\video</Filter>
     </ClInclude>
-    <ClInclude Include="src\vdome\menu\command.h">
-      <Filter>src\vdome\menu</Filter>
-    </ClInclude>
-    <ClInclude Include="src\vdome\menu\commands.h">
-      <Filter>src\vdome\menu</Filter>
-    </ClInclude>
-    <ClInclude Include="src\vdome\menu\menu.h">
-      <Filter>src\vdome\menu</Filter>
-    </ClInclude>
-    <ClInclude Include="src\vdome\menu\saveThread.h">
-      <Filter>src\vdome\menu</Filter>
-    </ClInclude>
-    <ClInclude Include="src\vdome\menu\socket.h">
-      <Filter>src\vdome\menu</Filter>
-    </ClInclude>
-    <ClInclude Include="src\vdome\menu\systemUtil.h">
-      <Filter>src\vdome\menu</Filter>
-    </ClInclude>
-    <ClInclude Include="src\vdome\renderer\curves.h">
-      <Filter>src\vdome\renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\vdome\renderer\model.h">
-      <Filter>src\vdome\renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\vdome\renderer\projector.h">
-      <Filter>src\vdome\renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\vdome\renderer\window.h">
-      <Filter>src\vdome\renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxCurvesTool\src\CurveLut.h">
-      <Filter>addons\ofxCurvesTool\src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxCurvesTool\src\ofxCurvesTool.h">
-      <Filter>addons\ofxCurvesTool\src</Filter>
-    </ClInclude>
     <ClInclude Include="src\vdome\input\spout\spoutR.h">
       <Filter>src\vdome\input\spout</Filter>
     </ClInclude>
@@ -574,6 +700,36 @@
     </ClInclude>
     <ClInclude Include="src\vdome\input\spout\SpoutSDK\SpoutSharedMemory.h">
       <Filter>src\vdome\input\spout\SpoutSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\menu\command.h">
+      <Filter>src\vdome\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\menu\commands.h">
+      <Filter>src\vdome\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\menu\menu.h">
+      <Filter>src\vdome\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\menu\saveThread.h">
+      <Filter>src\vdome\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\menu\socket.h">
+      <Filter>src\vdome\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\menu\systemUtil.h">
+      <Filter>src\vdome\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\renderer\curves.h">
+      <Filter>src\vdome\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\renderer\model.h">
+      <Filter>src\vdome\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\renderer\projector.h">
+      <Filter>src\vdome\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vdome\renderer\window.h">
+      <Filter>src\vdome\renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

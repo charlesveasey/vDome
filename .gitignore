@@ -25,6 +25,9 @@
 *.xcsettings
 *.ply
 *.layout
+*.VC
+*.opendb
+*.db
 
 # Bin
 vDome.app
