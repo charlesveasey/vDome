@@ -36,6 +36,8 @@ public:
 	int     getColorMode();
 	void    setColorMode(int i);
 
+	void	setCurrentPointY(int i, int y);
+
 	ofTexture& colorlutTextureRef();
 	
 	enum colors {GREY,RED,GREEN,BLUE}; 

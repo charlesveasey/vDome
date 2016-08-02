@@ -28,7 +28,6 @@ void Projector::init(int i, int pStartingIndex){
     
 	camera.setAutoDistance(false);
     camera.disableMouseInput();
-    //camera.disableMouseDoubleClick();
     camera.setTranslationKey('t');
     camera.setDrag(0);
 	camera.setRotationSensitivity(-.25, -.25, .25);

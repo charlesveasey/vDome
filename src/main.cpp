@@ -6,7 +6,7 @@
 int main( ){
     
 #ifdef VDOME_DEBUG
-    ofSetLogLevel(OF_LOG_VERBOSE);
+    //ofSetLogLevel(OF_LOG_VERBOSE);
 #else
     ofSetLogLevel(OF_LOG_SILENT);
 #endif

@@ -60,7 +60,6 @@ void vdome::init() {
             else                vsync = false;
         }
         createWindow(xml);
-
     }
 
    else {
@@ -68,6 +67,15 @@ void vdome::init() {
     }
  
     
+
+   ofxLibwebsockets::ServerOptions options = ofxLibwebsockets::defaultServerOptions();
+   options.port = 9092;
+   options.bUseSSL = false; // you'll have to manually accept this self-signed cert if 'true'!
+   bSetup = server.setup(options);
+
+   // this adds your app as a listener for the server
+   server.addListener(this);
+
     
     // start main of loop
     ofRunMainLoop();
@@ -415,7 +423,7 @@ void vdome::updateSyphonInputTransform(){
     
 //--------------------------------------------------------------
 void vdome::exit(){
-    saveThread.waitForThread(true);
+    //saveThread.waitForThread(true);
     input.stop();
     input.close();
 }
@@ -580,6 +588,62 @@ void vdome::socketUpdate(){
      }
 }
     
+
+
+//--------------------------------------------------------------
+void vdome::onConnect(ofxLibwebsockets::Event& args) {
+	cout << "on connected" << endl;
+}
+
+//--------------------------------------------------------------
+void vdome::onOpen(ofxLibwebsockets::Event& args) {
+	cout << "new connection open" << endl;
+}
+
+//--------------------------------------------------------------
+void vdome::onClose(ofxLibwebsockets::Event& args) {
+	cout << "on close" << endl;
+}
+
+//--------------------------------------------------------------
+void vdome::onIdle(ofxLibwebsockets::Event& args) {
+	cout << "on idle" << endl;
+}
+
+//--------------------------------------------------------------
+void vdome::onMessage(ofxLibwebsockets::Event& args) {
+	cout << "got message " << args.message << endl;
+
+	ofXml xml;
+	xml.loadFromBuffer(args.message);
+	int n = xml.getNumChildren();
+
+	for (int i = 0; i < n; i++) {
+		xml.setToChild(i);
+		string idString = xml.getAttribute("[@id]");
+		string color = xml.getAttribute("[@color]");
+		int r = ofToFloat(ofSplitString(color, ",")[0]);
+		int g = ofToFloat(ofSplitString(color, ",")[1]);
+		int b = ofToFloat(ofSplitString(color, ",")[2]);
+
+		int id = ofToInt(idString);
+
+		cout << id << " " << r << " " << g << " " << b << endl;
+
+
+		if (id < projectors.size()) {
+			int h = projectors[id]->curves.getCurrentHover();
+			projectors[id]->curves.setCurrentPointY(h, r);
+		}
+		xml.setToParent();
+	}
+}
+
+//--------------------------------------------------------------
+void vdome::onBroadcast(ofxLibwebsockets::Event& args) {
+	cout << "got broadcast " << args.message << endl;
+}
+
 }//////
 
 

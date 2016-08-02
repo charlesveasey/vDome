@@ -211,7 +211,13 @@ void Curves::setActive(bool b) {
 
 //--------------------------------------------------------------
 void Curves::setPoint(int i, ofPoint p){
-	curvesTools.at(colorMode)->set(i,p);
+ 	curvesTools.at(colorMode)->set(i,p);
+}
+
+//--------------------------------------------------------------
+void Curves::setCurrentPointY(int i, int y) {
+	int cpnt = curvesTools.at(colorMode)->getCurrentHover();
+	curvesTools.at(colorMode)->set(cpnt, glm::vec2(curvesTools.at(colorMode)->getPoint(cpnt).x, y));
 }
 
 }////////////

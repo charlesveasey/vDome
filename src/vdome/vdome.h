@@ -3,6 +3,8 @@
 #include "socket.h"
 #include "saveThread.h"
 #include "systemUtil.h"
+#include "ofxLibwebsockets.h"
+
 namespace vd {
 
 class vdome {
@@ -53,6 +55,16 @@ private:
 
     void        socketUpdate();
     
+	ofxLibwebsockets::Server server;
+	bool bSetup;
+
+public:
+	void onConnect(ofxLibwebsockets::Event& args);
+	void onOpen(ofxLibwebsockets::Event& args);
+	void onClose(ofxLibwebsockets::Event& args);
+	void onIdle(ofxLibwebsockets::Event& args);
+	void onMessage(ofxLibwebsockets::Event& args);
+	void onBroadcast(ofxLibwebsockets::Event& args);
 
 };
 
