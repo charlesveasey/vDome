@@ -4,3 +4,4 @@ ofxLibwebsockets
 ofxOsc
 ofxWarpBlend
 ofxWMFVideoPlayer
+ofxJSON

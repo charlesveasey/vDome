@@ -4,6 +4,7 @@
 #include "saveThread.h"
 #include "systemUtil.h"
 #include "ofxLibwebsockets.h"
+#include "ofxJSON.h"
 
 namespace vd {
 
@@ -57,6 +58,12 @@ private:
     
 	ofxLibwebsockets::Server server;
 	bool bSetup;
+
+	ofxJSON json;
+	string address;
+	string message;
+	bool socketUpdatePending;
+
 
 public:
 	void onConnect(ofxLibwebsockets::Event& args);
