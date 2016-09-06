@@ -25,36 +25,25 @@ Item {
 
 
         onTextMessageReceived: {
-
-
             var m = JSON.parse(message);
-
-            console.log(message);
-
             if (m.address == "/input/position/"){
-
-
-
-
-                    if (controlPanel.cType == "video") {
-                        if (m.message == "-inf"){
-                            return
-                        }
-                       if (Number.fromLocaleString(m.message) === null)
-                            controlPanel.positionValue = 0;
-                       else
-                           controlPanel.positionValue = Number.fromLocaleString (m.message);
-
-                        controlPanel.time = secondsToHms(controlPanel.cDuration* Number.fromLocaleString (m.message));
-
-                       if (controlPanel.positionValue*controlPanel.duration >= controlPanel.duration){
-                            playlistPanel.next();
-                       }
+                if (controlPanel.cType == "video") {
+                    if (m.message == "-inf"){
+                        return
                     }
+                   if (Number.fromLocaleString(m.message) === null)
+                        controlPanel.positionValue = 0;
+                   else
+                       controlPanel.positionValue = Number.fromLocaleString (m.message);
+
+                    controlPanel.time = secondsToHms(controlPanel.cDuration* Number.fromLocaleString (m.message));
+
+                   if (controlPanel.positionValue*controlPanel.duration >= controlPanel.duration){
+                        playlistPanel.next();
+                   }
+                }
             }
             else if (m.address == "/input/duration/") {
-
-
                 var file = m.message.split(",")[0];
                 var dur = parseFloat(m.message.split(",")[1]);
                 controlPanel.cDuration = parseFloat(dur);
@@ -73,11 +62,11 @@ Item {
                 }
             }
             else if (m.address == "/input/") {
-
                 if  (m.message == "end") {
                     controlPanel.end();
                 }
             }
+
         }
     }
 
