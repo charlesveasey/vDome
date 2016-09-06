@@ -7,31 +7,21 @@ Socket::Socket(){
     host = "localhost";
     send = 3333;
     receive = 3334;
+	hasEnded = false;
 }
 
 //--------------------------------------------------------------
 void Socket::setup(){
-    oscSender.setup(host,send);
-    oscReceiver.setup(receive);
+
 }
     
 //--------------------------------------------------------------
 void Socket::update(){}
     
-//--------------------------------------------------------------
-void Socket::sendDuration(){
-    sMsg.clear();
-    sMsg.setAddress("/input/duration");
-    sMsg.addStringArg(input->getFilepath() + "," + ofToString( input->getDuration() ));
-    oscSender.sendMessage(sMsg);    
-}
-    
+ 
 //--------------------------------------------------------------
 void Socket::sendEnd(){
-    sMsg.clear();
-    sMsg.setAddress("/input/");
-    sMsg.addStringArg("end");
-    oscSender.sendMessage(sMsg);
+	hasEnded = true;
 }
     
 //--------------------------------------------------------------

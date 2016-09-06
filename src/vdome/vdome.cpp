@@ -453,6 +453,13 @@ void vdome::socketUpdate(){
     }
     
 
+	if (socket.hasEnded) {
+		socket.hasEnded = false;
+		string s = "{ \"address\":\"/input/\", \"message\":\"end\" }";
+
+		server.send(s);
+	}
+
 	if (socketUpdatePending) {
 
 	address = json["address"].asString();
@@ -582,7 +589,6 @@ void vdome::socketUpdate(){
                 
 				//json.
 				string a = message +  "," + ofToString(input.getDuration());
-				cout << a << endl;
 
 				string s = "{ \"address\":\"/input/duration/\", \"message\": \"" + a + "\" }";
 

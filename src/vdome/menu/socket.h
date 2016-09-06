@@ -1,6 +1,5 @@
 #pragma once
 #include "ofMain.h"
-#include "ofxOsc.h"
 #include "input.h"
 #include "model.h"
 
@@ -13,8 +12,7 @@ public:
     Socket();
     void    setup();
     void    update();
-    void    sendDuration();
-    void    sendEnd();
+	void    sendEnd();
     void    loadXML(ofXml &xml);
     void    saveXML(ofXml &xml);
     
@@ -25,15 +23,9 @@ public:
     Input   *input;
 	Model	*model;
 
-    ofxOscSender    oscSender;
-    ofxOscReceiver  oscReceiver;
-    ofxOscMessage   sMsg;
-    ofxOscMessage   rMsg;
-
 	float			lastInputPosition;
+	bool			hasEnded;
     
-private:
-
 };
 
 }
