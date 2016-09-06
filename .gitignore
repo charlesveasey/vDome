@@ -1,0 +1,76 @@
+# Files
+*.slo
+*.lo
+*.o
+*.so
+*.dylib
+*.lai
+*.la
+*.a
+*.suo
+*.sdf
+*.xcuserstate
+*.plist
+*.xcbkptlist
+*.DS_Store
+*.gitkeep
+*.dll
+*.ilk
+*.lib
+*.pdb
+*.exe
+*.opensdf
+*.exp
+*.xccheckout
+*.xcsettings
+*.ply
+*.layout
+*.VC
+*.opendb
+*.db
+
+# Bin
+vDome.app
+vDomeDebug.app
+vDome.exe
+vDome_debug.exe
+vDome_debug.exp
+renderer/bin/vDome
+
+# Folders
+renderer/obj/
+renderer/bin/data/media/video
+renderer/bin/data/settings/masks
+renderer/bin/data/settings/warp
+renderer/bin/data/settings/color
+renderer/vdome.xcodeproj/xcuserdata
+renderer/bin/vDome_debug
+
+
+# C++ objects and libs
+
+*.slo
+*.lo
+*.o
+*.la
+*.lai
+*.so
+*.dll
+*.dylib
+
+# Qt-es
+
+/.qmake.cache
+/.qmake.stash
+*.pro.user
+*.pro.user.*
+*.moc
+moc_*.cpp
+qrc_*.cpp
+ui_*.h
+Makefile*
+*-build-*
+
+# QtCreator
+
+*.autosave
