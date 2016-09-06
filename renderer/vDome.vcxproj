@@ -1,0 +1,398 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{7FD42DF7-442E-479A-BA76-D0022F99702A}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>vDome</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\..\libs\openFrameworksCompiled\project\vs\openFrameworksRelease.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\..\libs\openFrameworksCompiled\project\vs\openFrameworksRelease.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\..\libs\openFrameworksCompiled\project\vs\openFrameworksDebug.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\..\libs\openFrameworksCompiled\project\vs\openFrameworksDebug.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>bin\</OutDir>
+    <IntDir>obj\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)_debug</TargetName>
+    <LinkIncremental>true</LinkIncremental>
+    <GenerateManifest>true</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>bin\</OutDir>
+    <IntDir>obj\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)_debug</TargetName>
+    <LinkIncremental>true</LinkIncremental>
+    <GenerateManifest>true</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>bin\</OutDir>
+    <IntDir>obj\$(Configuration)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>bin\</OutDir>
+    <IntDir>obj\$(Configuration)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);..\..\..\addons\ofxAssimpModelLoader\libs;..\..\..\addons\ofxAssimpModelLoader\libs\assimp;..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include;..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp;..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\Compiler;..\..\..\addons\ofxAssimpModelLoader\libs\assimp\lib;..\..\..\addons\ofxAssimpModelLoader\libs\assimp\lib\emscripten;..\..\..\addons\ofxAssimpModelLoader\libs\assimp\lib\vs;..\..\..\addons\ofxAssimpModelLoader\libs\assimp\lib\vs\Win32;..\..\..\addons\ofxAssimpModelLoader\libs\assimp\lib\vs\x64;..\..\..\addons\ofxAssimpModelLoader\libs\assimp\license;..\..\..\addons\ofxAssimpModelLoader\src;..\..\..\addons\ofxCurvesTool\src;..\..\..\addons\ofxLibwebsockets\libs\jsoncpp;..\..\..\addons\ofxLibwebsockets\libs\jsoncpp\json;..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\include\;..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include;..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets;..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src;..\..\..\addons\ofxLibwebsockets\src;..\..\..\addons\ofxOsc\libs;..\..\..\addons\ofxOsc\libs\oscpack;..\..\..\addons\ofxOsc\libs\oscpack\src;..\..\..\addons\ofxOsc\libs\oscpack\src\ip;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\posix;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\win32;..\..\..\addons\ofxOsc\libs\oscpack\src\osc;..\..\..\addons\ofxOsc\src;..\..\..\addons\ofxWarpBlend\libs;..\..\..\addons\ofxWarpBlend\src;..\..\..\addons\ofxWMFVideoPlayer\src;..\..\..\addons\ofxWMFVideoPlayer\src\presenter;..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common;..\..\..\addons\ofxJSON\libs;..\..\..\addons\ofxJSON\libs\jsoncpp;..\..\..\addons\ofxJSON\libs\jsoncpp\include;..\..\..\addons\ofxJSON\libs\jsoncpp\include\json;..\..\..\addons\ofxJSON\libs\jsoncpp\src;..\..\..\addons\ofxJSON\src;.\src\vdome;.\src\vdome\input;.\src\vdome\input\media;.\src\vdome\input\media\video;.\src\vdome\input\spout;.\src\vdome\input\spout\SpoutSDK;.\src\vdome\menu;.\src\vdome\renderer</AdditionalIncludeDirectories>
+      <CompileAs>CompileAsCpp</CompileAs>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <AdditionalDependencies>%(AdditionalDependencies);assimp.lib;websockets_static.lib;ZLIB.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);..\..\..\addons\ofxAssimpModelLoader\libs\assimp\lib\vs\Win32;..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\lib\vs\Win32\Debug</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent />
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);..\..\..\addons\ofxAssimpModelLoader\libs;..\..\..\addons\ofxAssimpModelLoader\libs\assimp;..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include;..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp;..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\Compiler;..\..\..\addons\ofxAssimpModelLoader\libs\assimp\lib;..\..\..\addons\ofxAssimpModelLoader\libs\assimp\lib\emscripten;..\..\..\addons\ofxAssimpModelLoader\libs\assimp\lib\vs;..\..\..\addons\ofxAssimpModelLoader\libs\assimp\lib\vs\Win32;..\..\..\addons\ofxAssimpModelLoader\libs\assimp\lib\vs\x64;..\..\..\addons\ofxAssimpModelLoader\libs\assimp\license;..\..\..\addons\ofxAssimpModelLoader\src;..\..\..\addons\ofxCurvesTool\src;..\..\..\addons\ofxLibwebsockets\libs\jsoncpp;..\..\..\addons\ofxLibwebsockets\libs\jsoncpp\json;..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\include\;..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include;..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets;..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src;..\..\..\addons\ofxLibwebsockets\src;..\..\..\addons\ofxOsc\libs;..\..\..\addons\ofxOsc\libs\oscpack;..\..\..\addons\ofxOsc\libs\oscpack\src;..\..\..\addons\ofxOsc\libs\oscpack\src\ip;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\posix;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\win32;..\..\..\addons\ofxOsc\libs\oscpack\src\osc;..\..\..\addons\ofxOsc\src;..\..\..\addons\ofxWarpBlend\libs;..\..\..\addons\ofxWarpBlend\src;..\..\..\addons\ofxWMFVideoPlayer\src;..\..\..\addons\ofxWMFVideoPlayer\src\presenter;..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common;..\..\..\addons\ofxJSON\libs;..\..\..\addons\ofxJSON\libs\jsoncpp;..\..\..\addons\ofxJSON\libs\jsoncpp\include;..\..\..\addons\ofxJSON\libs\jsoncpp\include\json;..\..\..\addons\ofxJSON\libs\jsoncpp\src;..\..\..\addons\ofxJSON\src;.\src\vdome;.\src\vdome\input;.\src\vdome\input\media;.\src\vdome\input\media\video;.\src\vdome\input\spout;.\src\vdome\input\spout\SpoutSDK;.\src\vdome\menu;.\src\vdome\renderer</AdditionalIncludeDirectories>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <AdditionalDependencies>%(AdditionalDependencies);assimp.lib;websockets_static.lib;ZLIB.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);..\..\..\addons\ofxAssimpModelLoader\libs\assimp\lib\vs\x64;..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\lib\vs\x64\Debug</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent />
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);..\..\..\addons\ofxAssimpModelLoader\libs;..\..\..\addons\ofxAssimpModelLoader\libs\assimp;..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include;..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp;..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\Compiler;..\..\..\addons\ofxAssimpModelLoader\libs\assimp\lib;..\..\..\addons\ofxAssimpModelLoader\libs\assimp\lib\emscripten;..\..\..\addons\ofxAssimpModelLoader\libs\assimp\lib\vs;..\..\..\addons\ofxAssimpModelLoader\libs\assimp\lib\vs\Win32;..\..\..\addons\ofxAssimpModelLoader\libs\assimp\lib\vs\x64;..\..\..\addons\ofxAssimpModelLoader\libs\assimp\license;..\..\..\addons\ofxAssimpModelLoader\src;..\..\..\addons\ofxCurvesTool\src;..\..\..\addons\ofxLibwebsockets\libs\jsoncpp;..\..\..\addons\ofxLibwebsockets\libs\jsoncpp\json;..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\include\;..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include;..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets;..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src;..\..\..\addons\ofxLibwebsockets\src;..\..\..\addons\ofxOsc\libs;..\..\..\addons\ofxOsc\libs\oscpack;..\..\..\addons\ofxOsc\libs\oscpack\src;..\..\..\addons\ofxOsc\libs\oscpack\src\ip;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\posix;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\win32;..\..\..\addons\ofxOsc\libs\oscpack\src\osc;..\..\..\addons\ofxOsc\src;..\..\..\addons\ofxWarpBlend\libs;..\..\..\addons\ofxWarpBlend\src;..\..\..\addons\ofxWMFVideoPlayer\src;..\..\..\addons\ofxWMFVideoPlayer\src\presenter;..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common;..\..\..\addons\ofxJSON\libs;..\..\..\addons\ofxJSON\libs\jsoncpp;..\..\..\addons\ofxJSON\libs\jsoncpp\include;..\..\..\addons\ofxJSON\libs\jsoncpp\include\json;..\..\..\addons\ofxJSON\libs\jsoncpp\src;..\..\..\addons\ofxJSON\src;.\src\vdome;.\src\vdome\input;.\src\vdome\input\media;.\src\vdome\input\media\video;.\src\vdome\input\spout;.\src\vdome\input\spout\SpoutSDK;.\src\vdome\menu;.\src\vdome\renderer</AdditionalIncludeDirectories>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <AdditionalDependencies>%(AdditionalDependencies);assimp.lib;websockets_static.lib;ZLIB.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);..\..\..\addons\ofxAssimpModelLoader\libs\assimp\lib\vs\Win32;..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\lib\vs\Win32\Release</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent />
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);..\..\..\addons\ofxAssimpModelLoader\libs;..\..\..\addons\ofxAssimpModelLoader\libs\assimp;..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include;..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp;..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\Compiler;..\..\..\addons\ofxAssimpModelLoader\libs\assimp\lib;..\..\..\addons\ofxAssimpModelLoader\libs\assimp\lib\emscripten;..\..\..\addons\ofxAssimpModelLoader\libs\assimp\lib\vs;..\..\..\addons\ofxAssimpModelLoader\libs\assimp\lib\vs\Win32;..\..\..\addons\ofxAssimpModelLoader\libs\assimp\lib\vs\x64;..\..\..\addons\ofxAssimpModelLoader\libs\assimp\license;..\..\..\addons\ofxAssimpModelLoader\src;..\..\..\addons\ofxCurvesTool\src;..\..\..\addons\ofxLibwebsockets\libs\jsoncpp;..\..\..\addons\ofxLibwebsockets\libs\jsoncpp\json;..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\include\;..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include;..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets;..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src;..\..\..\addons\ofxLibwebsockets\src;..\..\..\addons\ofxOsc\libs;..\..\..\addons\ofxOsc\libs\oscpack;..\..\..\addons\ofxOsc\libs\oscpack\src;..\..\..\addons\ofxOsc\libs\oscpack\src\ip;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\posix;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\win32;..\..\..\addons\ofxOsc\libs\oscpack\src\osc;..\..\..\addons\ofxOsc\src;..\..\..\addons\ofxWarpBlend\libs;..\..\..\addons\ofxWarpBlend\src;..\..\..\addons\ofxWMFVideoPlayer\src;..\..\..\addons\ofxWMFVideoPlayer\src\presenter;..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common;..\..\..\addons\ofxJSON\libs;..\..\..\addons\ofxJSON\libs\jsoncpp;..\..\..\addons\ofxJSON\libs\jsoncpp\include;..\..\..\addons\ofxJSON\libs\jsoncpp\include\json;..\..\..\addons\ofxJSON\libs\jsoncpp\src;..\..\..\addons\ofxJSON\src;.\src\vdome;.\src\vdome\input;.\src\vdome\input\media;.\src\vdome\input\media\video;.\src\vdome\input\spout;.\src\vdome\input\spout\SpoutSDK;.\src\vdome\menu;.\src\vdome\renderer</AdditionalIncludeDirectories>
+      <CompileAs>CompileAsCpp</CompileAs>
+    </ClCompile>
+    <Link>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <AdditionalDependencies>%(AdditionalDependencies);assimp.lib;websockets_static.lib;ZLIB.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);..\..\..\addons\ofxAssimpModelLoader\libs\assimp\lib\vs\x64;..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\lib\vs\x64\Release</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent />
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\addons\ofxAssimpModelLoader\src\ofxAssimpAnimation.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxAssimpModelLoader\src\ofxAssimpMeshHelper.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxAssimpModelLoader\src\ofxAssimpModelLoader.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxAssimpModelLoader\src\ofxAssimpTexture.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxCurvesTool\src\CurveLut.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxCurvesTool\src\ofxCurvesTool.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxJSON\libs\jsoncpp\src\jsoncpp.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxJSON\src\ofxJSONElement.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxLibwebsockets\libs\jsoncpp\jsoncpp.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src\Client.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src\Connection.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src\Events.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src\Protocol.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src\Reactor.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src\Server.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\src\Util.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscBundle.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscMessage.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscParameterSync.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscReceiver.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscSender.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\IpEndpointName.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\win32\NetworkingUtils.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\win32\UdpSocket.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscOutboundPacketStream.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscPrintReceivedElements.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscReceivedElements.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscTypes.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxWarpBlend\src\Warp.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxWarpBlend\src\WarpBilinear.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxWarpBlend\src\WarpPerspective.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxWarpBlend\src\WarpPerspectiveBilinear.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxWarpBlend\libs\BSpline.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxWMFVideoPlayer\src\ofxWMFVideoPlayer.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxWMFVideoPlayer\src\ofxWMFVideoPlayerUtils.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\Helpers.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\PresentEngine.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\Presenter.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\scheduler.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\vdome\input\capture.cpp" />
+    <ClCompile Include="src\vdome\input\color.cpp" />
+    <ClCompile Include="src\vdome\input\input.cpp" />
+    <ClCompile Include="src\vdome\input\media\image.cpp" />
+    <ClCompile Include="src\vdome\input\media\media.cpp" />
+    <ClCompile Include="src\vdome\input\media\video.cpp" />
+    <ClCompile Include="src\vdome\input\media\video\videoWin.cpp" />
+    <ClCompile Include="src\vdome\input\media\video\videoWMF.cpp" />
+    <ClCompile Include="src\vdome\input\spout\spoutR.cpp" />
+    <ClCompile Include="src\vdome\input\spout\SpoutSDK\SpoutDirectX.cpp" />
+    <ClCompile Include="src\vdome\input\spout\SpoutSDK\SpoutGLDXinterop.cpp" />
+    <ClCompile Include="src\vdome\input\spout\SpoutSDK\SpoutGLextensions.cpp" />
+    <ClCompile Include="src\vdome\input\spout\SpoutSDK\SpoutMemoryShare.cpp" />
+    <ClCompile Include="src\vdome\input\spout\SpoutSDK\SpoutReceiver.cpp" />
+    <ClCompile Include="src\vdome\input\spout\SpoutSDK\SpoutSDK.cpp" />
+    <ClCompile Include="src\vdome\input\spout\SpoutSDK\SpoutSender.cpp" />
+    <ClCompile Include="src\vdome\input\spout\SpoutSDK\SpoutSenderNames.cpp" />
+    <ClCompile Include="src\vdome\input\spout\SpoutSDK\SpoutSharedMemory.cpp" />
+    <ClCompile Include="src\vdome\menu\command.cpp" />
+    <ClCompile Include="src\vdome\menu\menu.cpp" />
+    <ClCompile Include="src\vdome\menu\socket.cpp" />
+    <ClCompile Include="src\vdome\menu\systemUtil.cpp" />
+    <ClCompile Include="src\vdome\renderer\curves.cpp" />
+    <ClCompile Include="src\vdome\renderer\model.cpp" />
+    <ClCompile Include="src\vdome\renderer\projector.cpp" />
+    <ClCompile Include="src\vdome\renderer\window.cpp" />
+    <ClCompile Include="src\vdome\vdome.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\src\ofxAssimpAnimation.h" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\src\ofxAssimpMeshHelper.h" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\src\ofxAssimpModelLoader.h" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\src\ofxAssimpTexture.h" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\src\ofxAssimpUtils.h" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\ai_assert.h" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\anim.h" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\camera.h" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\cexport.h" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\cfileio.h" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\cimport.h" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\color4.h" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\Compiler\poppack1.h" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\Compiler\pstdint.h" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\Compiler\pushpack1.h" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\config.h" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\DefaultLogger.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\defs.h" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\Exporter.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\Importer.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\importerdesc.h" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\IOStream.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\IOSystem.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\light.h" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\Logger.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\LogStream.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\material.h" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\matrix3x3.h" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\matrix4x4.h" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\mesh.h" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\metadata.h" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\NullLogger.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\postprocess.h" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\ProgressHandler.hpp" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\quaternion.h" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\scene.h" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\texture.h" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\types.h" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\vector2.h" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\vector3.h" />
+    <ClInclude Include="..\..\..\addons\ofxAssimpModelLoader\libs\assimp\include\assimp\version.h" />
+    <ClInclude Include="..\..\..\addons\ofxCurvesTool\src\CurveLut.h" />
+    <ClInclude Include="..\..\..\addons\ofxCurvesTool\src\ofxCurvesTool.h" />
+    <ClInclude Include="..\..\..\addons\ofxJSON\libs\jsoncpp\include\json\json-forwards.h" />
+    <ClInclude Include="..\..\..\addons\ofxJSON\libs\jsoncpp\include\json\json.h" />
+    <ClInclude Include="..\..\..\addons\ofxJSON\src\ofxJSON.h" />
+    <ClInclude Include="..\..\..\addons\ofxJSON\src\ofxJSONElement.h" />
+    <ClInclude Include="..\..\..\addons\ofxLibwebsockets\src\ofxLibwebsockets.h" />
+    <ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\jsoncpp\json\json-forwards.h" />
+    <ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\jsoncpp\json\json.h" />
+    <ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\include\libwebsockets.h" />
+    <ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\libwebsockets\include\lws_config.h" />
+    <ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets\Client.h" />
+    <ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets\Connection.h" />
+    <ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets\Events.h" />
+    <ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets\Protocol.h" />
+    <ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets\Reactor.h" />
+    <ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets\Server.h" />
+    <ClInclude Include="..\..\..\addons\ofxLibwebsockets\libs\ofxLibwebsockets\include\ofxLibwebsockets\Util.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOsc.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscArg.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscBundle.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscMessage.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscParameterSync.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscReceiver.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscSender.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\IpEndpointName.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\NetworkingUtils.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\PacketListener.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\TimerListener.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\UdpSocket.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\MessageMappingOscPacketListener.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscException.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscHostEndianness.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscOutboundPacketStream.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscPacketListener.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscPrintReceivedElements.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscReceivedElements.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscTypes.h" />
+    <ClInclude Include="..\..\..\addons\ofxWarpBlend\src\Warp.h" />
+    <ClInclude Include="..\..\..\addons\ofxWarpBlend\libs\BSpline.h" />
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\ofxWMFVideoPlayer.h" />
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\ofxWMFVideoPlayerUtils.h" />
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\AsyncCB.h" />
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\BufferLock.h" />
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\ClassFactory.h" />
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\common.h" />
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\critsec.h" />
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\GrowArray.h" />
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\linklist.h" />
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\logging.h" />
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\logmediatype.h" />
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\mediatype.h" />
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\mfutils.h" />
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\PropVar.h" />
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\registry.h" />
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\TinyMap.h" />
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\common\trace.h" />
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\EVRPresenter.h" />
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\EVRPresenterUuid.h" />
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\Helpers.h" />
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\PresentEngine.h" />
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\Presenter.h" />
+    <ClInclude Include="..\..\..\addons\ofxWMFVideoPlayer\src\presenter\scheduler.h" />
+    <ClInclude Include="src\vdome\input\capture.h" />
+    <ClInclude Include="src\vdome\input\color.h" />
+    <ClInclude Include="src\vdome\input\input.h" />
+    <ClInclude Include="src\vdome\input\media\image.h" />
+    <ClInclude Include="src\vdome\input\media\media.h" />
+    <ClInclude Include="src\vdome\input\media\video.h" />
+    <ClInclude Include="src\vdome\input\media\video\videoDS.h" />
+    <ClInclude Include="src\vdome\input\media\video\videoWin.h" />
+    <ClInclude Include="src\vdome\input\media\video\videoWMF.h" />
+    <ClInclude Include="src\vdome\input\spout\spoutR.h" />
+    <ClInclude Include="src\vdome\input\spout\SpoutSDK\Spout.h" />
+    <ClInclude Include="src\vdome\input\spout\SpoutSDK\SpoutCommon.h" />
+    <ClInclude Include="src\vdome\input\spout\SpoutSDK\SpoutDirectX.h" />
+    <ClInclude Include="src\vdome\input\spout\SpoutSDK\SpoutGLDXinterop.h" />
+    <ClInclude Include="src\vdome\input\spout\SpoutSDK\SpoutGLextensions.h" />
+    <ClInclude Include="src\vdome\input\spout\SpoutSDK\SpoutMemoryShare.h" />
+    <ClInclude Include="src\vdome\input\spout\SpoutSDK\SpoutReceiver.h" />
+    <ClInclude Include="src\vdome\input\spout\SpoutSDK\SpoutSDK.h" />
+    <ClInclude Include="src\vdome\input\spout\SpoutSDK\SpoutSender.h" />
+    <ClInclude Include="src\vdome\input\spout\SpoutSDK\SpoutSenderNames.h" />
+    <ClInclude Include="src\vdome\input\spout\SpoutSDK\SpoutSharedMemory.h" />
+    <ClInclude Include="src\vdome\menu\command.h" />
+    <ClInclude Include="src\vdome\menu\commands.h" />
+    <ClInclude Include="src\vdome\menu\menu.h" />
+    <ClInclude Include="src\vdome\menu\saveThread.h" />
+    <ClInclude Include="src\vdome\menu\socket.h" />
+    <ClInclude Include="src\vdome\menu\systemUtil.h" />
+    <ClInclude Include="src\vdome\renderer\curves.h" />
+    <ClInclude Include="src\vdome\renderer\model.h" />
+    <ClInclude Include="src\vdome\renderer\projector.h" />
+    <ClInclude Include="src\vdome\renderer\window.h" />
+    <ClInclude Include="src\vdome\vdome.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(OF_ROOT)\libs\openFrameworksCompiled\project\vs\openframeworksLib.vcxproj">
+      <Project>{5837595d-aca9-485c-8e76-729040ce4b0b}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="icon.rc">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/D_DEBUG %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/D_DEBUG %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>$(OF_ROOT)\libs\openFrameworksCompiled\project\vs</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="icon.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
