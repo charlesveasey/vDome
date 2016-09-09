@@ -32,16 +32,16 @@ Item {
          x: 0; y: 45; width: 65;
 
          onClicked: {
-                 model.append({
-                    "index":         list.count,
-                    "border":        false,
-                    "positionX":     0,
-                    "positionY":     0,
-                    "pCount":         1,
-                    "resolutionX":   1024,
-                    "resolutionY":   768
+             model.append({
+                "index":         list.count,
+                "border":        false,
+                "positionX":     0,
+                "positionY":     0,
+                "pCount":         1,
+                "resolutionX":   1024,
+                "resolutionY":   768
 
-                 })
+             })
         }
 
          Button {
@@ -96,7 +96,7 @@ Item {
             ndata[ni] = "position"; ni++
             ndata[ni] = list.model.get(i).positionX + "," + list.model.get(i).positionY; ni++
             ndata[ni] = "pCount"; ni++
-            ndata[ni] = projectorCount; ni++
+            ndata[ni] = list.model.get(i).pCount; ni++
             ndata[ni] = "resolutionX"; ni++
             ndata[ni] = list.model.get(i).resolutionX; ni++
             ndata[ni] = "resolutionY"; ni++
@@ -104,8 +104,6 @@ Item {
             ndata[ni] = "fullReset"; ni++
             ndata[ni] = fullReset; ni++
         };
-
-
 
         xml.save(ndata);
         syscmds.restartRenderer();
@@ -122,7 +120,6 @@ Item {
 
 
         Column {
-
             height: 205;
             spacing: columnSpacing;
 
@@ -213,11 +210,9 @@ Item {
                     onTextChanged: {
                         if (f1) fullReset = true;
                         f1 = true;
-                        projectorCount = parseInt(text);
+                        list.model.get(index).pCount = parseInt(text);
                     }
                 }
-
-
             }
 
 
@@ -265,22 +260,15 @@ Item {
             }
 
 
-
          } // column
-
-
 
 
     } // component
 
 
-
-
     ListModel {
         id: model
     }
-
-
 
      ListView {
          id: list;
@@ -292,9 +280,5 @@ Item {
                 xml.loadSettings();
           }
      }
-
-
-
-
 
 }

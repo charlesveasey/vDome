@@ -17,11 +17,20 @@ void Syscmds::startRenderer() {
 
 #ifdef Q_OS_WIN
      QString path = QCoreApplication::applicationDirPath();
+     QFileInfo fileInfo(path);
+     QDir dir = fileInfo.dir();
+     //dir.cdUp();
+     path = dir.path();
      Process.start( QDir::toNativeSeparators((path + "/renderer/vDome.exe")) );
 #endif
 
 #ifdef Q_OS_MAC
-     Process.start("open ./renderer/vDome.app");
+     QString path = QCoreApplication::applicationDirPath();
+     QFileInfo fileInfo(path);
+     QDir dir = fileInfo.dir();
+     //dir.cdUp();
+     QString path = dir.path();
+     Process.start("open /../renderer/vDome.app");
 #endif
 
 }
@@ -43,7 +52,7 @@ void Syscmds::restartRenderer() {
 #endif
 
 #ifdef Q_OS_MAC
-    Process.start( "sh ./renderer/restart.sh");
+    Process.start( "sh /../renderer/restart.sh");
 #endif
 }
 

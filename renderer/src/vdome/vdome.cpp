@@ -27,7 +27,6 @@ void vdome::init() {
     // format xml settings path
     xmlPath = "settings.xml";
     
-    
     // push xml to save thread
     saveThread.xml.push_back(&xml);
     saveThread.files.push_back(xmlPath);
@@ -47,9 +46,8 @@ void vdome::init() {
         }
     }
   
-    ofAddListener(Window::setupEvent, this, &vdome::setup);
+    //ofAddListener(Window::setupEvent, this, &vdome::setup);
 
-    
     if (xml.load(ofToDataPath(xmlPath))){
         
         if (xml.exists("[@framerate]")){
@@ -67,24 +65,22 @@ void vdome::init() {
         ofExit();
     }
  
-    
 
    ofxLibwebsockets::ServerOptions options = ofxLibwebsockets::defaultServerOptions();
    options.port = 9092;
    options.bUseSSL = false; // you'll have to manually accept this self-signed cert if 'true'!
    bSetup = server.setup(options);
 
-   // this adds your app as a listener for the server
-   server.addListener(this);
+	// this adds your app as a listener for the server
+	server.addListener(this);
 
-    
     // start main of loop
     ofRunMainLoop();
 }
     
 //--------------------------------------------------------------
 void vdome::setup(int &n){
-    ofRemoveListener(Window::setupEvent, this, &vdome::setup);
+    //ofRemoveListener(Window::setupEvent, this, &vdome::setup);
 
     // load xml settings from path
     if (xml.load(ofToDataPath(xmlPath)))
@@ -111,7 +107,6 @@ void vdome::update(int &n) {
     if (socket.enabled)
         socketUpdate();
 
-    
 #ifdef TARGET_OSX
     else if (input.source == input.SYPHON){
         updateSyphonInputTransform();
@@ -166,7 +161,6 @@ void vdome::onColorEvent(ofVec3f &color) {
     
 //--------------------------------------------------------------
 void vdome::loadXML(){
-
     input.loadXML(xml);
     socket.loadXML(xml);
     
@@ -271,6 +265,9 @@ void vdome::createWindow(ofXml &xml){
         }
     }
     xml.setToParent();
+
+	int n = 1;
+	setup(n);
 }
 
 //--------------------------------------------------------------
@@ -432,7 +429,6 @@ void vdome::exit(){
 //--------------------------------------------------------------
 void vdome::socketUpdate(){
 
-
     if (mouseMovePending > -1){
         // move mouse to new selection
         ofPoint p;
@@ -456,7 +452,6 @@ void vdome::socketUpdate(){
 	if (socket.hasEnded) {
 		socket.hasEnded = false;
 		string s = "{ \"address\":\"/input/\", \"message\":\"end\" }";
-
 		server.send(s);
 	}
 
@@ -589,9 +584,7 @@ void vdome::socketUpdate(){
                 
 				//json.
 				string a = message +  "," + ofToString(input.getDuration());
-
 				string s = "{ \"address\":\"/input/duration/\", \"message\": \"" + a + "\" }";
-
 				server.send(s);
 
                 input.durationSent = true;
@@ -608,7 +601,6 @@ void vdome::socketUpdate(){
              socket.oscSender.sendMessage(socket.sMsg);*/
 
 			 string s = "{ \"address\":\"/input/position/\", \"message\": " + ofToString(input.getPosition()) + " }";
-
 			 server.send(s);
          }
          socket.lastInputPosition = input.getPosition();

@@ -10,8 +10,16 @@ Item {
     property real sendPort: 3334;
     property real receivePort: 3333;
     property string address: "";
-    property  real seekValue: -1;
+    property real seekValue: -1;
 
+    Timer {
+        id: timer;
+        interval: 2000; running: false; repeat: true
+        onTriggered: {
+            webSocket.active = true;
+            //console.log("timer");
+        }
+    }
 
     /**************************************************************
      WEB SOCKET RECEIVE
@@ -22,7 +30,18 @@ Item {
         url :"ws://localhost:9092/"
         property real duration: 0;
 
-
+        onStatusChanged: {
+            if (webSocket.status == WebSocket.Error) {
+             //console.log("Error: " + webSocket.errorString)
+            } else if (webSocket.status == WebSocket.Open) {
+             timer.stop();
+             //console.log("OPEN: " + webSocket.errorString)
+            } else if (webSocket.status == WebSocket.Closed) {
+             //console.log("CLOSED: " + webSocket.errorString)
+             webSocket.active = false;
+             timer.start();
+            }
+        }
 
         onTextMessageReceived: {
             var m = JSON.parse(message);

@@ -4,6 +4,11 @@
 
 XMLParser::XMLParser(QQuickItem *parent) : QQuickItem(parent){
     QString path = QCoreApplication::applicationDirPath();
+    QFileInfo fileInfo(path);
+    QDir dir = fileInfo.dir();
+    //dir.cdUp();
+    path = dir.path();
+
     filename = QDir::toNativeSeparators(path + "/renderer/data/settings.xml");
     defaultFilename = QDir::toNativeSeparators(path + "/renderer/data/default.xml");
     warpFolder = QDir::toNativeSeparators(path + "/renderer/data/settings/warp/");
@@ -76,6 +81,7 @@ void XMLParser::save(QVariant data){
 
     if (!file.open(QIODevice::ReadOnly) || !doc.setContent(&file))
         return;
+
 
     QDomNode element;
     QString attr;
