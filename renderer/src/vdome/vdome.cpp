@@ -482,6 +482,7 @@ void vdome::socketUpdate(){
 			input.play();
 		else if (message == "stop")
 			input.stop();
+
 	}
 	else if (address == "/input/loop/") {
 		string message = json["message"].asString();
@@ -617,7 +618,9 @@ void vdome::socketUpdate(){
              socket.oscSender.sendMessage(socket.sMsg);*/
 
 			string s = "{ \"address\":\"/input/position/\", \"message\": " + ofToString(input.getPosition()) + " }";
-			server.send(s);
+
+			if (input.isPlaying() && input.getPosition() > 0)
+				server.send(s);
          }
          socket.lastInputPosition = input.getPosition();
      }
@@ -628,17 +631,17 @@ void vdome::socketUpdate(){
 
 //--------------------------------------------------------------
 void vdome::onConnect(ofxLibwebsockets::Event& args) {
-	cout << "on connected" << endl;
+	//cout << "on connected" << endl;
 }
 
 //--------------------------------------------------------------
 void vdome::onOpen(ofxLibwebsockets::Event& args) {
-	cout << "new connection open" << endl;
+	//cout << "new connection open" << endl;
 }
 
 //--------------------------------------------------------------
 void vdome::onClose(ofxLibwebsockets::Event& args) {
-	cout << "on close" << endl;
+	//cout << "on close" << endl;
 }
 
 //--------------------------------------------------------------
@@ -648,18 +651,19 @@ void vdome::onIdle(ofxLibwebsockets::Event& args) {
 
 //--------------------------------------------------------------
 void vdome::onMessage(ofxLibwebsockets::Event& args) {
-	cout << "got message " << args.message << endl;
+	//cout << "got message " << args.message << endl;
 
 
-	//json.
-
+	//json message
 	ofxJSON json(args.message);
 	this->json = json;
 	socketUpdatePending = true;
 	
+
+
 	return;
 
-
+	// auto-calibration
 	ofXml xml;
 	xml.loadFromBuffer(args.message);
 	int n = xml.getNumChildren();
@@ -676,7 +680,6 @@ void vdome::onMessage(ofxLibwebsockets::Event& args) {
 
 		cout << id << " " << r << " " << g << " " << b << endl;
 
-
 		if (id < projectors.size()) {
 			int h = projectors[id]->curves.getCurrentHover();
 			projectors[id]->curves.setCurrentPointY(h, r);
@@ -692,7 +695,7 @@ void vdome::onMessage(ofxLibwebsockets::Event& args) {
 
 //--------------------------------------------------------------
 void vdome::onBroadcast(ofxLibwebsockets::Event& args) {
-	cout << "got broadcast " << args.message << endl;
+	//cout << "got broadcast " << args.message << endl;
 }
 
 }//////

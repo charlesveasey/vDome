@@ -46,20 +46,22 @@ Item {
         onTextMessageReceived: {
             var m = JSON.parse(message);
             if (m.address == "/input/position/"){
-                if (controlPanel.cType == "video") {
-                    if (m.message == "-inf"){
-                        return
+                if (controlPanel.sliderPressed == false){
+                    if (controlPanel.cType == "video") {
+                        if (m.message == "-inf"){
+                            return
+                        }
+                       if (Number.fromLocaleString(m.message) === null)
+                            controlPanel.positionValue = 0;
+                       else
+                           controlPanel.positionValue = Number.fromLocaleString (m.message);
+
+                        controlPanel.time = secondsToHms(controlPanel.cDuration* Number.fromLocaleString (m.message));
+
+                       if (controlPanel.positionValue*controlPanel.duration >= controlPanel.duration){
+                            playlistPanel.next();
+                       }
                     }
-                   if (Number.fromLocaleString(m.message) === null)
-                        controlPanel.positionValue = 0;
-                   else
-                       controlPanel.positionValue = Number.fromLocaleString (m.message);
-
-                    controlPanel.time = secondsToHms(controlPanel.cDuration* Number.fromLocaleString (m.message));
-
-                   if (controlPanel.positionValue*controlPanel.duration >= controlPanel.duration){
-                        playlistPanel.next();
-                   }
                 }
             }
             else if (m.address == "/input/duration/") {

@@ -37,11 +37,6 @@ private:
 	bool	bEnded;
 	bool	markEnd;
 	float	positionRequest;
-	int		positionRequestFrameCnt;
-	float	storePositionFix;
-	int		storePositionFrameCnt;
-	float	seekPositionStore;
-	int		seekPositionFrameCnt;
 	bool	bPaused;
 
 	ofxWMFVideoPlayer player;

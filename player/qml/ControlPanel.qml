@@ -6,6 +6,7 @@ import QtQuick 2.2
 Item {
     property alias title: titleText.text;
     property alias time: timeText.text;
+    property alias sliderPressed: pSlider.pressed;
     property alias positionValue: pSlider.value;
     property alias volumeValue: vSlider.value;
     property alias sourceValue: inputItems.selectedItem;
@@ -181,11 +182,17 @@ Item {
         minimum: 0.0; maximum: 1.0
         hit.height: height+8; hit.y: -12
 
+
         onPressedChanged: {
-            if (pressed)
-                socket.sendPause();
-            else if (pauseBtn.visible)
-                socket.sendPlay();
+            if (pressed){
+            //    socket.sendPause();
+            }
+            else {
+                seekTimer.stop()
+                socket.sendSeek(positionValue);
+
+                //socket.sendPlay();
+            }
         }
 
         onValueChangedByHandle: {
@@ -239,7 +246,6 @@ Item {
      **************************************************************/
     Item {
         x: parent.width-395;
-
 
         /**************************************************************
          INPUT SOURCE
@@ -661,12 +667,29 @@ Item {
         currentPanel.setCurrentIndex(cIndex)
     }
 
+
     /**************************************************************
      SEEK
      **************************************************************/
+    Timer {
+        id: seekTimer;
+        interval: 500; running: false; repeat: false
+        onTriggered: {
+            socket.sendSeek(positionValue);
+        }
+    }
+
     function seek() {
         timerCnt = (100*cDuration*positionValue).toFixed(2);
-        socket.sendSeek(positionValue);
+
+        //positionValue = timerCnt/100/cDuration;
+        time = secondsToHms(cDuration*positionValue);
+        //time = timerCnt;
+
+        if (!seekTimer.running)
+            seekTimer.start();
+
+        //socket.sendSeek(positionValue);
     }
 
     /**************************************************************
