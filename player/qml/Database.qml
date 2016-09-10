@@ -247,7 +247,8 @@ Item {
         var res;
         db.transaction(
             function(tx) {
-                res = tx.executeSql('INSERT INTO playlistIndex VALUES(?,?,?,?,?)', [ null, title, author, duration, new Date().getTime() ]);
+                var rows = selectPlaylistIndex();
+                res = tx.executeSql('INSERT INTO playlistIndex VALUES(?,?,?,?,?)', [ rows.length + 1, title, author, duration, new Date().getTime() ]);
             })
         return res.insertId;
     }
@@ -411,8 +412,9 @@ Item {
         var db = openDB();
         db.transaction(
             function(tx) {
+                var rows = selectPlaylist();
                 tx.executeSql('INSERT INTO playlist VALUES(?,?,?,?,?,?,?,?,?)',
-                              [ null, title, author, duration, file, mime, new Date().getTime(), sequence, indexId ]);
+                              [ rows.length + 1, title, author, duration, file, mime, new Date().getTime(), sequence, indexId ]);
             })
     }
 
