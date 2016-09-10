@@ -662,7 +662,7 @@ Item {
     }
 
     /**************************************************************
-     SEEK UPDATE FOR IMAGE TIMER
+     SEEK
      **************************************************************/
     function seek() {
         timerCnt = (100*cDuration*positionValue).toFixed(2);
