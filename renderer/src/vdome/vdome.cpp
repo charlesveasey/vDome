@@ -1,5 +1,10 @@
 #include "vdome.h"
 #include "command.h"
+#include <regex>
+#include <iterator>
+#include <regex>
+#include <string>
+
 namespace vd {
 
 //--------------------------------------------------------------
@@ -426,6 +431,18 @@ void vdome::exit(){
     input.close();
 }
     
+string vdome::EscapeForRegularExpression(const std::string &s) {
+	static const char metacharacters[] = R"(\*)";
+	std::string out;
+	out.reserve(s.size());
+	for (auto ch : s) {
+		if (std::strchr(metacharacters, ch))
+			out.push_back('\\');
+		out.push_back(ch);
+	}
+	return out;
+}
+
 //--------------------------------------------------------------
 void vdome::socketUpdate(){
 
@@ -484,10 +501,10 @@ void vdome::socketUpdate(){
 	}
 	else if (address == "/input/file/") {
 		string message = json["message"].asString();
-		ofFile oFile;
+		/*ofFile oFile;
 		oFile.open(message);
-		string file = oFile.getAbsolutePath();
-		input.openFile(file);
+		string file = oFile.getAbsolutePath();*/
+		input.openFile(message);
 	}
 	else if (address == "/input/volume/") {
 		float message = json["message"].asFloat();
@@ -547,7 +564,6 @@ void vdome::socketUpdate(){
 			projectors[i]->enable = true;
 		else
 			projectors[i]->enable = false;
-
 	}
 	else if (address == "/projector/polar/") {
 		string f = json["message"].asString();
@@ -558,9 +574,7 @@ void vdome::socketUpdate(){
 	}
 	else if (address == "/projector/focus/") {
 		int i = json["message"].asInt();
-
 		systemUtil::setAppFocus();
-
 		for (auto w : windows) {
 			w->menu.active = true;
 		}
@@ -582,9 +596,11 @@ void vdome::socketUpdate(){
                 socket.sMsg.addStringArg(input.getFilepath() + "," + ofToString( input.getDuration() ));
                 socket.oscSender.sendMessage(socket.sMsg);*/
                 
-				//json.
-				string a = message +  "," + ofToString(input.getDuration());
-				string s = "{ \"address\":\"/input/duration/\", \"message\": \"" + a + "\" }";
+				// json message
+				string s = input.getFilepath();
+				s = EscapeForRegularExpression(s);
+				s = s +  "," + ofToString(input.getDuration());
+				s = "{ \"address\":\"/input/duration/\", \"message\": \"" + s + "\" }";
 				server.send(s);
 
                 input.durationSent = true;
@@ -600,8 +616,8 @@ void vdome::socketUpdate(){
              socket.sMsg.addStringArg(ofToString( input.getPosition() ));
              socket.oscSender.sendMessage(socket.sMsg);*/
 
-			 string s = "{ \"address\":\"/input/position/\", \"message\": " + ofToString(input.getPosition()) + " }";
-			 server.send(s);
+			string s = "{ \"address\":\"/input/position/\", \"message\": " + ofToString(input.getPosition()) + " }";
+			server.send(s);
          }
          socket.lastInputPosition = input.getPosition();
      }
@@ -609,7 +625,6 @@ void vdome::socketUpdate(){
 	 socketUpdatePending = false;
 }
     
-
 
 //--------------------------------------------------------------
 void vdome::onConnect(ofxLibwebsockets::Event& args) {

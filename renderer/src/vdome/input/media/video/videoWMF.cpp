@@ -8,7 +8,6 @@ VideoWMF::VideoWMF() {
 	positionRequest = -1;
 	storePositionFix =-1;
 	seekPositionFrameCnt = 0;
-	ofAddListener(player.videoLoadEvent, this, &VideoWMF::videoLoaded);
 }
 
 bool VideoWMF::open(string filepath){
@@ -29,6 +28,11 @@ bool VideoWMF::open(string filepath){
 void VideoWMF::update(){
 
 	player.update();
+
+	if (player.getDuration() > 0 && bLoaded == false) {
+		bool b = true;
+		videoLoaded(b);
+	}
 
 	if (markEnd){
 		bEnded = true;

@@ -64,6 +64,8 @@ private:
 	string message;
 	bool socketUpdatePending;
 
+	string vdome::EscapeForRegularExpression(const std::string &s);
+
 
 public:
 	void onConnect(ofxLibwebsockets::Event& args);
