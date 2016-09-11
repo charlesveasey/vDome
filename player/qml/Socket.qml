@@ -11,7 +11,7 @@ Item {
     property real receivePort: 3333;
     property string address: "";
     property real seekValue: -1;
-    property bool bmsg: false;
+    property bool bmsg: true;
 
     Timer {
         id: timer;
