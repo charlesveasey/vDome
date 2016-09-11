@@ -474,29 +474,25 @@ Item {
      **************************************************************/
     function createSettings(){
         var db = openDB();
+
         db.transaction(
             function(tx) {
                var res = tx.executeSql('CREATE TABLE IF NOT EXISTS settings( librarySlide REAL,
                                                                     socketHost TEXT,
-                                                                    socketSend INTEGER,
-                                                                    socketReceive INTEGER,
-                                                                    startupLaunch INTEGER,
-                                                                    startupFilepath TEXT,
+                                                                    socketPort INTEGER,
                                                                     timestamp REAL)');
              })
 
 
         var rows = selectSettings();
-        if (!rows.length){
+
+        if (rows.length == 0){
             db.transaction(
                 function(tx) {
-                    tx.executeSql('INSERT INTO settings VALUES(?,?,?,?,?,?,?)',
+                    tx.executeSql('INSERT INTO settings VALUES(?,?,?,?)',
                                                                         [ 10,
                                                                         "localhost",
-                                                                        3334,
-                                                                        3333,
-                                                                        false,
-                                                                        null,
+                                                                        9092,
                                                                         new Date().getTime() ]);
                  })
         }
@@ -523,10 +519,7 @@ Item {
         for(var i = 0; i < rows.length; i++) {
                     r += rows.item(i).librarySlide + ", " +
                     rows.item(i).socketHost + ", " +
-                    rows.item(i).socketSend + ", " +
-                    rows.item(i).socketReceive + ", " +
-                    rows.item(i).startupLaunch + ", " +
-                    rows.item(i).startupFilepath + "\n"
+                    rows.item(i).socketPort + "\n"
         }
         console.log(r);
     }
@@ -557,10 +550,7 @@ Item {
             function(tx) {
                 tx.executeSql('UPDATE settings SET librarySlide = '     + item.librarySlide         + ', ' +
                                                   'socketHost = "'       + item.socketHost           + '", ' +
-                                                  'socketSend = '        + item.socketSend           + ', ' +
-                                                  'socketReceive = '    + item.socketReceive        + ', ' +
-                                                  'startupLaunch = '    + item.startupLaunch        + ', ' +
-                                                  'startupFilepath = "'  + item.startupFilepath      + '", ' +
+                                                  'socketPort = '        + item.socketPort          + ', ' +
                                                   'timestamp = '         +  new Date().getTime() + ' ' +
                               'WHERE timestamp = "' + item.timestamp + '"');
             })

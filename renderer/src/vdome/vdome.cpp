@@ -69,15 +69,6 @@ void vdome::init() {
    else {
         ofExit();
     }
- 
-
-   ofxLibwebsockets::ServerOptions options = ofxLibwebsockets::defaultServerOptions();
-   options.port = 9092;
-   options.bUseSSL = false; // you'll have to manually accept this self-signed cert if 'true'!
-   bSetup = server.setup(options);
-
-	// this adds your app as a listener for the server
-	server.addListener(this);
 
     // start main of loop
     ofRunMainLoop();
@@ -91,6 +82,14 @@ void vdome::setup(int &n){
     if (xml.load(ofToDataPath(xmlPath)))
         loadXML();
     
+
+	// start server
+	ofxLibwebsockets::ServerOptions options = ofxLibwebsockets::defaultServerOptions();
+	options.port = socket.port;
+	options.bUseSSL = false; // you'll have to manually accept this self-signed cert if 'true'!
+	bSetup = server.setup(options);
+	server.addListener(this);
+
     // set up input
     setupInput();
     

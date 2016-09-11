@@ -49,13 +49,9 @@ private:
     int         mouseMovePending;
 
     vector<shared_ptr<Window>>              windows;
-    vector<shared_ptr<ofAppBaseWindow>>     baseWindows;
-    
+    vector<shared_ptr<ofAppBaseWindow>>     baseWindows;    
+	vector<Projector*>						projectors;
 
-	vector<Projector*>              projectors;
-
-    void        socketUpdate();
-    
 	ofxLibwebsockets::Server server;
 	bool bSetup;
 
@@ -66,7 +62,6 @@ private:
 
 	string vdome::EscapeForRegularExpression(const std::string &s);
 
-
 public:
 	void onConnect(ofxLibwebsockets::Event& args);
 	void onOpen(ofxLibwebsockets::Event& args);
@@ -74,7 +69,7 @@ public:
 	void onIdle(ofxLibwebsockets::Event& args);
 	void onMessage(ofxLibwebsockets::Event& args);
 	void onBroadcast(ofxLibwebsockets::Event& args);
-
+	void socketUpdate();
 };
 
 }/////////

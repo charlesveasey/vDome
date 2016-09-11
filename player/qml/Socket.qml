@@ -7,8 +7,7 @@ import QtWebSockets 1.0
 Item {
     id: root
     property string host: "localhost"
-    property real sendPort: 3334;
-    property real receivePort: 3333;
+    property real port: 9092;
     property string address: "";
     property real seekValue: -1;
     property bool bmsg: true;
@@ -31,7 +30,7 @@ Item {
     WebSocket {
         id: webSocket
         active: true
-        url :"ws://localhost:9092/"
+        url : "ws://" + host + ":" + port.toString() + "/";
         property real duration: 0;
 
         onStatusChanged: {

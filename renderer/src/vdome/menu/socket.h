@@ -17,8 +17,7 @@ public:
     void    saveXML(ofXml &xml);
     
     string  host;
-    int     send;
-    int     receive;
+    int     port;
     bool    enabled;
     Input   *input;
 	Model	*model;

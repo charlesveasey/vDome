@@ -10,8 +10,7 @@ Item{
     property int columnOffset: 10;
     property int column2x: 250;
     property var hText: hostText;
-    property var sText: sendPortText;
-    property var rText: receivePortText;
+    property var pText: portText;
 
     Column{
         y: 0; width: 400; height: 100;
@@ -45,36 +44,21 @@ Item{
         Text {
             width: 225;
             color: '#fff'; font.pixelSize: fontSizeNormal; font.family: fontRegular;
-            text: qsTr("Send Port")
+            text: qsTr("Port")
 
 
             TextInput{
-                id:sendPortText
+                id:portText
                 x: column2x; width:225;
                 color: '#fff'; font.pixelSize: fontSizeNormal; font.family: fontRegular
                 clip: true; activeFocusOnPress: true; readOnly: false; selectByMouse: true;
                 onTextChanged: {
-                    socket.sendPort = text;
+                    socket.port = text;
                 }
             }
 
         }
 
-
-        Text {
-            width: 225;
-            color: '#fff'; font.pixelSize: fontSizeNormal; font.family: fontRegular;
-            text: qsTr("Receive Port")
-            TextInput{
-                id:receivePortText
-                x: column2x; width:225
-                color: '#fff'; font.pixelSize: fontSizeNormal;  font.family: fontRegular
-                clip: true; activeFocusOnPress: true; readOnly: false; selectByMouse: true;
-                onTextChanged: {
-                    socket.receivePort = text;
-                }
-            }
-        }
 
 
     }

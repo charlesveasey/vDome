@@ -5,15 +5,12 @@ namespace vd {
 Socket::Socket(){
     enabled = true;
     host = "localhost";
-    send = 3333;
-    receive = 3334;
+    port = 9092;
 	hasEnded = false;
 }
 
 //--------------------------------------------------------------
-void Socket::setup(){
-
-}
+void Socket::setup(){}
     
 //--------------------------------------------------------------
 void Socket::update(){}
@@ -34,10 +31,8 @@ void Socket::loadXML(ofXml &xml) {
     
     if (xml.exists("socket[@host]"))
         host = ofToString( xml.getAttribute("socket[@host]") );
-    if (xml.exists("socket[@send]"))
-        send = ofToInt( xml.getAttribute("socket[@send]") );
-    if (xml.exists("socket[@receive]"))
-        receive = ofToInt( xml.getAttribute("socket[@receive]") );
+    if (xml.exists("socket[@port]"))
+        port = ofToInt( xml.getAttribute("socket[@port]") );
     
     if (enabled)
         setup();
@@ -51,8 +46,7 @@ void Socket::saveXML(ofXml &xml) {
     else         xml.setAttribute("enabled", "off");
     
     xml.setAttribute("host", ofToString(host));
-    xml.setAttribute("send", ofToString(send));
-    xml.setAttribute("receive", ofToString(receive));
+    xml.setAttribute("port", ofToString(port));
 
     xml.setToParent();
 }

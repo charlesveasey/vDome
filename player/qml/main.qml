@@ -135,8 +135,7 @@ ApplicationWindow {
     Socket {
         id: socket
         host: "localhost";
-        sendPort: 3334;
-        receivePort: 3333;
+        port: 9092;
     }
 
     /**************************************************************

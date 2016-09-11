@@ -37,8 +37,7 @@ Window {
         // save settings objects
         settingsObject.librarySlide = settingsLibrary.imageDuration;
         settingsObject.socketHost = socket.host;
-        settingsObject.socketSend = socket.sendPort;
-        settingsObject.socketReceive = socket.receivePort;
+        settingsObject.socketPort = socket.port;
         db.updateSettings(settingsObject);
         libraryPanel.slide = settingsObject.librarySlide;
         libraryPanel.updateDuration();
@@ -192,14 +191,12 @@ Window {
             settingsLibrary.dtext.text = o.librarySlide;
 
             socket.host = o.socketHost;
-            socket.sendPort = parseInt(o.socketSend);
-            socket.receivePort = parseInt(o.socketReceive);
+            socket.port = parseInt(o.socketPort);
 
             settingsSocket.hText.text = socket.host;
-            settingsSocket.sText.text = socket.sendPort;
-            settingsSocket.rText.text = socket.receivePort;
+            settingsSocket.pText.text = socket.port;
 
-            for (var p in  o){
+            for (var p in o){
                 settingsObject[p] = o[p]
             }
         }
