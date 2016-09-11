@@ -11,6 +11,7 @@ Item {
     property real receivePort: 3333;
     property string address: "";
     property real seekValue: -1;
+    property bool bmsg: false;
 
     Timer {
         id: timer;
@@ -20,6 +21,9 @@ Item {
             //console.log("timer");
         }
     }
+
+
+
 
     /**************************************************************
      WEB SOCKET RECEIVE
@@ -46,11 +50,9 @@ Item {
         onTextMessageReceived: {
             var m = JSON.parse(message);
             if (m.address == "/input/position/"){
-                if (controlPanel.sliderPressed == false){
+                if (bmsg == true){
                     if (controlPanel.cType == "video") {
-                        if (m.message == "-inf"){
-                            return
-                        }
+
                        if (Number.fromLocaleString(m.message) === null)
                             controlPanel.positionValue = 0;
                        else
@@ -63,6 +65,7 @@ Item {
                        }
                     }
                 }
+
             }
             else if (m.address == "/input/duration/") {
                 var file = m.message.split(",")[0];

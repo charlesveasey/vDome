@@ -611,16 +611,15 @@ void vdome::socketUpdate(){
     
     // send position
      if (input.source == input.MEDIA) {
-         if (socket.lastInputPosition != input.getPosition()){
+         if (socket.lastInputPosition < input.getPosition() && input.isPlaying() == true){
              /*socket.sMsg.clear();
              socket.sMsg.setAddress("/input/position");
              socket.sMsg.addStringArg(ofToString( input.getPosition() ));
              socket.oscSender.sendMessage(socket.sMsg);*/
 
 			string s = "{ \"address\":\"/input/position/\", \"message\": " + ofToString(input.getPosition()) + " }";
+			server.send(s);
 
-			if (input.isPlaying() && input.getPosition() > 0)
-				server.send(s);
          }
          socket.lastInputPosition = input.getPosition();
      }

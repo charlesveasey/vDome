@@ -172,9 +172,19 @@ Item {
         elide: Text.ElideRight;
     }
 
+
     /**************************************************************
      POSITION SLIDER
      **************************************************************/
+
+    Timer {
+        id: bTimer;
+        interval: 500; running: false; repeat: false
+        onTriggered: {
+            socket.bmsg = true;
+        }
+    }
+
     SliderCustom {
         id: pSlider
         x: 191; y: 54;
@@ -186,11 +196,13 @@ Item {
         onPressedChanged: {
             if (pressed){
             //    socket.sendPause();
+                    socket.bmsg = false;
             }
             else {
                 seekTimer.stop()
                 socket.sendSeek(positionValue);
-
+                bTimer.restart();
+                //bTimer.start();
                 //socket.sendPlay();
             }
         }
