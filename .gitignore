@@ -25,6 +25,9 @@
 *.xcsettings
 *.ply
 *.layout
+*.VC
+*.opendb
+*.db
 
 # Bin
 vDome.app
@@ -32,13 +35,43 @@ vDomeDebug.app
 vDome.exe
 vDome_debug.exe
 vDome_debug.exp
-bin/vDome
+renderer/bin/vDome
 
 # Folders
-obj/
-bin/data/media/video
-bin/data/settings/masks
-bin/data/settings/warp
-bin/data/settings/color
-vdome.xcodeproj/xcuserdata
-bin/vDome_debug
+renderer/obj/
+renderer/bin/data/media/video
+renderer/bin/data/settings/masks
+renderer/bin/data/settings/warp
+renderer/bin/data/settings/color
+renderer/vdome.xcodeproj/xcuserdata
+renderer/bin/vDome_debug
+
+
+# C++ objects and libs
+
+*.slo
+*.lo
+*.o
+*.la
+*.lai
+*.so
+*.dll
+*.dylib
+
+# Qt-es
+
+/.qmake.cache
+/.qmake.stash
+*.pro.user
+*.pro.user.*
+*.moc
+moc_*.cpp
+qrc_*.cpp
+ui_*.h
+Makefile*
+*-build-*
+
+# QtCreator
+
+*.autosave
+build-vDome-Desktop_Qt_5_7_0_MSVC2015_32bit-Release
