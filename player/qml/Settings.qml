@@ -10,9 +10,11 @@ Window {
     id: root
     title: ""
     width: window.width/2; height: window.height
-    minimumWidth: 400; minimumHeight: 265;
+    minimumWidth: width; minimumHeight: height;
+    maximumWidth: width; maximumHeight: height;
+
     color: '#111'; opacity: 1
-    flags: Qt.Window | Qt.WindowTitleHint | Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint
+    flags: Qt.Window | Qt.WindowTitleHint | Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint | Qt.WindowStaysOnTopHint
 
     property int  sliderInputTextPad: 100
     property var settingsObject;
@@ -24,6 +26,7 @@ Window {
     property string fontRegular: openSansSemiBold.name;
     property string fontBold: openSansExtraBold.name;
 
+    property var inputSettings: settingsInput;
     property var windowSettings: settingsWindow;
     property var projectorSettings: settingsProjector;
 

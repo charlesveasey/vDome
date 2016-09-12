@@ -53,7 +53,22 @@ ApplicationWindow {
 
             for (var i= 0; i<xmlData.length; i++){
 
-                if (xmlData[i] === "window"){       // window
+                if (xmlData[i] === "input"){
+
+                    var flip = (xmlData[i+2] === "on") ? true : false;
+                    var rotate = parseFloat(xmlData[i+4]);
+                    var scale = parseFloat(xmlData[i+6]);
+                    var tilt = parseFloat(xmlData[i+8]);
+                    var source = xmlData[i+10];
+
+                    settings.inputSettings.setFlipSwitch(flip);
+                    settings.inputSettings.setRotateSlider(rotate);
+                    settings.inputSettings.setScaleSlider(scale);
+                    settings.inputSettings.setTiltSlider(tilt);
+                    controlPanel.setSourceValue(source);
+                }
+
+                else if (xmlData[i] === "window"){       // window
                     if (windowFlag){
                         settings.windowSettings.model.append({
                                  "index":           index,

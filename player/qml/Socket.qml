@@ -194,10 +194,20 @@ Item {
         send(JSON.stringify(msg))
     }
 
-    // focus
     function sendAppFocus(value){
-        send("/projector/focus/", value)
+        //send("/projector/focus/", value)
         var msg = { address: "/projector/focus/", message: value };
         send(JSON.stringify(msg))
     }
+
+    function sendProjectorSave(){
+        var msg = { address: "/projector/", message: "save" };
+        send(JSON.stringify(msg))
+    }
+
+    function sendInputSave(){
+        var msg = { address: "/input/", message: "save" };
+        send(JSON.stringify(msg))
+    }
+
 }

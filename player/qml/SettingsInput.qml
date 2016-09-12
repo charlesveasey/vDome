@@ -11,10 +11,27 @@ Item{
 
 
 
+    function setFlipSwitch(v){
+        flipSwitch.checked = v;
+    }
+
+    function setScaleSlider(v){
+        scaleSlider.value = Number(v) / 2.0;
+    }
+
+    function setRotateSlider(v){
+        rotateSlider.value = (Number(v) + 180) / 360;
+    }
+
+    function setTiltSlider(v){
+        tiltSlider.value = (Number(v) + 180) / 360;
+    }
+
+
+
     Column{
         x:0;  y:0; width: parent.width
         spacing: columnSpacing;
-
 
 
 
@@ -26,21 +43,18 @@ Item{
 
 
 
-
-
         Text {
             width: 225;
             color: '#fff'; font.pixelSize: fontSizeNormal; font.family: fontRegular;
             text: qsTr("Flip")
 
             Switch {
+                id: flipSwitch;
                 x: 75; y: 1;
                 checked: false;
                 onCheckedChanged: if (socket) socket.sendFlip((checked ? "on" : "off"));
             }
         }
-
-
 
 
 
@@ -63,9 +77,6 @@ Item{
                 onAccepted: scaleSlider.value = Number(displayText) / 2.0;
             }
         }
-
-
-
 
 
 
@@ -92,9 +103,6 @@ Item{
 
 
 
-
-
-
         Text {
             width: 225;
             color: '#fff'; font.pixelSize: fontSizeNormal; font.family: fontRegular;
@@ -118,8 +126,21 @@ Item{
 
 
 
+        Item {
+            Button {
+                 text: qsTr("Save")
+                 x: 475; y: 500;
+
+                 onClicked: {
+                    socket.sendInputSave();
+                }
+
+            }
+        }
+
 
     } // column
+
 
 } ////////////////////////////////////////
 

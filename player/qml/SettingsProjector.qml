@@ -95,8 +95,6 @@ Item{
 
 
 
-
-
         Text {
             width: 225;
             color: '#fff'; font.pixelSize: fontSizeNormal; font.family: fontRegular;
@@ -202,10 +200,9 @@ Item{
         x:0; y: 520; width: parent.width;
         spacing: columnSpacing;
 
-
         Button {
              text: qsTr("Calibrate")
-             x: 0; y: 0;  width: 70;
+             x: 0; y: 0;  width: 75;
 
              onClicked: {
                 socket.sendAppFocus(projectorSlider.value);
@@ -215,10 +212,19 @@ Item{
 
         }
 
-
     } // column 4
 
 
+
+    Button {
+        x: 475; y: 520;
+
+         text: qsTr("Save")
+
+         onClicked: {
+            socket.sendProjectorSave();
+        }
+    }
 
 
 }////////////////////////////////

@@ -33,6 +33,24 @@ QVariant XMLParser::load(){
      int pCount = 0;
 
 
+     // input xml
+     QDomNodeList input = doc.elementsByTagName("input");
+     QStringList inputList;
+     element = input.at(0).toElement();
+     list << "input";
+     attr = element.attribute("flip");
+     list << "flip" << attr;
+     attr = element.attribute("rotate");
+     list << "rotate" << attr;
+     attr = element.attribute("scale");
+     list << "scale" << attr;
+     attr = element.attribute("tilt");
+     list << "tilt" << attr;
+     attr = element.attribute("source");
+     list << "source" << attr;
+
+
+
      // window xml
      QDomNodeList window = doc.elementsByTagName("window");
 

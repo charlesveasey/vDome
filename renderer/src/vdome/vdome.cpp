@@ -119,11 +119,11 @@ void vdome::update(int &n) {
     
     if (saveThread.saved) {
         for (auto w : windows){
-            if (w->menu.active) {
+            if (w->menu.active == true) {
                 w->menu.saved = true;
-                saveThread.saved = false;
             }
         }
+		saveThread.saved = false;
     }
 }
     
@@ -473,116 +473,145 @@ void vdome::socketUpdate(){
 
 	if (socketUpdatePending) {
 
-	address = json["address"].asString();
+		address = json["address"].asString();
  
-	if (address == "/input/") {
-		string message = json["message"].asString();
-		if (message == "play")
-			input.play();
-		else if (message == "stop")
-			input.stop();
-
-	}
-	else if (address == "/input/loop/") {
-		string message = json["message"].asString();
-		if (message == "on")
-			input.setLoop(true);
-		else
-			input.setLoop(false);
-	}
-	else if (address == "/input/seek/") {
-		float f = json["message"].asFloat();
-		input.seek(f);
-	}
-	else if (address == "/input/source/") {
-		string message = json["message"].asString();
-		int s = input.convertSourceString(message);
-		onSourceEvent(s);
-	}
-	else if (address == "/input/file/") {
-		string message = json["message"].asString();
-		/*ofFile oFile;
-		oFile.open(message);
-		string file = oFile.getAbsolutePath();*/
-		input.openFile(message);
-	}
-	else if (address == "/input/volume/") {
-		float message = json["message"].asFloat();
-		input.setVolume(message);
-	}
-	else if (address == "/input/format/") {
-		string message = json["message"].asString();
-		int s = input.convertFormatString(message);
-		onFormatEvent(s);
-	}
-
-	// transform
-	else if (address == "/input/flip/") {
-		string message = json["message"].asString();
-		for (auto w : windows) {
+		// imput
+		if (address == "/input/") {
+			string message = json["message"].asString();
+			if (message == "play"){
+				input.play();
+			}		
+			else if (message == "stop") {
+				input.stop();
+			}
+			else if (message == "save") {
+				xml.load(ofToDataPath(xmlPath));
+				input.saveXML(xml);
+				for (auto w : windows) {
+					w->model.saveXML(xml);
+				}
+				saveThread.save();
+			}
+		}
+		else if (address == "/input/loop/") {
+			string message = json["message"].asString();
 			if (message == "on")
-				w->model.setTextureFlip(true);
+				input.setLoop(true);
 			else
-				w->model.setTextureFlip(false);
+				input.setLoop(false);
 		}
-	}
-	else if (address == "/input/scale/") {
-		float message = json["message"].asFloat();
-		for (auto w : windows) {
-			w->model.setTextureScale(message);
+		else if (address == "/input/seek/") {
+			float f = json["message"].asFloat();
+			input.seek(f);
 		}
-	}
-	else if (address == "/input/rotate/") {
-		float message = json["message"].asFloat();
-		for (auto w : windows) {
-			w->model.setTextureRotate(message);
+		else if (address == "/input/source/") {
+			string message = json["message"].asString();
+			int s = input.convertSourceString(message);
+			onSourceEvent(s);
 		}
-	}
-	else if (address == "/input/tilt/") {
-		float message = json["message"].asFloat();
-		for (auto w : windows) {
-			w->model.setTextureTilt(message);
+		else if (address == "/input/file/") {
+			string message = json["message"].asString();
+			/*ofFile oFile;
+			oFile.open(message);
+			string file = oFile.getAbsolutePath();*/
+			input.openFile(message);
 		}
-	}
+		else if (address == "/input/volume/") {
+			float message = json["message"].asFloat();
+			input.setVolume(message);
+		}
+		else if (address == "/input/format/") {
+			string message = json["message"].asString();
+			int s = input.convertFormatString(message);
+			onFormatEvent(s);
+		}
+
+		// transform
+		else if (address == "/input/flip/") {
+			string message = json["message"].asString();
+			for (auto w : windows) {
+				if (message == "on")
+					w->model.setTextureFlip(true);
+				else
+					w->model.setTextureFlip(false);
+			}
+		}
+		else if (address == "/input/scale/") {
+			float message = json["message"].asFloat();
+			for (auto w : windows) {
+				w->model.setTextureScale(message);
+			}
+		}
+		else if (address == "/input/rotate/") {
+			float message = json["message"].asFloat();
+			for (auto w : windows) {
+				w->model.setTextureRotate(message);
+			}
+		}
+		else if (address == "/input/tilt/") {
+			float message = json["message"].asFloat();
+			for (auto w : windows) {
+				w->model.setTextureTilt(message);
+			}
+		}
 
 
-	// projector
-	else if (address == "/projector/menu/") {
-		string message = json["message"].asString();
-		for (auto w : windows) {
-			if (message == "on")
+		// projector
+		else if (address == "/projector/menu/") {
+			string message = json["message"].asString();
+			for (auto w : windows) {
+				if (message == "on")
+					w->menu.active = true;
+				else
+					w->menu.active = false;
+			}
+		}
+		else if (address == "/projector/enable/") {
+			string f = json["message"].asString();
+			int i = ofToFloat(ofSplitString(f, ",")[0]);
+			string s = ofToString(ofSplitString(f, ",")[1]);
+			if (s == "on")
+				projectors[i]->enable = true;
+			else
+				projectors[i]->enable = false;
+		}
+		else if (address == "/projector/polar/") {
+			string f = json["message"].asString();
+			int i = ofToInt(ofSplitString(f, ",")[0]);
+			float a = ofToFloat(ofSplitString(f, ",")[1]);
+			float e = ofToFloat(ofSplitString(f, ",")[2]);
+			projectors[i]->setPolar(a, e, 1);
+		}
+		else if (address == "/projector/focus/") {
+			int i = json["message"].asInt();
+			systemUtil::setAppFocus();
+			for (auto w : windows) {
 				w->menu.active = true;
-			else
-				w->menu.active = false;
+			}
+			projectors[i]->active = true;
+			projectors[i]->mouse = true;
+			projectors[i]->keyboard = true;
+			mouseMovePending = i;
 		}
-	}
-	else if (address == "/projector/enable/") {
-		string f = json["message"].asString();
-		int i = ofToFloat(ofSplitString(f, ",")[0]);
-		string s = ofToString(ofSplitString(f, ",")[1]);
-		if (s == "on")
-			projectors[i]->enable = true;
-		else
-			projectors[i]->enable = false;
-	}
-	else if (address == "/projector/polar/") {
-		string f = json["message"].asString();
-		int i = ofToInt(ofSplitString(f, ",")[0]);
-		float a = ofToFloat(ofSplitString(f, ",")[1]);
-		float e = ofToFloat(ofSplitString(f, ",")[2]);
-		projectors[i]->setPolar(a, e, 1);
-	}
-	else if (address == "/projector/focus/") {
-		int i = json["message"].asInt();
-		systemUtil::setAppFocus();
-		for (auto w : windows) {
-			w->menu.active = true;
+
+		// save settings
+		else if (address == "/projector/" && json["message"].asString() == "save") {
+			xml.load(ofToDataPath(xmlPath));
+			for (int i = 0; i<windows.size(); i++) {
+				if (vsync)  xml.setAttribute("vsync", "on");
+				else        xml.setAttribute("vsync", "off");
+
+				xml.setAttribute("framerate", ofToString(framerate));
+				windows[i]->saveXML(xml);
+			}
+			saveThread.save();
 		}
-		projectors[i]->active = true;
-		projectors[i]->mouse = true;
-		projectors[i]->keyboard = true;
-		mouseMovePending = i;
-	}
+
+		else if (address == "/socket/" && json["message"].asString() == "save") {
+			xml.load(ofToDataPath(xmlPath));
+			socket.saveXML(xml);
+			saveThread.save();
+		}
 
 	}
 
