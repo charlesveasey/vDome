@@ -27,6 +27,10 @@ Item {
     height: parent.height;
     focus: true;
 
+    function setSourceValue(v){
+        inputItem.text = v;
+    }
+
     /**************************************************************
      KEYBOARD
      **************************************************************/
