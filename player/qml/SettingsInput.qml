@@ -129,7 +129,7 @@ Item{
         Item {
             Button {
                  text: qsTr("Save")
-                 x: 475; y: 500;
+                 x: 475; y: 210;
 
                  onClicked: {
                     socket.sendInputSave();
