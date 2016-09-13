@@ -27,7 +27,7 @@ void Projector::init(int i, int pStartingIndex){
 	camera.setFarClip(1000);
     
 	camera.setAutoDistance(false);
-    camera.disableMouseInput();
+    //camera.disableMouseInput();
     camera.setTranslationKey('t');
     camera.setDrag(0);
 	camera.setRotationSensitivity(-.25, -.25, .25);
@@ -97,11 +97,6 @@ void Projector::mousePressed(ofMouseEventArgs& mouseArgs) {
 		mouseArgs.x -= x;
 		Warp::handleMouseDown(mWarps, mouseArgs);
 	}
-	else if (editMode == FOV) {
-		mouseArgs.x -= x;
-		camera.mousePressed(mouseArgs);
-		camera.update(mouseArgs);
-	}
 }
 
 //--------------------------------------------------------------
@@ -111,11 +106,6 @@ void Projector::mouseDragged(ofMouseEventArgs& mouseArgs) {
 		mouseArgs.x -= x;
 		Warp::handleMouseDrag(mWarps, mouseArgs);
 	}
-	else if (editMode == FOV) {
-		mouseArgs.x -= x;
-		camera.mouseDragged(mouseArgs);
-		camera.update(mouseArgs);
-	}
 }
 
 //--------------------------------------------------------------
@@ -124,11 +114,6 @@ void Projector::mouseReleased(ofMouseEventArgs& mouseArgs) {
 	if (editMode == GRID) {
 		mouseArgs.x -= x;
 		Warp::handleMouseUp(mWarps, mouseArgs);
-	}
-	else if (editMode == FOV) {
-		mouseArgs.x -= x;
-		camera.mouseReleased(mouseArgs);
-		camera.update(mouseArgs);
 	}
 }
 
@@ -144,11 +129,6 @@ void Projector::mouseMoved(ofMouseEventArgs& mouseArgs) {
 //--------------------------------------------------------------
 void Projector::mouseScrolled(ofMouseEventArgs& mouseArgs) {
 	if (!active) return;
-	if (editMode == FOV) {
-		mouseArgs.x -= x;
-		camera.mouseScrolled(mouseArgs);
-		camera.update(mouseArgs);
-	}
 }
 
 //--------------------------------------------------------------
@@ -347,6 +327,9 @@ void Projector::setValue(float v) {
 void Projector::setPlanePosition(int x, int y){
     this->x = x;
     this->y = y;
+	ofRectangle r;
+	r.set(x, y, width, height);
+	camera.setControlArea(r);
 }
 
 //--------------------------------------------------------------
