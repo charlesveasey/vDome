@@ -192,10 +192,23 @@ Command* Projector::execute(float v) {
         case BRIGHTNESS:		cmd = new SetBrightness(*this, brightness + v * .1);															break;
         case CONTRAST:			cmd = new SetContrast(*this, contrast + v * .1);																break;
         case SATURATION:		cmd = new SetSaturation(*this, saturation + v * .1);															break;
-       // case GRID:				cmd = new SetGridPoints(*this, plane.getGridPoints(), lastGrid);												break;
+       // case GRID:				cmd = new SetGridPoints(*this, plane.getGridPoints(), lastGrid);											break;
         case FOV:				cmd = new SetCameraFov(*this, cameraFov + v);																	break;
 		case SHEARX:			cmd = new SetShear(*this, shearX + v*.01, shearY);																break;
 		case SHEARY:			cmd = new SetShear(*this, shearX, shearY + v*.01);																break;
+		case BLEND_LEFT:		
+			setBlendEdges(getBlendEdges().w + v*.1, getBlendEdges().x, getBlendEdges().y, getBlendEdges().z);
+			break;
+		case BLEND_RIGHT:
+			setBlendEdges(getBlendEdges().w, getBlendEdges().x + v*.1, getBlendEdges().y, getBlendEdges().z);
+			break;
+		case BLEND_TOP:
+			setBlendEdges(getBlendEdges().w, getBlendEdges().x, getBlendEdges().y + v*.1, getBlendEdges().z);
+			break;
+		case BLEND_BOTTOM:
+			setBlendEdges(getBlendEdges().w, getBlendEdges().x, getBlendEdges().y, getBlendEdges().z + v*.1);
+			break;
+
     }
     
     return cmd;
@@ -417,5 +430,22 @@ void Projector::setPolar(float azi, float ele, float dis){
     camera.setPosition(car.x, car.z, car.y);
 }
 
+void Projector::setBlendEdges(float left, float right, float top, float bottom){
+	left = ofClamp(left, 0.0, 2.0);
+	right = ofClamp(right, 0.0, 2.0);
+	top = ofClamp(top, 0.0, 2.0);
+	bottom = ofClamp(bottom, 0.0, 2.0);
+
+	blendEdges.w = left;
+	blendEdges.x = right;
+	blendEdges.y = top;
+	blendEdges.z = bottom;
+	mWarps[0]->setEdges(glm::vec4(left, top, right, bottom));
+}
+
+glm::vec4& Projector::getBlendEdges() {
+	return blendEdges;
+
+}
 
 }/////////

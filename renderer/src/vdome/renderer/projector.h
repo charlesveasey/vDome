@@ -9,46 +9,23 @@ class Projector {
 
 public:
     // initializes class
-    // params: rojector index, window projector starting indes
+    // params: projector index, window sum projector starting index
     void    init(int i, int pStartingIndex);
-    
-    // setup class
     void    setup();
     
-    // begin fbo capture
     void    begin();
-    
-    // end fbo capture
     void    end();
     
-    // mouse pressed event callback
     void    mousePressed(ofMouseEventArgs& mouseArgs);
-    
-    // mouse dragged event callback
     void    mouseDragged(ofMouseEventArgs& mouseArgs);
-    
-    // mouse released event callback
     void    mouseReleased(ofMouseEventArgs& mouseArgs);
-
-	// mouse moved event callback
 	void    mouseMoved(ofMouseEventArgs& mouseArgs);
-
-	// mouse scrolled event callback
 	void    mouseScrolled(ofMouseEventArgs& mouseArgs);
-        
-    // keyboard pressed callback
     void    keyPressed(int key);
-    
-    // keyboard released event callback
     void    keyReleased(int key);
-    
-    // load xml settings stage 1
+
     void    loadXML(ofXml &xml);
-    
-    // load xml settings stage 2
     void    loadXML2(ofXml &xml);
-    
-    // save xml settings
     void    saveXML(ofXml &xml);
 
     // execute undo / redo commands
@@ -83,6 +60,10 @@ public:
     
     void    setPolar(float azi, float ele, float dis);
 
+	void		setBlendEdges(float left, float right, float top, float bottom);
+	glm::vec4&	getBlendEdges();
+
+
 	ofTexture&      getTextureReference();
     
     // projector index
@@ -99,14 +80,16 @@ public:
     
     float   brightness, contrast, saturation;
     
+
 	// color curves
 	Curves  curves;
     
     int     projectorStartingIndex;
     
     enum    editModes{
-                BRIGHTNESS,CONTRAST,SATURATION, SHEARX, SHEARY,
-                CURVES, GRID, FOV, NONE, WHITE, BLACK, ENABLE};
+                BRIGHTNESS, CONTRAST, SATURATION, SHEARX, SHEARY,
+                CURVES, GRID, FOV, NONE, WHITE, BLACK, ENABLE, 
+				BLEND_LEFT, BLEND_RIGHT, BLEND_TOP, BLEND_BOTTOM };
     
 	ofEasyCam        camera;
 
@@ -136,6 +119,9 @@ private:
 
 	float           shearX;
 	float           shearY;
+
+	glm::vec4		blendEdges;
+
 };
 
 

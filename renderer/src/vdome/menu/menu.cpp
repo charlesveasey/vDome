@@ -21,8 +21,8 @@ Menu::Menu(){
 	menuMain->items.push_back(new Item("Enable"));
 	menuMain->items.push_back(new Item("View               ->", true));
 	menuMain->items.push_back(new Item("Warp               ->", true));
-    menuMain->items.push_back(new Item("Blend              ->", true));
     menuMain->items.push_back(new Item("Color              ->", true));
+	menuMain->items.push_back(new Item("Blend              ->", true));
 
 	// view menu
 	menuView = new MenuItem;
@@ -45,8 +45,10 @@ Menu::Menu(){
     menuBlend->menuId = BLEND;
     menuBlend->parent = &menuMain;
     menuBlend->currentItem = 0;
-	menuBlend->items.push_back(new Item("Brightness"));
-	menuBlend->items.push_back(new Item("Contrast"));
+	menuBlend->items.push_back(new Item("Left"));
+	menuBlend->items.push_back(new Item("Right"));
+	menuBlend->items.push_back(new Item("Top"));
+	menuBlend->items.push_back(new Item("Bottom"));
 
     // color menu
     menuColor = new MenuItem;
@@ -54,6 +56,8 @@ Menu::Menu(){
     menuColor->parent = &menuMain;
     menuColor->currentItem = 0;
 
+	menuColor->items.push_back(new Item("Brightness"));
+	menuColor->items.push_back(new Item("Contrast"));
     menuColor->items.push_back(new Item("Saturation"));
     menuColor->items.push_back(new Item("Curves             ->", true));
 
@@ -170,16 +174,28 @@ void Menu::drawMain(int i){
 			
 			case BLEND:
 				switch (j) {
-				case BRIGHTNESS:
-					val = ofToString(roundTo(projectors->at(i).brightness, .001));
-					break;
-				case CONTRAST:
-					val = ofToString(roundTo(projectors->at(i).contrast, .001));
-					break;
+					case LEFT:
+						val = ofToString(roundTo(projectors->at(i).getBlendEdges().w, 0.001));
+						break;
+					case RIGHT:
+						val = ofToString(roundTo(projectors->at(i).getBlendEdges().x, 0.001));
+						break;
+					case TOP:
+						val = ofToString(roundTo(projectors->at(i).getBlendEdges().y, 0.001));
+						break;
+					case BOTTOM:
+						val = ofToString(roundTo(projectors->at(i).getBlendEdges().z, 0.001));
+						break;
 				}
 				break;
                 case COLOR:
                     switch (j) {
+						case BRIGHTNESS:
+							val = ofToString(roundTo(projectors->at(i).brightness, .001));
+							break;
+						case CONTRAST:
+							val = ofToString(roundTo(projectors->at(i).contrast, .001));
+							break;
                         case SATURATION:
                             val = ofToString(roundTo(projectors->at(i).saturation, .001));
                             break;
@@ -372,14 +388,14 @@ void Menu::select() {
             switch (item) {
                 case 1: currentMenu = &menuView; break;
                 case 2: currentMenu = &menuWarp; break;
-                case 3: currentMenu = &menuBlend; break;
-                case 4: currentMenu = &menuColor; break;
+				case 3: currentMenu = &menuColor; break;
+                case 4: currentMenu = &menuBlend; break;
                 default: break;
             }
             break;
         case COLOR:
             switch (item) {
-				case 1: currentMenu = &menuCurves; break;
+				case 3: currentMenu = &menuCurves; break;
                 default: break;
             }
             break;
@@ -797,9 +813,7 @@ void Menu::setEditMode() {
             break;
 		
 		case VIEW:
-
 			switch (j) {
-
 				case FOV:
 					for (int k = 0; k<projCount; k++) {
 						if (projectors->at(k).active)
@@ -837,16 +851,28 @@ void Menu::setEditMode() {
 		
 		case BLEND:
 			switch (j) {
-			case BRIGHTNESS:
+			case LEFT:
 				for (int k = 0; k<projCount; k++) {
 					if (projectors->at(k).active)
-						projectors->at(k).editMode = projectors->at(k).BRIGHTNESS;
+						projectors->at(k).editMode = projectors->at(k).BLEND_LEFT;
 				}
 				break;
-			case CONTRAST:
+			case RIGHT:
 				for (int k = 0; k<projCount; k++) {
 					if (projectors->at(k).active)
-						projectors->at(k).editMode = projectors->at(k).CONTRAST;
+						projectors->at(k).editMode = projectors->at(k).BLEND_RIGHT;
+				}
+				break;
+			case TOP:
+				for (int k = 0; k<projCount; k++) {
+					if (projectors->at(k).active)
+						projectors->at(k).editMode = projectors->at(k).BLEND_TOP;
+				}
+				break;
+			case BOTTOM:
+				for (int k = 0; k<projCount; k++) {
+					if (projectors->at(k).active)
+						projectors->at(k).editMode = projectors->at(k).BLEND_BOTTOM;
 				}
 				break;
 			}
@@ -854,6 +880,20 @@ void Menu::setEditMode() {
 
         case COLOR:
             switch (j) {
+				case BRIGHTNESS:
+					for (int k = 0; k<projCount; k++) {
+						if (projectors->at(k).active) {
+							projectors->at(k).editMode = projectors->at(k).BRIGHTNESS;
+						}
+					}
+					break;
+				case CONTRAST:
+					for (int k = 0; k<projCount; k++) {
+						if (projectors->at(k).active) {
+							projectors->at(k).editMode = projectors->at(k).CONTRAST;
+						}
+					}
+					break;
                 case SATURATION:
                     for (int k=0; k<projCount; k++) {
                         if (projectors->at(k).active){

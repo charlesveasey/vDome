@@ -86,8 +86,8 @@ public:
 	// Menu item types
 	enum mainItems	{ ENABLE };
     enum warpItems  { GRID };
-    enum colorItems { SATURATION, COLOR_CURVES };
-	enum blendItems { BRIGHTNESS, CONTRAST };
+    enum colorItems { BRIGHTNESS, CONTRAST, SATURATION, COLOR_CURVES };
+	enum blendItems { LEFT, RIGHT, TOP, BOTTOM };
 	enum viewItems  { FOV, SHEARX, SHEARY };
 
 	// Layout
