@@ -257,7 +257,7 @@ void Menu::update(){
 		}
 	}
 	
-	if ((*currentMenu)->menuId == VIEW) {
+	if ((*currentMenu)->currentItem == FOV) {
 		for (int i = 0; i < projCount; i++) {
 			if (projectors->at(i).active == true) {
 				if (projectors->at(i).camera.getMouseInputEnabled() == false) {
@@ -797,7 +797,6 @@ void Menu::setEditMode() {
             break;
 		
 		case VIEW:
-
 
 			switch (j) {
 

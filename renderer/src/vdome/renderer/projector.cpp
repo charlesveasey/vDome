@@ -166,9 +166,11 @@ Command* Projector::reset() {
         case CONTRAST:			cmd = new SetContrast(*this, 1);															break;
         case SATURATION:		cmd = new SetSaturation(*this, 1);															break;
         case GRID:				cmd = new ResetGrid(*this);																	break;
-        case FOV:				cmd = new SetCameraFov(*this, 90);
-            camera.reset(); // FIX
-            break;
+		case FOV:				
+			cmd = new SetCameraFov(*this, 90);	
+			setCameraPosition(0, 0, 1);
+			setCameraOrientation(0, 0, 0);
+			break;
 		case SHEARX:			cmd = new SetShear(*this, 0, shearY);														break;
 		case SHEARY:			cmd = new SetShear(*this, shearX, 0);														break;
     }
