@@ -256,6 +256,25 @@ void Menu::update(){
 
 		}
 	}
+	
+	if ((*currentMenu)->menuId == VIEW) {
+		for (int i = 0; i < projCount; i++) {
+			if (projectors->at(i).active == true) {
+				if (projectors->at(i).camera.getMouseInputEnabled() == false) {
+					projectors->at(i).camera.enableMouseInput();
+				}
+			}
+		}
+
+	}
+	else {
+		for (int i = 0; i < projCount; i++) {
+			if (projectors->at(i).camera.getMouseInputEnabled() == true) {
+				projectors->at(i).camera.disableMouseInput();
+			}
+		}
+	}
+
 }
 //--------------------------------------------------------------
 void Menu::draw(int i, int labelIndex){
@@ -736,6 +755,12 @@ void Menu::keyPressed(int key) {
 	for (int i=0; i<projCount; i++) {
 		projectors->at(i).curves.setActive( projectors->at(i).active );
     }
+
+	for (int i = 0; i < projCount; i++) {
+		if (projectors->at(i).active == false && projectors->at(i).camera.getMouseInputEnabled() == true) {
+			projectors->at(i).camera.disableMouseInput();
+		}
+	}
 }
 
 //--------------------------------------------------------------
@@ -772,7 +797,10 @@ void Menu::setEditMode() {
             break;
 		
 		case VIEW:
+
+
 			switch (j) {
+
 				case FOV:
 					for (int k = 0; k<projCount; k++) {
 						if (projectors->at(k).active)
