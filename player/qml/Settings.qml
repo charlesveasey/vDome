@@ -14,7 +14,7 @@ Window {
     maximumWidth: width; maximumHeight: height;
 
     color: '#111'; opacity: 1
-    flags: Qt.Window | Qt.WindowTitleHint | Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint | Qt.WindowStaysOnTopHint
+    flags: Qt.Window | Qt.WindowTitleHint | Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint
 
     property int  sliderInputTextPad: 100
     property var settingsObject;
