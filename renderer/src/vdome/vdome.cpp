@@ -426,8 +426,8 @@ void vdome::updateSyphonInputTransform(){
 //--------------------------------------------------------------
 void vdome::exit(){
     //saveThread.waitForThread(true);
-    input.stop();
-    input.close();
+    //input.stop();
+    //input.close();
 }
     
 string vdome::EscapeForRegularExpression(const std::string &s) {
