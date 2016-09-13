@@ -428,13 +428,6 @@ void vdome::exit(){
     //saveThread.waitForThread(true);
     input.stop();
     input.close();
-	for (auto w : windows) {
-		for (auto p : w->projectors) {
-			if (p.active) {
-				p.camera.disableMouseInput();
-			}
-		}
-	}
 }
     
 string vdome::EscapeForRegularExpression(const std::string &s) {

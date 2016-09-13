@@ -19,10 +19,11 @@ class Window : public ofBaseApp {
 
 public:
     Window();
+	void    init();
     void    setup();
-    void    init();
     void    update();
     void    draw();
+	void	exit();
     
     void    loadXML(ofXml &xml);
     void    saveXML(ofXml &xml);

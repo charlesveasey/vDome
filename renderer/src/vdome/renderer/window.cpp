@@ -237,5 +237,13 @@ void Window::keyReleased(int key){
     ofNotifyEvent(keyReleaseEvent,key,this);
 }
 
+//--------------------------------------------------------------
+void Window::exit() {
+	for (auto p : projectors) {
+		if (p.camera.getMouseInputEnabled() == true) {
+			p.camera.disableMouseInput();
+		}
+	}
+}
 
 }//////////
