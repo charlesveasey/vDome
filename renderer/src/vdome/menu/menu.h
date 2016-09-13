@@ -5,6 +5,7 @@
 
 namespace vd {
 
+
 class Item {
 public:
     string str;
@@ -90,17 +91,11 @@ public:
 	enum viewItems  { FOV, SHEARX, SHEARY };
 
 	// Layout
-    // X-position
     int px;
-    // Y-position
     int py;
-    // Width
     int pw;
-    // Height
     int ph;
-    // X-padding
     int padx;
-    // Y-padding
     int pady;
     
     // Stores whether all all keys are selected
