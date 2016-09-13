@@ -49,6 +49,7 @@ Menu::Menu(){
 	menuBlend->items.push_back(new Item("Right"));
 	menuBlend->items.push_back(new Item("Top"));
 	menuBlend->items.push_back(new Item("Bottom"));
+	menuBlend->items.push_back(new Item("Exponent"));
 
     // color menu
     menuColor = new MenuItem;
@@ -185,6 +186,9 @@ void Menu::drawMain(int i){
 						break;
 					case BOTTOM:
 						val = ofToString(roundTo(projectors->at(i).getBlendEdges().z, 0.001));
+						break;
+					case EXPONENT:
+						val = ofToString(roundTo(projectors->at(i).getBlendExponent(), 0.001));
 						break;
 				}
 				break;
@@ -851,30 +855,36 @@ void Menu::setEditMode() {
 		
 		case BLEND:
 			switch (j) {
-			case LEFT:
-				for (int k = 0; k<projCount; k++) {
-					if (projectors->at(k).active)
-						projectors->at(k).editMode = projectors->at(k).BLEND_LEFT;
-				}
-				break;
-			case RIGHT:
-				for (int k = 0; k<projCount; k++) {
-					if (projectors->at(k).active)
-						projectors->at(k).editMode = projectors->at(k).BLEND_RIGHT;
-				}
-				break;
-			case TOP:
-				for (int k = 0; k<projCount; k++) {
-					if (projectors->at(k).active)
-						projectors->at(k).editMode = projectors->at(k).BLEND_TOP;
-				}
-				break;
-			case BOTTOM:
-				for (int k = 0; k<projCount; k++) {
-					if (projectors->at(k).active)
-						projectors->at(k).editMode = projectors->at(k).BLEND_BOTTOM;
-				}
-				break;
+				case LEFT:
+					for (int k = 0; k<projCount; k++) {
+						if (projectors->at(k).active)
+							projectors->at(k).editMode = projectors->at(k).BLEND_LEFT;
+					}
+					break;
+				case RIGHT:
+					for (int k = 0; k<projCount; k++) {
+						if (projectors->at(k).active)
+							projectors->at(k).editMode = projectors->at(k).BLEND_RIGHT;
+					}
+					break;
+				case TOP:
+					for (int k = 0; k<projCount; k++) {
+						if (projectors->at(k).active)
+							projectors->at(k).editMode = projectors->at(k).BLEND_TOP;
+					}
+					break;
+				case BOTTOM:
+					for (int k = 0; k<projCount; k++) {
+						if (projectors->at(k).active)
+							projectors->at(k).editMode = projectors->at(k).BLEND_BOTTOM;
+					}
+					break;
+				case EXPONENT:
+					for (int k = 0; k<projCount; k++) {
+						if (projectors->at(k).active)
+							projectors->at(k).editMode = projectors->at(k).BLEND_EXPONENT;
+					}
+					break;
 			}
 			break;
 

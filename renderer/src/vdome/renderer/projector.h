@@ -63,6 +63,8 @@ public:
 	void		setBlendEdges(float left, float right, float top, float bottom);
 	glm::vec4&	getBlendEdges();
 
+	void		setBlendExponent(float f);
+	float		getBlendExponent();
 
 	ofTexture&      getTextureReference();
     
@@ -89,7 +91,7 @@ public:
     enum    editModes{
                 BRIGHTNESS, CONTRAST, SATURATION, SHEARX, SHEARY,
                 CURVES, GRID, FOV, NONE, WHITE, BLACK, ENABLE, 
-				BLEND_LEFT, BLEND_RIGHT, BLEND_TOP, BLEND_BOTTOM };
+				BLEND_LEFT, BLEND_RIGHT, BLEND_TOP, BLEND_BOTTOM, BLEND_EXPONENT };
     
 	ofEasyCam        camera;
 

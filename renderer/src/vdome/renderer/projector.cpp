@@ -208,7 +208,9 @@ Command* Projector::execute(float v) {
 		case BLEND_BOTTOM:
 			setBlendEdges(getBlendEdges().w, getBlendEdges().x, getBlendEdges().y, getBlendEdges().z + v*.1);
 			break;
-
+		case BLEND_EXPONENT:
+			setBlendExponent(getBlendExponent() + v *.1);
+			break;
     }
     
     return cmd;
@@ -445,7 +447,16 @@ void Projector::setBlendEdges(float left, float right, float top, float bottom){
 
 glm::vec4& Projector::getBlendEdges() {
 	return blendEdges;
-
 }
+
+void Projector::setBlendExponent(float f){
+	f = ofClamp(f, 1.0, 5.0);
+	mWarps[0]->setExponent(f);
+}
+
+float Projector::getBlendExponent(){
+	return mWarps[0]->getExponent();
+}
+
 
 }/////////

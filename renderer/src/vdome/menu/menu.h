@@ -81,13 +81,13 @@ public:
 
 	// Menu types
     enum menus		{ MAIN, WARP, BLEND, COLOR, VIEW,
-					  CURVES, CURVES_GREY, CURVES_RED, CURVES_GREEN, CURVES_BLUE};
+					  CURVES, CURVES_GREY, CURVES_RED, CURVES_GREEN, CURVES_BLUE };
     
 	// Menu item types
 	enum mainItems	{ ENABLE };
     enum warpItems  { GRID };
     enum colorItems { BRIGHTNESS, CONTRAST, SATURATION, COLOR_CURVES };
-	enum blendItems { LEFT, RIGHT, TOP, BOTTOM };
+	enum blendItems { LEFT, RIGHT, TOP, BOTTOM, EXPONENT };
 	enum viewItems  { FOV, SHEARX, SHEARY };
 
 	// Layout
