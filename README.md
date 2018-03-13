@@ -7,8 +7,7 @@ Developed by Charles Veasey for the Institute of Indian American Arts (IAIA).
 Upon request, I've uploaded Windows builds here:  
 http://charlesveasey.net/vdome/build/
 
-v0.1) The version that matches the manual:  
-https://docs.google.com/document/d/1EHPpExjznFF6X0YTY5acLS0MNkEbtVFsLBCoJ2HHQlQ/edit#
+v0.1) The version that matches the [manual](https://docs.google.com/document/d/1EHPpExjznFF6X0YTY5acLS0MNkEbtVFsLBCoJ2HHQlQ).
 
 v.0.2) The unfinished working version. Note the installation path cannot have any spaces.
 
