@@ -5,7 +5,7 @@ Multi-channel projection software designed for domes. Provides real-time warping
 
 Developed by Charles Veasey for the Institute of Indian American Arts (IAIA).  
 
-##Overview
+## Overview
 
 vDome is an application designed to calibrate multiple projectors on a hemispherical dome surface and display a domemaster formatted video, image, or interactive application. vDome also supports the play back of HD video files. vDome is generally used in two ways: 1) as a media player and 2) as a background process that listens to hardware/software input streams such as cameras, capture cards, and inter-application protocols such as Syphon, Spout, and Video4Linux.
 
@@ -33,71 +33,71 @@ http://spout.zeal.co
 Video4Linux is a graphical interapplication protocol for Linux:   
 http://en.wikipedia.org/wiki/Video4Linux
 
-##Compiling
-####All
+## Compiling
+#### All
   - Download the latest version of openFrameworks (currently v0.8.4): http://www.openframeworks.cc/download/
   - Clone this (vDome) repository to openFrameworks/apps/myApps
   - Clone to: openFrameworks/addons:
     - https://github.com/charlesveasey/ofxBezierSurface
     - https://github.com/charlesveasey/ofxCurvesTool
 
-####Mac
+#### Mac
   - Suggested IDE: Xcode v5.1.1
   - Syphon needs to be copied to Frameworks
     - Under target, add a Copy Files Build Phase. Drag the Syphon.framework into this phase.
   - Clone to: openFrameworks/addons:
     - https://github.com/astellato/ofxSyphon
 
-####Win
+#### Win
   - Suggested IDE: Microsoft Visual Studio Express 2012
   - ofxWMFPLayer requries updated GLEW library, follow instructions on its repository
   - Clone to: openFrameworks/addons:
     - https://github.com/charlesveasey/ofxWMFVideoPlayer
 
-####Linux
+#### Linux
   - Install openFrameworks dependencies, see INSTALL.md in openFrameworks linux package
   - Suggested IDE: Code::Blocks 10.04 
   - Can also run make in root directory
 
-##Installation
-####Mac
+## Installation
+#### Mac
   - To use the HAP codec:
     - https://github.com/vidvox/hap-qt-codec
 
-####Win
+#### Win
   - To use Spout, copy the Spout32.dll to your build directory:
   	- http://spout.zeal.co/
   - To allow QuickTime video playback install the K-Lite Mega Codec Pack 10.2: 
     - http://www.free-codecs.com/download/k_lite_mega_codec_pack.htm
 
-####Linux
+#### Linux
   - Install gstreamer codecs, see INSTALL.md in openFrameworks linux package
   - To use Video4Linux: 
   	- https://github.com/umlaeute/v4l2loopback
 
-##Setup and Calibration
+## Setup and Calibration
 Initial setup is done in XML (setting resolution, number of projectors, and input type). Calibration is done directly on the dome. For more information see the manual:   
 https://docs.google.com/document/d/1EHPpExjznFF6X0YTY5acLS0MNkEbtVFsLBCoJ2HHQlQ/edit#
 
-##Supported
+## Supported
   - OS X 10.9
   - Windows 8.1
   - Linux Ubuntu 14
 
-##Tested
-####Mac
+## Tested
+#### Mac
   - 10.8.x
   - 10.9.x
 
-####Win
+#### Win
   - 7.x
   - 8.1.x
 
-####Linux
+#### Linux
   - Ubuntu 12.04 
   - Ubuntu 14.04
 
-##Future Development
+## Future Development
   - Support for panorama
   - Auto-calibration via camera  
   - Support for Nvidia Warp and Intensity API
