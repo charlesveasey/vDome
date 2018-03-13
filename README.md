@@ -2,8 +2,19 @@ vDome
 =====
 
 Multi-channel projection software designed for domes. Provides real-time warping and slicing for domemaster input.  
-
 Developed by Charles Veasey for the Institute of Indian American Arts (IAIA).  
+
+### Please note that this project is no longer active. You may want to check out this actively developed software:
+https://github.com/paperManu
+
+Upon request, I've uploaded Windows builds here:
+http://charlesveasey.net/vdome/build/
+
+v0.1) The version that matches the manual:
+https://docs.google.com/document/d/1EHPpExjznFF6X0YTY5acLS0MNkEbtVFsLBCoJ2HHQlQ/edit#
+
+v.0.2) The unfinished working version. Note the installation path on this cannot have any spaces.
+
 
 ## Overview
 
@@ -78,29 +89,6 @@ http://en.wikipedia.org/wiki/Video4Linux
 ## Setup and Calibration
 Initial setup is done in XML (setting resolution, number of projectors, and input type). Calibration is done directly on the dome. For more information see the manual:   
 https://docs.google.com/document/d/1EHPpExjznFF6X0YTY5acLS0MNkEbtVFsLBCoJ2HHQlQ/edit#
-
-## Supported
-  - OS X 10.9
-  - Windows 8.1
-  - Linux Ubuntu 14
-
-## Tested
-#### Mac
-  - 10.8.x
-  - 10.9.x
-
-#### Win
-  - 7.x
-  - 8.1.x
-
-#### Linux
-  - Ubuntu 12.04 
-  - Ubuntu 14.04
-
-## Future Development
-  - Support for panorama
-  - Auto-calibration via camera  
-  - Support for Nvidia Warp and Intensity API
   
 ---
 Funding provided by the United States Department of Defense. Based on prior research from the University of New Mexico (UNM) and IAIA with funding provided by the National Science Foundation.
