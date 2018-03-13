@@ -4,7 +4,7 @@ vDome
 Multi-channel projection software designed for domes. Provides real-time warping and slicing for domemaster input.  
 Developed by Charles Veasey for the Institute of Indian American Arts (IAIA).  
 
-### Please note that this project is no longer active. You may want to check out this actively developed software:
+Please note that this project is no longer active. You may want to check out this actively developed software:
 https://github.com/paperManu
 
 Upon request, I've uploaded Windows builds here:
