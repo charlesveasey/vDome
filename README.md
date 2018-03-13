@@ -4,9 +4,6 @@ vDome
 Multi-channel projection software designed for domes. Provides real-time warping and slicing for domemaster input.  
 Developed by Charles Veasey for the Institute of Indian American Arts (IAIA).  
 
-Note: This project is no longer active. You may want to check out this actively developed software:
-https://github.com/paperManu
-
 Upon request, I've uploaded Windows builds here:
 http://charlesveasey.net/vdome/build/
 
@@ -14,6 +11,9 @@ v0.1) The version that matches the manual:
 https://docs.google.com/document/d/1EHPpExjznFF6X0YTY5acLS0MNkEbtVFsLBCoJ2HHQlQ/edit#
 
 v.0.2) The unfinished working version. Note the installation path on this cannot have any spaces.
+
+Note: This project is no longer active. You may want to check out this actively developed software:
+https://github.com/paperManu
 
 
 ## Overview
@@ -30,7 +30,7 @@ For optimized video playback, use the following codecs:
   - Windows 8.1: H.264 and WMF
   - Linux Ubuntu: H.264
 
-To assist in media playback and creating playlists use the vDome Player interface:
+To assist in media playback and creating playlists check out the vDome Player interface:  
 https://github.com/charlesveasey/vDome-player  
 
 Capture and camera inputs are hardware video stream solutions. A capture card is a flexible solution that allows one to run any application on the dome by sending the video output of one computer into another machine running vDome. With this, vDome essentially becomes the 2nd monitor on your production machine. Drag the After Effects or Unity preview window onto the dome and edit in real-time, play videos through your favorite media player: Quicktime, VLC, etc. 
