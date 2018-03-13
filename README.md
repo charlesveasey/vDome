@@ -35,13 +35,13 @@ https://github.com/charlesveasey/vDome-player
 
 Capture and camera inputs are hardware video stream solutions. A capture card is a flexible solution that allows one to run any application on the dome by sending the video output of one computer into another machine running vDome. With this, vDome essentially becomes the 2nd monitor on your production machine. Drag the After Effects or Unity preview window onto the dome and edit in real-time, play videos through your favorite media player: Quicktime, VLC, etc. 
 
-Syphon is a graphical interapplication protocol for OS X:   
+Syphon is a graphic interapplication protocol for OS X:   
 http://syphon.v002.info  
 
-Spout is a graphical interapplication protocol for Windows:   
+Spout is a graphic interapplication protocol for Windows:   
 http://spout.zeal.co 
 
-Video4Linux is a graphical interapplication protocol for Linux:   
+Video4Linux is a graphic interapplication protocol for Linux:   
 http://en.wikipedia.org/wiki/Video4Linux
 
 ## Compiling
