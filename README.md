@@ -12,7 +12,7 @@ v0.1) The version that matches the [manual](https://docs.google.com/document/d/1
 v.0.2) The unfinished working version. Note: the installation path cannot have any spaces.
 
 Note: this project is no longer active. You may want to check out this actively developed software:  
-https://github.com/paperManu
+https://github.com/paperManu/splash  
 
 
 ## Overview
