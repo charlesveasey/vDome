@@ -87,7 +87,7 @@ http://en.wikipedia.org/wiki/Video4Linux
 
 ## Setup and Calibration
 Initial setup is done in XML (setting resolution, number of projectors, and input type). Calibration is done directly on the dome. For more information see the manual:   
-https://docs.google.com/document/d/1EHPpExjznFF6X0YTY5acLS0MNkEbtVFsLBCoJ2HHQlQ/edit#
+https://docs.google.com/document/d/1EHPpExjznFF6X0YTY5acLS0MNkEbtVFsLBCoJ2HHQlQ/
   
 ---
 Funding provided by the United States Department of Defense. Based on prior research from the University of New Mexico (UNM) and IAIA with funding provided by the National Science Foundation.
