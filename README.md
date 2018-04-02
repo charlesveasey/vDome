@@ -4,12 +4,12 @@ vDome
 Multi-channel projection software designed for domes. Provides real-time warping and slicing for domemaster input.  
 Developed by Charles Veasey for the Institute of Indian American Arts (IAIA).  
 
-Upon request, I've uploaded Windows builds here:  
+Windows Builds:  
 https://drive.google.com/drive/folders/0B4gYtwXbgYOhZXlMSUlkV1lCUEU
 
 v0.1) The version that matches the [manual](https://docs.google.com/document/d/1EHPpExjznFF6X0YTY5acLS0MNkEbtVFsLBCoJ2HHQlQ).
 
-v.0.2) The unfinished working version. Note: the installation path cannot have any spaces.
+v0.2) The unfinished version including the media player.
 
 Note: this project is no longer active. You may want to check out this actively developed software:  
 https://github.com/paperManu/splash  
@@ -17,7 +17,7 @@ https://github.com/paperManu/splash
 
 ## Overview
 
-vDome is an application designed to calibrate multiple projectors on a hemispherical dome surface and display a domemaster formatted video, image, or interactive application. vDome also supports the play back of HD video files. vDome is generally used in two ways: 1) as a media player and 2) as a background process that listens to hardware/software input streams such as cameras, capture cards, and inter-application protocols such as Syphon, Spout, and Video4Linux.
+vDome is an application designed to calibrate multiple projectors on a hemispherical dome surface and display a domemaster formatted video, image, or interactive application. vDome also supports the playback of HD video files. vDome is generally used in two ways: 1) as a media player and 2) as a background process that listens to hardware/software input streams such as cameras, capture cards, and inter-application protocols such as Syphon, Spout, and Video4Linux.
 
 As a media player vDome utilizes native os media libraries and accepts most common file formats and codecs of the operating system. In general:
   - Mac OS X: QuickTime, AV Foundation, HAP
