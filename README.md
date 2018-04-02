@@ -5,7 +5,7 @@ Multi-channel projection software designed for domes. Provides real-time warping
 Developed by Charles Veasey for the Institute of Indian American Arts (IAIA).  
 
 Upon request, I've uploaded Windows builds here:  
-http://charlesveasey.net/vdome/build/
+https://drive.google.com/drive/folders/0B4gYtwXbgYOhZXlMSUlkV1lCUEU
 
 v0.1) The version that matches the [manual](https://docs.google.com/document/d/1EHPpExjznFF6X0YTY5acLS0MNkEbtVFsLBCoJ2HHQlQ).
 
